@@ -1,0 +1,5 @@
+main: de.biomiaAPI.main.Main
+name: BiomiaAPI
+version: 0.2
+authors: [DerJulsn, aer0des1gn]
+depend: [TimoCloud]
