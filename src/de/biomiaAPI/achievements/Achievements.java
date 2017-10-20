@@ -1,4 +1,4 @@
-package de.biomia.achievements;
+package de.biomiaAPI.achievements;
 
 import java.util.Observable;
 import java.util.Observer;
