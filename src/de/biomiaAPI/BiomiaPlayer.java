@@ -17,7 +17,7 @@ import de.simonsator.partyandfriends.spigot.api.party.PlayerParty;
 
 //only to not use "deprecation"
 @SuppressWarnings("deprecation")
-public class BiomiaPlayer {
+public class BiomiaPlayer{
 
 	private Player p = null;
 	private boolean build = false;
@@ -42,6 +42,7 @@ public class BiomiaPlayer {
 	}
 
 	public Player getPlayer() {
+		
 		return p;
 	}
 
@@ -140,6 +141,7 @@ public class BiomiaPlayer {
 
 	}
 
+	//FIXME: sollte "isStaff" heiﬂen
 	public boolean isStuff() {
 		String rank = Rank.getRank(p);
 
@@ -155,6 +157,7 @@ public class BiomiaPlayer {
 			return false;
 	}
 
+	//FIXME: sollte "isYoutuber" heiﬂen
 	public boolean isYouTouber() {
 
 		String rank = Rank.getRank(p);

@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class MySQL {
+public class MySQL{
 
 	private static String dbHost = "89.163.160.106";
 	private static String dbPort = "3306";
