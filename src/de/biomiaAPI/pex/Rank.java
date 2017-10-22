@@ -68,7 +68,7 @@ public class Rank {
 		String rank = Rank.getRank(s);
 
 		rank = rank.replaceAll("Premium", "");
-
+		
 		switch (rank) {
 		case "Eins":
 			return 1;
@@ -93,7 +93,6 @@ public class Rank {
 		default:
 			return -1;
 		}
-
 	}
 
 	

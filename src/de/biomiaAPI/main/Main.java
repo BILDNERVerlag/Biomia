@@ -148,8 +148,8 @@ public class Main extends JavaPlugin {
 		prefixes.put("Owner", "§4Owner | ");
 		prefixes.put("Admin", "§5Admin | ");
 		prefixes.put("Moderator", "§bMod | ");
-		prefixes.put("YouTube", "§2Builder | ");
-		prefixes.put("Builder", "§9YT | ");
+		prefixes.put("YouTube", "§9YT | ");
+		prefixes.put("Builder", "§2Builder | ");
 		prefixes.put("PremiumZehn", "§6X | ");
 		prefixes.put("PremiumNeun", "§6IX | ");
 		prefixes.put("PremiumAcht", "§eVIII | ");
