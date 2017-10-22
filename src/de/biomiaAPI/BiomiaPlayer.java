@@ -15,7 +15,7 @@ import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayerManager;
 import de.simonsator.partyandfriends.spigot.api.party.PartyManager;
 import de.simonsator.partyandfriends.spigot.api.party.PlayerParty;
 
-//only to not use "deprecation"
+//"deprecation" is only here to not use this class directly
 @SuppressWarnings("deprecation")
 public class BiomiaPlayer{
 
