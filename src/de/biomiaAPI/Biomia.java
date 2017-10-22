@@ -139,8 +139,8 @@ public class Biomia {
 				case "BLUE":
 					farbe = "Blau";
 					break;
-				case "GOLD":
-					farbe = "Gold";
+				case "ORANGE":
+					farbe = "Orange";
 					break;
 				case "GREEN":
 					farbe = "Grün";
