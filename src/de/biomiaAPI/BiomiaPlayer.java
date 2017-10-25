@@ -39,7 +39,6 @@ public class BiomiaPlayer {
 		}
 
 		spigotPafpl = PAFPlayerManager.getInstance().getPlayer(p.getUniqueId());
-
 		setPlayer(p);
 		new BukkitRunnable() {
 			@Override

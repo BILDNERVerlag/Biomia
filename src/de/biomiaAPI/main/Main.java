@@ -67,7 +67,6 @@ public class Main extends JavaPlugin {
 				"CREATE TABLE IF NOT EXISTS InventorySaves ( `uuid` VARCHAR(36) NOT NULL , `inventory` TEXT NOT NULL , `servergroup` VARCHAR(50) NOT NULL ) ENGINE = InnoDB;");
 		MySQL.execute(
 				"CREATE TABLE IF NOT EXISTS BiomiaPlayer ( `id` BIGINT NOT NULL AUTO_INCREMENT , `uuid` VARCHAR(36) NOT NULL , `name` VARCHAR(16) NOT NULL ) ENGINE = InnoDB;");
-
 		init();
 
 		/*
