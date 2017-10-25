@@ -9,6 +9,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import de.biomiaAPI.Quests.QuestPlayer;
 import de.biomiaAPI.coins.Coins;
 import de.biomiaAPI.main.Main;
+import de.biomiaAPI.mysql.MySQL;
 import de.biomiaAPI.pex.Rank;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayer;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayerManager;
@@ -17,7 +18,7 @@ import de.simonsator.partyandfriends.spigot.api.party.PlayerParty;
 
 //"deprecation" is only here to not use this class directly
 @SuppressWarnings("deprecation")
-public class BiomiaPlayer{
+public class BiomiaPlayer {
 
 	private Player p = null;
 	private boolean build = false;
@@ -25,9 +26,17 @@ public class BiomiaPlayer{
 	private boolean getDamage = true;
 	private boolean damageEntitys = true;
 	private int coins = -1;
-	private de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayer spigotPafpl;
+	private PAFPlayer spigotPafpl;
+	private int biomiaPlayerID = -1;
 
 	public BiomiaPlayer(Player p) {
+
+		biomiaPlayerID = getBiomiaPlayerID(p);
+		if (biomiaPlayerID == -1) {
+			MySQL.executeUpdate("Insert into BiomiaPlayer (uuid, name) values ('" + p.getUniqueId().toString() + "', '"
+					+ p.getName() + "')");
+			biomiaPlayerID = getBiomiaPlayerID(p);
+		}
 
 		spigotPafpl = PAFPlayerManager.getInstance().getPlayer(p.getUniqueId());
 
@@ -41,8 +50,13 @@ public class BiomiaPlayer{
 		}.runTaskTimer(Main.plugin, 600, 600);
 	}
 
+	private int getBiomiaPlayerID(Player p) {
+		return MySQL.executeQuerygetint("Select id from BiomiaPlayer where uuid = '" + p.getUniqueId().toString() + "'",
+				"id");
+	}
+
 	public Player getPlayer() {
-		
+
 		return p;
 	}
 
@@ -122,26 +136,13 @@ public class BiomiaPlayer{
 	}
 
 	public boolean isPremium() {
-		String rank = Rank.getRank(p);
-
-		if (rank.contains("Premium"))
+		if (Rank.getRank(p).contains("Premium"))
 			return true;
-		else if (rank.contains("YouTube"))
-			return true;
-		else if (rank.contains("Moderator"))
-			return true;
-		else if (rank.contains("Builder"))
-			return true;
-		else if (rank.contains("Admin"))
-			return true;
-		else if (rank.contains("Owner"))
-			return true;
-		else
-			return false;
+		return false;
 
 	}
 
-	//FIXME: sollte "isStaff" heiﬂen
+	// FIXME: sollte "isStaff" heiﬂen
 	public boolean isStuff() {
 		String rank = Rank.getRank(p);
 
@@ -157,8 +158,8 @@ public class BiomiaPlayer{
 			return false;
 	}
 
-	//FIXME: sollte "isYoutuber" heiﬂen
-	public boolean isYouTouber() {
+	// FIXME: sollte "isYoutuber" heiﬂen
+	public boolean isYouTuber() {
 
 		String rank = Rank.getRank(p);
 
@@ -226,5 +227,9 @@ public class BiomiaPlayer{
 
 	public void setTrollmode(boolean trollmode) {
 		this.trollmode = trollmode;
+	}
+
+	public int getBiomiaPlayerID() {
+		return biomiaPlayerID;
 	}
 }
