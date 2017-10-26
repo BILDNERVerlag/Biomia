@@ -99,4 +99,8 @@ public class Rank {
 	public static String getPrefix(Player p) {
 		return Main.prefixes.get(getRank(p));
 	}
+	
+	public static String getPrefix(String s) {
+		return Main.prefixes.get(s);
+	}
 }
