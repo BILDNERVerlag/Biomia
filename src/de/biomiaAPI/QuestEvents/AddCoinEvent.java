@@ -12,7 +12,7 @@ public class AddCoinEvent implements Event{
 	}
 
 	public void addCoins(QuestPlayer qp, int coins) {
-		Biomia.getBiomiaPlayer(qp.getPlayer()).addCoins(coins);
+		Biomia.getBiomiaPlayer(qp.getPlayer()).addCoins(coins, true);
 	}
 
 	@Override

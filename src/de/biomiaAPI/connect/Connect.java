@@ -41,50 +41,60 @@ public class Connect implements PluginMessageListener {
 
 	}
 
-//	public static void connectToRandom(Player p, String group) {
-//		ArrayList<ServerObject> servers = new ArrayList<>(Main.getUniversalTimoapi().getGroup(group).getServers());
-//		ServerObject random = servers.get(new Random().nextInt(servers.size() - 1));
-//		connect(p, random.getName());
-//	}
-	
+	// public static void connectToRandom(Player p, String group) {
+	// ArrayList<ServerObject> servers = new
+	// ArrayList<>(Main.getUniversalTimoapi().getGroup(group).getServers());
+	// ServerObject random = servers.get(new Random().nextInt(servers.size() - 1));
+	// connect(p, random.getName());
+	// }
+
 	public static void connectToRandom(Player p, String group) {
-        if (group.contains("Weltenlabor")) {
-            ArrayList<String> list = executeQuery(
-                    "Select code from CodesFuerRaenge where rangEingeloestFuerPlayeruuid = '" + p.getUniqueId() + "'");
-            if (group.contains("#1")) {
-                if (!list.contains("krs522tpr8a")) {
-                	p.sendMessage("§cNur Spieler die das entsprechende Buch besitzen können der jeweiligen Welt beitreten");
-                	TextComponent text = new TextComponent("§8>§5Für mehr Infos hier klicken!§8<");
-                	text.setClickEvent(new ClickEvent(Action.OPEN_URL, "https://biomia.bildnerverlag.de/forum/topic/id/18-code-eingabe"));
-                	p.spigot().sendMessage(text);
-                    return;
-                }
-            }
-        }
-        ArrayList<ServerObject> servers = new ArrayList<>(Main.getUniversalTimoapi().getGroup(group).getServers());
-        ServerObject random = servers.get(new Random().nextInt(servers.size() - 1));
-        connect(p, random.getName());
-    }
-    private static ArrayList<String> executeQuery(String cmd) {
-        Connection con = MySQL.Connect();
-        if (con != null) {
-            try {
-                PreparedStatement sql = con.prepareStatement(cmd);
-                ResultSet rs = sql.executeQuery();
-                ArrayList<String> s = new ArrayList<>();
-                while (rs.next()) {
-                    s.add(rs.getString("code"));
-                }
-                rs.close();
-                sql.close();
-                con.close();
-                return s;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
+		if (group.contains("Weltenlabor")) {
+			ArrayList<String> list = executeQuery(
+					"Select code from CodesFuerRaenge where rangEingeloestFuerPlayeruuid = '" + p.getUniqueId() + "'");
+			if (group.contains("#1")) {
+				if (!list.contains("krs522tpr8a")) {
+					p.sendMessage(
+							"§cNur Spieler die das entsprechende Buch besitzen können der jeweiligen Welt beitreten");
+					TextComponent text = new TextComponent("§8>§5Für mehr Infos hier klicken!§8<");
+					text.setClickEvent(new ClickEvent(Action.OPEN_URL,
+							"https://biomia.bildnerverlag.de/forum/topic/id/18-code-eingabe"));
+					p.spigot().sendMessage(text);
+					return;
+				}
+			}
+		}
+		ArrayList<ServerObject> servers = new ArrayList<>(Main.getUniversalTimoapi().getGroup(group).getServers());
+
+		if (servers.size() > 1) {
+			ServerObject random = servers.get(new Random().nextInt(servers.size() - 1));
+			connect(p, random.getName());
+		} else if (servers.size() == 1) {
+			ServerObject random = servers.get(0);
+			connect(p, random.getName());
+		}
+	}
+
+	private static ArrayList<String> executeQuery(String cmd) {
+		Connection con = MySQL.Connect();
+		if (con != null) {
+			try {
+				PreparedStatement sql = con.prepareStatement(cmd);
+				ResultSet rs = sql.executeQuery();
+				ArrayList<String> s = new ArrayList<>();
+				while (rs.next()) {
+					s.add(rs.getString("code"));
+				}
+				rs.close();
+				sql.close();
+				con.close();
+				return s;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
 
 	public static void getOnlinePlayers() {
 
@@ -158,7 +168,7 @@ public class Connect implements PluginMessageListener {
 
 		if (subchannel.equals("AddCoins")) {
 			int coins = Integer.valueOf(in.readUTF());
-			Biomia.getBiomiaPlayer(Bukkit.getPlayer(in.readUTF())).addCoins(coins);
+			Biomia.getBiomiaPlayer(Bukkit.getPlayer(in.readUTF())).addCoins(coins, false);
 		}
 	}
 

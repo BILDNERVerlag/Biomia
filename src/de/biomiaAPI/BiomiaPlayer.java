@@ -1,5 +1,9 @@
 package de.biomiaAPI;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,7 +108,53 @@ public class BiomiaPlayer {
 		return b;
 	}
 
+	@Deprecated
 	public boolean addCoins(int coins) {
+		boolean b = Coins.addCoins(coins, this);
+		if (b) {
+			this.coins = this.coins + coins;
+			this.getPlayer().sendMessage("ß7Du erh‰ltst ßf" + coins + "ß7 BC's!");
+		}
+		return b;
+	}
+
+	public void stopCoinBoost() {
+		MySQL.executeUpdate("DELETE FROM `CoinBoost` WHERE BiomiaPlayer = " + biomiaPlayerID);
+	}
+
+	public void giveBoost(int percent, int timeinseconds) {
+
+		stopCoinBoost();
+		MySQL.executeUpdate("INSERT INTO `CoinBoost`(`BiomiaPlayer`, `percent`, `until`) VALUES (" + biomiaPlayerID
+				+ "," + percent + "," + System.currentTimeMillis() / 1000 + timeinseconds + ")");
+
+	}
+
+	public boolean addCoins(int coins, boolean enableBoost) {
+
+		Connection con = MySQL.Connect();
+		int prozent = 100;
+		try {
+			PreparedStatement ps = con
+					.prepareStatement("SELECT `percent`, `until` FROM `CoinBoost` WHERE BiomiaPlayer = ?");
+			ps.setInt(1, getBiomiaPlayerID());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				int until = rs.getInt("until");
+				if (System.currentTimeMillis() / 1000 > until) {
+					prozent = rs.getInt("percent");
+				} else {
+					stopCoinBoost();
+				}
+				break;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		coins = coins / 100 * prozent;
+
 		boolean b = Coins.addCoins(coins, this);
 		if (b) {
 			this.coins = this.coins + coins;
@@ -141,23 +191,15 @@ public class BiomiaPlayer {
 
 	}
 
-	// FIXME: sollte "isStaff" heiﬂen
-	public boolean isStuff() {
+	public boolean isStaff() {
 		String rank = Rank.getRank(p);
 
-		if (rank.contains("Moderator"))
-			return true;
-		else if (rank.contains("Builder"))
-			return true;
-		else if (rank.contains("Admin"))
-			return true;
-		else if (rank.contains("Owner"))
-			return true;
-		else
+		if (rank.contains("Spieler") || rank.contains("Premium") || rank.contains("YouTuber"))
 			return false;
+		else
+			return true;
 	}
 
-	// FIXME: sollte "isYoutuber" heiﬂen
 	public boolean isYouTuber() {
 
 		String rank = Rank.getRank(p);

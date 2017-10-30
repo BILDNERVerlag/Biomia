@@ -2,13 +2,11 @@ package de.biomiaAPI.main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitScheduler;
 
 import at.TimoCraft.TimoCloud.api.TimoCloudAPI;
 import at.TimoCraft.TimoCloud.api.TimoCloudBukkitAPI;
@@ -67,6 +65,9 @@ public class Main extends JavaPlugin {
 				"CREATE TABLE IF NOT EXISTS InventorySaves ( `uuid` VARCHAR(36) NOT NULL , `inventory` TEXT NOT NULL , `servergroup` VARCHAR(50) NOT NULL ) ENGINE = InnoDB;");
 		MySQL.execute(
 				"CREATE TABLE IF NOT EXISTS BiomiaPlayer ( `id` BIGINT NOT NULL AUTO_INCREMENT , `uuid` VARCHAR(36) NOT NULL , `name` VARCHAR(16) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+		MySQL.execute(
+				"CREATE TABLE IF NOT EXISTS CoinBoost ( `BiomiaPlayer` INT NOT NULL , `percent` INT NOT NULL , `until` INT NOT NULL, PRIMARY KEY (`BiomiaPlayer`)) ENGINE = InnoDB;");
+
 		init();
 
 		/*
@@ -74,17 +75,16 @@ public class Main extends JavaPlugin {
 		 * an alle Spieler, die nicht Premium sind
 		 */
 
-		BukkitScheduler scheduler = getServer().getScheduler();
-		scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
+		new BukkitRunnable() {
+
+			int i = 0;
+
 			@Override
 			public void run() {
 
 				TextComponent message = null;
 
-				Random random = new Random();
-				int messageNo = random.nextInt(5);
-
-				switch (messageNo) {
+				switch (i) {
 				case 0:
 					message = new TextComponent(Messages.prefix + " §6Besuch uns auf www.biomia.de !");
 					message.setClickEvent(
@@ -117,8 +117,13 @@ public class Main extends JavaPlugin {
 						p.spigot().sendMessage(message);
 					}
 				}
+
+				if (i < 3)
+					i++;
+				else
+					i = 0;
 			}
-		}, 0L, 20L * 60 * 3); /* Der Long ist die Anzahl der Ticks, ergo im moment 3 min */
+		}.runTaskTimer(this, 0L, 20L * 60 * 3); /* Der Long ist die Anzahl der Ticks, ergo im moment 3 min */
 	}
 
 	@Override
@@ -148,9 +153,11 @@ public class Main extends JavaPlugin {
 
 		prefixes.put("Owner", "§4Owner | ");
 		prefixes.put("Admin", "§5Admin | ");
+		prefixes.put("SrBuilder", "§2SrBuilder | ");
+		prefixes.put("SrModerator", "§bSrMod | ");
 		prefixes.put("Moderator", "§bMod | ");
-		prefixes.put("YouTube", "§9YT | ");
 		prefixes.put("Builder", "§2Builder | ");
+		prefixes.put("YouTube", "§9YT | ");
 		prefixes.put("PremiumZehn", "§6X | ");
 		prefixes.put("PremiumNeun", "§6IX | ");
 		prefixes.put("PremiumAcht", "§eVIII | ");
