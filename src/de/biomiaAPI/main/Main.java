@@ -86,27 +86,27 @@ public class Main extends JavaPlugin {
 
 				switch (i) {
 				case 0:
-					message = new TextComponent(Messages.prefix + " §6Besuch uns auf www.biomia.de !");
+					message = new TextComponent(Messages.prefix + "§6Besuch uns auf www.biomia.de !");
 					message.setClickEvent(
 							new ClickEvent(ClickEvent.Action.OPEN_URL, "https://biomia.bildnerverlag.de/"));
 					break;
 				case 1:
 					message = new TextComponent(
-							Messages.prefix + " §6Besuch uns auf unserem TeamSpeak-Server! ts.biomia.de !");
+							Messages.prefix + "§6Besuch uns auf unserem TeamSpeak-Server! ts.biomia.de !");
 					break;
 				case 2:
-					message = new TextComponent(Messages.prefix + " §6Besuch uns auf instagram.com/biomiaofficial !");
+					message = new TextComponent(Messages.prefix + "§6Besuch uns auf instagram.com/biomiaofficial !");
 					message.setClickEvent(
 							new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.instagram.com/biomiaofficial/"));
 					break;
 				case 3:
-					message = new TextComponent(Messages.prefix + " §6Folge uns auf twitter.com/biomiaofficial !");
+					message = new TextComponent(Messages.prefix + "§6Folge uns auf twitter.com/biomiaofficial !");
 					message.setClickEvent(
 							new ClickEvent(ClickEvent.Action.OPEN_URL, "https://twitter.com/biomiaofficial"));
 					break;
 				default:
 					message = new TextComponent(
-							Messages.prefix + " §6Folge uns auf Facebook! facebook.com/biomiaofficial/");
+							Messages.prefix + "§6Folge uns auf Facebook! facebook.com/biomiaofficial/");
 					message.setClickEvent(
 							new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.facebook.com/biomiaofficial/"));
 					break;
