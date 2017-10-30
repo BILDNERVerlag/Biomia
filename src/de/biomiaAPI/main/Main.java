@@ -111,7 +111,6 @@ public class Main extends JavaPlugin {
 							new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.facebook.com/biomiaofficial/"));
 					break;
 				}
-
 				for (Player p : Bukkit.getOnlinePlayers()) {
 					if (!Biomia.getBiomiaPlayer(p).isPremium()) {
 						p.spigot().sendMessage(message);
