@@ -134,9 +134,11 @@ public class Main extends JavaPlugin {
 
 		group.add("Owner");
 		group.add("Admin");
+		group.add("SrModerator");
+		group.add("SrBuilder");
 		group.add("Moderator");
-		group.add("YouTube");
 		group.add("Builder");
+		group.add("YouTube");
 		group.add("PremiumZehn");
 		group.add("PremiumNeun");
 		group.add("PremiumAcht");
