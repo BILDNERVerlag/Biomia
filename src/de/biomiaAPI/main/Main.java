@@ -112,7 +112,7 @@ public class Main extends JavaPlugin {
 					break;
 				}
 				for (Player p : Bukkit.getOnlinePlayers()) {
-					if (!Biomia.getBiomiaPlayer(p).isPremium()) {
+					if (!Biomia.getBiomiaPlayer(p).isPremium() && !Biomia.getBiomiaPlayer(p).isStaff()) {
 						p.spigot().sendMessage(message);
 					}
 				}
