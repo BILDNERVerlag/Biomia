@@ -13,18 +13,18 @@ import de.biomiaAPI.mysql.MySQL;
 
 public class SkyWarsKit {
 
-	public static void addKit(BiomiaPlayer biomiaPlayer, int kitID, int... months) {
-		MySQL.executeUpdate("Insert into SkyWarsKits (`BiomiaPlayer`, `kitID`, `available`) values ("
+	public static boolean addKit(BiomiaPlayer biomiaPlayer, int kitID, int... months) {
+		return MySQL.executeUpdate("Insert into SkyWarsKits (`BiomiaPlayer`, `kitID`, `available`) values ("
 				+ biomiaPlayer.getBiomiaPlayerID() + ", " + kitID + ", '" + months.toString() + "')");
 	}
 
-	public static void addKit(BiomiaPlayer biomiaPlayer, int kitID) {
-		MySQL.executeUpdate("Insert into SkyWarsKits (`BiomiaPlayer`, `kitID`) values ("
+	public static boolean addKit(BiomiaPlayer biomiaPlayer, int kitID) {
+		return MySQL.executeUpdate("Insert into SkyWarsKits (`BiomiaPlayer`, `kitID`) values ("
 				+ biomiaPlayer.getBiomiaPlayerID() + ", " + kitID + ")");
 	}
 
-	public static void removeKit(BiomiaPlayer biomiaPlayer, int kitID) {
-		MySQL.executeUpdate("Delete from SkyWarsKits where BiomiaPlayer = " + biomiaPlayer.getBiomiaPlayerID()
+	public static boolean removeKit(BiomiaPlayer biomiaPlayer, int kitID) {
+		return MySQL.executeUpdate("Delete from SkyWarsKits where BiomiaPlayer = " + biomiaPlayer.getBiomiaPlayerID()
 				+ " and kitID = " + kitID);
 	}
 
@@ -32,14 +32,16 @@ public class SkyWarsKit {
 		ArrayList<Integer> availableKits = new ArrayList<>();
 		Connection con = MySQL.Connect();
 		try {
-			PreparedStatement ps = con.prepareStatement("Select kitID, available from SkyWarsKits where BiomiaPlayer = ?");
+			PreparedStatement ps = con
+					.prepareStatement("Select kitID, available from SkyWarsKits where BiomiaPlayer = ?");
 			ps.setInt(1, biomiaPlayer.getBiomiaPlayerID());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				String available = rs.getString("available");				
+				String available = rs.getString("available");
 				Calendar c = Calendar.getInstance();
-				
-				if (available == null || Arrays.asList(available.substring(1, available.length() - 1).split(", ")).contains(c.get(Calendar.MONTH) + "")) {
+
+				if (available == null || Arrays.asList(available.substring(1, available.length() - 1).split(", "))
+						.contains(c.get(Calendar.MONTH) + "")) {
 					availableKits.add(rs.getInt("kitID"));
 				}
 			}
