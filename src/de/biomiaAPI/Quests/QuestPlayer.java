@@ -28,9 +28,12 @@ public class QuestPlayer {
 		this.player = player;
 		book = ItemCreator.itemCreate(Material.WRITTEN_BOOK, "§cTagebuch");
 		for (ItemStack is : player.getInventory().getContents()) {
-			if (is != null && is.getType() == Material.WRITTEN_BOOK
-					&& is.getItemMeta().getDisplayName().equals("§cTagebuch")) {
-				return;
+			try {
+				if (is.getType() == Material.WRITTEN_BOOK && is.getItemMeta().getDisplayName().equals("§cTagebuch")) {
+					return;
+				}
+			} catch (NullPointerException e) {
+				// do nothing
 			}
 		}
 		if (player.getWorld().getName().equals("Quests"))
