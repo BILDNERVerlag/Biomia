@@ -28,7 +28,7 @@ public class BiomiaAchievment {
 	}
 
 	public void unlock(BiomiaPlayer bp) {
-		//TODO
+		//TODO unlocking achievements
 	}
 	
 }
