@@ -15,7 +15,6 @@ import de.biomiaAPI.Biomia;
 import de.biomiaAPI.Quests.DialogMessage;
 import de.biomiaAPI.connect.Connect;
 import de.biomiaAPI.msg.Messages;
-import de.biomiaAPI.mysql.MySQL;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 
@@ -54,19 +53,6 @@ public class Main extends JavaPlugin {
 				Connect.getOnlinePlayers();
 			}
 		}.runTaskTimer(this, 0, 20 * 5);
-
-		MySQL.execute(
-				"CREATE TABLE IF NOT EXISTS `Quests` ( `id` SMALLINT NOT NULL AUTO_INCREMENT , `name` VARCHAR(50) NOT NULL , `band` SMALLINT(2) NOT NULL , PRIMARY KEY (`id`))");
-		MySQL.execute(
-				"CREATE TABLE IF NOT EXISTS `Quests_erledigt` ( `uuid` VARCHAR(36) NOT NULL , `name` VARCHAR(50) NOT NULL , `end_time` BIGINT NOT NULL )");
-		MySQL.execute(
-				"CREATE TABLE IF NOT EXISTS `Quests_aktuell` ( `uuid` VARCHAR(36) NOT NULL , `name` VARCHAR(50) NOT NULL , `state` VARCHAR(20) NOT NULL )");
-		MySQL.execute(
-				"CREATE TABLE IF NOT EXISTS InventorySaves ( `uuid` VARCHAR(36) NOT NULL , `inventory` TEXT NOT NULL , `servergroup` VARCHAR(50) NOT NULL ) ENGINE = InnoDB;");
-		MySQL.execute(
-				"CREATE TABLE IF NOT EXISTS BiomiaPlayer ( `id` BIGINT NOT NULL AUTO_INCREMENT , `uuid` VARCHAR(36) NOT NULL , `name` VARCHAR(16) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
-		MySQL.execute(
-				"CREATE TABLE IF NOT EXISTS CoinBoost ( `BiomiaPlayer` INT NOT NULL , `percent` INT NOT NULL , `until` INT NOT NULL, PRIMARY KEY (`BiomiaPlayer`)) ENGINE = InnoDB;");
 
 		init();
 
