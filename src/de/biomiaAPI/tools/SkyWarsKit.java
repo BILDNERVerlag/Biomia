@@ -14,10 +14,8 @@ import de.biomiaAPI.mysql.MySQL;
 public class SkyWarsKit {
 
 	public static boolean addKit(BiomiaPlayer biomiaPlayer, int kitID, int... months) {
-		
 		return MySQL.executeUpdate("Insert into SkyWarsKits (`BiomiaPlayer`, `kitID`, `available`) values ("
 				+ biomiaPlayer.getBiomiaPlayerID() + ", " + kitID + ", '" + Arrays.toString(months) + "')");
-		
 	}
 
 	public static boolean addKit(BiomiaPlayer biomiaPlayer, int kitID) {		
