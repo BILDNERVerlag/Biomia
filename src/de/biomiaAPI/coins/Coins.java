@@ -1,73 +1,63 @@
 package de.biomiaAPI.coins;
 
-import java.util.UUID;
-
-import org.bukkit.entity.Player;
-
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.mysql.MySQL;
 
+//"deprecation" is only here to not use this class directly
 @Deprecated
 public class Coins {
 
-	public static int getCoins(Player p) {
-		int i = MySQL.executeQuerygetint(
-				"SELECT * FROM `player_money` where uuid = '" + p.getUniqueId().toString() + "'", "money");
+	public static int getCoins(BiomiaPlayer p) {
+		int i = MySQL.executeQuerygetint("SELECT * FROM `BiomiaCoins` where ID = " + p.getBiomiaPlayerID(), "coins");
 		return i;
 
 	}
 
-	public static boolean setCoins(int money, BiomiaPlayer bp) {
-		return MySQL.executeUpdate("UPDATE `player_money` SET `money` = " + money + " WHERE `uuid` = '"
-				+ bp.getPlayer().getUniqueId().toString() + "'");
+	public static boolean setCoins(int coins, BiomiaPlayer bp) {
+		return MySQL.executeUpdate(
+				"UPDATE `BiomiaCoins` SET `coins` = " + coins + " WHERE `ID` = " + bp.getBiomiaPlayerID());
 	}
 
-	public static boolean takeCoins(int money, BiomiaPlayer bp) {
+	public static boolean takeCoins(int coins, BiomiaPlayer bp) {
 
-		double coins = bp.getCoins();
+		double actualCoins = bp.getCoins();
 
-		if (money > coins) {
-			bp.getPlayer().sendMessage("Du hast nicht genug BC's! Dir fehlen noch " + (money - coins) + " BC's!");
+		if (actualCoins < coins) {
+			bp.getPlayer().sendMessage("Du hast nicht genug BC's! Dir fehlen noch " + (actualCoins - coins) + " BC's!");
 			return false;
 		}
-		return MySQL.executeUpdate("UPDATE `player_money` SET `money` = " + (coins - money) + " WHERE `uuid` = '"
-				+ bp.getPlayer().getUniqueId().toString() + "'");
+		return MySQL.executeUpdate("UPDATE `BiomiaCoins` SET `coins` = " + (actualCoins - coins) + " WHERE `ID` = "
+				+ bp.getBiomiaPlayerID());
 
 	}
 
-	public static boolean addCoins(int money, BiomiaPlayer bp) {
+	public static boolean addCoins(int coinsToAdd, BiomiaPlayer bp) {
 
-		double coins = bp.getCoins();
-
-		return MySQL.executeUpdate("UPDATE `player_money` SET `money` = " + (coins + money) + " WHERE `uuid` = '"
-				+ bp.getPlayer().getUniqueId().toString() + "'");
+		double actualCoins = bp.getCoins();
+		return MySQL.executeUpdate("UPDATE `BiomiaCoins` SET `coins` = " + (actualCoins + coinsToAdd) + " WHERE `ID` = "
+				+ bp.getBiomiaPlayerID());
 	}
 
-	public static boolean takeCoins(int money, UUID uuid) {
-
-		double coins = getCoins(uuid);
-
-		if (money > coins) {
+	public static boolean takeCoins(int coins, int ID) {
+		double actualCoins = getCoins(ID);
+		if (actualCoins < coins) {
 			return false;
 		}
-		return MySQL.executeUpdate(
-				"UPDATE `player_money` SET `money` = " + (coins - money) + " WHERE `uuid` = '" + uuid + "'");
-
+		return MySQL
+				.executeUpdate("UPDATE `BiomiaCoins` SET `coins` = " + (actualCoins - coins) + " WHERE `ID` = " + ID);
 	}
 
-	public static boolean addCoins(int money, UUID uuid) {
-		return MySQL.executeUpdate(
-				"UPDATE `player_money` SET `money` = " + (getCoins(uuid) + money) + " WHERE `uuid` = '" + uuid + "'");
+	public static boolean addCoins(int coins, int ID) {
+		return MySQL
+				.executeUpdate("UPDATE `BiomiaCoins` SET `coins` = " + (getCoins(ID) + coins) + " WHERE `ID` = " + ID);
 	}
 
-	public static boolean setCoins(int money, UUID uuid) {
-		return MySQL.executeUpdate("UPDATE `player_money` SET `money` = " + money + " WHERE `uuid` = '" + uuid + "'");
-
+	public static boolean setCoins(int coins, int ID) {
+		return MySQL.executeUpdate("UPDATE `BiomiaCoins` SET `coins` = " + coins + " WHERE `ID` = " + ID);
 	}
 
-	public static int getCoins(UUID uuid) {
-
-		int i = MySQL.executeQuerygetint(("SELECT * FROM `player_money` where uuid = '" + uuid + "'"), "money");
+	public static int getCoins(int ID) {
+		int i = MySQL.executeQuerygetint(("SELECT * FROM `BiomiaCoins` where ID = " + ID), "coins");
 		return i;
 
 	}

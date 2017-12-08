@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import de.biomiaAPI.Quests.QuestPlayer;
 import de.biomiaAPI.coins.Coins;
@@ -20,7 +19,6 @@ import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayerManager;
 import de.simonsator.partyandfriends.spigot.api.party.PartyManager;
 import de.simonsator.partyandfriends.spigot.api.party.PlayerParty;
 
-//"deprecation" is only here to not use this class directly
 @SuppressWarnings("deprecation")
 public class BiomiaPlayer {
 
@@ -29,28 +27,13 @@ public class BiomiaPlayer {
 	private boolean trollmode = false;
 	private boolean getDamage = true;
 	private boolean damageEntitys = true;
-	private int coins = -1;
 	private PAFPlayer spigotPafpl;
 	private int biomiaPlayerID = -1;
 
 	public BiomiaPlayer(Player p) {
-
 		biomiaPlayerID = getBiomiaPlayerID(p);
-		if (biomiaPlayerID == -1) {
-			MySQL.executeUpdate("Insert into BiomiaPlayer (uuid, name) values ('" + p.getUniqueId().toString() + "', '"
-					+ p.getName() + "')");
-			biomiaPlayerID = getBiomiaPlayerID(p);
-		}
-
-		spigotPafpl = PAFPlayerManager.getInstance().getPlayer(p.getUniqueId());
 		setPlayer(p);
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				if (p.isOnline())
-					coins = Coins.getCoins(p);
-			}
-		}.runTaskTimer(Main.plugin, 600, 600);
+		spigotPafpl = PAFPlayerManager.getInstance().getPlayer(p.getUniqueId());
 	}
 
 	private int getBiomiaPlayerID(Player p) {
@@ -96,15 +79,11 @@ public class BiomiaPlayer {
 	}
 
 	public int getCoins() {
-		if (coins == -1)
-			coins = Coins.getCoins(p);
-		return coins;
+		return Coins.getCoins(this);
 	}
 
 	public boolean takeCoins(int coins) {
 		boolean b = Coins.takeCoins(coins, this);
-		if (b)
-			this.coins = this.coins - coins;
 		return b;
 	}
 
@@ -112,7 +91,6 @@ public class BiomiaPlayer {
 	public boolean addCoins(int coins) {
 		boolean b = Coins.addCoins(coins, this);
 		if (b) {
-			this.coins = this.coins + coins;
 			this.getPlayer().sendMessage("§7Du erhältst §f" + coins + "§7 BC's!");
 		}
 		return b;
@@ -157,7 +135,6 @@ public class BiomiaPlayer {
 
 		boolean b = Coins.addCoins(coins, this);
 		if (b) {
-			this.coins = this.coins + coins;
 			this.getPlayer().sendMessage("§7Du erhältst §f" + coins + "§7 BC's!");
 		}
 		return b;
@@ -166,7 +143,6 @@ public class BiomiaPlayer {
 
 	public void setCoins(int coins) {
 		Coins.setCoins(coins, this);
-		this.coins = coins;
 	}
 
 	public List<PAFPlayer> getFriends() {
