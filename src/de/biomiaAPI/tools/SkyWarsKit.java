@@ -14,13 +14,16 @@ import de.biomiaAPI.mysql.MySQL;
 public class SkyWarsKit {
 
 	public static boolean addKit(BiomiaPlayer biomiaPlayer, int kitID, int... months) {
+		
 		return MySQL.executeUpdate("Insert into SkyWarsKits (`BiomiaPlayer`, `kitID`, `available`) values ("
-				+ biomiaPlayer.getBiomiaPlayerID() + ", " + kitID + ", '" + months.toString() + "')");
+				+ biomiaPlayer.getBiomiaPlayerID() + ", " + kitID + ", '" + Arrays.toString(months) + "')");
+		
 	}
 
-	public static boolean addKit(BiomiaPlayer biomiaPlayer, int kitID) {
+	public static boolean addKit(BiomiaPlayer biomiaPlayer, int kitID) {		
 		return MySQL.executeUpdate("Insert into SkyWarsKits (`BiomiaPlayer`, `kitID`) values ("
 				+ biomiaPlayer.getBiomiaPlayerID() + ", " + kitID + ")");
+		
 	}
 
 	public static boolean removeKit(BiomiaPlayer biomiaPlayer, int kitID) {
