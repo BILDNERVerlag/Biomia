@@ -16,11 +16,14 @@ import de.biomiaAPI.tools.ItemBase64;
 
 public class CosmeticGroup {
 
+	private CosmeticInventory inv = null;
 	private Group group;
 	private ArrayList<? super CosmeticItem> items = new ArrayList<>();
+	private ItemStack icon;
 
-	public CosmeticGroup(Group group) {
+	public CosmeticGroup(Group group, ItemStack icon) {
 		this.group = group;
+		this.icon = icon;
 		loadGroup();
 	}
 
@@ -33,8 +36,7 @@ public class CosmeticGroup {
 
 		try {
 
-			PreparedStatement ps = con.prepareStatement("Select * from ?");
-			ps.setString(1, group.name());
+			PreparedStatement ps = con.prepareStatement("Select * from " + group.name());
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -93,5 +95,17 @@ public class CosmeticGroup {
 
 	public Group getGroup() {
 		return group;
+	}
+
+	@SuppressWarnings("unchecked")
+	public CosmeticInventory getInventory() {
+		if (inv == null) {
+			inv = new CosmeticInventory((ArrayList<CosmeticItem>) items);
+		}
+		return inv;
+	}
+
+	public ItemStack getIcon() {
+		return icon;
 	}
 }

@@ -11,7 +11,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import de.biomiaAPI.BiomiaPlayer;
+import de.biomiaAPI.Biomia;
 import de.biomiaAPI.cosmetics.Cosmetic.Group;
 import de.biomiaAPI.itemcreator.ItemCreator;
 import de.biomiaAPI.main.Main;
@@ -25,11 +25,9 @@ public class CosmeticInventory implements Listener {
 	private ItemStack back;
 	private int side = 0;
 	private int items_per_side = 18;
-	private BiomiaPlayer bp;
 
-	public CosmeticInventory(ArrayList<CosmeticItem> items, BiomiaPlayer bp) {
+	public CosmeticInventory(ArrayList<CosmeticItem> items) {
 		this.cosmeticItems = items;
-		this.bp = bp;
 		inv = Bukkit.createInventory(null, 27, "Cosmetics");
 		Bukkit.getPluginManager().registerEvents(this, Main.plugin);
 	}
@@ -43,7 +41,7 @@ public class CosmeticInventory implements Listener {
 
 				for (CosmeticItem item : cosmeticItems) {
 					if (item.getItem().equals(e.getCurrentItem())) {
-						item.use(bp);
+						item.use(Biomia.getBiomiaPlayer((Player) e.getWhoClicked()));
 					}
 				}
 

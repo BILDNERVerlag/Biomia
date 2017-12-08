@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
+import org.bukkit.inventory.Inventory;
+
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.mysql.MySQL;
 import de.biomiaAPI.tools.ItemBase64;
@@ -19,12 +22,45 @@ public class Cosmetic {
 	private static HashMap<BiomiaPlayer, HashMap<Integer, Integer>> limitedItems = new HashMap<>();
 	private static HashMap<Integer, GadgetListener> gadgetListener = new HashMap<>();
 	private static HashMap<Integer, ParticleListener> particleListener = new HashMap<>();
+	private static Inventory inv;
+
+	public static Inventory getMainInventory() {
+		if (inv == null)
+			initMainInventory();
+		return inv;
+	}
+	
+	public static void initMainInventory() {
+		inv = Bukkit.createInventory(null, 9, "§5Cosmetics");
+
+		for (Group g : groups.keySet()) {
+			inv.addItem(((CosmeticGroup) groups.get(g)).getIcon());
+		}
+	}
+
+	public static void openMainInventory(BiomiaPlayer bp) {
+		if (inv == null)
+			initMainInventory();
+		bp.getPlayer().openInventory(inv);
+	}
+
+	public static void openGroupInventory(BiomiaPlayer bp, String itemName) {
+		for (Group g : groups.keySet()) {
+			if (((CosmeticGroup) groups.get(g)).getIcon().getItemMeta().getDisplayName().equals(itemName)) {
+				((CosmeticGroup) groups.get(g)).getInventory().openInventorry(bp.getPlayer(), g);
+			}
+		}
+	}
+
+	public static void openGroupInventory(BiomiaPlayer bp, Group group) {
+		((CosmeticGroup) groups.get(group)).getInventory().openInventorry(bp.getPlayer(), group);
+	}
 
 	public static CosmeticInventory getInventory(BiomiaPlayer bp) {
 		return inventorys.get(bp);
 	}
 
-	public static <T extends CosmeticGroup> void initGroups(T group) {
+	public static <T extends CosmeticGroup> void initGroup(T group) {
 		groups.put(group.getGroup(), group);
 	}
 
