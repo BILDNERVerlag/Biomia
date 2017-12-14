@@ -18,7 +18,7 @@ import de.biomiaAPI.main.Main;
 
 public class CosmeticPetItem extends CosmeticItem {
 
-	private EntityType type = ;
+	private EntityType type;
 	private static HashMap<BiomiaPlayer, Entity> pets = new HashMap<>();
 
 	public static boolean isOwner(BiomiaPlayer bp, Entity pet) {
