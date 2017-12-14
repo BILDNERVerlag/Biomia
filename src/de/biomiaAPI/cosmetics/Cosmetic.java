@@ -29,7 +29,7 @@ public class Cosmetic {
 			initMainInventory();
 		return inv;
 	}
-	
+
 	public static void initMainInventory() {
 		inv = Bukkit.createInventory(null, 9, "§5Cosmetics");
 
@@ -92,7 +92,6 @@ public class Cosmetic {
 				}
 				cosmeticItems.add((CosmeticItem) items.get(id));
 			}
-
 			limitedItems.put(bp, hm);
 
 		} catch (SQLException e) {
@@ -100,6 +99,14 @@ public class Cosmetic {
 		}
 	}
 
+	public static boolean isLimited(BiomiaPlayer bp, int itemID) {
+		return limitedItems.get(bp).containsKey(itemID);
+	}
+
+	public static int getLimit(BiomiaPlayer bp, int itemID) {
+		return limitedItems.get(bp).get(itemID);
+	}
+	
 	public static <T extends CosmeticItem> void addItemToDatabase(T item) {
 
 		MySQL.executeUpdate("INSERT INTO `CosmeticItems`(`CosmeticGroup`, `Name`) VALUES ('" + item.getGroup().name()
@@ -205,6 +212,10 @@ public class Cosmetic {
 
 	public static void addGagetListener(int id, GadgetListener gl) {
 		gadgetListener.put(id, gl);
+	}
+
+	public static void addParticleListener(int id, ParticleListener pl) {
+		particleListener.put(id, pl);
 	}
 
 	public static GadgetListener getGadgetListener(int id) {

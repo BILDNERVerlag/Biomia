@@ -118,7 +118,7 @@ public class BiomiaPlayer {
 			ps.setInt(1, getBiomiaPlayerID());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				int until = rs.getInt("until");
+				long until = rs.getLong("until");
 				if (System.currentTimeMillis() / 1000 > until) {
 					prozent = rs.getInt("percent");
 				} else {

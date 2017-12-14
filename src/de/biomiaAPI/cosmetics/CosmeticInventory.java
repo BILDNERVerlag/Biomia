@@ -26,8 +26,9 @@ public class CosmeticInventory implements Listener {
 	private int side = 0;
 	private int items_per_side = 18;
 
-	public CosmeticInventory(ArrayList<CosmeticItem> items) {
-		this.cosmeticItems = items;
+	@SuppressWarnings("unchecked")
+	public CosmeticInventory(ArrayList<? super CosmeticItem> items) {
+		this.cosmeticItems = (ArrayList<CosmeticItem>) items;
 		inv = Bukkit.createInventory(null, 27, "Cosmetics");
 		Bukkit.getPluginManager().registerEvents(this, Main.plugin);
 	}

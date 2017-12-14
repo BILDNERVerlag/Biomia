@@ -97,10 +97,9 @@ public class CosmeticGroup {
 		return group;
 	}
 
-	@SuppressWarnings("unchecked")
 	public CosmeticInventory getInventory() {
 		if (inv == null) {
-			inv = new CosmeticInventory((ArrayList<CosmeticItem>) items);
+			inv = new CosmeticInventory(items);
 		}
 		return inv;
 	}
