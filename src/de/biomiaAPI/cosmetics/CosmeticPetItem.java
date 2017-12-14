@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftCreature;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftEntity;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -15,6 +15,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.Cosmetic.Group;
 import de.biomiaAPI.main.Main;
+import net.minecraft.server.v1_12_R1.EntityInsentient;
+import net.minecraft.server.v1_12_R1.PathEntity;
 
 public class CosmeticPetItem extends CosmeticItem {
 
@@ -32,7 +34,8 @@ public class CosmeticPetItem extends CosmeticItem {
 
 	@Override
 	public void remove(BiomiaPlayer bp) {
-		pets.get(bp).remove();
+		if (pets.containsKey(bp))
+			pets.get(bp).remove();
 	}
 
 	@Override
@@ -44,7 +47,7 @@ public class CosmeticPetItem extends CosmeticItem {
 		entity.setCustomNameVisible(true);
 		pets.put(bp, entity);
 		entity.addPassenger(p);
-		
+
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -57,7 +60,7 @@ public class CosmeticPetItem extends CosmeticItem {
 					cancel();
 				}
 			}
-		}.runTaskTimer(Main.plugin, 10, 20);
+		}.runTaskTimer(Main.plugin, 10, 10);
 	}
 
 	private void followPlayer(Creature creature, Player player) {
@@ -83,13 +86,22 @@ public class CosmeticPetItem extends CosmeticItem {
 			break;
 		}
 
-		if (location.distanceSquared(creature.getLocation()) > 50) {
+		if (location.distanceSquared(creature.getLocation()) > 80) {
 			if (!player.isOnGround()) {
 				return;
 			}
 			creature.teleport(location);
-		} else {
-			((CraftCreature) creature).getHandle().getNavigation().a(location.getX(), location.getY(), location.getZ());
+		} else if(location.distanceSquared(creature.getLocation()) > 20){
+			net.minecraft.server.v1_12_R1.Entity pet = ((CraftEntity) creature).getHandle();
+			((EntityInsentient) pet).getNavigation().a(2);
+			Object objPet = ((CraftEntity) creature).getHandle();
+			PathEntity path;
+			path = ((EntityInsentient) objPet).getNavigation().a(location.getX() + 1, location.getY(),
+					location.getZ() + 1);
+			if (path != null) {
+				((EntityInsentient) objPet).getNavigation().a(path, 1.0D);
+				((EntityInsentient) objPet).getNavigation().a(2.0D);
+			}
 		}
 	}
 

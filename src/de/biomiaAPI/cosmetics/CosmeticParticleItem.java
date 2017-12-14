@@ -16,7 +16,6 @@ public class CosmeticParticleItem extends CosmeticItem {
 	@Override
 	public void use(BiomiaPlayer bp) {
 		bp.getPlayer().sendMessage(getName() + " §8wurde §aAktiviert§8!");
-
 		if (CosmeticParticleItem.actives.containsKey(bp)) {
 			CosmeticParticleItem.actives.get(bp).cancel();
 		}

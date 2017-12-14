@@ -8,6 +8,6 @@
 	<classpathentry kind="lib" path="/spigot/Citizens.jar"/>
 	<classpathentry kind="lib" path="/spigot/Spigot-Party-API-For-RedisBungee-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="/spigot/spigot.jar"/>
-	<classpathentry kind="lib" path="/spigot/TimoCloud-API-4.6.0.jar"/>
+	<classpathentry kind="lib" path="/spigot/TimoCloud.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -14,8 +14,8 @@ import de.biomiaAPI.main.Main;
 
 public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 
-	GadgetListener gadgetListener;
-	ItemStack gadgetItem;
+	private GadgetListener gadgetListener;
+	private ItemStack gadgetItem;
 
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
@@ -26,6 +26,16 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 				} catch (Exception ex) {
 					e.getPlayer().sendMessage("§cListener not found!");
 				}
+	}
+
+	@Override
+	public void use(BiomiaPlayer bp) {
+		bp.getPlayer().getInventory().setItem(Cosmetic.gadgetSlot, gadgetItem);
+	}
+
+	@Override
+	public void remove(BiomiaPlayer bp) {
+		bp.getPlayer().getInventory().setItem(Cosmetic.gadgetSlot, null);
 	}
 
 	public CosmeticGadgetItem(int id, String name, ItemStack is, Commonness c, ItemStack gadgetItem) {
@@ -44,7 +54,6 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 	}
 
 	public static void removeOne(BiomiaPlayer bp) {
-		// TODO
+		// TODO Cosmetic
 	}
-
 }

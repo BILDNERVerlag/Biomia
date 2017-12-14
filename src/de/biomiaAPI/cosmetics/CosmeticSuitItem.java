@@ -1,5 +1,7 @@
 package de.biomiaAPI.cosmetics;
 
+import java.util.HashMap;
+
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -12,6 +14,8 @@ public class CosmeticSuitItem extends CosmeticItem {
 	private ItemStack chestplate = null;
 	private ItemStack leggins = null;
 	private ItemStack boots = null;
+	
+	public static HashMap<BiomiaPlayer, CosmeticSuitItem> suits = new HashMap<>();
 
 	public CosmeticSuitItem(int id, String name, ItemStack is, Commonness c) {
 		super(id, name, is, c, Group.SUITS);
@@ -56,5 +60,16 @@ public class CosmeticSuitItem extends CosmeticItem {
 		p.getInventory().setChestplate(getChestplate());
 		p.getInventory().setLeggings(getLeggings());
 		p.getInventory().setBoots(getBoots());
+		suits.put(bp, this);
+	}
+	
+	@Override
+	public void remove(BiomiaPlayer bp) {
+		Player p = bp.getPlayer();
+		p.getInventory().setHelmet(null);
+		p.getInventory().setChestplate(null);
+		p.getInventory().setLeggings(null);
+		p.getInventory().setBoots(null);
+		suits.remove(bp);
 	}
 }

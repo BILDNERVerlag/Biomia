@@ -23,6 +23,7 @@ public class Cosmetic {
 	private static HashMap<Integer, GadgetListener> gadgetListener = new HashMap<>();
 	private static HashMap<Integer, ParticleListener> particleListener = new HashMap<>();
 	private static Inventory inv;
+	public static int gadgetSlot = 4;
 
 	public static Inventory getMainInventory() {
 		if (inv == null)
@@ -44,12 +45,14 @@ public class Cosmetic {
 		bp.getPlayer().openInventory(inv);
 	}
 
-	public static void openGroupInventory(BiomiaPlayer bp, String itemName) {
+	public static boolean openGroupInventory(BiomiaPlayer bp, String itemName) {
 		for (Group g : groups.keySet()) {
 			if (((CosmeticGroup) groups.get(g)).getIcon().getItemMeta().getDisplayName().equals(itemName)) {
 				((CosmeticGroup) groups.get(g)).getInventory().openInventorry(bp.getPlayer(), g);
+				return true;
 			}
 		}
+		return false;
 	}
 
 	public static void openGroupInventory(BiomiaPlayer bp, Group group) {
