@@ -1,5 +1,6 @@
 package de.biomiaAPI.cosmetics;
 
+import java.util.HashMap;
 import java.util.Random;
 
 import org.bukkit.Location;
@@ -17,35 +18,49 @@ import de.biomiaAPI.main.Main;
 
 public class CosmeticPetItem extends CosmeticItem {
 
-	private EntityType type;
-	
+	private EntityType type = ;
+	private static HashMap<BiomiaPlayer, Entity> pets = new HashMap<>();
+
+	public static boolean isOwner(BiomiaPlayer bp, Entity pet) {
+		return pets.containsKey(bp) ? (pets.get(bp) == pet) : false;
+	}
+
 	public CosmeticPetItem(int id, String name, ItemStack is, Commonness c, EntityType type) {
 		super(id, name, is, c, Group.PETS);
 		this.type = type;
 	}
-	
+
 	@Override
-	public void use(BiomiaPlayer bp) {
-		Player p = bp.getPlayer();
-		Entity entity = (Entity)p.getWorld().spawnEntity(p.getLocation(), type);
-        entity.setCustomName("§8" + p.getName() + "'s Haustier");
-        entity.setCustomNameVisible(true);
-        
-        new BukkitRunnable() {
-			
-			@Override
-			public void run() {
-				
-				if(!entity.isDead() || entity == null) {
-					followPlayer((Creature) entity, p);
-				} else {
-					cancel();
-				}	
-			}
-		}.runTaskTimer(Main.plugin, 10, 10);
+	public void remove(BiomiaPlayer bp) {
+		pets.get(bp).remove();
 	}
 
-	public void followPlayer(Creature creature, Player player) {
+	@Override
+	public void use(BiomiaPlayer bp) {
+		remove(bp);
+		Player p = bp.getPlayer();
+		Entity entity = (Entity) p.getWorld().spawnEntity(p.getLocation(), type);
+		entity.setCustomName("§8" + p.getName() + "'s Haustier");
+		entity.setCustomNameVisible(true);
+		pets.put(bp, entity);
+		entity.addPassenger(p);
+		
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				if (!entity.isDead() && entity != null) {
+					if (!bp.getPlayer().isInsideVehicle())
+						followPlayer((Creature) entity, p);
+				} else {
+					if (pets.containsKey(bp))
+						pets.remove(bp);
+					cancel();
+				}
+			}
+		}.runTaskTimer(Main.plugin, 10, 20);
+	}
+
+	private void followPlayer(Creature creature, Player player) {
 		Location location = player.getLocation();
 		switch (new Random().nextInt(6)) {
 		case 0:
@@ -77,7 +92,7 @@ public class CosmeticPetItem extends CosmeticItem {
 			((CraftCreature) creature).getHandle().getNavigation().a(location.getX(), location.getY(), location.getZ());
 		}
 	}
-	
+
 	public EntityType getEntityType() {
 		return type;
 	}

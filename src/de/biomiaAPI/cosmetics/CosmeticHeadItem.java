@@ -9,7 +9,7 @@ import de.biomiaAPI.cosmetics.Cosmetic.Group;
 public class CosmeticHeadItem extends CosmeticItem {
 
 	private ItemStack head;
-
+		
 	public CosmeticHeadItem(int id, String name, ItemStack is, Commonness c, ItemStack head) {
 		super(id, name, is, c, Group.HEADS);
 		this.head = head;
@@ -19,6 +19,12 @@ public class CosmeticHeadItem extends CosmeticItem {
 	public void use(BiomiaPlayer bp) {
 		Player p = bp.getPlayer();
 		p.getInventory().setHelmet(head);
+	}
+	
+	@Override
+	public void remove(BiomiaPlayer bp) {
+		Player p = bp.getPlayer();
+		p.getInventory().setHelmet(null);
 	}
 	
 	public ItemStack getHead() {

@@ -11,20 +11,20 @@ import de.biomiaAPI.cosmetics.Cosmetic.Group;
 public class CosmeticParticleItem extends CosmeticItem {
 
 	public static HashMap<BiomiaPlayer, BukkitTask> actives = new HashMap<>();
-
 	private ParticleListener particleListener = Cosmetic.getParticleListener(getID());
 
-	public void activate(BiomiaPlayer bp) {
+	@Override
+	public void use(BiomiaPlayer bp) {
 		bp.getPlayer().sendMessage(getName() + " §8wurde §aAktiviert§8!");
 
 		if (CosmeticParticleItem.actives.containsKey(bp)) {
 			CosmeticParticleItem.actives.get(bp).cancel();
 		}
 		CosmeticParticleItem.actives.put(bp, particleListener.start(bp));
-
 	}
 
-	public void deaktivate(BiomiaPlayer bp) {
+	@Override
+	public void remove(BiomiaPlayer bp) {
 		bp.getPlayer().sendMessage(getName() + " §8wurde §cDeaktiviert§8!");
 		if (CosmeticParticleItem.actives.containsKey(bp)) {
 			CosmeticParticleItem.actives.get(bp).cancel();

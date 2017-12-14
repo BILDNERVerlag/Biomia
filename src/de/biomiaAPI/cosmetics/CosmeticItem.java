@@ -43,6 +43,9 @@ public class CosmeticItem {
 
 	}
 
+	public void remove(BiomiaPlayer bp) {
+	}
+	
 	public void use(BiomiaPlayer bp) {
 	}
 

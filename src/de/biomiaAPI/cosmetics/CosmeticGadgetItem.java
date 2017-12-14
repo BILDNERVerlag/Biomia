@@ -11,7 +11,6 @@ import de.biomiaAPI.Biomia;
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.Cosmetic.Group;
 import de.biomiaAPI.main.Main;
-import de.biomiaAPI.mysql.MySQL;
 
 public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 
