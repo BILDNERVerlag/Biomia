@@ -16,8 +16,10 @@ import de.biomiaAPI.Biomia;
 import de.biomiaAPI.Quests.DialogMessage;
 import de.biomiaAPI.connect.Connect;
 import de.biomiaAPI.cosmetics.Cosmetic;
-import de.biomiaAPI.cosmetics.CosmeticGroup;
 import de.biomiaAPI.cosmetics.Cosmetic.Group;
+import de.biomiaAPI.cosmetics.CosmeticGroup;
+import de.biomiaAPI.cosmetics.GadgetItems.GadgetIniter;
+import de.biomiaAPI.cosmetics.ParticleItems.ParticleIniter;
 import de.biomiaAPI.itemcreator.ItemCreator;
 import de.biomiaAPI.msg.Messages;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -52,7 +54,6 @@ public class Main extends JavaPlugin {
 		Bukkit.getMessenger().registerIncomingPluginChannel(this, "BiomiaChannel", new Connect());
 
 		new BukkitRunnable() {
-
 			@Override
 			public void run() {
 				Connect.getOnlinePlayers();
@@ -60,6 +61,8 @@ public class Main extends JavaPlugin {
 		}.runTaskTimer(this, 0, 20 * 5);
 
 		init();
+		GadgetIniter.init();
+		ParticleIniter.init();
 
 		/*
 		 * WERBUNG Sendet in einem gewissen Zeitabstand eine bestimmte Werbenachricht,
