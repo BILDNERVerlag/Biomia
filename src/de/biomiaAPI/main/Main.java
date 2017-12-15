@@ -60,9 +60,9 @@ public class Main extends JavaPlugin {
 			}
 		}.runTaskTimer(this, 0, 20 * 5);
 
-		init();
 		GadgetIniter.init();
 		ParticleIniter.init();
+		init();
 
 		/*
 		 * WERBUNG Sendet in einem gewissen Zeitabstand eine bestimmte Werbenachricht,

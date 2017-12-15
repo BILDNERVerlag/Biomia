@@ -18,7 +18,7 @@ import de.biomiaAPI.main.Main;
 
 public class CosmeticInventory implements Listener {
 
-	private ArrayList<CosmeticItem> cosmeticItems = new ArrayList<>();	
+	private ArrayList<CosmeticItem> cosmeticItems = new ArrayList<>();
 	private Inventory inv;
 	public ArrayList<ItemStack> items = new ArrayList<>();
 	private ItemStack next;
@@ -32,7 +32,6 @@ public class CosmeticInventory implements Listener {
 		inv = Bukkit.createInventory(null, 27, "Cosmetics");
 		Bukkit.getPluginManager().registerEvents(this, Main.plugin);
 	}
-
 
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
@@ -58,6 +57,9 @@ public class CosmeticInventory implements Listener {
 	private void displaySide(int i) {
 		inv.clear();
 		side = i;
+
+		setRemove();
+
 		if (items.size() - side - 1 * items_per_side > side * items_per_side)
 			setNext();
 		if (side > 0)
@@ -70,6 +72,12 @@ public class CosmeticInventory implements Listener {
 			actualItem++;
 		}
 
+	}
+
+	private void setRemove() {
+		if (next == null)
+			next = ItemCreator.itemCreate(Material.BARRIER, "§cEntfernen");
+		inv.setItem(inv.getSize() - 5, next);
 	}
 
 	private void setNext() {

@@ -11,9 +11,7 @@ public class PaintballGun implements GadgetListener{
 	@Override
 	public void execute(BiomiaPlayer bp) {
 		Snowball e = (Snowball) bp.getPlayer().getWorld().spawnEntity(bp.getPlayer().getLocation(), EntityType.SNOWBALL);
-		e.setCustomName("Paintball");
-//		e.setVelocity(bp.getPlayer().getVelocity().normalize());
-		bp.getPlayer().launchProjectile(e.getClass());
+		bp.getPlayer().launchProjectile(e.getClass()).setCustomName("Paintball");
+		e.remove();
 	}
-
 }

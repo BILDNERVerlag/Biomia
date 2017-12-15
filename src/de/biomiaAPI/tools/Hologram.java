@@ -16,8 +16,8 @@ public class Hologram {
 		int i = 0;
 		for (String string : s) {
 			Location loc = p.getLocation();
-			ArmorStand armorStand = (ArmorStand) p.getWorld().spawnEntity(
-					new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY() - (i * 0.225), loc.getBlockZ()),
+			ArmorStand armorStand = (ArmorStand) p.getWorld().spawnEntity(new Location(loc.getWorld(),
+					loc.getBlockX() + 0.5, loc.getBlockY() - (i * 0.225), loc.getBlockZ() + 0.5),
 					EntityType.ARMOR_STAND);
 			armorStand.setGravity(false);
 			armorStand.setVisible(false);
