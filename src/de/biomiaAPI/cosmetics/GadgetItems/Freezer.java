@@ -14,6 +14,7 @@ public class Freezer implements GadgetListener{
 		Snowball e = (Snowball) bp.getPlayer().getWorld().spawnEntity(bp.getPlayer().getLocation(), EntityType.SNOWBALL);
 		bp.getPlayer().launchProjectile(e.getClass()).setCustomName("Freezer");
 		e.remove();
+		item.removeOne(bp, true);
 	}
 	
 

@@ -44,6 +44,7 @@ public class Witch implements GadgetListener {
 				}
 			}.runTaskTimer(Main.plugin, 0, 10);
 		}
+		item.removeOne(bp, true);
 
 	}
 

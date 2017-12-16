@@ -50,6 +50,7 @@ public class Invisible implements GadgetListener, Listener {
 				invisibles.remove(bp.getPlayer());
 			}
 		}.runTaskLater(Main.plugin, 20 * 60);
+		item.removeOne(bp, true);
 	}
 
 	@EventHandler

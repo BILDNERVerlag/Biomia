@@ -21,7 +21,7 @@ public class Levitator implements GadgetListener{
 				((Player) e).addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 15 * 20, 0, false, false));
 			}
 		}
-		
+		item.removeOne(bp, true);
 	}
 	
 }

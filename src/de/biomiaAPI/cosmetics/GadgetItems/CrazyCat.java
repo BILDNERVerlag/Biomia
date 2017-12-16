@@ -32,10 +32,9 @@ public class CrazyCat implements GadgetListener {
 		AttributeInstance attributes = ((EntityInsentient) ((CraftLivingEntity) entity).getHandle())
 				.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED);
 		attributes.setValue(5);
-
+		
 		new BukkitRunnable() {
 			int i = 0;
-
 			@Override
 			public void run() {
 				if (i == 20) {
@@ -49,6 +48,7 @@ public class CrazyCat implements GadgetListener {
 				}
 			}
 		}.runTaskTimer(Main.plugin, 0, 10);
+		item.removeOne(bp, true);
 	}
 
 	private void weird(Entity creature) {

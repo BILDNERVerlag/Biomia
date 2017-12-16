@@ -14,5 +14,6 @@ public class PaintballGun implements GadgetListener{
 		Snowball e = (Snowball) bp.getPlayer().getWorld().spawnEntity(bp.getPlayer().getLocation(), EntityType.SNOWBALL);
 		bp.getPlayer().launchProjectile(e.getClass()).setCustomName("Paintball");
 		e.remove();
+		item.removeOne(bp, true);
 	}
 }

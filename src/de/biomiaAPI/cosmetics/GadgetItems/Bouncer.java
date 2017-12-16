@@ -14,5 +14,6 @@ public class Bouncer implements GadgetListener {
 	public void execute(BiomiaPlayer bp, CosmeticGadgetItem item) {
 		Player p = bp.getPlayer();
 		p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20 * 30, 30, false, false));
+		item.removeOne(bp, true);
 	}
 }

@@ -28,5 +28,6 @@ public class FastDayCircle implements GadgetListener {
 				}
 			}
 		}.runTaskTimer(Main.plugin, 0, 1);
+		item.removeOne(bp, true);
 	}
 }

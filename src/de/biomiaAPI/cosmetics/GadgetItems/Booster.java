@@ -18,6 +18,7 @@ public class Booster implements GadgetListener {
 			p.playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_FIREBALL_EXPLODE, 1, 0);
 			Vector jump = p.getLocation().getDirection().multiply(4D).setY(3);
 			p.setVelocity(p.getVelocity().add(jump));
+			item.removeOne(bp, true);
 		}
 	}
 

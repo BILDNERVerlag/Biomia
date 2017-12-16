@@ -19,6 +19,7 @@ public class Suizid implements GadgetListener {
 			tnt.setYield(0);
 			tnt.setGlowing(true);
 			bp.getPlayer().addPassenger(tnt);
+			item.removeOne(bp, true);
 		}
 	}
 

@@ -11,9 +11,13 @@ public class Firework implements GadgetListener {
 
 	@Override
 	public void execute(BiomiaPlayer bp, CosmeticGadgetItem item) {
-		Location l = bp.getPlayer().getLocation();
-		org.bukkit.entity.Firework fw = (org.bukkit.entity.Firework) l.getWorld().spawnEntity(l.add(0, 2, 0), EntityType.FIREWORK);
-		fw.addPassenger(bp.getPlayer());
+		if (!bp.getPlayer().isInsideVehicle()) {
+			Location l = bp.getPlayer().getLocation();
+			org.bukkit.entity.Firework fw = (org.bukkit.entity.Firework) l.getWorld().spawnEntity(l.add(0, 2, 0),
+					EntityType.FIREWORK);
+			fw.addPassenger(bp.getPlayer());
+			item.removeOne(bp, true);
+		}
 	}
 
 }

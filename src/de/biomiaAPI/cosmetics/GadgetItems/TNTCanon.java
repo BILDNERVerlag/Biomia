@@ -41,5 +41,6 @@ public class TNTCanon implements GadgetListener {
 				i++;
 			}
 		}.runTaskTimer(Main.plugin, 0, 20);
+		item.removeOne(bp, true);
 	}
 }
