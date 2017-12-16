@@ -6,6 +6,6 @@ import de.biomiaAPI.BiomiaPlayer;
 
 public interface ParticleListener {
 		
-	public BukkitTask start(BiomiaPlayer bp);
+	public BukkitTask start(BiomiaPlayer bp, CosmeticParticleItem item);
 
 }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
+import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.Cosmetic.Group;
 import de.biomiaAPI.cosmetics.CosmeticItem.Commonness;
 import de.biomiaAPI.mysql.MySQL;
@@ -25,6 +26,11 @@ public class CosmeticGroup {
 		this.group = group;
 		this.icon = icon;
 		loadGroup();
+	}
+
+	public void remove(BiomiaPlayer bp) {
+		if (!items.isEmpty())
+			((CosmeticItem) items.get(0)).remove(bp);
 	}
 
 	public <T extends CosmeticItem> void addItem(T item) {
@@ -99,7 +105,7 @@ public class CosmeticGroup {
 
 	public CosmeticInventory getInventory() {
 		if (inv == null) {
-			inv = new CosmeticInventory(items);
+			inv = new CosmeticInventory(items, this);
 		}
 		return inv;
 	}

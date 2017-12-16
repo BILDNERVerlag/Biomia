@@ -1,5 +1,7 @@
 package de.biomiaAPI.cosmetics;
 
+import java.util.ArrayList;
+
 import org.bukkit.inventory.ItemStack;
 
 import de.biomiaAPI.BiomiaPlayer;
@@ -8,6 +10,7 @@ import de.biomiaAPI.cosmetics.Cosmetic.Group;
 public class CosmeticHeadItem extends CosmeticItem {
 
 	private ItemStack head;
+	public static ArrayList<BiomiaPlayer> heads = new ArrayList<>(); 
 
 	public CosmeticHeadItem(int id, String name, ItemStack is, Commonness c, ItemStack head) {
 		super(id, name, is, c, Group.HEADS);

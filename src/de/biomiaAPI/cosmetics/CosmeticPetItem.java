@@ -27,6 +27,10 @@ public class CosmeticPetItem extends CosmeticItem {
 		return pets.containsKey(bp) ? (pets.get(bp) == pet) : false;
 	}
 
+	public static boolean isPet(Entity e) {
+		return pets.containsValue(e);
+	}
+
 	public CosmeticPetItem(int id, String name, ItemStack is, Commonness c, EntityType type) {
 		super(id, name, is, c, Group.PETS);
 		this.type = type;
@@ -86,12 +90,12 @@ public class CosmeticPetItem extends CosmeticItem {
 			break;
 		}
 
-		if (location.distanceSquared(creature.getLocation()) > 80) {
+		if (!location.getWorld().equals(creature.getWorld()) || location.distanceSquared(creature.getLocation()) > 80 ) {
 			if (!player.isOnGround()) {
 				return;
 			}
 			creature.teleport(location);
-		} else if(location.distanceSquared(creature.getLocation()) > 20){
+		} else if (location.distanceSquared(creature.getLocation()) > 20) {
 			net.minecraft.server.v1_12_R1.Entity pet = ((CraftEntity) creature).getHandle();
 			((EntityInsentient) pet).getNavigation().a(2);
 			Object objPet = ((CraftEntity) creature).getHandle();

@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 import de.biomiaAPI.Biomia;
 import de.biomiaAPI.BiomiaPlayer;
+import de.biomiaAPI.QuestEvents.TakeItemEvent;
 import de.biomiaAPI.cosmetics.Cosmetic.Group;
 import de.biomiaAPI.main.Main;
 
@@ -22,7 +23,7 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 		if (e.hasItem() && e.getItem().equals(gadgetItem))
 			if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)
 				try {
-					gadgetListener.execute(Biomia.getBiomiaPlayer(e.getPlayer()));
+					gadgetListener.execute(Biomia.getBiomiaPlayer(e.getPlayer()), this);
 				} catch (Exception ex) {
 					e.getPlayer().sendMessage("§cListener not found!");
 				}
@@ -53,7 +54,18 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 		return gadgetItem;
 	}
 
-	public static void removeOne(BiomiaPlayer bp) {
-		// TODO Cosmetic
+	public void removeOne(BiomiaPlayer bp, boolean removeItem) {
+		int limit = Cosmetic.getLimit(bp, getID()) - 1;
+		if (limit != -1) {
+			Cosmetic.setLimit(bp, getID(), limit);
+			if (removeItem)
+				removeItemFromInventory(bp);
+		} else if (limit == 0)
+			remove(bp);
+	}
+
+	public void removeItemFromInventory(BiomiaPlayer bp) {
+		new TakeItemEvent(getGadgetItem().getType(), getGadgetItem().getItemMeta().getDisplayName(), 1)
+				.executeEvent(bp.getQuestPlayer());
 	}
 }

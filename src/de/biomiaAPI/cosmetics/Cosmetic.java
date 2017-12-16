@@ -106,10 +106,18 @@ public class Cosmetic {
 		return limitedItems.get(bp).containsKey(itemID);
 	}
 
-	public static int getLimit(BiomiaPlayer bp, int itemID) {
-		return limitedItems.get(bp).get(itemID);
+	public static int getLimit(BiomiaPlayer bp, int id) {
+		if (isLimited(bp, id)) {
+			return limitedItems.get(bp).get(id);
+		} else {
+			return -1;
+		}
 	}
-	
+
+	public static void setLimit(BiomiaPlayer bp, int id, int limit) {
+		limitedItems.get(bp).put(id, limit);
+	}
+
 	public static <T extends CosmeticItem> void addItemToDatabase(T item) {
 
 		MySQL.executeUpdate("INSERT INTO `CosmeticItems`(`CosmeticGroup`, `Name`) VALUES ('" + item.getGroup().name()

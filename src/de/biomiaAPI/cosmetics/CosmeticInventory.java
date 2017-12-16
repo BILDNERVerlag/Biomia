@@ -20,14 +20,17 @@ public class CosmeticInventory implements Listener {
 
 	private ArrayList<CosmeticItem> cosmeticItems = new ArrayList<>();
 	private Inventory inv;
+	private CosmeticGroup group;
 	public ArrayList<ItemStack> items = new ArrayList<>();
 	private ItemStack next;
 	private ItemStack back;
+	private ItemStack remove;
 	private int side = 0;
 	private int items_per_side = 18;
 
 	@SuppressWarnings("unchecked")
-	public CosmeticInventory(ArrayList<? super CosmeticItem> items) {
+	public CosmeticInventory(ArrayList<? super CosmeticItem> items, CosmeticGroup group) {
+		this.group = group;
 		this.cosmeticItems = (ArrayList<CosmeticItem>) items;
 		inv = Bukkit.createInventory(null, 27, "Cosmetics");
 		Bukkit.getPluginManager().registerEvents(this, Main.plugin);
@@ -35,20 +38,28 @@ public class CosmeticInventory implements Listener {
 
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
-		if (e.getInventory().equals(inv)) {
-			e.setCancelled(true);
-			if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
 
-				for (CosmeticItem item : cosmeticItems) {
-					if (item.getItem().equals(e.getCurrentItem())) {
-						item.use(Biomia.getBiomiaPlayer((Player) e.getWhoClicked()));
+		if (e.getWhoClicked() instanceof Player) {
+			Player p = (Player) e.getWhoClicked();
+
+			if (e.getInventory().equals(inv)) {
+				e.setCancelled(true);
+				if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
+
+					for (CosmeticItem item : cosmeticItems) {
+						if (item.getItem().getItemMeta().getDisplayName().equals(e.getCurrentItem().getItemMeta().getDisplayName())) {
+							item.use(Biomia.getBiomiaPlayer((Player) e.getWhoClicked()));
+							p.closeInventory();
+						}
 					}
-				}
 
-				if (e.getCurrentItem().equals(back)) {
-					displaySide(side - 1);
-				} else if (e.getCurrentItem().equals(next)) {
-					displaySide(side + 1);
+					if (e.getCurrentItem().equals(back)) {
+						displaySide(side - 1);
+					} else if (e.getCurrentItem().equals(next)) {
+						displaySide(side + 1);
+					} else if (e.getCurrentItem().equals(remove)) {
+						group.remove(Biomia.getBiomiaPlayer(p));
+					}
 				}
 			}
 		}
@@ -75,9 +86,9 @@ public class CosmeticInventory implements Listener {
 	}
 
 	private void setRemove() {
-		if (next == null)
-			next = ItemCreator.itemCreate(Material.BARRIER, "§cEntfernen");
-		inv.setItem(inv.getSize() - 5, next);
+		if (remove == null)
+			remove = ItemCreator.itemCreate(Material.BARRIER, "§cEntfernen");
+		inv.setItem(inv.getSize() - 5, remove);
 	}
 
 	private void setNext() {
