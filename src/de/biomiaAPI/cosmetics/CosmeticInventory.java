@@ -21,7 +21,7 @@ public class CosmeticInventory implements Listener {
 	private ArrayList<CosmeticItem> cosmeticItems = new ArrayList<>();
 	private Inventory inv;
 	private CosmeticGroup group;
-	public ArrayList<ItemStack> items = new ArrayList<>();
+	private ArrayList<ItemStack> items = new ArrayList<>();
 	private ItemStack next;
 	private ItemStack back;
 	private ItemStack remove;
@@ -104,12 +104,19 @@ public class CosmeticInventory implements Listener {
 	}
 
 	public void openInventorry(Player p, Group group) {
-
 		items.clear();
 		for (CosmeticItem cosmeticitem : cosmeticItems)
 			if (cosmeticitem.getGroup() == group)
 				items.add(cosmeticitem.getItem());
 		displaySide(0);
 		p.openInventory(inv);
+	}
+	
+	public void removeItem(int id) {
+		for (CosmeticItem cosmeticitem : cosmeticItems) {
+			if(cosmeticitem.getID() == id) {
+				cosmeticItems.remove(cosmeticitem);
+			}
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package de.biomiaAPI.cosmetics;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -31,7 +32,11 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 
 	@Override
 	public void use(BiomiaPlayer bp) {
-		bp.getPlayer().getInventory().setItem(Cosmetic.gadgetSlot, gadgetItem);
+		ItemStack is = gadgetItem.clone();
+		int limit = Cosmetic.getLimit(bp, getID());
+		if (limit != -1 && is.getType() != Material.FISHING_ROD)
+			is.setAmount(Cosmetic.getLimit(bp, getID()));
+		bp.getPlayer().getInventory().setItem(Cosmetic.gadgetSlot, is);
 	}
 
 	@Override
@@ -60,8 +65,10 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 			Cosmetic.setLimit(bp, getID(), limit);
 			if (removeItem)
 				removeItemFromInventory(bp);
-		} else if (limit == 0)
+		} else if (limit == 0) {
+			Cosmetic.setLimit(bp, getID(), 0);
 			remove(bp);
+		}
 	}
 
 	public void removeItemFromInventory(BiomiaPlayer bp) {

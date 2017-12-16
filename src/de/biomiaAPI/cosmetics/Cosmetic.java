@@ -115,7 +115,18 @@ public class Cosmetic {
 	}
 
 	public static void setLimit(BiomiaPlayer bp, int id, int limit) {
+
+		if (limit == 0) {
+			limitedItems.get(bp).remove(id);
+			MySQL.executeUpdate(
+					"DELETE From `Cosmetics` WHERE `BiomiaPlayer`= " + bp.getBiomiaPlayerID() + " AND ID = " + id);
+
+			inventorys.get(bp).removeItem(id);
+		}
+
 		limitedItems.get(bp).put(id, limit);
+		MySQL.executeUpdate("UPDATE `Cosmetics` SET `Time`= " + limit + " WHERE `BiomiaPlayer`= "
+				+ bp.getBiomiaPlayerID() + " AND ID = " + id);
 	}
 
 	public static <T extends CosmeticItem> void addItemToDatabase(T item) {
