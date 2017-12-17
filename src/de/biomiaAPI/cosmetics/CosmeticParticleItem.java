@@ -36,15 +36,24 @@ public class CosmeticParticleItem extends CosmeticItem {
 		super(id, name, is, c, Group.PARTICLES);
 	}
 
-	public void removeOne(BiomiaPlayer bp, boolean removeItem) {
-		int limit = Cosmetic.getLimit(bp, getID()) - 1;
-		if (limit != -1) {
-			Cosmetic.setLimit(bp, getID(), limit);
-			if (removeItem)
-				new TakeItemEvent(getItem().getType(), getItem().getItemMeta().getDisplayName(), 1)
-						.executeEvent(bp.getQuestPlayer());
-		} else if (limit == 0) {
+	public boolean removeTime(BiomiaPlayer bp, int time) {
+		int limit = Cosmetic.getLimit(bp, getID());
+
+		if (limit == -1) {
+			// 'Infinity'
+		} else if (limit - time <= 0) {
+			Cosmetic.setLimit(bp, getID(), 0);
 			remove(bp);
+			return false;
+		} else {
+			Cosmetic.setLimit(bp, getID(), limit - time);
+			removeItemFromInventory(bp, time);
 		}
+		return true;
+	}
+
+	public void removeItemFromInventory(BiomiaPlayer bp, int menge) {
+		new TakeItemEvent(getItem().getType(), getItem().getItemMeta().getDisplayName(), 1)
+				.executeEvent(bp.getQuestPlayer());
 	}
 }

@@ -21,12 +21,15 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
-		if (e.hasItem() && e.getItem().equals(gadgetItem))
+
+		if (e.hasItem() && e.getItem().getItemMeta().getDisplayName().equals(gadgetItem.getItemMeta().getDisplayName())
+				&& e.getItem().getType().equals(gadgetItem.getType()))
 			if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)
 				try {
 					gadgetListener.execute(Biomia.getBiomiaPlayer(e.getPlayer()), this);
 				} catch (Exception ex) {
 					e.getPlayer().sendMessage("§cListener not found!");
+					ex.printStackTrace();
 				}
 	}
 
@@ -60,14 +63,18 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 	}
 
 	public void removeOne(BiomiaPlayer bp, boolean removeItem) {
-		int limit = Cosmetic.getLimit(bp, getID()) - 1;
-		if (limit != -1) {
-			Cosmetic.setLimit(bp, getID(), limit);
-			if (removeItem)
-				removeItemFromInventory(bp);
+		int limit = Cosmetic.getLimit(bp, getID());
+
+		if (limit == -1) {
+			// 'Infinity'
 		} else if (limit == 0) {
 			Cosmetic.setLimit(bp, getID(), 0);
 			remove(bp);
+		} else {
+			Cosmetic.setLimit(bp, getID(), --limit);
+			if (removeItem)
+				removeItemFromInventory(bp);
+			
 		}
 	}
 

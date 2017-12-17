@@ -38,8 +38,11 @@ public class CosmeticPetItem extends CosmeticItem {
 
 	@Override
 	public void remove(BiomiaPlayer bp) {
-		if (pets.containsKey(bp))
-			pets.get(bp).remove();
+		if (pets.containsKey(bp)) {
+			Entity e = pets.get(bp);
+			e.remove();
+			pets.remove(bp);
+		}
 	}
 
 	@Override
@@ -90,7 +93,7 @@ public class CosmeticPetItem extends CosmeticItem {
 			break;
 		}
 
-		if (!location.getWorld().equals(creature.getWorld()) || location.distanceSquared(creature.getLocation()) > 80 ) {
+		if (!location.getWorld().equals(creature.getWorld()) || location.distanceSquared(creature.getLocation()) > 80) {
 			if (!player.isOnGround()) {
 				return;
 			}

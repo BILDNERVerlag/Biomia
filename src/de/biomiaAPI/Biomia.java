@@ -42,7 +42,7 @@ public class Biomia {
 			}
 		}.runTaskLater(Main.plugin, sekunden * 20);
 	}
-	
+
 	private static void removeBiomiaPlayer(Player p) {
 		getBiomiaPlayer(p);
 		bp.remove(p);
@@ -98,7 +98,7 @@ public class Biomia {
 
 	public static TeamManager TeamManager() {
 		return new TeamManager() {
-			
+
 			@Override
 			public void initTeams(int playerPerTeam, int teams) {
 
@@ -129,7 +129,7 @@ public class Biomia {
 					break;
 				}
 			}
-			
+
 			@Override
 			public String translate(String farbe) {
 				switch (farbe.toUpperCase()) {
@@ -208,7 +208,7 @@ public class Biomia {
 						}
 						return false;
 					}
-					
+
 					@Override
 					public ArrayList<Player> getPlayers() {
 
@@ -378,9 +378,9 @@ public class Biomia {
 				Quest q = new Quest() {
 
 					String questName = questName0;
-					
+
 					String displayName = questName;
-					
+
 					String infoText = null;
 
 					int questid = -1;
@@ -512,13 +512,13 @@ public class Biomia {
 
 						temp.addTrait(CitizensAPI.getTraitFactory().getTraitClass("lookclose"));
 						temp.getTrait(LookClose.class).lookClose(true);
-						
+
 						temp.data().set("PLAYER_SKIN_UUID_METADATA", skinUUID.toString());
 
 						npcs.add(temp);
 						return temp;
 					}
-					
+
 					@Override
 					public NPC createNPC(EntityType entity, String name) {
 						NPC temp = CitizensAPI.getNPCRegistry().createNPC(entity, name);

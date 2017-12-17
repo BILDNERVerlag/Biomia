@@ -17,7 +17,6 @@ import de.biomiaAPI.tools.ItemBase64;
 
 public class CosmeticGroup {
 
-	private CosmeticInventory inv = null;
 	private Group group;
 	private ArrayList<? super CosmeticItem> items = new ArrayList<>();
 	private ItemStack icon;
@@ -72,27 +71,20 @@ public class CosmeticGroup {
 					String chestplate = rs.getString("Chestplate");
 					String leggins = rs.getString("Leggins");
 					String boots = rs.getString("Boots");
-
-					if (boots != null) {
+					if (boots != null)
 						suit.setHelmet(ItemBase64.fromBase64(helmet));
-					}
-					if (chestplate != null) {
+					if (chestplate != null)
 						suit.setChestplate(ItemBase64.fromBase64(chestplate));
-					}
-					if (leggins != null) {
+					if (leggins != null)
 						suit.setLeggins(ItemBase64.fromBase64(leggins));
-					}
-					if (boots != null) {
+					if (boots != null)
 						suit.setBoots(ItemBase64.fromBase64(boots));
-					}
 					addItem(suit);
 					break;
 				default:
 					break;
 				}
-
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -103,14 +95,11 @@ public class CosmeticGroup {
 		return group;
 	}
 
-	public CosmeticInventory getInventory() {
-		if (inv == null) {
-			inv = new CosmeticInventory(items, this);
-		}
-		return inv;
-	}
-
 	public ItemStack getIcon() {
 		return icon;
+	}
+
+	public ArrayList<? super CosmeticItem> getItems() {
+		return items;
 	}
 }

@@ -1,6 +1,9 @@
 package de.biomiaAPI.cosmetics.GadgetItems;
 
+import org.bukkit.Bukkit;
+
 import de.biomiaAPI.cosmetics.Cosmetic;
+import de.biomiaAPI.main.Main;
 
 public class GadgetIniter {
 
@@ -15,7 +18,9 @@ public class GadgetIniter {
 		Cosmetic.addGagetListener(70, new Invisible());
 		Cosmetic.addGagetListener(71, new Levitator());
 		Cosmetic.addGagetListener(72, new Suizid());
-		Cosmetic.addGagetListener(73, new Switcher());
+		Switcher s = new Switcher();
+		Bukkit.getPluginManager().registerEvents(s, Main.plugin);
+		Cosmetic.addGagetListener(73, s);
 		Cosmetic.addGagetListener(74, new TNTCanon());
 		Cosmetic.addGagetListener(75, new Witch());
 	}

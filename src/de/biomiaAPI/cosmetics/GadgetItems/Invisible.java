@@ -25,17 +25,18 @@ public class Invisible implements GadgetListener, Listener {
 	public void execute(BiomiaPlayer bp, CosmeticGadgetItem item) {
 		Location l = bp.getPlayer().getLocation();
 
-		for (int i = 0; i < 20; i++) {
-			for (int degree = 0; degree < 360; degree += 4) {
+		for (int i = 0; i < 360; i += 6) {
+			for (int degree = 0; degree < 360; degree += 6) {
 
+				int a = i - 180;
 				double radians = Math.toRadians(degree);
-				double x = Math.cos(radians);
-				double z = Math.sin(radians);
+				double x = Math.cos(radians) / 360 * a;
+				double z = Math.sin(radians) / 360 * a;
 
-				Location loc = l.clone().add(x, 0, z);
-				new Particles(EnumParticle.SMOKE_NORMAL, loc, false, 0f, 0f, 0f, 1f, 1);
+				Location loc = l.clone().add(x, i / 180, z);
+				new Particles(EnumParticle.SMOKE_NORMAL, loc, false, 0f, 0f, 0f, 1f, 1).sendAll();
 			}
-			l.add(0, i * 0.1, 0);
+			l.add(0, i / 180 * (1/30), 0);
 		}
 
 		for (Player p : Bukkit.getOnlinePlayers())

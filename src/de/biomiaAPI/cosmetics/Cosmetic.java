@@ -11,19 +11,25 @@ import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 
 import de.biomiaAPI.BiomiaPlayer;
+import de.biomiaAPI.cosmetics.CosmeticItem.Commonness;
 import de.biomiaAPI.mysql.MySQL;
 import de.biomiaAPI.tools.ItemBase64;
 
 public class Cosmetic {
 
-	private static HashMap<Group, ? super CosmeticGroup> groups = new HashMap<>();
+	private static HashMap<Group, CosmeticGroup> groups = new HashMap<>();
 	private static HashMap<Integer, ? super CosmeticItem> items = new HashMap<>();
 	private static HashMap<BiomiaPlayer, CosmeticInventory> inventorys = new HashMap<>();
 	private static HashMap<BiomiaPlayer, HashMap<Integer, Integer>> limitedItems = new HashMap<>();
 	private static HashMap<Integer, GadgetListener> gadgetListener = new HashMap<>();
 	private static HashMap<Integer, ParticleListener> particleListener = new HashMap<>();
+	private static HashMap<Commonness, ArrayList<CosmeticItem>> commonnessItems = new HashMap<>();
 	private static Inventory inv;
 	public static int gadgetSlot = 4;
+
+	public static HashMap<Integer, ? super CosmeticItem> getItems() {
+		return items;
+	}
 
 	public static Inventory getMainInventory() {
 		if (inv == null)
@@ -34,8 +40,10 @@ public class Cosmetic {
 	public static void initMainInventory() {
 		inv = Bukkit.createInventory(null, 9, "§5Cosmetics");
 
-		for (Group g : groups.keySet()) {
-			inv.addItem(((CosmeticGroup) groups.get(g)).getIcon());
+		int i = 0;
+		for (Group g : Group.values()) {
+			inv.setItem(i, groups.get(g).getIcon());
+			i += 2;
 		}
 	}
 
@@ -47,8 +55,8 @@ public class Cosmetic {
 
 	public static boolean openGroupInventory(BiomiaPlayer bp, String itemName) {
 		for (Group g : groups.keySet()) {
-			if (((CosmeticGroup) groups.get(g)).getIcon().getItemMeta().getDisplayName().equals(itemName)) {
-				((CosmeticGroup) groups.get(g)).getInventory().openInventorry(bp.getPlayer(), g);
+			if (groups.get(g).getIcon().getItemMeta().getDisplayName().equals(itemName)) {
+				openGroupInventory(bp, g);
 				return true;
 			}
 		}
@@ -56,14 +64,23 @@ public class Cosmetic {
 	}
 
 	public static void openGroupInventory(BiomiaPlayer bp, Group group) {
-		((CosmeticGroup) groups.get(group)).getInventory().openInventorry(bp.getPlayer(), group);
+		CosmeticInventory inv = getInventory(bp, group);
+		if (inv == null) {
+			ArrayList<? super CosmeticItem> groupItems = new ArrayList<>();
+			for (int id : limitedItems.get(bp).keySet()) {
+				groupItems.add((CosmeticItem) items.get(id));
+			}
+			inv = new CosmeticInventory(groupItems, groups.get(group), bp);
+			inventorys.put(bp, inv);
+		}
+		inv.openInventory(group);
 	}
 
-	public static CosmeticInventory getInventory(BiomiaPlayer bp) {
+	public static CosmeticInventory getInventory(BiomiaPlayer bp, Group group) {
 		return inventorys.get(bp);
 	}
 
-	public static <T extends CosmeticGroup> void initGroup(T group) {
+	public static void initGroup(CosmeticGroup group) {
 		groups.put(group.getGroup(), group);
 	}
 
@@ -72,13 +89,22 @@ public class Cosmetic {
 	}
 
 	public enum Group {
-		HEADS, PARTICLES, PETS, GADGETS, SUITS;
+		HEADS, SUITS, GADGETS, PETS, PARTICLES;
 	}
 
 	public static void load(BiomiaPlayer bp) {
 
 		ArrayList<? super CosmeticItem> cosmeticItems = new ArrayList<>();
 		HashMap<Integer, Integer> hm = new HashMap<>();
+
+		if (bp.getPlayer().hasPermission("biomia.cosmetics.*")) {
+			for (int id : items.keySet()) {
+				hm.put(id, -1);
+				cosmeticItems.add((CosmeticItem) items.get(id));
+			}
+			limitedItems.put(bp, hm);
+			return;
+		}
 
 		Connection con = MySQL.Connect();
 
@@ -90,24 +116,26 @@ public class Cosmetic {
 			while (rs.next()) {
 				int time = rs.getInt("Time");
 				int id = rs.getInt("ID");
-				if (time != 0) {
-					hm.put(id, time);
-				}
+				hm.put(id, time);
+
 				cosmeticItems.add((CosmeticItem) items.get(id));
 			}
 			limitedItems.put(bp, hm);
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static boolean isLimited(BiomiaPlayer bp, int itemID) {
+		return limitedItems.get(bp).get(itemID) != -1;
+	}
+
+	public static boolean hasItem(BiomiaPlayer bp, int itemID) {
 		return limitedItems.get(bp).containsKey(itemID);
 	}
 
 	public static int getLimit(BiomiaPlayer bp, int id) {
-		if (isLimited(bp, id)) {
+		if (hasItem(bp, id)) {
 			return limitedItems.get(bp).get(id);
 		} else {
 			return -1;
@@ -115,18 +143,22 @@ public class Cosmetic {
 	}
 
 	public static void setLimit(BiomiaPlayer bp, int id, int limit) {
-
 		if (limit == 0) {
 			limitedItems.get(bp).remove(id);
 			MySQL.executeUpdate(
 					"DELETE From `Cosmetics` WHERE `BiomiaPlayer`= " + bp.getBiomiaPlayerID() + " AND ID = " + id);
-
 			inventorys.get(bp).removeItem(id);
+			return;
 		}
-
-		limitedItems.get(bp).put(id, limit);
-		MySQL.executeUpdate("UPDATE `Cosmetics` SET `Time`= " + limit + " WHERE `BiomiaPlayer`= "
-				+ bp.getBiomiaPlayerID() + " AND ID = " + id);
+		if (limitedItems.get(bp).get(id) == 0 && limit != 0) {
+			limitedItems.get(bp).put(id, limit);
+			MySQL.executeUpdate("INSERT INTO `Cosmetics` (`BiomiaPlayer`, `ID`, `Time`) VALUES ("
+					+ bp.getBiomiaPlayerID() + ", " + id + ", " + limit + ")");
+		} else {
+			limitedItems.get(bp).put(id, limit);
+			MySQL.executeUpdate("UPDATE `Cosmetics` SET `Time`= " + limit + " WHERE `BiomiaPlayer`= "
+					+ bp.getBiomiaPlayerID() + " AND ID = " + id);
+		}
 	}
 
 	public static <T extends CosmeticItem> void addItemToDatabase(T item) {
@@ -248,4 +280,17 @@ public class Cosmetic {
 		return particleListener.get(id);
 	}
 
+	public static ArrayList<CosmeticItem> getItemsOfCommonnes(Commonness commonness) {
+		ArrayList<CosmeticItem> items = commonnessItems.get(commonness);
+		if (items == null) {
+			items = new ArrayList<>();
+			for (int itemID : Cosmetic.items.keySet()) {
+				CosmeticItem cItem = (CosmeticItem) Cosmetic.items.get(itemID);
+				if (cItem.getCommonness() == commonness)
+					items.add(cItem);
+			}
+			commonnessItems.put(commonness, items);
+		}
+		return items;
+	}
 }

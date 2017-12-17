@@ -25,7 +25,7 @@ public class CosmeticItem {
 	}
 
 	public static enum Commonness {
-		VERY_COMMON, COMMON, RAW, VERY_RAW;
+		VERY_COMMON, COMMON, RARE, VERY_RARE;
 
 		public String deutsch() {
 			switch (this) {
@@ -33,9 +33,9 @@ public class CosmeticItem {
 				return "Sehr Häufig";
 			case COMMON:
 				return "Häufig";
-			case RAW:
+			case RARE:
 				return "Selten";
-			case VERY_RAW:
+			case VERY_RARE:
 				return "Sehr Selten";
 			}
 			return null;

@@ -126,11 +126,11 @@ public class Main extends JavaPlugin {
 
 	public static void init() {
 		
-		Cosmetic.initGroup(new CosmeticGroup(Group.HEADS, ItemCreator.itemCreate(Material.SKULL_ITEM, "Heads")));
-		Cosmetic.initGroup(new CosmeticGroup(Group.PETS, ItemCreator.itemCreate(Material.MONSTER_EGG, "Pets")));
-		Cosmetic.initGroup(new CosmeticGroup(Group.GADGETS, ItemCreator.itemCreate(Material.STICK, "Gadgets")));
-		Cosmetic.initGroup(new CosmeticGroup(Group.PARTICLES, ItemCreator.itemCreate(Material.COOKIE, "Particles")));
-		Cosmetic.initGroup(new CosmeticGroup(Group.SUITS, ItemCreator.itemCreate(Material.LEATHER_CHESTPLATE, "Suits")));
+		Cosmetic.initGroup(new CosmeticGroup(Group.HEADS, ItemCreator.itemCreate(Material.SKULL_ITEM, "§cHeads")));
+		Cosmetic.initGroup(new CosmeticGroup(Group.PETS, ItemCreator.itemCreate(Material.MONSTER_EGG, "§bPets")));
+		Cosmetic.initGroup(new CosmeticGroup(Group.GADGETS, ItemCreator.itemCreate(Material.STICK, "§dGadgets")));
+		Cosmetic.initGroup(new CosmeticGroup(Group.PARTICLES, ItemCreator.itemCreate(Material.COOKIE, "§3Particles")));
+		Cosmetic.initGroup(new CosmeticGroup(Group.SUITS, ItemCreator.itemCreate(Material.LEATHER_CHESTPLATE, "§5Suits")));
 
 		group.add("Owner");
 		group.add("Admin");

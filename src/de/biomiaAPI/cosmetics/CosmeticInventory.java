@@ -12,12 +12,14 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import de.biomiaAPI.Biomia;
+import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.Cosmetic.Group;
 import de.biomiaAPI.itemcreator.ItemCreator;
 import de.biomiaAPI.main.Main;
 
 public class CosmeticInventory implements Listener {
 
+	private BiomiaPlayer bp;
 	private ArrayList<CosmeticItem> cosmeticItems = new ArrayList<>();
 	private Inventory inv;
 	private CosmeticGroup group;
@@ -25,12 +27,14 @@ public class CosmeticInventory implements Listener {
 	private ItemStack next;
 	private ItemStack back;
 	private ItemStack remove;
+	private ItemStack home;
 	private int side = 0;
 	private int items_per_side = 18;
 
 	@SuppressWarnings("unchecked")
-	public CosmeticInventory(ArrayList<? super CosmeticItem> items, CosmeticGroup group) {
+	public CosmeticInventory(ArrayList<? super CosmeticItem> items, CosmeticGroup group, BiomiaPlayer bp) {
 		this.group = group;
+		this.bp = bp;
 		this.cosmeticItems = (ArrayList<CosmeticItem>) items;
 		inv = Bukkit.createInventory(null, 27, "Cosmetics");
 		Bukkit.getPluginManager().registerEvents(this, Main.plugin);
@@ -47,18 +51,20 @@ public class CosmeticInventory implements Listener {
 				if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
 
 					for (CosmeticItem item : cosmeticItems) {
-						if (item.getItem().getItemMeta().getDisplayName().equals(e.getCurrentItem().getItemMeta().getDisplayName())) {
+						if (item.getItem().getItemMeta().getDisplayName()
+								.equals(e.getCurrentItem().getItemMeta().getDisplayName())) {
 							item.use(Biomia.getBiomiaPlayer((Player) e.getWhoClicked()));
 							p.closeInventory();
 						}
 					}
-
 					if (e.getCurrentItem().equals(back)) {
 						displaySide(side - 1);
 					} else if (e.getCurrentItem().equals(next)) {
 						displaySide(side + 1);
 					} else if (e.getCurrentItem().equals(remove)) {
-						group.remove(Biomia.getBiomiaPlayer(p));
+						group.remove(bp);
+					} else if (e.getCurrentItem().equals(home)) {
+						Cosmetic.openMainInventory(bp);
 					}
 				}
 			}
@@ -70,7 +76,7 @@ public class CosmeticInventory implements Listener {
 		side = i;
 
 		setRemove();
-
+		setHome();
 		if (items.size() - side - 1 * items_per_side > side * items_per_side)
 			setNext();
 		if (side > 0)
@@ -82,7 +88,6 @@ public class CosmeticInventory implements Listener {
 			inv.setItem(actualItem, is);
 			actualItem++;
 		}
-
 	}
 
 	private void setRemove() {
@@ -94,29 +99,50 @@ public class CosmeticInventory implements Listener {
 	private void setNext() {
 		if (next == null)
 			next = ItemCreator.itemCreate(Material.BLAZE_ROD, "§aNächste Seite");
-		inv.setItem(inv.getSize() - 2, next);
+		inv.setItem(inv.getSize() - 3, next);
 	}
 
 	private void setBack() {
 		if (back == null)
 			back = ItemCreator.itemCreate(Material.STICK, "§aLetzte Seite");
-		inv.setItem(inv.getSize() - 8, back);
+		inv.setItem(inv.getSize() - 7, back);
 	}
 
-	public void openInventorry(Player p, Group group) {
+	private void setHome() {
+		if (home == null)
+			home = ItemCreator.itemCreate(Material.GOLDEN_CARROT, "§aZurück");
+		inv.setItem(inv.getSize() - 9, home);
+	}
+
+	public void openInventory(Group group) {
 		items.clear();
 		for (CosmeticItem cosmeticitem : cosmeticItems)
-			if (cosmeticitem.getGroup() == group)
-				items.add(cosmeticitem.getItem());
+			if (cosmeticitem.getGroup() == group) {
+				int limit = Cosmetic.getLimit(bp, cosmeticitem.getID());
+				if (limit != -1) {
+					ItemStack is = cosmeticitem.getItem().clone();
+					is.setAmount(limit);
+					items.add(is);
+				} else {
+					items.add(cosmeticitem.getItem());
+				}
+			}
+
 		displaySide(0);
-		p.openInventory(inv);
+		bp.getPlayer().openInventory(inv);
 	}
-	
+
 	public void removeItem(int id) {
+
+		CosmeticItem item = null;
+
 		for (CosmeticItem cosmeticitem : cosmeticItems) {
-			if(cosmeticitem.getID() == id) {
-				cosmeticItems.remove(cosmeticitem);
+			if (cosmeticitem.getID() == id) {
+				item = cosmeticitem;
+				break;
 			}
 		}
+		if (item != null)
+			cosmeticItems.remove(item);
 	}
 }
