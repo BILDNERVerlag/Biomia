@@ -15,6 +15,7 @@ public class Switcher implements GadgetListener, Listener {
 
 	@Override
 	public void execute(BiomiaPlayer bp, CosmeticGadgetItem item) {
+		item.removeOne(bp, false);
 		// Nothing
 	}
 
@@ -26,7 +27,6 @@ public class Switcher implements GadgetListener, Listener {
 
 			if (p.getInventory().getItemInMainHand().getType() == Material.FISHING_ROD) {
 				e.getEntity().setCustomName("Switcher");
-
 			}
 		}
 	}

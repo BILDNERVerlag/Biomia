@@ -27,6 +27,10 @@ public class Cosmetic {
 	private static Inventory inv;
 	public static int gadgetSlot = 4;
 
+	public static HashMap<Group, CosmeticGroup> getGroups() {
+		return groups;
+	}
+
 	public static HashMap<Integer, ? super CosmeticItem> getItems() {
 		return items;
 	}
@@ -56,27 +60,27 @@ public class Cosmetic {
 	public static boolean openGroupInventory(BiomiaPlayer bp, String itemName) {
 		for (Group g : groups.keySet()) {
 			if (groups.get(g).getIcon().getItemMeta().getDisplayName().equals(itemName)) {
-				openGroupInventory(bp, g);
+				openGroupInventory(bp, groups.get(g));
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public static void openGroupInventory(BiomiaPlayer bp, Group group) {
-		CosmeticInventory inv = getInventory(bp, group);
+	public static void openGroupInventory(BiomiaPlayer bp, CosmeticGroup group) {
+		CosmeticInventory inv = getInventory(bp);
 		if (inv == null) {
 			ArrayList<? super CosmeticItem> groupItems = new ArrayList<>();
 			for (int id : limitedItems.get(bp).keySet()) {
 				groupItems.add((CosmeticItem) items.get(id));
 			}
-			inv = new CosmeticInventory(groupItems, groups.get(group), bp);
+			inv = new CosmeticInventory(groupItems, bp);
 			inventorys.put(bp, inv);
 		}
 		inv.openInventory(group);
 	}
 
-	public static CosmeticInventory getInventory(BiomiaPlayer bp, Group group) {
+	public static CosmeticInventory getInventory(BiomiaPlayer bp) {
 		return inventorys.get(bp);
 	}
 
@@ -135,11 +139,9 @@ public class Cosmetic {
 	}
 
 	public static int getLimit(BiomiaPlayer bp, int id) {
-		if (hasItem(bp, id)) {
+		if (hasItem(bp, id))
 			return limitedItems.get(bp).get(id);
-		} else {
-			return -1;
-		}
+		return 0;
 	}
 
 	public static void setLimit(BiomiaPlayer bp, int id, int limit) {
@@ -148,12 +150,11 @@ public class Cosmetic {
 			MySQL.executeUpdate(
 					"DELETE From `Cosmetics` WHERE `BiomiaPlayer`= " + bp.getBiomiaPlayerID() + " AND ID = " + id);
 			inventorys.get(bp).removeItem(id);
-			return;
-		}
-		if (limitedItems.get(bp).get(id) == 0 && limit != 0) {
+		} else if (!hasItem(bp, id)) {
 			limitedItems.get(bp).put(id, limit);
 			MySQL.executeUpdate("INSERT INTO `Cosmetics` (`BiomiaPlayer`, `ID`, `Time`) VALUES ("
 					+ bp.getBiomiaPlayerID() + ", " + id + ", " + limit + ")");
+			inventorys.get(bp).addItem(id);
 		} else {
 			limitedItems.get(bp).put(id, limit);
 			MySQL.executeUpdate("UPDATE `Cosmetics` SET `Time`= " + limit + " WHERE `BiomiaPlayer`= "

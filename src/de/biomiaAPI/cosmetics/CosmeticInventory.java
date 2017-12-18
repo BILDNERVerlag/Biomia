@@ -13,7 +13,6 @@ import org.bukkit.inventory.ItemStack;
 
 import de.biomiaAPI.Biomia;
 import de.biomiaAPI.BiomiaPlayer;
-import de.biomiaAPI.cosmetics.Cosmetic.Group;
 import de.biomiaAPI.itemcreator.ItemCreator;
 import de.biomiaAPI.main.Main;
 
@@ -32,11 +31,10 @@ public class CosmeticInventory implements Listener {
 	private int items_per_side = 18;
 
 	@SuppressWarnings("unchecked")
-	public CosmeticInventory(ArrayList<? super CosmeticItem> items, CosmeticGroup group, BiomiaPlayer bp) {
-		this.group = group;
+	public CosmeticInventory(ArrayList<? super CosmeticItem> items, BiomiaPlayer bp) {
 		this.bp = bp;
 		this.cosmeticItems = (ArrayList<CosmeticItem>) items;
-		inv = Bukkit.createInventory(null, 27, "Cosmetics");
+		inv = Bukkit.createInventory(null, 27, "§5Cosmetics");
 		Bukkit.getPluginManager().registerEvents(this, Main.plugin);
 	}
 
@@ -114,35 +112,29 @@ public class CosmeticInventory implements Listener {
 		inv.setItem(inv.getSize() - 9, home);
 	}
 
-	public void openInventory(Group group) {
+	public void openInventory(CosmeticGroup group) {
+
+		this.group = group;
 		items.clear();
 		for (CosmeticItem cosmeticitem : cosmeticItems)
-			if (cosmeticitem.getGroup() == group) {
+			if (cosmeticitem.getGroup() == group.getGroup()) {
 				int limit = Cosmetic.getLimit(bp, cosmeticitem.getID());
 				if (limit != -1) {
 					ItemStack is = cosmeticitem.getItem().clone();
 					is.setAmount(limit);
 					items.add(is);
-				} else {
+				} else
 					items.add(cosmeticitem.getItem());
-				}
 			}
-
 		displaySide(0);
 		bp.getPlayer().openInventory(inv);
 	}
 
 	public void removeItem(int id) {
+		cosmeticItems.remove(Cosmetic.getItems().get(id));
+	}
 
-		CosmeticItem item = null;
-
-		for (CosmeticItem cosmeticitem : cosmeticItems) {
-			if (cosmeticitem.getID() == id) {
-				item = cosmeticitem;
-				break;
-			}
-		}
-		if (item != null)
-			cosmeticItems.remove(item);
+	public void addItem(int id) {
+		cosmeticItems.add((CosmeticItem) Cosmetic.getItems().get(id));
 	}
 }

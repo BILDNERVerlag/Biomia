@@ -22,7 +22,8 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
 
-		if (e.hasItem() && e.getItem().getItemMeta().getDisplayName().equals(gadgetItem.getItemMeta().getDisplayName())
+		if (e.hasItem() && e.getItem().hasItemMeta()
+				&& e.getItem().getItemMeta().getDisplayName().equals(gadgetItem.getItemMeta().getDisplayName())
 				&& e.getItem().getType().equals(gadgetItem.getType()))
 			if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)
 				try {
@@ -74,7 +75,6 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 			Cosmetic.setLimit(bp, getID(), --limit);
 			if (removeItem)
 				removeItemFromInventory(bp);
-			
 		}
 	}
 
