@@ -124,7 +124,7 @@ public class Biomia {
 					registerNewTeam(Teams.WHITE.name(), playerPerTeam);
 					break;
 				default:
-					Bukkit.broadcastMessage("Es sind nur 2, 4 oder 8 Teams verfügbar!");
+					Bukkit.broadcastMessage("Es sind nur 2, 4 oder 8 Teams verfï¿½gbar!");
 					stopWithDelay(10);
 					break;
 				}
@@ -143,7 +143,7 @@ public class Biomia {
 					farbe = "Orange";
 					break;
 				case "GREEN":
-					farbe = "Grün";
+					farbe = "Grï¿½n";
 					break;
 				case "PURPLE":
 					farbe = "Lila";
@@ -152,7 +152,7 @@ public class Biomia {
 					farbe = "Rot";
 					break;
 				case "WHITE":
-					farbe = "Weiß";
+					farbe = "Weiï¿½";
 					break;
 				case "YELLOW":
 					farbe = "Gelb";
@@ -232,39 +232,39 @@ public class Biomia {
 
 							switch (teamname) {
 							case "BLACK":
-								colorcode = "§0";
+								colorcode = "ï¿½0";
 								colordata = 15;
 								break;
 							case "BLUE":
-								colorcode = "§9";
+								colorcode = "ï¿½9";
 								colordata = 11;
 								break;
 							case "ORANGE":
-								colorcode = "§6";
+								colorcode = "ï¿½6";
 								colordata = 1;
 								break;
 							case "GREEN":
-								colorcode = "§2";
+								colorcode = "ï¿½2";
 								colordata = 13;
 								break;
 							case "PURPLE":
-								colorcode = "§d";
+								colorcode = "ï¿½d";
 								colordata = 10;
 								break;
 							case "RED":
-								colorcode = "§c";
+								colorcode = "ï¿½c";
 								colordata = 14;
 								break;
 							case "WHITE":
-								colorcode = "§f";
+								colorcode = "ï¿½f";
 								colordata = 0;
 								break;
 							case "YELLOW":
-								colorcode = "§e";
+								colorcode = "ï¿½e";
 								colordata = 4;
 								break;
 							default:
-								colorcode = "§f";
+								colorcode = "ï¿½f";
 								colordata = 0;
 								break;
 							}

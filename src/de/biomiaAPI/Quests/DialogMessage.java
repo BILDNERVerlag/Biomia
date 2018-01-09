@@ -45,14 +45,14 @@ public class DialogMessage {
 		}
 	}
 
-	public DialogMessage setFortsetzung(String anwortMöglichkeit) {
+	public DialogMessage setFortsetzung(String anwortMÃ¶glichkeit) {
 		for (int i = 0; i < fortsetzungen.length; i++) {
 			if (fortsetzungen[i] == null) {
-				fortsetzungen[i] = anwortMöglichkeit;
+				fortsetzungen[i] = anwortMÃ¶glichkeit;
 				break;
 			}
 			if (i == fortsetzungen.length) {
-				Bukkit.broadcastMessage("Maximal 5 Antwortmöglichkeiten!");
+				Bukkit.broadcastMessage("Maximal 5 Antwortmï¿½glichkeiten!");
 			}
 		}
 		return this;
@@ -86,13 +86,13 @@ public class DialogMessage {
 			qp.getPlayer().setWalkSpeed(0);
 
 		players.forEach(each -> {
-			each.getPlayer().sendMessage("§7" + npc.getName() + ": §6" + inhalt);
+			each.getPlayer().sendMessage("ï¿½7" + npc.getName() + ": ï¿½6" + inhalt);
 			executeEvent(each);
 		});
 		if (fortsetzungen[0] != null) {
 			for (int i = 0; i < fortsetzungen.length; i++) {
 				if (fortsetzungen[i] != null) {
-					TextComponent msg = new TextComponent("§5" + (i + 1) + ". §2" + fortsetzungen[i]);
+					TextComponent msg = new TextComponent("ï¿½5" + (i + 1) + ". ï¿½2" + fortsetzungen[i]);
 					if (qp.getDialog() != null && !qp.getDialog().isLast()) {
 						ClickEvent clickEvent = new ClickEvent(Action.RUN_COMMAND, "/q " + Main.QuestIds);
 						Main.questMessages.put(Main.QuestIds, qp.getDialog().getNext(i));

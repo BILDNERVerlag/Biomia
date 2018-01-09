@@ -15,22 +15,22 @@ public class Achievements implements Observer {
 	 * Observer-Observable-Pattern. Observer ist ein Interface, Observable eine
 	 * erbbare Klasse.
 	 * 
-	 * Diese Achievementsklasse stellt den "Observer" dar, jede Klasse, die für
-	 * Achievements interessante Daten enthält, sollte "Observable" extenden. Jedes
+	 * Diese Achievementsklasse stellt den "Observer" dar, jede Klasse, die fï¿½r
+	 * Achievements interessante Daten enthï¿½lt, sollte "Observable" extenden. Jedes
 	 * Mal wenn in der observable Klasse etwas interessantes passiert, ruft man dann
 	 * erst "setChanged()" auf, d.h. soviel wie
-	 * "eine interessante Änderung ist aufgetreten", danach
-	 * "notifyObservers(Object c)", das alle Observer des Observable dann darüber
+	 * "eine interessante ï¿½nderung ist aufgetreten", danach
+	 * "notifyObservers(Object c)", das alle Observer des Observable dann darï¿½ber
 	 * informiert (wenn davor nicht setChanged() aufgerufen wird, passiert nichts).
 	 * 
 	 * Jedes Mal, wenn ein Observable "notfiyObservers(Object c)" aufruft, wird im
 	 * Observer "update(Observable o, Object arg)" aufgerufen. "Observable o" ist
 	 * immer das Objekt, von dem die Notification kommt und "Object arg" ist das
 	 * Objekt, das der Observer mitschickt, um zu identifizieren, was gerade
-	 * passiert ist. Ich denke es ist sinnvoll, dafür verschiedene
+	 * passiert ist. Ich denke es ist sinnvoll, dafï¿½r verschiedene
 	 * "AchievementEvent"-Klassen anzulegen.
 	 * 
-	 * zB könnte man jedes Mal wenn ein Spieler Geld bekommt, das Achievementsystem
+	 * zB kï¿½nnte man jedes Mal wenn ein Spieler Geld bekommt, das Achievementsystem
 	 * informieren (notfifyObservers(GiveCoinAchievementEvent(50))), die Daten
 	 * speichern, und wenn irgendwann ein bestimmter Punkt erreicht ist, ein
 	 * Achievement unlocken.
@@ -38,7 +38,7 @@ public class Achievements implements Observer {
 	 */
 
 	private enum BiomiaAchievement {
-		LogDichFünfmalAufDemQuestServerEin
+		LogDichFÃ¼nfmalAufDemQuestServerEin
 	}
 
 	@Override
@@ -46,16 +46,16 @@ public class Achievements implements Observer {
 		// Beispielcode
 		switch (o.getClass().getName()) {
 		/*
-		 * Achievement für "Logge dich 5 mal auf dem QuestServer ein" (random Beispiel)
-		 * Alles, was sonst nötig ist, ist im PlayerJoinEvent von Quests setChanged()
-		 * und notifyObservers(e) hinzuzufügen
+		 * Achievement fï¿½r "Logge dich 5 mal auf dem QuestServer ein" (random Beispiel)
+		 * Alles, was sonst nï¿½tig ist, ist im PlayerJoinEvent von Quests setChanged()
+		 * und notifyObservers(e) hinzuzufï¿½gen
 		 */
 		case "QuestListener":
 			if (arg instanceof PlayerJoinEvent) {
 				// speichere in der datenbank, dass der spieler sich eingeloggt hat
 				// falls in der datenbank jetzt 5 oder mehr steht:
 				unlock(Biomia.getBiomiaPlayer(((PlayerJoinEvent) arg).getPlayer()),
-						BiomiaAchievement.LogDichFünfmalAufDemQuestServerEin);
+						BiomiaAchievement.LogDichFÃ¼nfmalAufDemQuestServerEin);
 			}
 			break;
 		default:
@@ -64,7 +64,7 @@ public class Achievements implements Observer {
 	}
 
 	private void unlock(BiomiaPlayer bp, BiomiaAchievement achievement) {
-		// speichere das achievement für den spieler in der datenbank
+		// speichere das achievement fï¿½r den spieler in der datenbank
 	}
 
 }
