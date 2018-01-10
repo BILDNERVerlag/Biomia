@@ -45,10 +45,10 @@ public class DialogMessage {
 		}
 	}
 
-	public DialogMessage setFortsetzung(String anwortMöglichkeit) {
+	public DialogMessage setFortsetzung(String anwortMoeglichkeit) {
 		for (int i = 0; i < fortsetzungen.length; i++) {
 			if (fortsetzungen[i] == null) {
-				fortsetzungen[i] = anwortMöglichkeit;
+				fortsetzungen[i] = anwortMoeglichkeit;
 				break;
 			}
 			if (i == fortsetzungen.length) {

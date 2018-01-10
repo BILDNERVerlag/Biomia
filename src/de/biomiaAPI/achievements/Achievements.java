@@ -38,7 +38,7 @@ public class Achievements implements Observer {
 	 */
 
 	private enum BiomiaAchievement {
-		LogDichFünfmalAufDemQuestServerEin
+		LogDichFuenfmalAufDemQuestServerEin
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class Achievements implements Observer {
 				// speichere in der datenbank, dass der spieler sich eingeloggt hat
 				// falls in der datenbank jetzt 5 oder mehr steht:
 				unlock(Biomia.getBiomiaPlayer(((PlayerJoinEvent) arg).getPlayer()),
-						BiomiaAchievement.LogDichFünfmalAufDemQuestServerEin);
+						BiomiaAchievement.LogDichFuenfmalAufDemQuestServerEin);
 			}
 			break;
 		default:
