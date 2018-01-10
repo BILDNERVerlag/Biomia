@@ -143,7 +143,7 @@ public class Biomia {
 					farbe = "Orange";
 					break;
 				case "GREEN":
-					farbe = "Gr�n";
+					farbe = "Grün";
 					break;
 				case "PURPLE":
 					farbe = "Lila";
@@ -152,7 +152,7 @@ public class Biomia {
 					farbe = "Rot";
 					break;
 				case "WHITE":
-					farbe = "Wei�";
+					farbe = "Weiß";
 					break;
 				case "YELLOW":
 					farbe = "Gelb";

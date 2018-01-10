@@ -16,11 +16,12 @@ public class FastDayCircle implements GadgetListener {
 	public void execute(BiomiaPlayer bp, CosmeticGadgetItem item) {
 
 		if (isRunning) {
-			bp.getPlayer().sendMessage("§cDer Tag-Beschleuniger läuft bereits!");
+			bp.getPlayer().sendMessage("ï¿½cDer Tag-Beschleuniger lï¿½uft bereits!");
 			return;
 		}
 		isRunning = true;
 		World w = bp.getPlayer().getWorld();
+		item.removeOne(bp, true);
 
 		new BukkitRunnable() {
 			@Override
@@ -30,7 +31,6 @@ public class FastDayCircle implements GadgetListener {
 				if (time == 6000) {
 					cancel();
 					isRunning = false;
-					item.removeOne(bp, true);
 					return;
 				} else if (time == 24000) {
 					time = 0;
