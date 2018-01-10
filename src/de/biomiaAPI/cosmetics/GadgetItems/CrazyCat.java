@@ -47,7 +47,7 @@ public class CrazyCat implements GadgetListener {
 					i++;
 				}
 			}
-		}.runTaskTimer(Main.plugin, 0, 10);
+		}.runTaskTimer(Main.plugin, 0, 2);
 		item.removeOne(bp, true);
 	}
 
@@ -55,22 +55,22 @@ public class CrazyCat implements GadgetListener {
 		Location location = creature.getLocation();
 		switch (new Random().nextInt(6)) {
 		case 0:
-			location.add(30, 0, 30);
+			location.add(30, 1, 30);
 			break;
 		case 1:
-			location.add(0, 0, 30);
+			location.add(0, 1, 30);
 			break;
 		case 2:
-			location.add(30, 0, 0);
+			location.add(30, 1, 0);
 			break;
 		case 3:
-			location.subtract(30, 0, 30);
+			location.subtract(30, 1, 30);
 			break;
 		case 4:
-			location.subtract(0, 0, 30);
+			location.subtract(0, 1, 30);
 			break;
 		case 5:
-			location.subtract(30, 0, 0);
+			location.subtract(30, 1, 0);
 			break;
 
 		}

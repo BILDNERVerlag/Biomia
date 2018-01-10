@@ -22,13 +22,14 @@ public class Switcher implements GadgetListener, Listener {
 	@EventHandler
 	public void onLaunch(ProjectileLaunchEvent e) {
 		if (e.getEntity() instanceof FishHook) {
+			if (((Player) e.getEntity().getShooter()).getInventory().getItemInMainHand().getItemMeta().getDisplayName()
+					.contains("Tauscher")) {
+				Player p = (Player) e.getEntity().getShooter();
 
-			Player p = (Player) e.getEntity().getShooter();
-
-			if (p.getInventory().getItemInMainHand().getType() == Material.FISHING_ROD) {
-				e.getEntity().setCustomName("Switcher");
+				if (p.getInventory().getItemInMainHand().getType() == Material.FISHING_ROD) {
+					e.getEntity().setCustomName("Switcher");
+				}
 			}
 		}
 	}
-
 }
