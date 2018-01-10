@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="jdk" jdkName="JavaSE-1.8" jdkType="JavaSDK" />
+    <orderEntry type="module-library">
+      <library name="Party-and-Friends-MySQL-Edition-Spigot-API-1.3.2.jar">
+        <CLASSES>
+          <root url="file:///spigot/Party-and-Friends-MySQL-Edition-Spigot-API-1.3.2.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="PartyAndFriends.jar">
+        <CLASSES>
+          <root url="file:///spigot/PartyAndFriends.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="PermissionsEx-1.23.4.jar">
+        <CLASSES>
+          <root url="file:///spigot/PermissionsEx-1.23.4.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Citizens.jar">
+        <CLASSES>
+          <root url="file:///spigot/Citizens.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Spigot-Party-API-For-RedisBungee-1.0-SNAPSHOT.jar">
+        <CLASSES>
+          <root url="file:///spigot/Spigot-Party-API-For-RedisBungee-1.0-SNAPSHOT.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="spigot.jar">
+        <CLASSES>
+          <root url="file:///spigot/spigot.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="TimoCloud.jar">
+        <CLASSES>
+          <root url="file:///spigot/TimoCloud.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>
