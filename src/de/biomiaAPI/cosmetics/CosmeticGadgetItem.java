@@ -29,7 +29,7 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 				try {
 					gadgetListener.execute(Biomia.getBiomiaPlayer(e.getPlayer()), this);
 				} catch (Exception ex) {
-					e.getPlayer().sendMessage("Â§cListener not found!");
+					e.getPlayer().sendMessage("§cListener not found!");
 					ex.printStackTrace();
 				}
 	}
