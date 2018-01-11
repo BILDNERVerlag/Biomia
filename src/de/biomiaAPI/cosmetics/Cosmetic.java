@@ -281,7 +281,7 @@ public class Cosmetic {
 		return particleListener.get(id);
 	}
 
-	public static ArrayList<CosmeticItem> getItemsOfCommonnes(Commonness commonness) {
+	public static ArrayList<CosmeticItem> getItemsOfCommonness(Commonness commonness) {
 		ArrayList<CosmeticItem> items = commonnessItems.get(commonness);
 		if (items == null) {
 			items = new ArrayList<>();

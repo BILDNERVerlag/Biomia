@@ -16,7 +16,12 @@ import de.biomiaAPI.cosmetics.CosmeticParticleItem;
 
 public class MysteryChest {
 
-	public static void open(BiomiaPlayer bp) {
+	private static Commonness determineCommonness() {
+		// Prozentchancen:
+		// VERY_COMMON: 60
+		// COMMON: 30
+		// RARE: 9
+		// VERY_RARE: 1
 
 		int random = new Random().nextInt(100) + 1;
 		Commonness c;
@@ -30,26 +35,23 @@ public class MysteryChest {
 		else
 			c = Commonness.VERY_RARE;
 
-		ArrayList<CosmeticItem> items = Cosmetic.getItemsOfCommonnes(c);
+		return c;
+	}
 
-		while (items.size() == 0) {
-			random = new Random().nextInt(100) + 1;
-			
-			if (random > 40)
-				c = Commonness.VERY_COMMON;
-			else if (random > 10)
-				c = Commonness.COMMON;
-			else if (random > 2)
-				c = Commonness.RARE;
-			else
-				c = Commonness.VERY_RARE;
-			items = Cosmetic.getItemsOfCommonnes(c);
-		}
+	public static void open(BiomiaPlayer bp) {
+
+		Commonness c;
+		ArrayList<CosmeticItem> items;
+
+		do {
+			c = determineCommonness();
+			items = Cosmetic.getItemsOfCommonness(c);
+		} while (items.size() == 0);
 
 		int i = new Random().nextInt(items.size());
 		CosmeticItem item = (CosmeticItem) items.get(i);
 
-		Inventory inv = Bukkit.createInventory(null, 27, "§4Mysterische Box §8- §4Gewinn");
+		Inventory inv = Bukkit.createInventory(null, 27, "§4Mysteriöse Box §8- §4Dein Gewinn:");
 		ItemStack itemStack = item.getItem().clone();
 
 		int menge = 0;
