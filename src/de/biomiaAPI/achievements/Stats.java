@@ -22,8 +22,7 @@ public class Stats {
 	 * Tabellenname = BiomiaAchievementName (zB
 	 * BiomiaAchievementVerdieneFuenftausendCoins)
 	 * 
-	 * BiomiaPlayerID, boolean unlocked, String timestamp (wann es unlocked wurde,
-	 * standardm‰ﬂig -1)
+	 * BiomiaPlayerID, String timestamp (wann es unlocked wurde, standardm‰ﬂig -1)
 	 */
 
 	private enum BiomiaStat {
@@ -88,17 +87,16 @@ public class Stats {
 		if (hasAchievement(bA, bp))
 			return false;
 		else {
-			MySQL.executeUpdate(
-					"INSERT INTO `BiomiaAchievement" + bA.toString() + "` (`ID`, `value`, `timestamp`) VALUES ("
-							+ bp.getBiomiaPlayerID() + ", true, " + new Date().toString() + ")");
+			MySQL.executeUpdate("INSERT INTO `BiomiaAchievement" + bA.toString() + "` (`ID`, `timestamp`) VALUES ("
+					+ bp.getBiomiaPlayerID() + ", " + new Date().toString() + ")");
 			return true;
 		}
 	}
 
 	public static boolean hasAchievement(BiomiaAchievement bA, BiomiaPlayer bp) {
-		return MySQL.executeQuerygetbool(
+		return (MySQL.executeQuery(
 				"SELECT * FROM `BiomiaAchievement" + bA.toString() + "` where ID = " + bp.getBiomiaPlayerID(),
-				"unlocked");
+				"`ID`") != null);
 	}
 
 }

@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.Cosmetic;
@@ -13,6 +15,8 @@ import de.biomiaAPI.cosmetics.CosmeticGadgetItem;
 import de.biomiaAPI.cosmetics.CosmeticItem;
 import de.biomiaAPI.cosmetics.CosmeticItem.Commonness;
 import de.biomiaAPI.cosmetics.CosmeticParticleItem;
+import de.biomiaAPI.itemcreator.ItemCreator;
+import de.biomiaAPI.main.Main;
 
 public class MysteryChest {
 
@@ -103,7 +107,31 @@ public class MysteryChest {
 		Cosmetic.setLimit(bp, item.getID(), menge);
 		if (menge != -1)
 			itemStack.setAmount(menge);
-		inv.setItem(13, itemStack);
+
 		bp.getPlayer().openInventory(inv);
+
+		new BukkitRunnable() {
+			int counter = -1;
+
+			@Override
+			public void run() {
+				counter++;
+				ItemStack is = ItemCreator.itemCreate(Material.BLACK_GLAZED_TERRACOTTA);
+				ItemStack is2 = ItemCreator.itemCreate(Material.AIR);
+				for (int index = counter; index < 27; index++) {
+					if (index < 28)
+						inv.setItem(index, is);
+				}
+				for (int index2 = 0; index2 < counter; index2++) {
+					inv.setItem(index2, is2);
+				}
+				if (counter >= 14) {
+					inv.setItem(13, itemStack);
+				}
+				if (counter >= 27) {
+					this.cancel();
+				}
+			}
+		}.runTaskTimer(Main.plugin, 0, 2);
 	}
 }
