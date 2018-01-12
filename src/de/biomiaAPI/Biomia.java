@@ -115,7 +115,7 @@ public class Biomia {
 					registerNewTeam(Teams.WHITE.name(), playerPerTeam);
 					break;
 				default:
-					Bukkit.broadcastMessage("Es sind nur 2, 4 oder 8 Teams verfï¿½gbar!");
+					Bukkit.broadcastMessage("Es sind nur 2, 4 oder 8 Teams verf?gbar!");
 					stopWithDelay();
 					break;
 				}
@@ -134,7 +134,7 @@ public class Biomia {
 					farbe = "Orange";
 					break;
 				case "GREEN":
-					farbe = "Grï¿½n";
+					farbe = "Grün";
 					break;
 				case "PURPLE":
 					farbe = "Lila";
@@ -143,7 +143,7 @@ public class Biomia {
 					farbe = "Rot";
 					break;
 				case "WHITE":
-					farbe = "Weiï¿½";
+					farbe = "Weiß";
 					break;
 				case "YELLOW":
 					farbe = "Gelb";
@@ -215,39 +215,39 @@ public class Biomia {
 
 						switch (teamname) {
                         case "BLACK":
-                            colorcode = "ï¿½0";
+                            colorcode = "§0";
                             colordata = 15;
                             break;
                         case "BLUE":
-                            colorcode = "ï¿½9";
+                            colorcode = "§9";
                             colordata = 11;
                             break;
                         case "ORANGE":
-                            colorcode = "ï¿½6";
+                            colorcode = "§6";
                             colordata = 1;
                             break;
                         case "GREEN":
-                            colorcode = "ï¿½2";
+                            colorcode = "§2";
                             colordata = 13;
                             break;
                         case "PURPLE":
-                            colorcode = "ï¿½d";
+                            colorcode = "§d";
                             colordata = 10;
                             break;
                         case "RED":
-                            colorcode = "ï¿½c";
+                            colorcode = "§c";
                             colordata = 14;
                             break;
                         case "WHITE":
-                            colorcode = "ï¿½f";
+                            colorcode = "§f";
                             colordata = 0;
                             break;
                         case "YELLOW":
-                            colorcode = "ï¿½e";
+                            colorcode = "§e";
                             colordata = 4;
                             break;
                         default:
-                            colorcode = "ï¿½f";
+                            colorcode = "§f";
                             colordata = 0;
                             break;
                         }
