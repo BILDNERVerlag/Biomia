@@ -7,52 +7,46 @@ import de.biomiaAPI.Quests.QuestPlayer;
 
 public class TakeItemEvent implements Event {
 
-	QuestPlayer qp = null;
-	Material material = null;
-	String name = null;
-	int menge = 0;
+    private QuestPlayer qp = null;
+    private final Material material;
+    private String name = null;
+    private final int menge;
 
-	public TakeItemEvent(Material material, String name, int menge) {
-		this.material = material;
-		this.menge = menge;
-		this.name = name;
-	}
+    public TakeItemEvent(Material material, String name, int menge) {
+        this.material = material;
+        this.menge = menge;
+        this.name = name;
+    }
 
-	public TakeItemEvent(Material material, int menge) {
-		this.material = material;
-		this.menge = menge;
-	}
+    @Deprecated
+    public TakeItemEvent(Material material, int menge) {
+        this.material = material;
+        this.menge = menge;
+    }
 
-	@Override
-	public void executeEvent(QuestPlayer qp) {
-		this.qp = qp;
-		takeItem();
-	}
+    @Override
+    public void executeEvent(QuestPlayer qp) {
+        this.qp = qp;
+        takeItem();
+    }
 
-	public void takeItem() {
+    private void takeItem() {
 
-		int i = 0;
-
-		for (ItemStack is : qp.getPlayer().getInventory().getContents()) {
-			if (is != null)
-				if (is.getType() == material)
-					if (name != null) {
-						if (is.getItemMeta().getDisplayName().equals(name))
-							if (is.getAmount() >= menge || is.getAmount() >= menge - i) {
-								is.setAmount(is.getAmount() - (menge - i));
-								return;
-							} else {
-								i += is.getAmount();
-								is.setAmount(0);
-							}
-					} else if (is.getAmount() >= menge || is.getAmount() >= menge - i) {
-						is.setAmount(is.getAmount() - (menge - i));
-						return;
-					} else {
-						i += is.getAmount();
-						is.setAmount(0);
-					}
-		}
-
-	}
+        int i = 0;
+        for (ItemStack is : qp.getPlayer().getInventory().getContents()) {
+            if (is != null)
+                if (is.getType() == material) {
+                    if (name != null)
+                        if (!is.getItemMeta().getDisplayName().equals(name))
+                            continue;
+                    if (is.getAmount() >= menge || is.getAmount() >= menge - i) {
+                        is.setAmount(is.getAmount() - (menge - i));
+                        return;
+                    } else {
+                        i += is.getAmount();
+                        is.setAmount(0);
+                    }
+                }
+        }
+    }
 }

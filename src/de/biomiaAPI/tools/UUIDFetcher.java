@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.bukkit.entity.Player;
@@ -12,7 +13,7 @@ import org.bukkit.entity.Player;
 /**
  * Helper-class for getting UUIDs of players
  */
-public class UUIDFetcher {
+class UUIDFetcher {
 
 	/**
 	 * @param player
@@ -29,7 +30,7 @@ public class UUIDFetcher {
 	 *            The name of the player
 	 * @return The UUID of the given player
 	 */
-	public static UUID getUUID(String playername) {
+	private static UUID getUUID(String playername) {
 		String output = callURL("https://api.mojang.com/users/profiles/minecraft/" + playername);
 
 		StringBuilder result = new StringBuilder();
@@ -38,16 +39,16 @@ public class UUIDFetcher {
 
 		String u = result.toString();
 
-		String uuid = "";
+		StringBuilder uuid = new StringBuilder();
 
 		for (int i = 0; i <= 31; i++) {
-			uuid = uuid + u.charAt(i);
+			uuid.append(u.charAt(i));
 			if (i == 7 || i == 11 || i == 15 || i == 19) {
-				uuid = uuid + "-";
+				uuid.append("-");
 			}
 		}
 
-		return UUID.fromString(uuid);
+		return UUID.fromString(uuid.toString());
 	}
 
 	public static String getName(UUID uuid) {
@@ -59,9 +60,7 @@ public class UUIDFetcher {
 
 		readName(output, result);
 
-		String name = result.toString();
-
-		return name;
+        return result.toString();
 	}
 
 	private static void readData(String toRead, StringBuilder result) {
@@ -93,7 +92,7 @@ public class UUIDFetcher {
 
 	private static String callURL(String URL) {
 		StringBuilder sb = new StringBuilder();
-		URLConnection urlConn = null;
+		URLConnection urlConn;
 		InputStreamReader in = null;
 		try {
 			URL url = new URL(URL);
@@ -106,18 +105,16 @@ public class UUIDFetcher {
 				in = new InputStreamReader(urlConn.getInputStream(), Charset.defaultCharset());
 				BufferedReader bufferedReader = new BufferedReader(in);
 
-				if (bufferedReader != null) {
-					int cp;
+                int cp;
 
-					while ((cp = bufferedReader.read()) != -1) {
-						sb.append((char) cp);
-					}
+                while ((cp = bufferedReader.read()) != -1) {
+                    sb.append((char) cp);
+                }
 
-					bufferedReader.close();
-				}
-			}
+                bufferedReader.close();
+            }
 
-			in.close();
+			Objects.requireNonNull(in).close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

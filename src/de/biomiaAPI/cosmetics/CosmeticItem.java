@@ -6,15 +6,16 @@ import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.Cosmetic.Group;
 import de.biomiaAPI.mysql.MySQL;
 
+@SuppressWarnings("EmptyMethod")
 public class CosmeticItem {
 
 	private int id;
-	private String name;
-	private ItemStack item;
-	private Commonness commonness;
-	private Group group;
+	private final String name;
+	private final ItemStack item;
+	private final Commonness commonness;
+	private final Group group;
 
-	public CosmeticItem(int id, String name, ItemStack is, Commonness c, Group group) {
+	CosmeticItem(int id, String name, ItemStack is, Commonness c, Group group) {
 		this.id = id;
 		this.name = name;
 		this.item = is;
@@ -24,15 +25,15 @@ public class CosmeticItem {
 		Cosmetic.addItem(this);
 	}
 
-	public static enum Commonness {
+	public enum Commonness {
 		VERY_COMMON, COMMON, RARE, VERY_RARE;
 
 		public String deutsch() {
 			switch (this) {
 			case VERY_COMMON:
-				return "Sehr Häufig";
+				return "Sehr Hï¿½ufig";
 			case COMMON:
-				return "Häufig";
+				return "Hï¿½ufig";
 			case RARE:
 				return "Selten";
 			case VERY_RARE:

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
@@ -17,15 +18,15 @@ import de.biomiaAPI.tools.ItemBase64;
 
 public class Cosmetic {
 
-	private static HashMap<Group, CosmeticGroup> groups = new HashMap<>();
-	private static HashMap<Integer, ? super CosmeticItem> items = new HashMap<>();
-	private static HashMap<BiomiaPlayer, CosmeticInventory> inventorys = new HashMap<>();
-	private static HashMap<BiomiaPlayer, HashMap<Integer, Integer>> limitedItems = new HashMap<>();
-	private static HashMap<Integer, GadgetListener> gadgetListener = new HashMap<>();
-	private static HashMap<Integer, ParticleListener> particleListener = new HashMap<>();
-	private static HashMap<Commonness, ArrayList<CosmeticItem>> commonnessItems = new HashMap<>();
+	private static final HashMap<Group, CosmeticGroup> groups = new HashMap<>();
+	private static final HashMap<Integer, ? super CosmeticItem> items = new HashMap<>();
+	private static final HashMap<BiomiaPlayer, CosmeticInventory> inventorys = new HashMap<>();
+	private static final HashMap<BiomiaPlayer, HashMap<Integer, Integer>> limitedItems = new HashMap<>();
+	private static final HashMap<Integer, GadgetListener> gadgetListener = new HashMap<>();
+	private static final HashMap<Integer, ParticleListener> particleListener = new HashMap<>();
+	private static final HashMap<Commonness, ArrayList<CosmeticItem>> commonnessItems = new HashMap<>();
 	private static Inventory inv;
-	public static int gadgetSlot = 4;
+	public static final int gadgetSlot = 4;
 
 	public static HashMap<Group, CosmeticGroup> getGroups() {
 		return groups;
@@ -41,8 +42,8 @@ public class Cosmetic {
 		return inv;
 	}
 
-	public static void initMainInventory() {
-		inv = Bukkit.createInventory(null, 9, "§5Cosmetics");
+	private static void initMainInventory() {
+		inv = Bukkit.createInventory(null, 9, "ï¿½5Cosmetics");
 
 		int i = 0;
 		for (Group g : Group.values()) {
@@ -67,7 +68,7 @@ public class Cosmetic {
 		return false;
 	}
 
-	public static void openGroupInventory(BiomiaPlayer bp, CosmeticGroup group) {
+	private static void openGroupInventory(BiomiaPlayer bp, CosmeticGroup group) {
 		CosmeticInventory inv = getInventory(bp);
 		if (inv == null) {
 			ArrayList<? super CosmeticItem> groupItems = new ArrayList<>();
@@ -80,7 +81,7 @@ public class Cosmetic {
 		inv.openInventory(group);
 	}
 
-	public static CosmeticInventory getInventory(BiomiaPlayer bp) {
+	private static CosmeticInventory getInventory(BiomiaPlayer bp) {
 		return inventorys.get(bp);
 	}
 
@@ -93,18 +94,16 @@ public class Cosmetic {
 	}
 
 	public enum Group {
-		HEADS, SUITS, GADGETS, PETS, PARTICLES;
-	}
+		HEADS, SUITS, GADGETS, PETS, PARTICLES
+    }
 
 	public static void load(BiomiaPlayer bp) {
 
-		ArrayList<? super CosmeticItem> cosmeticItems = new ArrayList<>();
 		HashMap<Integer, Integer> hm = new HashMap<>();
 
 		if (bp.getPlayer().hasPermission("biomia.cosmetics.*")) {
 			for (int id : items.keySet()) {
 				hm.put(id, -1);
-				cosmeticItems.add((CosmeticItem) items.get(id));
 			}
 			limitedItems.put(bp, hm);
 			return;
@@ -113,7 +112,7 @@ public class Cosmetic {
 		Connection con = MySQL.Connect();
 
 		try {
-			PreparedStatement ps = con
+			PreparedStatement ps = Objects.requireNonNull(con)
 					.prepareStatement("Select * from Cosmetics where BiomiaPlayer = " + bp.getBiomiaPlayerID());
 			ResultSet rs = ps.executeQuery();
 
@@ -121,9 +120,7 @@ public class Cosmetic {
 				int time = rs.getInt("Time");
 				int id = rs.getInt("ID");
 				hm.put(id, time);
-
-				cosmeticItems.add((CosmeticItem) items.get(id));
-			}
+				}
 			limitedItems.put(bp, hm);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -134,7 +131,7 @@ public class Cosmetic {
 		return limitedItems.get(bp).get(itemID) != -1;
 	}
 
-	public static boolean hasItem(BiomiaPlayer bp, int itemID) {
+	private static boolean hasItem(BiomiaPlayer bp, int itemID) {
 		return limitedItems.get(bp).containsKey(itemID);
 	}
 
@@ -176,7 +173,7 @@ public class Cosmetic {
 
 			CosmeticGadgetItem gi = (CosmeticGadgetItem) item;
 			try {
-				ps = con.prepareStatement("INSERT INTO `" + item.getGroup()
+				ps = Objects.requireNonNull(con).prepareStatement("INSERT INTO `" + item.getGroup()
 						+ "`(`ID`, `Name`, `Item`, `Commonness`, `GadgetItem`) VALUES (?,?,?,?,?)");
 				ps.setInt(1, id);
 				ps.setString(2, gi.getName());
@@ -193,7 +190,7 @@ public class Cosmetic {
 		case PETS:
 			CosmeticPetItem pi = (CosmeticPetItem) item;
 			try {
-				ps = con.prepareStatement("INSERT INTO `" + item.getGroup()
+				ps = Objects.requireNonNull(con).prepareStatement("INSERT INTO `" + item.getGroup()
 						+ "`(`ID`, `Name`, `Item`, `Commonness`, `Type`) VALUES (?,?,?,?,?)");
 				ps.setInt(1, id);
 				ps.setString(2, pi.getName());
@@ -210,7 +207,7 @@ public class Cosmetic {
 		case PARTICLES:
 			CosmeticParticleItem pai = (CosmeticParticleItem) item;
 			try {
-				ps = con.prepareStatement(
+				ps = Objects.requireNonNull(con).prepareStatement(
 						"INSERT INTO `" + item.getGroup() + "`(`ID`, `Name`, `Item`, `Commonness`) VALUES (?,?,?,?)");
 				ps.setInt(1, id);
 				ps.setString(2, pai.getName());
@@ -226,7 +223,7 @@ public class Cosmetic {
 		case SUITS:
 			CosmeticSuitItem si = (CosmeticSuitItem) item;
 			try {
-				ps = con.prepareStatement("INSERT INTO `" + item.getGroup()
+				ps = Objects.requireNonNull(con).prepareStatement("INSERT INTO `" + item.getGroup()
 						+ "`(`ID`, `Name`, `Item`, `Commonness`, `Helmet`, `Chestplate`, `Leggins`, `Boots`) VALUES (?,?,?,?,?,?,?,?)");
 				ps.setInt(1, id);
 				ps.setString(2, si.getName());
@@ -246,7 +243,7 @@ public class Cosmetic {
 		case HEADS:
 			CosmeticHeadItem hi = (CosmeticHeadItem) item;
 			try {
-				ps = con.prepareStatement("INSERT INTO `" + item.getGroup()
+				ps = Objects.requireNonNull(con).prepareStatement("INSERT INTO `" + item.getGroup()
 						+ "`(`ID`, `Name`, `Item`, `Commonness`, `Head`) VALUES (?,?,?,?,?)");
 				ps.setInt(1, id);
 				ps.setString(2, hi.getName());

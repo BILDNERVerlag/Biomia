@@ -18,7 +18,7 @@ import de.biomiaAPI.cosmetics.CosmeticParticleItem;
 import de.biomiaAPI.itemcreator.ItemCreator;
 import de.biomiaAPI.main.Main;
 
-public class MysteryChest {
+class MysteryChest {
 
 	private static Commonness determineCommonness() {
 		// Prozentchancen:
@@ -53,9 +53,9 @@ public class MysteryChest {
 		} while (items.size() == 0);
 
 		int i = new Random().nextInt(items.size());
-		CosmeticItem item = (CosmeticItem) items.get(i);
+		CosmeticItem item = items.get(i);
 
-		Inventory inv = Bukkit.createInventory(null, 27, "§4Mysteriöse Box §8- §4Dein Gewinn:");
+		Inventory inv = Bukkit.createInventory(null, 27, "ï¿½4Mysteriï¿½se Box ï¿½8- ï¿½4Dein Gewinn:");
 		ItemStack itemStack = item.getItem().clone();
 
 		int menge = 0;
@@ -119,8 +119,7 @@ public class MysteryChest {
 				ItemStack is = ItemCreator.itemCreate(Material.BLACK_GLAZED_TERRACOTTA);
 				ItemStack is2 = ItemCreator.itemCreate(Material.AIR);
 				for (int index = counter; index < 27; index++) {
-					if (index < 28)
-						inv.setItem(index, is);
+                    inv.setItem(index, is);
 				}
 				for (int index2 = 0; index2 < counter; index2++) {
 					inv.setItem(index2, is2);

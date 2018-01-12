@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
@@ -17,9 +18,9 @@ import de.biomiaAPI.tools.ItemBase64;
 
 public class CosmeticGroup {
 
-	private Group group;
-	private ArrayList<? super CosmeticItem> items = new ArrayList<>();
-	private ItemStack icon;
+	private final Group group;
+	private final ArrayList<? super CosmeticItem> items = new ArrayList<>();
+	private final ItemStack icon;
 
 	public CosmeticGroup(Group group, ItemStack icon) {
 		this.group = group;
@@ -32,16 +33,16 @@ public class CosmeticGroup {
 			((CosmeticItem) items.get(0)).remove(bp);
 	}
 
-	public <T extends CosmeticItem> void addItem(T item) {
+	private <T extends CosmeticItem> void addItem(T item) {
 		items.add(item);
 	}
 
-	public void loadGroup() {
+	private void loadGroup() {
 		Connection con = MySQL.Connect();
 
 		try {
 
-			PreparedStatement ps = con.prepareStatement("Select * from " + group.name());
+			PreparedStatement ps = Objects.requireNonNull(con).prepareStatement("Select * from " + group.name());
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {

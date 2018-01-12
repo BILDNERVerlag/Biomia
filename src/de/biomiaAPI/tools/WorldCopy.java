@@ -8,12 +8,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 
-public class WorldCopy {
+class WorldCopy {
 
 	private static void copyFileStructure(File source, File target) {
 		try {
@@ -24,7 +25,7 @@ public class WorldCopy {
 						if (!target.mkdirs())
 							throw new IOException("Couldn't create world directory!");
 					String files[] = source.list();
-					for (String file : files) {
+					for (String file : Objects.requireNonNull(files)) {
 						File srcFile = new File(source, file);
 						File destFile = new File(target, file);
 						copyFileStructure(srcFile, destFile);

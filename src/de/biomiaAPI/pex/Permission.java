@@ -1,11 +1,11 @@
 package de.biomiaAPI.pex;
 
 import org.bukkit.entity.Player;
-
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
-public class Permission {
+@SuppressWarnings("SameReturnValue")
+class Permission {
 
 	
 	public static boolean addPermission(Player p, String permission) {

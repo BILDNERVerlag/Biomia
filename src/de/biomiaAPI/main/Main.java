@@ -28,11 +28,11 @@ import net.md_5.bungee.api.chat.TextComponent;
 public class Main extends JavaPlugin {
 
 	public static Main plugin;
-	public static ArrayList<String> group = new ArrayList<>();
-	public static HashMap<String, String> prefixes = new HashMap<>();
-	public static ArrayList<String> allPlayersOnAllServer = new ArrayList<>();
+	public static final ArrayList<String> group = new ArrayList<>();
+	public static final HashMap<String, String> prefixes = new HashMap<>();
+	public static final ArrayList<String> allPlayersOnAllServer = new ArrayList<>();
 	public static int QuestIds = 0;
-	public static HashMap<Integer, DialogMessage> questMessages = new HashMap<>();
+	public static final HashMap<Integer, DialogMessage> questMessages = new HashMap<>();
 	private static TimoCloudBukkitAPI bukkitTimoapi;
 	private static TimoCloudUniversalAPI universalTimoapi;
 
@@ -76,37 +76,37 @@ public class Main extends JavaPlugin {
 			@Override
 			public void run() {
 
-				TextComponent message = null;
+				TextComponent message;
 
 				switch (i) {
 				case 0:
-					message = new TextComponent(Messages.prefix + "§6Besuch uns auf www.biomia.de !");
+					message = new TextComponent(Messages.prefix + "ï¿½6Besuch uns auf www.biomia.de !");
 					message.setClickEvent(
 							new ClickEvent(ClickEvent.Action.OPEN_URL, "https://biomia.bildnerverlag.de/"));
 					break;
 				case 1:
 					message = new TextComponent(Messages.prefix
-							+ "§6Schau doch mal auf unserem §6TeamSpeak-Server vorbei! §6ts.biomia.de !");
+							+ "ï¿½6Schau doch mal auf unserem ï¿½6TeamSpeak-Server vorbei! ï¿½6ts.biomia.de !");
 					break;
 				case 2:
-					message = new TextComponent(Messages.prefix + "§6Besuch uns auf instagram.com/biomiaofficial !");
+					message = new TextComponent(Messages.prefix + "ï¿½6Besuch uns auf instagram.com/biomiaofficial !");
 					message.setClickEvent(
 							new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.instagram.com/biomiaofficial/"));
 					break;
 				case 3:
-					message = new TextComponent(Messages.prefix + "§6Folge uns auf twitter.com/biomiaofficial !");
+					message = new TextComponent(Messages.prefix + "ï¿½6Folge uns auf twitter.com/biomiaofficial !");
 					message.setClickEvent(
 							new ClickEvent(ClickEvent.Action.OPEN_URL, "https://twitter.com/biomiaofficial"));
 					break;
 				default:
 					message = new TextComponent(
-							Messages.prefix + "§6Folge uns auf Facebook! §6facebook.com/biomiaofficial/");
+							Messages.prefix + "ï¿½6Folge uns auf Facebook! ï¿½6facebook.com/biomiaofficial/");
 					message.setClickEvent(
 							new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.facebook.com/biomiaofficial/"));
 					break;
 				}
 				for (Player p : Bukkit.getOnlinePlayers()) {
-					if (!Biomia.getBiomiaPlayer(p).isPremium() && !Biomia.getBiomiaPlayer(p).isStaff()) {
+					if (!Biomia.getBiomiaPlayer(p).isPremium() && Biomia.getBiomiaPlayer(p).isStaff()) {
 						p.spigot().sendMessage(message);
 					}
 				}
@@ -124,15 +124,15 @@ public class Main extends JavaPlugin {
 		plugin.saveConfig();
 	}
 
-	public static void init() {
+	private static void init() {
 
-		Cosmetic.initGroup(new CosmeticGroup(Group.HEADS, ItemCreator.itemCreate(Material.SKULL_ITEM, "§cHeads")));
-		Cosmetic.initGroup(new CosmeticGroup(Group.PETS, ItemCreator.itemCreate(Material.MONSTER_EGG, "§bPets")));
+		Cosmetic.initGroup(new CosmeticGroup(Group.HEADS, ItemCreator.itemCreate(Material.SKULL_ITEM, "ï¿½cHeads")));
+		Cosmetic.initGroup(new CosmeticGroup(Group.PETS, ItemCreator.itemCreate(Material.MONSTER_EGG, "ï¿½bPets")));
 		Cosmetic.initGroup(
-				new CosmeticGroup(Group.GADGETS, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM, "§dGadgets")));
+				new CosmeticGroup(Group.GADGETS, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM, "ï¿½dGadgets")));
 		Cosmetic.initGroup(
-				new CosmeticGroup(Group.PARTICLES, ItemCreator.itemCreate(Material.BLAZE_POWDER, "§3Particles")));
-		Cosmetic.initGroup(new CosmeticGroup(Group.SUITS, ItemCreator.itemCreate(Material.GOLD_CHESTPLATE, "§5Suits")));
+				new CosmeticGroup(Group.PARTICLES, ItemCreator.itemCreate(Material.BLAZE_POWDER, "ï¿½3Particles")));
+		Cosmetic.initGroup(new CosmeticGroup(Group.SUITS, ItemCreator.itemCreate(Material.GOLD_CHESTPLATE, "ï¿½5Suits")));
 
 		group.add("Owner");
 		group.add("Admin");
@@ -154,25 +154,25 @@ public class Main extends JavaPlugin {
 		group.add("RegSpieler");
 		group.add("UnregSpieler");
 
-		prefixes.put("Owner", "§4Owner | ");
-		prefixes.put("Admin", "§5Admin | ");
-		prefixes.put("SrBuilder", "§2SrBuilder | ");
-		prefixes.put("SrModerator", "§bSrMod | ");
-		prefixes.put("Moderator", "§bMod | ");
-		prefixes.put("Builder", "§2Builder | ");
-		prefixes.put("YouTube", "§4[§0Y§fT§4] | ");
-		prefixes.put("PremiumZehn", "§6X | ");
-		prefixes.put("PremiumNeun", "§6IX | ");
-		prefixes.put("PremiumAcht", "§eVIII | ");
-		prefixes.put("PremiumSieben", "§eVII | ");
-		prefixes.put("PremiumSechs", "§eVI | ");
-		prefixes.put("PremiumFuenf", "§eV | ");
-		prefixes.put("PremiumVier", "§eIV | ");
-		prefixes.put("PremiumDrei", "§eIII | ");
-		prefixes.put("PremiumZwei", "§eII | ");
-		prefixes.put("PremiumEins", "§eI | ");
-		prefixes.put("RegSpieler", "§7");
-		prefixes.put("UnregSpieler", "§8");
+		prefixes.put("Owner", "ï¿½4Owner | ");
+		prefixes.put("Admin", "ï¿½5Admin | ");
+		prefixes.put("SrBuilder", "ï¿½2SrBuilder | ");
+		prefixes.put("SrModerator", "ï¿½bSrMod | ");
+		prefixes.put("Moderator", "ï¿½bMod | ");
+		prefixes.put("Builder", "ï¿½2Builder | ");
+		prefixes.put("YouTube", "ï¿½4[ï¿½0Yï¿½fTï¿½4] | ");
+		prefixes.put("PremiumZehn", "ï¿½6X | ");
+		prefixes.put("PremiumNeun", "ï¿½6IX | ");
+		prefixes.put("PremiumAcht", "ï¿½eVIII | ");
+		prefixes.put("PremiumSieben", "ï¿½eVII | ");
+		prefixes.put("PremiumSechs", "ï¿½eVI | ");
+		prefixes.put("PremiumFuenf", "ï¿½eV | ");
+		prefixes.put("PremiumVier", "ï¿½eIV | ");
+		prefixes.put("PremiumDrei", "ï¿½eIII | ");
+		prefixes.put("PremiumZwei", "ï¿½eII | ");
+		prefixes.put("PremiumEins", "ï¿½eI | ");
+		prefixes.put("RegSpieler", "ï¿½7");
+		prefixes.put("UnregSpieler", "ï¿½8");
 
 	}
 
@@ -180,7 +180,7 @@ public class Main extends JavaPlugin {
 		return universalTimoapi;
 	}
 
-	public static void setUniversalTimoapi(TimoCloudUniversalAPI universalTimoapi) {
+	private static void setUniversalTimoapi(TimoCloudUniversalAPI universalTimoapi) {
 		Main.universalTimoapi = universalTimoapi;
 	}
 
@@ -188,7 +188,7 @@ public class Main extends JavaPlugin {
 		return bukkitTimoapi;
 	}
 
-	public static void setBukkitTimoapi(TimoCloudBukkitAPI bukkitTimoapi) {
+	private static void setBukkitTimoapi(TimoCloudBukkitAPI bukkitTimoapi) {
 		Main.bukkitTimoapi = bukkitTimoapi;
 	}
 

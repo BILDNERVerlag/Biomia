@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import de.biomiaAPI.main.Main;
 import net.md_5.bungee.api.ChatColor;
 
-public class Hologram {
+class Hologram {
 
 	public static void newHologram(Player p, String[] s) {
 		int i = 0;
@@ -24,9 +24,7 @@ public class Hologram {
 			armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', string));
 			armorStand.setCustomNameVisible(true);
 
-			ArrayList<String> l = new ArrayList<>();
-
-			l.addAll(Main.plugin.getConfig().getStringList("Holograms"));
+			ArrayList<String> l = new ArrayList<>(Main.plugin.getConfig().getStringList("Holograms"));
 			l.add(armorStand.getUniqueId().toString());
 
 			Main.plugin.getConfig().set("Holograms", l);
@@ -37,9 +35,7 @@ public class Hologram {
 
 	public static void removeHologram(ArmorStand armorStand) {
 
-		ArrayList<String> l = new ArrayList<>();
-
-		l.addAll(Main.plugin.getConfig().getStringList("Holograms"));
+		ArrayList<String> l = new ArrayList<>(Main.plugin.getConfig().getStringList("Holograms"));
 
 		if (l.contains(armorStand.getUniqueId().toString())) {
 			armorStand.remove();

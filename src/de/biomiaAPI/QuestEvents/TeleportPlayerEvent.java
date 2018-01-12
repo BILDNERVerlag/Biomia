@@ -5,10 +5,10 @@ import org.bukkit.entity.Entity;
 
 import de.biomiaAPI.Quests.QuestPlayer;
 
-public class TeleportPlayerEvent implements Event {
+class TeleportPlayerEvent implements Event {
 
-	Location loc = null;
-	Entity e = null;
+	private Location loc = null;
+	private Entity e = null;
 	
 	public TeleportPlayerEvent(Location loc) {
 		this.loc = loc;

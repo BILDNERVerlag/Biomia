@@ -11,7 +11,7 @@ import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.CosmeticGadgetItem;
 import de.biomiaAPI.cosmetics.GadgetListener;
 
-public class Switcher implements GadgetListener, Listener {
+class Switcher implements GadgetListener, Listener {
 
 	@Override
 	public void execute(BiomiaPlayer bp, CosmeticGadgetItem item) {

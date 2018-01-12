@@ -4,6 +4,6 @@ import de.biomiaAPI.BiomiaPlayer;
 
 public interface GadgetListener {
 
-	public void execute(BiomiaPlayer bp, CosmeticGadgetItem item);
+	void execute(BiomiaPlayer bp, CosmeticGadgetItem item);
 	
 }

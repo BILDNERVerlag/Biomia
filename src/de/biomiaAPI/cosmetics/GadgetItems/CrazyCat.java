@@ -20,7 +20,7 @@ import net.minecraft.server.v1_12_R1.EntityInsentient;
 import net.minecraft.server.v1_12_R1.GenericAttributes;
 import net.minecraft.server.v1_12_R1.PathEntity;
 
-public class CrazyCat implements GadgetListener {
+class CrazyCat implements GadgetListener {
 
 	@Override
 	public void execute(BiomiaPlayer bp, CosmeticGadgetItem item) {
@@ -29,7 +29,7 @@ public class CrazyCat implements GadgetListener {
 		Ocelot entity = (Ocelot) p.getWorld().spawnEntity(p.getLocation(), EntityType.OCELOT);
 		entity.addPassenger(p);
 
-		AttributeInstance attributes = ((EntityInsentient) ((CraftLivingEntity) entity).getHandle())
+		AttributeInstance attributes = ((CraftLivingEntity) entity).getHandle()
 				.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED);
 		attributes.setValue(5);
 		
@@ -41,8 +41,7 @@ public class CrazyCat implements GadgetListener {
 					entity.eject();
 					entity.remove();
 					cancel();
-					return;
-				} else {
+                } else {
 					weird(entity);
 					i++;
 				}

@@ -8,14 +8,14 @@ import org.bukkit.inventory.ItemStack;
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.Cosmetic.Group;
 
-public class CosmeticSuitItem extends CosmeticItem {
+class CosmeticSuitItem extends CosmeticItem {
 
 	private ItemStack helmet = null;
 	private ItemStack chestplate = null;
 	private ItemStack leggins = null;
 	private ItemStack boots = null;
 	
-	public static HashMap<BiomiaPlayer, CosmeticSuitItem> suits = new HashMap<>();
+	public static final HashMap<BiomiaPlayer, CosmeticSuitItem> suits = new HashMap<>();
 
 	public CosmeticSuitItem(int id, String name, ItemStack is, Commonness c) {
 		super(id, name, is, c, Group.SUITS);

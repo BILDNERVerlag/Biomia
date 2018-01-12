@@ -1,5 +1,6 @@
 package de.biomiaAPI.achievements;
 
+@SuppressWarnings("UnusedAssignment")
 public enum BiomiaAchievement {
 
 	LogDichFuenfmalAufDemQuestServerEin, VerdieneFuenftausendCoins;
@@ -11,7 +12,7 @@ public enum BiomiaAchievement {
 		String out = "Leider ist keine Beschreibung vorhanden. Beschwer dich am besten bei den Admins.";
 		switch (bA) {
 		case LogDichFuenfmalAufDemQuestServerEin:
-			out = "Fünfmal auf dem Questserver einloggen";
+			out = "Fï¿½nfmal auf dem Questserver einloggen";
 		case VerdieneFuenftausendCoins:
 			out = "Verdiene insgesamt mindestens 5000 BC.";
 			break;
@@ -23,7 +24,7 @@ public enum BiomiaAchievement {
 	}
 
 	/**
-	 * Name, der für das Achievement ingame angezeigt werden soll.
+	 * Name, der fï¿½r das Achievement ingame angezeigt werden soll.
 	 */
 	public String getDisplayName(BiomiaAchievement bA) {
 		String out = bA.toString();

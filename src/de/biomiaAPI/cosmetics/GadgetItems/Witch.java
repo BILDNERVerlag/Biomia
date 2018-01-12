@@ -18,7 +18,7 @@ import de.biomiaAPI.main.Main;
 import net.minecraft.server.v1_12_R1.EntityInsentient;
 import net.minecraft.server.v1_12_R1.PathEntity;
 
-public class Witch implements GadgetListener {
+class Witch implements GadgetListener {
 
 	@Override
 	public void execute(BiomiaPlayer bp, CosmeticGadgetItem item) {

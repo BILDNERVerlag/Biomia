@@ -7,11 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Objects;
 
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.mysql.MySQL;
 
-public class SkyWarsKit {
+class SkyWarsKit {
 
 	public static boolean addKit(BiomiaPlayer biomiaPlayer, int kitID, int... months) {
 		return MySQL.executeUpdate("Insert into SkyWarsKits (`BiomiaPlayer`, `kitID`, `available`) values ("
@@ -33,7 +34,7 @@ public class SkyWarsKit {
 		ArrayList<Integer> availableKits = new ArrayList<>();
 		Connection con = MySQL.Connect();
 		try {
-			PreparedStatement ps = con
+			PreparedStatement ps = Objects.requireNonNull(con)
 					.prepareStatement("Select kitID, available from SkyWarsKits where BiomiaPlayer = ?");
 			ps.setInt(1, biomiaPlayer.getBiomiaPlayerID());
 			ResultSet rs = ps.executeQuery();

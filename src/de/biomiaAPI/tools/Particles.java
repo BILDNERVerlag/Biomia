@@ -10,14 +10,14 @@ import net.minecraft.server.v1_12_R1.PacketPlayOutWorldParticles;
 
 public class Particles {
 	
-    EnumParticle particletype;
-    boolean longdistance;
-    Location location;
-    float offsetx;
-    float offsety;
-    float offsetz;
-    float speed;
-    int amount;
+    private final EnumParticle particletype;
+    private final boolean longdistance;
+    private final Location location;
+    private final float offsetx;
+    private final float offsety;
+    private final float offsetz;
+    private final float speed;
+    private final int amount;
    
    
     public Particles(EnumParticle particletype,Location location,boolean longdistance,float offsetx,float offsety,float offsetz,float speed,int amount) {

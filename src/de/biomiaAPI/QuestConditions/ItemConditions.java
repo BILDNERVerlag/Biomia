@@ -81,10 +81,8 @@ public class ItemConditions {
 					i += is.getAmount();
 		}
 
-		if (i >= menge)
-			return true;
-		return false;
-	}
+        return i >= menge;
+    }
 
 	public static boolean hasItemOnArmor(QuestPlayer qp, Material material, int menge, String name) {
 
@@ -97,10 +95,8 @@ public class ItemConditions {
 					i += is.getAmount();
 		}
 
-		if (i >= menge)
-			return true;
-		return false;
-	}
+        return i >= menge;
+    }
 
 	public static boolean hasItemOnArmor(QuestPlayer qp, Material material, int menge) {
 
@@ -112,18 +108,11 @@ public class ItemConditions {
 					i += is.getAmount();
 		}
 
-		if (i >= menge)
-			return true;
-		return false;
-	}
+        return i >= menge;
+    }
 
 	public static boolean inFullArmor(QuestPlayer qp) {
-		if (qp.getPlayer().getInventory().getBoots() != null && qp.getPlayer().getInventory().getHelmet() != null
-				&& qp.getPlayer().getInventory().getChestplate() != null
-				&& qp.getPlayer().getInventory().getLeggings() != null) {
-			return true;
-		} else
-			return false;
+        return qp.getPlayer().getInventory().getBoots() != null && qp.getPlayer().getInventory().getHelmet() != null && qp.getPlayer().getInventory().getChestplate() != null && qp.getPlayer().getInventory().getLeggings() != null;
 	}
 
 	public static boolean inFullArmorOfMaterial(QuestPlayer qp, String m) {
@@ -168,11 +157,7 @@ public class ItemConditions {
 					break;
 				}
 
-				if (qp.getPlayer().getInventory().getBoots().getType() == bootsMaterial
-						&& qp.getPlayer().getInventory().getHelmet().getType() == helmetMaterial
-						&& qp.getPlayer().getInventory().getChestplate().getType() == chestplateMaterial
-						&& qp.getPlayer().getInventory().getLeggings().getType() == leggingsMaterial)
-					return true;
+                return qp.getPlayer().getInventory().getBoots().getType() == bootsMaterial && qp.getPlayer().getInventory().getHelmet().getType() == helmetMaterial && qp.getPlayer().getInventory().getChestplate().getType() == chestplateMaterial && qp.getPlayer().getInventory().getLeggings().getType() == leggingsMaterial;
 			}
 		}
 

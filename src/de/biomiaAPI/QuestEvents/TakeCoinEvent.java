@@ -3,9 +3,9 @@ package de.biomiaAPI.QuestEvents;
 import de.biomiaAPI.Biomia;
 import de.biomiaAPI.Quests.QuestPlayer;
 
-public class TakeCoinEvent implements Event {
+class TakeCoinEvent implements Event {
 
-	int coins;
+	private final int coins;
 
 	public TakeCoinEvent(int coins) {
 		this.coins = coins;

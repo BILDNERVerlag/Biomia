@@ -7,7 +7,7 @@ import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.CosmeticGadgetItem;
 import de.biomiaAPI.cosmetics.GadgetListener;
 
-public class PaintballGun implements GadgetListener{
+class PaintballGun implements GadgetListener{
 	
 	@Override
 	public void execute(BiomiaPlayer bp, CosmeticGadgetItem item) {

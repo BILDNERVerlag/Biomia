@@ -15,7 +15,7 @@ import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import de.biomiaAPI.mysql.MySQL;
 
-public class InventorySave {
+class InventorySave {
 
 	public static void saveInventory(Player p, String serverGroup) {
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.bukkit.entity.Player;
 
+@SuppressWarnings("SameReturnValue")
 public interface TeamManager {
 
 	ArrayList<Team> allteams = new ArrayList<>();

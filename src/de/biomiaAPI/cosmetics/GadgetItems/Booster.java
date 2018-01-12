@@ -8,7 +8,7 @@ import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.CosmeticGadgetItem;
 import de.biomiaAPI.cosmetics.GadgetListener;
 
-public class Booster implements GadgetListener {
+class Booster implements GadgetListener {
 
 	@Override
 	public void execute(BiomiaPlayer bp, CosmeticGadgetItem item) {

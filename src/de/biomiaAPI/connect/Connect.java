@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Objects;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
@@ -26,7 +28,7 @@ import net.md_5.bungee.api.chat.ClickEvent.Action;
 import net.md_5.bungee.api.chat.TextComponent;
 
 public class Connect implements PluginMessageListener {
-	public static void connect(Player p, String servername) {
+	private static void connect(Player p, String servername) {
 
 		ByteArrayOutputStream b = new ByteArrayOutputStream();
 		DataOutputStream out = new DataOutputStream(b);
@@ -34,7 +36,7 @@ public class Connect implements PluginMessageListener {
 		try {
 			out.writeUTF("Connect");
 			out.writeUTF(servername);
-		} catch (IOException ex) {
+		} catch (IOException ignored) {
 
 		}
 		p.sendPluginMessage(Main.plugin, "BungeeCord", b.toByteArray());
@@ -53,10 +55,10 @@ public class Connect implements PluginMessageListener {
 			ArrayList<String> list = executeQuery(
 					"Select code from CodesFuerRaenge where rangEingeloestFuerPlayeruuid = '" + p.getUniqueId() + "'");
 			if (group.contains("#1")) {
-				if (!list.contains("krs522tpr8a")) {
+				if (!Objects.requireNonNull(list).contains("krs522tpr8a")) {
 					p.sendMessage(
-							"§cNur Spieler die das entsprechende Buch besitzen können der jeweiligen Welt beitreten");
-					TextComponent text = new TextComponent("§8>§5Für mehr Infos hier klicken!§8<");
+							"ï¿½cNur Spieler die das entsprechende Buch besitzen kï¿½nnen der jeweiligen Welt beitreten");
+					TextComponent text = new TextComponent("ï¿½8>ï¿½5Fï¿½r mehr Infos hier klicken!ï¿½8<");
 					text.setClickEvent(new ClickEvent(Action.OPEN_URL,
 							"https://biomia.bildnerverlag.de/forum/topic/id/18-code-eingabe"));
 					p.spigot().sendMessage(text);
@@ -104,7 +106,7 @@ public class Connect implements PluginMessageListener {
 		try {
 			out.writeUTF("PlayerList");
 			out.writeUTF("ALL");
-		} catch (IOException ex) {
+		} catch (IOException ignored) {
 
 		}
 
@@ -124,7 +126,7 @@ public class Connect implements PluginMessageListener {
 		try {
 			out.writeUTF("TeleportToPlayer");
 			out.writeUTF(zielName);
-		} catch (IOException ex) {
+		} catch (IOException ignored) {
 		}
 
 		Player player;
@@ -150,9 +152,7 @@ public class Connect implements PluginMessageListener {
 				String players = in.readUTF();
 				String[] stringarray = players.split(",");
 
-				for (String s : stringarray) {
-					Main.allPlayersOnAllServer.add(s);
-				}
+                Collections.addAll(Main.allPlayersOnAllServer, stringarray);
 			}
 		}
 		if (subchannel.equals("TeleportToPlayer")) {
@@ -161,7 +161,7 @@ public class Connect implements PluginMessageListener {
 			Player to = Bukkit.getPlayer(in.readUTF());
 			if (to != null && from != null) {
 				from.teleport(to);
-				from.sendMessage("§aDu wurdest zu §6" + to.getName() + " §ateleportiert!");
+				from.sendMessage("ï¿½aDu wurdest zu ï¿½6" + to.getName() + " ï¿½ateleportiert!");
 			}
 
 		}

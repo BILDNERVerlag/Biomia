@@ -18,13 +18,13 @@ import de.biomiaAPI.main.Main;
 import net.minecraft.server.v1_12_R1.EntityInsentient;
 import net.minecraft.server.v1_12_R1.PathEntity;
 
-public class CosmeticPetItem extends CosmeticItem {
+class CosmeticPetItem extends CosmeticItem {
 
-	private EntityType type;
-	private static HashMap<BiomiaPlayer, Entity> pets = new HashMap<>();
+	private final EntityType type;
+	private static final HashMap<BiomiaPlayer, Entity> pets = new HashMap<>();
 
 	public static boolean isOwner(BiomiaPlayer bp, Entity pet) {
-		return pets.containsKey(bp) ? (pets.get(bp) == pet) : false;
+		return pets.containsKey(bp) && (pets.get(bp) == pet);
 	}
 
 	public static boolean isPet(Entity e) {
@@ -49,8 +49,8 @@ public class CosmeticPetItem extends CosmeticItem {
 	public void use(BiomiaPlayer bp) {
 		remove(bp);
 		Player p = bp.getPlayer();
-		Entity entity = (Entity) p.getWorld().spawnEntity(p.getLocation(), type);
-		entity.setCustomName("§8" + p.getName() + "'s Haustier");
+		Entity entity = p.getWorld().spawnEntity(p.getLocation(), type);
+		entity.setCustomName("ï¿½8" + p.getName() + "'s Haustier");
 		entity.setCustomNameVisible(true);
 		pets.put(bp, entity);
 		entity.addPassenger(p);
@@ -58,7 +58,7 @@ public class CosmeticPetItem extends CosmeticItem {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				if (!entity.isDead() && entity != null) {
+				if (!entity.isDead()) {
 					if (!bp.getPlayer().isInsideVehicle())
 						followPlayer((Creature) entity, p);
 				} else {

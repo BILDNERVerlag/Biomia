@@ -8,12 +8,12 @@ import de.biomiaAPI.itemcreator.ItemCreator;
 
 public class GiveItemEvent implements Event {
 
-	QuestPlayer qp;
-	Material material;
-	String name;
-	int menge;
+	private QuestPlayer qp;
+	private Material material;
+	private String name;
+	private int menge;
 
-	ItemStack stack;
+	private ItemStack stack;
 
 	public GiveItemEvent(Material material, String name, int menge) {
 		this.material = material;
@@ -36,7 +36,7 @@ public class GiveItemEvent implements Event {
 		giveItem();
 	}
 
-	public void giveItem() {
+	private void giveItem() {
 		if (stack == null) {
 			if (name != null) {
 				qp.getPlayer().getInventory()

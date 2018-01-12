@@ -9,7 +9,7 @@ import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.CosmeticGadgetItem;
 import de.biomiaAPI.cosmetics.GadgetListener;
 
-public class Levitator implements GadgetListener{
+class Levitator implements GadgetListener{
 
 	@Override
 	public void execute(BiomiaPlayer bp, CosmeticGadgetItem item) {

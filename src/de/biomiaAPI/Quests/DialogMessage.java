@@ -2,44 +2,41 @@ package de.biomiaAPI.Quests;
 
 import java.util.ArrayList;
 
-import org.bukkit.Bukkit;
+import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import de.biomiaAPI.Biomia;
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.QuestEvents.Event;
 import de.biomiaAPI.main.Main;
-import net.citizensnpcs.api.npc.NPC;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ClickEvent.Action;
 import net.md_5.bungee.api.chat.TextComponent;
 
 public class DialogMessage {
 
-	final int delay = 20;
-
 	private String inhalt;
-	private String[] fortsetzungen = new String[5];
-	private DialogMessage[] nexterAbschnitt = new DialogMessage[5];
-	private ArrayList<Event> events = new ArrayList<>();
-	private Quest q;
+	private final String[] fortsetzungen = new String[5];
+	private final DialogMessage[] nexterAbschnitt = new DialogMessage[5];
+	private final ArrayList<Event> events = new ArrayList<>();
+	private final Quest q;
 	private boolean addPlayerToQuest = false;
 	private boolean removePlayerFromQuest = false;
 	private boolean setfinish = false;
 	private States state;
-	private NPC npc;
+	private final NPC npc;
 
-	public DialogMessage(Quest q, NPC npc) {
+	private DialogMessage(Quest q, NPC npc) {
 		this.npc = npc;
 		this.q = q;
 	}
 
-	public DialogMessage setInhalt(String npcAuskunft) {
+	private DialogMessage setInhalt(String npcAuskunft) {
 		inhalt = npcAuskunft;
 		return this;
 	}
 
-	public void execute(QuestPlayer qp) {
+	private void execute(QuestPlayer qp) {
 		if (qp.getDialog() != null) {
 			sendeAntwort(qp);
 		}
@@ -50,9 +47,6 @@ public class DialogMessage {
 			if (fortsetzungen[i] == null) {
 				fortsetzungen[i] = anwortMoeglichkeit;
 				break;
-			}
-			if (i == fortsetzungen.length) {
-				Bukkit.broadcastMessage("Maximal 5 Antwortm�glichkeiten!");
 			}
 		}
 		return this;
@@ -68,16 +62,13 @@ public class DialogMessage {
 		return nexterAbschnitt[i];
 	}
 
-	public void sendeAntwort(QuestPlayer qp) {
+	private void sendeAntwort(QuestPlayer qp) {
 
 		ArrayList<QuestPlayer> players = new ArrayList<>();
 		BiomiaPlayer bp = Biomia.getBiomiaPlayer(qp.getPlayer());
 
 		if (bp.isInParty() && bp.isPartyLeader()) {
-			bp.getParty().getAllPlayers().forEach(each -> {
-				players.add(qp);
-				return;
-			});
+			bp.getParty().getAllPlayers().forEach(each -> players.add(qp));
 		} else {
 			players.add(qp);
 		}
@@ -112,7 +103,8 @@ public class DialogMessage {
 			qp.getPlayer().setWalkSpeed(0.2F);
 			return;
 		}
-		if (getFortsetzung(0) == null) {
+		if (getFortsetzung() == null) {
+			int delay = 20;
 			new BukkitRunnable() {
 				@Override
 				public void run() {
@@ -123,11 +115,11 @@ public class DialogMessage {
 		}
 	}
 
-	public String getFortsetzung(int slot) {
-		return fortsetzungen[slot];
+	private String getFortsetzung() {
+		return fortsetzungen[0];
 	}
 
-	public DialogMessage getNext(int slot) {
+	private DialogMessage getNext(int slot) {
 		return nexterAbschnitt[slot];
 	}
 
@@ -135,7 +127,7 @@ public class DialogMessage {
 		return inhalt;
 	}
 
-	public void executeEvent(QuestPlayer qp) {
+	private void executeEvent(QuestPlayer qp) {
 		for (Event e : events) {
 			e.executeEvent(qp);
 		}
@@ -170,11 +162,7 @@ public class DialogMessage {
 		return this;
 	}
 
-	public boolean isLast() {
-		if (this.getNext(0) == null && this.getNext(1) == null && this.getNext(2) == null && this.getNext(3) == null
-				&& this.getNext(4) == null) {
-			return true;
-		}
-		return false;
-	}
+	private boolean isLast() {
+        return this.getNext(0) == null && this.getNext(1) == null && this.getNext(2) == null && this.getNext(3) == null && this.getNext(4) == null;
+    }
 }

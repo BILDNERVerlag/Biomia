@@ -7,6 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayer;
+import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayerManager;
+import de.simonsator.partyandfriends.spigot.api.party.PartyManager;
+import de.simonsator.partyandfriends.spigot.api.party.PlayerParty;
 import org.bukkit.entity.Player;
 
 import de.biomiaAPI.Quests.QuestPlayer;
@@ -14,10 +18,6 @@ import de.biomiaAPI.coins.Coins;
 import de.biomiaAPI.main.Main;
 import de.biomiaAPI.mysql.MySQL;
 import de.biomiaAPI.pex.Rank;
-import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayer;
-import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayerManager;
-import de.simonsator.partyandfriends.spigot.api.party.PartyManager;
-import de.simonsator.partyandfriends.spigot.api.party.PlayerParty;
 
 @SuppressWarnings("deprecation")
 public class BiomiaPlayer {
@@ -27,8 +27,8 @@ public class BiomiaPlayer {
 	private boolean trollmode = false;
 	private boolean getDamage = true;
 	private boolean damageEntitys = true;
-	private PAFPlayer spigotPafpl;
-	private int biomiaPlayerID = -1;
+	private final PAFPlayer spigotPafpl;
+	private final int biomiaPlayerID;
 
 	public BiomiaPlayer(Player p) {
 		biomiaPlayerID = getBiomiaPlayerID(p);
@@ -46,7 +46,7 @@ public class BiomiaPlayer {
 		return p;
 	}
 
-	public void setPlayer(Player p) {
+	private void setPlayer(Player p) {
 		this.p = p;
 	}
 
@@ -82,21 +82,20 @@ public class BiomiaPlayer {
 		return Coins.getCoins(this);
 	}
 
-	public boolean takeCoins(int coins) {
-		boolean b = Coins.takeCoins(coins, this);
-		return b;
+	public void takeCoins(int coins) {
+		Coins.takeCoins(coins, this);
 	}
 
 	@Deprecated
 	public boolean addCoins(int coins) {
 		boolean b = Coins.addCoins(coins, this);
 		if (b) {
-			this.getPlayer().sendMessage("§7Du erhältst §f" + coins + "§7 BC's!");
+			this.getPlayer().sendMessage("ï¿½7Du erhï¿½ltst ï¿½f" + coins + "ï¿½7 BC's!");
 		}
 		return b;
 	}
 
-	public void stopCoinBoost() {
+	private void stopCoinBoost() {
 		MySQL.executeUpdate("DELETE FROM `CoinBoost` WHERE BiomiaPlayer = " + biomiaPlayerID);
 	}
 
@@ -108,16 +107,18 @@ public class BiomiaPlayer {
 
 	}
 
-	public boolean addCoins(int coins, boolean enableBoost) {
+	public void addCoins(int coins, boolean enableBoost) {
 
 		Connection con = MySQL.Connect();
 		int prozent = 100;
 		try {
+			assert con != null;
 			PreparedStatement ps = con
 					.prepareStatement("SELECT `percent`, `until` FROM `CoinBoost` WHERE BiomiaPlayer = ?");
 			ps.setInt(1, getBiomiaPlayerID());
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
+            //noinspection LoopStatementThatDoesntLoop
+            while (rs.next()) {
 				long until = rs.getLong("until");
 				if (System.currentTimeMillis() / 1000 > until) {
 					prozent = rs.getInt("percent");
@@ -128,16 +129,15 @@ public class BiomiaPlayer {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			return;
 		}
 
 		coins = coins / 100 * prozent;
 
 		boolean b = Coins.addCoins(coins, this);
 		if (b) {
-			this.getPlayer().sendMessage("§7Du erhältst §f" + coins + "§7 BC's!");
+			this.getPlayer().sendMessage("ï¿½7Du erhï¿½ltst ï¿½f" + coins + "ï¿½7 BC's!");
 		}
-		return b;
 
 	}
 
@@ -145,7 +145,7 @@ public class BiomiaPlayer {
 		Coins.setCoins(coins, this);
 	}
 
-	public List<PAFPlayer> getFriends() {
+	private List<PAFPlayer> getFriends() {
 		return spigotPafpl.getFriends();
 	}
 
@@ -161,62 +161,26 @@ public class BiomiaPlayer {
 	}
 
 	public boolean isPremium() {
-		if (Rank.getRank(p).contains("Premium"))
-			return true;
-		return false;
+		return Rank.isPremium(p);
 
 	}
 
 	public boolean isStaff() {
 		String rank = Rank.getRank(p);
 
-		if (rank.contains("Spieler") || rank.contains("Premium") || rank.contains("YouTuber"))
-			return false;
-		else
-			return true;
+		return rank.contains("Spieler") || rank.contains("Premium") || rank.contains("YouTuber");
 	}
 
 	public boolean isYouTuber() {
 
 		String rank = Rank.getRank(p);
 
-		if (rank.contains("YouTube"))
-			return true;
-
-		return false;
+		return rank.contains("YouTube");
 
 	}
 
 	public int getPremiumLevel() {
-		String rank = Rank.getRank(p);
-
-		rank = rank.replaceAll("Premium", "");
-
-		switch (rank) {
-		case "Eins":
-			return 1;
-		case "Zwei":
-			return 2;
-		case "Drei":
-			return 3;
-		case "Vier":
-			return 4;
-		case "Fuenf":
-			return 5;
-		case "Sechs":
-			return 6;
-		case "Sieben":
-			return 7;
-		case "Acht":
-			return 8;
-		case "Neun":
-			return 9;
-		case "Zehn":
-			return 10;
-		default:
-			return -1;
-		}
-
+		return Rank.getPremiumLevel(p);
 	}
 
 	public PlayerParty getParty() {
@@ -224,18 +188,11 @@ public class BiomiaPlayer {
 	}
 
 	public boolean isPartyLeader() {
-		if (isInParty()) {
-			if (spigotPafpl.equals(getParty().getLeader())) {
-				return true;
-			}
-		}
-		return false;
+		return isInParty() && spigotPafpl.equals(getParty().getLeader());
 	}
 
 	public boolean isInParty() {
-		if (getParty() != null)
-			return true;
-		return false;
+		return getParty() != null;
 	}
 
 	public boolean isInTrollmode() {

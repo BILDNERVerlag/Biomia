@@ -8,16 +8,15 @@ import java.sql.SQLException;
 
 public class MySQL{
 
-	private static String dbHost = "89.163.160.106";
-	private static String dbPort = "3306";
-	private static String dbName = "biomia_db";
-	private static String dbUser = "biomia_usertest";
-	private static String dbPass = "O78s3SObra0QzDZh";
-
-	public static Connection Connect() {
+    public static Connection Connect() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			return DriverManager.getConnection("jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName + "?" + "user="
+            String dbPass = "O78s3SObra0QzDZh";
+            String dbUser = "biomia_usertest";
+            String dbName = "biomia_db";
+            String dbPort = "3306";
+            String dbHost = "89.163.160.106";
+            return DriverManager.getConnection("jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName + "?" + "user="
 					+ dbUser + "&" + "password=" + dbPass + "&verifyServerCertificate=false&useSSL=true");
 
 		} catch (ClassNotFoundException e) {
@@ -57,7 +56,8 @@ public class MySQL{
 				PreparedStatement sql = con.prepareStatement(cmd);
 				ResultSet rs = sql.executeQuery();
 				String s = null;
-				while (rs.next()) {
+                //noinspection LoopStatementThatDoesntLoop
+                while (rs.next()) {
 					s = rs.getString(gettingspalte);
 					break;
 				}
@@ -81,7 +81,8 @@ public class MySQL{
 				PreparedStatement sql = con.prepareStatement(cmd);
 				ResultSet rs = sql.executeQuery();
 				boolean b = false;
-				while (rs.next()) {
+                //noinspection LoopStatementThatDoesntLoop
+                while (rs.next()) {
 					b = rs.getBoolean(gettingspalte);
 					break;
 				}
@@ -104,6 +105,7 @@ public class MySQL{
 				PreparedStatement sql = con.prepareStatement(cmd);
 				ResultSet rs = sql.executeQuery();
 				int i = -1;
+				//noinspection LoopStatementThatDoesntLoop,LoopStatementThatDoesntLoop
 				while (rs.next()) {
 					i = rs.getInt(gettingspalte);
 					break;

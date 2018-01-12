@@ -16,19 +16,18 @@ import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.itemcreator.ItemCreator;
 import de.biomiaAPI.main.Main;
 
-public class CosmeticInventory implements Listener {
+class CosmeticInventory implements Listener {
 
-	private BiomiaPlayer bp;
-	private ArrayList<CosmeticItem> cosmeticItems = new ArrayList<>();
-	private Inventory inv;
+	private final BiomiaPlayer bp;
+	private final ArrayList<CosmeticItem> cosmeticItems;
+	private final Inventory inv;
 	private CosmeticGroup group;
-	private ArrayList<ItemStack> items = new ArrayList<>();
+	private final ArrayList<ItemStack> items = new ArrayList<>();
 	private ItemStack next;
 	private ItemStack back;
 	private ItemStack remove;
 	private ItemStack home;
 	private int side = 0;
-	private int items_per_side = 18;
 
 	@SuppressWarnings("unchecked")
 	public CosmeticInventory(ArrayList<? super CosmeticItem> items, BiomiaPlayer bp) {
@@ -75,7 +74,8 @@ public class CosmeticInventory implements Listener {
 
 		setRemove();
 		setHome();
-		if (items.size() - side - 1 * items_per_side > side * items_per_side)
+		int items_per_side = 18;
+		if (items.size() - side - items_per_side > side * items_per_side)
 			setNext();
 		if (side > 0)
 			setBack();
@@ -130,6 +130,7 @@ public class CosmeticInventory implements Listener {
 		bp.getPlayer().openInventory(inv);
 	}
 
+	@SuppressWarnings("SuspiciousMethodCalls")
 	public void removeItem(int id) {
 		cosmeticItems.remove(Cosmetic.getItems().get(id));
 	}

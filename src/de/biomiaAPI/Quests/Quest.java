@@ -5,9 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import org.bukkit.entity.EntityType;
-
 import net.citizensnpcs.api.npc.NPC;
+import org.bukkit.entity.EntityType;
 
 public interface Quest {
 	

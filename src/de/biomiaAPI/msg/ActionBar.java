@@ -9,7 +9,7 @@ import net.minecraft.server.v1_12_R1.IChatBaseComponent.ChatSerializer;
 import net.minecraft.server.v1_12_R1.PacketPlayOutTitle;
 import net.minecraft.server.v1_12_R1.PacketPlayOutTitle.EnumTitleAction;
 
-public class ActionBar {
+class ActionBar {
 
 	public static void sendActionBarTime(String nachricht, Player p, int a, int b, int c) {
 		String s = ChatColor.translateAlternateColorCodes('&', nachricht);

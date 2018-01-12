@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
@@ -18,18 +19,18 @@ import de.biomiaAPI.mysql.MySQL;
 
 public class QuestPlayer {
 
-	Player player;
-	ArrayList<Material> mineableBlocks = new ArrayList<Material>();
-	ArrayList<Material> buildableBlocks = new ArrayList<Material>();
-	DialogMessage aktuellerDialog;
-	ItemStack book = null;
+	private final Player player;
+	private ArrayList<Material> mineableBlocks = new ArrayList<>();
+	private ArrayList<Material> buildableBlocks = new ArrayList<>();
+	private DialogMessage aktuellerDialog;
+	private final ItemStack book;
 
 	public QuestPlayer(Player player) {
 		this.player = player;
-		book = ItemCreator.itemCreate(Material.WRITTEN_BOOK, "§cTagebuch");
+		book = ItemCreator.itemCreate(Material.WRITTEN_BOOK, "ï¿½cTagebuch");
 		for (ItemStack is : player.getInventory().getContents()) {
 			try {
-				if (is.getType() == Material.WRITTEN_BOOK && is.getItemMeta().getDisplayName().equals("§cTagebuch")) {
+				if (is.getType() == Material.WRITTEN_BOOK && is.getItemMeta().getDisplayName().equals("ï¿½cTagebuch")) {
 					return;
 				}
 			} catch (NullPointerException e) {
@@ -40,7 +41,7 @@ public class QuestPlayer {
 			player.getInventory().addItem(book);
 	}
 
-	public List<Quest> getActiveQuests() {
+	private List<Quest> getActiveQuests() {
 
 		ArrayList<Quest> quests = new ArrayList<>();
 
@@ -73,7 +74,7 @@ public class QuestPlayer {
 		return book;
 	}
 
-	public void updateBook() {
+	private void updateBook() {
 		Bukkit.dispatchCommand(player, "qupdatebook");
 	}
 
@@ -95,7 +96,7 @@ public class QuestPlayer {
 	}
 
 	/*
-	 * gibt zurück, zu wieviel prozent der spieler bereits die quests des
+	 * gibt zurï¿½ck, zu wieviel prozent der spieler bereits die quests des
 	 * entsprechenden bands bearbeitet/abgeschlossen hat
 	 */
 	public int getQuestPercentage(int band) {
@@ -115,7 +116,7 @@ public class QuestPlayer {
 					}
 				}
 				if (i == band)
-					return (int) Math.round((double) ((double) playerProgress / (double) questsProBand[i]) * 100);
+					return (int) Math.round((double) playerProgress / (double) questsProBand[i] * 100);
 			}
 		}
 
@@ -147,9 +148,7 @@ public class QuestPlayer {
 	}
 
 	public void addMineableBlocks(ArrayList<Material> list_of_materials) {
-		for (Material i : list_of_materials) {
-			mineableBlocks.add(i);
-		}
+		mineableBlocks.addAll(list_of_materials);
 	}
 
 	public void removeMineableBlocks(ArrayList<Material> list_of_materialsm) {
@@ -158,7 +157,7 @@ public class QuestPlayer {
 		}
 	}
 
-	public ArrayList<Quest> getFinishedQuests() {
+	private ArrayList<Quest> getFinishedQuests() {
 		ArrayList<Quest> quests = new ArrayList<>();
 		Connection con = MySQL.Connect();
 		if (con != null) {
@@ -184,15 +183,11 @@ public class QuestPlayer {
 	}
 
 	public boolean isInQuest(Quest quest) {
-		if (getActiveQuests().contains(quest)) {
-			return true;
-		}
-		return false;
-	}
+        return Objects.requireNonNull(getActiveQuests()).contains(quest);
+    }
 
-	public DialogMessage setDialog(DialogMessage dm) {
+	public void setDialog(DialogMessage dm) {
 		aktuellerDialog = dm;
-		return aktuellerDialog;
 	}
 
 	public DialogMessage setRandomDialog(ArrayList<DialogMessage> dm) {
@@ -204,7 +199,7 @@ public class QuestPlayer {
 		return this.aktuellerDialog;
 	}
 
-	public States getState(Quest q) {
+	private States getState(Quest q) {
 		String s = MySQL.executeQuery("SELECT * FROM `Quests_aktuell` WHERE uuid = '" + player.getUniqueId().toString()
 				+ "' AND name = '" + q.getQuestName() + "'", "state");
 
@@ -219,7 +214,7 @@ public class QuestPlayer {
 	}
 
 	public int getNumberOfActiveQuests() {
-		return getActiveQuests().size();
+		return Objects.requireNonNull(getActiveQuests()).size();
 	}
 
 	public Player getPlayer() {
@@ -233,11 +228,10 @@ public class QuestPlayer {
 		updateBook();
 	}
 
-	public int getFinishTime(Quest quest) {
+	private int getFinishTime(Quest quest) {
 		if (hasFinished(quest)) {
-			int i = MySQL.executeQuerygetint("Select * from `Quests_erledigt` where `name` = '" + quest.getQuestName()
+			return MySQL.executeQuerygetint("Select * from `Quests_erledigt` where `name` = '" + quest.getQuestName()
 					+ "' AND uuid = '" + player.getUniqueId().toString() + "'", "end_time");
-			return i;
 		}
 		return -1;
 	}
@@ -245,19 +239,15 @@ public class QuestPlayer {
 	public boolean checkCooldown(Quest q) {
 		if (q.isRepeatble()) {
 			if (Biomia.getBiomiaPlayer(getPlayer()).isPremium()) {
-				if (System.currentTimeMillis() / 1000 >= (getFinishTime(q) + (q.getCooldown() * 0.8))) {
-					return true;
-				}
+                return System.currentTimeMillis() / 1000 >= (getFinishTime(q) + (q.getCooldown() * 0.8));
 			} else {
-				if (System.currentTimeMillis() / 1000 >= (getFinishTime(q) + q.getCooldown())) {
-					return true;
-				}
+                return System.currentTimeMillis() / 1000 >= (getFinishTime(q) + q.getCooldown());
 			}
 		}
 		return false;
 	}
 
-	public boolean hasFinished(Quest quest) {
+	private boolean hasFinished(Quest quest) {
 		return getFinishedQuests().contains(quest);
 	}
 

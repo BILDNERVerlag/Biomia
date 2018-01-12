@@ -5,11 +5,11 @@ import org.bukkit.inventory.ItemStack;
 import de.biomiaAPI.QuestConditions.ItemConditions;
 import de.biomiaAPI.Quests.QuestPlayer;
 
-public class GiveItemIfNotInInventoryEvent implements Event {
+class GiveItemIfNotInInventoryEvent implements Event {
 
-	QuestPlayer qp;
+	private QuestPlayer qp;
 
-	ItemStack stack;
+	private final ItemStack stack;
 
 	public GiveItemIfNotInInventoryEvent(ItemStack stack) {
 		this.stack = stack;
@@ -21,7 +21,7 @@ public class GiveItemIfNotInInventoryEvent implements Event {
 		giveItem();
 	}
 
-	public void giveItem() {
+	private void giveItem() {
 		if (!ItemConditions.hasItemInInventory(qp, stack.getType(), stack.getAmount(), stack.getItemMeta().getDisplayName())) {
 			qp.getPlayer().getInventory().addItem(stack);
 		}

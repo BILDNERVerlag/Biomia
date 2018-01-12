@@ -10,7 +10,7 @@ import de.biomiaAPI.cosmetics.CosmeticGadgetItem;
 import de.biomiaAPI.cosmetics.GadgetListener;
 import de.biomiaAPI.main.Main;
 
-public class TNTCanon implements GadgetListener {
+class TNTCanon implements GadgetListener {
 
 	@Override
 	public void execute(BiomiaPlayer bp, CosmeticGadgetItem item) {

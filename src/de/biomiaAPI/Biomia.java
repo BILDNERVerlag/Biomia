@@ -1,24 +1,6 @@
 package de.biomiaAPI;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
-
-import org.bukkit.Bukkit;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
-
-import de.biomiaAPI.Quests.DialogMessage;
-import de.biomiaAPI.Quests.Quest;
-import de.biomiaAPI.Quests.QuestManager;
-import de.biomiaAPI.Quests.QuestPlayer;
-import de.biomiaAPI.Quests.States;
-import de.biomiaAPI.Quests.TIME;
+import de.biomiaAPI.Quests.*;
 import de.biomiaAPI.Teams.Team;
 import de.biomiaAPI.Teams.TeamManager;
 import de.biomiaAPI.Teams.Teams;
@@ -27,20 +9,29 @@ import de.biomiaAPI.mysql.MySQL;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.trait.LookClose;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
 
 public class Biomia {
 
-	private static HashMap<Player, QuestPlayer> qp = new HashMap<>();
-	private static HashMap<Player, BiomiaPlayer> bp = new HashMap<>();
+	private static final HashMap<Player, QuestPlayer> qp = new HashMap<>();
+	private static final HashMap<Player, BiomiaPlayer> bp = new HashMap<>();
 
-	public static void stopWithDelay(int sekunden) {
+	private static void stopWithDelay() {
 
 		new BukkitRunnable() {
 			@Override
 			public void run() {
 				Bukkit.shutdown();
 			}
-		}.runTaskLater(Main.plugin, sekunden * 20);
+		}.runTaskLater(Main.plugin, 10 * 20);
 	}
 
 	private static void removeBiomiaPlayer(Player p) {
@@ -124,8 +115,8 @@ public class Biomia {
 					registerNewTeam(Teams.WHITE.name(), playerPerTeam);
 					break;
 				default:
-					Bukkit.broadcastMessage("Es sind nur 2, 4 oder 8 Teams verfügbar!");
-					stopWithDelay(10);
+					Bukkit.broadcastMessage("Es sind nur 2, 4 oder 8 Teams verfï¿½gbar!");
+					stopWithDelay();
 					break;
 				}
 			}
@@ -143,7 +134,7 @@ public class Biomia {
 					farbe = "Orange";
 					break;
 				case "GREEN":
-					farbe = "Grün";
+					farbe = "Grï¿½n";
 					break;
 				case "PURPLE":
 					farbe = "Lila";
@@ -152,7 +143,7 @@ public class Biomia {
 					farbe = "Rot";
 					break;
 				case "WHITE":
-					farbe = "Weiß";
+					farbe = "Weiï¿½";
 					break;
 				case "YELLOW":
 					farbe = "Gelb";
@@ -170,8 +161,8 @@ public class Biomia {
 					int maxPlayer;
 					short colordata;
 					String colorcode;
-					ArrayList<Player> players = new ArrayList<>();
-					ArrayList<Player> deadPlayers = new ArrayList<>();
+					final ArrayList<Player> players = new ArrayList<>();
+					final ArrayList<Player> deadPlayers = new ArrayList<>();
 
 					public String getTeamname() {
 						return teamname;
@@ -203,11 +194,8 @@ public class Biomia {
 
 					public boolean playerInThisTeam(Player player) {
 
-						if (players.contains(player)) {
-							return true;
-						}
-						return false;
-					}
+                        return players.contains(player);
+                    }
 
 					@Override
 					public ArrayList<Player> getPlayers() {
@@ -217,58 +205,52 @@ public class Biomia {
 
 					public boolean full() {
 
-						if (maxPlayer == players.size()) {
-							return true;
-						}
-						return false;
-					}
+                        return maxPlayer == players.size();
+                    }
 
 					@Override
 					public void initialize(String teamname, int maxPlayer) {
-						short colordata = 0;
-						String colorcode = null;
+						short colordata;
+						String colorcode;
 
-						if (Teams.valueOf(teamname) != null) {
-
-							switch (teamname) {
-							case "BLACK":
-								colorcode = "§0";
-								colordata = 15;
-								break;
-							case "BLUE":
-								colorcode = "§9";
-								colordata = 11;
-								break;
-							case "ORANGE":
-								colorcode = "§6";
-								colordata = 1;
-								break;
-							case "GREEN":
-								colorcode = "§2";
-								colordata = 13;
-								break;
-							case "PURPLE":
-								colorcode = "§d";
-								colordata = 10;
-								break;
-							case "RED":
-								colorcode = "§c";
-								colordata = 14;
-								break;
-							case "WHITE":
-								colorcode = "§f";
-								colordata = 0;
-								break;
-							case "YELLOW":
-								colorcode = "§e";
-								colordata = 4;
-								break;
-							default:
-								colorcode = "§f";
-								colordata = 0;
-								break;
-							}
-						}
+						switch (teamname) {
+                        case "BLACK":
+                            colorcode = "ï¿½0";
+                            colordata = 15;
+                            break;
+                        case "BLUE":
+                            colorcode = "ï¿½9";
+                            colordata = 11;
+                            break;
+                        case "ORANGE":
+                            colorcode = "ï¿½6";
+                            colordata = 1;
+                            break;
+                        case "GREEN":
+                            colorcode = "ï¿½2";
+                            colordata = 13;
+                            break;
+                        case "PURPLE":
+                            colorcode = "ï¿½d";
+                            colordata = 10;
+                            break;
+                        case "RED":
+                            colorcode = "ï¿½c";
+                            colordata = 14;
+                            break;
+                        case "WHITE":
+                            colorcode = "ï¿½f";
+                            colordata = 0;
+                            break;
+                        case "YELLOW":
+                            colorcode = "ï¿½e";
+                            colordata = 4;
+                            break;
+                        default:
+                            colorcode = "ï¿½f";
+                            colordata = 0;
+                            break;
+                        }
 
 						this.colorcode = colorcode;
 						this.colordata = colordata;
@@ -278,11 +260,8 @@ public class Biomia {
 
 					@Override
 					public boolean isPlayerDead(Player player) {
-						if (deadPlayers.contains(player)) {
-							return true;
-						}
-						return false;
-					}
+                        return deadPlayers.contains(player);
+                    }
 
 					@Override
 					public void setPlayerDead(Player player) {
@@ -375,6 +354,7 @@ public class Biomia {
 
 			@Override
 			public Quest registerNewQuest(String questName0, int Band) {
+				//noinspection unchecked
 				Quest q = new Quest() {
 
 					String questName = questName0;
@@ -389,13 +369,13 @@ public class Biomia {
 
 					private int cooldown;
 
-					ArrayList<NPC> npcs = new ArrayList<>();
+					final ArrayList<NPC> npcs = new ArrayList<>();
 
-					List<String> active_Player_UUIDS = getActivePlayerUUIDS();
+					final List<String> active_Player_UUIDS = getActivePlayerUUIDS();
 
-					HashMap<States, DialogMessage> dialog = new HashMap<>();
+					final HashMap<States, DialogMessage> dialog = new HashMap<>();
 
-					int band = Band;
+					final int band = Band;
 
 					boolean removeOnReload = false;
 
@@ -491,6 +471,7 @@ public class Biomia {
 						return temp;
 					}
 
+					@SuppressWarnings("unchecked")
 					@Override
 					public ArrayList<NPC> getNpcs() {
 						return npcs;
@@ -547,12 +528,12 @@ public class Biomia {
 
 					@Override
 					public void addPlayer(QuestPlayer qp) {
-						active_Player_UUIDS.add(qp.getPlayer().getUniqueId().toString());
+						Objects.requireNonNull(active_Player_UUIDS).add(qp.getPlayer().getUniqueId().toString());
 					}
 
 					@Override
 					public void removePlayer(QuestPlayer qp) {
-						active_Player_UUIDS.remove(qp.getPlayer().getUniqueId().toString());
+						Objects.requireNonNull(active_Player_UUIDS).remove(qp.getPlayer().getUniqueId().toString());
 					}
 
 					@Override
@@ -560,7 +541,7 @@ public class Biomia {
 
 						ArrayList<QuestPlayer> onlinePlayers = new ArrayList<>();
 
-						for (String s : active_Player_UUIDS) {
+						for (String s : Objects.requireNonNull(active_Player_UUIDS)) {
 
 							Player p = Bukkit.getPlayer(UUID.fromString(s));
 
@@ -574,10 +555,6 @@ public class Biomia {
 
 					@Override
 					public int getQuestID() {
-
-						if (questid == -1) {
-
-						}
 
 						return questid;
 					}

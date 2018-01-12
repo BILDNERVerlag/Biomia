@@ -19,12 +19,8 @@ public class ItemCreator {
 
 	}
 
-	public static ItemStack itemCreate(Material material, short data) {
-
-		ItemStack itemStack = new ItemStack(material, 1, data);
-
-		return itemStack;
-
+	private static ItemStack itemCreate(Material material, short data) {
+        return new ItemStack(material, 1, data);
 	}
 
 	public static ItemStack itemCreate(Material material, String name) {
@@ -40,8 +36,7 @@ public class ItemCreator {
 
 	public static ItemStack itemCreate(Material material) {
 
-		ItemStack itemStack = new ItemStack(material);
-		return itemStack;
+        return new ItemStack(material);
 
 	}
 
@@ -61,7 +56,7 @@ public class ItemCreator {
 	}
 
 	@SuppressWarnings("deprecation")
-	public static ItemStack headWithSkin(String name) {
+    private static ItemStack headWithSkin(String name) {
 		ItemStack s = itemCreate(Material.SKULL_ITEM, (short) SkullType.PLAYER.ordinal());
 		SkullMeta meta = (SkullMeta) s.getItemMeta();
 		meta.setOwner(name);
@@ -70,11 +65,9 @@ public class ItemCreator {
 		return s;
 	}
 
-	@SuppressWarnings("deprecation")
 	public static ItemStack headWithSkin(String name, String displayName) {
-		ItemStack s = itemCreate(Material.SKULL_ITEM, (short) SkullType.PLAYER.ordinal());
+		ItemStack s = headWithSkin(name);
 		SkullMeta meta = (SkullMeta) s.getItemMeta();
-		meta.setOwner(name);
 		meta.setDisplayName(displayName);
 		s.setItemMeta(meta);
 		return s;

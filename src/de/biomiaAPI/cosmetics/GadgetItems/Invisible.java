@@ -17,13 +17,13 @@ import de.biomiaAPI.main.Main;
 import de.biomiaAPI.tools.Particles;
 import net.minecraft.server.v1_12_R1.EnumParticle;
 
-public class Invisible implements GadgetListener, Listener {
+class Invisible implements GadgetListener, Listener {
 
-	private static ArrayList<Player> invisibles = new ArrayList<>();
+	private static final ArrayList<Player> invisibles = new ArrayList<>();
 
 	@Override
 	public void execute(BiomiaPlayer bp, CosmeticGadgetItem item) {
-		Location l = bp.getPlayer().getLocation();
+		Location l = bp.getPlayer().getLocation().clone();
 
 		for (int i = 0; i < 360; i += 6) {
 			for (int degree = 0; degree < 360; degree += 6) {
@@ -36,7 +36,7 @@ public class Invisible implements GadgetListener, Listener {
 				Location loc = l.clone().add(x, i / 180, z);
 				new Particles(EnumParticle.SMOKE_NORMAL, loc, false, 0f, 0f, 0f, 1f, 1).sendAll();
 			}
-			l.add(0, i / 180 * (1/30), 0);
+			l.add(0, 2 / 60, 0);
 		}
 
 		for (Player p : Bukkit.getOnlinePlayers())

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 import org.bukkit.inventory.ItemStack;
 
@@ -11,7 +12,7 @@ import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.QuestEvents.GiveItemEvent;
 import de.biomiaAPI.mysql.MySQL;
 
-public class QuestItems {
+class QuestItems {
 
 	public static void addQuestItem(BiomiaPlayer biomiaPlayer, ItemStack itemStack) {
 		MySQL.executeUpdate("Insert into QuestItems (`BiomiaPlayer`, `Item`) values ("
@@ -21,7 +22,7 @@ public class QuestItems {
 	public static void giveQuestItems(BiomiaPlayer biomiaPlayer) {
 		Connection con = MySQL.Connect();
 		try {
-			PreparedStatement ps = con.prepareStatement("Select Item from QuestItems where BiomiaPlayer = ?");
+			PreparedStatement ps = Objects.requireNonNull(con).prepareStatement("Select Item from QuestItems where BiomiaPlayer = ?");
 			ps.setInt(1, biomiaPlayer.getBiomiaPlayerID());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {

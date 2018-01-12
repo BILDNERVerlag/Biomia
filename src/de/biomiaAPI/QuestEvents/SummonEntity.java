@@ -5,16 +5,14 @@ import org.bukkit.entity.EntityType;
 
 import de.biomiaAPI.Quests.QuestPlayer;
 
-public class SummonEntity implements Event {
+class SummonEntity implements Event {
 
-	QuestPlayer qp;
-	Location loc;
-	EntityType entityType;
-	int menge;
+    private final Location loc;
+	private final EntityType entityType;
+	private final int menge;
 
 	@Override
 	public void executeEvent(QuestPlayer qp) {
-		this.qp = qp;
 		summonEntity();
 	}
 

@@ -2,9 +2,9 @@ package de.biomiaAPI.msg;
 
 public class Messages {
 
-	public static String prefix = "§7[§5Bio§2mia§7] ";
-	public static String noperm = prefix + "§cDu hast keine Rechte um diesen Befehl auszuführen!";
-	public static String notonline = prefix + "§cDer Spieler ist nicht Online!";
-	public static String noPlayer = prefix + "§cDu musst ein Spieler sein!";
+	public static final String prefix = "ï¿½7[ï¿½5Bioï¿½2miaï¿½7] ";
+	public static String noperm = prefix + "ï¿½cDu hast keine Rechte um diesen Befehl auszufï¿½hren!";
+	public static String notonline = prefix + "ï¿½cDer Spieler ist nicht Online!";
+	public static String noPlayer = prefix + "ï¿½cDu musst ein Spieler sein!";
 
 }

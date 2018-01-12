@@ -9,14 +9,15 @@ import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.QuestEvents.TakeItemEvent;
 import de.biomiaAPI.cosmetics.Cosmetic.Group;
 
+@SuppressWarnings("StatementWithEmptyBody")
 public class CosmeticParticleItem extends CosmeticItem {
 
-	public static HashMap<BiomiaPlayer, BukkitTask> actives = new HashMap<>();
-	private ParticleListener particleListener = Cosmetic.getParticleListener(getID());
+	private static final HashMap<BiomiaPlayer, BukkitTask> actives = new HashMap<>();
+	private final ParticleListener particleListener = Cosmetic.getParticleListener(getID());
 
 	@Override
 	public void use(BiomiaPlayer bp) {
-		bp.getPlayer().sendMessage(getName() + " §8wurde §aAktiviert§8!");
+		bp.getPlayer().sendMessage(getName() + " ï¿½8wurde ï¿½aAktiviertï¿½8!");
 		if (CosmeticParticleItem.actives.containsKey(bp)) {
 			CosmeticParticleItem.actives.get(bp).cancel();
 		}
@@ -25,7 +26,7 @@ public class CosmeticParticleItem extends CosmeticItem {
 
 	@Override
 	public void remove(BiomiaPlayer bp) {
-		bp.getPlayer().sendMessage(getName() + " §8wurde §cDeaktiviert§8!");
+		bp.getPlayer().sendMessage(getName() + " ï¿½8wurde ï¿½cDeaktiviertï¿½8!");
 		if (CosmeticParticleItem.actives.containsKey(bp)) {
 			CosmeticParticleItem.actives.get(bp).cancel();
 			CosmeticParticleItem.actives.remove(bp);
@@ -44,15 +45,15 @@ public class CosmeticParticleItem extends CosmeticItem {
 		} else if (limit - time <= 0) {
 			Cosmetic.setLimit(bp, getID(), 0);
 			remove(bp);
-			return false;
+			return true;
 		} else {
 			Cosmetic.setLimit(bp, getID(), limit - time);
 			removeItemFromInventory(bp, time);
 		}
-		return true;
+		return false;
 	}
 
-	public void removeItemFromInventory(BiomiaPlayer bp, int menge) {
+	private void removeItemFromInventory(BiomiaPlayer bp, int menge) {
 		new TakeItemEvent(getItem().getType(), getItem().getItemMeta().getDisplayName(), 1)
 				.executeEvent(bp.getQuestPlayer());
 	}

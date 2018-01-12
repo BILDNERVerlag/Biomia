@@ -17,7 +17,7 @@ import de.biomiaAPI.main.Main;
 public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 
 	private GadgetListener gadgetListener;
-	private ItemStack gadgetItem;
+	private final ItemStack gadgetItem;
 
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
@@ -29,7 +29,7 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 				try {
 					gadgetListener.execute(Biomia.getBiomiaPlayer(e.getPlayer()), this);
 				} catch (Exception ex) {
-					e.getPlayer().sendMessage("§cListener not found!");
+					e.getPlayer().sendMessage("ï¿½cListener not found!");
 					ex.printStackTrace();
 				}
 	}
@@ -44,7 +44,7 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 	}
 
 	@Override
-	public void remove(BiomiaPlayer bp) {
+    public void remove(BiomiaPlayer bp) {
 		bp.getPlayer().getInventory().setItem(Cosmetic.gadgetSlot, null);
 	}
 
@@ -66,19 +66,23 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 	public void removeOne(BiomiaPlayer bp, boolean removeItem) {
 		int limit = Cosmetic.getLimit(bp, getID());
 
-		if (limit == -1) {
-			// 'Infinity'
-		} else if (limit == 0) {
-			Cosmetic.setLimit(bp, getID(), 0);
-			remove(bp);
-		} else {
-			Cosmetic.setLimit(bp, getID(), --limit);
-			if (removeItem)
-				removeItemFromInventory(bp);
-		}
+        switch (limit) {
+            case -1:
+                // 'Infinity'
+                break;
+            case 0:
+                Cosmetic.setLimit(bp, getID(), 0);
+                remove(bp);
+                break;
+            default:
+                Cosmetic.setLimit(bp, getID(), --limit);
+                if (removeItem)
+                    removeItemFromInventory(bp);
+                break;
+        }
 	}
 
-	public void removeItemFromInventory(BiomiaPlayer bp) {
+	private void removeItemFromInventory(BiomiaPlayer bp) {
 		new TakeItemEvent(getGadgetItem().getType(), getGadgetItem().getItemMeta().getDisplayName(), 1)
 				.executeEvent(bp.getQuestPlayer());
 	}

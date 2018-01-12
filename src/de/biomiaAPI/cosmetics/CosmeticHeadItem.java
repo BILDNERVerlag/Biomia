@@ -7,9 +7,9 @@ import org.bukkit.inventory.ItemStack;
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.Cosmetic.Group;
 
-public class CosmeticHeadItem extends CosmeticItem {
+class CosmeticHeadItem extends CosmeticItem {
 
-	private ItemStack head;
+	private final ItemStack head;
 	public static ArrayList<BiomiaPlayer> heads = new ArrayList<>(); 
 
 	public CosmeticHeadItem(int id, String name, ItemStack is, Commonness c, ItemStack head) {
