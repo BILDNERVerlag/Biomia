@@ -85,8 +85,8 @@ public class Main extends JavaPlugin {
 							new ClickEvent(ClickEvent.Action.OPEN_URL, "https://biomia.bildnerverlag.de/"));
 					break;
 				case 1:
-					message = new TextComponent(
-							Messages.prefix + "§6Besuch uns auf unserem TeamSpeak-Server! ts.biomia.de !");
+					message = new TextComponent(Messages.prefix
+							+ "§6Schau doch mal auf unserem §6TeamSpeak-Server vorbei! §6ts.biomia.de !");
 					break;
 				case 2:
 					message = new TextComponent(Messages.prefix + "§6Besuch uns auf instagram.com/biomiaofficial !");
@@ -100,7 +100,7 @@ public class Main extends JavaPlugin {
 					break;
 				default:
 					message = new TextComponent(
-							Messages.prefix + "§6Folge uns auf Facebook! facebook.com/biomiaofficial/");
+							Messages.prefix + "§6Folge uns auf Facebook! §6facebook.com/biomiaofficial/");
 					message.setClickEvent(
 							new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.facebook.com/biomiaofficial/"));
 					break;
@@ -116,7 +116,7 @@ public class Main extends JavaPlugin {
 				else
 					i = 0;
 			}
-		}.runTaskTimer(this, 0L, 20L * 60 * 3); /* Der Long ist die Anzahl der Ticks, ergo im moment 3 min */
+		}.runTaskTimer(this, 0L, 20L * 60 * 5); /* Der Long ist die Anzahl der Ticks, ergo im moment 5 min */
 	}
 
 	@Override
@@ -125,11 +125,13 @@ public class Main extends JavaPlugin {
 	}
 
 	public static void init() {
-		
+
 		Cosmetic.initGroup(new CosmeticGroup(Group.HEADS, ItemCreator.itemCreate(Material.SKULL_ITEM, "§cHeads")));
 		Cosmetic.initGroup(new CosmeticGroup(Group.PETS, ItemCreator.itemCreate(Material.MONSTER_EGG, "§bPets")));
-		Cosmetic.initGroup(new CosmeticGroup(Group.GADGETS, ItemCreator.itemCreate(Material.BREWING_STAND, "§dGadgets")));
-		Cosmetic.initGroup(new CosmeticGroup(Group.PARTICLES, ItemCreator.itemCreate(Material.BLAZE_ROD, "§3Particles")));
+		Cosmetic.initGroup(
+				new CosmeticGroup(Group.GADGETS, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM, "§dGadgets")));
+		Cosmetic.initGroup(
+				new CosmeticGroup(Group.PARTICLES, ItemCreator.itemCreate(Material.BLAZE_POWDER, "§3Particles")));
 		Cosmetic.initGroup(new CosmeticGroup(Group.SUITS, ItemCreator.itemCreate(Material.GOLD_CHESTPLATE, "§5Suits")));
 
 		group.add("Owner");
@@ -158,7 +160,7 @@ public class Main extends JavaPlugin {
 		prefixes.put("SrModerator", "§bSrMod | ");
 		prefixes.put("Moderator", "§bMod | ");
 		prefixes.put("Builder", "§2Builder | ");
-		prefixes.put("YouTube", "§9YT | ");
+		prefixes.put("YouTube", "§4[§0Y§fT§4] | ");
 		prefixes.put("PremiumZehn", "§6X | ");
 		prefixes.put("PremiumNeun", "§6IX | ");
 		prefixes.put("PremiumAcht", "§eVIII | ");
