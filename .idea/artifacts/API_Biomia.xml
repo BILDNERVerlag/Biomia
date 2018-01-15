@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="API-Biomia">
+    <output-path>$USER_HOME$/Desktop/EigenePlugins</output-path>
+    <root id="archive" name="API-Biomia.jar">
+      <element id="module-output" name="BiomiaAPI" />
+      <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
+    </root>
+  </artifact>
+</component>

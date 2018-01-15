@@ -25,7 +25,6 @@ public class Biomia {
 	private static final HashMap<Player, BiomiaPlayer> bp = new HashMap<>();
 
 	private static void stopWithDelay() {
-
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -67,16 +66,16 @@ public class Biomia {
 
 		Player p = bp.getPlayer();
 
-		if (qp.containsKey(p)) {
+		if (qp.containsKey(p))
 			return qp.get(p);
-		} else {
+		else {
 			QuestPlayer newqp = new QuestPlayer(p);
 			qp.put(newqp.getPlayer(), newqp);
 			return newqp;
 		}
 	}
 
-	public static BiomiaPlayer getBiomiaPlayer(Player p) {
+    public static BiomiaPlayer getBiomiaPlayer(Player p) {
 
 		if (bp.containsKey(p)) {
 			return bp.get(p);
@@ -150,7 +149,6 @@ public class Biomia {
 					break;
 				}
 				return farbe;
-
 			}
 
 			@Override

@@ -18,7 +18,7 @@ import de.biomiaAPI.main.Main;
 import net.minecraft.server.v1_12_R1.EntityInsentient;
 import net.minecraft.server.v1_12_R1.PathEntity;
 
-class CosmeticPetItem extends CosmeticItem {
+public class CosmeticPetItem extends CosmeticItem {
 
 	private final EntityType type;
 	private static final HashMap<BiomiaPlayer, Entity> pets = new HashMap<>();

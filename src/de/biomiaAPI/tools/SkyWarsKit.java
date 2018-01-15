@@ -12,7 +12,7 @@ import java.util.Objects;
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.mysql.MySQL;
 
-class SkyWarsKit {
+public class SkyWarsKit {
 
 	public static boolean addKit(BiomiaPlayer biomiaPlayer, int kitID, int... months) {
 		return MySQL.executeUpdate("Insert into SkyWarsKits (`BiomiaPlayer`, `kitID`, `available`) values ("

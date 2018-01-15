@@ -18,7 +18,6 @@ public class TakeItemEvent implements Event {
         this.name = name;
     }
 
-    @Deprecated
     public TakeItemEvent(Material material, int menge) {
         this.material = material;
         this.menge = menge;

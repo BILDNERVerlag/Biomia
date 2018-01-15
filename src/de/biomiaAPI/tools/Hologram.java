@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import de.biomiaAPI.main.Main;
 import net.md_5.bungee.api.ChatColor;
 
-class Hologram {
+public class Hologram {
 
 	public static void newHologram(Player p, String[] s) {
 		int i = 0;

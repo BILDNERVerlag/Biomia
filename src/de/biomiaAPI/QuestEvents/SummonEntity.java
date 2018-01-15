@@ -5,7 +5,7 @@ import org.bukkit.entity.EntityType;
 
 import de.biomiaAPI.Quests.QuestPlayer;
 
-class SummonEntity implements Event {
+public class SummonEntity implements Event {
 
     private final Location loc;
 	private final EntityType entityType;

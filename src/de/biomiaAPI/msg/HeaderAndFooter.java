@@ -9,7 +9,7 @@ import net.minecraft.server.v1_12_R1.IChatBaseComponent;
 import net.minecraft.server.v1_12_R1.IChatBaseComponent.ChatSerializer;
 import net.minecraft.server.v1_12_R1.PacketPlayOutPlayerListHeaderFooter;
 
-class HeaderAndFooter {
+public class HeaderAndFooter {
 
 	public static void sendHeaderAndFooter(Player p, String header, String footer) {
 		if (footer == null)

@@ -26,17 +26,17 @@ public class DialogMessage {
 	private States state;
 	private final NPC npc;
 
-	private DialogMessage(Quest q, NPC npc) {
+	public DialogMessage(Quest q, NPC npc) {
 		this.npc = npc;
 		this.q = q;
 	}
 
-	private DialogMessage setInhalt(String npcAuskunft) {
+	public DialogMessage setInhalt(String npcAuskunft) {
 		inhalt = npcAuskunft;
 		return this;
 	}
 
-	private void execute(QuestPlayer qp) {
+	public void execute(QuestPlayer qp) {
 		if (qp.getDialog() != null) {
 			sendeAntwort(qp);
 		}
@@ -115,11 +115,11 @@ public class DialogMessage {
 		}
 	}
 
-	private String getFortsetzung() {
+	public String getFortsetzung() {
 		return fortsetzungen[0];
 	}
 
-	private DialogMessage getNext(int slot) {
+	public DialogMessage getNext(int slot) {
 		return nexterAbschnitt[slot];
 	}
 
@@ -127,7 +127,7 @@ public class DialogMessage {
 		return inhalt;
 	}
 
-	private void executeEvent(QuestPlayer qp) {
+	public void executeEvent(QuestPlayer qp) {
 		for (Event e : events) {
 			e.executeEvent(qp);
 		}
@@ -162,7 +162,7 @@ public class DialogMessage {
 		return this;
 	}
 
-	private boolean isLast() {
+	public boolean isLast() {
         return this.getNext(0) == null && this.getNext(1) == null && this.getNext(2) == null && this.getNext(3) == null && this.getNext(4) == null;
     }
 }

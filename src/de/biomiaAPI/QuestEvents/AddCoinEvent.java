@@ -3,7 +3,7 @@ package de.biomiaAPI.QuestEvents;
 import de.biomiaAPI.Biomia;
 import de.biomiaAPI.Quests.QuestPlayer;
 
-class AddCoinEvent implements Event{
+public class AddCoinEvent implements Event{
 	
 	private final int coins;
 	

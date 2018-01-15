@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.Cosmetic.Group;
 
-class CosmeticSuitItem extends CosmeticItem {
+public class CosmeticSuitItem extends CosmeticItem {
 
 	private ItemStack helmet = null;
 	private ItemStack chestplate = null;

@@ -41,7 +41,7 @@ public class QuestPlayer {
 			player.getInventory().addItem(book);
 	}
 
-	private List<Quest> getActiveQuests() {
+	public List<Quest> getActiveQuests() {
 
 		ArrayList<Quest> quests = new ArrayList<>();
 
@@ -74,7 +74,7 @@ public class QuestPlayer {
 		return book;
 	}
 
-	private void updateBook() {
+	public void updateBook() {
 		Bukkit.dispatchCommand(player, "qupdatebook");
 	}
 
@@ -157,7 +157,7 @@ public class QuestPlayer {
 		}
 	}
 
-	private ArrayList<Quest> getFinishedQuests() {
+	public ArrayList<Quest> getFinishedQuests() {
 		ArrayList<Quest> quests = new ArrayList<>();
 		Connection con = MySQL.Connect();
 		if (con != null) {
@@ -199,7 +199,7 @@ public class QuestPlayer {
 		return this.aktuellerDialog;
 	}
 
-	private States getState(Quest q) {
+	public States getState(Quest q) {
 		String s = MySQL.executeQuery("SELECT * FROM `Quests_aktuell` WHERE uuid = '" + player.getUniqueId().toString()
 				+ "' AND name = '" + q.getQuestName() + "'", "state");
 
@@ -228,7 +228,7 @@ public class QuestPlayer {
 		updateBook();
 	}
 
-	private int getFinishTime(Quest quest) {
+	public int getFinishTime(Quest quest) {
 		if (hasFinished(quest)) {
 			return MySQL.executeQuerygetint("Select * from `Quests_erledigt` where `name` = '" + quest.getQuestName()
 					+ "' AND uuid = '" + player.getUniqueId().toString() + "'", "end_time");
@@ -247,7 +247,7 @@ public class QuestPlayer {
 		return false;
 	}
 
-	private boolean hasFinished(Quest quest) {
+	public boolean hasFinished(Quest quest) {
 		return getFinishedQuests().contains(quest);
 	}
 

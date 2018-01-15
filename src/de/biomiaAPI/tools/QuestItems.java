@@ -12,7 +12,7 @@ import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.QuestEvents.GiveItemEvent;
 import de.biomiaAPI.mysql.MySQL;
 
-class QuestItems {
+public class QuestItems {
 
 	public static void addQuestItem(BiomiaPlayer biomiaPlayer, ItemStack itemStack) {
 		MySQL.executeUpdate("Insert into QuestItems (`BiomiaPlayer`, `Item`) values ("

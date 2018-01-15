@@ -42,7 +42,6 @@ public class BiomiaPlayer {
 	}
 
 	public Player getPlayer() {
-
 		return p;
 	}
 

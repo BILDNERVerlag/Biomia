@@ -8,7 +8,7 @@ import org.bukkit.scoreboard.Team;
 import de.biomiaAPI.main.Main;
 import de.biomiaAPI.pex.Rank;
 
-class Scoreboards {
+public class Scoreboards {
 
 	private static void addToEachOther(Player p) {
 

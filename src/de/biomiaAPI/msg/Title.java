@@ -9,7 +9,7 @@ import net.minecraft.server.v1_12_R1.IChatBaseComponent.ChatSerializer;
 import net.minecraft.server.v1_12_R1.PacketPlayOutTitle;
 import net.minecraft.server.v1_12_R1.PacketPlayOutTitle.EnumTitleAction;
 
-class Title {
+public class Title {
 
 	public static void sendTitel(String nachricht, Player p) {
 
