@@ -10,33 +10,34 @@ import org.bukkit.util.io.BukkitObjectOutputStream;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 public class ItemBase64 {
-	
-	public static String toBase64(ItemStack stack) {
-		try {
-			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-			BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream);
 
-			dataOutput.writeObject(stack);
-			dataOutput.close();
+    @Deprecated
+    public static String toBase64(ItemStack stack) {
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream);
 
-			return Base64Coder.encodeLines(outputStream.toByteArray());
-		} catch (Exception e) {
-			return null;
-		}
-	}
+            dataOutput.writeObject(stack);
+            dataOutput.close();
 
-	public static ItemStack fromBase64(String data) {
-		try {
-			ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
-			BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
+            return Base64Coder.encodeLines(outputStream.toByteArray());
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
-			ItemStack stack = (ItemStack) dataInput.readObject();
-			dataInput.close();
-			return stack;
-		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+    @Deprecated
+    public static ItemStack fromBase64(String data) {
+        try {
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
+            BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
 
+            ItemStack stack = (ItemStack) dataInput.readObject();
+            dataInput.close();
+            return stack;
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

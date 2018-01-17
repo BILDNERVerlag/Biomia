@@ -14,7 +14,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 
-class WorldCopy {
+public class WorldCopy {
 
 	private static void copyFileStructure(File source, File target) {
 		try {
@@ -46,9 +46,9 @@ class WorldCopy {
 		}
 	}
 
-	public static void copyWorld(World originalWorld, String newWorldName) {
+	public static World copyWorld(World originalWorld, String newWorldName) {
 		copyFileStructure(originalWorld.getWorldFolder(), new File(Bukkit.getWorldContainer(), newWorldName));
-		new WorldCreator(newWorldName).createWorld();
+		return new WorldCreator(newWorldName).createWorld();
 	}
 
 }

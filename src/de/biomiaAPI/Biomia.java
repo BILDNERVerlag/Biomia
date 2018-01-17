@@ -24,7 +24,7 @@ public class Biomia {
 	private static final HashMap<Player, QuestPlayer> qp = new HashMap<>();
 	private static final HashMap<Player, BiomiaPlayer> bp = new HashMap<>();
 
-	private static void stopWithDelay() {
+	public static void stopWithDelay() {
 		new BukkitRunnable() {
 			@Override
 			public void run() {

@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 
 import de.biomiaAPI.itemcreator.ItemCreator;
 
-class BackToLobby {
+public class BackToLobby {
 
 	public static void getLobbyItem(Player p, int slot) {
 		p.getInventory().setItem(slot, ItemCreator.itemCreate(Material.MAGMA_CREAM, "�cLobby"));

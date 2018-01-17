@@ -49,9 +49,7 @@ public class InventorySave {
                 p.getInventory().setContents(inv.getContents());
                 p.updateInventory();
             }
-
         }
-
     }
 
     private static String toBase64(Inventory inventory) {
@@ -90,5 +88,4 @@ public class InventorySave {
             throw new IOException("Unable to decode class type.", e);
         }
     }
-
 }
