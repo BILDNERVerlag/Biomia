@@ -22,7 +22,7 @@ public class Coins {
 		double actualCoins = bp.getCoins();
 
 		if (actualCoins < coins) {
-			bp.getPlayer().sendMessage("Du hast nicht genug BC's! Dir fehlen noch " + (actualCoins - coins) + " BC's!");
+			bp.getPlayer().sendMessage("Du hast nicht genug BC! Dir fehlen noch " + (actualCoins - coins) + " BC!");
 			return;
 		}
 		MySQL.executeUpdate("UPDATE `BiomiaCoins` SET `coins` = " + (actualCoins - coins) + " WHERE `ID` = "

@@ -8,6 +8,11 @@ import java.sql.SQLException;
 
 public class MySQL{
 
+    private enum Databases {
+            biomia_db, paf_db
+    }
+
+	@Deprecated
     public static Connection Connect() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -29,6 +34,29 @@ public class MySQL{
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public static Connection Connect(Databases db) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String dbPass = "O78s3SObra0QzDZh";
+            String dbUser = "biomia_usertest";
+            String dbName = db.toString();
+            String dbPort = "3306";
+            String dbHost = "89.163.160.106";
+            return DriverManager.getConnection("jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName + "?" + "user="
+                    + dbUser + "&" + "password=" + dbPass + "&verifyServerCertificate=false&useSSL=true");
+
+        } catch (ClassNotFoundException e) {
+            System.out.println("Treiber nicht gefunden");
+        } catch (SQLException e) {
+            System.out.println("Verbindung nicht moglich");
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+            e.printStackTrace();
+        }
+        return null;
 	}
 
 	public static boolean execute(String cmd) {
