@@ -133,7 +133,7 @@ public class Biomia {
 					farbe = "Orange";
 					break;
 				case "GREEN":
-					farbe = "Grün";
+					farbe = "Gr\u00fcn";
 					break;
 				case "PURPLE":
 					farbe = "Lila";
@@ -142,7 +142,7 @@ public class Biomia {
 					farbe = "Rot";
 					break;
 				case "WHITE":
-					farbe = "Weiß";
+					farbe = "Wei\u00df";
 					break;
 				case "YELLOW":
 					farbe = "Gelb";
@@ -213,39 +213,39 @@ public class Biomia {
 
 						switch (teamname) {
                         case "BLACK":
-                            colorcode = "§0";
+                            colorcode = "\u00A70";
                             colordata = 15;
                             break;
                         case "BLUE":
-                            colorcode = "§9";
+                            colorcode = "\u00A79";
                             colordata = 11;
                             break;
                         case "ORANGE":
-                            colorcode = "§6";
+                            colorcode = "\u00A76";
                             colordata = 1;
                             break;
                         case "GREEN":
-                            colorcode = "§2";
+                            colorcode = "\u00A72";
                             colordata = 13;
                             break;
                         case "PURPLE":
-                            colorcode = "§d";
+                            colorcode = "\u00A7d";
                             colordata = 10;
                             break;
                         case "RED":
-                            colorcode = "§c";
+                            colorcode = "\u00A7c";
                             colordata = 14;
                             break;
                         case "WHITE":
-                            colorcode = "§f";
+                            colorcode = "\u00A7f";
                             colordata = 0;
                             break;
                         case "YELLOW":
-                            colorcode = "§e";
+                            colorcode = "\u00A7e";
                             colordata = 4;
                             break;
                         default:
-                            colorcode = "§f";
+                            colorcode = "\u00A7f";
                             colordata = 0;
                             break;
                         }

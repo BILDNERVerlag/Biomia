@@ -12,7 +12,7 @@ public enum BiomiaAchievement {
 		String out = "Leider ist keine Beschreibung vorhanden. Beschwer dich am besten bei den Admins.";
 		switch (bA) {
 		case LogDichFuenfmalAufDemQuestServerEin:
-			out = "Fünfmal auf dem Questserver einloggen";
+			out = "F\u00fcnfmal auf dem Questserver einloggen";
 		case VerdieneFuenftausendCoins:
 			out = "Verdiene insgesamt mindestens 5000 BC.";
 			break;

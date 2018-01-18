@@ -90,25 +90,25 @@ class CosmeticInventory implements Listener {
 
 	private void setRemove() {
 		if (remove == null)
-			remove = ItemCreator.itemCreate(Material.BARRIER, "§cEntfernen");
+			remove = ItemCreator.itemCreate(Material.BARRIER, "\u00A7cEntfernen");
 		inv.setItem(inv.getSize() - 5, remove);
 	}
 
 	private void setNext() {
 		if (next == null)
-			next = ItemCreator.itemCreate(Material.BLAZE_ROD, "§aNächste Seite");
+			next = ItemCreator.itemCreate(Material.BLAZE_ROD, "\u00A7aN\u00e4chste Seite");
 		inv.setItem(inv.getSize() - 3, next);
 	}
 
 	private void setBack() {
 		if (back == null)
-			back = ItemCreator.itemCreate(Material.STICK, "§aLetzte Seite");
+			back = ItemCreator.itemCreate(Material.STICK, "\u00A7aLetzte Seite");
 		inv.setItem(inv.getSize() - 7, back);
 	}
 
 	private void setHome() {
 		if (home == null)
-			home = ItemCreator.itemCreate(Material.GOLDEN_CARROT, "§aZurück");
+			home = ItemCreator.itemCreate(Material.GOLDEN_CARROT, "\u00A7aZur\u00fcck");
 		inv.setItem(inv.getSize() - 9, home);
 	}
 
