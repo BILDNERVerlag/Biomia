@@ -22,7 +22,7 @@ public class Stats {
      * Tabellenname = BiomiaAchievementName (zB
      * BiomiaAchievementVerdieneFuenftausendCoins)
      *
-     * BiomiaPlayerID, String timestamp (wann es unlocked wurde, standardm��ig -1)
+     * BiomiaPlayerID, String timestamp (wann es unlocked wurde, standardmaessig -1)
      */
 
     private enum BiomiaStat {
@@ -38,14 +38,14 @@ public class Stats {
     }
 
     /**
-     * Z�hle einen bestimmten Stat eines bestimmten Spielers um 1 hoch.
+     * Zaehle einen bestimmten Stat eines bestimmten Spielers um 1 hoch.
      */
     public static void incrementStat(BiomiaStat stat, BiomiaPlayer bp) {
         saveStat(stat, bp, getStat(stat, bp) + 1);
     }
 
     /**
-     * Z�hle einen bestimmten Stat eines bestimmten Spielers um einen beliebigen
+     * Zaehle einen bestimmten Stat eines bestimmten Spielers um einen beliebigen
      * Wert hoch.
      */
     public static void incrementStatBy(BiomiaStat stat, BiomiaPlayer bp, int increment) {
@@ -57,7 +57,7 @@ public class Stats {
     }
 
     /**
-     * Immer, wenn sich der Wert eines Stats �ndert, checkt diese Methode, ob ein
+     * Immer, wenn sich der Wert eines Stats aendert, checkt diese Methode, ob ein
      * Achievement unlocked werden soll
      */
     private static void checkForAchievementUnlocks(BiomiaStat stat, BiomiaPlayer bp, int value) {
@@ -77,8 +77,8 @@ public class Stats {
     }
 
     /**
-     * Versucht ein bestimmtes Achievement f�r einen bestimmten Spieler zu unlocken;
-     * bricht ab, falls der Spieler das Achievement bereits hat. Gibt true zur�ck,
+     * Versucht ein bestimmtes Achievement fuer einen bestimmten Spieler zu unlocken;
+     * bricht ab, falls der Spieler das Achievement bereits hat. Gibt true zurueck,
      * falls ein Achievement unlocked wird (ansonsten false).
      */
     private static void tryToUnlock(BiomiaAchievement bA, BiomiaPlayer bp) {

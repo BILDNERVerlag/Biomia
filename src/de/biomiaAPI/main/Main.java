@@ -80,27 +80,27 @@ public class Main extends JavaPlugin {
 
 				switch (i) {
 				case 0:
-					message = new TextComponent(Messages.prefix + "�6Besuch uns auf www.biomia.de !");
+					message = new TextComponent(Messages.prefix + "\u00A76Besuch uns auf www.biomia.de !");
 					message.setClickEvent(
 							new ClickEvent(ClickEvent.Action.OPEN_URL, "https://biomia.bildnerverlag.de/"));
 					break;
 				case 1:
 					message = new TextComponent(Messages.prefix
-							+ "�6Schau doch mal auf unserem �6TeamSpeak-Server vorbei! �6ts.biomia.de !");
+							+ "\u00A76Schau doch mal auf unserem \u00A76TeamSpeak-Server vorbei! \u00A76ts.biomia.de !");
 					break;
 				case 2:
-					message = new TextComponent(Messages.prefix + "�6Besuch uns auf instagram.com/biomiaofficial !");
+					message = new TextComponent(Messages.prefix + "\u00A76Besuch uns auf instagram.com/biomiaofficial !");
 					message.setClickEvent(
 							new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.instagram.com/biomiaofficial/"));
 					break;
 				case 3:
-					message = new TextComponent(Messages.prefix + "�6Folge uns auf twitter.com/biomiaofficial !");
+					message = new TextComponent(Messages.prefix + "\u00A76Folge uns auf twitter.com/biomiaofficial !");
 					message.setClickEvent(
 							new ClickEvent(ClickEvent.Action.OPEN_URL, "https://twitter.com/biomiaofficial"));
 					break;
 				default:
 					message = new TextComponent(
-							Messages.prefix + "�6Folge uns auf Facebook! �6facebook.com/biomiaofficial/");
+							Messages.prefix + "\u00A76Folge uns auf Facebook! \u00A76facebook.com/biomiaofficial/");
 					message.setClickEvent(
 							new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.facebook.com/biomiaofficial/"));
 					break;
@@ -126,13 +126,13 @@ public class Main extends JavaPlugin {
 
 	private static void init() {
 
-		Cosmetic.initGroup(new CosmeticGroup(Group.HEADS, ItemCreator.itemCreate(Material.SKULL_ITEM, "�cHeads")));
-		Cosmetic.initGroup(new CosmeticGroup(Group.PETS, ItemCreator.itemCreate(Material.MONSTER_EGG, "�bPets")));
+		Cosmetic.initGroup(new CosmeticGroup(Group.HEADS, ItemCreator.itemCreate(Material.SKULL_ITEM, "\u00A7cHeads")));
+		Cosmetic.initGroup(new CosmeticGroup(Group.PETS, ItemCreator.itemCreate(Material.MONSTER_EGG, "\u00A7bPets")));
 		Cosmetic.initGroup(
-				new CosmeticGroup(Group.GADGETS, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM, "�dGadgets")));
+				new CosmeticGroup(Group.GADGETS, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM, "\u00A7dGadgets")));
 		Cosmetic.initGroup(
-				new CosmeticGroup(Group.PARTICLES, ItemCreator.itemCreate(Material.BLAZE_POWDER, "�3Particles")));
-		Cosmetic.initGroup(new CosmeticGroup(Group.SUITS, ItemCreator.itemCreate(Material.GOLD_CHESTPLATE, "�5Suits")));
+				new CosmeticGroup(Group.PARTICLES, ItemCreator.itemCreate(Material.BLAZE_POWDER, "\u00A73Particles")));
+		Cosmetic.initGroup(new CosmeticGroup(Group.SUITS, ItemCreator.itemCreate(Material.GOLD_CHESTPLATE, "\u00A75Suits")));
 
 		group.add("Owner");
 		group.add("Admin");
@@ -154,25 +154,25 @@ public class Main extends JavaPlugin {
 		group.add("RegSpieler");
 		group.add("UnregSpieler");
 
-		prefixes.put("Owner", "�4Owner | ");
-		prefixes.put("Admin", "�5Admin | ");
-		prefixes.put("SrBuilder", "�2SrBuilder | ");
-		prefixes.put("SrModerator", "�bSrMod | ");
-		prefixes.put("Moderator", "�bMod | ");
-		prefixes.put("Builder", "�2Builder | ");
-		prefixes.put("YouTube", "�4[�0Y�fT�4] | ");
-		prefixes.put("PremiumZehn", "�6X | ");
-		prefixes.put("PremiumNeun", "�6IX | ");
-		prefixes.put("PremiumAcht", "�eVIII | ");
-		prefixes.put("PremiumSieben", "�eVII | ");
-		prefixes.put("PremiumSechs", "�eVI | ");
-		prefixes.put("PremiumFuenf", "�eV | ");
-		prefixes.put("PremiumVier", "�eIV | ");
-		prefixes.put("PremiumDrei", "�eIII | ");
-		prefixes.put("PremiumZwei", "�eII | ");
-		prefixes.put("PremiumEins", "�eI | ");
-		prefixes.put("RegSpieler", "�7");
-		prefixes.put("UnregSpieler", "�8");
+		prefixes.put("Owner", "\u00A74Owner | ");
+		prefixes.put("Admin", "\u00A75Admin | ");
+		prefixes.put("SrBuilder", "\u00A72SrBuilder | ");
+		prefixes.put("SrModerator", "\u00A7bSrMod | ");
+		prefixes.put("Moderator", "\u00A7bMod | ");
+		prefixes.put("Builder", "\u00A72Builder | ");
+		prefixes.put("YouTube", "\u00A74[\u00A70Y\u00A7fT\u00A74] | ");
+		prefixes.put("PremiumZehn", "\u00A76X | ");
+		prefixes.put("PremiumNeun", "\u00A76IX | ");
+		prefixes.put("PremiumAcht", "\u00A7eVIII | ");
+		prefixes.put("PremiumSieben", "\u00A7eVII | ");
+		prefixes.put("PremiumSechs", "\u00A7eVI | ");
+		prefixes.put("PremiumFuenf", "\u00A7eV | ");
+		prefixes.put("PremiumVier", "\u00A7eIV | ");
+		prefixes.put("PremiumDrei", "\u00A7eIII | ");
+		prefixes.put("PremiumZwei", "\u00A7eII | ");
+		prefixes.put("PremiumEins", "\u00A7eI | ");
+		prefixes.put("RegSpieler", "\u00A77");
+		prefixes.put("UnregSpieler", "\u00A78");
 
 	}
 

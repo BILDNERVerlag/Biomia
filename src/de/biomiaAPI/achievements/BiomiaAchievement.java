@@ -24,7 +24,7 @@ public enum BiomiaAchievement {
 	}
 
 	/**
-	 * Name, der f�r das Achievement ingame angezeigt werden soll.
+	 * Name, der fuer das Achievement ingame angezeigt werden soll.
 	 */
 	public String getDisplayName(BiomiaAchievement bA) {
 		String out = bA.toString();

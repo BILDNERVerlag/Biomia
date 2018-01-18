@@ -57,8 +57,8 @@ public class Connect implements PluginMessageListener {
 			if (group.contains("#1")) {
 				if (!Objects.requireNonNull(list).contains("krs522tpr8a")) {
 					p.sendMessage(
-							"�cNur Spieler die das entsprechende Buch besitzen k�nnen der jeweiligen Welt beitreten");
-					TextComponent text = new TextComponent("�8>�5F�r mehr Infos hier klicken!�8<");
+							"\u00A7cNur Spieler die das entsprechende Buch besitzen k\u00A7nnen der jeweiligen Welt beitreten");
+					TextComponent text = new TextComponent("\u00A78>\u00A75F\u00fcr mehr Infos hier klicken!\u00A78<");
 					text.setClickEvent(new ClickEvent(Action.OPEN_URL,
 							"https://biomia.bildnerverlag.de/forum/topic/id/18-code-eingabe"));
 					p.spigot().sendMessage(text);
@@ -161,7 +161,7 @@ public class Connect implements PluginMessageListener {
 			Player to = Bukkit.getPlayer(in.readUTF());
 			if (to != null && from != null) {
 				from.teleport(to);
-				from.sendMessage("�aDu wurdest zu �6" + to.getName() + " �ateleportiert!");
+				from.sendMessage("\u00A7aDu wurdest zu \u00A76" + to.getName() + " \u00A7ateleportiert!");
 			}
 
 		}

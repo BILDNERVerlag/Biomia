@@ -31,9 +31,9 @@ public class CosmeticItem {
 		public String deutsch() {
 			switch (this) {
 			case VERY_COMMON:
-				return "Sehr H�ufig";
+				return "Sehr H\u00e4ufig";
 			case COMMON:
-				return "H�ufig";
+				return "H\u00e4ufig";
 			case RARE:
 				return "Selten";
 			case VERY_RARE:

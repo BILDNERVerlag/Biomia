@@ -1,10 +1,9 @@
 package de.biomiaAPI.QuestConditions;
 
+import de.biomiaAPI.Quests.QuestPlayer;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
-
-import de.biomiaAPI.Quests.QuestPlayer;
 
 public class ItemConditions {
 

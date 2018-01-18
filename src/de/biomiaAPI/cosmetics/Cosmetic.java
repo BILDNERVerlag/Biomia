@@ -16,6 +16,7 @@ import de.biomiaAPI.cosmetics.CosmeticItem.Commonness;
 import de.biomiaAPI.mysql.MySQL;
 import de.biomiaAPI.tools.ItemBase64;
 
+@SuppressWarnings("deprecation")
 public class Cosmetic {
 
 	private static final HashMap<Group, CosmeticGroup> groups = new HashMap<>();
@@ -43,7 +44,7 @@ public class Cosmetic {
 	}
 
 	private static void initMainInventory() {
-		inv = Bukkit.createInventory(null, 9, "�5Cosmetics");
+		inv = Bukkit.createInventory(null, 9, "\u00A75Cosmetics");
 
 		int i = 0;
 		for (Group g : Group.values()) {

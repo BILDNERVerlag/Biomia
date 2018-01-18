@@ -89,7 +89,7 @@ public class BiomiaPlayer {
 	public boolean addCoins(int coins) {
 		boolean b = Coins.addCoins(coins, this);
 		if (b) {
-			this.getPlayer().sendMessage("�7Du erh�ltst �f" + coins + "�7 BC's!");
+			this.getPlayer().sendMessage("\u00A77Du erh\u00e4ltst \u00A7f" + coins + "\u00A77 BC!");
 		}
 		return b;
 	}
@@ -135,7 +135,7 @@ public class BiomiaPlayer {
 
 		boolean b = Coins.addCoins(coins, this);
 		if (b) {
-			this.getPlayer().sendMessage("�7Du erh�ltst �f" + coins + "�7 BC's!");
+			this.getPlayer().sendMessage("\u00A77Du erh\u00e4ltst \u00A7f" + coins + "\u00A77 BC!");
 		}
 
 	}

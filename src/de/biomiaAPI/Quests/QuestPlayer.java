@@ -27,10 +27,10 @@ public class QuestPlayer {
 
 	public QuestPlayer(Player player) {
 		this.player = player;
-		book = ItemCreator.itemCreate(Material.WRITTEN_BOOK, "�cTagebuch");
+		book = ItemCreator.itemCreate(Material.WRITTEN_BOOK, "\u00A7cTagebuch");
 		for (ItemStack is : player.getInventory().getContents()) {
 			try {
-				if (is.getType() == Material.WRITTEN_BOOK && is.getItemMeta().getDisplayName().equals("�cTagebuch")) {
+				if (is.getType() == Material.WRITTEN_BOOK && is.getItemMeta().getDisplayName().equals("\u00A7cTagebuch")) {
 					return;
 				}
 			} catch (NullPointerException e) {
@@ -96,7 +96,7 @@ public class QuestPlayer {
 	}
 
 	/*
-	 * gibt zur�ck, zu wieviel prozent der spieler bereits die quests des
+	 * gibt zurueck, zu wieviel prozent der spieler bereits die quests des
 	 * entsprechenden bands bearbeitet/abgeschlossen hat
 	 */
 	public int getQuestPercentage(int band) {
