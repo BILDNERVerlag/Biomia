@@ -25,16 +25,19 @@ public class Stats {
      * BiomiaPlayerID, String timestamp (wann es unlocked wurde, standardmaessig -1)
      */
 
-    private enum BiomiaStat {
+    public enum BiomiaStat {
         QuestServerLogins, CoinsAllTime
     }
 
     /**
      * Gib einem bestimmten Spieler einen bestimmten Wert in einem bestimmten Stat
      */
-    private static void saveStat(BiomiaStat stat, BiomiaPlayer bp, int value) {
-        MySQL.executeUpdate("UPDATE `BiomiaStat" + stat.toString() + "` SET `value` = " + value + " WHERE `ID` = " + bp.getBiomiaPlayerID());
+    public static void saveStat(BiomiaStat stat, BiomiaPlayer bp, int value) {
+        MySQL.executeUpdate("UPDATE `BiomiaStat" + stat.toString() + "` SET `value` = " + value + " WHERE `ID` = " + bp.getBiomiaPlayerID(), MySQL.Databases.stats_db);
         checkForAchievementUnlocks(stat, bp, value);
+        if (bp.isStaff()) {
+            bp.getPlayer().sendMessage("Stat "+stat.toString()+"saved.");
+        }
     }
 
     /**
@@ -53,7 +56,7 @@ public class Stats {
     }
 
     private static int getStat(BiomiaStat stat, BiomiaPlayer bp) {
-        return MySQL.executeQuerygetint("SELECT * FROM `BiomiaStat" + stat.toString() + "` where ID = " + bp.getBiomiaPlayerID(), "value");
+        return MySQL.executeQuerygetint("SELECT * FROM `BiomiaStat" + stat.toString() + "` where ID = " + bp.getBiomiaPlayerID(), "value", MySQL.Databases.stats_db);
     }
 
     /**
@@ -83,11 +86,11 @@ public class Stats {
      */
     private static void tryToUnlock(BiomiaAchievement bA, BiomiaPlayer bp) {
         if (!hasAchievement(bA, bp))
-            MySQL.executeUpdate("INSERT INTO `BiomiaAchievement" + bA.toString() + "` (`ID`, `timestamp`) VALUES (" + bp.getBiomiaPlayerID() + ", " + new Date().toString() + ")");
+            MySQL.executeUpdate("INSERT INTO `BiomiaAchievement" + bA.toString() + "` (`ID`, `timestamp`) VALUES (" + bp.getBiomiaPlayerID() + ", " + new Date().toString() + ")", MySQL.Databases.stats_db);
     }
 
     private static boolean hasAchievement(BiomiaAchievement bA, BiomiaPlayer bp) {
-        return (MySQL.executeQuery("SELECT * FROM `BiomiaAchievement" + bA.toString() + "` where ID = " + bp.getBiomiaPlayerID(), "`ID`") != null);
+        return (MySQL.executeQuery("SELECT * FROM `BiomiaAchievement" + bA.toString() + "` where ID = " + bp.getBiomiaPlayerID(), "`ID`", MySQL.Databases.stats_db) != null);
     }
 
 }

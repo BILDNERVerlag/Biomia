@@ -144,7 +144,7 @@ public class BiomiaPlayer {
 		Coins.setCoins(coins, this);
 	}
 
-	private List<PAFPlayer> getFriends() {
+	public List<PAFPlayer> getFriends() {
 		return spigotPafpl.getFriends();
 	}
 

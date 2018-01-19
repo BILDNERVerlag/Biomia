@@ -28,7 +28,8 @@ import net.md_5.bungee.api.chat.ClickEvent.Action;
 import net.md_5.bungee.api.chat.TextComponent;
 
 public class Connect implements PluginMessageListener {
-	private static void connect(Player p, String servername) {
+
+	public static void connect(Player p, String servername) {
 
 		ByteArrayOutputStream b = new ByteArrayOutputStream();
 		DataOutputStream out = new DataOutputStream(b);

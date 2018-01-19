@@ -1,6 +1,7 @@
 package de.biomiaAPI.coins;
 
 import de.biomiaAPI.BiomiaPlayer;
+import de.biomiaAPI.achievements.Stats;
 import de.biomiaAPI.mysql.MySQL;
 
 //"deprecation" is only here to not use this class directly
@@ -10,11 +11,11 @@ public class Coins {
 
 	public static int getCoins(BiomiaPlayer p) {
         return MySQL.executeQuerygetint("SELECT * FROM `BiomiaCoins` where ID = " + p.getBiomiaPlayerID(), "coins");
-
 	}
 
 	public static void setCoins(int coins, BiomiaPlayer bp) {
 		MySQL.executeUpdate("UPDATE `BiomiaCoins` SET `coins` = " + coins + " WHERE `ID` = " + bp.getBiomiaPlayerID());
+		Stats.saveStat(Stats.BiomiaStat.CoinsAllTime,bp,coins);
 	}
 
 	public static void takeCoins(int coins, BiomiaPlayer bp) {
@@ -25,26 +26,20 @@ public class Coins {
 			bp.getPlayer().sendMessage("Du hast nicht genug BC! Dir fehlen noch " + (actualCoins - coins) + " BC!");
 			return;
 		}
-		MySQL.executeUpdate("UPDATE `BiomiaCoins` SET `coins` = " + (actualCoins - coins) + " WHERE `ID` = "
-				+ bp.getBiomiaPlayerID());
-
+        setCoins((int) (actualCoins - coins), bp);
 	}
 
 	public static boolean addCoins(int coinsToAdd, BiomiaPlayer bp) {
-
-		double actualCoins = bp.getCoins();
-		return MySQL.executeUpdate("UPDATE `BiomiaCoins` SET `coins` = " + (actualCoins + coinsToAdd) + " WHERE `ID` = "
-				+ bp.getBiomiaPlayerID());
+		return addCoins(coinsToAdd, bp.getBiomiaPlayerID());
 	}
 
-	public static boolean takeCoins(int coins, int ID) {
-        double actualCoins = getCoins(ID);
-        return !(actualCoins < coins) && MySQL.executeUpdate("UPDATE `BiomiaCoins` SET `coins` = " + (actualCoins - coins) + " WHERE `ID` = " + ID);
+	public static boolean takeCoins(int coinsToTake, int ID) {
+        int actualCoins = getCoins(ID);
+        return !(actualCoins < coinsToTake) && setCoins(actualCoins-coinsToTake,ID);
     }
 
-	public static boolean addCoins(int coins, int ID) {
-		return MySQL
-				.executeUpdate("UPDATE `BiomiaCoins` SET `coins` = " + (getCoins(ID) + coins) + " WHERE `ID` = " + ID);
+	public static boolean addCoins(int coinsToAdd, int ID) {
+	    return setCoins(getCoins(ID)+coinsToAdd,ID);
 	}
 
 	public static boolean setCoins(int coins, int ID) {

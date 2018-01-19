@@ -8,9 +8,13 @@ import java.sql.SQLException;
 
 public class MySQL{
 
-    private enum Databases {
-            biomia_db, paf_db
+    public enum Databases {
+            biomia_db, paf_db, cosmetics_db, plots_db, quests_db, stats_db, misc_db
     }
+
+    /*
+    All versions that do not use the new Databases enum are from now on deprecated.
+     */
 
 	@Deprecated
     public static Connection Connect() {
@@ -27,16 +31,20 @@ public class MySQL{
 		} catch (ClassNotFoundException e) {
 			System.out.println("Treiber nicht gefunden");
 		} catch (SQLException e) {
-			System.out.println("Verbindung nicht moglich");
-			System.out.println("SQLException: " + e.getMessage());
-			System.out.println("SQLState: " + e.getSQLState());
-			System.out.println("VendorError: " + e.getErrorCode());
-			e.printStackTrace();
+            handleSQLException(e);
 		}
 		return null;
 	}
 
-	public static Connection Connect(Databases db) {
+    private static void handleSQLException(SQLException e) {
+        System.out.println("Verbindung nicht moglich");
+        System.out.println("SQLException: " + e.getMessage());
+        System.out.println("SQLState: " + e.getSQLState());
+        System.out.println("VendorError: " + e.getErrorCode());
+        e.printStackTrace();
+    }
+
+    public static Connection Connect(Databases db) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String dbPass = "O78s3SObra0QzDZh";
@@ -50,32 +58,34 @@ public class MySQL{
         } catch (ClassNotFoundException e) {
             System.out.println("Treiber nicht gefunden");
         } catch (SQLException e) {
-            System.out.println("Verbindung nicht moglich");
-            System.out.println("SQLException: " + e.getMessage());
-            System.out.println("SQLState: " + e.getSQLState());
-            System.out.println("VendorError: " + e.getErrorCode());
-            e.printStackTrace();
+            handleSQLException(e);
         }
         return null;
 	}
 
+	@Deprecated
 	public static boolean execute(String cmd) {
 		Connection con = Connect();
 
-		if (con != null) {
-			try {
-				PreparedStatement sql = con.prepareStatement(cmd);
-				sql.execute();
-				sql.close();
-				con.close();
-				return true;
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return false;
+        return (executeStatement(cmd, con));
 	}
 
+    private static boolean executeStatement(String cmd, Connection con) {
+        if (con != null) {
+            try {
+                PreparedStatement sql = con.prepareStatement(cmd);
+                sql.execute();
+                sql.close();
+                con.close();
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    @Deprecated
 	public static String executeQuery(String cmd, String gettingspalte) {
 		Connection con = Connect();
 
@@ -101,6 +111,7 @@ public class MySQL{
 		return null;
 	}
 
+	@Deprecated
 	public static boolean executeQuerygetbool(String cmd, String gettingspalte) {
 		Connection con = Connect();
 
@@ -126,6 +137,7 @@ public class MySQL{
 		return false;
 	}
 
+	@Deprecated
 	public static int executeQuerygetint(String cmd, String gettingspalte) {
 		Connection con = Connect();
 		if (con != null) {
@@ -150,8 +162,107 @@ public class MySQL{
 		return -1;
 	}
 
+	@Deprecated
 	public static boolean executeUpdate(String cmd) {
 		Connection con = Connect();
+
+		if (con != null) {
+			try {
+				PreparedStatement sql = con.prepareStatement(cmd);
+				sql.executeUpdate();
+				sql.close();
+				con.close();
+				return true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+
+	public static boolean execute(String cmd, Databases db) {
+		Connection con = Connect(db);
+
+        if (executeStatement(cmd, con)) return true;
+        return false;
+	}
+
+	public static String executeQuery(String cmd, String gettingspalte, Databases db) {
+		Connection con = Connect(db);
+
+		if (con != null) {
+			try {
+				PreparedStatement sql = con.prepareStatement(cmd);
+				ResultSet rs = sql.executeQuery();
+				String s = null;
+				//noinspection LoopStatementThatDoesntLoop
+				while (rs.next()) {
+					s = rs.getString(gettingspalte);
+					break;
+				}
+				rs.close();
+				sql.close();
+				con.close();
+				return s;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+		return null;
+	}
+
+	public static boolean executeQuerygetbool(String cmd, String gettingspalte, Databases db) {
+		Connection con = Connect(db);
+
+		if (con != null) {
+			try {
+				PreparedStatement sql = con.prepareStatement(cmd);
+				ResultSet rs = sql.executeQuery();
+				boolean b = false;
+				//noinspection LoopStatementThatDoesntLoop
+				while (rs.next()) {
+					b = rs.getBoolean(gettingspalte);
+					break;
+				}
+				rs.close();
+				sql.close();
+				con.close();
+				return b;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+		return false;
+	}
+
+	public static int executeQuerygetint(String cmd, String gettingspalte, Databases db) {
+		Connection con = Connect(db);
+		if (con != null) {
+			try {
+				PreparedStatement sql = con.prepareStatement(cmd);
+				ResultSet rs = sql.executeQuery();
+				int i = -1;
+				//noinspection LoopStatementThatDoesntLoop,LoopStatementThatDoesntLoop
+				while (rs.next()) {
+					i = rs.getInt(gettingspalte);
+					break;
+				}
+				rs.close();
+				sql.close();
+				con.close();
+				return i;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+		return -1;
+	}
+
+	public static boolean executeUpdate(String cmd, Databases db) {
+		Connection con = Connect(db);
 
 		if (con != null) {
 			try {

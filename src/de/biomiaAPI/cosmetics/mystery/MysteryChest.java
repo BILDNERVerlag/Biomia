@@ -18,7 +18,7 @@ import de.biomiaAPI.cosmetics.CosmeticParticleItem;
 import de.biomiaAPI.itemcreator.ItemCreator;
 import de.biomiaAPI.main.Main;
 
-class MysteryChest {
+public class MysteryChest {
 
 	private static Commonness determineCommonness() {
 		// Prozentchancen:
