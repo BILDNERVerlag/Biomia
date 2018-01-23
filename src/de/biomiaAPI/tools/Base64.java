@@ -1,23 +1,41 @@
 package de.biomiaAPI.tools;
 
-import java.io.UnsupportedEncodingException;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.io.BukkitObjectInputStream;
+import org.bukkit.util.io.BukkitObjectOutputStream;
+import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 public class Base64 {
 
     public static String toBase64(Object o) {
-        String ed = o.toString();
-        byte[] encodedBytes = com.sun.xml.internal.messaging.saaj.util.Base64.encode(ed.getBytes());
-        String str = null;
-
         try {
-            str = new String(encodedBytes, "UTF-8");
-        } catch (UnsupportedEncodingException var5) {
-            var5.printStackTrace();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream);
+
+            dataOutput.writeObject(o);
+            dataOutput.close();
+            return Base64Coder.encodeLines(outputStream.toByteArray());
+        } catch (Exception e) {
+            return null;
         }
-        return str;
     }
 
     public static Object fromBase64(String data) {
-        return com.sun.xml.internal.messaging.saaj.util.Base64.base64Decode(data);
+        try {
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
+            BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
+
+            Object o = dataInput.readObject();
+            dataInput.close();
+            return o;
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
+
 }
