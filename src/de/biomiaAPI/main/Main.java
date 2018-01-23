@@ -27,6 +27,8 @@ import net.md_5.bungee.api.chat.TextComponent;
 
 public class Main extends JavaPlugin {
 
+	//TODO: Klassenname ändern
+
 	public static Main plugin;
 	public static final ArrayList<String> group = new ArrayList<>();
 	public static final HashMap<String, String> prefixes = new HashMap<>();
