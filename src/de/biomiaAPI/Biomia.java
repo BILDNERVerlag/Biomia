@@ -86,6 +86,10 @@ public class Biomia {
 		}
 	}
 
+	public static int getBiomiaPlayerIDFromString(String playerName) {
+		return MySQL.executeQuerygetint("Select id from BiomiaPlayer where name = '" + playerName + "'","id", MySQL.Databases.biomia_db);
+	}
+
 	public static TeamManager TeamManager() {
 		return new TeamManager() {
 
