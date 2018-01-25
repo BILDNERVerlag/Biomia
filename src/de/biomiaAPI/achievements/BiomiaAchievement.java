@@ -1,43 +1,54 @@
 package de.biomiaAPI.achievements;
 
+import java.util.ArrayList;
+
 @SuppressWarnings("UnusedAssignment")
-public enum BiomiaAchievement {
+public class BiomiaAchievement {
 
-	LogDichFuenfmalAufDemQuestServerEin, VerdieneFuenftausendCoins;
+    public static void init(){
+        new BiomiaAchievement(AchievementType.VerdieneFuenftausendCoins, 5000, Stats.BiomiaStat.CoinsAccumulated, "GeldAchievement")
+        .setDescription("Verdiene insgesamt mindestens 5000 BC.");
+    }
 
-	/**
-	 * Eine etwas detaillierte Beschreibung des Achievements
-	 */
-	public String getDescription(BiomiaAchievement bA) {
-		String out = "Leider ist keine Beschreibung vorhanden. Beschwer dich am besten bei den Admins.";
-		switch (bA) {
-		case LogDichFuenfmalAufDemQuestServerEin:
-			out = "F\u00fcnfmal auf dem Questserver einloggen";
-		case VerdieneFuenftausendCoins:
-			out = "Verdiene insgesamt mindestens 5000 BC.";
-			break;
-		default:
-			out = "Dieses Achievement existiert nicht. Wenn du diese Nachricht liest, ist irgendetwas gewaltig schiefgelaufen. (-gDescr-)";
-			break;
-		}
-		return out;
-	}
+    public enum AchievementType {
+        LogDichFuenfmalAufDemQuestServerEin, VerdieneFuenftausendCoins;
+    }
 
-	/**
-	 * Name, der fuer das Achievement ingame angezeigt werden soll.
-	 */
-	public String getDisplayName(BiomiaAchievement bA) {
-		String out = bA.toString();
-		switch (bA) {
-		case LogDichFuenfmalAufDemQuestServerEin:
-			out = "Echter Abenteurer";
-		case VerdieneFuenftausendCoins:
-			out = "Mr. Money jr.";
-			break;
-		default:
-			out = "Dieses Achievement existiert nicht. Wenn du diese Nachricht liest, ist irgendetwas gewaltig schiefgelaufen. (-gDispl-)";
-			break;
-		}
-		return out;
-	}
+    private AchievementType achievement;
+    private final int value;
+    private final Stats.BiomiaStat stat;
+    private String description = "Leider ist keine Beschreibung vorhanden. Beschwer dich am besten bei den Admins.";
+    private final String displayName;
+
+    BiomiaAchievement(AchievementType achievment, int mindestWert, Stats.BiomiaStat stat, String displayName) {
+        this.achievement = achievment;
+        this.value = mindestWert;
+        this.stat = stat;
+        this.displayName = displayName;
+
+        if (!Stats.stats.containsKey(stat)) {
+            Stats.stats.put(stat, new ArrayList<>());
+        }
+        Stats.stats.get(stat).add(this);
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public AchievementType getAchievement() {
+        return achievement;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public int getMindestWert() {
+        return value;
+    }
 }

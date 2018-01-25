@@ -1,12 +1,15 @@
 package de.biomiaAPI.achievements;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.mysql.MySQL;
-import org.bukkit.Bukkit;
 
 public class Stats {
+
+    static HashMap<BiomiaStat, ArrayList<BiomiaAchievement>> stats = new HashMap<>();
 
     /*
      * Idee ist folgende:
@@ -23,19 +26,20 @@ public class Stats {
      * Tabellenname = BiomiaAchievementName (zB
      * BiomiaAchievementVerdieneFuenftausendCoins)
      *
-     * BiomiaPlayerID, String timestamp (wann es unlocked wurde, standardmaessig -1)
+     * BiomiaPlayerID
      */
 
     public enum BiomiaStat {
-        QuestServerLogins, CoinsAllTime, CoinsCurrently, MysteryBoxesOpened
+        CoinsAccumulated,
+        NumberOfLoginsGeneral, NumberOfLoginsQuestServer, NumberOfLoginsFreebuildServer, NumberOfLoginsBauServer,
+        MysterChestsOpened, SkyWarsGamesPlayed, BedWarsGamesPlayed
     }
 
     /**
      * Gib einem bestimmten Spieler einen bestimmten Wert in einem bestimmten Stat
      */
     public static void saveStat(BiomiaStat stat, int biomiaPlayerID, int value) {
-        MySQL.executeUpdate("INSERT INTO `BiomiaStat" + stat.toString() + "`(ID, value) VALUES (" + biomiaPlayerID + ", " + value + ") ON DUPLICATE KEY UPDATE value = " + value, MySQL.Databases.stats_db);
-        //MySQL.executeUpdate("UPDATE `BiomiaStat" + stat.toString() + "` SET `value` = " + value + " WHERE `ID` = " + biomiaPlayerID, MySQL.Databases.stats_db);
+        MySQL.executeUpdate("INSERT INTO `" + stat.toString() + "`(ID, value) VALUES (" + biomiaPlayerID + ", " + value + ") ON DUPLICATE KEY UPDATE value = " + value, MySQL.Databases.stats_db);
         checkForAchievementUnlocks(stat, biomiaPlayerID, value);
     }
 
@@ -55,7 +59,8 @@ public class Stats {
     }
 
     public static int getStat(BiomiaStat stat, int biomiaPlayerID) {
-        return MySQL.executeQuerygetint("SELECT * FROM `BiomiaStat" + stat.toString() + "` where ID = " + biomiaPlayerID, "value", MySQL.Databases.stats_db);
+        int out = MySQL.executeQuerygetint("SELECT * FROM `" + stat.toString() + "` where ID = " + biomiaPlayerID, "value", MySQL.Databases.stats_db);
+        return out == -1 ? 0 : out;
     }
 
     /**
@@ -66,16 +71,13 @@ public class Stats {
         // Step 1: Checke um welchen Stat es geht
         // Step 2: Checke ob der Stat einen bestimmten Wert erreicht hat
         // Step 3: Wenn ja, versuche Achievement zu unlocken
-        switch (stat) {
-            case CoinsAllTime:
-                if (value > 5000)
-                    tryToUnlock(BiomiaAchievement.VerdieneFuenftausendCoins, biomiaPlayerID);
-                break;
-            case QuestServerLogins:
-                if (value > 4)
-                    tryToUnlock(BiomiaAchievement.LogDichFuenfmalAufDemQuestServerEin, biomiaPlayerID);
-                break;
-        }
+
+        ArrayList<BiomiaAchievement> achievements = stats.get(stat);
+        if (achievements != null)
+            achievements.forEach(each -> {
+                if (value > each.getMindestWert())
+                    unlock(each.getAchievement(), biomiaPlayerID);
+            });
     }
 
     /**
@@ -83,17 +85,8 @@ public class Stats {
      * bricht ab, falls der Spieler das Achievement bereits hat. Gibt true zurueck,
      * falls ein Achievement unlocked wird (ansonsten false).
      */
-    public static void tryToUnlock(BiomiaAchievement bA, int biomiaPlayerID) {
-        if (!hasAchievement(bA, biomiaPlayerID))
-            MySQL.executeUpdate("INSERT INTO `BiomiaAchievement" + bA.toString() + "` (`ID`, `timestamp`) VALUES (" + biomiaPlayerID + ", " + new Date().toString() + ")", MySQL.Databases.stats_db);
-    }
-
-    public static boolean hasAchievement(BiomiaAchievement bA, int biomiaPlayerID) {
-        return (MySQL.executeQuery("SELECT * FROM `BiomiaAchievement" + bA.toString() + "` where ID = " + biomiaPlayerID, "`ID`", MySQL.Databases.stats_db) != null);
-    }
-
-    public static void checkIfPlayerInTable() {
-
+    public static void unlock(BiomiaAchievement.AchievementType bA, int biomiaPlayerID) {
+        MySQL.executeUpdate("INSERT INTO `" + bA.toString() + "` (`ID`) VALUES (" + biomiaPlayerID + ")", MySQL.Databases.achiev_db);
     }
 
 }

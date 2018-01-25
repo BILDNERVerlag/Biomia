@@ -131,7 +131,10 @@ public class BiomiaPlayer {
 			return;
 		}
 
-		coins = coins / 100 * prozent;
+		if (prozent != 100) {
+            double coinsDouble = (double) coins / 100 * prozent;
+            coins = (int) coinsDouble;
+        }
 
 		boolean b = Coins.addCoins(coins, this);
 		if (b) {

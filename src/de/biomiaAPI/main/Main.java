@@ -3,6 +3,7 @@ package de.biomiaAPI.main;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import de.biomiaAPI.achievements.BiomiaAchievement;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -64,6 +65,7 @@ public class Main extends JavaPlugin {
 
 		GadgetIniter.init();
 		ParticleIniter.init();
+		BiomiaAchievement.init();
 		init();
 
 		/*
