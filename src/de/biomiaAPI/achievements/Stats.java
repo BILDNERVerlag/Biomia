@@ -4,6 +4,7 @@ import java.util.Date;
 
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.mysql.MySQL;
+import org.bukkit.Bukkit;
 
 public class Stats {
 
@@ -26,14 +27,15 @@ public class Stats {
      */
 
     public enum BiomiaStat {
-        QuestServerLogins, CoinsAllTime
+        QuestServerLogins, CoinsAllTime, CoinsCurrently, MysteryBoxesOpened
     }
 
     /**
      * Gib einem bestimmten Spieler einen bestimmten Wert in einem bestimmten Stat
      */
     public static void saveStat(BiomiaStat stat, int biomiaPlayerID, int value) {
-        MySQL.executeUpdate("UPDATE `BiomiaStat" + stat.toString() + "` SET `value` = " + value + " WHERE `ID` = " + biomiaPlayerID, MySQL.Databases.stats_db);
+        MySQL.executeUpdate("INSERT INTO `BiomiaStat" + stat.toString() + "`(ID, value) VALUES (" + biomiaPlayerID + ", " + value + ") ON DUPLICATE KEY UPDATE value = " + value, MySQL.Databases.stats_db);
+        //MySQL.executeUpdate("UPDATE `BiomiaStat" + stat.toString() + "` SET `value` = " + value + " WHERE `ID` = " + biomiaPlayerID, MySQL.Databases.stats_db);
         checkForAchievementUnlocks(stat, biomiaPlayerID, value);
     }
 
@@ -52,7 +54,7 @@ public class Stats {
         saveStat(stat, biomiaPlayerID, getStat(stat, biomiaPlayerID) + increment);
     }
 
-    private static int getStat(BiomiaStat stat, int biomiaPlayerID) {
+    public static int getStat(BiomiaStat stat, int biomiaPlayerID) {
         return MySQL.executeQuerygetint("SELECT * FROM `BiomiaStat" + stat.toString() + "` where ID = " + biomiaPlayerID, "value", MySQL.Databases.stats_db);
     }
 
@@ -60,7 +62,7 @@ public class Stats {
      * Immer, wenn sich der Wert eines Stats aendert, checkt diese Methode, ob ein
      * Achievement unlocked werden soll
      */
-    private static void checkForAchievementUnlocks(BiomiaStat stat, int biomiaPlayerID, int value) {
+    public static void checkForAchievementUnlocks(BiomiaStat stat, int biomiaPlayerID, int value) {
         // Step 1: Checke um welchen Stat es geht
         // Step 2: Checke ob der Stat einen bestimmten Wert erreicht hat
         // Step 3: Wenn ja, versuche Achievement zu unlocken
@@ -81,13 +83,17 @@ public class Stats {
      * bricht ab, falls der Spieler das Achievement bereits hat. Gibt true zurueck,
      * falls ein Achievement unlocked wird (ansonsten false).
      */
-    private static void tryToUnlock(BiomiaAchievement bA, int biomiaPlayerID) {
+    public static void tryToUnlock(BiomiaAchievement bA, int biomiaPlayerID) {
         if (!hasAchievement(bA, biomiaPlayerID))
             MySQL.executeUpdate("INSERT INTO `BiomiaAchievement" + bA.toString() + "` (`ID`, `timestamp`) VALUES (" + biomiaPlayerID + ", " + new Date().toString() + ")", MySQL.Databases.stats_db);
     }
 
-    private static boolean hasAchievement(BiomiaAchievement bA, int biomiaPlayerID) {
+    public static boolean hasAchievement(BiomiaAchievement bA, int biomiaPlayerID) {
         return (MySQL.executeQuery("SELECT * FROM `BiomiaAchievement" + bA.toString() + "` where ID = " + biomiaPlayerID, "`ID`", MySQL.Databases.stats_db) != null);
+    }
+
+    public static void checkIfPlayerInTable() {
+
     }
 
 }
