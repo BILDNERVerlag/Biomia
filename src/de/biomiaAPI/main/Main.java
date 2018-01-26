@@ -162,7 +162,7 @@ public class Main extends JavaPlugin {
 		prefixes.put("Owner", "\u00A74Owner | ");
 		prefixes.put("Admin", "\u00A75Admin | ");
 		prefixes.put("SrBuilder", "\u00A72SrBuilder | ");
-		prefixes.put("JrBuilder", "\00A7aJrBuilder | ");
+		prefixes.put("JrBuilder", "\u00A7aJrBuilder | ");
 		prefixes.put("SrModerator", "\u00A7bSrMod | ");
 		prefixes.put("Moderator", "\u00A7bMod | ");
 		prefixes.put("Builder", "\u00A72Builder | ");
