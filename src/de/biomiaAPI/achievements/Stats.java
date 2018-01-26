@@ -31,7 +31,7 @@ public class Stats {
 
     public enum BiomiaStat {
         CoinsAccumulated,
-        NumberOfLoginsGeneral, NumberOfLoginsQuestServer, NumberOfLoginsFreebuildServer, NumberOfLoginsBauServer,
+        LoginsGeneral, LoginsQuestServer, LoginsFreebuildServer, LoginsBauServer,
         MysterChestsOpened, SkyWarsGamesPlayed, BedWarsGamesPlayed
     }
 
