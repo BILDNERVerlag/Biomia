@@ -61,7 +61,7 @@ public class Stats {
         int minInc = MySQL.executeQuerygetint("SELECT `inc` FROM `" + stat.toString() + "` where ID = " + biomiaPlayerID + " AND value = " + minValue, "inc", MySQL.Databases.stats_db);
 
         int out = maxValue - minValue + minInc;
-      
+
         return out == -1 ? 0 : out;
     }
 
