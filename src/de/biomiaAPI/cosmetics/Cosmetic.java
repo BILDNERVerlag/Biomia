@@ -16,7 +16,6 @@ import de.biomiaAPI.cosmetics.CosmeticItem.Commonness;
 import de.biomiaAPI.mysql.MySQL;
 import de.biomiaAPI.tools.ItemBase64;
 
-@SuppressWarnings("deprecation")
 public class Cosmetic {
 
 	private static final HashMap<Group, CosmeticGroup> groups = new HashMap<>();
@@ -110,7 +109,7 @@ public class Cosmetic {
 			return;
 		}
 
-		Connection con = MySQL.Connect();
+		Connection con = MySQL.Connect(MySQL.Databases.cosmetics_db);
 
 		try {
 			PreparedStatement ps = Objects.requireNonNull(con)
@@ -167,7 +166,7 @@ public class Cosmetic {
 		int id = MySQL.executeQuerygetint("Select ID from CosmeticItems where Name = '" + item.getName() + "'", "ID");
 		item.setNewID(id);
 
-		Connection con = MySQL.Connect();
+		Connection con = MySQL.Connect(MySQL.Databases.cosmetics_db);
 		PreparedStatement ps;
 		switch (item.getGroup()) {
 		case GADGETS:

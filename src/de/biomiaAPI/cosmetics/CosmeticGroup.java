@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import de.biomiaAPI.tools.Base64;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
@@ -38,7 +39,7 @@ public class CosmeticGroup {
 	}
 
 	private void loadGroup() {
-		Connection con = MySQL.Connect();
+		Connection con = MySQL.Connect(MySQL.Databases.cosmetics_db);
 
 		try {
 
@@ -73,13 +74,13 @@ public class CosmeticGroup {
 					String leggins = rs.getString("Leggins");
 					String boots = rs.getString("Boots");
 					if (boots != null)
-						suit.setHelmet(ItemBase64.fromBase64(helmet));
+						suit.setHelmet((ItemStack) Base64.fromBase64(helmet));
 					if (chestplate != null)
-						suit.setChestplate(ItemBase64.fromBase64(chestplate));
+						suit.setChestplate((ItemStack) Base64.fromBase64(chestplate));
 					if (leggins != null)
-						suit.setLeggins(ItemBase64.fromBase64(leggins));
+						suit.setLeggins((ItemStack) Base64.fromBase64(leggins));
 					if (boots != null)
-						suit.setBoots(ItemBase64.fromBase64(boots));
+						suit.setBoots((ItemStack) Base64.fromBase64(boots));
 					addItem(suit);
 					break;
 				default:

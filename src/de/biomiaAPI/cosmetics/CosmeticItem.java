@@ -52,12 +52,12 @@ public class CosmeticItem {
 
 	public void add(BiomiaPlayer bp) {
 		MySQL.executeUpdate(
-				"INSERT INTO `Cosmetics`(`BiomiaPlayer`, `ID`) VALUES (" + bp.getBiomiaPlayerID() + ", " + id + " )");
+				"INSERT INTO `Cosmetics`(`BiomiaPlayer`, `ID`) VALUES (" + bp.getBiomiaPlayerID() + ", " + id + " )", MySQL.Databases.cosmetics_db);
 	}
 
 	public void add(BiomiaPlayer bp, int timeinseconds) {
 		MySQL.executeUpdate("INSERT INTO `Cosmetics`(`BiomiaPlayer`, `ID`, `Time`) VALUES (" + bp.getBiomiaPlayerID()
-				+ ", " + id + ", " + timeinseconds + ")");
+				+ ", " + id + ", " + timeinseconds + ")", MySQL.Databases.cosmetics_db);
 	}
 
 	public int getID() {

@@ -1,5 +1,9 @@
 package de.biomiaAPI.achievements;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -56,13 +60,32 @@ public class Stats {
                 datetime_expr = "DAY";
         }
 
-        int maxValue = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + stat.toString() + "` where ID = " + biomiaPlayerID + " AND `timestamp` >= TIMESTAMPADD(" + datetime_expr + ",-" + days + ",NOW())", "value", MySQL.Databases.stats_db);
-        int minValue = MySQL.executeQuerygetint("SELECT MIN(`value`) AS value FROM `" + stat.toString() + "` where ID = " + biomiaPlayerID + " AND `timestamp` >= TIMESTAMPADD(" + datetime_expr + ",-" + days + ",NOW())", "value", MySQL.Databases.stats_db);
-        int minInc = MySQL.executeQuerygetint("SELECT `inc` FROM `" + stat.toString() + "` where ID = " + biomiaPlayerID + " AND value = " + minValue, "inc", MySQL.Databases.stats_db);
+        Connection con = MySQL.Connect(MySQL.Databases.stats_db);
+            int minValue = 0, minInc = 0, maxValue = 0;
 
-        int out = maxValue - minValue + minInc;
+        try {
+            PreparedStatement statement = con.prepareStatement("SELECT `value`, `inc` FROM `" + stat.toString() + "` where ID = ? AND `timestamp` >= TIMESTAMPADD(" + datetime_expr + ",-?,NOW())");
+            statement.setInt(1, biomiaPlayerID);
+            //statement.setString(2, datetime_expr);
+            statement.setInt(2, days);
+            ResultSet rs = statement.executeQuery();
 
-        return out == -1 ? 0 : out;
+            if (rs.next()) {
+                maxValue = minValue = rs.getInt("value");
+                minInc = rs.getInt("inc");
+            }
+            if (!rs.isLast()) {
+               if( rs.last()){
+                maxValue = rs.getInt("value");
+               }
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return maxValue - (minValue - minInc);
     }
 
     /**
@@ -88,7 +111,7 @@ public class Stats {
      * falls ein Achievement unlocked wird (ansonsten false).
      */
     public static void unlock(BiomiaAchievement.AchievementType bA, int biomiaPlayerID) {
-        MySQL.executeUpdate("INSERT INTO `" + bA.toString() + "` (`ID`) VALUES (" + biomiaPlayerID + ")", MySQL.Databases.achiev_db);
+        MySQL.executeUpdate("INSERT IGNORE INTO `" + bA.toString() + "` (`ID`) VALUES (" + biomiaPlayerID + ")", MySQL.Databases.achiev_db);
     }
 
 
