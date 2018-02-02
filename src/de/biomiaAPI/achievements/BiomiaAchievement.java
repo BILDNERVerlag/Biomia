@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class BiomiaAchievement {
 
     public static void init(){
-        new BiomiaAchievement(AchievementType.VerdieneFuenftausendCoins, 5000, Stats.BiomiaStat.CoinsAccumulated, "GeldAchievement")
+        new BiomiaAchievement(AchievementType.VerdieneFuenftausendCoins, 5000, Stats.BiomiaStat.CoinsAccumulated, "Sparfuchs")
         .setDescription("Verdiene insgesamt mindestens 5000 BC.");
     }
 

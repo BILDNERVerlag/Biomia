@@ -6,60 +6,62 @@ import java.util.HashMap;
 
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.mysql.MySQL;
+import org.bukkit.Bukkit;
 
 public class Stats {
 
     static HashMap<BiomiaStat, ArrayList<BiomiaAchievement>> stats = new HashMap<>();
 
-    /*
-     * Idee ist folgende:
-     *
-     * Jeder Stat hat eine eigene Tabelle in folgendem Format:
-     *
-     * Tabellenname = BiomiaStatName (zB BiomiaStatCoinsAllTime)
-     *
-     * BiomiaPlayerID, int value
-     *
-     * Jedes Achievement hat eine eigene Tabelle in der Datenbank in folgendem
-     * Format:
-     *
-     * Tabellenname = BiomiaAchievementName (zB
-     * BiomiaAchievementVerdieneFuenftausendCoins)
-     *
-     * BiomiaPlayerID
-     */
-
     public enum BiomiaStat {
         CoinsAccumulated,
         LoginsGeneral, LoginsQuestServer, LoginsFreebuildServer, LoginsBauServer,
-        MysterChestsOpened, SkyWarsGamesPlayed, BedWarsGamesPlayed
-    }
-
-    /**
-     * Gib einem bestimmten Spieler einen bestimmten Wert in einem bestimmten Stat
-     */
-    public static void saveStat(BiomiaStat stat, int biomiaPlayerID, int value) {
-        MySQL.executeUpdate("INSERT INTO `" + stat.toString() + "`(ID, value) VALUES (" + biomiaPlayerID + ", " + value + ") ON DUPLICATE KEY UPDATE value = " + value, MySQL.Databases.stats_db);
-        checkForAchievementUnlocks(stat, biomiaPlayerID, value);
+        MysteryChestsOpened, SkyWarsGamesPlayed, BedWarsGamesPlayed
     }
 
     /**
      * Zaehle einen bestimmten Stat eines bestimmten Spielers um 1 hoch.
      */
     public static void incrementStat(BiomiaStat stat, int biomiaPlayerID) {
-        saveStat(stat, biomiaPlayerID, getStat(stat, biomiaPlayerID) + 1);
+        incrementStatBy(stat, biomiaPlayerID, 1);
     }
 
     /**
-     * Zaehle einen bestimmten Stat eines bestimmten Spielers um einen beliebigen
+     * Zaehle einen bestimmten Stat eines bestimmten Spielers um einen uebergebenen
      * Wert hoch.
      */
     public static void incrementStatBy(BiomiaStat stat, int biomiaPlayerID, int increment) {
-        saveStat(stat, biomiaPlayerID, getStat(stat, biomiaPlayerID) + increment);
+        int value = getStat(stat, biomiaPlayerID) + increment;
+        MySQL.executeUpdate("INSERT INTO `" + stat.toString() + "`(ID, value, inc) VALUES (" + biomiaPlayerID + ", " + value + ", " + increment + ")", MySQL.Databases.stats_db);
+        checkForAchievementUnlocks(stat, biomiaPlayerID, value);
     }
 
     public static int getStat(BiomiaStat stat, int biomiaPlayerID) {
-        int out = MySQL.executeQuerygetint("SELECT * FROM `" + stat.toString() + "` where ID = " + biomiaPlayerID, "value", MySQL.Databases.stats_db);
+        int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + stat.toString() + "` where ID = " + biomiaPlayerID, "value", MySQL.Databases.stats_db);
+        return out == -1 ? 0 : out;
+    }
+
+    public static int getStatLastX(BiomiaStat stat, int biomiaPlayerID, String datetime_expr, int days) {
+        switch (datetime_expr.toUpperCase()) {
+            case "SECOND":
+            case "MINUTE":
+            case "HOUR":
+            case "DAY":
+            case "WEEK":
+            case "MONTH":
+            case "QUARTER":
+            case "YEAR":
+                //all good
+                break;
+            default:
+                datetime_expr = "DAY";
+        }
+
+        int maxValue = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + stat.toString() + "` where ID = " + biomiaPlayerID + " AND `timestamp` >= TIMESTAMPADD(" + datetime_expr + ",-" + days + ",NOW())", "value", MySQL.Databases.stats_db);
+        int minValue = MySQL.executeQuerygetint("SELECT MIN(`value`) AS value FROM `" + stat.toString() + "` where ID = " + biomiaPlayerID + " AND `timestamp` >= TIMESTAMPADD(" + datetime_expr + ",-" + days + ",NOW())", "value", MySQL.Databases.stats_db);
+        int minInc = MySQL.executeQuerygetint("SELECT `inc` FROM `" + stat.toString() + "` where ID = " + biomiaPlayerID + " AND value = " + minValue, "inc", MySQL.Databases.stats_db);
+
+        int out = maxValue - minValue + minInc;
+      
         return out == -1 ? 0 : out;
     }
 
@@ -89,4 +91,6 @@ public class Stats {
         MySQL.executeUpdate("INSERT INTO `" + bA.toString() + "` (`ID`) VALUES (" + biomiaPlayerID + ")", MySQL.Databases.achiev_db);
     }
 
+
+    //SELECT `inc`,`wert` FROM `TestTabelle` WHERE `time` >= TIMESTAMPADD(DAY,-3,NOW());
 }

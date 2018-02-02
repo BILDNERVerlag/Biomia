@@ -3,6 +3,7 @@ package de.biomiaAPI.cosmetics.mystery;
 import java.util.ArrayList;
 import java.util.Random;
 
+import de.biomiaAPI.achievements.Stats;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
@@ -109,6 +110,7 @@ public class MysteryChest {
 			itemStack.setAmount(menge);
 
 		bp.getPlayer().openInventory(inv);
+		Stats.incrementStat(Stats.BiomiaStat.MysteryChestsOpened, bp.getBiomiaPlayerID());
 
 		new BukkitRunnable() {
 			int counter = -1;
