@@ -21,7 +21,6 @@ import java.util.*;
 
 public class Biomia {
 
-    private static final HashMap<Player, QuestPlayer> qp = new HashMap<>();
     private static final HashMap<Player, BiomiaPlayer> bp = new HashMap<>();
 
     public static void stopWithDelay() {
@@ -34,13 +33,10 @@ public class Biomia {
     }
 
     private static void removeBiomiaPlayer(Player p) {
-        getBiomiaPlayer(p);
         bp.remove(p);
     }
 
     private static void removeQuestPlayer(Player p) {
-        getQuestPlayer(p);
-        qp.remove(p);
     }
 
     public static void removePlayers(Player p) {
@@ -524,7 +520,7 @@ public class Biomia {
                             Player p = Bukkit.getPlayer(UUID.fromString(s));
 
                             if (p != null) {
-                                onlinePlayers.add(Biomia.getQuestPlayer(p));
+                                onlinePlayers.add(Biomia.getBiomiaPlayer(p).getQuestPlayer());
                             }
                         }
 
