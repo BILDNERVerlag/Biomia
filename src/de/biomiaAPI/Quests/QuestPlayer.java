@@ -45,7 +45,7 @@ public class QuestPlayer {
 
 		ArrayList<Quest> quests = new ArrayList<>();
 
-		Connection con = MySQL.Connect();
+		Connection con = MySQL.Connect(MySQL.Databases.quests_db);
 
 		if (con != null) {
 			try {
@@ -82,7 +82,7 @@ public class QuestPlayer {
 
 		quest.addPlayer(this);
 		MySQL.executeUpdate("INSERT INTO `Quests_aktuell`(`uuid`, `name`, `state`) VALUES ('"
-				+ player.getUniqueId().toString() + "','" + quest.getQuestName() + "','STATUS1')");
+				+ player.getUniqueId().toString() + "','" + quest.getQuestName() + "','STATUS1')", MySQL.Databases.quests_db);
 
 		updateBook();
 	}
@@ -91,7 +91,7 @@ public class QuestPlayer {
 
 		quest.removePlayer(this);
 		MySQL.executeUpdate("DELETE FROM `Quests_aktuell` WHERE uuid = '" + player.getUniqueId().toString()
-				+ "' AND name = '" + quest.getQuestName() + "'");
+				+ "' AND name = '" + quest.getQuestName() + "'", MySQL.Databases.quests_db);
 
 	}
 
@@ -128,7 +128,7 @@ public class QuestPlayer {
 
 		if (getState(quest) != null)
 			MySQL.executeUpdate("UPDATE `Quests_aktuell` SET `state` = '" + state.name() + "' WHERE `uuid`= '"
-					+ player.getUniqueId().toString() + "' AND `name`= '" + quest.getQuestName() + "'");
+					+ player.getUniqueId().toString() + "' AND `name`= '" + quest.getQuestName() + "'", MySQL.Databases.quests_db);
 	}
 
 	public void addMineableBlock(Material material) {
@@ -159,7 +159,7 @@ public class QuestPlayer {
 
 	public ArrayList<Quest> getFinishedQuests() {
 		ArrayList<Quest> quests = new ArrayList<>();
-		Connection con = MySQL.Connect();
+		Connection con = MySQL.Connect(MySQL.Databases.quests_db);
 		if (con != null) {
 			try {
 				ResultSet s = con.prepareStatement(
@@ -201,7 +201,7 @@ public class QuestPlayer {
 
 	public States getState(Quest q) {
 		String s = MySQL.executeQuery("SELECT * FROM `Quests_aktuell` WHERE uuid = '" + player.getUniqueId().toString()
-				+ "' AND name = '" + q.getQuestName() + "'", "state");
+				+ "' AND name = '" + q.getQuestName() + "'", "state", MySQL.Databases.quests_db);
 
 		if (s == null)
 			return null;
@@ -224,14 +224,14 @@ public class QuestPlayer {
 	public void finish(Quest quest) {
 		rmFromQuest(quest);
 		MySQL.executeUpdate("INSERT INTO `Quests_erledigt`(`name`, `uuid`, `end_time`) VALUES ('" + quest.getQuestName()
-				+ "','" + player.getUniqueId().toString() + "'," + System.currentTimeMillis() / 1000 + ")");
+				+ "','" + player.getUniqueId().toString() + "'," + System.currentTimeMillis() / 1000 + ")", MySQL.Databases.quests_db);
 		updateBook();
 	}
 
 	public int getFinishTime(Quest quest) {
 		if (hasFinished(quest)) {
 			return MySQL.executeQuerygetint("Select * from `Quests_erledigt` where `name` = '" + quest.getQuestName()
-					+ "' AND uuid = '" + player.getUniqueId().toString() + "'", "end_time");
+					+ "' AND uuid = '" + player.getUniqueId().toString() + "'", "end_time", MySQL.Databases.quests_db);
 		}
 		return -1;
 	}
@@ -269,7 +269,7 @@ public class QuestPlayer {
 
 	public void unfinish(Quest quest) {
 		MySQL.executeUpdate("Delete from `Quests_erledigt` where `uuid` = '" + player.getUniqueId().toString()
-				+ "' AND `name` = '" + quest.getQuestName() + "'");
+				+ "' AND `name` = '" + quest.getQuestName() + "'", MySQL.Databases.quests_db);
 
 		updateBook();
 	}

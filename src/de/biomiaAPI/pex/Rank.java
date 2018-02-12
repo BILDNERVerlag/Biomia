@@ -44,8 +44,8 @@ public class Rank {
     }
 
     public static boolean isPremium(Player p) {
-        String rank = Rank.getRank(p);
-        return !rank.contains("Premium");
+        String rank = Rank.getRank(p).toLowerCase();
+        return rank.contains("premium");
     }
 
     public static int getPremiumLevel(Player p) {

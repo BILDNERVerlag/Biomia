@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class MySQL {
 
     public enum Databases {
-        biomia_db, paf_db, cosmetics_db, plots_db, quests_db, stats_db, misc_db, achiev_db
+        biomia_db, paf_db, perm_db, cosmetics_db, plots_db, quests_db, stats_db, misc_db, achiev_db
     }
 
     /*

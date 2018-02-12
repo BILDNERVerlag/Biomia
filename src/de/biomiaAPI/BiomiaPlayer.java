@@ -102,7 +102,6 @@ public class BiomiaPlayer {
     }
 
     public void addCoins(int coins, boolean enableBoost) {
-
         Connection con = MySQL.Connect();
         int prozent = 100;
         try {
@@ -135,7 +134,6 @@ public class BiomiaPlayer {
         if (b) {
             this.getPlayer().sendMessage("\u00A77Du erh\u00e4ltst \u00A7f" + coins + "\u00A77 BC!");
         }
-
     }
 
     public void setCoins(int coins) {

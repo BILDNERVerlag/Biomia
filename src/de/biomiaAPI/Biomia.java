@@ -362,7 +362,7 @@ public class Biomia {
 
                             ArrayList<String> pls = new ArrayList<>();
 
-                            Connection con = MySQL.Connect();
+                            Connection con = MySQL.Connect(MySQL.Databases.quests_db);
 
                             if (con != null) {
                                 try {
@@ -536,12 +536,12 @@ public class Biomia {
                     @Override
                     public void registerQuestIfnotExist() {
                         if (MySQL.executeQuery("SELECT name from `Quests` where name = '" + questName + "'",
-                                "name") == null) {
+                                "name", MySQL.Databases.quests_db) == null) {
                             MySQL.executeUpdate(
-                                    "INSERT INTO `Quests` (name, band) values ('" + questName + "', " + band + ")");
+                                    "INSERT INTO `Quests` (name, band) values ('" + questName + "', " + band + ")", MySQL.Databases.quests_db);
                         }
                         questid = MySQL.executeQuerygetint(
-                                "SELECT name, id from `Quests` where name = '" + questName + "'", "id");
+                                "SELECT name, id from `Quests` where name = '" + questName + "'", "id", MySQL.Databases.quests_db);
                     }
 
                     @Override
