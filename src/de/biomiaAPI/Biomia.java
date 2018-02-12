@@ -328,6 +328,13 @@ public class Biomia {
 
             }
 
+            public Quest getQuest(String s) {
+                for (Quest q : quests) {
+                    if (q.getQuestName().equalsIgnoreCase(s)) return q;
+                }
+                return null;
+            }
+
             @Override
             public Quest registerNewQuest(String questName0, int Band) {
                 //noinspection unchecked

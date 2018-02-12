@@ -10,6 +10,7 @@ public interface QuestManager {
 	ArrayList<Quest> getQuests();
 
 	Quest getQuest(int questID);
+	Quest getQuest(String s);
 
 	Quest registerNewQuest(String questName, int Band);
 
