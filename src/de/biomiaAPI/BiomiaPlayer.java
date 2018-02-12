@@ -45,7 +45,7 @@ public class BiomiaPlayer {
     }
 
     public QuestPlayer getQuestPlayer() {
-        return questPlayer != null ? questPlayer : (questPlayer = new QuestPlayer(p));
+        return questPlayer != null ? questPlayer : (questPlayer = new QuestPlayer(this));
     }
 
     public boolean canBuild() {

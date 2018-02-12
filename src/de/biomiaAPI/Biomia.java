@@ -25,7 +25,6 @@ public class Biomia {
 
     public static void stopWithDelay() {
         new BukkitRunnable() {
-            @Override
             public void run() {
                 Bukkit.shutdown();
             }
@@ -36,12 +35,8 @@ public class Biomia {
         bp.remove(p);
     }
 
-    private static void removeQuestPlayer(Player p) {
-    }
-
     public static void removePlayers(Player p) {
         removeBiomiaPlayer(p);
-        removeQuestPlayer(p);
     }
 
     @Deprecated
@@ -60,6 +55,13 @@ public class Biomia {
 
     public static int getBiomiaPlayerIDFromString(String playerName) {
         return MySQL.executeQuerygetint("Select id from BiomiaPlayer where name = '" + playerName + "'", "id", MySQL.Databases.biomia_db);
+    }
+
+    public static UUID getUUIDFromBiomiaPlayerID(int biomiaID) {
+        String s = MySQL.executeQuery("Select uuid from BiomiaPlayer where id = " + biomiaID, "uuid", MySQL.Databases.biomia_db);
+        if (s != null)
+            return UUID.fromString(s);
+        else return null;
     }
 
     public static TeamManager TeamManager() {
@@ -316,9 +318,9 @@ public class Biomia {
             }
 
             @Override
-            public Quest getQuest(String quest) {
+            public Quest getQuest(int questID) {
                 for (Quest q : quests) {
-                    if (q.getQuestName().equalsIgnoreCase(quest)) {
+                    if (q.getQuestID() == questID) {
                         return q;
                     }
                 }
@@ -345,7 +347,7 @@ public class Biomia {
 
                     final ArrayList<NPC> npcs = new ArrayList<>();
 
-                    final List<String> active_Player_UUIDS = getActivePlayerUUIDS();
+                    final List<Integer> active_Player_UUIDS = getActivePlayerUUIDS();
 
                     final HashMap<States, DialogMessage> dialog = new HashMap<>();
 
@@ -356,11 +358,11 @@ public class Biomia {
                     boolean playableWithParty = false;
 
                     @Override
-                    public List<String> getActivePlayerUUIDS() {
+                    public List<Integer> getActivePlayerUUIDS() {
 
                         if (active_Player_UUIDS == null) {
 
-                            ArrayList<String> pls = new ArrayList<>();
+                            ArrayList<Integer> pls = new ArrayList<>();
 
                             Connection con = MySQL.Connect(MySQL.Databases.quests_db);
 
@@ -368,11 +370,11 @@ public class Biomia {
                                 try {
                                     ResultSet s = con
                                             .prepareStatement(
-                                                    "SELECT * FROM `Quests_aktuell` WHERE name = '" + questName0 + "'")
+                                                    "SELECT * FROM `Quests_aktuell` WHERE questID = '" + questid + "'")
                                             .executeQuery();
 
                                     while (s.next()) {
-                                        pls.add(s.getString("uuid"));
+                                        pls.add(s.getInt("biomiaID"));
                                     }
                                     con.close();
                                     return pls;
@@ -502,12 +504,12 @@ public class Biomia {
 
                     @Override
                     public void addPlayer(QuestPlayer qp) {
-                        Objects.requireNonNull(active_Player_UUIDS).add(qp.getPlayer().getUniqueId().toString());
+                        Objects.requireNonNull(active_Player_UUIDS).add(qp.getBiomiaPlayer().getBiomiaPlayerID());
                     }
 
                     @Override
                     public void removePlayer(QuestPlayer qp) {
-                        Objects.requireNonNull(active_Player_UUIDS).remove(qp.getPlayer().getUniqueId().toString());
+                        Objects.requireNonNull(active_Player_UUIDS).remove(qp.getBiomiaPlayer().getBiomiaPlayerID());
                     }
 
                     @Override
@@ -515,9 +517,11 @@ public class Biomia {
 
                         ArrayList<QuestPlayer> onlinePlayers = new ArrayList<>();
 
-                        for (String s : Objects.requireNonNull(active_Player_UUIDS)) {
+                        for (Integer i : Objects.requireNonNull(active_Player_UUIDS)) {
 
-                            Player p = Bukkit.getPlayer(UUID.fromString(s));
+                            UUID uuid = Biomia.getUUIDFromBiomiaPlayerID(i);
+
+                            Player p = Bukkit.getPlayer(uuid);
 
                             if (p != null) {
                                 onlinePlayers.add(Biomia.getBiomiaPlayer(p).getQuestPlayer());

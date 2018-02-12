@@ -52,7 +52,7 @@ public interface Quest {
 
 	List<QuestPlayer> getActiveOnlinePlayers();
 
-	List<String> getActivePlayerUUIDS();
+	List<Integer> getActivePlayerUUIDS();
 
 	NPC createNPC(EntityType entity, String name, UUID skinUUID);
 
