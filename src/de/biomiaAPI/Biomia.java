@@ -325,14 +325,17 @@ public class Biomia {
                     }
                 }
                 return null;
-
             }
 
-            public Quest getQuest(String s) {
+            @Override
+            public Quest getQuest(String questName) {
                 for (Quest q : quests) {
-                    if (q.getQuestName().equalsIgnoreCase(s)) return q;
+                    if (q.getQuestName().equals(questName)) {
+                        return q;
+                    }
                 }
                 return null;
+
             }
 
             @Override
