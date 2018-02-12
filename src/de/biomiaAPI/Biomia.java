@@ -354,7 +354,7 @@ public class Biomia {
 
                     final ArrayList<NPC> npcs = new ArrayList<>();
 
-                    final List<Integer> active_Player_UUIDS = getActivePlayerUUIDS();
+                    final List<Integer> active_Player_biomiaIDs = getActivePlayerBiomiaIDs();
 
                     final HashMap<States, DialogMessage> dialog = new HashMap<>();
 
@@ -365,9 +365,9 @@ public class Biomia {
                     boolean playableWithParty = false;
 
                     @Override
-                    public List<Integer> getActivePlayerUUIDS() {
+                    public List<Integer> getActivePlayerBiomiaIDs() {
 
-                        if (active_Player_UUIDS == null) {
+                        if (active_Player_biomiaIDs == null) {
 
                             ArrayList<Integer> pls = new ArrayList<>();
 
@@ -391,7 +391,7 @@ public class Biomia {
                             }
 
                         } else {
-                            return active_Player_UUIDS;
+                            return active_Player_biomiaIDs;
                         }
 
                         return null;
@@ -511,12 +511,12 @@ public class Biomia {
 
                     @Override
                     public void addPlayer(QuestPlayer qp) {
-                        Objects.requireNonNull(active_Player_UUIDS).add(qp.getBiomiaPlayer().getBiomiaPlayerID());
+                        Objects.requireNonNull(active_Player_biomiaIDs).add(qp.getBiomiaPlayer().getBiomiaPlayerID());
                     }
 
                     @Override
                     public void removePlayer(QuestPlayer qp) {
-                        Objects.requireNonNull(active_Player_UUIDS).remove(qp.getBiomiaPlayer().getBiomiaPlayerID());
+                        Objects.requireNonNull(active_Player_biomiaIDs).remove( new Integer(qp.getBiomiaPlayer().getBiomiaPlayerID()) );
                     }
 
                     @Override
@@ -524,7 +524,7 @@ public class Biomia {
 
                         ArrayList<QuestPlayer> onlinePlayers = new ArrayList<>();
 
-                        for (Integer i : Objects.requireNonNull(active_Player_UUIDS)) {
+                        for (Integer i : Objects.requireNonNull(active_Player_biomiaIDs)) {
 
                             UUID uuid = Biomia.getUUIDFromBiomiaPlayerID(i);
 
