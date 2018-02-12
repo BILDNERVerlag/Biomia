@@ -164,8 +164,8 @@ public class BiomiaPlayer {
 
     public boolean isStaff() {
         String rank = Rank.getRank(p);
-
-        return rank.contains("Spieler") || rank.contains("Premium") || rank.contains("YouTuber");
+        rank = rank.toLowerCase();
+        return ( rank.contains("Owner") || rank.contains("Admin") || rank.contains("Moderator") || rank.contains("Builder") );
     }
 
     public boolean isYouTuber() {
