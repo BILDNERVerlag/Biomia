@@ -18,8 +18,31 @@ public class Stats {
 
     public enum BiomiaStat {
         CoinsAccumulated,
-        LoginsGeneral, LoginsQuestServer, LoginsFreebuildServer, LoginsBauServer,
-        MysteryChestsOpened, SkyWarsGamesPlayed, BedWarsGamesPlayed
+        LoginsGeneral, LoginsQuestServer, LoginsFreebuildServer, LoginsBauServer, LoginsDemoServer,
+        MinutesPlayed,
+        MysteryChestsOpened,
+        BlocksPlaced, BlocksDestroyed,
+        MonstersKilled, PlayersKilled,
+        HealthLost, HealthRegenerated, HungerLost, HungerRegenerated,
+        DeathsGeneral, DeathsFalling, DeathsMonster, DeathsPlayer, DeathsStarving, DeathsSuffocation, DeathsLava, DeathsDrowning,
+        MessagesSent,
+        ItemsEnchanted, ItemsPickedUp, ItemsDropped, ItemsBroken,
+        ChestsOpened,
+        EXPGained,
+        ProjectilesShot,
+        FishCaught,
+        FoodEaten, PotionsConsumed,
+        KilometresRun,
+        SheepsSheared,
+        TeleportsMade,
+        GadgetsUsed, HeadsUsed, ParticlesUsed, SuitsUsed,
+        ReportsMade,
+        SW_GamesPlayed, BW_GamesPlayed,
+        SW_Deaths, SW_Wins, SW_Kills, SW_Leaves, SW_ChestsOpened, KitsBought, KitsChanged,
+        BW_Deaths, BW_Wins, BW_Kills, BW_Leaves, BW_ItemsBought,
+        Q_accepted, Q_returned, Q_NPCTalks, Q_CoinsEarned, Q_Kills, Q_Deaths,
+        Bau_PlotsClaimed, Bau_PlotsReset, Bau_BlocksPlaced, Bau_BlocksDestroyed,
+        FB_CBClaimed, FB_CBUnclaimed, FB_BlocksPlaced, FB_BlocksDestroyed, FB_ItemsBought, FB_ItemsSold, FB_WarpsUsed
     }
 
     /**
@@ -37,6 +60,32 @@ public class Stats {
         int value = getStat(stat, biomiaPlayerID) + increment;
         MySQL.executeUpdate("INSERT INTO `" + stat.toString() + "`(ID, value, inc) VALUES (" + biomiaPlayerID + ", " + value + ", " + increment + ")", MySQL.Databases.stats_db);
         checkForAchievementUnlocks(stat, biomiaPlayerID, value);
+    }
+
+    public static void incrementStatBy(BiomiaStat stat, int biomiaPlayerID, int increment, String comment) {
+        int value = getStat(stat, biomiaPlayerID) + increment;
+        MySQL.executeUpdate("INSERT INTO `" + stat.toString() + "`(ID, value, inc, comment) VALUES (" + biomiaPlayerID + ", " + value + ", " + increment + ", '" + comment + "')", MySQL.Databases.stats_db);
+        checkForAchievementUnlocks(stat, biomiaPlayerID, value);
+    }
+
+    public static HashMap<String, Integer> getComments(BiomiaStat stat, int biomiaPlayerID) {
+        //SELECT `comment` FROM tabelle WHERE ID = biomiaPlayerID
+        HashMap<String, Integer> output = new HashMap<>();
+        Connection con = MySQL.Connect(MySQL.Databases.stats_db);
+        if (con != null)
+            try {
+                PreparedStatement statement = con.prepareStatement("SELECT `comment` FROM `" + stat.toString() + "` where ID = ?)");
+                ResultSet rs = statement.executeQuery();
+                String comment;
+                while (rs.next()) {
+                    comment = rs.getString("comment");
+                    output.put(comment, output.computeIfAbsent(comment, j -> 0) + 1);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        return output;
     }
 
     public static int getStat(BiomiaStat stat, int biomiaPlayerID) {
@@ -61,7 +110,7 @@ public class Stats {
         }
 
         Connection con = MySQL.Connect(MySQL.Databases.stats_db);
-            int minValue = 0, minInc = 0, maxValue = 0;
+        int minValue = 0, minInc = 0, maxValue = 0;
 
         try {
             PreparedStatement statement = con.prepareStatement("SELECT `value`, `inc` FROM `" + stat.toString() + "` where ID = ? AND `timestamp` >= TIMESTAMPADD(" + datetime_expr + ",-?,NOW())");
@@ -75,9 +124,9 @@ public class Stats {
                 minInc = rs.getInt("inc");
             }
             if (!rs.isLast()) {
-               if( rs.last()){
-                maxValue = rs.getInt("value");
-               }
+                if (rs.last()) {
+                    maxValue = rs.getInt("value");
+                }
             }
 
 
