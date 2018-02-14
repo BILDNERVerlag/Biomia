@@ -146,6 +146,7 @@ public class Main extends JavaPlugin {
 		group.add("Builder");
 		group.add("JrBuilder");
 		group.add("YouTube");
+		group.add("Supporter");
 		group.add("PremiumZehn");
 		group.add("PremiumNeun");
 		group.add("PremiumAcht");
@@ -163,8 +164,9 @@ public class Main extends JavaPlugin {
 		prefixes.put("Admin", "\u00A75Admin | ");
 		prefixes.put("SrBuilder", "\u00A72SrBuilder | ");
 		prefixes.put("JrBuilder", "\u00A7aJrBuilder | ");
-		prefixes.put("SrModerator", "\u00A7bSrMod | ");
-		prefixes.put("Moderator", "\u00A7bMod | ");
+		prefixes.put("SrModerator", "\u00A79SrMod | ");
+		prefixes.put("Moderator", "\u00A73Mod | ");
+		prefixes.put("Supporter","\u00A7bSup | ");
 		prefixes.put("Builder", "\u00A72Builder | ");
 		prefixes.put("YouTube", "\u00A74[\u00A70Y\u00A7fT\u00A74] | ");
 		prefixes.put("PremiumZehn", "\u00A76X | ");

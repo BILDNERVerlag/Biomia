@@ -163,7 +163,7 @@ public class BiomiaPlayer {
     public boolean isStaff() {
         String rank = Rank.getRank(p);
         rank = rank.toLowerCase();
-        return ( rank.contains("Owner") || rank.contains("Admin") || rank.contains("Moderator") || rank.contains("Builder") );
+        return ( rank.contains("Owner") || rank.contains("Admin") || rank.contains("Moderator") || rank.contains("Builder") || rank.contains("Supporter"));
     }
 
     public boolean isYouTuber() {
