@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import de.biomiaAPI.Biomia;
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.mysql.MySQL;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 public class Stats {
 
@@ -18,13 +20,13 @@ public class Stats {
 
     public enum BiomiaStat {
         CoinsAccumulated,
-        LoginsGeneral, LoginsQuestServer, LoginsFreebuildServer, LoginsBauServer, LoginsDemoServer,
+        Logins,
         MinutesPlayed,
         MysteryChestsOpened,
         BlocksPlaced, BlocksDestroyed,
         MonstersKilled, PlayersKilled,
         HealthLost, HealthRegenerated, HungerLost, HungerRegenerated,
-        DeathsGeneral, DeathsFalling, DeathsMonster, DeathsPlayer, DeathsStarving, DeathsSuffocation, DeathsLava, DeathsDrowning,
+        DeathCause, KilledByMonster, KilledByPlayer,
         MessagesSent,
         ItemsEnchanted, ItemsPickedUp, ItemsDropped, ItemsBroken,
         ChestsOpened,
@@ -41,8 +43,8 @@ public class Stats {
         SW_Deaths, SW_Wins, SW_Kills, SW_Leaves, SW_ChestsOpened, KitsBought, KitsChanged,
         BW_Deaths, BW_Wins, BW_Kills, BW_Leaves, BW_ItemsBought,
         Q_accepted, Q_returned, Q_NPCTalks, Q_CoinsEarned, Q_Kills, Q_Deaths,
-        Bau_PlotsClaimed, Bau_PlotsReset, Bau_BlocksPlaced, Bau_BlocksDestroyed,
-        FB_CBClaimed, FB_CBUnclaimed, FB_BlocksPlaced, FB_BlocksDestroyed, FB_ItemsBought, FB_ItemsSold, FB_WarpsUsed
+        Bau_PlotsClaimed, Bau_PlotsReset,
+        FB_CBClaimed, FB_CBUnclaimed, FB_ItemsBought, FB_ItemsSold, FB_WarpsUsed
     }
 
     /**
@@ -62,10 +64,25 @@ public class Stats {
         checkForAchievementUnlocks(stat, biomiaPlayerID, value);
     }
 
-    public static void incrementStatBy(BiomiaStat stat, int biomiaPlayerID, int increment, String comment) {
-        int value = getStat(stat, biomiaPlayerID) + increment;
-        MySQL.executeUpdate("INSERT INTO `" + stat.toString() + "`(ID, value, inc, comment) VALUES (" + biomiaPlayerID + ", " + value + ", " + increment + ", '" + comment + "')", MySQL.Databases.stats_db);
+    public static void incrementStat(BiomiaStat stat, int biomiaPlayerID, String comment) {
+        int value = getStat(stat, biomiaPlayerID) + 1;
+        MySQL.executeUpdate("INSERT INTO `" + stat.toString() + "`(ID, value, comment) VALUES (" + biomiaPlayerID + ", " + value + ", '" + comment + "')", MySQL.Databases.stats_db);
         checkForAchievementUnlocks(stat, biomiaPlayerID, value);
+    }
+
+    public static void incrementStat(BiomiaStat stat, Player player, String comment) {
+        int biomiaPlayerID = Biomia.getBiomiaPlayer(player).getBiomiaPlayerID();
+        incrementStat(stat, biomiaPlayerID, comment);
+    }
+
+    public static void incrementStatBy(BiomiaStat stat, Player player, int increment) {
+        int biomiaPlayerID = Biomia.getBiomiaPlayer(player).getBiomiaPlayerID();
+        incrementStatBy(stat, biomiaPlayerID, increment);
+    }
+
+    public static void incrementStat(BiomiaStat stat, Player player) {
+        int biomiaPlayerID = Biomia.getBiomiaPlayer(player).getBiomiaPlayerID();
+        incrementStatBy(stat, biomiaPlayerID, 1);
     }
 
     public static HashMap<String, Integer> getComments(BiomiaStat stat, int biomiaPlayerID) {
@@ -74,7 +91,8 @@ public class Stats {
         Connection con = MySQL.Connect(MySQL.Databases.stats_db);
         if (con != null)
             try {
-                PreparedStatement statement = con.prepareStatement("SELECT `comment` FROM `" + stat.toString() + "` where ID = ?)");
+                PreparedStatement statement = con.prepareStatement("SELECT `comment` FROM `" + stat.toString() + "` where ID = ?");
+                statement.setInt(1, biomiaPlayerID);
                 ResultSet rs = statement.executeQuery();
                 String comment;
                 while (rs.next()) {
@@ -133,8 +151,55 @@ public class Stats {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        boolean withComment = false;
+        try {
+            PreparedStatement statement = con.prepareStatement("SELECT `value`, `inc` FROM `" + stat.toString() + "` where ID = ? AND `timestamp` >= TIMESTAMPADD(" + datetime_expr + ",-?,NOW())");
+            statement.setInt(1, biomiaPlayerID);
+            //statement.setString(2, datetime_expr);
+            statement.setInt(2, days);
+            ResultSet rs = statement.executeQuery();
 
-        return maxValue - (minValue - minInc);
+            if (rs.next()) {
+                maxValue = minValue = rs.getInt("value");
+                minInc = rs.getInt("inc");
+            }
+            if (!rs.isLast()) {
+                if (rs.last()) {
+                    maxValue = rs.getInt("value");
+                }
+            }
+
+
+        } catch (SQLException e) {
+            if (e.getMessage().contains("Unknown column")) {
+                withComment = true;
+            } else {
+                e.printStackTrace();
+            }
+        }
+
+        if (withComment)
+            try {
+                PreparedStatement statement = con.prepareStatement("SELECT `value` FROM `" + stat.toString() + "` where ID = ? AND `timestamp` >= TIMESTAMPADD(" + datetime_expr + ",-?,NOW())");
+                statement.setInt(1, biomiaPlayerID);
+                //statement.setString(2, datetime_expr);
+                statement.setInt(2, days);
+                ResultSet rs = statement.executeQuery();
+
+                if (rs.next()) {
+                    maxValue = minValue = rs.getInt("value");
+                }
+                if (!rs.isLast()) {
+                    if (rs.last()) {
+                        maxValue = rs.getInt("value");
+                    }
+                }
+
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        return maxValue - (minValue - 1);
     }
 
     /**
