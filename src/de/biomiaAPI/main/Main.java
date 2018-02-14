@@ -51,7 +51,7 @@ public class Main extends JavaPlugin {
         setUniversalTimoapi(TimoCloudAPI.getUniversalInstance());
         groupName = bukkitTimoapi.getThisServer().getGroupName();
 
-        
+
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         Bukkit.getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new Connect());
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "RedisBungee");
