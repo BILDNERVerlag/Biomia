@@ -1,7 +1,7 @@
 package de.biomiaAPI.achievements;
 
 import de.biomiaAPI.Biomia;
-import de.biomiaAPI.coins.CoinEvent;
+import de.biomiaAPI.achievements.statEvents.CoinEvent;
 import de.biomiaAPI.main.Main;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;

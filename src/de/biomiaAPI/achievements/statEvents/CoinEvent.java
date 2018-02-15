@@ -1,4 +1,4 @@
-package de.biomiaAPI.coins;
+package de.biomiaAPI.achievements.statEvents;
 
 import de.biomiaAPI.BiomiaPlayer;
 import org.bukkit.entity.Player;

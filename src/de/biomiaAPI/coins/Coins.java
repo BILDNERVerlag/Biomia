@@ -1,11 +1,9 @@
 package de.biomiaAPI.coins;
 
 import de.biomiaAPI.BiomiaPlayer;
-import de.biomiaAPI.achievements.Stats;
+import de.biomiaAPI.achievements.statEvents.CoinEvent;
 import de.biomiaAPI.mysql.MySQL;
 import org.bukkit.Bukkit;
-import org.bukkit.event.Event;
-import org.bukkit.event.HandlerList;
 
 public class Coins {
 
