@@ -1,24 +1,22 @@
 package de.biomiaAPI.achievements;
 
+import de.biomiaAPI.Biomia;
+import de.biomiaAPI.mysql.MySQL;
+import org.bukkit.entity.Player;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-
-import de.biomiaAPI.Biomia;
-import de.biomiaAPI.BiomiaPlayer;
-import de.biomiaAPI.mysql.MySQL;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 public class Stats {
 
-    static HashMap<BiomiaStat, ArrayList<BiomiaAchievement>> stats = new HashMap<>();
+    static HashMap<BiomiaStat, ArrayList<de.biomiaAPI.achievements.BiomiaAchievement>> stats = new HashMap<>();
 
     public enum BiomiaStat {
+
         CoinsAccumulated,
         Logins,
         MinutesPlayed,
@@ -44,7 +42,11 @@ public class Stats {
         BW_Deaths, BW_Wins, BW_Kills, BW_Leaves, BW_ItemsBought,
         Q_accepted, Q_returned, Q_NPCTalks, Q_CoinsEarned, Q_Kills, Q_Deaths,
         Bau_PlotsClaimed, Bau_PlotsReset,
-        FB_CBClaimed, FB_CBUnclaimed, FB_ItemsBought, FB_ItemsSold, FB_WarpsUsed
+        FB_CBClaimed, FB_CBUnclaimed, FB_ItemsBought, FB_ItemsSold, FB_WarpsUsed,
+
+        //Events
+
+        SpecialEggsFound, EasterEggsFound
     }
 
     /**
@@ -108,6 +110,11 @@ public class Stats {
 
     public static int getStat(BiomiaStat stat, int biomiaPlayerID) {
         int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + stat.toString() + "` where ID = " + biomiaPlayerID, "value", MySQL.Databases.stats_db);
+        return out == -1 ? 0 : out;
+    }
+
+    public static int getStat(BiomiaStat stat, int biomiaPlayerID, String comment) {
+        int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + stat.toString() + "` where ID = " + biomiaPlayerID + " AND WHERE comment = '" + comment + "'", "value", MySQL.Databases.stats_db);
         return out == -1 ? 0 : out;
     }
 
