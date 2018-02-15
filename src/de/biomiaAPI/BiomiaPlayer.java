@@ -37,7 +37,7 @@ public class BiomiaPlayer {
 
     private int getBiomiaPlayerID(Player p) {
         return MySQL.executeQuerygetint("Select id from BiomiaPlayer where uuid = '" + p.getUniqueId().toString() + "'",
-                "id");
+                "id", MySQL.Databases.biomia_db);
     }
 
     public Player getPlayer() {
@@ -90,19 +90,19 @@ public class BiomiaPlayer {
     }
 
     private void stopCoinBoost() {
-        MySQL.executeUpdate("DELETE FROM `CoinBoost` WHERE BiomiaPlayer = " + biomiaPlayerID);
+        MySQL.executeUpdate("DELETE FROM `CoinBoost` WHERE BiomiaPlayer = " + biomiaPlayerID, MySQL.Databases.biomia_db);
     }
 
     public void giveBoost(int percent, int timeinseconds) {
 
         stopCoinBoost();
         MySQL.executeUpdate("INSERT INTO `CoinBoost`(`BiomiaPlayer`, `percent`, `until`) VALUES (" + biomiaPlayerID
-                + "," + percent + "," + System.currentTimeMillis() / 1000 + timeinseconds + ")");
+                + "," + percent + "," + System.currentTimeMillis() / 1000 + timeinseconds + ")", MySQL.Databases.biomia_db);
 
     }
 
     public void addCoins(int coins, boolean enableBoost) {
-        Connection con = MySQL.Connect();
+        Connection con = MySQL.Connect(MySQL.Databases.biomia_db);
         int prozent = 100;
         try {
             assert con != null;
@@ -130,10 +130,6 @@ public class BiomiaPlayer {
             coins = (int) coinsDouble;
         }
 
-        boolean b = Coins.addCoins(coins, this);
-        if (b) {
-            this.getPlayer().sendMessage("\u00A77Du erh\u00e4ltst \u00A7f" + coins + "\u00A77 BC!");
-        }
     }
 
     public void setCoins(int coins) {
@@ -163,7 +159,7 @@ public class BiomiaPlayer {
     public boolean isStaff() {
         String rank = Rank.getRank(p);
         rank = rank.toLowerCase();
-        return ( rank.contains("Owner") || rank.contains("Admin") || rank.contains("Moderator") || rank.contains("Builder") || rank.contains("Supporter"));
+        return (rank.contains("Owner") || rank.contains("Admin") || rank.contains("Moderator") || rank.contains("Builder") || rank.contains("Supporter"));
     }
 
     public boolean isYouTuber() {

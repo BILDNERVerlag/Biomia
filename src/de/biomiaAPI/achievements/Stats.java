@@ -17,7 +17,7 @@ public class Stats {
 
     public enum BiomiaStat {
 
-        CoinsAccumulated,
+        CoinsAccumulated, CoinsSpent,
         Logins,
         MinutesPlayed,
         MysteryChestsOpened,
