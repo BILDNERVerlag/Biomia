@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 /**
  * Helper-class for getting UUIDs of players
  */
-class UUIDFetcher {
+public class UUIDFetcher {
 
 	/**
 	 * @param player
@@ -30,7 +30,7 @@ class UUIDFetcher {
 	 *            The name of the player
 	 * @return The UUID of the given player
 	 */
-	private static UUID getUUID(String playername) {
+	public static UUID getUUID(String playername) {
 		String output = callURL("https://api.mojang.com/users/profiles/minecraft/" + playername);
 
 		StringBuilder result = new StringBuilder();

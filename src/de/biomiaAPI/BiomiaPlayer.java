@@ -80,15 +80,6 @@ public class BiomiaPlayer {
         Coins.takeCoins(coins, this);
     }
 
-    @Deprecated
-    public boolean addCoins(int coins) {
-        boolean b = Coins.addCoins(coins, this);
-        if (b) {
-            this.getPlayer().sendMessage("\u00A77Du erh\u00e4ltst \u00A7f" + coins + "\u00A77 BC!");
-        }
-        return b;
-    }
-
     private void stopCoinBoost() {
         MySQL.executeUpdate("DELETE FROM `CoinBoost` WHERE BiomiaPlayer = " + biomiaPlayerID, MySQL.Databases.biomia_db);
     }

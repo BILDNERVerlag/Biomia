@@ -40,7 +40,6 @@ public class ItemConditions {
 
 		int i = 0;
 
-		@SuppressWarnings("deprecation")
 		MaterialData dat = new MaterialData(material, data);
 		for (ItemStack is : qp.getPlayer().getInventory().getContents()) {
 			if (is != null)
@@ -55,7 +54,6 @@ public class ItemConditions {
 
 		int i = 0;
 
-		@SuppressWarnings("deprecation")
 		MaterialData dat = new MaterialData(material, data);
 		for (ItemStack is : qp.getPlayer().getInventory().getContents()) {
 			if (is != null)
@@ -71,7 +69,6 @@ public class ItemConditions {
 
 		int i = 0;
 
-		@SuppressWarnings("deprecation")
 		MaterialData dat = new MaterialData(material, data);
 		for (ItemStack is : qp.getPlayer().getInventory().getArmorContents()) {
 			if (is != null)

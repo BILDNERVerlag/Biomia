@@ -39,14 +39,8 @@ public class Biomia {
         removeBiomiaPlayer(p);
     }
 
-    @Deprecated
     public static QuestPlayer getQuestPlayer(Player p) {
         return getBiomiaPlayer(p).getQuestPlayer();
-    }
-
-    @Deprecated
-    public static QuestPlayer getQuestPlayer(BiomiaPlayer bp) {
-        return bp.getQuestPlayer();
     }
 
     public static BiomiaPlayer getBiomiaPlayer(Player p) {
