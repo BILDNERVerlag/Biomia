@@ -1,5 +1,6 @@
 package de.biomiaAPI.tools;
 
+import de.biomiaAPI.Biomia;
 import de.biomiaAPI.mysql.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -19,21 +20,21 @@ public class InventorySave {
     public static void saveInventory(Player p, String serverGroup) {
 
         String inv = toBase64(p.getInventory());
-        String uuid = p.getUniqueId().toString();
+        int biomiaID = Biomia.getBiomiaPlayer(p).getBiomiaPlayerID();
 
-        if (MySQL.executeQuery("SELECT * from InventorySaves where uuid = '" + uuid + "' AND servergroup = '" + serverGroup + "'", "inventory") != null) {
+        if (MySQL.executeQuery("SELECT * from InventorySaves where biomiaID = " + biomiaID + " AND servergroup = '" + serverGroup + "'", "inventory", MySQL.Databases.biomia_db) != null) {
 
-            MySQL.executeUpdate("UPDATE `InventorySaves` SET `uuid`= '" + uuid + "',`inventory`='" + inv + "',`servergroup`='" + serverGroup + "' WHERE uuid = '" + uuid + "' AND servergroup = '" + serverGroup + "'");
+            MySQL.executeUpdate("UPDATE `InventorySaves` SET `biomiaID`= " + biomiaID + ",`inventory`='" + inv + "',`servergroup`='" + serverGroup + "' WHERE biomiaID = " + biomiaID + " AND servergroup = '" + serverGroup + "'", MySQL.Databases.biomia_db);
         } else {
-            MySQL.executeUpdate("INSERT INTO `InventorySaves` (`uuid`, `inventory`, `servergroup`) VALUES ('" + uuid + "','" + inv + "','" + serverGroup + "')");
+            MySQL.executeUpdate("INSERT INTO `InventorySaves` (`biomiaID`, `inventory`, `servergroup`) VALUES (" + biomiaID + ",'" + inv + "','" + serverGroup + "')", MySQL.Databases.biomia_db);
         }
 
     }
 
     public static void setInventory(Player p, String serverGroup) {
 
-        String uuid = p.getUniqueId().toString();
-        String s = MySQL.executeQuery("SELECT * from InventorySaves where uuid = '" + uuid + "' AND servergroup = '" + serverGroup + "'", "inventory");
+        int biomiaID = Biomia.getBiomiaPlayer(p).getBiomiaPlayerID();
+        String s = MySQL.executeQuery("SELECT * from InventorySaves where biomiaID = " + biomiaID + " AND servergroup = '" + serverGroup + "'", "inventory", MySQL.Databases.biomia_db);
 
         if (s != null) {
 

@@ -54,7 +54,7 @@ public class Connect implements PluginMessageListener {
 	public static void connectToRandom(Player p, String group) {
 		if (group.contains("Weltenlabor")) {
 			ArrayList<String> list = executeQuery(
-					"Select code from CodesFuerRaenge where rangEingeloestFuerPlayeruuid = '" + p.getUniqueId() + "'");
+					"Select code from CodesFuerRaenge where rangEingeloestFuerPlayeruuid = '" + p.getUniqueId() + "'", MySQL.Databases.biomia_db);
 			if (group.contains("#1")) {
 				if (!Objects.requireNonNull(list).contains("krs522tpr8a")) {
 					p.sendMessage(
@@ -78,8 +78,8 @@ public class Connect implements PluginMessageListener {
 		}
 	}
 
-	private static ArrayList<String> executeQuery(String cmd) {
-		Connection con = MySQL.Connect();
+	private static ArrayList<String> executeQuery(String cmd, MySQL.Databases database) {
+		Connection con = MySQL.Connect(database);
 		if (con != null) {
 			try {
 				PreparedStatement sql = con.prepareStatement(cmd);

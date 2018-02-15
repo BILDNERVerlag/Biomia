@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+import de.biomiaAPI.tools.Base64;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.CosmeticItem.Commonness;
 import de.biomiaAPI.mysql.MySQL;
-import de.biomiaAPI.tools.ItemBase64;
 
 public class Cosmetic {
 
@@ -145,25 +145,25 @@ public class Cosmetic {
 		if (limit == 0) {
 			limitedItems.get(bp).remove(id);
 			MySQL.executeUpdate(
-					"DELETE From `Cosmetics` WHERE `BiomiaPlayer`= " + bp.getBiomiaPlayerID() + " AND ID = " + id);
+					"DELETE From `Cosmetics` WHERE `BiomiaPlayer`= " + bp.getBiomiaPlayerID() + " AND ID = " + id, MySQL.Databases.cosmetics_db);
 			inventorys.get(bp).removeItem(id);
 		} else if (!hasItem(bp, id)) {
 			limitedItems.get(bp).put(id, limit);
 			MySQL.executeUpdate("INSERT INTO `Cosmetics` (`BiomiaPlayer`, `ID`, `Time`) VALUES ("
-					+ bp.getBiomiaPlayerID() + ", " + id + ", " + limit + ")");
+					+ bp.getBiomiaPlayerID() + ", " + id + ", " + limit + ")", MySQL.Databases.cosmetics_db);
 			inventorys.get(bp).addItem(id);
 		} else {
 			limitedItems.get(bp).put(id, limit);
 			MySQL.executeUpdate("UPDATE `Cosmetics` SET `Time`= " + limit + " WHERE `BiomiaPlayer`= "
-					+ bp.getBiomiaPlayerID() + " AND ID = " + id);
+					+ bp.getBiomiaPlayerID() + " AND ID = " + id, MySQL.Databases.cosmetics_db);
 		}
 	}
 
 	public static <T extends CosmeticItem> void addItemToDatabase(T item) {
 
 		MySQL.executeUpdate("INSERT INTO `CosmeticItems`(`CosmeticGroup`, `Name`) VALUES ('" + item.getGroup().name()
-				+ "', '" + item.getName() + "')");
-		int id = MySQL.executeQuerygetint("Select ID from CosmeticItems where Name = '" + item.getName() + "'", "ID");
+				+ "', '" + item.getName() + "')", MySQL.Databases.cosmetics_db);
+		int id = MySQL.executeQuerygetint("Select ID from CosmeticItems where Name = '" + item.getName() + "'", "ID", MySQL.Databases.cosmetics_db);
 		item.setNewID(id);
 
 		Connection con = MySQL.Connect(MySQL.Databases.cosmetics_db);
@@ -177,9 +177,9 @@ public class Cosmetic {
 						+ "`(`ID`, `Name`, `Item`, `Commonness`, `GadgetItem`) VALUES (?,?,?,?,?)");
 				ps.setInt(1, id);
 				ps.setString(2, gi.getName());
-				ps.setString(3, ItemBase64.toBase64(gi.getItem()));
+				ps.setString(3, Base64.toBase64(gi.getItem()));
 				ps.setString(4, gi.getCommonness().name());
-				ps.setString(5, ItemBase64.toBase64(gi.getGadgetItem()));
+				ps.setString(5, Base64.toBase64(gi.getGadgetItem()));
 				ps.executeUpdate();
 				ps.cancel();
 				con.close();
@@ -194,7 +194,7 @@ public class Cosmetic {
 						+ "`(`ID`, `Name`, `Item`, `Commonness`, `Type`) VALUES (?,?,?,?,?)");
 				ps.setInt(1, id);
 				ps.setString(2, pi.getName());
-				ps.setString(3, ItemBase64.toBase64(pi.getItem()));
+				ps.setString(3, Base64.toBase64(pi.getItem()));
 				ps.setString(4, pi.getCommonness().name());
 				ps.setString(5, pi.getEntityType().name());
 				ps.executeUpdate();
@@ -211,7 +211,7 @@ public class Cosmetic {
 						"INSERT INTO `" + item.getGroup() + "`(`ID`, `Name`, `Item`, `Commonness`) VALUES (?,?,?,?)");
 				ps.setInt(1, id);
 				ps.setString(2, pai.getName());
-				ps.setString(3, ItemBase64.toBase64(pai.getItem()));
+				ps.setString(3, Base64.toBase64(pai.getItem()));
 				ps.setString(4, pai.getCommonness().name());
 				ps.executeUpdate();
 				ps.cancel();
@@ -227,12 +227,12 @@ public class Cosmetic {
 						+ "`(`ID`, `Name`, `Item`, `Commonness`, `Helmet`, `Chestplate`, `Leggins`, `Boots`) VALUES (?,?,?,?,?,?,?,?)");
 				ps.setInt(1, id);
 				ps.setString(2, si.getName());
-				ps.setString(3, ItemBase64.toBase64(si.getItem()));
+				ps.setString(3, Base64.toBase64(si.getItem()));
 				ps.setString(4, si.getCommonness().name());
-				ps.setString(5, ItemBase64.toBase64(si.getHelmet()));
-				ps.setString(6, ItemBase64.toBase64(si.getChestplate()));
-				ps.setString(7, ItemBase64.toBase64(si.getLeggings()));
-				ps.setString(8, ItemBase64.toBase64(si.getBoots()));
+				ps.setString(5, Base64.toBase64(si.getHelmet()));
+				ps.setString(6, Base64.toBase64(si.getChestplate()));
+				ps.setString(7, Base64.toBase64(si.getLeggings()));
+				ps.setString(8, Base64.toBase64(si.getBoots()));
 				ps.executeUpdate();
 				ps.cancel();
 				con.close();
@@ -247,9 +247,9 @@ public class Cosmetic {
 						+ "`(`ID`, `Name`, `Item`, `Commonness`, `Head`) VALUES (?,?,?,?,?)");
 				ps.setInt(1, id);
 				ps.setString(2, hi.getName());
-				ps.setString(3, ItemBase64.toBase64(hi.getItem()));
+				ps.setString(3, Base64.toBase64(hi.getItem()));
 				ps.setString(4, hi.getCommonness().name());
-				ps.setString(5, ItemBase64.toBase64(hi.getHead()));
+				ps.setString(5, Base64.toBase64(hi.getHead()));
 				ps.executeUpdate();
 				ps.cancel();
 				con.close();

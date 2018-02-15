@@ -15,24 +15,24 @@ import de.biomiaAPI.mysql.MySQL;
 public class SkyWarsKit {
 
 	public static boolean addKit(BiomiaPlayer biomiaPlayer, int kitID, int... months) {
-		return MySQL.executeUpdate("Insert into SkyWarsKits (`BiomiaPlayer`, `kitID`, `available`) values ("
-				+ biomiaPlayer.getBiomiaPlayerID() + ", " + kitID + ", '" + Arrays.toString(months) + "')");
+		return MySQL.executeUpdate("Insert into SkyWarsKits (`biomiaID`, `kitID`, `available`) values ("
+				+ biomiaPlayer.getBiomiaPlayerID() + ", " + kitID + ", '" + Arrays.toString(months) + "')", MySQL.Databases.biomia_db);
 	}
 
 	public static boolean addKit(BiomiaPlayer biomiaPlayer, int kitID) {		
-		return MySQL.executeUpdate("Insert into SkyWarsKits (`BiomiaPlayer`, `kitID`) values ("
-				+ biomiaPlayer.getBiomiaPlayerID() + ", " + kitID + ")");
+		return MySQL.executeUpdate("Insert into SkyWarsKits (`biomiaID`, `kitID`) values ("
+				+ biomiaPlayer.getBiomiaPlayerID() + ", " + kitID + ")", MySQL.Databases.biomia_db);
 		
 	}
 
 	public static boolean removeKit(BiomiaPlayer biomiaPlayer, int kitID) {
-		return MySQL.executeUpdate("Delete from SkyWarsKits where BiomiaPlayer = " + biomiaPlayer.getBiomiaPlayerID()
-				+ " and kitID = " + kitID);
+		return MySQL.executeUpdate("Delete from SkyWarsKits where biomiaID = " + biomiaPlayer.getBiomiaPlayerID()
+				+ " and kitID = " + kitID, MySQL.Databases.biomia_db);
 	}
 
 	public static ArrayList<Integer> getAvailableKit(BiomiaPlayer biomiaPlayer) {
 		ArrayList<Integer> availableKits = new ArrayList<>();
-		Connection con = MySQL.Connect();
+		Connection con = MySQL.Connect(MySQL.Databases.biomia_db);
 		try {
 			PreparedStatement ps = Objects.requireNonNull(con)
 					.prepareStatement("Select kitID, available from SkyWarsKits where BiomiaPlayer = ?");
