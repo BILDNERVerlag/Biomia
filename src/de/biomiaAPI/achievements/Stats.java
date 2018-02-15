@@ -108,8 +108,18 @@ public class Stats {
         return output;
     }
 
+    public static int getStat(BiomiaStat stat, Player player) {
+        int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + stat.toString() + "` where ID = " + Biomia.getBiomiaPlayer(player).getBiomiaPlayerID(), "value", MySQL.Databases.stats_db);
+        return out == -1 ? 0 : out;
+    }
+
     public static int getStat(BiomiaStat stat, int biomiaPlayerID) {
         int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + stat.toString() + "` where ID = " + biomiaPlayerID, "value", MySQL.Databases.stats_db);
+        return out == -1 ? 0 : out;
+    }
+
+    public static int getStat(BiomiaStat stat, Player player, String comment) {
+        int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + stat.toString() + "` where ID = " + Biomia.getBiomiaPlayer(player).getBiomiaPlayerID() + " AND WHERE comment = '" + comment + "'", "value", MySQL.Databases.stats_db);
         return out == -1 ? 0 : out;
     }
 
