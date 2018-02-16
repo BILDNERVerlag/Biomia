@@ -101,15 +101,13 @@ public class BiomiaPlayer {
                     .prepareStatement("SELECT `percent`, `until` FROM `CoinBoost` WHERE BiomiaPlayer = ?");
             ps.setInt(1, getBiomiaPlayerID());
             ResultSet rs = ps.executeQuery();
-            //noinspection LoopStatementThatDoesntLoop
-            while (rs.next()) {
+            if (rs.next()) {
                 long until = rs.getLong("until");
                 if (System.currentTimeMillis() / 1000 > until) {
                     prozent = rs.getInt("percent");
                 } else {
                     stopCoinBoost();
                 }
-                break;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -120,7 +118,7 @@ public class BiomiaPlayer {
             double coinsDouble = (double) coins / 100 * prozent;
             coins = (int) coinsDouble;
         }
-
+        Coins.addCoins(coins, this);
     }
 
     public void setCoins(int coins) {
