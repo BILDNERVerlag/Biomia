@@ -34,6 +34,7 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 
     @Override
     public void use(BiomiaPlayer bp) {
+        super.use(bp);
         ItemStack is = gadgetItem.clone();
         int limit = Cosmetic.getLimit(bp, getID());
         if (limit != -1 && is.getType() != Material.FISHING_ROD)

@@ -35,7 +35,7 @@ public class Stats {
         KilometresRun,
         SheepsSheared,
         TeleportsMade,
-        GadgetsUsed, HeadsUsed, ParticlesUsed, SuitsUsed,
+        GadgetsUsed, HeadsUsed, ParticlesUsed, SuitsUsed, PetsUsed,
         ReportsMade,
         SW_GamesPlayed, BW_GamesPlayed,
         SW_Deaths, SW_Wins, SW_Kills, SW_Leaves, SW_ChestsOpened, KitsBought, KitsChanged,
@@ -227,7 +227,6 @@ public class Stats {
     public static void unlock(BiomiaAchievement.AchievementType bA, int biomiaPlayerID) {
         MySQL.executeUpdate("INSERT IGNORE INTO `" + bA.toString() + "` (`ID`) VALUES (" + biomiaPlayerID + ")", MySQL.Databases.achiev_db);
     }
-
 
     //SELECT `inc`,`wert` FROM `TestTabelle` WHERE `time` >= TIMESTAMPADD(DAY,-3,NOW());
 }

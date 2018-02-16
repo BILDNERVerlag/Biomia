@@ -2,11 +2,13 @@ package de.biomiaAPI.achievements;
 
 import de.biomiaAPI.Biomia;
 import de.biomiaAPI.achievements.statEvents.bedwars.*;
+import de.biomiaAPI.achievements.statEvents.cosmetics.CosmeticUsedEvent;
 import de.biomiaAPI.achievements.statEvents.general.CoinAddEvent;
 import de.biomiaAPI.achievements.statEvents.general.CoinTakeEvent;
 import de.biomiaAPI.main.Main;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -32,18 +34,18 @@ public class StatListener implements Listener {
         Logins,
         HealthLost, HealthRegenerated, HungerLost, HungerRegenerated,
         DeathCause, KilledByMonster, KilledByPlayer,
+        MessagesSent,
+        TeleportsMade,
+        GadgetsUsed, HeadsUsed, ParticlesUsed, SuitsUsed, PetsUsed
+        FoodEaten, PotionsConsumed,
+        SheepsSheared,
 
         MinutesPlayed,
         MysteryChestsOpened,
-        MessagesSent,
         ItemsEnchanted, ItemsPickedUp, ItemsDropped, ItemsBroken,
         EXPGained,
         ProjectilesShot,
-        FoodEaten, PotionsConsumed,
         KilometresRun,
-        SheepsSheared,
-        TeleportsMade,
-        GadgetsUsed, HeadsUsed, ParticlesUsed, SuitsUsed,
         ReportsMade,
         SW_GamesPlayed, BW_GamesPlayed,
         SW_Deaths, SW_Wins, SW_Kills, SW_Leaves, SW_ChestsOpened, KitsBought, KitsChanged,
@@ -134,6 +136,15 @@ public class StatListener implements Listener {
     }
 
     @EventHandler
+    public void onItemConsume(PlayerItemConsumeEvent e) {
+        if (e.getItem().getType() == Material.POTION) {
+            Stats.incrementStat(Stats.BiomiaStat.PotionsConsumed, e.getPlayer());
+        } else {
+            Stats.incrementStat(Stats.BiomiaStat.FoodEaten, e.getPlayer());
+        }
+    }
+
+    @EventHandler
     public void onLogin(PlayerLoginEvent e) {
         Stats.incrementStat(Stats.BiomiaStat.Logins, e.getPlayer(), Main.getGroupName());
     }
@@ -145,6 +156,7 @@ public class StatListener implements Listener {
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {
+        Stats.incrementStat(Stats.BiomiaStat.MessagesSent, e.getPlayer());
     }
 
     @EventHandler
@@ -190,6 +202,41 @@ public class StatListener implements Listener {
 
     @EventHandler
     public void onBedWarsEnd(BedWarsEndEvent e){
-
     }
+
+    @EventHandler
+    public void onTeleport(PlayerTeleportEvent e) {
+        Stats.incrementStat(Stats.BiomiaStat.TeleportsMade, e.getPlayer());
+    }
+
+    @EventHandler
+    public void onCosmeticUse(CosmeticUsedEvent e) {
+        Stats.BiomiaStat stat = null;
+        switch (e.getGroup()) {
+            case HEADS:
+                stat = Stats.BiomiaStat.HeadsUsed;
+                break;
+            case SUITS:
+                stat = Stats.BiomiaStat.SuitsUsed;
+                break;
+            case GADGETS:
+                stat = Stats.BiomiaStat.GadgetsUsed;
+                break;
+            case PETS:
+                stat = Stats.BiomiaStat.PetsUsed;
+                break;
+            case PARTICLES:
+                stat = Stats.BiomiaStat.ParticlesUsed;
+                break;
+        }
+        Stats.incrementStat(stat, e.getBiomiaPlayer().getBiomiaPlayerID());
+    }
+
+    @EventHandler
+    public void onShear(PlayerShearEntityEvent e) {
+        if (e.getEntity().getType() == EntityType.SHEEP) {
+            Stats.incrementStat(Stats.BiomiaStat.SheepsSheared, e.getPlayer());
+        }
+    }
+
 }

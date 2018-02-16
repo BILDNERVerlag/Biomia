@@ -19,6 +19,7 @@ public class CosmeticHeadItem extends CosmeticItem {
 
 	@Override
 	public void use(BiomiaPlayer bp) {
+		super.use(bp);
 		bp.getPlayer().getInventory().setHelmet(head);
 	}
 

@@ -55,6 +55,7 @@ public class CosmeticSuitItem extends CosmeticItem {
 
 	@Override
 	public void use(BiomiaPlayer bp) {
+		super.use(bp);
 		Player p = bp.getPlayer();
 		p.getInventory().setHelmet(getHelmet());
 		p.getInventory().setChestplate(getChestplate());

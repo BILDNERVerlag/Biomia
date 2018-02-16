@@ -1,5 +1,8 @@
 package de.biomiaAPI.cosmetics;
 
+import de.biomiaAPI.achievements.Stats;
+import de.biomiaAPI.achievements.statEvents.cosmetics.CosmeticUsedEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 
 import de.biomiaAPI.BiomiaPlayer;
@@ -47,6 +50,7 @@ public abstract class CosmeticItem {
     }
 
     public void use(BiomiaPlayer bp) {
+        Bukkit.getServer().getPluginManager().callEvent(new CosmeticUsedEvent(bp, group, name, item, commonness, id));
     }
 
     public void add(BiomiaPlayer bp) {
