@@ -39,14 +39,14 @@ public class Stats {
         ReportsMade,
         SW_GamesPlayed, BW_GamesPlayed,
         SW_Deaths, SW_Wins, SW_Kills, SW_Leaves, SW_ChestsOpened, KitsBought, KitsChanged,
-        BW_Deaths, BW_Wins, BW_Kills, BW_Leaves, BW_ItemsBought,
+        BW_Deaths, BW_Wins, BW_Kills, BW_Leaves, BW_ItemsBought, BW_DestroyedBeds, BW_ShopUsed,
         Q_accepted, Q_returned, Q_NPCTalks, Q_CoinsEarned, Q_Kills, Q_Deaths,
         Bau_PlotsClaimed, Bau_PlotsReset,
         FB_CBClaimed, FB_CBUnclaimed, FB_ItemsBought, FB_ItemsSold, FB_WarpsUsed,
 
         //Events
 
-        SpecialEggsFound, EasterEggsFound
+        SpecialEggsFound, BW_ItemsBoughtNames, EasterEggsFound
     }
 
     /**
@@ -146,58 +146,10 @@ public class Stats {
 
         Connection con = MySQL.Connect(MySQL.Databases.stats_db);
         int minValue = 0, minInc = 0, maxValue = 0;
-
-        try {
-            PreparedStatement statement = con.prepareStatement("SELECT `value`, `inc` FROM `" + stat.toString() + "` where ID = ? AND `timestamp` >= TIMESTAMPADD(" + datetime_expr + ",-?,NOW())");
-            statement.setInt(1, biomiaPlayerID);
-            //statement.setString(2, datetime_expr);
-            statement.setInt(2, days);
-            ResultSet rs = statement.executeQuery();
-
-            if (rs.next()) {
-                maxValue = minValue = rs.getInt("value");
-                minInc = rs.getInt("inc");
-            }
-            if (!rs.isLast()) {
-                if (rs.last()) {
-                    maxValue = rs.getInt("value");
-                }
-            }
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        boolean withComment = false;
-        try {
-            PreparedStatement statement = con.prepareStatement("SELECT `value`, `inc` FROM `" + stat.toString() + "` where ID = ? AND `timestamp` >= TIMESTAMPADD(" + datetime_expr + ",-?,NOW())");
-            statement.setInt(1, biomiaPlayerID);
-            //statement.setString(2, datetime_expr);
-            statement.setInt(2, days);
-            ResultSet rs = statement.executeQuery();
-
-            if (rs.next()) {
-                maxValue = minValue = rs.getInt("value");
-                minInc = rs.getInt("inc");
-            }
-            if (!rs.isLast()) {
-                if (rs.last()) {
-                    maxValue = rs.getInt("value");
-                }
-            }
-
-
-        } catch (SQLException e) {
-            if (e.getMessage().contains("Unknown column")) {
-                withComment = true;
-            } else {
-                e.printStackTrace();
-            }
-        }
-
-        if (withComment)
+        if (con != null) {
+            boolean withComment = false;
             try {
-                PreparedStatement statement = con.prepareStatement("SELECT `value` FROM `" + stat.toString() + "` where ID = ? AND `timestamp` >= TIMESTAMPADD(" + datetime_expr + ",-?,NOW())");
+                PreparedStatement statement = con.prepareStatement("SELECT `value`, `inc` FROM `" + stat.toString() + "` where ID = ? AND `timestamp` >= TIMESTAMPADD(" + datetime_expr + ",-?,NOW())");
                 statement.setInt(1, biomiaPlayerID);
                 //statement.setString(2, datetime_expr);
                 statement.setInt(2, days);
@@ -205,6 +157,7 @@ public class Stats {
 
                 if (rs.next()) {
                     maxValue = minValue = rs.getInt("value");
+                    minInc = rs.getInt("inc");
                 }
                 if (!rs.isLast()) {
                     if (rs.last()) {
@@ -214,9 +167,39 @@ public class Stats {
 
 
             } catch (SQLException e) {
-                e.printStackTrace();
+                if (e.getMessage().contains("Unknown column")) {
+                    withComment = true;
+                } else {
+                    e.printStackTrace();
+                }
             }
-        return maxValue - (minValue - 1);
+            if (withComment) {
+                try {
+                    PreparedStatement statement = con.prepareStatement("SELECT `value` FROM `" + stat.toString() + "` where ID = ? AND `timestamp` >= TIMESTAMPADD(" + datetime_expr + ",-?,NOW())");
+                    statement.setInt(1, biomiaPlayerID);
+                    //statement.setString(2, datetime_expr);
+                    statement.setInt(2, days);
+                    ResultSet rs = statement.executeQuery();
+
+                    if (rs.next()) {
+                        maxValue = minValue = rs.getInt("value");
+                    }
+                    if (!rs.isLast()) {
+                        if (rs.last()) {
+                            maxValue = rs.getInt("value");
+                        }
+                    }
+
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                return maxValue - (minValue - 1);
+            } else {
+                return maxValue - (minValue - minInc);
+            }
+        }
+        return -1;
     }
 
     /**

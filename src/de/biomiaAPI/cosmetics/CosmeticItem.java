@@ -6,81 +6,80 @@ import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.Cosmetic.Group;
 import de.biomiaAPI.mysql.MySQL;
 
-@SuppressWarnings("EmptyMethod")
-public class CosmeticItem {
+public abstract class CosmeticItem {
 
-	private int id;
-	private final String name;
-	private final ItemStack item;
-	private final Commonness commonness;
-	private final Group group;
+    private int id;
+    private final String name;
+    private final ItemStack item;
+    private final Commonness commonness;
+    private final Group group;
 
-	CosmeticItem(int id, String name, ItemStack is, Commonness c, Group group) {
-		this.id = id;
-		this.name = name;
-		this.item = is;
-		this.commonness = c;
-		this.group = group;
+    CosmeticItem(int id, String name, ItemStack is, Commonness c, Group group) {
+        this.id = id;
+        this.name = name;
+        this.item = is;
+        this.commonness = c;
+        this.group = group;
 
-		Cosmetic.addItem(this);
-	}
+        Cosmetic.addItem(this);
+    }
 
-	public enum Commonness {
-		VERY_COMMON, COMMON, RARE, VERY_RARE;
+    public enum Commonness {
+        VERY_COMMON, COMMON, RARE, VERY_RARE
 
-		public String deutsch() {
-			switch (this) {
-			case VERY_COMMON:
-				return "Sehr H\u00e4ufig";
-			case COMMON:
-				return "H\u00e4ufig";
-			case RARE:
-				return "Selten";
-			case VERY_RARE:
-				return "Sehr Selten";
-			}
-			return null;
-		}
+//		public String deutsch() {
+//			switch (this) {
+//			case VERY_COMMON:
+//				return "Sehr H\u00e4ufig";
+//			case COMMON:
+//				return "H\u00e4ufig";
+//			case RARE:
+//				return "Selten";
+//			case VERY_RARE:
+//				return "Sehr Selten";
+//			}
+//			return null;
+//		}
 
-	}
+    }
 
-	public void remove(BiomiaPlayer bp) {
-	}
-	
-	public void use(BiomiaPlayer bp) {
-	}
+    public void remove(BiomiaPlayer bp) {
+    }
 
-	public void add(BiomiaPlayer bp) {
-		MySQL.executeUpdate(
-				"INSERT INTO `Cosmetics`(`BiomiaPlayer`, `ID`) VALUES (" + bp.getBiomiaPlayerID() + ", " + id + " )", MySQL.Databases.cosmetics_db);
-	}
+    public void use(BiomiaPlayer bp) {
+    }
 
-	public void add(BiomiaPlayer bp, int timeinseconds) {
-		MySQL.executeUpdate("INSERT INTO `Cosmetics`(`BiomiaPlayer`, `ID`, `Time`) VALUES (" + bp.getBiomiaPlayerID()
-				+ ", " + id + ", " + timeinseconds + ")", MySQL.Databases.cosmetics_db);
-	}
+    public void add(BiomiaPlayer bp) {
+        MySQL.executeUpdate(
+                "INSERT INTO `Cosmetics`(`BiomiaPlayer`, `ID`) VALUES (" + bp.getBiomiaPlayerID() + ", " + id + " )", MySQL.Databases.cosmetics_db);
+    }
 
-	public int getID() {
-		return id;
-	}
+    public void add(BiomiaPlayer bp, int timeinseconds) {
+        MySQL.executeUpdate("INSERT INTO `Cosmetics`(`BiomiaPlayer`, `ID`, `Time`) VALUES (" + bp.getBiomiaPlayerID()
+                + ", " + id + ", " + timeinseconds + ")", MySQL.Databases.cosmetics_db);
+    }
 
-	public Group getGroup() {
-		return group;
-	}
+    public int getID() {
+        return id;
+    }
 
-	public ItemStack getItem() {
-		return item;
-	}
+    public Group getGroup() {
+        return group;
+    }
 
-	public Commonness getCommonness() {
-		return commonness;
-	}
+    public ItemStack getItem() {
+        return item;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Commonness getCommonness() {
+        return commonness;
+    }
 
-	public void setNewID(int id) {
-		this.id = id;
-	}
+    public String getName() {
+        return name;
+    }
+
+    public void setNewID(int id) {
+        this.id = id;
+    }
 }

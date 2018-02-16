@@ -26,6 +26,8 @@ public class Biomia {
     public static void stopWithDelay() {
         new BukkitRunnable() {
             public void run() {
+                for (Player p : Bukkit.getOnlinePlayers())
+                    p.kickPlayer(null);
                 Bukkit.shutdown();
             }
         }.runTaskLater(Main.plugin, 10 * 20);
@@ -513,7 +515,7 @@ public class Biomia {
 
                     @Override
                     public void removePlayer(QuestPlayer qp) {
-                        Objects.requireNonNull(active_Player_biomiaIDs).remove( new Integer(qp.getBiomiaPlayer().getBiomiaPlayerID()) );
+                        Objects.requireNonNull(active_Player_biomiaIDs).remove(new Integer(qp.getBiomiaPlayer().getBiomiaPlayerID()));
                     }
 
                     @Override

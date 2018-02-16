@@ -1,7 +1,9 @@
 package de.biomiaAPI.achievements;
 
 import de.biomiaAPI.Biomia;
-import de.biomiaAPI.achievements.statEvents.CoinEvent;
+import de.biomiaAPI.achievements.statEvents.bedwars.*;
+import de.biomiaAPI.achievements.statEvents.general.CoinAddEvent;
+import de.biomiaAPI.achievements.statEvents.general.CoinTakeEvent;
 import de.biomiaAPI.main.Main;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -143,17 +145,51 @@ public class StatListener implements Listener {
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {
-
     }
 
-    public void onCoinChange(CoinEvent e) {
-        if (e.addCoins()) {
-            Stats.incrementStat(Stats.BiomiaStat.CoinsAccumulated, e.getBiomiaPlayer().getBiomiaPlayerID(), Main.getGroupName());
-        } else {
-            Stats.incrementStat(Stats.BiomiaStat.CoinsSpent, e.getBiomiaPlayer().getBiomiaPlayerID(), Main.getGroupName());
-        }
+    @EventHandler
+    public void onCoinAdd(CoinAddEvent e) {
+        Stats.incrementStatBy(Stats.BiomiaStat.CoinsAccumulated, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getAmount());
     }
 
+    @EventHandler
+    public void onCoinTake(CoinTakeEvent e) {
+        Stats.incrementStatBy(Stats.BiomiaStat.CoinsSpent, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getAmount());
+    }
 
+    @EventHandler
+    public void onBedWarsDeath(BedWarsDeathEvent e) {
+        Stats.incrementStat(Stats.BiomiaStat.BW_Deaths, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKiller().getBiomiaPlayerID() + "");
+    }
 
+    @EventHandler
+    public void onBedWarsKill(BedWarsKillEvent e) {
+        Stats.incrementStat(Stats.BiomiaStat.BW_Deaths, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKilledPlayer().getBiomiaPlayerID() + "");
+    }
+
+    @EventHandler
+    public void onBedWarsDestroyBedEvent(BedWarsDestroyBedEvent e) {
+        Stats.incrementStat(Stats.BiomiaStat.BW_DestroyedBeds, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getTeamcolor());
+    }
+
+    @EventHandler
+    public void onBedWarsLeaveEvent(BedWarsLeaveEvent e) {
+        Stats.incrementStat(Stats.BiomiaStat.BW_Leaves, e.getBiomiaPlayer().getBiomiaPlayerID());
+    }
+
+    @EventHandler
+    public void onBedWarsUseShopEvent(BedWarsUseShopEvent e) {
+        Stats.incrementStat(Stats.BiomiaStat.BW_ShopUsed, e.getBiomiaPlayer().getBiomiaPlayerID(), e.isVillager() + "");
+    }
+
+    @EventHandler
+    public void onBedWarsBuyShopItemEvent(BedWarsBuyItemEvent e) {
+        Stats.incrementStatBy(Stats.BiomiaStat.BW_ItemsBought, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getAmount());
+        Stats.incrementStat(Stats.BiomiaStat.BW_ItemsBoughtNames, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getItemName());
+    }
+
+    @EventHandler
+    public void onBedWarsEnd(BedWarsEndEvent e){
+
+    }
 }
