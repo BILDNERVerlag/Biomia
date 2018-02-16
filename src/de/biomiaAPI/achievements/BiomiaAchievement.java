@@ -5,9 +5,9 @@ import java.util.ArrayList;
 @SuppressWarnings("UnusedAssignment")
 public class BiomiaAchievement {
 
-    public static void init(){
+    public static void init() {
         new BiomiaAchievement(AchievementType.VerdieneFuenftausendCoins, 5000, Stats.BiomiaStat.CoinsAccumulated, "Sparfuchs")
-        .setDescription("Verdiene insgesamt mindestens 5000 BC.");
+                .setDescription("Verdiene insgesamt mindestens 5000 BC.");
     }
 
     public enum AchievementType {
