@@ -49,8 +49,6 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         setBukkitTimoapi(TimoCloudAPI.getBukkitInstance());
         setUniversalTimoapi(TimoCloudAPI.getUniversalInstance());
-        groupName = bukkitTimoapi.getThisServer().getGroupName();
-
 
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         Bukkit.getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new Connect());
@@ -204,7 +202,7 @@ public class Main extends JavaPlugin {
     }
 
     public static String getGroupName() {
-        return groupName;
+        return groupName != null ? groupName : (groupName = bukkitTimoapi.getThisServer().getGroupName());
     }
 
 }

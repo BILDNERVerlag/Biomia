@@ -17,6 +17,7 @@ public class CoinEvent extends Event implements Cancellable {
         amount = amount0;
         addCoins = addCoins0;
         biomiaPlayer = bp0;
+        cancelled = false;
     }
 
     @Override

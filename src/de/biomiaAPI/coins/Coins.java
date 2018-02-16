@@ -38,7 +38,7 @@ public class Coins {
             bp.getPlayer().sendMessage("\u00A77Du erh\u00e4ltst \u00A7f" + coinsToAdd + "\u00A77 BC!");
             return true;
         }
-        else return false;
+        return false;
     }
 
     private static int getCoins(int ID) {
