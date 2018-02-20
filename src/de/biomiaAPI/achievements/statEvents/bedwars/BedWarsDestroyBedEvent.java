@@ -34,4 +34,9 @@ public class BedWarsDestroyBedEvent extends BedWarsEvent {
     public String getTeamcolor() {
         return teamcolor;
     }
+
+    public static HandlerList getHandlerList() {
+        return list;
+    }
+
 }

@@ -90,7 +90,6 @@ public class Connect implements PluginMessageListener {
 				}
 				rs.close();
 				sql.close();
-				con.close();
 				return s;
 			} catch (SQLException e) {
 				e.printStackTrace();

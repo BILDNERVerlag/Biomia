@@ -15,4 +15,8 @@ public class CoinAddEvent extends CoinEvent {
     public CoinAddEvent(BiomiaPlayer biomiaPlayer, int amount) {
         super(biomiaPlayer, amount);
     }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 }

@@ -60,8 +60,7 @@ public class ItemCreator {
     public static ItemStack headWithSkin(String name) {
         ItemStack s = itemCreate(Material.SKULL_ITEM, (short) SkullType.PLAYER.ordinal());
         SkullMeta meta = (SkullMeta) s.getItemMeta();
-        meta.setOwningPlayer(Bukkit.getOfflinePlayer(UUIDFetcher.getUUID(name)));
-        meta.setDisplayName(name);
+        meta.setOwner(name);
         s.setItemMeta(meta);
         return s;
     }

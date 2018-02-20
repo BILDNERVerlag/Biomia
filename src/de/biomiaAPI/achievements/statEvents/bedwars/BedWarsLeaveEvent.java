@@ -15,6 +15,7 @@ public class BedWarsLeaveEvent extends BedWarsEvent {
     public HandlerList getHandlers() {
         return list;
     }
-
-
+    public static HandlerList getHandlerList() {
+        return list;
+    }
 }

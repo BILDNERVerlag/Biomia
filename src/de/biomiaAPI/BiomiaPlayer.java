@@ -5,6 +5,7 @@ import de.biomiaAPI.coins.Coins;
 import de.biomiaAPI.main.Main;
 import de.biomiaAPI.mysql.MySQL;
 import de.biomiaAPI.pex.Rank;
+import de.biomiaAPI.tools.UUIDFetcher;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayer;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayerManager;
 import de.simonsator.partyandfriends.spigot.api.party.PartyManager;
@@ -17,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class BiomiaPlayer {
 
@@ -33,6 +35,25 @@ public class BiomiaPlayer {
         biomiaPlayerID = getBiomiaPlayerID(p);
         this.p = p;
         spigotPafpl = PAFPlayerManager.getInstance().getPlayer(p.getUniqueId());
+    }
+
+    public static int getID(String playerName) {
+        return MySQL.executeQuerygetint("Select id from BiomiaPlayer where name = '" + playerName + "'", "id", MySQL.Databases.biomia_db);
+    }
+
+    public static UUID getUUID(int biomiaID) {
+        String s = MySQL.executeQuery("Select uuid from BiomiaPlayer where id = " + biomiaID, "uuid", MySQL.Databases.biomia_db);
+        if (s != null)
+            return UUID.fromString(s);
+        else return null;
+    }
+
+    public static int getID(UUID uuid) {
+        return MySQL.executeQuerygetint("Select id from BiomiaPlayer where uuid = '" + uuid.toString() + "'", "id", MySQL.Databases.biomia_db);
+    }
+
+    public static String getName(int biomiaID) {
+        return MySQL.executeQuery("Select name from BiomiaPlayer where id = " + biomiaID, "name", MySQL.Databases.biomia_db);
     }
 
     private int getBiomiaPlayerID(Player p) {
@@ -85,35 +106,33 @@ public class BiomiaPlayer {
     }
 
     public void giveBoost(int percent, int timeinseconds) {
-
         stopCoinBoost();
         MySQL.executeUpdate("INSERT INTO `CoinBoost`(`BiomiaPlayer`, `percent`, `until`) VALUES (" + biomiaPlayerID
-                + "," + percent + "," + System.currentTimeMillis() / 1000 + timeinseconds + ")", MySQL.Databases.biomia_db);
-
+                + "," + percent + "," + timeinseconds + (System.currentTimeMillis() / 1000) + ")", MySQL.Databases.biomia_db);
     }
 
     public void addCoins(int coins, boolean enableBoost) {
         Connection con = MySQL.Connect(MySQL.Databases.biomia_db);
         int prozent = 100;
-        try {
-            assert con != null;
-            PreparedStatement ps = con
-                    .prepareStatement("SELECT `percent`, `until` FROM `CoinBoost` WHERE BiomiaPlayer = ?");
-            ps.setInt(1, getBiomiaPlayerID());
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                long until = rs.getLong("until");
-                if (System.currentTimeMillis() / 1000 > until) {
-                    prozent = rs.getInt("percent");
-                } else {
-                    stopCoinBoost();
+        if (enableBoost)
+            try {
+                assert con != null;
+                PreparedStatement ps = con
+                        .prepareStatement("SELECT `percent`, `until` FROM `CoinBoost` WHERE BiomiaPlayer = ?");
+                ps.setInt(1, getBiomiaPlayerID());
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    long until = rs.getLong("until");
+                    if (System.currentTimeMillis() / 1000 > until) {
+                        prozent = rs.getInt("percent");
+                    } else {
+                        stopCoinBoost();
+                    }
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return;
-        }
-
         if (prozent != 100) {
             double coinsDouble = (double) coins / 100 * prozent;
             coins = (int) coinsDouble;

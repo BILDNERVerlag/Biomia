@@ -50,7 +50,7 @@ public abstract class CosmeticItem {
     }
 
     public void use(BiomiaPlayer bp) {
-        Bukkit.getServer().getPluginManager().callEvent(new CosmeticUsedEvent(bp, group, name, item, commonness, id));
+        Bukkit.getServer().getPluginManager().callEvent(new CosmeticUsedEvent(bp, this));
     }
 
     public void add(BiomiaPlayer bp) {

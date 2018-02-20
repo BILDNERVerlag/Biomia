@@ -11,19 +11,11 @@ public class CosmeticUsedEvent extends BiomiaPlayerEvent {
 
     private static final HandlerList list = new HandlerList();
 
-    private final Cosmetic.Group group;
-    private final String name;
-    private final ItemStack itemStack;
-    private final CosmeticItem.Commonness commonness;
-    private final int id;
+    private final CosmeticItem item;
 
-    public CosmeticUsedEvent(BiomiaPlayer bp, Cosmetic.Group group, String name, ItemStack itemStack, CosmeticItem.Commonness commonness, int id) {
+    public CosmeticUsedEvent(BiomiaPlayer bp, CosmeticItem item) {
         super(bp);
-        this.group = group;
-        this.name = name;
-        this.itemStack = itemStack;
-        this.commonness = commonness;
-        this.id = id;
+        this.item = item;
     }
 
     @Override
@@ -31,8 +23,12 @@ public class CosmeticUsedEvent extends BiomiaPlayerEvent {
         return list;
     }
 
-    public Cosmetic.Group getGroup() {
-        return group;
+    public CosmeticItem getItem() {
+        return item;
+    }
+
+    public static HandlerList getHandlerList() {
+        return list;
     }
 
 }

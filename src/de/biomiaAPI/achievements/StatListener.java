@@ -1,12 +1,15 @@
 package de.biomiaAPI.achievements;
 
 import de.biomiaAPI.Biomia;
+import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.achievements.statEvents.bedwars.*;
 import de.biomiaAPI.achievements.statEvents.cosmetics.CosmeticUsedEvent;
 import de.biomiaAPI.achievements.statEvents.general.CoinAddEvent;
 import de.biomiaAPI.achievements.statEvents.general.CoinTakeEvent;
+import de.biomiaAPI.achievements.statEvents.skywars.*;
 import de.biomiaAPI.main.Main;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.libs.it.unimi.dsi.fastutil.Hash;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -21,8 +24,14 @@ import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.projectiles.ProjectileSource;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
+
+import java.util.HashMap;
 
 public class StatListener implements Listener {
+
+    private static HashMap<BiomiaPlayer, BukkitRunnable> bukkittasks = new HashMap<>();
 
     /*
         DONE
@@ -39,6 +48,7 @@ public class StatListener implements Listener {
         GadgetsUsed, HeadsUsed, ParticlesUsed, SuitsUsed, PetsUsed
         FoodEaten, PotionsConsumed,
         SheepsSheared,
+        BW_Deaths, BW_Wins, BW_Kills, BW_Leaves, BW_ItemsBought,
 
         MinutesPlayed,
         MysteryChestsOpened,
@@ -49,7 +59,6 @@ public class StatListener implements Listener {
         ReportsMade,
         SW_GamesPlayed, BW_GamesPlayed,
         SW_Deaths, SW_Wins, SW_Kills, SW_Leaves, SW_ChestsOpened, KitsBought, KitsChanged,
-        BW_Deaths, BW_Wins, BW_Kills, BW_Leaves, BW_ItemsBought,
         Q_accepted, Q_returned, Q_NPCTalks, Q_CoinsEarned, Q_Kills, Q_Deaths,
         Bau_PlotsClaimed, Bau_PlotsReset,
         FB_CBClaimed, FB_CBUnclaimed, FB_ItemsBought, FB_ItemsSold, FB_WarpsUsed,
@@ -68,7 +77,7 @@ public class StatListener implements Listener {
 
     @EventHandler
     public void interactEvent(PlayerInteractEvent e) {
-        if (e.getClickedBlock().getType() == Material.CHEST)
+        if (e.hasBlock() && e.getClickedBlock().getType() == Material.CHEST)
             Stats.incrementStat(Stats.BiomiaStat.ChestsOpened, e.getPlayer());
     }
 
@@ -156,7 +165,7 @@ public class StatListener implements Listener {
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {
-        Stats.incrementStat(Stats.BiomiaStat.MessagesSent, e.getPlayer());
+        Stats.incrementStat(Stats.BiomiaStat.MessagesSent, e.getPlayer(), e.getMessage());
     }
 
     @EventHandler
@@ -171,12 +180,19 @@ public class StatListener implements Listener {
 
     @EventHandler
     public void onBedWarsDeath(BedWarsDeathEvent e) {
-        Stats.incrementStat(Stats.BiomiaStat.BW_Deaths, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKiller().getBiomiaPlayerID() + "");
+        if (!e.isFinalDeath())
+            Stats.incrementStat(Stats.BiomiaStat.BW_Deaths, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKiller() != null ? e.getKiller().getBiomiaPlayerID() + "" : "NO_KILLER");
+        else
+            Stats.incrementStat(Stats.BiomiaStat.BW_FinalDeaths, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKiller() != null ? e.getKiller().getBiomiaPlayerID() + "" : "NO_KILLER");
     }
 
     @EventHandler
     public void onBedWarsKill(BedWarsKillEvent e) {
-        Stats.incrementStat(Stats.BiomiaStat.BW_Deaths, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKilledPlayer().getBiomiaPlayerID() + "");
+        if (!e.isFinalKill())
+            Stats.incrementStat(Stats.BiomiaStat.BW_FinalKills, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKilledPlayer().getBiomiaPlayerID() + "");
+        else
+            Stats.incrementStat(Stats.BiomiaStat.BW_Kills, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKilledPlayer().getBiomiaPlayerID() + "");
+
     }
 
     @EventHandler
@@ -201,18 +217,81 @@ public class StatListener implements Listener {
     }
 
     @EventHandler
-    public void onBedWarsEnd(BedWarsEndEvent e){
+    public void onBedWarsEnd(BedWarsEndEvent e) {
+        e.getBiomiaPlayerIDWinner().forEach(each -> {
+            Stats.incrementStat(Stats.BiomiaStat.BW_Wins, each.getBiomiaPlayerID(), e.getTeamcolor());
+        });
+    }
+
+    @EventHandler
+    public void onBedWarsStart(BedWarsStartEvent e) {
+        e.getPlayers().keySet().forEach(each -> {
+            String teamName = e.getPlayers().get(each);
+            Stats.incrementStat(Stats.BiomiaStat.BW_GamesPlayed, each.getBiomiaPlayerID(), teamName);
+        });
+    }
+
+    @EventHandler
+    public void onSkyWarsDeath(SkyWarsDeathEvent e) {
+        Stats.incrementStat(Stats.BiomiaStat.SW_Deaths, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKiller() != null ? e.getKiller().getBiomiaPlayerID() + "" : "NO_KILLER");
+    }
+
+    @EventHandler
+    public void onSkyWarsKill(SkyWarsKillEvent e) {
+        Stats.incrementStat(Stats.BiomiaStat.SW_Kills, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKilledPlayer().getBiomiaPlayerID() + "");
+
+    }
+
+    @EventHandler
+    public void onSkyWarsOpenChestEvent(SkyWarsOpenChestEvent e) {
+        Stats.incrementStat(Stats.BiomiaStat.SW_ChestsOpened, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getChestType().name());
+    }
+
+    @EventHandler
+    public void onSkyWarsLeaveEvent(SkyWarsLeaveEvent e) {
+        Stats.incrementStat(Stats.BiomiaStat.SW_Leaves, e.getBiomiaPlayer().getBiomiaPlayerID());
+    }
+
+    @EventHandler
+    public void onSkyWarsEnd(SkyWarsEndEvent e) {
+        e.getBiomiaPlayerWinner().forEach(each -> {
+            Stats.incrementStat(Stats.BiomiaStat.SW_Wins, each.getBiomiaPlayerID(), e.getTeamcolor());
+        });
+    }
+
+    @EventHandler
+    public void onSkyWarsStart(SkyWarsStartEvent e) {
+        e.getPlayers().keySet().forEach(each -> {
+            int kitID = e.getPlayers().get(each);
+            Stats.incrementStat(Stats.BiomiaStat.SW_GamesPlayed, each.getBiomiaPlayerID(), kitID + "");
+        });
+    }
+
+    @EventHandler
+    public void onKitChangeEvent(KitChangeEvent e) {
+        Stats.incrementStat(Stats.BiomiaStat.KitsChanged, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKitID() + "");
+
+    }
+
+    @EventHandler
+    public void onKitBuyEvent(KitBuyEvent e) {
+        Stats.incrementStat(Stats.BiomiaStat.KitsBought, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKitID() + "");
+    }
+
+    @EventHandler
+    public void onKitShowEvent(KitShowEvent e) {
+        Stats.incrementStat(Stats.BiomiaStat.KitsShown, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKitID() + "");
     }
 
     @EventHandler
     public void onTeleport(PlayerTeleportEvent e) {
-        Stats.incrementStat(Stats.BiomiaStat.TeleportsMade, e.getPlayer());
+        Stats.incrementStat(Stats.BiomiaStat.TeleportsMade, e.getPlayer(), Main.getGroupName());
     }
 
     @EventHandler
     public void onCosmeticUse(CosmeticUsedEvent e) {
         Stats.BiomiaStat stat = null;
-        switch (e.getGroup()) {
+        switch (e.getItem().getGroup()) {
             case HEADS:
                 stat = Stats.BiomiaStat.HeadsUsed;
                 break;
@@ -229,7 +308,7 @@ public class StatListener implements Listener {
                 stat = Stats.BiomiaStat.ParticlesUsed;
                 break;
         }
-        Stats.incrementStat(stat, e.getBiomiaPlayer().getBiomiaPlayerID());
+        Stats.incrementStat(stat, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getItem().getName());
     }
 
     @EventHandler

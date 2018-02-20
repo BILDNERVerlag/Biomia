@@ -1,20 +1,11 @@
 package de.biomiaAPI.main;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import de.biomiaAPI.achievements.BiomiaAchievement;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
-
 import at.TimoCraft.TimoCloud.api.TimoCloudAPI;
 import at.TimoCraft.TimoCloud.api.TimoCloudBukkitAPI;
 import at.TimoCraft.TimoCloud.api.TimoCloudUniversalAPI;
-import de.biomiaAPI.Biomia;
 import de.biomiaAPI.Quests.DialogMessage;
+import de.biomiaAPI.achievements.BiomiaAchievement;
+import de.biomiaAPI.achievements.StatListener;
 import de.biomiaAPI.connect.Connect;
 import de.biomiaAPI.cosmetics.Cosmetic;
 import de.biomiaAPI.cosmetics.Cosmetic.Group;
@@ -22,9 +13,13 @@ import de.biomiaAPI.cosmetics.CosmeticGroup;
 import de.biomiaAPI.cosmetics.GadgetItems.GadgetIniter;
 import de.biomiaAPI.cosmetics.ParticleItems.ParticleIniter;
 import de.biomiaAPI.itemcreator.ItemCreator;
-import de.biomiaAPI.msg.Messages;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Main extends JavaPlugin {
 
@@ -67,61 +62,8 @@ public class Main extends JavaPlugin {
         GadgetIniter.init();
         ParticleIniter.init();
         BiomiaAchievement.init();
+        Bukkit.getPluginManager().registerEvents(new StatListener(), this);
         init();
-
-        /*
-         * WERBUNG Sendet in einem gewissen Zeitabstand eine bestimmte Werbenachricht,
-         * an alle Spieler, die nicht Premium sind
-         */
-
-        new BukkitRunnable() {
-
-            int i = 0;
-
-            @Override
-            public void run() {
-
-                TextComponent message;
-
-                switch (i) {
-                    case 0:
-                        message = new TextComponent(Messages.prefix + "\u00A76Besuch uns auf www.biomia.de !");
-                        message.setClickEvent(
-                                new ClickEvent(ClickEvent.Action.OPEN_URL, "https://biomia.bildnerverlag.de/"));
-                        break;
-                    case 1:
-                        message = new TextComponent(Messages.prefix
-                                + "\u00A76Schau doch mal auf unserem \u00A76TeamSpeak-Server vorbei! \u00A76ts.biomia.de !");
-                        break;
-                    case 2:
-                        message = new TextComponent(Messages.prefix + "\u00A76Besuch uns auf instagram.com/biomiaofficial !");
-                        message.setClickEvent(
-                                new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.instagram.com/biomiaofficial/"));
-                        break;
-                    case 3:
-                        message = new TextComponent(Messages.prefix + "\u00A76Folge uns auf twitter.com/biomiaofficial !");
-                        message.setClickEvent(
-                                new ClickEvent(ClickEvent.Action.OPEN_URL, "https://twitter.com/biomiaofficial"));
-                        break;
-                    default:
-                        message = new TextComponent(
-                                Messages.prefix + "\u00A76Folge uns auf Facebook! \u00A76facebook.com/biomiaofficial/");
-                        message.setClickEvent(
-                                new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.facebook.com/biomiaofficial/"));
-                        break;
-                }
-                for (Player p : Bukkit.getOnlinePlayers()) {
-                    if (!Biomia.getBiomiaPlayer(p).isPremium() && Biomia.getBiomiaPlayer(p).isStaff()) {
-                        p.spigot().sendMessage(message);
-                    }
-                }
-
-                if (i < 3)
-                    i++;
-                else
-                    i = 0;
-            }
-        }.runTaskTimer(this, 0L, 20L * 60 * 5); /* Der Long ist die Anzahl der Ticks, ergo im moment 5 min */
     }
 
     @Override

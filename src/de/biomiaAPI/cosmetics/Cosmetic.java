@@ -182,7 +182,6 @@ public class Cosmetic {
 				ps.setString(5, Base64.toBase64(gi.getGadgetItem()));
 				ps.executeUpdate();
 				ps.cancel();
-				con.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -199,7 +198,6 @@ public class Cosmetic {
 				ps.setString(5, pi.getEntityType().name());
 				ps.executeUpdate();
 				ps.cancel();
-				con.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -215,7 +213,6 @@ public class Cosmetic {
 				ps.setString(4, pai.getCommonness().name());
 				ps.executeUpdate();
 				ps.cancel();
-				con.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -235,7 +232,6 @@ public class Cosmetic {
 				ps.setString(8, Base64.toBase64(si.getBoots()));
 				ps.executeUpdate();
 				ps.cancel();
-				con.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -252,7 +248,6 @@ public class Cosmetic {
 				ps.setString(5, Base64.toBase64(hi.getHead()));
 				ps.executeUpdate();
 				ps.cancel();
-				con.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

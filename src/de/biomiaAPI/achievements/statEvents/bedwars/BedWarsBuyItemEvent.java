@@ -27,4 +27,8 @@ public class BedWarsBuyItemEvent extends BedWarsEvent {
     public String getItemName() {
         return itemName;
     }
+
+    public static HandlerList getHandlerList() {
+        return list;
+    }
 }

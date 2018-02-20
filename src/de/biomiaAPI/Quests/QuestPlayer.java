@@ -60,7 +60,6 @@ public class QuestPlayer {
                 while (s.next()) {
                     quests.add(Biomia.QuestManager().getQuest(s.getInt("questID")));
                 }
-                con.close();
 
                 // quests.removeIf(Objects::isNull);
 
@@ -172,9 +171,7 @@ public class QuestPlayer {
                 while (s.next()) {
                     quests.add(Biomia.QuestManager().getQuest(s.getInt("questID")));
                 }
-
-                con.close();
-            } catch (SQLException e) {
+                } catch (SQLException e) {
                 e.printStackTrace();
             }
         }

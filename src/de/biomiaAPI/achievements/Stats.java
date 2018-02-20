@@ -17,6 +17,7 @@ public class Stats {
 
     public enum BiomiaStat {
 
+        EasterRewardsErhalten,
         CoinsAccumulated, CoinsSpent,
         Logins,
         MinutesPlayed,
@@ -38,7 +39,7 @@ public class Stats {
         GadgetsUsed, HeadsUsed, ParticlesUsed, SuitsUsed, PetsUsed,
         ReportsMade,
         SW_GamesPlayed, BW_GamesPlayed,
-        SW_Deaths, SW_Wins, SW_Kills, SW_Leaves, SW_ChestsOpened, KitsBought, KitsChanged,
+        SW_Deaths, SW_Wins, SW_Kills, SW_Leaves, SW_ChestsOpened, KitsBought, KitsChanged, KitsShown,
         BW_Deaths, BW_Wins, BW_Kills, BW_Leaves, BW_ItemsBought, BW_DestroyedBeds, BW_ShopUsed,
         Q_accepted, Q_returned, Q_NPCTalks, Q_CoinsEarned, Q_Kills, Q_Deaths,
         Bau_PlotsClaimed, Bau_PlotsReset,
@@ -46,7 +47,7 @@ public class Stats {
 
         //Events
 
-        SpecialEggsFound, BW_ItemsBoughtNames, EasterEggsFound
+        SpecialEggsFound, BW_ItemsBoughtNames, BW_FinalKills, BW_FinalDeaths, EasterEggsFound
     }
 
     /**
@@ -128,7 +129,7 @@ public class Stats {
         return out == -1 ? 0 : out;
     }
 
-    public static int getStatLastX(BiomiaStat stat, int biomiaPlayerID, String datetime_expr, int days) {
+    public static int getStatLastX(BiomiaStat stat, int biomiaPlayerID, String datetime_expr, int amount) {
         switch (datetime_expr.toUpperCase()) {
             case "SECOND":
             case "MINUTE":
@@ -152,7 +153,7 @@ public class Stats {
                 PreparedStatement statement = con.prepareStatement("SELECT `value`, `inc` FROM `" + stat.toString() + "` where ID = ? AND `timestamp` >= TIMESTAMPADD(" + datetime_expr + ",-?,NOW())");
                 statement.setInt(1, biomiaPlayerID);
                 //statement.setString(2, datetime_expr);
-                statement.setInt(2, days);
+                statement.setInt(2, amount);
                 ResultSet rs = statement.executeQuery();
 
                 if (rs.next()) {
@@ -178,7 +179,7 @@ public class Stats {
                     PreparedStatement statement = con.prepareStatement("SELECT `value` FROM `" + stat.toString() + "` where ID = ? AND `timestamp` >= TIMESTAMPADD(" + datetime_expr + ",-?,NOW())");
                     statement.setInt(1, biomiaPlayerID);
                     //statement.setString(2, datetime_expr);
-                    statement.setInt(2, days);
+                    statement.setInt(2, amount);
                     ResultSet rs = statement.executeQuery();
 
                     if (rs.next()) {
@@ -194,12 +195,15 @@ public class Stats {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+
+                if (minValue == 0)
+                    return 0;
                 return maxValue - (minValue - 1);
             } else {
                 return maxValue - (minValue - minInc);
             }
         }
-        return -1;
+        return 0;
     }
 
     /**

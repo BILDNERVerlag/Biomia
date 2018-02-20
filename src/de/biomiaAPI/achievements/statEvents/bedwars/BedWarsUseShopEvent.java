@@ -9,7 +9,7 @@ public class BedWarsUseShopEvent extends BedWarsEvent {
 
     private final boolean isVillager;
 
-    BedWarsUseShopEvent(BiomiaPlayer biomiaPlayer, boolean isVillager) {
+    public BedWarsUseShopEvent(BiomiaPlayer biomiaPlayer, boolean isVillager) {
         super(biomiaPlayer);
         this.isVillager = isVillager;
     }
@@ -21,5 +21,9 @@ public class BedWarsUseShopEvent extends BedWarsEvent {
 
     public boolean isVillager() {
         return isVillager;
+    }
+
+    public static HandlerList getHandlerList() {
+        return list;
     }
 }
