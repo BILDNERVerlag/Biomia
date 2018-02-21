@@ -28,21 +28,21 @@ public abstract class CosmeticItem {
     }
 
     public enum Commonness {
-        VERY_COMMON, COMMON, RARE, VERY_RARE
+        VERY_COMMON, COMMON, RARE, VERY_RARE;
 
-//		public String deutsch() {
-//			switch (this) {
-//			case VERY_COMMON:
-//				return "Sehr H\u00e4ufig";
-//			case COMMON:
-//				return "H\u00e4ufig";
-//			case RARE:
-//				return "Selten";
-//			case VERY_RARE:
-//				return "Sehr Selten";
-//			}
-//			return null;
-//		}
+		public String deutsch() {
+			switch (this) {
+			case VERY_COMMON:
+				return "Sehr H\u00e4ufig";
+			case COMMON:
+				return "H\u00e4ufig";
+			case RARE:
+				return "Selten";
+			case VERY_RARE:
+				return "Sehr Selten";
+			}
+			return null;
+		}
 
     }
 

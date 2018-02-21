@@ -7,6 +7,7 @@ import de.biomiaAPI.achievements.statEvents.cosmetics.CosmeticUsedEvent;
 import de.biomiaAPI.achievements.statEvents.general.CoinAddEvent;
 import de.biomiaAPI.achievements.statEvents.general.CoinTakeEvent;
 import de.biomiaAPI.achievements.statEvents.skywars.*;
+import de.biomiaAPI.cosmetics.CosmeticItem;
 import de.biomiaAPI.main.Main;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.libs.it.unimi.dsi.fastutil.Hash;
@@ -291,7 +292,8 @@ public class StatListener implements Listener {
     @EventHandler
     public void onCosmeticUse(CosmeticUsedEvent e) {
         Stats.BiomiaStat stat = null;
-        switch (e.getItem().getGroup()) {
+        CosmeticItem eventItem = e.getItem();
+        switch (eventItem.getGroup()) {
             case HEADS:
                 stat = Stats.BiomiaStat.HeadsUsed;
                 break;
@@ -308,7 +310,7 @@ public class StatListener implements Listener {
                 stat = Stats.BiomiaStat.ParticlesUsed;
                 break;
         }
-        Stats.incrementStat(stat, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getItem().getName());
+        Stats.incrementStat(stat, e.getBiomiaPlayer().getBiomiaPlayerID(), eventItem.getName());
     }
 
     @EventHandler
