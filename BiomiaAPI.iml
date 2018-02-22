@@ -34,24 +34,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../APIs/APIS/PartyAndFriends.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../APIs/APIS/BungeeCord.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/../APIs/APIS/Spigot-Party-API-For-RedisBungee-1.0-SNAPSHOT.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -80,15 +62,6 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../APIs/APIS/Citizens.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../spigot/BiomiaAPI.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -150,15 +123,6 @@
         <SOURCES>
           <root url="jar://$MODULE_DIR$/../spigot/spigot.jar!/" />
         </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$APPLICATION_HOME_DIR$/redist/annotations-java8.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
       </library>
     </orderEntry>
   </component>

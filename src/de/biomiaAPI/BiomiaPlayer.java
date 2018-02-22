@@ -179,7 +179,6 @@ public class BiomiaPlayer {
         String rank = Rank.getRank(p);
 
         return rank.contains("YouTube");
-
     }
 
     public int getPremiumLevel() {

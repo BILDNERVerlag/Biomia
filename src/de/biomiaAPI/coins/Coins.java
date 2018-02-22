@@ -8,8 +8,8 @@ import org.bukkit.Bukkit;
 
 public class Coins {
 
-    public static int getCoins(BiomiaPlayer p) {
-        return MySQL.executeQuerygetint("SELECT * FROM `BiomiaCoins` where ID = " + p.getBiomiaPlayerID(), "coins", MySQL.Databases.biomia_db);
+    public static int getCoins(BiomiaPlayer bp) {
+        return MySQL.executeQuerygetint("SELECT * FROM `BiomiaCoins` where ID = " + bp.getBiomiaPlayerID(), "coins", MySQL.Databases.biomia_db);
     }
 
     public static void setCoins(int coins, BiomiaPlayer bp) {
@@ -39,10 +39,5 @@ public class Coins {
             bp.getPlayer().sendMessage("\u00A77Du erh\u00e4ltst \u00A7f" + coins + "\u00A77 BC!");
         }
     }
-
-    private static int getCoins(int ID) {
-        return MySQL.executeQuerygetint(("SELECT * FROM `BiomiaCoins` where ID = " + ID), "coins", MySQL.Databases.biomia_db);
-    }
-
 }
 

@@ -49,25 +49,6 @@ public class Biomia {
         return bp.computeIfAbsent(p, biomiaplayer -> new BiomiaPlayer(p));
     }
 
-    /**
-     * Use BiomiaPlayer.getID(String)
-     */
-    @Deprecated
-    public static int getBiomiaPlayerIDFromString(String playerName) {
-        return MySQL.executeQuerygetint("Select id from BiomiaPlayer where name = '" + playerName + "'", "id", MySQL.Databases.biomia_db);
-    }
-
-    /**
-     * Use BiomiaPlayer.getUUID(int)
-     */
-    @Deprecated
-    public static UUID getUUIDFromBiomiaPlayerID(int biomiaID) {
-        String s = MySQL.executeQuery("Select uuid from BiomiaPlayer where id = " + biomiaID, "uuid", MySQL.Databases.biomia_db);
-        if (s != null)
-            return UUID.fromString(s);
-        else return null;
-    }
-
     public static TeamManager TeamManager() {
         return new TeamManager() {
 
