@@ -170,6 +170,11 @@ public class BiomiaPlayer {
         return (rank.contains("Owner") || rank.contains("Admin") || rank.contains("Moderator") || rank.contains("Builder") || rank.contains("Supporter"));
     }
 
+    public boolean isOwner() {
+        String rank = Rank.getRank(p);
+        return rank.contains("Owner");
+    }
+
     public boolean isYouTuber() {
 
         String rank = Rank.getRank(p);
