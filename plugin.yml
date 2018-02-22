@@ -1,5 +1,31 @@
-main: de.biomiaAPI.main.QuestMain
+main: de.biomiaAPI.main.Main
 name: BiomiaAPI
 version: 0.2
 authors: [DerJulsn, aer0des1gn]
 depend: [TimoCloud]
+softdepend: [Citizens]
+
+commands:
+  q:
+  qr:
+  qlist:
+  tagebuch:
+  qinfo:
+  qalign:
+  qrestore:
+  aion:
+  aioff:
+  aitoggle:
+  qhelp:
+  qfilldiary:
+  qstats:
+  respawn:
+    aliases: [die, suicide]
+  qupdatebook:
+  qlog:
+  qtest:
+  qreset:
+  lobbysettings:
+    usage: /lobbysettings <destroyarmorstands|fly>
+  randomServerGroup:
+  world:
