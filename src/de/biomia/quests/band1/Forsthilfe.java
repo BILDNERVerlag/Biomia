@@ -42,6 +42,8 @@ public class Forsthilfe implements Listener {
 	public void onInteract(NPCRightClickEvent e) {
 		if (npc.equals(e.getNPC())) {
 
+			//comment
+
 			QuestPlayer qp = Biomia.getQuestPlayer(e.getClicker());
 
 			if (qp.getDialog() == null) {
