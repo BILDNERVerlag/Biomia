@@ -40,7 +40,6 @@ public class Rank {
                     return "0" + i;
             }
         return "-1";
-
     }
 
     public static boolean isPremium(Player p) {

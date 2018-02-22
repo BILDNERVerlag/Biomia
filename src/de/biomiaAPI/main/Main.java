@@ -3,7 +3,12 @@ package de.biomiaAPI.main;
 import at.TimoCraft.TimoCloud.api.TimoCloudAPI;
 import at.TimoCraft.TimoCloud.api.TimoCloudBukkitAPI;
 import at.TimoCraft.TimoCloud.api.TimoCloudUniversalAPI;
+import de.biomia.lobby.commands.LobbyComands;
+import de.biomia.lobby.commands.SendToRandomServer;
+import de.biomia.lobby.commands.WC;
+import de.biomia.lobby.main.LobbyMain;
 import de.biomia.quests.cmds.QuestCommands;
+import de.biomia.quests.main.QuestMain;
 import de.biomiaAPI.Quests.DialogMessage;
 import de.biomiaAPI.achievements.BiomiaAchievement;
 import de.biomiaAPI.achievements.StatListener;
@@ -75,8 +80,12 @@ public class Main extends JavaPlugin {
 
         switch (groupName) {
             case "Lobby":
+                Bukkit.getPluginManager().registerEvents(new LastPositionListener(), this);
+                LobbyMain.initLobby();
+                break;
             case "QuestServer":
                 Bukkit.getPluginManager().registerEvents(new LastPositionListener(), this);
+                new QuestMain().initQuests();
                 break;
             default:
                 break;
@@ -144,6 +153,7 @@ public class Main extends JavaPlugin {
         prefixes.put("RegSpieler", "\u00A77");
         prefixes.put("UnregSpieler", "\u00A78");
 
+        //Quests
         getCommand("q").setExecutor(new QuestCommands());
         getCommand("qr").setExecutor(new QuestCommands());
         getCommand("qlist").setExecutor(new QuestCommands());
@@ -162,6 +172,11 @@ public class Main extends JavaPlugin {
         getCommand("qlog").setExecutor(new QuestCommands());
         getCommand("qtest").setExecutor(new QuestCommands());
         getCommand("qreset").setExecutor(new QuestCommands());
+
+        //Lobby
+        getCommand("lobbysettings").setExecutor(new LobbyComands());
+        getCommand("randomServerGroup").setExecutor(new SendToRandomServer());
+        getCommand("world").setExecutor(new WC());
 
     }
 
