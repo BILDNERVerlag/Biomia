@@ -1,5 +1,12 @@
 package de.biomiaAPI.mysql;
 
+import at.TimoCraft.TimoCloud.api.objects.GroupObject;
+import de.biomiaAPI.Biomia;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -31,7 +38,7 @@ public class MySQL {
 
     public static Connection Connect(Databases db) {
 
-        return connections.computeIfAbsent(db, con -> {
+        Connection connection = connections.computeIfAbsent(db, con -> {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 String dbPass = "O78s3SObra0QzDZh";
@@ -45,9 +52,15 @@ public class MySQL {
                 System.out.println("Treiber nicht gefunden");
             } catch (SQLException e) {
                 handleSQLException(e);
-            }
-            return null;
+            } finally { return null; }
         });
+        try {
+            if (!connection.isClosed()) return connection;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            return null;
+        }
     }
 
     public static boolean execute(String cmd, Databases db) {
@@ -60,24 +73,36 @@ public class MySQL {
         Connection con = Connect(db);
 
         if (con != null) {
+            PreparedStatement sql = null;
+            ResultSet rs = null;
             try {
-                PreparedStatement sql = con.prepareStatement(cmd);
-                ResultSet rs = sql.executeQuery();
+                sql = con.prepareStatement(cmd);
+                rs = sql.executeQuery();
                 String s = null;
                 //noinspection LoopStatementThatDoesntLoop
                 while (rs.next()) {
                     s = rs.getString(gettingspalte);
                     break;
                 }
-                rs.close();
-                sql.close();
                 return s;
             } catch (SQLException e) {
                 e.printStackTrace();
+            } finally {
+                closeQuietly(rs, sql);
             }
 
         }
         return null;
+    }
+
+    private static void closeQuietly(ResultSet rs, PreparedStatement ps) {
+        //TODO: implement in every method
+        try {
+            if (rs != null) rs.close();
+        } catch (Exception e) {/*do nothing*/ }
+        try {
+            if (ps != null) ps.close();
+        } catch (Exception e) {/*do nothing*/ }
     }
 
     public static boolean executeQuerygetbool(String cmd, String gettingspalte, Databases db) {
@@ -151,5 +176,4 @@ public class MySQL {
         }
         return false;
     }
-
 }

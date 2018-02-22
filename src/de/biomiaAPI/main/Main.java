@@ -13,6 +13,7 @@ import de.biomiaAPI.cosmetics.CosmeticGroup;
 import de.biomiaAPI.cosmetics.GadgetItems.GadgetIniter;
 import de.biomiaAPI.cosmetics.ParticleItems.ParticleIniter;
 import de.biomiaAPI.itemcreator.ItemCreator;
+import de.biomiaAPI.lastPosition.LastPositionListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -34,6 +35,10 @@ public class Main extends JavaPlugin {
     private static TimoCloudBukkitAPI bukkitTimoapi;
     private static String groupName;
     private static TimoCloudUniversalAPI universalTimoapi;
+
+    public static Main getPlugin() {
+        return plugin;
+    }
 
     @Override
     public void onLoad() {
@@ -62,7 +67,20 @@ public class Main extends JavaPlugin {
         GadgetIniter.init();
         ParticleIniter.init();
         BiomiaAchievement.init();
+
         Bukkit.getPluginManager().registerEvents(new StatListener(), this);
+
+        groupName = Bukkit.getServer().getName().split("-")[0];
+
+        switch (groupName) {
+            case "Lobby":
+            case "QuestServer":
+                Bukkit.getPluginManager().registerEvents(new LastPositionListener(), this);
+                break;
+            default:
+                break;
+        }
+
         init();
     }
 
@@ -144,7 +162,7 @@ public class Main extends JavaPlugin {
     }
 
     public static String getGroupName() {
-        return groupName != null ? groupName : (groupName = bukkitTimoapi.getThisServer().getGroupName());
+        return groupName;
     }
 
 }
