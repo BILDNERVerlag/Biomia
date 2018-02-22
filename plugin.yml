@@ -1,4 +1,4 @@
-main: de.biomiaAPI.main.Main
+main: de.biomiaAPI.main.QuestMain
 name: BiomiaAPI
 version: 0.2
 authors: [DerJulsn, aer0des1gn]

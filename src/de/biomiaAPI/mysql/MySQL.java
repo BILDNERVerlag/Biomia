@@ -37,7 +37,6 @@ public class MySQL {
 
 
     public static Connection Connect(Databases db) {
-
         Connection connection = connections.computeIfAbsent(db, con -> {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
