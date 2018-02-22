@@ -9,6 +9,7 @@ import de.biomiaAPI.Quests.DialogMessage;
 import de.biomiaAPI.Quests.Quest;
 import de.biomiaAPI.Quests.QuestPlayer;
 import de.biomiaAPI.Quests.States;
+import de.biomiaAPI.main.Main;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
@@ -34,6 +35,7 @@ public class Kuerbissuche implements Listener {
 		Location loc = new Location(Bukkit.getWorld("Quests"), 97.5, 70, -305.5, -60, 0);
 		korbinian.spawn(loc);
 		initDialog();
+		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	@EventHandler

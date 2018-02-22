@@ -10,6 +10,7 @@ import de.biomiaAPI.Quests.Quest;
 import de.biomiaAPI.Quests.QuestPlayer;
 import de.biomiaAPI.Quests.States;
 import de.biomiaAPI.itemcreator.ItemCreator;
+import de.biomiaAPI.main.Main;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.trait.trait.Equipment;
@@ -60,6 +61,7 @@ public class RitterGoldFuss implements Listener {
 		e.set(EquipmentSlot.HAND, ItemCreator.itemCreate(Material.IRON_SWORD));
 
 		initDialog();
+		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	@EventHandler

@@ -7,6 +7,7 @@ import de.biomiaAPI.Quests.DialogMessage;
 import de.biomiaAPI.Quests.Quest;
 import de.biomiaAPI.Quests.QuestPlayer;
 import de.biomiaAPI.Quests.States;
+import de.biomiaAPI.main.Main;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
@@ -40,6 +41,7 @@ public class HolzfaellerInDerHolzfalle implements Listener {
 		Location npcLoc = new Location(Bukkit.getWorld("Quests"), 84.5, 70, -281.5, -25, 0);
 		npc.spawn(npcLoc);
 		initDialog();
+		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	@EventHandler

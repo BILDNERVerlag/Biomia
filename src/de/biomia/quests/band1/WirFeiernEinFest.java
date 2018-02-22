@@ -7,6 +7,7 @@ import de.biomiaAPI.QuestEvents.AddCoinEvent;
 import de.biomiaAPI.QuestEvents.GiveItemEvent;
 import de.biomiaAPI.QuestEvents.TakeItemEvent;
 import de.biomiaAPI.Quests.*;
+import de.biomiaAPI.main.Main;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
@@ -38,6 +39,7 @@ public class WirFeiernEinFest implements Listener {
 		q.setCooldown(24, TIME.STUNDEN);
 
 		initDialog();
+		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	@EventHandler

@@ -3,6 +3,7 @@ package de.biomiaAPI.main;
 import at.TimoCraft.TimoCloud.api.TimoCloudAPI;
 import at.TimoCraft.TimoCloud.api.TimoCloudBukkitAPI;
 import at.TimoCraft.TimoCloud.api.TimoCloudUniversalAPI;
+import de.biomia.quests.cmds.QuestCommands;
 import de.biomiaAPI.Quests.DialogMessage;
 import de.biomiaAPI.achievements.BiomiaAchievement;
 import de.biomiaAPI.achievements.StatListener;
@@ -89,7 +90,7 @@ public class Main extends JavaPlugin {
         plugin.saveConfig();
     }
 
-    private static void init() {
+    private void init() {
 
         Cosmetic.initGroup(new CosmeticGroup(Group.HEADS, ItemCreator.itemCreate(Material.SKULL_ITEM, "\u00A7cHeads")));
         Cosmetic.initGroup(new CosmeticGroup(Group.PETS, ItemCreator.itemCreate(Material.MONSTER_EGG, "\u00A7bPets")));
@@ -142,6 +143,25 @@ public class Main extends JavaPlugin {
         prefixes.put("PremiumEins", "\u00A7eI | ");
         prefixes.put("RegSpieler", "\u00A77");
         prefixes.put("UnregSpieler", "\u00A78");
+
+        getCommand("q").setExecutor(new QuestCommands());
+        getCommand("qr").setExecutor(new QuestCommands());
+        getCommand("qlist").setExecutor(new QuestCommands());
+        getCommand("tagebuch").setExecutor(new QuestCommands());
+        getCommand("qinfo").setExecutor(new QuestCommands());
+        getCommand("qalign").setExecutor(new QuestCommands());
+        getCommand("qrestore").setExecutor(new QuestCommands());
+        getCommand("aion").setExecutor(new QuestCommands());
+        getCommand("aioff").setExecutor(new QuestCommands());
+        getCommand("aitoggle").setExecutor(new QuestCommands());
+        getCommand("qhelp").setExecutor(new QuestCommands());
+        getCommand("qfilldiary").setExecutor(new QuestCommands());
+        getCommand("qstats").setExecutor(new QuestCommands());
+        getCommand("respawn").setExecutor(new QuestCommands());
+        getCommand("qupdatebook").setExecutor(new QuestCommands());
+        getCommand("qlog").setExecutor(new QuestCommands());
+        getCommand("qtest").setExecutor(new QuestCommands());
+        getCommand("qreset").setExecutor(new QuestCommands());
 
     }
 

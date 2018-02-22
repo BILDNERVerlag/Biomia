@@ -6,6 +6,7 @@ import de.biomiaAPI.QuestEvents.GiveItemEvent;
 import de.biomiaAPI.QuestEvents.TakeItemEvent;
 import de.biomiaAPI.Quests.*;
 import de.biomiaAPI.itemcreator.ItemCreator;
+import de.biomiaAPI.main.Main;
 import de.biomiaAPI.msg.ActionBar;
 import de.biomiaAPI.msg.Title;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
@@ -85,6 +86,7 @@ public class ReiteDasSchwein implements Listener {
 		q.setCooldown(1, TIME.MINUTEN);
 
 		initDialog();
+		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	// methods and stuff for the race
@@ -137,7 +139,7 @@ public class ReiteDasSchwein implements Listener {
 						onEndLoc.remove(qp);
 						// qp.finish(q);
 						if (!qp.hasFinished(q)) {
-							Biomia.getBiomiaPlayer(qp.getPlayer()).addCoins(zeitRennen * 15);
+							Biomia.getBiomiaPlayer(qp.getPlayer()).addCoins(zeitRennen * 15, true);
 							qp.setDialog(geschafft);
 							qp.getDialog().execute(qp);
 						}
@@ -165,7 +167,7 @@ public class ReiteDasSchwein implements Listener {
 				}
 
 			}
-		}.runTaskTimer(QuestMain.p, 0, 20);
+		}.runTaskTimer(Main.getPlugin(), 0, 20);
 
 		thread.put(qp, th);
 
@@ -193,7 +195,7 @@ public class ReiteDasSchwein implements Listener {
 							qp.getDialog().execute(qp);
 						}
 					}
-				}.runTaskLater(QuestMain.p, 20);
+				}.runTaskLater(Main.getPlugin(), 20);
 			}
 
 		}

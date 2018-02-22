@@ -8,6 +8,7 @@ import de.biomiaAPI.Quests.DialogMessage;
 import de.biomiaAPI.Quests.Quest;
 import de.biomiaAPI.Quests.QuestPlayer;
 import de.biomiaAPI.Quests.States;
+import de.biomiaAPI.main.Main;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
@@ -38,6 +39,7 @@ public class GehAngeln implements Listener {
 		Location loc_pari = new Location(Bukkit.getWorld("Quests"), 109.5, 68, -310.5, -85, 0);
 		pari.spawn(loc_pari);
 		initDialog();
+		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	@EventHandler

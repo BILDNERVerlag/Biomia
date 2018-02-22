@@ -32,7 +32,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Commands implements CommandExecutor {
+public class QuestCommands implements CommandExecutor {
 
 	private static boolean logTime = false;
 
@@ -325,9 +325,9 @@ public class Commands implements CommandExecutor {
 	}
 
 	/**
-	 * Listet ALLE questserverspezifischen Commands auf. F\u00fcr diesen Command die
+	 * Listet ALLE questserverspezifischen QuestCommands auf. F\u00fcr diesen Command die
 	 * Nachrichten bitte erstmal nicht in Messages verschieben und hier immer gleich
-	 * \u00fcndern, falls neue Commands hinzugef\u00fcgt werden. :)
+	 * \u00fcndern, falls neue QuestCommands hinzugef\u00fcgt werden. :)
 	 */
 	private void qhelpCommand(CommandSender sender) {
 		sender.sendMessage("\u00A78------------\u00A76QuestCommands\u00A78-----------");
@@ -341,7 +341,7 @@ public class Commands implements CommandExecutor {
 		sender.sendMessage("\u00A76/qinfo <NAME> \u00A7af\u00fcr Infos zu einer bestimmten Quest");
 		sender.sendMessage("\u00A76/tagebuch \u00A7aum ein neues Tagebuch zu erhalten.");
 		if (sender.hasPermission("biomia.quests")) {
-			sender.sendMessage("\u00A78--------\u00A7cExperimentelle Commands\u00A78--------");
+			sender.sendMessage("\u00A78--------\u00A7cExperimentelle QuestCommands\u00A78--------");
 			sender.sendMessage(
 					"\u00A7c\u00A7lAchtung! \u00A7r\u00A7cK\u00f6nnen bei unpr\u00e4ziser Nutzung unvorhergesehene Konsequenzen herbeif\u00fchren."
 							+ " Benutze sie nur, wenn du wirklich wei\u00dft, was du tust.");

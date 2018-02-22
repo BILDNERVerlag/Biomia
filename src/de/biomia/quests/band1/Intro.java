@@ -4,6 +4,7 @@ import de.biomiaAPI.Biomia;
 import de.biomiaAPI.Quests.DialogMessage;
 import de.biomiaAPI.Quests.Quest;
 import de.biomiaAPI.Quests.QuestPlayer;
+import de.biomiaAPI.main.Main;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
@@ -35,6 +36,7 @@ public class Intro implements Listener {
 		aaron.spawn(locAaron);
 
 		initDialog();
+		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	@EventHandler

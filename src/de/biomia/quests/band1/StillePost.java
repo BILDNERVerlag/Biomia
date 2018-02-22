@@ -9,6 +9,7 @@ import de.biomiaAPI.Quests.DialogMessage;
 import de.biomiaAPI.Quests.Quest;
 import de.biomiaAPI.Quests.QuestPlayer;
 import de.biomiaAPI.Quests.States;
+import de.biomiaAPI.main.Main;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
@@ -63,6 +64,7 @@ public class StillePost implements Listener {
 		Location locMario = new Location(Bukkit.getWorld("Quests"), 83.7, 70, -267.5, 180, 0);
 		mario.spawn(locMario);
 		initDialog();
+		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	@EventHandler
