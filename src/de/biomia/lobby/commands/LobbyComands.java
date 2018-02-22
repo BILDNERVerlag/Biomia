@@ -1,7 +1,5 @@
 package de.biomia.lobby.commands;
 
-import de.biomia.lobby.main.LobbyMain;
-import de.biomiaAPI.main.Main;
 import de.biomiaAPI.msg.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -13,64 +11,50 @@ import java.util.ArrayList;
 
 public class LobbyComands implements CommandExecutor {
 
-	public static boolean pvp = false;
+    public static final ArrayList<Player> targetarmorstands = new ArrayList<>();
+    public static boolean pvp = false;
+    private static boolean flyall = false;
 
-	public static ArrayList<Player> targetarmorstands = new ArrayList<>();
+    @Override
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-	public static boolean flyall = false;
+        if (cmd.getName().equalsIgnoreCase("lobbysettings")) {
+            if (sender.hasPermission("biomia.lobbysettings")) {
+                if (args.length == 1) {
+                    if (args[0].equalsIgnoreCase("destroyarmorstands") && (sender instanceof Player)) {
+                        Player p = (Player) sender;
+                        if (!targetarmorstands.contains(p)) {
+                            targetarmorstands.add(p);
+                            p.sendMessage(Messages.prefix + "§aDu kannst nun ArmorStands auf der Lobby abbauen!");
+                            return true;
+                        } else {
+                            targetarmorstands.remove(p);
+                            p.sendMessage(
+                                    Messages.prefix + "§cDu kannst nun keine ArmorStands mehr auf der Lobby abbauen!");
+                            return true;
+                        }
 
-	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+                    }
+                    if (args[0].equalsIgnoreCase("fly")) {
+                        flyall = !flyall;
+                        for (Player pl : Bukkit.getOnlinePlayers()) {
+                            pl.setAllowFlight(flyall);
+                            pl.setFlying(flyall);
+                        }
+                        if (flyall) {
+                            sender.sendMessage(Messages.prefix + "§aEs können nun alle auf der Lobby fliegen!");
+                        } else {
+                            sender.sendMessage(
+                                    Messages.prefix + "§cEs kann nun keiner mehr auf der Lobby fliegen!");
+                        }
+                    }
+                }
 
-		if (cmd.getName().equalsIgnoreCase("lobbysettings")) {
-			if (sender.hasPermission("biomia.lobbysettings")) {
-				if (args.length == 1) {
-					if (args[0].equalsIgnoreCase("destroyarmorstands") && (sender instanceof Player)) {
-						Player p = (Player) sender;
-						if (!targetarmorstands.contains(p)) {
-							targetarmorstands.add(p);
-							p.sendMessage(Messages.prefix + "§aDu kannst nun ArmorStands auf der Lobby abbauen!");
-							return true;
-						} else {
-							targetarmorstands.remove(p);
-							p.sendMessage(
-									Messages.prefix + "§cDu kannst nun keine ArmorStands mehr auf der Lobby abbauen!");
-							return true;
-						}
-
-					}
-					if (args[0].equalsIgnoreCase("fly")) {
-						for (Player pl : Bukkit.getOnlinePlayers()) {
-							if (pl.getWorld().getName().contains("Lobby")) {
-								if (!flyall) {
-									pl.setAllowFlight(true);
-									pl.setFlying(true);
-									flyall = true;
-									sender.sendMessage(Messages.prefix + "§aEs können nun alle auf der Lobby fliegen!");
-									return true;
-								} else {
-									pl.setAllowFlight(false);
-									pl.setFlying(false);
-									flyall = false;
-									sender.sendMessage(
-											Messages.prefix + "§cEs kann nun keiner mehr auf der Lobby fliegen!");
-									return true;
-								}
-							}
-							return false;
-						}
-					}
-					return false;
-				}
-				return false;
-
-			} else {
-				sender.sendMessage(Messages.noperm);
-				return true;
-			}
-		}
-
-		return false;
-	}
+            } else {
+                sender.sendMessage(Messages.noperm);
+            }
+        }
+        return false;
+    }
 
 }

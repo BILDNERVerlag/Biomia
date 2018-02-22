@@ -1,6 +1,5 @@
 package de.biomia.quests.listeners;
 
-import de.biomia.quests.main.QuestMain;
 import de.biomia.quests.messages.ItemNames;
 import de.biomia.quests.messages.Messages;
 import de.biomiaAPI.Biomia;
@@ -54,7 +53,7 @@ public class QuestListener implements Listener {
                         || material == Material.LAVA_BUCKET) {
                     if (!qp.isInQuest(Biomia.QuestManager().getQuest("Wasserholen")))
                         event.setCancelled(true);
-                    // TODO Bucket-Verhalten auf dem Questserver nochmal auschecken - buildable
+                    // TODO Eimer-Verhalten auf dem Questserver nochmal auschecken - buildable
                     // blocks mit buckets
                     if (event.getItem().getType() != null && event.getItem().getType() == Material.WATER_BUCKET
                             || event.getItem().getType() == Material.LAVA_BUCKET) {
@@ -177,7 +176,7 @@ public class QuestListener implements Listener {
         QuestPlayer qp = bp.getQuestPlayer();
         for (Quest quest : Biomia.QuestManager().getQuests()) {
             if (quest.getRemoveOnReload())
-                if (quest.getActivePlayerBiomiaIDs().contains((Integer) qp.getBiomiaPlayer().getBiomiaPlayerID()))
+                if (quest.getActivePlayerBiomiaIDs().contains(qp.getBiomiaPlayer().getBiomiaPlayerID()))
                     qp.rmFromQuest(quest);
         }
         Scoreboards.setTabList(e.getPlayer());

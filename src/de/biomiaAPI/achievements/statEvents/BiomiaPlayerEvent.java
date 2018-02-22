@@ -5,13 +5,13 @@ import org.bukkit.event.Event;
 
 public abstract class BiomiaPlayerEvent extends Event {
 
-    protected final BiomiaPlayer biomiaPlayer;
+    private final BiomiaPlayer biomiaPlayer;
 
     public BiomiaPlayer getBiomiaPlayer() {
         return biomiaPlayer;
     }
 
-    public BiomiaPlayerEvent(BiomiaPlayer biomiaPlayer) {
+    protected BiomiaPlayerEvent(BiomiaPlayer biomiaPlayer) {
         this.biomiaPlayer = biomiaPlayer;
     }
 }

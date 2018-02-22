@@ -1,7 +1,7 @@
 main: de.biomiaAPI.main.Main
 name: BiomiaAPI
-version: 0.2
-authors: [DerJulsn, aer0des1gn]
+version: 0.3
+authors: [DerJulsn, DerAaron]
 depend: [TimoCloud]
 softdepend: [Citizens]
 
@@ -29,3 +29,38 @@ commands:
     usage: /lobbysettings <destroyarmorstands|fly>
   randomServerGroup:
   world:
+  rank:
+  build:
+  coins:
+  permission:
+  reloadplugin:
+  hologram:
+  troll:
+  crash:
+  report:
+  finishreport:
+  seereports:
+  gm:
+  fly:
+  speed:
+  heal:
+  eat:
+  permission:
+    aliases: [perm]
+  memory:
+    aliases: [mem]
+  calendar:
+  cosmetic:
+  head:
+  stat:
+  ct:
+  givereward:
+  addeggs:
+  bw:
+  sw:
+  accept:
+  decline:
+  request:
+  bw:
+  sw:
+  spawn:

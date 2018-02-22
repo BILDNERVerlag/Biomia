@@ -18,7 +18,7 @@ public class BedWarsKillEvent extends BedWarsEvent {
 
     @Override
     public HandlerList getHandlers() {
-        return list;
+        return null;
     }
 
     public BiomiaPlayer getKilledPlayer() {

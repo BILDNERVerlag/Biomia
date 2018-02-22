@@ -1,13 +1,11 @@
 package de.biomiaAPI.cosmetics;
 
-import de.biomiaAPI.achievements.Stats;
-import de.biomiaAPI.achievements.statEvents.cosmetics.CosmeticUsedEvent;
-import org.bukkit.Bukkit;
-import org.bukkit.inventory.ItemStack;
-
 import de.biomiaAPI.BiomiaPlayer;
+import de.biomiaAPI.achievements.statEvents.cosmetics.CosmeticUsedEvent;
 import de.biomiaAPI.cosmetics.Cosmetic.Group;
 import de.biomiaAPI.mysql.MySQL;
+import org.bukkit.Bukkit;
+import org.bukkit.inventory.ItemStack;
 
 public abstract class CosmeticItem {
 

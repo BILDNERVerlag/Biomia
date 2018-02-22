@@ -5,7 +5,7 @@ import org.bukkit.event.HandlerList;
 
 public class BedWarsUseShopEvent extends BedWarsEvent {
 
-    public static final HandlerList list = new HandlerList();
+    private static final HandlerList list = new HandlerList();
 
     private final boolean isVillager;
 

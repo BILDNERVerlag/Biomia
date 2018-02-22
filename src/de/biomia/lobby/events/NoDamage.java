@@ -14,23 +14,23 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 public class NoDamage implements Listener {
 
 	@EventHandler
-	public void onDamage(EntityDamageEvent ee) {
-		if (ee.getEntity() instanceof Player) {
-			ee.setDamage(0);
-			ee.setCancelled(true);
+    public void onDamage(EntityDamageEvent e) {
+        if (e.getEntity() instanceof Player) {
+            e.setDamage(0);
+            e.setCancelled(true);
 		}
 	}
 
 	@EventHandler
-	public void onArmorStandDamage(EntityDamageByEntityEvent ee) {
-		if (ee.getEntity() instanceof ArmorStand || ee.getEntity() instanceof ItemFrame) {
-			if (ee.getDamager() instanceof Player) {
-				Player pl = (Player) ee.getDamager();
+    public void onArmorStandDamage(EntityDamageByEntityEvent e) {
+        if (e.getEntity() instanceof ArmorStand || e.getEntity() instanceof ItemFrame) {
+            if (e.getDamager() instanceof Player) {
+                Player pl = (Player) e.getDamager();
 				if (!LobbyComands.targetarmorstands.contains(pl)) {
-					ee.setCancelled(true);
+                    e.setCancelled(true);
 				}
 			} else {
-				ee.setCancelled(true);
+                e.setCancelled(true);
 			}
 		}
 	}

@@ -32,13 +32,8 @@ public class Allgemeinwissen implements Listener {
 	HashMap<UUID, Quest> hm = new HashMap<>();
 	private final NPC herbert, ghost;
 
-	DialogMessage startDialog, nachQuest, inQuest, afterGhost, status2, status3, status4;
-
-	private ItemStack oldBook;
-
-	private Location locGhost, locHerbert;
-
-	private final Event ghostSpawnEvent = new Event() {
+    private final Location locGhost;
+    private final Event ghostSpawnEvent = new Event() {
 		// anonyme klasse, da erstens platzsparender und zweitens ermoeglicht referenz
 		// auf das ghost-objekt (das eigl ja nicht im event ist)
 		@Override
@@ -46,6 +41,15 @@ public class Allgemeinwissen implements Listener {
 			ghost.spawn(locGhost);
 		}
 	};
+    private DialogMessage startDialog;
+    private DialogMessage nachQuest;
+    private DialogMessage inQuest;
+    private DialogMessage afterGhost;
+    private DialogMessage status2;
+
+    private ItemStack oldBook;
+    private DialogMessage status3;
+    private DialogMessage status4;
 
 	private final Event ghostDespawnEvent = new Event() {
 		@Override
@@ -59,7 +63,7 @@ public class Allgemeinwissen implements Listener {
 				"Herbert m\u00f6chte, dass du f\u00fcr ihn ein verlorenes Familienerbst\u00fcck wiederbeschaffst. Er vertraut dir ein altes Buch an, mit dessen Hilfe du ein R\u00e4tsel l\u00f6sen sollst.");
 
 		herbert = q.createNPC(EntityType.PLAYER, "Herbert");
-		locHerbert = new Location(Bukkit.getWorld("Quests"), 101.5, 70, -304.5, 95, 0);
+        Location locHerbert = new Location(Bukkit.getWorld("Quests"), 101.5, 70, -304.5, 95, 0);
 		herbert.spawn(locHerbert);
 
 		ghost = q.createNPC(EntityType.PLAYER, "Geist");

@@ -1,6 +1,5 @@
 package de.biomia.quests.band1;
 
-import de.biomia.quests.main.QuestMain;
 import de.biomiaAPI.Biomia;
 import de.biomiaAPI.QuestEvents.GiveItemEvent;
 import de.biomiaAPI.QuestEvents.TakeItemEvent;
@@ -38,15 +37,19 @@ import java.util.concurrent.TimeUnit;
 
 public class ReiteDasSchwein implements Listener {
 
+    private static final ArrayList<UUID> currentPigs = new ArrayList<>();
 	// DL
-	static DialogMessage nichtGeschafft, startDialog, nachQuest, geschafft, schummler;
+    private static DialogMessage nichtGeschafft;
+    private static DialogMessage startDialog;
+    private static DialogMessage nachQuest;
+    private static DialogMessage geschafft;
 
 	private static final Quest q = Biomia.QuestManager().registerNewQuest("ReiteDasSchwein", 1);
 	private static final HashMap<QuestPlayer, Boolean> onEndLoc = new HashMap<>();
 	private static final HashMap<QuestPlayer, BukkitTask> thread = new HashMap<>();
-	private static NPC brian, falto, brianpig, faltopig;
-
-	private static final ArrayList<UUID> currentPigs = new ArrayList<>();
+    private static DialogMessage schummler;
+    private static NPC brian;
+    private static NPC falto;
 
 	private final Location endLoc = new Location(Bukkit.getWorld("Quests"), 303, 64, -157);
 	Location startLoc = new Location(Bukkit.getWorld("Quests"), 146, 64, -147);
@@ -75,8 +78,8 @@ public class ReiteDasSchwein implements Listener {
 		}
 
 		// create two pigs and equip them with saddles
-		faltopig = q.createNPC(EntityType.PIG, "Fabo");
-		brianpig = q.createNPC(EntityType.PIG, "Bribo");
+        NPC faltopig = q.createNPC(EntityType.PIG, "Fabo");
+        NPC brianpig = q.createNPC(EntityType.PIG, "Bribo");
 		brianpig.spawn(loc_brian.add(1, 0, 0));
 		faltopig.spawn(loc_falto.add(1, 0, 0));
 		((Pig) brianpig.getEntity()).setSaddle(true);
@@ -98,7 +101,7 @@ public class ReiteDasSchwein implements Listener {
 		attributes.setValue(speed);
 	}
 
-	public static void timer(QuestPlayer qp, Entity pig) {
+    private static void timer(QuestPlayer qp, Entity pig) {
 
 		currentPigs.add(pig.getUniqueId());
 		onEndLoc.put(qp, false);

@@ -1,5 +1,7 @@
 package de.biomiaAPI.tools;
 
+import org.bukkit.entity.Player;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -8,12 +10,10 @@ import java.nio.charset.Charset;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.bukkit.entity.Player;
-
 /**
  * Helper-class for getting UUIDs of players
  */
-public class UUIDFetcher {
+class UUIDFetcher {
 
 	/**
 	 * @param player
@@ -30,7 +30,7 @@ public class UUIDFetcher {
 	 *            The name of the player
 	 * @return The UUID of the given player
 	 */
-	public static UUID getUUID(String playername) {
+    private static UUID getUUID(String playername) {
 		String output = callURL("https://api.mojang.com/users/profiles/minecraft/" + playername);
 
 		StringBuilder result = new StringBuilder();

@@ -5,7 +5,6 @@ import de.biomiaAPI.coins.Coins;
 import de.biomiaAPI.main.Main;
 import de.biomiaAPI.mysql.MySQL;
 import de.biomiaAPI.pex.Rank;
-import de.biomiaAPI.tools.UUIDFetcher;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayer;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayerManager;
 import de.simonsator.partyandfriends.spigot.api.party.PartyManager;

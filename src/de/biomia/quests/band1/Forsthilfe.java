@@ -20,7 +20,10 @@ public class Forsthilfe implements Listener {
 	private final Material itemZuBesorgen = Material.SAPLING;
 	private final String questName = "Forsthilfe";
 
-	DialogMessage startDialog, comeBackWithItem, comeBackWithoutItem, nachQuest;
+    private DialogMessage startDialog;
+    private DialogMessage comeBackWithItem;
+    private DialogMessage comeBackWithoutItem;
+    private DialogMessage nachQuest;
 
 	private final Quest q = Biomia.QuestManager().registerNewQuest(questName, 1);
 	private final NPC npc;

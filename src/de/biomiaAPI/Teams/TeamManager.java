@@ -1,8 +1,8 @@
 package de.biomiaAPI.Teams;
 
-import java.util.ArrayList;
-
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
 
 @SuppressWarnings("SameReturnValue")
 public interface TeamManager {
@@ -23,7 +23,7 @@ public interface TeamManager {
 
 	Team DataToTeam(short data);
 
-	boolean isPlayerDead(Player player);
+    boolean livesPlayer(Player player);
 
 	String translate(String farbe);
 

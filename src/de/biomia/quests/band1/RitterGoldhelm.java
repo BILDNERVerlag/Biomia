@@ -35,7 +35,11 @@ public class RitterGoldhelm implements Listener {
 	HashMap<UUID, Quest> hm = new HashMap<>();
 	private final NPC goldhelm;
 
-	DialogMessage startDialogArmor, startDialogNoArmor, comeBackWithBones, comeBackWithOutBones, nachQuest;
+    private DialogMessage startDialogArmor;
+    private DialogMessage startDialogNoArmor;
+    private DialogMessage comeBackWithBones;
+    private DialogMessage comeBackWithOutBones;
+    private DialogMessage nachQuest;
 
 	public RitterGoldhelm() {
 		q.setInfoText(

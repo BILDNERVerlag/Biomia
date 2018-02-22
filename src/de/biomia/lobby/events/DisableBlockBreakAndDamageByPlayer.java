@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class DisableBlockBreakAndDamageByPlayer implements Listener {
 
-	Location stonebutton = new Location(Bukkit.getWorld("LobbyBiomia"), 465, 97, 359);
+    private final Location stonebutton = new Location(Bukkit.getWorld("LobbyBiomia"), 465, 97, 359);
 
 	@EventHandler
 	public void cancelInteract(PlayerInteractEvent event) {

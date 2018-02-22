@@ -28,7 +28,10 @@ public class Wiederaufbau implements Listener {
 	private final Quest q = Biomia.QuestManager().registerNewQuest(questName, 1);
 	private final NPC npc;
 
-	DialogMessage startDialog, comeBackWithItem, comeBackWithoutItem, nachQuest;
+    private DialogMessage startDialog;
+    private DialogMessage comeBackWithItem;
+    private DialogMessage comeBackWithoutItem;
+    private DialogMessage nachQuest;
 
 	public Wiederaufbau() {
 		q.setInfoText(

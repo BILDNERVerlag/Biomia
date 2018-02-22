@@ -30,7 +30,10 @@ public class FinteMitTinte implements Listener {
 	HashMap<UUID, Quest> hm = new HashMap<>();
 	private final NPC npc;
 
-	DialogMessage startDialog, comeWithItem, comeWithoutItem, nachQuest;
+    private DialogMessage startDialog;
+    private DialogMessage comeWithItem;
+    private DialogMessage comeWithoutItem;
+    private DialogMessage nachQuest;
 
 	public FinteMitTinte() {
 		q.setInfoText(

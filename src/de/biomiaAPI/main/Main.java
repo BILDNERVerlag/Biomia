@@ -3,13 +3,20 @@ package de.biomiaAPI.main;
 import at.TimoCraft.TimoCloud.api.TimoCloudAPI;
 import at.TimoCraft.TimoCloud.api.TimoCloudBukkitAPI;
 import at.TimoCraft.TimoCloud.api.TimoCloudUniversalAPI;
-import de.biomia.lobby.commands.LobbyComands;
-import de.biomia.lobby.commands.SendToRandomServer;
-import de.biomia.lobby.commands.WC;
+import de.biomia.bw.main.BedWarsMain;
 import de.biomia.lobby.main.LobbyMain;
-import de.biomia.quests.cmds.QuestCommands;
+import de.biomia.plugin.commands.*;
+import de.biomia.plugin.listener.BiomiaListener;
+import de.biomia.plugin.listener.ChannelListener;
+import de.biomia.plugin.listener.CosmeticListener;
+import de.biomia.plugin.reportsystem.ReportSQL;
+import de.biomia.plugin.reportsystem.listener.ChatEvent;
+import de.biomia.plugin.reportsystem.listener.ClickEvent;
+import de.biomia.plugin.specialEvents.easterEvent.EasterEvent;
 import de.biomia.quests.main.QuestMain;
-import de.biomiaAPI.Quests.DialogMessage;
+import de.biomia.sw.main.SkyWarsMain;
+import de.biomia.versus.vs.main.VSMain;
+import de.biomiaAPI.Biomia;
 import de.biomiaAPI.achievements.BiomiaAchievement;
 import de.biomiaAPI.achievements.StatListener;
 import de.biomiaAPI.connect.Connect;
@@ -19,9 +26,12 @@ import de.biomiaAPI.cosmetics.CosmeticGroup;
 import de.biomiaAPI.cosmetics.GadgetItems.GadgetIniter;
 import de.biomiaAPI.cosmetics.ParticleItems.ParticleIniter;
 import de.biomiaAPI.itemcreator.ItemCreator;
-import de.biomiaAPI.lastPosition.LastPositionListener;
+import de.biomiaAPI.mysql.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -31,16 +41,23 @@ import java.util.HashMap;
 public class Main extends JavaPlugin {
 
     //TODO Klassenname ändern
+    public static Inventory menu;
+    public static Inventory grund;
 
     public static Main plugin;
+
     public static final ArrayList<String> group = new ArrayList<>();
     public static final HashMap<String, String> prefixes = new HashMap<>();
     public static final ArrayList<String> allPlayersOnAllServer = new ArrayList<>();
-    public static int QuestIds = 0;
-    public static final HashMap<Integer, DialogMessage> questMessages = new HashMap<>();
+
     private static TimoCloudBukkitAPI bukkitTimoapi;
-    private static String groupName;
     private static TimoCloudUniversalAPI universalTimoapi;
+    private static String groupName;
+    private static EasterEvent event;
+
+    public static EasterEvent getEvent() {
+        return event;
+    }
 
     public static Main getPlugin() {
         return plugin;
@@ -49,6 +66,10 @@ public class Main extends JavaPlugin {
     @Override
     public void onLoad() {
         plugin = this;
+    }
+
+    public static String getGroupName() {
+        return groupName != null ? groupName : (groupName = getBukkitTimoapi().getThisServer().getGroupName());
     }
 
     @Override
@@ -62,6 +83,22 @@ public class Main extends JavaPlugin {
         Bukkit.getMessenger().registerIncomingPluginChannel(this, "RedisBungee", new Connect());
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BiomiaChannel");
         Bukkit.getMessenger().registerIncomingPluginChannel(this, "BiomiaChannel", new Connect());
+        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BiomiaChannel");
+        Bukkit.getMessenger().registerIncomingPluginChannel(this, "BiomiaChannel", new ChannelListener());
+
+        plugin = this;
+
+
+        registerListeners();
+        registerCommands();
+        initInventories();
+
+        ReportSQL.getAllReports();
+        event = new EasterEvent();
+
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            de.biomiaAPI.cosmetics.Cosmetic.load(Biomia.getBiomiaPlayer(p));
+        }
 
         new BukkitRunnable() {
             @Override
@@ -73,40 +110,47 @@ public class Main extends JavaPlugin {
         GadgetIniter.init();
         ParticleIniter.init();
         BiomiaAchievement.init();
-
         Bukkit.getPluginManager().registerEvents(new StatListener(), this);
 
-        groupName = Bukkit.getServer().getName().split("-")[0];
-
-        switch (groupName) {
-            case "Lobby":
-                Bukkit.getPluginManager().registerEvents(new LastPositionListener(), this);
-                LobbyMain.initLobby();
-                break;
-            case "QuestServer":
-                Bukkit.getPluginManager().registerEvents(new LastPositionListener(), this);
-                new QuestMain().initQuests();
-                break;
-            default:
-                break;
-        }
-
-        init();
-    }
-
-    @Override
-    public void onDisable() {
-        plugin.saveConfig();
-    }
-
-    private void init() {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                switch (getGroupName()) {
+                    case "TestServer":
+                    case "Lobby":
+                        LobbyMain.initLobby();
+                        break;
+                    case "QuestServer":
+                        QuestMain.initQuests();
+                        break;
+                    case "BedWars":
+                        BedWarsMain.initBedWars();
+                        break;
+                    case "SkyWars":
+                        SkyWarsMain.initSkyWars();
+                        break;
+                    case "DuellLobby":
+                        VSMain.initVersus();
+                        break;
+                    case "Weltenlabor#1":
+                        //TODO
+                        break;
+                    case "FreebuildServer":
+                        //TODO
+                        break;
+                    case "FarmServer":
+                        //TODO
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }.runTaskLater(this, 20 * 8);
 
         Cosmetic.initGroup(new CosmeticGroup(Group.HEADS, ItemCreator.itemCreate(Material.SKULL_ITEM, "\u00A7cHeads")));
         Cosmetic.initGroup(new CosmeticGroup(Group.PETS, ItemCreator.itemCreate(Material.MONSTER_EGG, "\u00A7bPets")));
-        Cosmetic.initGroup(
-                new CosmeticGroup(Group.GADGETS, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM, "\u00A7dGadgets")));
-        Cosmetic.initGroup(
-                new CosmeticGroup(Group.PARTICLES, ItemCreator.itemCreate(Material.BLAZE_POWDER, "\u00A73Particles")));
+        Cosmetic.initGroup(new CosmeticGroup(Group.GADGETS, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM, "\u00A7dGadgets")));
+        Cosmetic.initGroup(new CosmeticGroup(Group.PARTICLES, ItemCreator.itemCreate(Material.BLAZE_POWDER, "\u00A73Particles")));
         Cosmetic.initGroup(new CosmeticGroup(Group.SUITS, ItemCreator.itemCreate(Material.GOLD_CHESTPLATE, "\u00A75Suits")));
 
         group.add("Owner");
@@ -153,31 +197,6 @@ public class Main extends JavaPlugin {
         prefixes.put("RegSpieler", "\u00A77");
         prefixes.put("UnregSpieler", "\u00A78");
 
-        //Quests
-        getCommand("q").setExecutor(new QuestCommands());
-        getCommand("qr").setExecutor(new QuestCommands());
-        getCommand("qlist").setExecutor(new QuestCommands());
-        getCommand("tagebuch").setExecutor(new QuestCommands());
-        getCommand("qinfo").setExecutor(new QuestCommands());
-        getCommand("qalign").setExecutor(new QuestCommands());
-        getCommand("qrestore").setExecutor(new QuestCommands());
-        getCommand("aion").setExecutor(new QuestCommands());
-        getCommand("aioff").setExecutor(new QuestCommands());
-        getCommand("aitoggle").setExecutor(new QuestCommands());
-        getCommand("qhelp").setExecutor(new QuestCommands());
-        getCommand("qfilldiary").setExecutor(new QuestCommands());
-        getCommand("qstats").setExecutor(new QuestCommands());
-        getCommand("respawn").setExecutor(new QuestCommands());
-        getCommand("qupdatebook").setExecutor(new QuestCommands());
-        getCommand("qlog").setExecutor(new QuestCommands());
-        getCommand("qtest").setExecutor(new QuestCommands());
-        getCommand("qreset").setExecutor(new QuestCommands());
-
-        //Lobby
-        getCommand("lobbysettings").setExecutor(new LobbyComands());
-        getCommand("randomServerGroup").setExecutor(new SendToRandomServer());
-        getCommand("world").setExecutor(new WC());
-
     }
 
     public static TimoCloudUniversalAPI getUniversalTimoapi() {
@@ -196,8 +215,62 @@ public class Main extends JavaPlugin {
         Main.bukkitTimoapi = bukkitTimoapi;
     }
 
-    public static String getGroupName() {
-        return groupName;
+    @Override
+    public void onDisable() {
+        this.saveConfig();
+        MySQL.closeConnections();
     }
 
+    private void initInventories() {
+
+        menu = Bukkit.createInventory(null, 9, "§eREPORT MENÜ");
+        ItemStack bug = ItemCreator.itemCreate(Material.BARRIER, "§cBug");
+        ItemStack spieler = ItemCreator.headWithSkin("DerJulsn", "§cSpieler");
+        menu.setItem(3, bug);
+        menu.setItem(5, spieler);
+
+        grund = Bukkit.createInventory(null, 18, "§eGRUND");
+        grund.setItem(2, ItemCreator.itemCreate(Material.ELYTRA, "§cFlyHack"));
+        grund.setItem(3, ItemCreator.itemCreate(Material.DIAMOND, "§cNoSlowdown"));
+        grund.setItem(4, ItemCreator.itemCreate(Material.IRON_SWORD, "§cKillaura"));
+        grund.setItem(5, ItemCreator.itemCreate(Material.LEATHER_BOOTS, "§cSpeedHack"));
+        grund.setItem(6, ItemCreator.itemCreate(Material.PAPER, "§cSonstiger Hack"));
+        grund.setItem(11, ItemCreator.itemCreate(Material.TNT, "§cGriefing"));
+        grund.setItem(12, ItemCreator.itemCreate(Material.BARRIER, "§cSpamming"));
+        grund.setItem(13, ItemCreator.itemCreate(Material.RAW_FISH, "§cTrolling"));
+        grund.setItem(14, ItemCreator.itemCreate(Material.BONE, "§cBeleidigung"));
+        grund.setItem(15, ItemCreator.itemCreate(Material.BOOK, "§cAnderer Grund"));
+    }
+
+    private void registerListeners() {
+        Bukkit.getPluginManager().registerEvents(new BiomiaListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ChatEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new ClickEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new CosmeticListener(), this);
+    }
+
+    private void registerCommands() {
+        getCommand("permission").setExecutor(new PermissionCommand());
+        getCommand("rank").setExecutor(new RankCommand());
+        getCommand("build").setExecutor(new Build());
+        getCommand("coins").setExecutor(new Coins());
+        getCommand("hologram").setExecutor(new HologramCommand());
+        getCommand("troll").setExecutor(new Troll());
+        getCommand("crash").setExecutor(new Troll());
+        getCommand("gm").setExecutor(new Gamemode());
+        getCommand("report").setExecutor(new ReportCommand());
+        getCommand("seereports").setExecutor(new ReportCommand());
+        getCommand("fly").setExecutor(new FlyCommand());
+        getCommand("speed").setExecutor(new SpeedCommand());
+        getCommand("heal").setExecutor(new HealCommand());
+        getCommand("eat").setExecutor(new EatCommand());
+        getCommand("memory").setExecutor(new Memory());
+        getCommand("cosmetic").setExecutor(new de.biomia.plugin.commands.Cosmetic());
+        getCommand("head").setExecutor(new Head());
+        getCommand("stat").setExecutor(new StatCommand());
+        getCommand("ct").setExecutor(new CreateTableCommand());
+        getCommand("report").setExecutor(new ReportCommand());
+        getCommand("givereward").setExecutor(new EventCommands());
+        getCommand("addeggs").setExecutor(new EventCommands());
+    }
 }

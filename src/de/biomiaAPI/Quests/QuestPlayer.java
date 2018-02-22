@@ -1,5 +1,14 @@
 package de.biomiaAPI.Quests;
 
+import de.biomiaAPI.Biomia;
+import de.biomiaAPI.BiomiaPlayer;
+import de.biomiaAPI.itemcreator.ItemCreator;
+import de.biomiaAPI.mysql.MySQL;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,16 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
-
-import de.biomiaAPI.BiomiaPlayer;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-
-import de.biomiaAPI.Biomia;
-import de.biomiaAPI.itemcreator.ItemCreator;
-import de.biomiaAPI.mysql.MySQL;
 
 public class QuestPlayer {
 
@@ -226,7 +225,7 @@ public class QuestPlayer {
         updateBook();
     }
 
-    public int getFinishTime(Quest quest) {
+    private int getFinishTime(Quest quest) {
         if (hasFinished(quest)) {
             return MySQL.executeQuerygetint("Select * from `Quests_erledigt` where `questID` = " + quest.getQuestID()
                     + " AND biomiaID = " + biomiaPlayer.getBiomiaPlayerID(), "end_time", MySQL.Databases.quests_db);

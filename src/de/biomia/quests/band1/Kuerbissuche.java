@@ -26,7 +26,10 @@ public class Kuerbissuche implements Listener {
 	private final Quest q = Biomia.QuestManager().registerNewQuest("K\u00fcrbissuche", 1);
 	HashMap<UUID, Quest> hm = new HashMap<>();
 	private final NPC korbinian;
-	DialogMessage startDialog, comeBackWPumpkin, comeBackWOPumpkin, nachQuest;
+    private DialogMessage startDialog;
+    private DialogMessage comeBackWPumpkin;
+    private DialogMessage comeBackWOPumpkin;
+    private DialogMessage nachQuest;
 
 	public Kuerbissuche() {
 		q.setInfoText(

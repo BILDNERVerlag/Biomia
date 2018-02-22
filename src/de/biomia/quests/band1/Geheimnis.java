@@ -29,7 +29,10 @@ public class Geheimnis implements Listener {
 	HashMap<UUID, Quest> hm = new HashMap<>();
 	private final NPC nana;
 
-	DialogMessage startDialog, comeBackWStroh, comeBackWOStroh, nachQuest;
+    private DialogMessage startDialog;
+    private DialogMessage comeBackWStroh;
+    private DialogMessage comeBackWOStroh;
+    private DialogMessage nachQuest;
 
 	public Geheimnis() {
 		q.setInfoText(

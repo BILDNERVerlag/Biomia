@@ -29,17 +29,17 @@ public class BlumenFuerDieGeliebte implements Listener {
 	private final NPC roman;
 	private final NPC julchen;
 
-	DialogMessage startDialogRoman;
-	DialogMessage startDialogJulchen;
-	DialogMessage nachQuestJulchen;
-	DialogMessage comeBackWRose;
-	DialogMessage comeBackWORose;
-	DialogMessage mehrAufmerksamkeit;
-	DialogMessage julchenRose;
-	DialogMessage schonGebracht;
-	DialogMessage nachJulchenKeineRose;
-	DialogMessage nachJulchenMitRose;
-	DialogMessage platzhalter;
+    private DialogMessage startDialogRoman;
+    private DialogMessage startDialogJulchen;
+    private DialogMessage nachQuestJulchen;
+    private DialogMessage comeBackWRose;
+    private DialogMessage comeBackWORose;
+    private DialogMessage mehrAufmerksamkeit;
+    private DialogMessage julchenRose;
+    private DialogMessage schonGebracht;
+    private DialogMessage nachJulchenKeineRose;
+    private DialogMessage nachJulchenMitRose;
+    private DialogMessage platzhalter;
 
 	public BlumenFuerDieGeliebte() {
 		q.setInfoText(

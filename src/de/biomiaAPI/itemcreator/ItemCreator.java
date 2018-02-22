@@ -1,7 +1,5 @@
 package de.biomiaAPI.itemcreator;
 
-import de.biomiaAPI.tools.UUIDFetcher;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.inventory.ItemStack;
@@ -21,8 +19,8 @@ public class ItemCreator {
 
     }
 
-    private static ItemStack itemCreate(Material material, short data) {
-        return new ItemStack(material, 1, data);
+    private static ItemStack itemCreate(short data) {
+        return new ItemStack(Material.SKULL_ITEM, 1, data);
     }
 
     public static ItemStack itemCreate(Material material, String name) {
@@ -58,7 +56,7 @@ public class ItemCreator {
     }
 
     public static ItemStack headWithSkin(String name) {
-        ItemStack s = itemCreate(Material.SKULL_ITEM, (short) SkullType.PLAYER.ordinal());
+        ItemStack s = itemCreate((short) SkullType.PLAYER.ordinal());
         SkullMeta meta = (SkullMeta) s.getItemMeta();
         meta.setOwner(name);
         s.setItemMeta(meta);

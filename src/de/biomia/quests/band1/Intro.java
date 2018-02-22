@@ -27,7 +27,7 @@ public class Intro implements Listener {
 	HashMap<UUID, Quest> hm = new HashMap<>();
 	private final NPC aaron;
 	private DialogMessage startDialog;
-	Quest q;
+    private final Quest q;
 
 	public Intro() {
 		q = Biomia.QuestManager().registerNewQuest("Intro", 1);

@@ -31,11 +31,20 @@ public class StillePost implements Listener {
 	private final NPC mario;
 	private final String compassName = "\u00A7bLorena's Kompass";
 
-	DialogMessage startDialogLorena, startDialogFranky, startDialogElisabeth, startDialogMario;
-	DialogMessage nachQuestLorena, nachQuestFranky, nachQuestElisabeth, nachQuestMario;
+    private DialogMessage startDialogLorena;
+    private DialogMessage startDialogFranky;
+    private DialogMessage startDialogElisabeth;
+    private DialogMessage startDialogMario;
+    private DialogMessage nachQuestLorena;
+    private DialogMessage nachQuestFranky;
+    private DialogMessage nachQuestElisabeth;
+    private DialogMessage nachQuestMario;
 	DialogMessage comeToFrankyWCompass, comeToElisabethWCompass, comeToMarioWCompass;
-	DialogMessage inQuestFranky, inQuestElisabeth, inQuestMario;
-	DialogMessage comeBackWCompass, comeBackWOCompass;
+    private DialogMessage inQuestFranky;
+    private DialogMessage inQuestElisabeth;
+    private DialogMessage inQuestMario;
+    private DialogMessage comeBackWCompass;
+    private DialogMessage comeBackWOCompass;
 
 	/*
 	 * script

@@ -55,17 +55,17 @@ public class Inventory implements Listener {
 		}
 	}
 
-	private static void addBow(Player pl, int i) {
-		pl.getInventory().setItem(i, bow);
+    private static void addBow(Player pl) {
+        pl.getInventory().setItem(5, bow);
 		addArrow(pl);
 	}
 
-	private static void addCompass(Player pl, int i) {
-		pl.getInventory().setItem(i, compass);
-	}
+    private static void addCompass(Player pl) {
+        pl.getInventory().setItem(1, compass);
+    }
 
-	private static void addServerSwitcher(Player pl, int i) {
-		pl.getInventory().setItem(i, serverSwitcher);
+    private static void addServerSwitcher(Player pl) {
+        pl.getInventory().setItem(8, serverSwitcher);
 	}
 
 	private static void addArrow(Player pl) {
@@ -76,12 +76,12 @@ public class Inventory implements Listener {
 		pl.getInventory().setItem(38, elytra);
 	}
 
-	private static void addSilentItem(Player pl, int i) {
-		pl.getInventory().setItem(i, silentItem);
-	}
+    private static void addSilentItem(Player pl) {
+        pl.getInventory().setItem(6, silentItem);
+    }
 
-	private static void addCosmeticItem(Player pl, int i) {
-		pl.getInventory().setItem(i, cosmeticItem);
+    private static void addCosmeticItem(Player pl) {
+        pl.getInventory().setItem(3, cosmeticItem);
 	}
 
 	private static void addEmptySlot(Player pl, int i) {
@@ -93,24 +93,24 @@ public class Inventory implements Listener {
 		BiomiaPlayer biomiaPlayer = Biomia.getBiomiaPlayer(pl);
 
 		addEmptySlot(pl, 0);
-		addCompass(pl, 1);
+        addCompass(pl);
 		// Freunde
-		addCosmeticItem(pl, 3);
+        addCosmeticItem(pl);
 		addEmptySlot(pl, 4);
 		addEmptySlot(pl, 5);
 		addEmptySlot(pl, 6);
 		// 7 Verstecke Spieler
-		addServerSwitcher(pl, 8);
+        addServerSwitcher(pl);
 
 		if (Rank.getRank(pl).equals("Owner")) {
-			addBow(pl, 5);
-			addSilentItem(pl, 6);
+            addBow(pl);
+            addSilentItem(pl);
 			addElytra(pl);
 		} else if (biomiaPlayer.isStaff() || biomiaPlayer.isYouTuber()) {
-			addBow(pl, 5);
-			addSilentItem(pl, 6);
+            addBow(pl);
+            addSilentItem(pl);
 		} else if (biomiaPlayer.isPremium()) {
-			addBow(pl, 5);
+            addBow(pl);
 		}
 	}
 }

@@ -30,7 +30,10 @@ public class HolzfaellerInDerHolzfalle implements Listener {
 	HashMap<UUID, Quest> hm = new HashMap<>();
 	private final NPC npc;
 
-	DialogMessage startDialog, comeBackWithItem, comeBackWithoutItem, nachQuest;
+    private DialogMessage startDialog;
+    private DialogMessage comeBackWithItem;
+    private DialogMessage comeBackWithoutItem;
+    private DialogMessage nachQuest;
 
 	public HolzfaellerInDerHolzfalle() {
 		q.setInfoText(

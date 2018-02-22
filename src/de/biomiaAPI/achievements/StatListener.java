@@ -10,7 +10,6 @@ import de.biomiaAPI.achievements.statEvents.skywars.*;
 import de.biomiaAPI.cosmetics.CosmeticItem;
 import de.biomiaAPI.main.Main;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.libs.it.unimi.dsi.fastutil.Hash;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -26,7 +25,6 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.util.HashMap;
 
@@ -219,9 +217,7 @@ public class StatListener implements Listener {
 
     @EventHandler
     public void onBedWarsEnd(BedWarsEndEvent e) {
-        e.getBiomiaPlayerIDWinner().forEach(each -> {
-            Stats.incrementStat(Stats.BiomiaStat.BW_Wins, each.getBiomiaPlayerID(), e.getTeamcolor());
-        });
+        e.getBiomiaPlayerIDWinner().forEach(each -> Stats.incrementStat(Stats.BiomiaStat.BW_Wins, each.getBiomiaPlayerID(), e.getTeamcolor()));
     }
 
     @EventHandler
@@ -255,9 +251,7 @@ public class StatListener implements Listener {
 
     @EventHandler
     public void onSkyWarsEnd(SkyWarsEndEvent e) {
-        e.getBiomiaPlayerWinner().forEach(each -> {
-            Stats.incrementStat(Stats.BiomiaStat.SW_Wins, each.getBiomiaPlayerID(), e.getTeamcolor());
-        });
+        e.getBiomiaPlayerWinner().forEach(each -> Stats.incrementStat(Stats.BiomiaStat.SW_Wins, each.getBiomiaPlayerID(), e.getTeamcolor()));
     }
 
     @EventHandler

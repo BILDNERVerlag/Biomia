@@ -27,7 +27,11 @@ public class AufDerSucheNachGlueck implements Listener {
 	HashMap<UUID, Quest> hm = new HashMap<>();
 	private final NPC npc;
 
-	DialogMessage startDialog, vorQuest, withoutRabbitFoot, withRabbitFoot, nachQuest;
+    private DialogMessage startDialog;
+    private DialogMessage vorQuest;
+    private DialogMessage withoutRabbitFoot;
+    private DialogMessage withRabbitFoot;
+    private DialogMessage nachQuest;
 
 	public AufDerSucheNachGlueck() {
 		q.setInfoText(

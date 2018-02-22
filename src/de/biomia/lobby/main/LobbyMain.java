@@ -1,28 +1,31 @@
 package de.biomia.lobby.main;
 
 import at.TimoCraft.TimoCloud.api.objects.ServerObject;
+import de.biomia.lobby.commands.LobbyComands;
+import de.biomia.lobby.commands.SendToRandomServer;
+import de.biomia.lobby.commands.WC;
 import de.biomia.lobby.events.*;
 import de.biomia.lobby.scoreboard.ChatColors;
 import de.biomia.lobby.scoreboard.ScoreboardClass;
 import de.biomiaAPI.itemcreator.ItemCreator;
+import de.biomiaAPI.lastPosition.LastPositionListener;
 import de.biomiaAPI.main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import static de.biomiaAPI.main.Main.getPlugin;
+
 public class LobbyMain {
 
-    private static ArrayList<Player> silentLobby = new ArrayList<>();
-    private static ArrayList<Player> inAir = new ArrayList<>();
-
+    private static final ArrayList<Player> silentLobby = new ArrayList<>();
+    private static final ArrayList<Player> inAir = new ArrayList<>();
     private static Inventory navigator;
     private static Inventory lobbySwitcher;
 
@@ -45,36 +48,29 @@ public class LobbyMain {
     public static void initLobby() {
         Bukkit.getServer().createWorld(new WorldCreator("BedwarsSignlobby"));
         Bukkit.getServer().createWorld(new WorldCreator("SkywarsSignlobby"));
-        init();
-        setEvents();
         for (Player p : Bukkit.getOnlinePlayers()) {
             ScoreboardClass.sendScoreboard(p);
             p.setAllowFlight(true);
         }
-    }
+        getPlugin().getCommand("lobbysettings").setExecutor(new LobbyComands());
+        getPlugin().getCommand("randomServerGroup").setExecutor(new SendToRandomServer());
+        getPlugin().getCommand("world").setExecutor(new WC());
 
-    private static void setEvents() {
-
-        PluginManager pm = Bukkit.getPluginManager();
-        Main p = Main.getPlugin();
-
-        pm.registerEvents(new Click(), p);
-        pm.registerEvents(new Drop(), p);
-        pm.registerEvents(new Interact(), p);
-        pm.registerEvents(new Respawn(), p);
-        pm.registerEvents(new HungerFull(), p);
-        pm.registerEvents(new Join(), p);
-        pm.registerEvents(new NoDamage(), p);
-        pm.registerEvents(new ChatColors(), p);
-        pm.registerEvents(new ChatEvent(), p);
-        pm.registerEvents(new PlayerSwapHandItems(), p);
-        pm.registerEvents(new DisableBlockBreakAndDamageByPlayer(), p);
-        pm.registerEvents(new DoubleJump(), p);
-        pm.registerEvents(new de.biomia.lobby.events.Inventory(), p);
-        pm.registerEvents(new Move(), p);
-    }
-
-    private static void init() {
+        Bukkit.getPluginManager().registerEvents(new Click(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new Drop(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new Interact(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new Respawn(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new HungerFull(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new Join(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new NoDamage(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new ChatColors(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new ChatEvent(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new PlayerSwapHandItems(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new DisableBlockBreakAndDamageByPlayer(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new DoubleJump(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new de.biomia.lobby.events.Inventory(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new Move(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new LastPositionListener(), getPlugin());
 
         navigator = Bukkit.createInventory(null, 27, "§cNavigator");
         // First Line
@@ -95,18 +91,13 @@ public class LobbyMain {
             @Override
             public void run() {
 
+                ServerObject serverObject = Main.getBukkitTimoapi().getThisServer();
+
                 ArrayList<ServerObject> lobbyServer = new ArrayList<>(
-                        de.biomiaAPI.main.Main.getUniversalTimoapi().getGroup("Lobby").getServers());
+                        serverObject.getGroup().getServers());
                 lobbyServer.sort(Comparator.comparing(ServerObject::getName));
 
                 int i = 0;
-
-                ServerObject serverObject = de.biomiaAPI.main.Main.getBukkitTimoapi().getThisServer();
-
-                if (serverObject == null) {
-                    Bukkit.broadcastMessage("object == null");
-                    return;
-                }
 
                 for (ServerObject so : lobbyServer) {
                     int amount = so.getCurrentPlayers();
@@ -121,6 +112,6 @@ public class LobbyMain {
                     i++;
                 }
             }
-        }.runTaskTimer(de.biomiaAPI.main.Main.getPlugin(), 100, 200);
+        }.runTaskTimer(getPlugin(), 100, 200);
     }
 }

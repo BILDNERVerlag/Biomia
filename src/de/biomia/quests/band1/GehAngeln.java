@@ -26,7 +26,10 @@ public class GehAngeln implements Listener {
 	private final Quest q = Biomia.QuestManager().registerNewQuest("GehAngeln", 1);
 	HashMap<UUID, Quest> hm = new HashMap<>();
 	private final NPC pari;
-	DialogMessage startDialog, whileQuesting, afterQuesting, nachQuest;
+    private DialogMessage startDialog;
+    private DialogMessage whileQuesting;
+    private DialogMessage afterQuesting;
+    private DialogMessage nachQuest;
 
 	public GehAngeln() {
 		q.setInfoText(

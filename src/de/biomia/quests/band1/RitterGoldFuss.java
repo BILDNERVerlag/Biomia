@@ -35,7 +35,11 @@ public class RitterGoldFuss implements Listener {
 	HashMap<UUID, Quest> hm = new HashMap<>();
 	private final NPC goldfuss;
 
-	DialogMessage startDialogArmor, startDialogNoArmor, comeBackWRottenFlesh, comeBackWORottenFlesh, nachQuest;
+    private DialogMessage startDialogArmor;
+    private DialogMessage startDialogNoArmor;
+    private DialogMessage comeBackWRottenFlesh;
+    private DialogMessage comeBackWORottenFlesh;
+    private DialogMessage nachQuest;
 
 	public RitterGoldFuss() {
 		q.setInfoText(

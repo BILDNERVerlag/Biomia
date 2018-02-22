@@ -32,7 +32,6 @@ public class Move implements Listener {
 				servers.addAll(Main.getUniversalTimoapi().getGroup("BauServer").getServers());
 				if (!servers.isEmpty() && servers != null) {
 					Connect.connect(p, "BauServer");
-					return;
 				}
 			}
 			// QuestServer Portale
@@ -42,7 +41,6 @@ public class Move implements Listener {
 				servers.addAll(Main.getUniversalTimoapi().getGroup("QuestServer").getServers());
 				if (!servers.isEmpty() && servers != null) {
 					Connect.connectToRandom(p, "QuestServer");
-					return;
 				}
 			} else if ((459 <= x) && (x <= 460) && (124 <= y) && (y <= 125)
 					&& (((377 <= z) && (z <= 378)) || ((341 <= z) && (z <= 342)))) {
@@ -65,7 +63,6 @@ public class Move implements Listener {
 						Connect.connect(p, "FreebuildServer");
 					else
 						p.sendMessage("§cHuch, da ist etwas schiefgelaufen! Probier es in ein paar Minuten erneut!");
-					return;
 				} else if (((294 <= z) && (z <= 295))) {
 					// Farmwelt
 					p.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 556.5, 96, 292.5, -90, 0));
@@ -77,7 +74,6 @@ public class Move implements Listener {
 					// else
 					p.sendMessage(
 							"§cDas Portal zur Farmwelt ist offenbar noch nicht richtig ausgerichtet! Probier es am besten in einigen Tagen erneut!");
-					return;
 				}
 			}
 			// unbenutzer Eventserver-Code

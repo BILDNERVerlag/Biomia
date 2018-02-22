@@ -1,20 +1,18 @@
 package de.biomiaAPI.cosmetics;
 
+import de.biomiaAPI.BiomiaPlayer;
+import de.biomiaAPI.cosmetics.Cosmetic.Group;
+import de.biomiaAPI.cosmetics.CosmeticItem.Commonness;
+import de.biomiaAPI.mysql.MySQL;
+import de.biomiaAPI.tools.Base64;
+import org.bukkit.entity.EntityType;
+import org.bukkit.inventory.ItemStack;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Objects;
-
-import de.biomiaAPI.tools.Base64;
-import org.bukkit.entity.EntityType;
-import org.bukkit.inventory.ItemStack;
-
-import de.biomiaAPI.BiomiaPlayer;
-import de.biomiaAPI.cosmetics.Cosmetic.Group;
-import de.biomiaAPI.cosmetics.CosmeticItem.Commonness;
-import de.biomiaAPI.mysql.MySQL;
 
 public class CosmeticGroup {
 
@@ -38,11 +36,11 @@ public class CosmeticGroup {
     }
 
     private void loadGroup() {
-        Connection con = MySQL.Connect(MySQL.Databases.cosmetics_db);
 
+        Connection con = MySQL.Connect(MySQL.Databases.cosmetics_db);
         try {
 
-            PreparedStatement ps = Objects.requireNonNull(con).prepareStatement("Select * from " + group.name());
+            PreparedStatement ps = con.prepareStatement("Select * from " + group.name());
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

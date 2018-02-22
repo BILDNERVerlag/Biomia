@@ -1,20 +1,24 @@
 package de.biomia.quests.main;
 
 import de.biomia.quests.band1.*;
+import de.biomia.quests.cmds.QuestCommands;
 import de.biomia.quests.listeners.QuestListener;
 import de.biomiaAPI.Quests.DialogMessage;
 import de.biomiaAPI.Quests.Quest;
 import de.biomiaAPI.Quests.QuestPlayer;
-import de.biomiaAPI.main.Main;
+import de.biomiaAPI.lastPosition.LastPositionListener;
 import de.biomiaAPI.msg.Scoreboards;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
+import static de.biomiaAPI.main.Main.getPlugin;
+
 public class QuestMain {
 
-    public void initQuests() {
+    public static void initQuests() {
 
         registerQuestEvents();
+        registerQuestCommands();
 
         Bukkit.getOnlinePlayers().forEach(Scoreboards::setTabList);
 
@@ -22,44 +26,65 @@ public class QuestMain {
 
     }
 
-    public void terminateQuests() {
+    public static void terminateQuests() {
         Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "npc remove all");
     }
 
-    private void registerQuestEvents() {
+    private static void registerQuestEvents() {
 
         PluginManager pm = Bukkit.getPluginManager();
-        Main pl = Main.getPlugin();
 
-        pm.registerEvents(new QuestListener(), pl);
+        Bukkit.getPluginManager().registerEvents(new LastPositionListener(), getPlugin());
 
-        pm.registerEvents(new Wasserholen(), pl);
-        pm.registerEvents(new ReiteDasSchwein(), pl);
-        pm.registerEvents(new GehAngeln(), pl);
-        pm.registerEvents(new AufDerSucheNachGlueck(), pl);
-        pm.registerEvents(new BergHuehner(), pl);
+        pm.registerEvents(new QuestListener(), getPlugin());
 
-        pm.registerEvents(new BlumenFuerDieGeliebte(), pl);
-        // pm.registerEvents(new RomanUndJulchen2(), pl);
+        pm.registerEvents(new Wasserholen(), getPlugin());
+        pm.registerEvents(new ReiteDasSchwein(), getPlugin());
+        pm.registerEvents(new GehAngeln(), getPlugin());
+        pm.registerEvents(new AufDerSucheNachGlueck(), getPlugin());
+        pm.registerEvents(new BergHuehner(), getPlugin());
 
-        pm.registerEvents(new StillePost(), pl);
-        pm.registerEvents(new WirFeiernEinFest(), pl);
-        pm.registerEvents(new FinteMitTinte(), pl);
-        pm.registerEvents(new Kuerbissuche(), pl);
-        pm.registerEvents(new Geheimnis(), pl);
-        pm.registerEvents(new RitterGoldFuss(), pl);
-        pm.registerEvents(new RitterGoldhelm(), pl);
-        pm.registerEvents(new HolzfaellerInDerHolzfalle(), pl);
-        pm.registerEvents(new Wiederaufbau(), pl);
-        pm.registerEvents(new Allgemeinwissen(), pl);
+        pm.registerEvents(new BlumenFuerDieGeliebte(), getPlugin());
+        // pm.registerEvents(new RomanUndJulchen2(), getPlugin());
 
-        pm.registerEvents(new Intro(), pl);
+        pm.registerEvents(new StillePost(), getPlugin());
+        pm.registerEvents(new WirFeiernEinFest(), getPlugin());
+        pm.registerEvents(new FinteMitTinte(), getPlugin());
+        pm.registerEvents(new Kuerbissuche(), getPlugin());
+        pm.registerEvents(new Geheimnis(), getPlugin());
+        pm.registerEvents(new RitterGoldFuss(), getPlugin());
+        pm.registerEvents(new RitterGoldhelm(), getPlugin());
+        pm.registerEvents(new HolzfaellerInDerHolzfalle(), getPlugin());
+        pm.registerEvents(new Wiederaufbau(), getPlugin());
+        pm.registerEvents(new Allgemeinwissen(), getPlugin());
+
+        pm.registerEvents(new Intro(), getPlugin());
 
         // unfertige
-        pm.registerEvents(new Forsthilfe(), pl);
+        pm.registerEvents(new Forsthilfe(), getPlugin());
     }
 
-    private void registerQuestCommands() {
+    private static void registerQuestCommands() {
+
+        QuestCommands questCommands = new QuestCommands();
+        getPlugin().getCommand("q").setExecutor(questCommands);
+        getPlugin().getCommand("qr").setExecutor(questCommands);
+        getPlugin().getCommand("qlist").setExecutor(questCommands);
+        getPlugin().getCommand("tagebuch").setExecutor(questCommands);
+        getPlugin().getCommand("qinfo").setExecutor(questCommands);
+        getPlugin().getCommand("qalign").setExecutor(questCommands);
+        getPlugin().getCommand("qrestore").setExecutor(questCommands);
+        getPlugin().getCommand("qhelp").setExecutor(questCommands);
+        getPlugin().getCommand("qfilldiary").setExecutor(questCommands);
+        getPlugin().getCommand("qstats").setExecutor(questCommands);
+        getPlugin().getCommand("respawn").setExecutor(questCommands);
+        getPlugin().getCommand("qupdatebook").setExecutor(questCommands);
+        getPlugin().getCommand("qlog").setExecutor(questCommands);
+        getPlugin().getCommand("qtest").setExecutor(questCommands);
+        getPlugin().getCommand("qreset").setExecutor(questCommands);
+        getPlugin().getCommand("aion").setExecutor(questCommands);
+        getPlugin().getCommand("aioff").setExecutor(questCommands);
+        getPlugin().getCommand("aitoggle").setExecutor(questCommands);
 
     }
 

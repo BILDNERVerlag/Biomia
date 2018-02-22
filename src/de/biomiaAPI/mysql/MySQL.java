@@ -1,17 +1,6 @@
 package de.biomiaAPI.mysql;
 
-import at.TimoCraft.TimoCloud.api.objects.GroupObject;
-import de.biomiaAPI.Biomia;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.entity.Player;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashMap;
 
 public class MySQL {
@@ -24,11 +13,20 @@ public class MySQL {
     All versions that do not use the new Databases enum are from now on deprecated.
      */
 
-    private static HashMap<Databases, Connection> connections = new HashMap<>();
+    private static final HashMap<Databases, Connection> connections = new HashMap<>();
 
+    public static void closeConnections() {
+        connections.values().forEach(each -> {
+            try {
+                each.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
     private static void handleSQLException(SQLException e) {
-        System.out.println("Verbindung nicht moglich");
+        System.out.println("Verbindung nicht möglich");
         System.out.println("SQLException: " + e.getMessage());
         System.out.println("SQLState: " + e.getSQLState());
         System.out.println("VendorError: " + e.getErrorCode());
@@ -37,7 +35,7 @@ public class MySQL {
 
 
     public static Connection Connect(Databases db) {
-        Connection connection = connections.computeIfAbsent(db, con -> {
+        return connections.computeIfAbsent(db, con -> {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 String dbPass = "O78s3SObra0QzDZh";
@@ -51,21 +49,21 @@ public class MySQL {
                 System.out.println("Treiber nicht gefunden");
             } catch (SQLException e) {
                 handleSQLException(e);
-            } finally { return null; }
-        });
-        try {
-            if (!connection.isClosed()) return connection;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
+            }
             return null;
-        }
+        });
+//        try {
+//            if (!connection.isClosed()) return connection;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return null;
     }
 
-    public static boolean execute(String cmd, Databases db) {
+    public static void execute(String cmd, Databases db) {
         Connection con = Connect(db);
 
-        return executeStatement(cmd, con);
+        executeStatement(cmd, con);
     }
 
     public static String executeQuery(String cmd, String gettingspalte, Databases db) {
@@ -98,10 +96,12 @@ public class MySQL {
         //TODO: implement in every method
         try {
             if (rs != null) rs.close();
-        } catch (Exception e) {/*do nothing*/ }
+        } catch (Exception ignored) {
+        }
         try {
             if (ps != null) ps.close();
-        } catch (Exception e) {/*do nothing*/ }
+        } catch (Exception ignored) {
+        }
     }
 
     public static boolean executeQuerygetbool(String cmd, String gettingspalte, Databases db) {
@@ -162,17 +162,15 @@ public class MySQL {
         return false;
     }
 
-    private static boolean executeStatement(String cmd, Connection con) {
+    private static void executeStatement(String cmd, Connection con) {
         if (con != null) {
             try {
                 PreparedStatement sql = con.prepareStatement(cmd);
                 sql.execute();
                 sql.close();
-                return true;
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        return false;
     }
 }

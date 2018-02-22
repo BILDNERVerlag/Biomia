@@ -20,7 +20,10 @@ public class Wasserholen implements Listener {
 	private final Quest q = Biomia.QuestManager().registerNewQuest("Wasserholen", 1);
 	private final NPC elsa;
 
-	DialogMessage dialog_Start, withoutWater, withWater, nachQuest;
+    private DialogMessage dialog_Start;
+    private DialogMessage withoutWater;
+    private DialogMessage withWater;
+    private DialogMessage nachQuest;
 
 	public Wasserholen() {
 		q.setInfoText(

@@ -5,9 +5,9 @@ import de.biomiaAPI.achievements.statEvents.BiomiaPlayerEvent;
 
 abstract class KitEvent extends BiomiaPlayerEvent {
 
-    private int kitID;
+    private final int kitID;
 
-    public KitEvent(BiomiaPlayer biomiaPlayer, int kitID) {
+    KitEvent(BiomiaPlayer biomiaPlayer, int kitID) {
         super(biomiaPlayer);
         this.kitID = kitID;
     }

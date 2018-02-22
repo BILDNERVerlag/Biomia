@@ -5,35 +5,34 @@ import java.util.ArrayList;
 @SuppressWarnings("UnusedAssignment")
 public class BiomiaAchievement {
 
+    private final AchievementType achievement;
+
+    private BiomiaAchievement() {
+        this.achievement = AchievementType.VerdieneFuenftausendCoins;
+        this.value = 5000;
+        Stats.BiomiaStat stat1 = Stats.BiomiaStat.CoinsAccumulated;
+        this.displayName = "Sparfuchs";
+
+        if (!Stats.stats.containsKey(Stats.BiomiaStat.CoinsAccumulated)) {
+            Stats.stats.put(Stats.BiomiaStat.CoinsAccumulated, new ArrayList<>());
+        }
+        Stats.stats.get(Stats.BiomiaStat.CoinsAccumulated).add(this);
+    }
+
     public static void init() {
-        new BiomiaAchievement(AchievementType.VerdieneFuenftausendCoins, 5000, Stats.BiomiaStat.CoinsAccumulated, "Sparfuchs")
+        new BiomiaAchievement()
                 .setDescription("Verdiene insgesamt mindestens 5000 BC.");
     }
-
-    public enum AchievementType {
-        LogDichFuenfmalAufDemQuestServerEin, VerdieneFuenftausendCoins;
-    }
-
-    private AchievementType achievement;
     private final int value;
-    private final Stats.BiomiaStat stat;
     private String description = "Leider ist keine Beschreibung vorhanden. Beschwer dich am besten bei den Admins.";
     private final String displayName;
 
-    BiomiaAchievement(AchievementType achievment, int mindestWert, Stats.BiomiaStat stat, String displayName) {
-        this.achievement = achievment;
-        this.value = mindestWert;
-        this.stat = stat;
-        this.displayName = displayName;
-
-        if (!Stats.stats.containsKey(stat)) {
-            Stats.stats.put(stat, new ArrayList<>());
-        }
-        Stats.stats.get(stat).add(this);
+    private void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public enum AchievementType {
+        LogDichFuenfmalAufDemQuestServerEin, VerdieneFuenftausendCoins
     }
 
     public AchievementType getAchievement() {

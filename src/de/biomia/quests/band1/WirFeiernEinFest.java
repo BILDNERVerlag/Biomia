@@ -25,7 +25,10 @@ public class WirFeiernEinFest implements Listener {
 	HashMap<UUID, Quest> hm = new HashMap<>();
 	private final NPC habil;
 
-	DialogMessage startDialog, comeBackWithFireworks, comeBackWithoutFireworks, nachQuest;
+    private DialogMessage startDialog;
+    private DialogMessage comeBackWithFireworks;
+    private DialogMessage comeBackWithoutFireworks;
+    private DialogMessage nachQuest;
 
 	public WirFeiernEinFest() {
 		q.setInfoText(

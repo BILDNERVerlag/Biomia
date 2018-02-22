@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 public class Stats {
 
-    static HashMap<BiomiaStat, ArrayList<de.biomiaAPI.achievements.BiomiaAchievement>> stats = new HashMap<>();
+    static final HashMap<BiomiaStat, ArrayList<de.biomiaAPI.achievements.BiomiaAchievement>> stats = new HashMap<>();
 
     public enum BiomiaStat {
 
@@ -210,7 +210,7 @@ public class Stats {
      * Immer, wenn sich der Wert eines Stats aendert, checkt diese Methode, ob ein
      * Achievement unlocked werden soll
      */
-    public static void checkForAchievementUnlocks(BiomiaStat stat, int biomiaPlayerID, int value) {
+    private static void checkForAchievementUnlocks(BiomiaStat stat, int biomiaPlayerID, int value) {
         // Step 1: Checke um welchen Stat es geht
         // Step 2: Checke ob der Stat einen bestimmten Wert erreicht hat
         // Step 3: Wenn ja, versuche Achievement zu unlocken
@@ -228,7 +228,7 @@ public class Stats {
      * bricht ab, falls der Spieler das Achievement bereits hat. Gibt true zurueck,
      * falls ein Achievement unlocked wird (ansonsten false).
      */
-    public static void unlock(BiomiaAchievement.AchievementType bA, int biomiaPlayerID) {
+    private static void unlock(BiomiaAchievement.AchievementType bA, int biomiaPlayerID) {
         MySQL.executeUpdate("INSERT IGNORE INTO `" + bA.toString() + "` (`ID`) VALUES (" + biomiaPlayerID + ")", MySQL.Databases.achiev_db);
     }
 

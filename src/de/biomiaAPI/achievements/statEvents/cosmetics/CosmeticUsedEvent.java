@@ -2,10 +2,8 @@ package de.biomiaAPI.achievements.statEvents.cosmetics;
 
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.achievements.statEvents.BiomiaPlayerEvent;
-import de.biomiaAPI.cosmetics.Cosmetic;
 import de.biomiaAPI.cosmetics.CosmeticItem;
 import org.bukkit.event.HandlerList;
-import org.bukkit.inventory.ItemStack;
 
 public class CosmeticUsedEvent extends BiomiaPlayerEvent {
 

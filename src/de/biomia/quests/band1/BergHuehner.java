@@ -31,7 +31,10 @@ public class BergHuehner implements Listener {
 	private final Location zielLoc = new Location(Bukkit.getWorld("Quests"), 216, 158, -162);
 	private final NPC tom;
 
-	DialogMessage startDialog, comeBackWithEggs, comeBackWithoutEggs, nachQuest;
+    private DialogMessage startDialog;
+    private DialogMessage comeBackWithEggs;
+    private DialogMessage comeBackWithoutEggs;
+    private DialogMessage nachQuest;
 
 	public BergHuehner() {
 		q.setInfoText(

@@ -1,19 +1,22 @@
 package de.biomiaAPI.Quests;
 
-import java.util.ArrayList;
-
-import net.citizensnpcs.api.npc.NPC;
-import org.bukkit.scheduler.BukkitRunnable;
-
 import de.biomiaAPI.Biomia;
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.QuestEvents.Event;
 import de.biomiaAPI.main.Main;
+import net.citizensnpcs.api.npc.NPC;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ClickEvent.Action;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DialogMessage {
+
+    public static final HashMap<Integer, DialogMessage> questMessages = new HashMap<>();
+    private static int lastQuestID = 0;
 
     private String inhalt;
     private final String[] fortsetzungen = new String[5];
@@ -85,9 +88,9 @@ public class DialogMessage {
                 if (fortsetzungen[i] != null) {
                     TextComponent msg = new TextComponent("\u00A75" + (i + 1) + ". \u00A72" + fortsetzungen[i]);
                     if (qp.getDialog() != null && !qp.getDialog().isLast()) {
-                        ClickEvent clickEvent = new ClickEvent(Action.RUN_COMMAND, "/q " + Main.QuestIds);
-                        Main.questMessages.put(Main.QuestIds, qp.getDialog().getNext(i));
-                        Main.QuestIds++;
+                        lastQuestID++;
+                        ClickEvent clickEvent = new ClickEvent(Action.RUN_COMMAND, "/q " + lastQuestID);
+                        questMessages.put(lastQuestID, qp.getDialog().getNext(i));
                         msg.setClickEvent(clickEvent);
                         qp.getPlayer().spigot().sendMessage(msg);
                     } else {
@@ -116,7 +119,7 @@ public class DialogMessage {
         }
     }
 
-    public String getFortsetzung() {
+    private String getFortsetzung() {
         return fortsetzungen[0];
     }
 
@@ -128,7 +131,7 @@ public class DialogMessage {
         return inhalt;
     }
 
-    public void executeEvent(QuestPlayer qp) {
+    private void executeEvent(QuestPlayer qp) {
         for (Event e : events) {
             e.executeEvent(qp);
         }

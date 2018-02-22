@@ -46,7 +46,7 @@ public class LastPositionListener implements Listener {
         saveLocation(e.getPlayer(), TimoCloudAPI.getBukkitInstance().getThisServer().getGroup());
     }
 
-    public static void saveLocation(Player p, GroupObject group) {
+    private static void saveLocation(Player p, GroupObject group) {
         Location loc = p.getLocation();
 
         double x = (int) (loc.getX() * 100);
@@ -112,7 +112,7 @@ public class LastPositionListener implements Listener {
         return false;
     }
 
-    public static Location getLastLocation(Player p, GroupObject group) {
+    private static Location getLastLocation(Player p, GroupObject group) {
         Connection con = de.biomiaAPI.mysql.MySQL.Connect(database);
         Location loc = null;
         try {
@@ -122,7 +122,7 @@ public class LastPositionListener implements Listener {
             ps.setString(2, Biomia.getBiomiaPlayer(p).getBiomiaPlayerID() + "");
 
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 World w = Bukkit.getWorld(rs.getString("world"));
                 double x = rs.getDouble("x");
                 double y = rs.getDouble("y");
@@ -130,7 +130,6 @@ public class LastPositionListener implements Listener {
                 float yaw = (float) rs.getDouble("yaw");
                 float pitch = (float) rs.getDouble("pitch");
                 loc = new Location(w, x, y, z, yaw, pitch);
-                break;
             }
             rs.close();
             ps.close();
