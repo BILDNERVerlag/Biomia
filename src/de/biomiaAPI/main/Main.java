@@ -29,6 +29,7 @@ import de.biomiaAPI.cosmetics.GadgetItems.GadgetIniter;
 import de.biomiaAPI.cosmetics.ParticleItems.ParticleIniter;
 import de.biomiaAPI.itemcreator.ItemCreator;
 import de.biomiaAPI.mysql.MySQL;
+import net.minecraft.server.v1_12_R1.DedicatedServer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -71,9 +72,7 @@ public class Main extends JavaPlugin {
     }
 
     public static String getGroupName() {
-        //TODO: fix
-
-        return groupName != null ? groupName : (groupName = getBukkitTimoapi().getThisServer().getGroupName());
+        return groupName;
     }
 
     @Override
@@ -169,10 +168,12 @@ public class Main extends JavaPlugin {
         prefixes.put("RegSpieler", "\u00A77");
         prefixes.put("UnregSpieler", "\u00A78");
 
+        groupName = ((DedicatedServer) Bukkit.getServer()).propertyManager.properties.getProperty("server-name");
+
         new BukkitRunnable() {
             @Override
             public void run() {
-                switch (getGroupName()) {
+                switch (groupName) {
                     case "Lobby":
                         LobbyMain.initLobby();
                         break;
