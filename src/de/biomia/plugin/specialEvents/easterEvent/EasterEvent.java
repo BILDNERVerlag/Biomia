@@ -87,7 +87,7 @@ public class EasterEvent implements Listener {
                     do {
                         loc = location.clone();
                         int r = new Random().nextInt(radius);
-                        int degree = new Random().nextInt(360);
+                        int degree = new Random().nextInt(361);
 
                         loc.add(r * Math.cos(degree), 0, r * Math.sin(degree));
                         loc = loc.getWorld().getHighestBlockAt(loc).getLocation().add(0, 1, 0);

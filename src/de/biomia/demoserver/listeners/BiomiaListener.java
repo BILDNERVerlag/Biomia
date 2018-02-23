@@ -31,100 +31,100 @@ import java.util.HashMap;
 
 public class BiomiaListener implements Listener {
 
-	public static HashMap<Player, ScrollingInventory> invs = new HashMap<>();
+    public static HashMap<Player, ScrollingInventory> invs = new HashMap<>();
 
-	@EventHandler
-	public void onJoin(PlayerJoinEvent e) {
+    @EventHandler
+    public void onJoin(PlayerJoinEvent e) {
 
-		Player p = e.getPlayer();
-		BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-		bp.setDamageEntitys(false);
-		bp.setGetDamage(false);
-		p.setGameMode(GameMode.SURVIVAL);
-		Scoreboards.setTabList(p);
+        Player p = e.getPlayer();
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
+        bp.setDamageEntitys(false);
+        bp.setGetDamage(false);
+        p.setGameMode(GameMode.SURVIVAL);
+        Scoreboards.setTabList(p);
 
-		BackToLobby.getLobbyItem(p, 8);
-		Teleporter.giveItem(p);
-	}
+        BackToLobby.getLobbyItem(p, 8);
+        Teleporter.giveItem(p);
+    }
 
-	@EventHandler
-	public void onLogin(PlayerLoginEvent e) {
-		e.allow();
-		String code = Config.config.getString("Code");
+    @EventHandler
+    public void onLogin(PlayerLoginEvent e) {
+        e.allow();
+        String code = Config.config.getString("Code");
 
-		if (code == null)
-			code = "krs522tpr8a";
+        if (code == null)
+            code = "krs522tpr8a";
 
-		if (MySQL.executeQuery(
-				"SELECT `code`, `rangEingeloestFuerPlayeruuid` FROM `CodesFuerRaenge` WHERE `code` = '" + code
-						+ "' AND `rangEingeloestFuerPlayeruuid` = '" + e.getPlayer().getUniqueId() + "'",
-				"rangEingeloestFuerPlayeruuid", MySQL.Databases.biomia_db) == null && !e.getPlayer().hasPermission("biomia.demoserver.free")) {
+        if (MySQL.executeQuery(
+                "SELECT `code`, `rangEingeloestFuerPlayeruuid` FROM `CodesFuerRaenge` WHERE `code` = '" + code
+                        + "' AND `rangEingeloestFuerPlayeruuid` = '" + e.getPlayer().getUniqueId() + "'",
+                "rangEingeloestFuerPlayeruuid", MySQL.Databases.biomia_db) == null && !e.getPlayer().hasPermission("biomia.demoserver.free")) {
 
-			e.getPlayer().sendMessage(
-					"§cDu hast den Code f\u00fcr den Zugang zu dieser Welt nicht auf unserer Website eingeben!");
-			e.getPlayer().kickPlayer("");
-		}
-	}
+            e.getPlayer().sendMessage(
+                    "§cDu hast den Code für den Zugang zu dieser Welt nicht auf unserer Website eingeben!");
+            e.getPlayer().kickPlayer("");
+        }
+    }
 
-	@EventHandler
-	public void onHungerSwitch(FoodLevelChangeEvent fe) {
-		if (fe.getEntity() instanceof Player) {
-			Player pl = (Player) fe.getEntity();
-			pl.setFoodLevel(20);
-			fe.setCancelled(true);
-		}
-	}
+    @EventHandler
+    public void onHungerSwitch(FoodLevelChangeEvent fe) {
+        if (fe.getEntity() instanceof Player) {
+            Player pl = (Player) fe.getEntity();
+            pl.setFoodLevel(20);
+            fe.setCancelled(true);
+        }
+    }
 
-	@EventHandler
-	public void onChat(AsyncPlayerChatEvent e) {
-		Player p = e.getPlayer();
+    @EventHandler
+    public void onChat(AsyncPlayerChatEvent e) {
+        Player p = e.getPlayer();
 
-		String msg = e.getMessage();
-		String format;
+        String msg = e.getMessage();
+        String format;
 
-		String group = Rank.getPrefix(p);
+        String group = Rank.getPrefix(p);
 
-		if (p.hasPermission("biomia.coloredchat")) {
-			msg = ChatColor.translateAlternateColorCodes('&', e.getMessage());
-			format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "§7: §f" + msg;
-			e.setFormat(format);
-		} else {
-			format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "§7: §f" + e.getMessage();
-			e.setFormat(format);
-		}
-	}
+        if (p.hasPermission("biomia.coloredchat")) {
+            msg = ChatColor.translateAlternateColorCodes('&', msg);
+            format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "§7: §f" + msg;
+            e.setFormat(format);
+        } else {
+            format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "§7: §f" + msg;
+            e.setFormat(format);
+        }
+    }
 
-	@SuppressWarnings("deprecation")
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onMove(InventoryClickEvent ie) {
-		if (ie.getCurrentItem() != null) {
-			Material t = ie.getCurrentItem().getType();
-			Player p = (Player) ie.getWhoClicked();
-			if (!Biomia.getBiomiaPlayer(p).canBuild() && (t != null || t != Material.AIR)) {
-				ie.setCancelled(true);
-				ie.setCursor(new ItemStack(Material.AIR));
-			}
+    @SuppressWarnings("deprecation")
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onMove(InventoryClickEvent ie) {
+        if (ie.getCurrentItem() != null) {
+            Material t = ie.getCurrentItem().getType();
+            Player p = (Player) ie.getWhoClicked();
+            if (!Biomia.getBiomiaPlayer(p).canBuild()) {
+                ie.setCancelled(true);
+                ie.setCursor(new ItemStack(Material.AIR));
+            }
 
-			for (Bauten b : WeltenlaborMain.bauten) {
-				if (t.equals(b.getMaterial())
-						&& ie.getCurrentItem().getItemMeta().getDisplayName().equals(b.getName())) {
-					p.teleport(b.getLoc());
-					p.closeInventory();
-				}
+            for (Bauten b : WeltenlaborMain.bauten) {
+                if (t.equals(b.getMaterial())
+                        && ie.getCurrentItem().getItemMeta().getDisplayName().equals(b.getName())) {
+                    p.teleport(b.getLoc());
+                    p.closeInventory();
+                }
 
-			}
+            }
 
-		}
+        }
 
-	}
+    }
 
-	@EventHandler
-	public void onInteract(PlayerInteractEvent e) {
-		if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK))
-			if (e.getItem() != null && e.getItem().getItemMeta().getDisplayName().equals("§dTeleporter")) {
-				WeltenlaborMain.si.openCopy(e.getPlayer());
-				e.setCancelled(true);
+    @EventHandler
+    public void onInteract(PlayerInteractEvent e) {
+        if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK))
+            if (e.getItem() != null && e.getItem().getItemMeta().getDisplayName().equals("§dTeleporter")) {
+                WeltenlaborMain.si.openCopy(e.getPlayer());
+                e.setCancelled(true);
 
-			}
-	}
+            }
+    }
 }
