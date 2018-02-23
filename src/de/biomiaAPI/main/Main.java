@@ -175,8 +175,8 @@ public class Main extends JavaPlugin {
             case "Lobby":
                 LobbyMain.initLobby();
                 break;
-            case "QuestServer":
             case "TestServer":
+            case "QuestServer":
                 QuestMain.initQuests();
                 break;
             case "BedWars":

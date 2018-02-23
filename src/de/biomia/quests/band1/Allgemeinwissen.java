@@ -70,6 +70,7 @@ public class Allgemeinwissen implements Listener {
 
 		locGhost = new Location(Bukkit.getWorld("Quests"), 99.5, 70, -305.5, -22, 0);
 		initBook();
+		initDialog();
 		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
