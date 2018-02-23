@@ -1,7 +1,7 @@
 package de.biomiaAPI.tools;
 
 import de.biomiaAPI.BiomiaPlayer;
-import de.biomiaAPI.QuestEvents.GiveItemEvent;
+import de.biomia.quests.QuestEvents.GiveItemEvent;
 import de.biomiaAPI.mysql.MySQL;
 import org.bukkit.inventory.ItemStack;
 

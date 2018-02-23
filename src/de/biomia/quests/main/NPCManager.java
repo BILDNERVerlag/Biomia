@@ -1,7 +1,7 @@
 package de.biomia.quests.main;
 
 import de.biomiaAPI.Biomia;
-import de.biomiaAPI.Quests.Quest;
+import de.biomia.quests.general.Quest;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Location;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;

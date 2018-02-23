@@ -1,11 +1,11 @@
 package de.biomia.quests.main;
 
 import de.biomia.quests.band1.*;
-import de.biomia.quests.cmds.QuestCommands;
+import de.biomia.quests.commands.QuestCommands;
 import de.biomia.quests.listeners.QuestListener;
-import de.biomiaAPI.Quests.DialogMessage;
-import de.biomiaAPI.Quests.Quest;
-import de.biomiaAPI.Quests.QuestPlayer;
+import de.biomia.quests.general.DialogMessage;
+import de.biomia.quests.general.Quest;
+import de.biomia.quests.general.QuestPlayer;
 import de.biomiaAPI.lastPosition.LastPositionListener;
 import de.biomiaAPI.msg.Scoreboards;
 import org.bukkit.Bukkit;

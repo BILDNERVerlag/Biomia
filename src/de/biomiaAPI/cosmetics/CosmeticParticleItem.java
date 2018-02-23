@@ -1,7 +1,7 @@
 package de.biomiaAPI.cosmetics;
 
 import de.biomiaAPI.BiomiaPlayer;
-import de.biomiaAPI.QuestEvents.TakeItemEvent;
+import de.biomia.quests.QuestEvents.TakeItemEvent;
 import de.biomiaAPI.cosmetics.Cosmetic.Group;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;

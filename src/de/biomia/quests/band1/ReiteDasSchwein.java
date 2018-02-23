@@ -1,9 +1,9 @@
 package de.biomia.quests.band1;
 
 import de.biomiaAPI.Biomia;
-import de.biomiaAPI.QuestEvents.GiveItemEvent;
-import de.biomiaAPI.QuestEvents.TakeItemEvent;
-import de.biomiaAPI.Quests.*;
+import de.biomia.quests.QuestEvents.GiveItemEvent;
+import de.biomia.quests.QuestEvents.TakeItemEvent;
+import de.biomia.quests.general.*;
 import de.biomiaAPI.itemcreator.ItemCreator;
 import de.biomiaAPI.main.Main;
 import de.biomiaAPI.msg.ActionBar;

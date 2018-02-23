@@ -75,7 +75,7 @@ public class LobbyMain {
         navigator = Bukkit.createInventory(null, 27, "§cNavigator");
         // First Line
         navigator.setItem(2, ItemCreator.itemCreate(Material.WORKBENCH, "§6Bau Welt"));
-        navigator.setItem(4, ItemCreator.itemCreate(Material.DRAGON_EGG, "§5Biomia | Quests"));
+        navigator.setItem(4, ItemCreator.itemCreate(Material.DRAGON_EGG, "§5Biomia | general"));
         navigator.setItem(6, ItemCreator.itemCreate(Material.THIN_GLASS, "§eDemo Welt", Short.valueOf("3")));
         // Second Line
         navigator.setItem(12, ItemCreator.itemCreate(Material.MAGMA_CREAM, "§cSpawn"));

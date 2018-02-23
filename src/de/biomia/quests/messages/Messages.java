@@ -8,11 +8,11 @@ public class Messages {
 	public static final String cobbleFarmLeave = "\u00A76Du verl\u00e4sst den Farmbereich f\u00fcr Bruchstein";
 
 	public static final String tryingToRemoveQuest = "\u00A7dVersuche Quest zu entfernen...";
-	public static final String tryingToRemoveAllQuests = "\u00A7dVersuche alle aktiven und abgeschlossenen Quests zu entfernen...";
-	public static final String questRemovedFromActive = "\u00A7aQuest \u00A7c%q \u00A7aaus \u00A7daktiven Quests \u00A7aentfernt!";
-	public static final String questRemovedFromFinished = "\u00A7aQuest \u00A7c%q \u00A7aaus \u00A7dabgeschlossenen Quests \u00A7aentfernt!";
-	public static final String activeQuests = "\u00A7dAktive Quests:";
-	public static final String finishedQuests = "\u00A7dAbgeschlossene Quests:";
+	public static final String tryingToRemoveAllQuests = "\u00A7dVersuche alle aktiven und abgeschlossenen general zu entfernen...";
+	public static final String questRemovedFromActive = "\u00A7aQuest \u00A7c%q \u00A7aaus \u00A7daktiven general \u00A7aentfernt!";
+	public static final String questRemovedFromFinished = "\u00A7aQuest \u00A7c%q \u00A7aaus \u00A7dabgeschlossenen general \u00A7aentfernt!";
+	public static final String activeQuests = "\u00A7dAktive general:";
+	public static final String finishedQuests = "\u00A7dAbgeschlossene general:";
 	public static final String alreadyHaveABook = "\u00A7aDu hast bereits ein Buch im Inventar!";
 	public static final String questDoesNotExist = "\u00A7aDiese Quest existiert nicht!!";
 	public static final String noInformationAboutThisQuest = "\u00A7aIm Moment sind leider noch keine genaueren Infos zu dieser Quest in unserer Datenbank vermerkt.";

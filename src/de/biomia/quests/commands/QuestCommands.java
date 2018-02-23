@@ -1,11 +1,11 @@
-package de.biomia.quests.cmds;
+package de.biomia.quests.commands;
 
 import de.biomia.quests.main.NPCManager;
 import de.biomia.quests.messages.Messages;
 import de.biomiaAPI.Biomia;
-import de.biomiaAPI.Quests.DialogMessage;
-import de.biomiaAPI.Quests.Quest;
-import de.biomiaAPI.Quests.QuestPlayer;
+import de.biomia.quests.general.DialogMessage;
+import de.biomia.quests.general.Quest;
+import de.biomia.quests.general.QuestPlayer;
 import de.biomiaAPI.msg.ActionBar;
 import net.citizensnpcs.api.ai.GoalController;
 import net.citizensnpcs.api.ai.goals.WanderGoal;
@@ -51,7 +51,7 @@ public class QuestCommands implements CommandExecutor {
             return;
         }
 
-        // Aktive und abgeschlossene Quests laden
+        // Aktive und abgeschlossene general laden
         ArrayList<Quest> activeQuests = new ArrayList<>();
         ArrayList<Quest> finishedQuests = new ArrayList<>();
 
@@ -66,14 +66,14 @@ public class QuestCommands implements CommandExecutor {
             finishedQuests.add(q);
         }
 
-        // Seite(n) mit aktiven Quests bef\u00fcllen
+        // Seite(n) mit aktiven general bef\u00fcllen
         if (activeQuests.isEmpty()) {
-            TextComponent output = new TextComponent("\u00A71\u00A7l\u00A7nAktive Quests:\n\n\n\u00A74(Noch keine!)");
+            TextComponent output = new TextComponent("\u00A71\u00A7l\u00A7nAktive general:\n\n\n\u00A74(Noch keine!)");
             IChatBaseComponent page = ChatSerializer.a(ComponentSerializer.toString(output));
             pages.add(page);
         } else {
-            // Alle Quests nacheinander auflisten, pro Quest je eine neue Zeile
-            TextComponent output = new TextComponent("\u00A71\u00A7l\u00A7nAktive Quests:\n\n\n");
+            // Alle general nacheinander auflisten, pro Quest je eine neue Zeile
+            TextComponent output = new TextComponent("\u00A71\u00A7l\u00A7nAktive general:\n\n\n");
 
             TextComponent text;
 
@@ -95,14 +95,14 @@ public class QuestCommands implements CommandExecutor {
                 }
             }
         }
-        // Seite mit abgeschlossenen Quests bef\u00fcllen
+        // Seite mit abgeschlossenen general bef\u00fcllen
         if (finishedQuests.isEmpty()) {
             TextComponent output = new TextComponent(
                     "\u00A71\u00A7l\u00A7nAbgeschlossene\n     \u00A71\u00A7l\u00A7nQuests:\n\n\u00A74(Noch keine!)");
             IChatBaseComponent page = ChatSerializer.a(ComponentSerializer.toString(output));
             pages.add(page);
         } else {
-            // Alle Quests nacheinander auflisten, pro Quest je eine neue Zeile
+            // Alle general nacheinander auflisten, pro Quest je eine neue Zeile
             TextComponent output = new TextComponent(
                     "\u00A71\u00A7l\u00A7nAbgeschlossene\n     \u00A71\u00A7l\u00A7nQuests:\n\n");
             TextComponent text;
@@ -289,8 +289,8 @@ public class QuestCommands implements CommandExecutor {
     }
 
     private void qstatCommand(CommandSender sender, QuestPlayer qp, String[] args) {
-        // Array, das speichert, wie viele Quests es pro Band gibt, zB questsProBand[1]
-        // w\u00fcre 17, falls es 17 Quests f\u00fcr Band 1 gibt etc
+        // Array, das speichert, wie viele general es pro Band gibt, zB questsProBand[1]
+        // w\u00fcre 17, falls es 17 general f\u00fcr Band 1 gibt etc
         if (args.length == 0) {
             int[] questsProBand = new int[5];
             for (Quest q : Biomia.QuestManager().getQuests()) {
@@ -310,7 +310,7 @@ public class QuestCommands implements CommandExecutor {
                     sender.sendMessage("\u00A76Band " + i + ": \u00A7aFortschritt: "
                             + Math.round((double) playerProgress / (double) questsProBand[i] * 100) + "%"
                             + "\n   \u00A77" + playerProgress + "/" + questsProBand[i]
-                            + " Quests erfolgreich abgeschlossen.");
+                            + " general erfolgreich abgeschlossen.");
                 }
             }
         } else {
@@ -334,9 +334,9 @@ public class QuestCommands implements CommandExecutor {
         if (sender.hasPermission("biomia.quests")) {
             sender.sendMessage("\u00A76/qalign \u00A7asammelt alle NPCs an einem best. Punkt.");
             sender.sendMessage("\u00A76/qrestore \u00A7asendet alle NPCs wieder zur\u00fcck.");
-            sender.sendMessage("\u00A76/qr [NAME] \u00A7aum dich aus Quests zu entfernen.");
+            sender.sendMessage("\u00A76/qr [NAME] \u00A7aum dich aus general zu entfernen.");
         }
-        sender.sendMessage("\u00A76/qlist \u00A7aum alle deine Quests aufzulisten.");
+        sender.sendMessage("\u00A76/qlist \u00A7aum alle deine general aufzulisten.");
         sender.sendMessage("\u00A76/qstats \u00A7af\u00fcr Infos zu deinem Questfortschritt.");
         sender.sendMessage("\u00A76/qinfo <NAME> \u00A7af\u00fcr Infos zu einer bestimmten Quest");
         sender.sendMessage("\u00A76/tagebuch \u00A7aum ein neues Tagebuch zu erhalten.");

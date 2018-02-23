@@ -36,7 +36,7 @@ public class Click implements Listener {
                             } else if (itemName.equalsIgnoreCase("§cSpawn")) {
                                 pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 534.5, 67, 193.5));
                                 pl.closeInventory();
-                            } else if (itemName.equalsIgnoreCase("§5Biomia | Quests")) {
+                            } else if (itemName.equalsIgnoreCase("§5Biomia | general")) {
                                 pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 473.5, 123, 359.5, -90, 0));
                                 pl.closeInventory();
                             } else if (itemName.equalsIgnoreCase("§bSkyWars")) {

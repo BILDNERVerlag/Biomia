@@ -1,14 +1,14 @@
 package de.biomia.quests.band1;
 
 import de.biomiaAPI.Biomia;
-import de.biomiaAPI.QuestConditions.ItemConditions;
-import de.biomiaAPI.QuestEvents.AddCoinEvent;
-import de.biomiaAPI.QuestEvents.GiveItemEvent;
-import de.biomiaAPI.QuestEvents.TakeItemEvent;
-import de.biomiaAPI.Quests.DialogMessage;
-import de.biomiaAPI.Quests.Quest;
-import de.biomiaAPI.Quests.QuestPlayer;
-import de.biomiaAPI.Quests.States;
+import de.biomia.quests.QuestConditions.ItemConditions;
+import de.biomia.quests.QuestEvents.AddCoinEvent;
+import de.biomia.quests.QuestEvents.GiveItemEvent;
+import de.biomia.quests.QuestEvents.TakeItemEvent;
+import de.biomia.quests.general.DialogMessage;
+import de.biomia.quests.general.Quest;
+import de.biomia.quests.general.QuestPlayer;
+import de.biomia.quests.general.States;
 import de.biomiaAPI.main.Main;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;

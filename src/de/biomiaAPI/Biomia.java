@@ -1,6 +1,6 @@
 package de.biomiaAPI;
 
-import de.biomiaAPI.Quests.*;
+import de.biomia.quests.general.*;
 import de.biomiaAPI.Teams.Team;
 import de.biomiaAPI.Teams.TeamManager;
 import de.biomiaAPI.Teams.Teams;

@@ -1,6 +1,6 @@
 package de.biomiaAPI;
 
-import de.biomiaAPI.Quests.QuestPlayer;
+import de.biomia.quests.general.QuestPlayer;
 import de.biomiaAPI.coins.Coins;
 import de.biomiaAPI.main.Main;
 import de.biomiaAPI.mysql.MySQL;

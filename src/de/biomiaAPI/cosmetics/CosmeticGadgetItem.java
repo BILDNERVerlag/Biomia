@@ -2,7 +2,7 @@ package de.biomiaAPI.cosmetics;
 
 import de.biomiaAPI.Biomia;
 import de.biomiaAPI.BiomiaPlayer;
-import de.biomiaAPI.QuestEvents.TakeItemEvent;
+import de.biomia.quests.QuestEvents.TakeItemEvent;
 import de.biomiaAPI.cosmetics.Cosmetic.Group;
 import de.biomiaAPI.main.Main;
 import org.bukkit.Bukkit;

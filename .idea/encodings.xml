@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/de/biomia/quests/general/DialogMessage.java" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/src/de/biomiaAPI/Biomia.java" charset="ISO-8859-1" />
-    <file url="file://$PROJECT_DIR$/src/de/biomiaAPI/Quests/DialogMessage.java" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/src/de/biomiaAPI/cosmetics/CosmeticInventory.java" charset="ISO-8859-1" />
   </component>
 </project>

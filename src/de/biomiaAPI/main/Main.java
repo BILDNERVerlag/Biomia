@@ -120,10 +120,10 @@ public class Main extends JavaPlugin {
             @Override
             public void run() {
                 switch (getGroupName()) {
-                    case "TestServer":
                     case "Lobby":
                         LobbyMain.initLobby();
                         break;
+                    case "TestServer":
                     case "QuestServer":
                         QuestMain.initQuests();
                         break;
