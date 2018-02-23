@@ -71,6 +71,8 @@ public class Main extends JavaPlugin {
     }
 
     public static String getGroupName() {
+        //TODO: fix
+
         return groupName != null ? groupName : (groupName = getBukkitTimoapi().getThisServer().getGroupName());
     }
 
@@ -116,40 +118,6 @@ public class Main extends JavaPlugin {
         Achievements.init();
         Bukkit.getPluginManager().registerEvents(new StatListener(), this);
 
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                switch (getGroupName()) {
-                    case "Lobby":
-                        LobbyMain.initLobby();
-                        break;
-                    case "TestServer":
-                    case "QuestServer":
-                        QuestMain.initQuests();
-                        break;
-                    case "BedWars":
-                        BedWarsMain.initBedWars();
-                        break;
-                    case "SkyWars":
-                        SkyWarsMain.initSkyWars();
-                        break;
-                    case "DuellLobby":
-                        VSMain.initVersus();
-                        break;
-                    case "Weltenlabor#1":
-                        WeltenlaborMain.initWeltenlabor();
-                        break;
-                    case "FreebuildServer":
-                        FreebuildMain.initFreebuild();
-                        break;
-                    case "FarmServer":
-                        //TODO
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }.runTaskLater(this, 20 * 8);
 
         Cosmetic.initGroup(new CosmeticGroup(Group.HEADS, ItemCreator.itemCreate(Material.SKULL_ITEM, "\u00A7cHeads")));
         Cosmetic.initGroup(new CosmeticGroup(Group.PETS, ItemCreator.itemCreate(Material.MONSTER_EGG, "\u00A7bPets")));
@@ -201,6 +169,40 @@ public class Main extends JavaPlugin {
         prefixes.put("RegSpieler", "\u00A77");
         prefixes.put("UnregSpieler", "\u00A78");
 
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                switch (getGroupName()) {
+                    case "Lobby":
+                        LobbyMain.initLobby();
+                        break;
+                    case "TestServer":
+                    case "QuestServer":
+                        QuestMain.initQuests();
+                        break;
+                    case "BedWars":
+                        BedWarsMain.initBedWars();
+                        break;
+                    case "SkyWars":
+                        SkyWarsMain.initSkyWars();
+                        break;
+                    case "DuellLobby":
+                        VSMain.initVersus();
+                        break;
+                    case "Weltenlabor#1":
+                        WeltenlaborMain.initWeltenlabor();
+                        break;
+                    case "FreebuildServer":
+                        FreebuildMain.initFreebuild();
+                        break;
+                    case "FarmServer":
+                        //TODO
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }.runTaskLater(this, 20 * 8);
     }
 
     public static TimoCloudUniversalAPI getUniversalTimoapi() {
@@ -224,13 +226,13 @@ public class Main extends JavaPlugin {
         this.saveConfig();
         MySQL.closeConnections();
         switch (getGroupName()) {
-            case "TestServer":
             case "Lobby":
             case "BedWars":
             case "SkyWars":
             case "DuellLobby":
                 //none
                 break;
+            case "TestServer":
             case "QuestServer":
                 QuestMain.terminateQuests();
                 break;
@@ -242,7 +244,7 @@ public class Main extends JavaPlugin {
                 break;
             case "Weltenlabor#1":
                 break;
-                //TODO
+            //TODO
             default:
                 break;
         }

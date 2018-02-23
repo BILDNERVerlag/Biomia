@@ -41,7 +41,7 @@ public class HomeManager {
 		home.set("world", location.getWorld().getName());
 		home.set("x", location.getBlockX());
 		home.set("y", location.getBlockY());
-		home.set("z", Integer.valueOf(location.getBlockZ()));
+		home.set("z", location.getBlockZ());
 
 		fileManager.saveHomes();
 	}

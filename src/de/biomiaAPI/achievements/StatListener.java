@@ -159,7 +159,7 @@ public class StatListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
-        //minutes played
+        //track minutes played
     }
 
     @EventHandler
@@ -280,6 +280,11 @@ public class StatListener implements Listener {
 
     @EventHandler
     public void onTeleport(PlayerTeleportEvent e) {
+        if (e.getPlayer().hasMetadata("NPC")) {
+            // In this case "Player" is actually a Citizens NPC.
+            // We don't want CitizenNPCs in our database.
+            return;
+        }
         Stats.incrementStat(Stats.BiomiaStat.TeleportsMade, e.getPlayer(), Main.getGroupName());
     }
 

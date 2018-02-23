@@ -76,7 +76,7 @@ public class ScrollingInventory implements Listener {
 	private void displaySide(int i) {
 		clearItems();
 		side = i;
-		if (items.size() - side - 1 * items_per_side > side * items_per_side)
+		if (items.size() - side - items_per_side > side * items_per_side)
 			setNext();
 		if (side > 0)
 			setBack();

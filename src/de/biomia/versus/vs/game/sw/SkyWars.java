@@ -28,11 +28,6 @@ public class SkyWars extends GameMode {
     }
 
     @Override
-    public void stop() {
-        super.stop();
-    }
-
-    @Override
     public void start() {
         for (BiomiaPlayer bp : getPlayers()) {
             bp.setGetDamage(true);

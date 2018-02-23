@@ -122,9 +122,5 @@ public class FreebuildListener implements Listener {
 			}
 		}
 	}
-	
-	@EventHandler 
-	public void onBlockSet(BlockPlaceEvent e) {
-		
-	}
+
 }
