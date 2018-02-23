@@ -2,6 +2,7 @@ package de.biomia.freebuild.home.commands;
 
 import de.biomia.freebuild.home.configuration.languages.LanguageManager;
 import de.biomia.freebuild.home.homes.HomeManager;
+import de.biomiaAPI.Biomia;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -23,8 +24,9 @@ public class SetHomeCommand implements CommandExecutor {
 				homeName = args[0].toLowerCase();
 			}
 			if (homeManager == null) Bukkit.broadcastMessage("test");
-			if ((homeManager.reachedMaxHomes(player.getUniqueId()))
-					&& (!homeManager.getPlayerHomes(player.getUniqueId()).containsKey(homeName))) {
+			int bpID = Biomia.getBiomiaPlayer(player).getBiomiaPlayerID();
+			if ((homeManager.reachedMaxHomes(bpID))
+					&& (!homeManager.getPlayerHomes(bpID).containsKey(homeName))) {
 				player.sendMessage(LanguageManager.HOME_MAX_REACHED);
 				return true;
 			}

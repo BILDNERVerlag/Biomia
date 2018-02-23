@@ -9,7 +9,6 @@ import de.biomia.freebuild.home.storage.HomeFileManager;
 import de.biomiaAPI.main.Main;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.io.File;
 import java.util.logging.Level;
 
 public class Home {
@@ -22,12 +21,6 @@ public class Home {
 		homeFileManager = new HomeFileManager();
 		homeManager = new HomeManager(homeFileManager);
 
-		if ((new File(Main.getPlugin().getDataFolder(), "config.yml").exists())
-				&& ((Main.getPlugin().getConfig().getInt("ConfigVersion") < 2)
-						|| (!Main.getPlugin().getConfig().isSet("ConfigVersion")))) {
-			homeFileManager.UuidUpdate();
-		}
-
 		config.options().copyDefaults(true);
 		Main.getPlugin().saveConfig();
 		LanguageFileManager languageFileManager = new LanguageFileManager();
@@ -36,16 +29,16 @@ public class Home {
 
 		new ConfigManager(this);
 		homeFileManager.saveHomes();
-		loadListeners();
+		loadHomeListeners();
 		Main.getPlugin().getLogger().info("Homes Enabled!");
 	}
 
-	public void onDisable() {
+	public void terminateHomes() {
 		homeFileManager.saveHomes();
 		Main.getPlugin().getLogger().log(Level.INFO, "Homes Disabled!");
 	}
 
-	public void loadListeners() {
+	public void loadHomeListeners() {
 		Main.getPlugin().getServer().getPluginManager().registerEvents(new GatewayListener(homeManager),
 				Main.getPlugin());
 	}

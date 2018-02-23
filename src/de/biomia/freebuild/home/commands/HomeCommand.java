@@ -2,6 +2,7 @@ package de.biomia.freebuild.home.commands;
 
 import de.biomia.freebuild.home.configuration.languages.LanguageManager;
 import de.biomia.freebuild.home.homes.HomeManager;
+import de.biomiaAPI.Biomia;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,7 +23,7 @@ public class HomeCommand implements CommandExecutor {
 			if ((strings.length == 1) && (sender.hasPermission("simplehomes.multihomes"))) {
 				homeName = strings[0].toLowerCase();
 			}
-			Location home = homeManager.getPlayerHome(player.getUniqueId(), homeName);
+			Location home = homeManager.getPlayerHome(Biomia.getBiomiaPlayer(player).getBiomiaPlayerID(), homeName);
 			if (home != null) {
 				player.teleport(home);
 				player.sendMessage(LanguageManager.TELEPORT_SUCCESS);

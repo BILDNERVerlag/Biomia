@@ -21,7 +21,7 @@ public class FreebuildMain{
 	}
 	
 	public static void terminateFreebuild() {
-		home.onDisable();
+		home.terminateHomes();
 	}
 	
 	private static void registerEvents() {
@@ -42,7 +42,7 @@ public class FreebuildMain{
 	private static void loadListeners() {
 		PluginManager pm = Bukkit.getPluginManager();
 		pm.registerEvents(new FreebuildListener(), Main.getPlugin());
-		home.loadListeners();
+		home.loadHomeListeners();
 	}
 	
 }

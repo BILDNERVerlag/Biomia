@@ -174,7 +174,6 @@ public class Main extends JavaPlugin {
         case "Lobby":
             LobbyMain.initLobby();
             break;
-        case "TestServer":
         case "QuestServer":
             QuestMain.initQuests();
             break;
@@ -190,6 +189,7 @@ public class Main extends JavaPlugin {
         case "Weltenlabor#1":
             WeltenlaborMain.initWeltenlabor();
             break;
+        case "TestServer":
         case "FreebuildServer":
             FreebuildMain.initFreebuild();
             break;
@@ -228,10 +228,10 @@ public class Main extends JavaPlugin {
             case "DuellLobby":
                 //none
                 break;
-            case "TestServer":
             case "QuestServer":
                 QuestMain.terminateQuests();
                 break;
+            case "TestServer":
             case "FreebuildServer":
                 FreebuildMain.terminateFreebuild();
                 break;

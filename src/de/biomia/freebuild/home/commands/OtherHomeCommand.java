@@ -2,6 +2,7 @@ package de.biomia.freebuild.home.commands;
 
 import de.biomia.freebuild.home.configuration.languages.LanguageManager;
 import de.biomia.freebuild.home.homes.HomeManager;
+import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.main.Main;
 import de.biomiaAPI.tools.UUIDFetcher;
 import org.bukkit.Location;
@@ -36,17 +37,17 @@ public class OtherHomeCommand implements CommandExecutor {
 			final String targetName = strings[0].toLowerCase();
 			Main.getPlugin().getServer().getScheduler().runTaskAsynchronously(Main.getPlugin(),
 					new BukkitRunnable() {
-						UUID targetUUID;
+						int bpID;
 
 						public void run() {
-							targetUUID = UUIDFetcher.getUUID(targetName);
-							if (targetUUID != null) {
+							bpID = BiomiaPlayer.getID(targetName);
+							if (bpID != -1) {
 								Main.getPlugin().getServer().getScheduler().runTask(Main.getPlugin(),
 										new BukkitRunnable() {
 											public void run() {
-												Object location = homeManager.getPlayerHome(targetUUID, homeName);
+												Object location = homeManager.getPlayerHome(bpID, homeName);
 												if (location == null) {
-													location = homeManager.getPlayerHomeFromFile(targetUUID, homeName);
+													location = homeManager.getPlayerHomeFromFile(bpID, homeName);
 												}
 												if (location != null) {
 													player.teleport((Location)location);

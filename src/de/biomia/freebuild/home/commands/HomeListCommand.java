@@ -2,7 +2,8 @@ package de.biomia.freebuild.home.commands;
 
 import de.biomia.freebuild.home.configuration.languages.LanguageManager;
 import de.biomia.freebuild.home.homes.HomeManager;
-import de.biomiaAPI.tools.UUIDFetcher;
+import de.biomiaAPI.Biomia;
+import de.biomiaAPI.BiomiaPlayer;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,14 +26,14 @@ public class HomeListCommand implements CommandExecutor {
 			homeSet = new HashSet();
 
 			if (strings.length != 0) {
-				UUID uuid = UUIDFetcher.getUUID(strings[0]);
-				if (uuid != null) {
-					homeSet = homeManager.getPlayerHomes(uuid).keySet();
+				int bpID = BiomiaPlayer.getID(strings[0]);
+				if (bpID != -1) {
+					homeSet = homeManager.getPlayerHomes(bpID).keySet();
 				} else {
 					player.sendMessage(LanguageManager.PLAYER_NOT_EXIST);
 				}
 			} else {
-				homeSet = homeManager.getPlayerHomes(player.getUniqueId()).keySet();
+				homeSet = homeManager.getPlayerHomes(Biomia.getBiomiaPlayer(player).getBiomiaPlayerID()).keySet();
 			}
 			String[] homeString = homeSet.toArray(new String[homeSet.size()]);
 			Arrays.sort(homeString);
@@ -46,9 +47,9 @@ public class HomeListCommand implements CommandExecutor {
 			return true;
 		}
 
-		Map<UUID, Map<String, Location>> homes = homeManager.getHomes();
-		for (Map.Entry<UUID, Map<String, Location>> entry : homes.entrySet()) {
-			String playerName = UUIDFetcher.getName(entry.getKey());
+		Map<Integer, Map<String, Location>> homes = homeManager.getHomes();
+		for (Map.Entry<Integer, Map<String, Location>> entry : homes.entrySet()) {
+			String playerName = BiomiaPlayer.getName(entry.getKey());
 			Set<String> playerHomes = ((Map) entry.getValue()).keySet();
 			String[] homeStrings = playerHomes.toArray(new String[playerHomes.size()]);
 			Arrays.sort(homeStrings);
