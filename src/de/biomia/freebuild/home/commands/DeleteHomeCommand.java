@@ -1,6 +1,6 @@
 package de.biomia.freebuild.home.commands;
 
-import de.biomia.freebuild.home.configuration.languages.LanguageManager;
+import de.biomia.freebuild.home.Home;
 import de.biomia.freebuild.home.homes.HomeManager;
 import de.biomiaAPI.Biomia;
 import org.bukkit.command.Command;
@@ -23,10 +23,10 @@ public class DeleteHomeCommand implements CommandExecutor {
                 homeName = strings[0].toLowerCase();
             }
             homeManager.deleteHome(Biomia.getBiomiaPlayer(player).getBiomiaPlayerID(), homeName);
-            player.sendMessage(LanguageManager.HOME_DELETED);
+            player.sendMessage(Home.HOME_DELETED);
             return true;
         }
-        sender.sendMessage(LanguageManager.PLAYER_COMMAND_ONLY);
+        sender.sendMessage(Home.PLAYER_COMMAND_ONLY);
         return true;
     }
 }

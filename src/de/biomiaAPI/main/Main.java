@@ -32,6 +32,7 @@ import de.biomiaAPI.mysql.MySQL;
 import net.minecraft.server.v1_12_R1.DedicatedServer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_12_R1.CraftServer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -168,36 +169,36 @@ public class Main extends JavaPlugin {
         prefixes.put("RegSpieler", "\u00A77");
         prefixes.put("UnregSpieler", "\u00A78");
 
-        groupName = ((DedicatedServer) Bukkit.getServer()).propertyManager.properties.getProperty("server-name");
+        groupName = ((DedicatedServer) ((CraftServer) Bukkit.getServer()).getServer()).propertyManager.properties.getProperty("server-name");
 
         switch (groupName) {
-        case "Lobby":
-            LobbyMain.initLobby();
-            break;
-        case "QuestServer":
-            QuestMain.initQuests();
-            break;
-        case "BedWars":
-            BedWarsMain.initBedWars();
-            break;
-        case "SkyWars":
-            SkyWarsMain.initSkyWars();
-            break;
-        case "DuellLobby":
-            VSMain.initVersus();
-            break;
-        case "Weltenlabor#1":
-            WeltenlaborMain.initWeltenlabor();
-            break;
-        case "TestServer":
-        case "FreebuildServer":
-            FreebuildMain.initFreebuild();
-            break;
-        case "FarmServer":
-            //TODO
-            break;
-        default:
-            break;
+            case "Lobby":
+                LobbyMain.initLobby();
+                break;
+            case "QuestServer":
+            case "TestServer":
+                QuestMain.initQuests();
+                break;
+            case "BedWars":
+                BedWarsMain.initBedWars();
+                break;
+            case "SkyWars":
+                SkyWarsMain.initSkyWars();
+                break;
+            case "DuellLobby":
+                VSMain.initVersus();
+                break;
+            case "Weltenlabor#1":
+                WeltenlaborMain.initWeltenlabor();
+                break;
+            case "FreebuildServer":
+                FreebuildMain.initFreebuild();
+                break;
+            case "FarmServer":
+                //TODO
+                break;
+            default:
+                break;
         }
     }
 
@@ -228,10 +229,10 @@ public class Main extends JavaPlugin {
             case "DuellLobby":
                 //none
                 break;
+            case "TestServer":
             case "QuestServer":
                 QuestMain.terminateQuests();
                 break;
-            case "TestServer":
             case "FreebuildServer":
                 FreebuildMain.terminateFreebuild();
                 break;

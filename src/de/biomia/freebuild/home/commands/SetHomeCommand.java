@@ -1,6 +1,6 @@
 package de.biomia.freebuild.home.commands;
 
-import de.biomia.freebuild.home.configuration.languages.LanguageManager;
+import de.biomia.freebuild.home.Home;
 import de.biomia.freebuild.home.homes.HomeManager;
 import de.biomiaAPI.Biomia;
 import org.bukkit.Bukkit;
@@ -27,14 +27,14 @@ public class SetHomeCommand implements CommandExecutor {
 			int bpID = Biomia.getBiomiaPlayer(player).getBiomiaPlayerID();
 			if ((homeManager.reachedMaxHomes(bpID))
 					&& (!homeManager.getPlayerHomes(bpID).containsKey(homeName))) {
-				player.sendMessage(LanguageManager.HOME_MAX_REACHED);
+				player.sendMessage(Home.HOME_MAX_REACHED);
 				return true;
 			}
 			homeManager.saveHome(player, homeName);
-			player.sendMessage(LanguageManager.HOME_SET);
+			player.sendMessage(Home.HOME_SET);
 			return true;
 		}
-		sender.sendMessage(LanguageManager.PLAYER_COMMAND_ONLY);
+		sender.sendMessage(Home.PLAYER_COMMAND_ONLY);
 
 		return false;
 	}

@@ -1,6 +1,6 @@
 package de.biomia.freebuild.home.commands;
 
-import de.biomia.freebuild.home.configuration.languages.LanguageManager;
+import de.biomia.freebuild.home.Home;
 import de.biomia.freebuild.home.homes.HomeManager;
 import de.biomiaAPI.Biomia;
 import de.biomiaAPI.BiomiaPlayer;
@@ -10,7 +10,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class HomeListCommand implements CommandExecutor {
 	private final HomeManager homeManager;
@@ -30,7 +33,7 @@ public class HomeListCommand implements CommandExecutor {
 				if (bpID != -1) {
 					homeSet = homeManager.getPlayerHomes(bpID).keySet();
 				} else {
-					player.sendMessage(LanguageManager.PLAYER_NOT_EXIST);
+					player.sendMessage(Home.PLAYER_NOT_EXIST);
 				}
 			} else {
 				homeSet = homeManager.getPlayerHomes(Biomia.getBiomiaPlayer(player).getBiomiaPlayerID()).keySet();
@@ -40,9 +43,9 @@ public class HomeListCommand implements CommandExecutor {
 
 			String homes = homeListString(homeString);
 			if (homes != null) {
-				sender.sendMessage(LanguageManager.HOME_LIST_PREFIX + " " + homes);
+				sender.sendMessage(Home.HOME_LIST_PREFIX + " " + homes);
 			} else {
-				sender.sendMessage(LanguageManager.NO_HOMES_FOUND);
+				sender.sendMessage(Home.NO_HOMES_FOUND);
 			}
 			return true;
 		}
@@ -55,9 +58,9 @@ public class HomeListCommand implements CommandExecutor {
 			Arrays.sort(homeStrings);
 			String homeList = homeListString(homeStrings);
 			if (homeList != null) {
-				sender.sendMessage("[" + playerName + "]" + LanguageManager.HOME_LIST_PREFIX + " " + homeList);
+				sender.sendMessage("[" + playerName + "]" + Home.HOME_LIST_PREFIX + " " + homeList);
 			} else {
-				sender.sendMessage("[" + playerName + "] " + LanguageManager.NO_HOMES_FOUND);
+				sender.sendMessage("[" + playerName + "] " + Home.NO_HOMES_FOUND);
 			}
 		}
 

@@ -1,18 +1,15 @@
 package de.biomia.freebuild.home.commands;
 
-import de.biomia.freebuild.home.configuration.languages.LanguageManager;
+import de.biomia.freebuild.home.Home;
 import de.biomia.freebuild.home.homes.HomeManager;
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.main.Main;
-import de.biomiaAPI.tools.UUIDFetcher;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.UUID;
 
 public class OtherHomeCommand implements CommandExecutor {
 	private final HomeManager homeManager;
@@ -51,20 +48,20 @@ public class OtherHomeCommand implements CommandExecutor {
 												}
 												if (location != null) {
 													player.teleport((Location)location);
-													player.sendMessage(LanguageManager.TELEPORT_OTHERHOME
+													player.sendMessage(Home.TELEPORT_OTHERHOME
 															.replaceAll("%p", targetName));
 												} else {
-													player.sendMessage(LanguageManager.HOME_NOT_FOUND);
+													player.sendMessage(Home.HOME_NOT_FOUND);
 												}
 											}
 										});
 							} else {
-								player.sendMessage(LanguageManager.PLAYER_NOT_EXIST);
+								player.sendMessage(Home.PLAYER_NOT_EXIST);
 							}
 						}
 					});
 		} else {
-			sender.sendMessage(LanguageManager.PLAYER_COMMAND_ONLY);
+			sender.sendMessage(Home.PLAYER_COMMAND_ONLY);
 		}
 		return true;
 	}

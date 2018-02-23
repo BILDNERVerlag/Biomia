@@ -1,6 +1,6 @@
 package de.biomia.freebuild.home.commands;
 
-import de.biomia.freebuild.home.configuration.languages.LanguageManager;
+import de.biomia.freebuild.home.Home;
 import de.biomia.freebuild.home.homes.HomeManager;
 import de.biomiaAPI.Biomia;
 import org.bukkit.Location;
@@ -26,14 +26,14 @@ public class HomeCommand implements CommandExecutor {
 			Location home = homeManager.getPlayerHome(Biomia.getBiomiaPlayer(player).getBiomiaPlayerID(), homeName);
 			if (home != null) {
 				player.teleport(home);
-				player.sendMessage(LanguageManager.TELEPORT_SUCCESS);
+				player.sendMessage(Home.TELEPORT_SUCCESS);
 				return true;
 			}
-			player.sendMessage(LanguageManager.HOME_NOT_FOUND);
+			player.sendMessage(Home.HOME_NOT_FOUND);
 			return true;
 		}
 
-		sender.sendMessage(LanguageManager.PLAYER_COMMAND_ONLY);
+		sender.sendMessage(Home.PLAYER_COMMAND_ONLY);
 		return true;
 	}
 }

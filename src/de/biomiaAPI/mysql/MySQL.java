@@ -19,7 +19,7 @@ public class MySQL {
         connections.values().forEach(each -> {
             try {
                 each.close();
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
