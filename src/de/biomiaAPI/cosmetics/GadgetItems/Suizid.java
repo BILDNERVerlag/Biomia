@@ -1,11 +1,10 @@
 package de.biomiaAPI.cosmetics.GadgetItems;
 
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.TNTPrimed;
-
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.CosmeticGadgetItem;
 import de.biomiaAPI.cosmetics.GadgetListener;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.TNTPrimed;
 
 class Suizid implements GadgetListener {
 

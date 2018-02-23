@@ -1,8 +1,11 @@
 package de.biomiaAPI.cosmetics.GadgetItems;
 
-import java.util.ArrayList;
-import java.util.Random;
-
+import de.biomiaAPI.BiomiaPlayer;
+import de.biomiaAPI.cosmetics.CosmeticGadgetItem;
+import de.biomiaAPI.cosmetics.GadgetListener;
+import de.biomiaAPI.main.Main;
+import net.minecraft.server.v1_12_R1.EntityInsentient;
+import net.minecraft.server.v1_12_R1.PathEntity;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftEntity;
 import org.bukkit.entity.Bat;
@@ -11,12 +14,8 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import de.biomiaAPI.BiomiaPlayer;
-import de.biomiaAPI.cosmetics.CosmeticGadgetItem;
-import de.biomiaAPI.cosmetics.GadgetListener;
-import de.biomiaAPI.main.Main;
-import net.minecraft.server.v1_12_R1.EntityInsentient;
-import net.minecraft.server.v1_12_R1.PathEntity;
+import java.util.ArrayList;
+import java.util.Random;
 
 class Witch implements GadgetListener {
 

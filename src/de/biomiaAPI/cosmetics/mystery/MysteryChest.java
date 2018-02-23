@@ -1,16 +1,7 @@
 package de.biomiaAPI.cosmetics.mystery;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-import de.biomiaAPI.achievements.Stats;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
-
 import de.biomiaAPI.BiomiaPlayer;
+import de.biomiaAPI.achievements.Stats;
 import de.biomiaAPI.cosmetics.Cosmetic;
 import de.biomiaAPI.cosmetics.CosmeticGadgetItem;
 import de.biomiaAPI.cosmetics.CosmeticItem;
@@ -18,6 +9,14 @@ import de.biomiaAPI.cosmetics.CosmeticItem.Commonness;
 import de.biomiaAPI.cosmetics.CosmeticParticleItem;
 import de.biomiaAPI.itemcreator.ItemCreator;
 import de.biomiaAPI.main.Main;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class MysteryChest {
 

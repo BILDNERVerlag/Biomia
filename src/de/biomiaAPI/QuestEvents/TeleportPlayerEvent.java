@@ -1,9 +1,8 @@
 package de.biomiaAPI.QuestEvents;
 
+import de.biomiaAPI.Quests.QuestPlayer;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
-
-import de.biomiaAPI.Quests.QuestPlayer;
 
 class TeleportPlayerEvent implements Event {
 

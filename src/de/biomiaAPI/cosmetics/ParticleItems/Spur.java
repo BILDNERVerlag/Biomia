@@ -1,15 +1,14 @@
 package de.biomiaAPI.cosmetics.ParticleItems;
 
-import org.bukkit.Location;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
-
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.CosmeticParticleItem;
 import de.biomiaAPI.cosmetics.ParticleListener;
 import de.biomiaAPI.main.Main;
 import de.biomiaAPI.tools.Particles;
 import net.minecraft.server.v1_12_R1.EnumParticle;
+import org.bukkit.Location;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 class Spur implements ParticleListener {
 

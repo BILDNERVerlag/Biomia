@@ -1,8 +1,7 @@
 package de.biomiaAPI.QuestConditions;
 
-import org.bukkit.Location;
-
 import de.biomiaAPI.Quests.QuestPlayer;
+import org.bukkit.Location;
 
 class LocConditions {
 

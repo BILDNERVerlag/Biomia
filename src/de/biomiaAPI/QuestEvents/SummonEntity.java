@@ -1,9 +1,8 @@
 package de.biomiaAPI.QuestEvents;
 
+import de.biomiaAPI.Quests.QuestPlayer;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
-
-import de.biomiaAPI.Quests.QuestPlayer;
 
 public class SummonEntity implements Event {
 

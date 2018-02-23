@@ -4,6 +4,8 @@ import at.TimoCraft.TimoCloud.api.TimoCloudAPI;
 import at.TimoCraft.TimoCloud.api.TimoCloudBukkitAPI;
 import at.TimoCraft.TimoCloud.api.TimoCloudUniversalAPI;
 import de.biomia.bw.main.BedWarsMain;
+import de.biomia.demoserver.main.WeltenlaborMain;
+import de.biomia.freebuild.main.FreebuildMain;
 import de.biomia.lobby.main.LobbyMain;
 import de.biomia.plugin.commands.*;
 import de.biomia.plugin.listener.BiomiaListener;
@@ -17,7 +19,7 @@ import de.biomia.quests.main.QuestMain;
 import de.biomia.sw.main.SkyWarsMain;
 import de.biomia.versus.vs.main.VSMain;
 import de.biomiaAPI.Biomia;
-import de.biomiaAPI.achievements.BiomiaAchievement;
+import de.biomiaAPI.achievements.Achievements;
 import de.biomiaAPI.achievements.StatListener;
 import de.biomiaAPI.connect.Connect;
 import de.biomiaAPI.cosmetics.Cosmetic;
@@ -94,7 +96,9 @@ public class Main extends JavaPlugin {
         initInventories();
 
         ReportSQL.getAllReports();
-        event = new EasterEvent();
+
+        //TODO: enable
+        //event = new EasterEvent();
 
         for (Player p : Bukkit.getOnlinePlayers()) {
             de.biomiaAPI.cosmetics.Cosmetic.load(Biomia.getBiomiaPlayer(p));
@@ -109,7 +113,7 @@ public class Main extends JavaPlugin {
 
         GadgetIniter.init();
         ParticleIniter.init();
-        BiomiaAchievement.init();
+        Achievements.init();
         Bukkit.getPluginManager().registerEvents(new StatListener(), this);
 
         new BukkitRunnable() {
@@ -133,10 +137,10 @@ public class Main extends JavaPlugin {
                         VSMain.initVersus();
                         break;
                     case "Weltenlabor#1":
-                        //TODO
+                        WeltenlaborMain.initWeltenlabor();
                         break;
                     case "FreebuildServer":
-                        //TODO
+                        FreebuildMain.initFreebuild();
                         break;
                     case "FarmServer":
                         //TODO
@@ -219,6 +223,29 @@ public class Main extends JavaPlugin {
     public void onDisable() {
         this.saveConfig();
         MySQL.closeConnections();
+        switch (getGroupName()) {
+            case "TestServer":
+            case "Lobby":
+            case "BedWars":
+            case "SkyWars":
+            case "DuellLobby":
+                //none
+                break;
+            case "QuestServer":
+                QuestMain.terminateQuests();
+                break;
+            case "FreebuildServer":
+                FreebuildMain.terminateFreebuild();
+                break;
+            case "FarmServer":
+                //TODO
+                break;
+            case "Weltenlabor#1":
+                break;
+                //TODO
+            default:
+                break;
+        }
     }
 
     private void initInventories() {
@@ -269,7 +296,6 @@ public class Main extends JavaPlugin {
         getCommand("head").setExecutor(new Head());
         getCommand("stat").setExecutor(new StatCommand());
         getCommand("ct").setExecutor(new CreateTableCommand());
-        getCommand("report").setExecutor(new ReportCommand());
         getCommand("givereward").setExecutor(new EventCommands());
         getCommand("addeggs").setExecutor(new EventCommands());
     }

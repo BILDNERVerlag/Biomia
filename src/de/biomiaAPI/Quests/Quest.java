@@ -1,12 +1,12 @@
 package de.biomiaAPI.Quests;
 
+import net.citizensnpcs.api.npc.NPC;
+import org.bukkit.entity.EntityType;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-
-import net.citizensnpcs.api.npc.NPC;
-import org.bukkit.entity.EntityType;
 
 public interface Quest {
 	

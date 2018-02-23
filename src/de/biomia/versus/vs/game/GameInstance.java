@@ -12,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -79,6 +80,11 @@ public class GameInstance {
 
     void startDeleting() {
         Bukkit.unloadWorld(world, false);
-        FileUtils.deleteDirectory(world.getWorldFolder());
+        try {
+            FileUtils.deleteDirectory(world.getWorldFolder());
+        } catch (IOException e) {
+            //TODO ?
+            e.printStackTrace();
+        }
     }
 }

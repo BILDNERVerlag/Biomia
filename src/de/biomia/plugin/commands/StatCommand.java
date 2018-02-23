@@ -27,7 +27,7 @@ public class StatCommand implements CommandExecutor {
         } else if (args.length >= 2) {
 
             String statString;
-            int value = 0;
+            int value;
             Stats.BiomiaStat stat;
             String switchString = args[0].toLowerCase();
             int tempID;

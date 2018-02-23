@@ -1,11 +1,10 @@
 package de.biomiaAPI.cosmetics;
 
-import java.util.ArrayList;
-
-import org.bukkit.inventory.ItemStack;
-
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.Cosmetic.Group;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
 
 public class CosmeticHeadItem extends CosmeticItem {
 

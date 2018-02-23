@@ -1,14 +1,13 @@
 package de.biomiaAPI.cosmetics.GadgetItems;
 
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.TNTPrimed;
-import org.bukkit.scheduler.BukkitRunnable;
-
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.CosmeticGadgetItem;
 import de.biomiaAPI.cosmetics.GadgetListener;
 import de.biomiaAPI.main.Main;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.TNTPrimed;
+import org.bukkit.scheduler.BukkitRunnable;
 
 class TNTCanon implements GadgetListener {
 

@@ -1,12 +1,11 @@
 package de.biomiaAPI.cosmetics;
 
-import java.util.HashMap;
-
+import de.biomiaAPI.BiomiaPlayer;
+import de.biomiaAPI.cosmetics.Cosmetic.Group;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import de.biomiaAPI.BiomiaPlayer;
-import de.biomiaAPI.cosmetics.Cosmetic.Group;
+import java.util.HashMap;
 
 public class CosmeticSuitItem extends CosmeticItem {
 

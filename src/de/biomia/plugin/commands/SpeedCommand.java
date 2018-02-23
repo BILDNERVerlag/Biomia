@@ -20,7 +20,7 @@ public class SpeedCommand implements CommandExecutor {
         }
 
         Player p = null;
-        Player toSet = null;
+        Player toSet;
 
         if (sender instanceof Player) {
             p = (Player) sender;

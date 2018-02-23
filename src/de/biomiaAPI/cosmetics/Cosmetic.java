@@ -1,5 +1,12 @@
 package de.biomiaAPI.cosmetics;
 
+import de.biomiaAPI.BiomiaPlayer;
+import de.biomiaAPI.cosmetics.CosmeticItem.Commonness;
+import de.biomiaAPI.mysql.MySQL;
+import de.biomiaAPI.tools.Base64;
+import org.bukkit.Bukkit;
+import org.bukkit.inventory.Inventory;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,14 +14,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
-
-import de.biomiaAPI.tools.Base64;
-import org.bukkit.Bukkit;
-import org.bukkit.inventory.Inventory;
-
-import de.biomiaAPI.BiomiaPlayer;
-import de.biomiaAPI.cosmetics.CosmeticItem.Commonness;
-import de.biomiaAPI.mysql.MySQL;
 
 public class Cosmetic {
 

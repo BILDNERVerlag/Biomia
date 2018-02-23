@@ -1,13 +1,12 @@
 package de.biomiaAPI.cosmetics.GadgetItems;
 
+import de.biomiaAPI.BiomiaPlayer;
+import de.biomiaAPI.cosmetics.CosmeticGadgetItem;
+import de.biomiaAPI.cosmetics.GadgetListener;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import de.biomiaAPI.BiomiaPlayer;
-import de.biomiaAPI.cosmetics.CosmeticGadgetItem;
-import de.biomiaAPI.cosmetics.GadgetListener;
 
 class Levitator implements GadgetListener{
 

@@ -1,14 +1,13 @@
 package de.biomiaAPI.tools;
 
-import java.util.ArrayList;
-
+import de.biomiaAPI.main.Main;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
-import de.biomiaAPI.main.Main;
-import net.md_5.bungee.api.ChatColor;
+import java.util.ArrayList;
 
 public class Hologram {
 

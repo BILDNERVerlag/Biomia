@@ -1,15 +1,14 @@
 package de.biomiaAPI.cosmetics.GadgetItems;
 
+import de.biomiaAPI.BiomiaPlayer;
+import de.biomiaAPI.cosmetics.CosmeticGadgetItem;
+import de.biomiaAPI.cosmetics.GadgetListener;
 import org.bukkit.Material;
 import org.bukkit.entity.FishHook;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
-
-import de.biomiaAPI.BiomiaPlayer;
-import de.biomiaAPI.cosmetics.CosmeticGadgetItem;
-import de.biomiaAPI.cosmetics.GadgetListener;
 
 class Switcher implements GadgetListener, Listener {
 

@@ -1,9 +1,8 @@
 package de.biomiaAPI.QuestEvents;
 
-import org.bukkit.inventory.ItemStack;
-
 import de.biomiaAPI.QuestConditions.ItemConditions;
 import de.biomiaAPI.Quests.QuestPlayer;
+import org.bukkit.inventory.ItemStack;
 
 public class GiveItemIfNotInInventoryEvent implements Event {
 

@@ -1,5 +1,8 @@
 package de.biomiaAPI.tools;
 
+import de.biomiaAPI.BiomiaPlayer;
+import de.biomiaAPI.mysql.MySQL;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,9 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Objects;
-
-import de.biomiaAPI.BiomiaPlayer;
-import de.biomiaAPI.mysql.MySQL;
 
 public class SkyWarsKit {
 

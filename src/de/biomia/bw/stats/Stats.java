@@ -17,6 +17,7 @@ class Stats {
 
     public Stats(UUID uuid) {
         UUID uuid1 = uuid;
+        //TODO Sinn..?
     }
 
     public static void getStats() {

@@ -1,7 +1,11 @@
 package de.biomiaAPI.cosmetics.GadgetItems;
 
-import java.util.ArrayList;
-
+import de.biomiaAPI.BiomiaPlayer;
+import de.biomiaAPI.cosmetics.CosmeticGadgetItem;
+import de.biomiaAPI.cosmetics.GadgetListener;
+import de.biomiaAPI.main.Main;
+import de.biomiaAPI.tools.Particles;
+import net.minecraft.server.v1_12_R1.EnumParticle;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -10,12 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import de.biomiaAPI.BiomiaPlayer;
-import de.biomiaAPI.cosmetics.CosmeticGadgetItem;
-import de.biomiaAPI.cosmetics.GadgetListener;
-import de.biomiaAPI.main.Main;
-import de.biomiaAPI.tools.Particles;
-import net.minecraft.server.v1_12_R1.EnumParticle;
+import java.util.ArrayList;
 
 class Invisible implements GadgetListener, Listener {
 

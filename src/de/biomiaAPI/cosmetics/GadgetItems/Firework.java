@@ -1,11 +1,10 @@
 package de.biomiaAPI.cosmetics.GadgetItems;
 
-import org.bukkit.Location;
-import org.bukkit.entity.EntityType;
-
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.CosmeticGadgetItem;
 import de.biomiaAPI.cosmetics.GadgetListener;
+import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
 
 class Firework implements GadgetListener {
 

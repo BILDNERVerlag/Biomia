@@ -1,12 +1,11 @@
 package de.biomiaAPI.cosmetics.GadgetItems;
 
-import org.bukkit.Sound;
-import org.bukkit.entity.Player;
-import org.bukkit.util.Vector;
-
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.cosmetics.CosmeticGadgetItem;
 import de.biomiaAPI.cosmetics.GadgetListener;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 class Booster implements GadgetListener {
 

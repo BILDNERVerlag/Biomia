@@ -1,8 +1,8 @@
 package de.biomiaAPI.Teams;
 
-import java.util.ArrayList;
-
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
 
 public interface Team {
 

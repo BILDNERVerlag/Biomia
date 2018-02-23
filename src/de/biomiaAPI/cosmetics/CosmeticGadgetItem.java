@@ -1,5 +1,10 @@
 package de.biomiaAPI.cosmetics;
 
+import de.biomiaAPI.Biomia;
+import de.biomiaAPI.BiomiaPlayer;
+import de.biomiaAPI.QuestEvents.TakeItemEvent;
+import de.biomiaAPI.cosmetics.Cosmetic.Group;
+import de.biomiaAPI.main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -7,12 +12,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-
-import de.biomiaAPI.Biomia;
-import de.biomiaAPI.BiomiaPlayer;
-import de.biomiaAPI.QuestEvents.TakeItemEvent;
-import de.biomiaAPI.cosmetics.Cosmetic.Group;
-import de.biomiaAPI.main.Main;
 
 public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 

@@ -1,13 +1,12 @@
 package de.biomiaAPI.cosmetics;
 
-import java.util.HashMap;
-
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitTask;
-
 import de.biomiaAPI.BiomiaPlayer;
 import de.biomiaAPI.QuestEvents.TakeItemEvent;
 import de.biomiaAPI.cosmetics.Cosmetic.Group;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitTask;
+
+import java.util.HashMap;
 
 @SuppressWarnings("StatementWithEmptyBody")
 public class CosmeticParticleItem extends CosmeticItem {

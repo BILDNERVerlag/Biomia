@@ -61,6 +61,11 @@ commands:
   accept:
   decline:
   request:
-  bw:
-  sw:
   spawn:
+  buildforall:
+  delhome:
+  home:
+  sethome:
+  homelist:
+  otherhome:
+  shreload:

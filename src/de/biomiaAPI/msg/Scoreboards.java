@@ -1,12 +1,11 @@
 package de.biomiaAPI.msg;
 
+import de.biomiaAPI.main.Main;
+import de.biomiaAPI.pex.Rank;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
-
-import de.biomiaAPI.main.Main;
-import de.biomiaAPI.pex.Rank;
 
 public class Scoreboards {
 

@@ -1,9 +1,8 @@
 package de.biomiaAPI.QuestEvents;
 
+import de.biomiaAPI.Quests.QuestPlayer;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-
-import de.biomiaAPI.Quests.QuestPlayer;
 
 public class TakeItemEvent implements Event {
 
