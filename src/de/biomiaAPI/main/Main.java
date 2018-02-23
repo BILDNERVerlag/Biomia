@@ -170,40 +170,35 @@ public class Main extends JavaPlugin {
 
         groupName = ((DedicatedServer) Bukkit.getServer()).propertyManager.properties.getProperty("server-name");
 
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                switch (groupName) {
-                    case "Lobby":
-                        LobbyMain.initLobby();
-                        break;
-                    case "TestServer":
-                    case "QuestServer":
-                        QuestMain.initQuests();
-                        break;
-                    case "BedWars":
-                        BedWarsMain.initBedWars();
-                        break;
-                    case "SkyWars":
-                        SkyWarsMain.initSkyWars();
-                        break;
-                    case "DuellLobby":
-                        VSMain.initVersus();
-                        break;
-                    case "Weltenlabor#1":
-                        WeltenlaborMain.initWeltenlabor();
-                        break;
-                    case "FreebuildServer":
-                        FreebuildMain.initFreebuild();
-                        break;
-                    case "FarmServer":
-                        //TODO
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }.runTaskLater(this, 20 * 8);
+        switch (groupName) {
+        case "Lobby":
+            LobbyMain.initLobby();
+            break;
+        case "TestServer":
+        case "QuestServer":
+            QuestMain.initQuests();
+            break;
+        case "BedWars":
+            BedWarsMain.initBedWars();
+            break;
+        case "SkyWars":
+            SkyWarsMain.initSkyWars();
+            break;
+        case "DuellLobby":
+            VSMain.initVersus();
+            break;
+        case "Weltenlabor#1":
+            WeltenlaborMain.initWeltenlabor();
+            break;
+        case "FreebuildServer":
+            FreebuildMain.initFreebuild();
+            break;
+        case "FarmServer":
+            //TODO
+            break;
+        default:
+            break;
+        }
     }
 
     public static TimoCloudUniversalAPI getUniversalTimoapi() {
