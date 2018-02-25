@@ -3,8 +3,8 @@
     <output-path>$USER_HOME$/Desktop/EigenePlugins</output-path>
     <root id="archive" name="BiomiaAPI.jar">
       <element id="module-output" name="BiomiaAPI" />
-      <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
-      <element id="file-copy" path="$PROJECT_DIR$/config.yml" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/config.yml" />
     </root>
   </artifact>
 </component>
