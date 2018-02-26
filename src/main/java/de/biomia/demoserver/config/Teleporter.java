@@ -8,7 +8,7 @@ public class Teleporter {
 
 	public static void giveItem(Player p) {
 
-		p.getInventory().setItem(0, ItemCreator.itemCreate(Material.CHEST, "00A7dTeleporter"));
+		p.getInventory().setItem(0, ItemCreator.itemCreate(Material.CHEST, "\u00A7dTeleporter"));
 
 	}
 

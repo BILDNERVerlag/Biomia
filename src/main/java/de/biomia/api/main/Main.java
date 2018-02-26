@@ -242,23 +242,23 @@ public class Main extends JavaPlugin {
 
     private void initInventories() {
 
-        menu = Bukkit.createInventory(null, 9, "00A7eREPORT MEN\u00fc");
-        ItemStack bug = ItemCreator.itemCreate(Material.BARRIER, "00A7cBug");
-        ItemStack spieler = ItemCreator.headWithSkin("DerJulsn", "00A7cSpieler");
+        menu = Bukkit.createInventory(null, 9, "\u00A7eREPORT MEN\u00fc");
+        ItemStack bug = ItemCreator.itemCreate(Material.BARRIER, "\u00A7cBug");
+        ItemStack spieler = ItemCreator.headWithSkin("DerJulsn", "\u00A7cSpieler");
         menu.setItem(3, bug);
         menu.setItem(5, spieler);
 
-        grund = Bukkit.createInventory(null, 18, "00A7eGRUND");
-        grund.setItem(2, ItemCreator.itemCreate(Material.ELYTRA, "00A7cFlyHack"));
-        grund.setItem(3, ItemCreator.itemCreate(Material.DIAMOND, "00A7cNoSlowdown"));
-        grund.setItem(4, ItemCreator.itemCreate(Material.IRON_SWORD, "00A7cKillaura"));
-        grund.setItem(5, ItemCreator.itemCreate(Material.LEATHER_BOOTS, "00A7cSpeedHack"));
-        grund.setItem(6, ItemCreator.itemCreate(Material.PAPER, "00A7cSonstiger Hack"));
-        grund.setItem(11, ItemCreator.itemCreate(Material.TNT, "00A7cGriefing"));
-        grund.setItem(12, ItemCreator.itemCreate(Material.BARRIER, "00A7cSpamming"));
-        grund.setItem(13, ItemCreator.itemCreate(Material.RAW_FISH, "00A7cTrolling"));
-        grund.setItem(14, ItemCreator.itemCreate(Material.BONE, "00A7cBeleidigung"));
-        grund.setItem(15, ItemCreator.itemCreate(Material.BOOK, "00A7cAnderer Grund"));
+        grund = Bukkit.createInventory(null, 18, "\u00A7eGRUND");
+        grund.setItem(2, ItemCreator.itemCreate(Material.ELYTRA, "\u00A7cFlyHack"));
+        grund.setItem(3, ItemCreator.itemCreate(Material.DIAMOND, "\u00A7cNoSlowdown"));
+        grund.setItem(4, ItemCreator.itemCreate(Material.IRON_SWORD, "\u00A7cKillaura"));
+        grund.setItem(5, ItemCreator.itemCreate(Material.LEATHER_BOOTS, "\u00A7cSpeedHack"));
+        grund.setItem(6, ItemCreator.itemCreate(Material.PAPER, "\u00A7cSonstiger Hack"));
+        grund.setItem(11, ItemCreator.itemCreate(Material.TNT, "\u00A7cGriefing"));
+        grund.setItem(12, ItemCreator.itemCreate(Material.BARRIER, "\u00A7cSpamming"));
+        grund.setItem(13, ItemCreator.itemCreate(Material.RAW_FISH, "\u00A7cTrolling"));
+        grund.setItem(14, ItemCreator.itemCreate(Material.BONE, "\u00A7cBeleidigung"));
+        grund.setItem(15, ItemCreator.itemCreate(Material.BOOK, "\u00A7cAnderer Grund"));
     }
 
     private void registerListeners() {

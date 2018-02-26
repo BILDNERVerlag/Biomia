@@ -18,9 +18,9 @@ public class Bau implements CommandExecutor {
         if (sender.hasPermission("biomia.createBau")) {
 
             if (args.length == 0) {
-                sender.sendMessage("00A7cBitte nutze:");
+                sender.sendMessage("\u00A7cBitte nutze:");
                 sender.sendMessage("");
-                sender.sendMessage("00A7c/bau add 00A77oder 00A7c/bau remove");
+                sender.sendMessage("\u00A7c/bau add \u00A77oder \u00A7c/bau remove");
                 return true;
             }
 
@@ -37,39 +37,39 @@ public class Bau implements CommandExecutor {
                         try {
                             m = Material.valueOf(args[3]);
                         } catch (Exception e) {
-                            p.sendMessage("00A7cBitte gib ein verf\u00fcgbares Material ein!");
+                            p.sendMessage("\u00A7cBitte gib ein verf\u00fcgbares Material ein!");
                             return true;
                         }
 
                         try {
                             seite = Integer.valueOf(args[1]);
                         } catch (NumberFormatException e) {
-                            p.sendMessage("00A7cBitte gib eine Zahl als Seite ein!");
+                            p.sendMessage("\u00A7cBitte gib eine Zahl als Seite ein!");
                             return true;
                         }
 
                         Config.addObjekt(seite, name, p.getLocation(), m);
 
                     } else {
-                        sender.sendMessage("00A7cDu musst ein Spieler sein!");
+                        sender.sendMessage("\u00A7cDu musst ein Spieler sein!");
                     }
                 } else
-                    sender.sendMessage("00A7c/bau add <Seite> <Name> <Material>");
+                    sender.sendMessage("\u00A7c/bau add <Seite> <Name> <Material>");
             }
             if (args[0].equalsIgnoreCase("remove")) {
 
                 if (args.length == 2)
                     Config.removeObjekt(args[1]);
                 else
-                    sender.sendMessage("00A7c/bau remove <Name>");
+                    sender.sendMessage("\u00A7c/bau remove <Name>");
             }
             if (args[0].equalsIgnoreCase("reload")) {
-                Bukkit.broadcastMessage("00A7cReloading....");
+                Bukkit.broadcastMessage("\u00A7cReloading....");
                 Main.getPlugin().reloadConfig();
                 WeltenlaborMain.bauten.clear();
                 WeltenlaborMain.si.clearAllItems();
                 Config.hookInPlugin();
-                Bukkit.broadcastMessage("00A7aReloaded!");
+                Bukkit.broadcastMessage("\u00A7aReloaded!");
             }
         }
         return true;

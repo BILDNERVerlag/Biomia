@@ -67,15 +67,15 @@ public class Gamemode implements CommandExecutor {
                             Player target = Bukkit.getPlayer(args[1]);
 
                             target.setGameMode(gameMode);
-                            target.sendMessage("00A75Du bist nun im GameMode 00A72" + gameMode.name().toLowerCase());
-                            p.sendMessage("00A75Der Spieler00A72 " + target.getName() + " 00A75ist nun im GameMode 00A72"
+                            target.sendMessage("\u00A75Du bist nun im GameMode \u00A72" + gameMode.name().toLowerCase());
+                            p.sendMessage("\u00A75Der Spieler\u00A72 " + target.getName() + " \u00A75ist nun im GameMode \u00A72"
                                     + gameMode.name().toLowerCase());
                         }
                     } else {
 
                         if (gameMode != null) {
                             p.setGameMode(gameMode);
-                            p.sendMessage("00A75Du bist nun im GameMode 00A72" + gameMode.name().toLowerCase());
+                            p.sendMessage("\u00A75Du bist nun im GameMode \u00A72" + gameMode.name().toLowerCase());
                         }
                     }
                 } else {

@@ -57,14 +57,14 @@ public class Teleport {
             public void run() {
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     if (waitForStartCountdown == 0) {
-                        ActionBar.sendActionBar("00A78Los!", p);
+                        ActionBar.sendActionBar("\u00A78Los!", p);
                         Biomia.getBiomiaPlayer(p).setBuild(true);
                         Biomia.getBiomiaPlayer(p).setDamageEntitys(true);
                         Biomia.getBiomiaPlayer(p).setGetDamage(true);
                         SkyWarsMain.gameState = GameState.INGAME;
                         cancel();
                     } else {
-                        ActionBar.sendActionBar("00A78" + waitForStartCountdown, p);
+                        ActionBar.sendActionBar("\u00A78" + waitForStartCountdown, p);
                     }
                 }
                 waitForStartCountdown--;

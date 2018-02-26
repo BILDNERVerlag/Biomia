@@ -90,20 +90,20 @@ public class LobbyMain {
         new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 360, -1000, 150), new Location(Bukkit.getWorld("SkywarsSignlobby"), 800, 1000, 700), new Location(Bukkit.getWorld("LobbyBiomia"), 534.5, 67.5, 193.5)).setInverted();
 
 
-        navigator = Bukkit.createInventory(null, 27, "00A7cNavigator");
+        navigator = Bukkit.createInventory(null, 27, "\u00A7cNavigator");
         // First Line
-        navigator.setItem(2, ItemCreator.itemCreate(Material.WORKBENCH, "00A76Bau Welt"));
-        navigator.setItem(4, ItemCreator.itemCreate(Material.DRAGON_EGG, "00A75Biomia | general"));
-        navigator.setItem(6, ItemCreator.itemCreate(Material.THIN_GLASS, "00A7eDemo Welt", Short.valueOf("3")));
+        navigator.setItem(2, ItemCreator.itemCreate(Material.WORKBENCH, "\u00A76Bau Welt"));
+        navigator.setItem(4, ItemCreator.itemCreate(Material.DRAGON_EGG, "\u00A75Biomia | general"));
+        navigator.setItem(6, ItemCreator.itemCreate(Material.THIN_GLASS, "\u00A7eDemo Welt", Short.valueOf("3")));
         // Second Line
-        navigator.setItem(12, ItemCreator.itemCreate(Material.MAGMA_CREAM, "00A7cSpawn"));
-        navigator.setItem(14, ItemCreator.itemCreate(Material.IRON_SWORD, "00A76Freebuild Welt"));
+        navigator.setItem(12, ItemCreator.itemCreate(Material.MAGMA_CREAM, "\u00A7cSpawn"));
+        navigator.setItem(14, ItemCreator.itemCreate(Material.IRON_SWORD, "\u00A76Freebuild Welt"));
         // Third Line
-        navigator.setItem(20, ItemCreator.itemCreate(Material.BED, "00A74BedWars"));
-        navigator.setItem(22, ItemCreator.itemCreate(Material.CHEST, "00A75Mysteri\u00F6se Box"));
-        navigator.setItem(24, ItemCreator.itemCreate(Material.GRASS, "00A7bSkyWars"));
+        navigator.setItem(20, ItemCreator.itemCreate(Material.BED, "\u00A74BedWars"));
+        navigator.setItem(22, ItemCreator.itemCreate(Material.CHEST, "\u00A75Mysteri\u00F6se Box"));
+        navigator.setItem(24, ItemCreator.itemCreate(Material.GRASS, "\u00A7bSkyWars"));
 
-        lobbySwitcher = Bukkit.createInventory(null, 27, "00A7dLobby Switcher");
+        lobbySwitcher = Bukkit.createInventory(null, 27, "\u00A7dLobby Switcher");
 
         new BukkitRunnable() {
             @Override
@@ -123,10 +123,10 @@ public class LobbyMain {
                         amount = 1;
                     if (serverObject.getName().equalsIgnoreCase(so.getName()))
                         lobbySwitcher.setItem(i, ItemCreator
-                                .setAmount(ItemCreator.itemCreate(Material.SUGAR, "00A76" + so.getName()), amount));
+                                .setAmount(ItemCreator.itemCreate(Material.SUGAR, "\u00A76" + so.getName()), amount));
                     else
                         lobbySwitcher.setItem(i, ItemCreator
-                                .setAmount(ItemCreator.itemCreate(Material.SULPHUR, "00A7e" + so.getName()), amount));
+                                .setAmount(ItemCreator.itemCreate(Material.SULPHUR, "\u00A7e" + so.getName()), amount));
                     i++;
                 }
             }

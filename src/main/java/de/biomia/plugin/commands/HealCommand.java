@@ -17,13 +17,13 @@ public class HealCommand implements CommandExecutor {
         }
 
         if (!(sender instanceof Player)) {
-            sender.sendMessage("00A7cNur Spieler k\u00F6nnen sich heilen!");
+            sender.sendMessage("\u00A7cNur Spieler k\u00F6nnen sich heilen!");
             return true;
         }
 
         Player p = (Player) sender;
         p.setHealth(p.getHealthScale());
-        sender.sendMessage("00A7dDu wurdest vollst\u00fcndig geheilt!");
+        sender.sendMessage("\u00A7dDu wurdest vollst\u00fcndig geheilt!");
 
         return true;
     }

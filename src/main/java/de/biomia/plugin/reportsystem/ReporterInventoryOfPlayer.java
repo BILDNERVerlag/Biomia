@@ -34,7 +34,7 @@ class ReporterInventoryOfPlayer implements Listener {
         this.master = master;
         this.biomiaIDReportedPlayer = biomiaIDReportedPlayer;
         String nameReportedPlayer = BiomiaPlayer.getName(biomiaIDReportedPlayer);
-        inv = Bukkit.createInventory(null, 27, "00A7d" + nameReportedPlayer + "'s Report Profile");
+        inv = Bukkit.createInventory(null, 27, "\u00A7d" + nameReportedPlayer + "'s Report Profile");
         Bukkit.getPluginManager().registerEvents(this, Main.plugin);
     }
 
@@ -99,7 +99,7 @@ class ReporterInventoryOfPlayer implements Listener {
         for (PlayerReport playerReport : ReportSQL.getAllReportsOf(biomiaIDReportedPlayer)) {
             String reporter = playerReport.getReporterName();
 
-            ItemStack stack = ItemCreator.headWithSkin(reporter, "00A7c" + reporter);
+            ItemStack stack = ItemCreator.headWithSkin(reporter, "\u00A7c" + reporter);
             ItemMeta meta = stack.getItemMeta();
             meta.setLore(Arrays.asList("", "Grund: " + playerReport.getGrund(), ""));
             stack.setItemMeta(meta);

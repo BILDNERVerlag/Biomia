@@ -101,13 +101,13 @@ public class ScrollingInventory implements Listener {
 
 	private void setNext() {
 		if (next == null)
-			next = ItemCreator.itemCreate(Material.BLAZE_ROD, "00A7aN\u00e4chste Seite");
+			next = ItemCreator.itemCreate(Material.BLAZE_ROD, "\u00A7aN\u00e4chste Seite");
 		inv.setItem(inv.getSize() - 2, next);
 	}
 
 	private void setBack() {
 		if (back == null)
-			back = ItemCreator.itemCreate(Material.STICK, "00A7aLetzte Seite");
+			back = ItemCreator.itemCreate(Material.STICK, "\u00A7aLetzte Seite");
 		inv.setItem(inv.getSize() - 8, back);
 	}
 

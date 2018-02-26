@@ -21,7 +21,7 @@ public class Build implements CommandExecutor {
                 if (sender instanceof Player)
                     bp = Biomia.getBiomiaPlayer((Player) sender);
                 else {
-                    sender.sendMessage("00A7cDu musst ein Spieler sein!");
+                    sender.sendMessage("\u00A7cDu musst ein Spieler sein!");
                     return true;
                 }
             } else {
@@ -29,22 +29,22 @@ public class Build implements CommandExecutor {
                 if (p != null)
                     bp = Biomia.getBiomiaPlayer(p);
                 else {
-                    sender.sendMessage("00A7cDer Spieler ist nicht Online!");
+                    sender.sendMessage("\u00A7cDer Spieler ist nicht Online!");
                     return true;
                 }
             }
             if (!bp.canBuild()) {
                 bp.setBuild(true);
-                bp.getPlayer().sendMessage("00A7aDu kannst nun bauen!");
+                bp.getPlayer().sendMessage("\u00A7aDu kannst nun bauen!");
                 if (sender.equals(bp.getPlayer())) {
-                    sender.sendMessage("00A7aDer Spieler 00A76" + bp.getPlayer().getName() + " 00A7akann nun bauen!");
+                    sender.sendMessage("\u00A7aDer Spieler \u00A76" + bp.getPlayer().getName() + " \u00A7akann nun bauen!");
                 }
 
             } else {
                 bp.setBuild(false);
-                bp.getPlayer().sendMessage("00A7cDu kannst nun nicht mehr bauen!");
+                bp.getPlayer().sendMessage("\u00A7cDu kannst nun nicht mehr bauen!");
                 if (!sender.equals(bp.getPlayer())) {
-                    sender.sendMessage("00A7cDer Spieler 00A76" + bp.getPlayer().getName() + " 00A7ckann nun nicht mehr bauen!");
+                    sender.sendMessage("\u00A7cDer Spieler \u00A76" + bp.getPlayer().getName() + " \u00A7ckann nun nicht mehr bauen!");
                 }
 
             }

@@ -36,8 +36,8 @@ public class BedListener implements Listener {
                             }
                             Bukkit.getPluginManager().callEvent(new BedWarsDestroyBedEvent(Biomia.getBiomiaPlayer(e.getPlayer()), Variables.beds.get(t).get(0), Variables.beds.get(t).get(1), t.getTeamname()));
                             Variables.teamsWithBeds.remove(t);
-                            Bukkit.broadcastMessage("00A7cDas Bett von Team " + t.getColorcode()
-                                    + Biomia.TeamManager().translate(t.getTeamname()) + " 00A7cwurde zerst\u00F6rt!");
+                            Bukkit.broadcastMessage("\u00A7cDas Bett von Team " + t.getColorcode()
+                                    + Biomia.TeamManager().translate(t.getTeamname()) + " \u00A7cwurde zerst\u00F6rt!");
                             e.setDropItems(false);
                             for (Player p : Bukkit.getOnlinePlayers()) {
                                 p.playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_FIREBALL_EXPLODE, 1, 1);

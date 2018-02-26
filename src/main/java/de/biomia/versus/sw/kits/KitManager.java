@@ -170,7 +170,7 @@ public class KitManager {
 
         // Knockback
         Kit knockbackstick = new Kit("Knockback", 11, 30000, ItemCreator.itemCreate(Material.STICK), true);
-        ItemStack stick = ItemCreator.itemCreate(Material.STICK, "00A72Knockback-Stick");
+        ItemStack stick = ItemCreator.itemCreate(Material.STICK, "\u00A72Knockback-Stick");
         stick.addUnsafeEnchantment(Enchantment.KNOCKBACK, 2);
         knockbackstick.addItem(0, stick);
 

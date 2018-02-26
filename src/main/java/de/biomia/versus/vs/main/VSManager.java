@@ -36,8 +36,8 @@ public class VSManager implements Listener {
     private final HashMap<BiomiaPlayer, VSSettings> settings = new HashMap<>();
     private final HashMap<VSMode, HashMap<Integer, String>> mapNames = new HashMap<>();
     private final Location home = new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 40, 0);
-    private final ItemStack toChallangeItem = ItemCreator.itemCreate(Material.DIAMOND_SWORD, "00A7cHerausforderer");
-    private final ItemStack settingItem = ItemCreator.itemCreate(Material.REDSTONE, "00A7cEinstellungen");
+    private final ItemStack toChallangeItem = ItemCreator.itemCreate(Material.DIAMOND_SWORD, "\u00A7cHerausforderer");
+    private final ItemStack settingItem = ItemCreator.itemCreate(Material.REDSTONE, "\u00A7cEinstellungen");
     private VSGroup main;
 
     VSManager() {
@@ -59,23 +59,23 @@ public class VSManager implements Listener {
         mapNames.put(VSMode.SkyWars, swMaps);
         mapNames.put(VSMode.KitPVP, vsMaps);
 
-        main = new VSGroup(VSMode.Main, "00A7cEinstellungen", null, 0, false, null);
+        main = new VSGroup(VSMode.Main, "\u00A7cEinstellungen", null, 0, false, null);
 
-        ItemStack bedwarsSettingItem = ItemCreator.itemCreate(Material.BED, "00A7cBedWars");
-        ItemStack skywarsSettingItem = ItemCreator.itemCreate(Material.GRASS, "00A7aSkyWars");
-        ItemStack kitPvPSettingItem = ItemCreator.itemCreate(Material.IRON_SWORD, "00A7dKitPvP");
+        ItemStack bedwarsSettingItem = ItemCreator.itemCreate(Material.BED, "\u00A7cBedWars");
+        ItemStack skywarsSettingItem = ItemCreator.itemCreate(Material.GRASS, "\u00A7aSkyWars");
+        ItemStack kitPvPSettingItem = ItemCreator.itemCreate(Material.IRON_SWORD, "\u00A7dKitPvP");
 
-        VSGroup bedwars = main.registerNewGroup(VSMode.BedWars, bedwarsSettingItem, "00A7cBedWars", 6, 0, true);
-        VSGroup bedwarsMaps = bedwars.registerNewGroup(VSMode.BedWars, ItemCreator.itemCreate(Material.PAPER, "00A7aMaps"), "00A7aMaps", 0);
+        VSGroup bedwars = main.registerNewGroup(VSMode.BedWars, bedwarsSettingItem, "\u00A7cBedWars", 6, 0, true);
+        VSGroup bedwarsMaps = bedwars.registerNewGroup(VSMode.BedWars, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
         bedwarsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, bedwarsMaps));
 
-        VSGroup skywars = main.registerNewGroup(VSMode.SkyWars, skywarsSettingItem, "00A7aSkyWars", 4, 0, true);
-        VSGroup skywarsMaps = skywars.registerNewGroup(VSMode.SkyWars, ItemCreator.itemCreate(Material.PAPER, "00A7aMaps"), "00A7aMaps", 0);
+        VSGroup skywars = main.registerNewGroup(VSMode.SkyWars, skywarsSettingItem, "\u00A7aSkyWars", 4, 0, true);
+        VSGroup skywarsMaps = skywars.registerNewGroup(VSMode.SkyWars, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
         skywarsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, skywarsMaps));
         skywars.registerNewGroup(VSMode.SkyWars, Variables.kitItem, ItemNames.kitItemName, 1);
 
-        VSGroup kitpvp = main.registerNewGroup(VSMode.KitPVP, kitPvPSettingItem, "00A7dKitPvP", 2, 0, true);
-        VSGroup kitpvpsMaps = kitpvp.registerNewGroup(VSMode.KitPVP, ItemCreator.itemCreate(Material.PAPER, "00A7aMaps"), "00A7aMaps", 0);
+        VSGroup kitpvp = main.registerNewGroup(VSMode.KitPVP, kitPvPSettingItem, "\u00A7dKitPvP", 2, 0, true);
+        VSGroup kitpvpsMaps = kitpvp.registerNewGroup(VSMode.KitPVP, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
         kitpvpsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, kitpvpsMaps));
     }
 
@@ -104,12 +104,12 @@ public class VSManager implements Listener {
 
     private void addToQueue(BiomiaPlayer bp) {
         WarteschlangenManager.add(bp);
-        ActionBar.sendActionBar("00A7cDu bist der Warteschlange beigetretten!", bp.getPlayer());
+        ActionBar.sendActionBar("\u00A7cDu bist der Warteschlange beigetretten!", bp.getPlayer());
     }
 
     private void removeFromQueue(BiomiaPlayer bp) {
         WarteschlangenManager.remove(bp);
-        ActionBar.sendActionBar("00A7cDu hast die Warteschlange verlassen!", bp.getPlayer());
+        ActionBar.sendActionBar("\u00A7cDu hast die Warteschlange verlassen!", bp.getPlayer());
     }
 
     public VSSettings getSettings(BiomiaPlayer bp) {
@@ -125,7 +125,7 @@ public class VSManager implements Listener {
         if (is != null && is.getType() != Material.AIR) {
             if (is.hasItemMeta() && is.getItemMeta().hasDisplayName()) {
                 switch (is.getItemMeta().getDisplayName()) {
-                    case "00A7cEinstellungen":
+                    case "\u00A7cEinstellungen":
                         openMainInventory(bp);
                         break;
                     default:
@@ -143,7 +143,7 @@ public class VSManager implements Listener {
 
         if (is != null && is.getType() != Material.AIR) {
             if (is.hasItemMeta()) {
-                if (is.getItemMeta().getDisplayName().equals("00A7cHerausforderer")) {
+                if (is.getItemMeta().getDisplayName().equals("\u00A7cHerausforderer")) {
                     if (e.getRightClicked() instanceof Player) {
                         Player p1 = (Player) e.getRightClicked();
                         BiomiaPlayer hittedPlayer = Biomia.getBiomiaPlayer(p1);
@@ -152,7 +152,7 @@ public class VSManager implements Listener {
                             if (request != null)
                                 request.decline();
                             else
-                                p.sendMessage("00A7cDu hast keine Herausforderung von 00A7d" + p1.getName() + "00A7c die du ablehnen kannst!");
+                                p.sendMessage("\u00A7cDu hast keine Herausforderung von \u00A7d" + p1.getName() + "\u00A7c die du ablehnen kannst!");
                             e.setCancelled(true);
                         }
                     } else if (e.getRightClicked() instanceof Villager) {
@@ -173,13 +173,13 @@ public class VSManager implements Listener {
 
             if (is != null && is.getType() != Material.AIR) {
                 if (is.hasItemMeta()) {
-                    if (is.getItemMeta().getDisplayName().equals("00A7cHerausforderer")) {
+                    if (is.getItemMeta().getDisplayName().equals("\u00A7cHerausforderer")) {
                         if (e.getEntity() instanceof Player) {
                             Player p1 = (Player) e.getEntity();
                             BiomiaPlayer hittedPlayer = Biomia.getBiomiaPlayer(p1);
 
                             if (VSRequest.hasRequestSended(hitter, hittedPlayer)) {
-                                hitter.getPlayer().sendMessage("00A7cDu hast dem Spieler bereits eine Anfrage geschickt!");
+                                hitter.getPlayer().sendMessage("\u00A7cDu hast dem Spieler bereits eine Anfrage geschickt!");
                             } else if (VSRequest.hasRequestSended(hittedPlayer, hitter)) {
                                 VSRequest request = VSRequest.getRequest(hittedPlayer);
                                 assert request != null;

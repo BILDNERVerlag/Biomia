@@ -61,7 +61,7 @@ public class BiomiaListener implements Listener {
                 "rangEingeloestFuerPlayeruuid", MySQL.Databases.biomia_db) == null && !e.getPlayer().hasPermission("biomia.demoserver.free")) {
 
             e.getPlayer().sendMessage(
-                    "00A7cDu hast den Code f\u00fcr den Zugang zu dieser Welt nicht auf unserer Website eingeben!");
+                    "\u00A7cDu hast den Code f\u00fcr den Zugang zu dieser Welt nicht auf unserer Website eingeben!");
             e.getPlayer().kickPlayer("");
         }
     }
@@ -86,10 +86,10 @@ public class BiomiaListener implements Listener {
 
         if (p.hasPermission("biomia.coloredchat")) {
             msg = ChatColor.translateAlternateColorCodes('&', msg);
-            format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "00A77: 00A7f" + msg;
+            format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "\u00A77: \u00A7f" + msg;
             e.setFormat(format);
         } else {
-            format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "00A77: 00A7f" + msg;
+            format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "\u00A77: \u00A7f" + msg;
             e.setFormat(format);
         }
     }
@@ -121,7 +121,7 @@ public class BiomiaListener implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
         if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK))
-            if (e.getItem() != null && e.getItem().getItemMeta().getDisplayName().equals("00A7dTeleporter")) {
+            if (e.getItem() != null && e.getItem().getItemMeta().getDisplayName().equals("\u00A7dTeleporter")) {
                 WeltenlaborMain.si.openCopy(e.getPlayer());
                 e.setCancelled(true);
 

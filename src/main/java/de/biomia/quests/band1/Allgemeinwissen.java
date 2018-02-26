@@ -148,7 +148,7 @@ public class Allgemeinwissen implements Listener {
 				"die sich mit Sicherheit bestimmen lassen. Auf den nachfolgenden Seiten folgt eine Auflistung, dieser Fakten rund ums Dorf:");
 		pages.add(
 				"Anzahl schwarzer Woll-Laternen:\n\nAnzahl H\u00e4user im Dorf:\n\nAnzahl Felder im Dorf:\n\nTiefe d. Brunnens:");
-		pages.add("00A7o(Du bl\u00e4tterst um, 00A7odoch hier ist keine 00A7oSeite mehr. 00A7oSeltsam.)");
+		pages.add("\u00A7o(Du bl\u00e4tterst um, \u00A7odoch hier ist keine \u00A7oSeite mehr. \u00A7oSeltsam.)");
 
 		bookMeta.setPages(pages);
 		writtenBook.setItemMeta(bookMeta);

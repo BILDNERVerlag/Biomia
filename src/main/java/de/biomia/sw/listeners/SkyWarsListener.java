@@ -118,9 +118,9 @@ public class SkyWarsListener implements Listener {
             bp.getPlayer().setLevel(Variables.countDown.getCountdown());
 
             if (bp.isPremium()) {
-                Bukkit.broadcastMessage("00A76" + p.getName() + Messages.joinedTheGame);
+                Bukkit.broadcastMessage("\u00A76" + p.getName() + Messages.joinedTheGame);
             } else {
-                Bukkit.broadcastMessage("00A77" + p.getName() + Messages.joinedTheGame);
+                Bukkit.broadcastMessage("\u00A77" + p.getName() + Messages.joinedTheGame);
             }
             if (bp.isPartyLeader()) {
                 if (bp.getParty().getAllPlayers().size() > 1) {

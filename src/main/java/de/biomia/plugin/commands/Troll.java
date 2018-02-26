@@ -28,10 +28,10 @@ public class Troll implements CommandExecutor {
                 if (sender.hasPermission("biomia.trollmod")) {
                     if (bp.isInTrollmode()) {
                         bp.setTrollmode(false);
-                        sender.sendMessage("00A7cDu bist nun nicht mehr im Troll Modus");
+                        sender.sendMessage("\u00A7cDu bist nun nicht mehr im Troll Modus");
                     } else {
                         bp.setTrollmode(true);
-                        sender.sendMessage("00A7aDu bist nun im Troll Modus");
+                        sender.sendMessage("\u00A7aDu bist nun im Troll Modus");
                     }
                 } else {
                     sender.sendMessage(Messages.NO_PERM);
@@ -42,9 +42,9 @@ public class Troll implements CommandExecutor {
 
                     if (bp.isInTrollmode()) {
                         crashPlayer(target);
-                        sender.sendMessage("00A7aDu hast den Spieler00A7c " + target.getName() + " 00A7agecrashed!");
+                        sender.sendMessage("\u00A7aDu hast den Spieler\u00A7c " + target.getName() + " \u00A7agecrashed!");
                     } else {
-                        sender.sendMessage("00A7cDu bist nicht im Troll Modus!");
+                        sender.sendMessage("\u00A7cDu bist nicht im Troll Modus!");
                     }
                 }
             }

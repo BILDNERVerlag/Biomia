@@ -27,16 +27,16 @@ public class HologramCommand implements CommandExecutor {
                             String[] out = string.toString().split(" % ");
                             Hologram.newHologram(p, out);
                         } else {
-                            sender.sendMessage("00A7c/hologram create <String>");
+                            sender.sendMessage("\u00A7c/hologram create <String>");
                             sender.sendMessage(
-                                    "00A7cFalls du mehr Zeilen willst, nutze 00A7a' % ' 00A7cum die Zeile zu trennen");
+                                    "\u00A7cFalls du mehr Zeilen willst, nutze \u00A7a' % ' \u00A7cum die Zeile zu trennen");
                         }
                     } else if (args[0].equalsIgnoreCase("remove")) {
-                        p.getInventory().addItem(ItemCreator.itemCreate(Material.ARMOR_STAND, "00A7cHologram remover"));
+                        p.getInventory().addItem(ItemCreator.itemCreate(Material.ARMOR_STAND, "\u00A7cHologram remover"));
                     }
                 } else {
-                    sender.sendMessage("00A7c/hologram create <String>");
-                    sender.sendMessage("00A7c/hologram remove");
+                    sender.sendMessage("\u00A7c/hologram create <String>");
+                    sender.sendMessage("\u00A7c/hologram remove");
                 }
             }
         }

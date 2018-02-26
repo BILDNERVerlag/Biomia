@@ -65,7 +65,7 @@ class BedWarsHandler extends GameHandler {
                                 e.setCancelled(true);
                                 e.getPlayer().sendMessage(Messages.cantDestroyYourOwnBed);
                             } else {
-                                Bukkit.broadcastMessage("00A77Das Bett von Team " + team.getColorcode() + team.getTeamname() + " 00A77wurde zerst\u00F6rt!");
+                                Bukkit.broadcastMessage("\u00A77Das Bett von Team " + team.getColorcode() + team.getTeamname() + " \u00A77wurde zerst\u00F6rt!");
                                 e.setDropItems(false);
                                 e.setCancelled(false);
                                 mode.getInstance().getWorld().getPlayers().forEach(each -> each.playSound(each.getLocation(), Sound.ENTITY_ENDERDRAGON_FIREBALL_EXPLODE, 1, 1));

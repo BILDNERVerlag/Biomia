@@ -103,14 +103,18 @@ public class MysteryChest {
         if (menge != -1)
             itemStack.setAmount(menge);
 
+        ItemStack is = ItemCreator.itemCreate(Material.BLACK_GLAZED_TERRACOTTA);
+        int filler = 0;
+        while (filler < 27) {
+            inv.setItem(filler, is);
+            filler++;
+        }
+
         bp.getPlayer().openInventory(inv);
         Stats.incrementStat(Stats.BiomiaStat.MysteryChestsOpened, bp.getBiomiaPlayerID());
 
         new BukkitRunnable() {
             int counter = 0;
-
-            ItemStack is = ItemCreator.itemCreate(Material.BLACK_GLAZED_TERRACOTTA);
-
             @Override
             public void run() {
 
@@ -122,7 +126,7 @@ public class MysteryChest {
                     cancel();
                     return;
                 default:
-                    inv.setItem(counter, is);
+                    inv.setItem(counter, null);
                     break;
                 }
                 counter++;

@@ -50,13 +50,13 @@ public class Kits {
         availableKits.forEach(each -> {
             if (each.getID() == kitID) {
                 Variables.selectedKit.put(p, each);
-                p.getInventory().setItem(7, ItemCreator.itemCreate(each.getIcon().getType(), "00A75" + each.getName()));
+                p.getInventory().setItem(7, ItemCreator.itemCreate(each.getIcon().getType(), "\u00A75" + each.getName()));
             }
         });
 
         if (getSelectedKit(p) == null) {
             Variables.selectedKit.put(p, Variables.standardKit);
-            p.getInventory().setItem(7, ItemCreator.itemCreate(Variables.standardKit.getIcon().getType(), "00A75" + Variables.standardKit.getName()));
+            p.getInventory().setItem(7, ItemCreator.itemCreate(Variables.standardKit.getIcon().getType(), "\u00A75" + Variables.standardKit.getName()));
         }
     }
 
@@ -100,7 +100,7 @@ public class Kits {
         Bukkit.getPluginManager().callEvent(new KitChangeEvent(bp, k.getID()));
 
         Variables.selectedKit.put(p, k);
-        p.getInventory().setItem(7, ItemCreator.itemCreate(k.getIcon().getType(), "00A75" + k.getName()));
+        p.getInventory().setItem(7, ItemCreator.itemCreate(k.getIcon().getType(), "\u00A75" + k.getName()));
 
         if (MySQL.executeQuerygetint("SELECT kitID FROM `LSSkyWarsKit` WHERE biomiaID = " + bp.getBiomiaPlayerID(), "kitID", MySQL.Databases.biomia_db) != 0) {
             MySQL.executeUpdate(
@@ -243,7 +243,7 @@ public class Kits {
 
         // Knockback
         Kit knockbackstick = new Kit("Knockback", 11, 30000, ItemCreator.itemCreate(Material.STICK), true);
-        ItemStack stick = ItemCreator.itemCreate(Material.STICK, "00A72Knockback-Stick");
+        ItemStack stick = ItemCreator.itemCreate(Material.STICK, "\u00A72Knockback-Stick");
         stick.addUnsafeEnchantment(Enchantment.KNOCKBACK, 2);
         knockbackstick.addItem(0, stick);
 

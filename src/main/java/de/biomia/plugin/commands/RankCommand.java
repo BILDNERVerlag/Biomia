@@ -22,7 +22,7 @@ public class RankCommand implements CommandExecutor {
                         Player p = Bukkit.getPlayer(args[0]);
                         if (p != null) {
                             Rank.setRank(p, args[1]);
-                            sender.sendMessage("00A7aDer Spieler " + args[0] + " ist nun " + args[1] + ".");
+                            sender.sendMessage("\u00A7aDer Spieler " + args[0] + " ist nun " + args[1] + ".");
                             for (Player pl : Bukkit.getOnlinePlayers()) {
                                 Scoreboard asb = pl.getScoreboard();
                                 for (Team t : asb.getTeams()) {
@@ -34,18 +34,18 @@ public class RankCommand implements CommandExecutor {
                             }
                         } else {
                             Rank.setRank(args[0], args[1]);
-                            sender.sendMessage("00A7aDer Spieler " + args[0] + " ist nun " + args[1]);
+                            sender.sendMessage("\u00A7aDer Spieler " + args[0] + " ist nun " + args[1]);
                         }
                     } else {
-                        sender.sendMessage("00A7cEs sind nur diese R\u00fcnge verf\u00fcgbar:");
+                        sender.sendMessage("\u00A7cEs sind nur diese R\u00fcnge verf\u00fcgbar:");
 
                         for (String s : Main.group) {
-                            sender.sendMessage("00A7c" + s);
+                            sender.sendMessage("\u00A7c" + s);
                         }
                     }
 
                 } else {
-                    sender.sendMessage("00A7c/rank <Spieler> <Rank>");
+                    sender.sendMessage("\u00A7c/rank <Spieler> <Rank>");
                 }
 
             }

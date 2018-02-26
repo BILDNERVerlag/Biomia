@@ -66,7 +66,7 @@ public class BW implements CommandExecutor {
 
                             if (blockFoot.getType() == Material.BED_BLOCK && blockHead.getType() == Material.BED_BLOCK) {
                                 BedWarsConfig.setBed(Integer.valueOf(args[1]), Integer.valueOf(args[2]), blockHead.getLocation(), blockFoot.getLocation());
-                                Bukkit.broadcastMessage("00A7cBett hinzugef\u00fcgt!");
+                                Bukkit.broadcastMessage("\u00A7cBett hinzugef\u00fcgt!");
                             } else
                                 p.sendMessage(Messages.blocksMustBeBeds);
                         } else
@@ -80,10 +80,10 @@ public class BW implements CommandExecutor {
                         break;
                     }
                 } else {
-                    sender.sendMessage("00A7c/bw addloc (F\u00fcgt einen Spawnpunkt hinzu)");
-                    sender.sendMessage("00A7c/bw addbed (F\u00fcgt ein Bett hinzu)");
-                    sender.sendMessage("00A7c/bw addspawner (Schau auf einen Spawner)");
-                    sender.sendMessage("00A7c/bw villager (Gibt einen Villager Spawner zur\u00fcck)");
+                    sender.sendMessage("\u00A7c/bw addloc (F\u00fcgt einen Spawnpunkt hinzu)");
+                    sender.sendMessage("\u00A7c/bw addbed (F\u00fcgt ein Bett hinzu)");
+                    sender.sendMessage("\u00A7c/bw addspawner (Schau auf einen Spawner)");
+                    sender.sendMessage("\u00A7c/bw villager (Gibt einen Villager Spawner zur\u00fcck)");
                 }
             }
         }

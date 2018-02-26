@@ -29,7 +29,7 @@ public class ChatEvent implements Listener {
             e.setCancelled(true);
 
             ReportSQL.addBugReport(p, e.getMessage());
-            p.sendMessage("00A7aDanke f\u00fcr deinen Bug Report! Wir werden den Bug so schnell wie m\u00F6glich beheben!");
+            p.sendMessage("\u00A7aDanke f\u00fcr deinen Bug Report! Wir werden den Bug so schnell wie m\u00F6glich beheben!");
 
         } else if (ReportManager.waitingForName.contains(p)) {
             ReportManager.waitingForName.remove(p);

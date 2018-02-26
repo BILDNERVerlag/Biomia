@@ -23,35 +23,35 @@ public class FlyCommand implements CommandExecutor {
 
             if (p.getAllowFlight()) {
                 p.setAllowFlight(false);
-                p.sendMessage("00A7cFly Mode deaktiviert.");
+                p.sendMessage("\u00A7cFly Mode deaktiviert.");
             } else {
                 p.setAllowFlight(true);
-                p.sendMessage("00A7cFly Mode aktiviert.");
+                p.sendMessage("\u00A7cFly Mode aktiviert.");
             }
 
         } else if (args.length == 1) {
             // Falls Spielername \u00fcbergeben
             Player toSet = Bukkit.getPlayer(args[0]);
             if (toSet == null) {
-                sender.sendMessage("00A7cDieser Spieler ist nicht online!");
+                sender.sendMessage("\u00A7cDieser Spieler ist nicht online!");
             } else {
                 if (toSet.getAllowFlight()) {
                     toSet.setAllowFlight(false);
-                    sender.sendMessage("00A7cFly Mode f\u00fcr Spieler " + toSet.getName() + " deaktiviert.");
-                    toSet.sendMessage("00A7cFly Mode f\u00fcr Spieler " + toSet.getName() + " wurde von " + sender.getName()
+                    sender.sendMessage("\u00A7cFly Mode f\u00fcr Spieler " + toSet.getName() + " deaktiviert.");
+                    toSet.sendMessage("\u00A7cFly Mode f\u00fcr Spieler " + toSet.getName() + " wurde von " + sender.getName()
                             + " deaktiviert.");
 
                 } else {
                     toSet.setAllowFlight(true);
-                    sender.sendMessage("00A7cFly Mode f\u00fcr Spieler " + toSet.getName() + " aktiviert.");
-                    toSet.sendMessage("00A7cFly Mode f\u00fcr Spieler " + toSet.getName() + " wurde von " + sender.getName()
+                    sender.sendMessage("\u00A7cFly Mode f\u00fcr Spieler " + toSet.getName() + " aktiviert.");
+                    toSet.sendMessage("\u00A7cFly Mode f\u00fcr Spieler " + toSet.getName() + " wurde von " + sender.getName()
                             + " aktiviert.");
 
                 }
             }
         } else {
             // Ansonsten
-            sender.sendMessage("00A7c/fly [optional:Spielername]");
+            sender.sendMessage("\u00A7c/fly [optional:Spielername]");
         }
 
         return false;

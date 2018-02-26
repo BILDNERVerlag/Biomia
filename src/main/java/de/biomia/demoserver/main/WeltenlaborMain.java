@@ -18,7 +18,7 @@ public class WeltenlaborMain {
 
 	public static void initWeltenlabor() {
 
-		si = new ScrollingInventory("00A7eW\u00e4hle dein Ziel!", 3);
+		si = new ScrollingInventory("\u00A7eW\u00e4hle dein Ziel!", 3);
 		
 		Bukkit.getPluginManager().registerEvents(new BiomiaListener(), Main.getPlugin());
 

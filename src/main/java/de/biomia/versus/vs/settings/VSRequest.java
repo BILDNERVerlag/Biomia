@@ -29,7 +29,7 @@ public class VSRequest {
 
     public VSRequest(BiomiaPlayer leader, BiomiaPlayer bp2) {
         if (leader.equals(bp2)) {
-            leader.getPlayer().sendMessage("00A7cDu kannst dir nicht selbst eine Anfrage schicken!");
+            leader.getPlayer().sendMessage("\u00A7cDu kannst dir nicht selbst eine Anfrage schicken!");
             badStart = true;
             return;
         }
@@ -75,21 +75,21 @@ public class VSRequest {
             if (!isInRunningRound())
                 if (canStart()) {
                     Player p = leader.getPlayer();
-                    BaseComponent comp = new TextComponent("00A7cDer Spieler 00A7d" + leader.getPlayer().getName() + " 00A7chat dich Herausgefordert!\n");
-                    comp.addExtra("00A75Modus00A77/00A72Map00A78:00A75 " + getModus().name() + "00A77/00A72" + getMapName());
+                    BaseComponent comp = new TextComponent("\u00A7cDer Spieler \u00A7d" + leader.getPlayer().getName() + " \u00A7chat dich Herausgefordert!\n");
+                    comp.addExtra("\u00A75Modus\u00A77/\u00A72Map\u00A78:\u00A75 " + getModus().name() + "\u00A77/\u00A72" + getMapName());
                     comp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/accept " + p.getName()));
                     bp2.getPlayer().spigot().sendMessage(comp);
-                    p.sendMessage("00A7cDu hast den Spieler 00A7d" + bp2.getPlayer().getName() + " 00A7cHerausgefordert!");
+                    p.sendMessage("\u00A7cDu hast den Spieler \u00A7d" + bp2.getPlayer().getName() + " \u00A7cHerausgefordert!");
                 } else
-                    leader.getPlayer().sendMessage("00A7cDeine Einstellungen sind zu genau!");
+                    leader.getPlayer().sendMessage("\u00A7cDeine Einstellungen sind zu genau!");
     }
 
     private boolean isInRunningRound() {
         if (playersInRound.contains(leader)) {
-            leader.getPlayer().sendMessage("00A7cDu bist bereits in einer Runde!");
+            leader.getPlayer().sendMessage("\u00A7cDu bist bereits in einer Runde!");
             return true;
         } else if (playersInRound.contains(bp2)) {
-            leader.getPlayer().sendMessage("00A7cDer Spieler ist bereits in einer Runde!");
+            leader.getPlayer().sendMessage("\u00A7cDer Spieler ist bereits in einer Runde!");
             return true;
         }
         return false;
@@ -104,8 +104,8 @@ public class VSRequest {
     }
 
     public void accept() {
-        leader.getPlayer().sendMessage("00A7cDer Spieler 00A7d" + bp2.getPlayer().getName() + " 00A7chat die Herausforderung angenommen!");
-        bp2.getPlayer().sendMessage("00A7cDu hast die Herausforderung von 00A7d" + leader.getPlayer().getName() + " 00A7cangenommen!");
+        leader.getPlayer().sendMessage("\u00A7cDer Spieler \u00A7d" + bp2.getPlayer().getName() + " \u00A7chat die Herausforderung angenommen!");
+        bp2.getPlayer().sendMessage("\u00A7cDu hast die Herausforderung von \u00A7d" + leader.getPlayer().getName() + " \u00A7cangenommen!");
         startServer();
         gameInstance.getGameMode().start();
         remove();
@@ -119,8 +119,8 @@ public class VSRequest {
     }
 
     public void decline() {
-        leader.getPlayer().sendMessage("00A7cDer Spieler 00A7d" + bp2.getPlayer().getName() + " 00A7chat die Herausforderung abgelehnt!");
-        bp2.getPlayer().sendMessage("00A7cDu hast die Herausforderung von 00A7d" + leader.getPlayer().getName() + " 00A7cabgelehnt!");
+        leader.getPlayer().sendMessage("\u00A7cDer Spieler \u00A7d" + bp2.getPlayer().getName() + " \u00A7chat die Herausforderung abgelehnt!");
+        bp2.getPlayer().sendMessage("\u00A7cDu hast die Herausforderung von \u00A7d" + leader.getPlayer().getName() + " \u00A7cabgelehnt!");
         remove();
     }
 

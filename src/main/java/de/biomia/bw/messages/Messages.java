@@ -28,8 +28,8 @@ public class Messages {
     public static final String joinedTheGame = "\u00A78ist dem Spiel beigetreten!";
     public static final String playerKilledByPlayer = "\u00A78Der Spieler %p1 \u00A78wurde von %p2 \u00A78get\u00F6tet!";
     public static final String playerDied = "\u00A78Der Spieler %p \u00A78ist gestorben!";
-    public static final String playerDiedFinally = "00A78Der Spieler %p \u00A78ist endg\u00fcltig gestorben!";
-    public static final String blocksMustBeBeds = "00A7cDu musst auf dem Fu\u00DF eines Bettes stehen und auf den Kopf schauen!";
+    public static final String playerDiedFinally = "\u00A78Der Spieler %p \u00A78ist endg\u00fcltig gestorben!";
+    public static final String blocksMustBeBeds = "\u00A7cDu musst auf dem Fu\u00DF eines Bettes stehen und auf den Kopf schauen!";
     public static final String invailedSide = "\u00A7cDiese Seite ist nicht verf\u00fcgbar!";
     public static final String shopInventory = "\u00A7cShop";
     public static final String notEnoughItemsToPay = "\u00A7cDu hast nicht genug %n";

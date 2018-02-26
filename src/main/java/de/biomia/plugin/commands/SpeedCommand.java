@@ -39,9 +39,9 @@ public class SpeedCommand implements CommandExecutor {
                 if (p != null) {
                     p.setWalkSpeed(speed);
                     p.setFlySpeed(speed);
-                    sender.sendMessage("00A7cDeine Geschwindigkeit wurde angepasst!");
+                    sender.sendMessage("\u00A7cDeine Geschwindigkeit wurde angepasst!");
                 } else {
-                    sender.sendMessage("00A7cDu musst ein Spieler sein, um diesen Command auszuf\u00fchren!");
+                    sender.sendMessage("\u00A7cDu musst ein Spieler sein, um diesen Command auszuf\u00fchren!");
                 }
             } else {
                 toSet = Bukkit.getPlayer(args[1]);
@@ -49,14 +49,14 @@ public class SpeedCommand implements CommandExecutor {
                 if (toSet != null) {
                     toSet.setWalkSpeed(speed);
                     toSet.setFlySpeed(speed);
-                    sender.sendMessage("00A7cGeschwindigkeit von " + args[1] + " wurde angepasst!");
-                    toSet.sendMessage("00A7cDeine Geschwindigkeit wurde von " + sender.getName() + " angepasst!");
+                    sender.sendMessage("\u00A7cGeschwindigkeit von " + args[1] + " wurde angepasst!");
+                    toSet.sendMessage("\u00A7cDeine Geschwindigkeit wurde von " + sender.getName() + " angepasst!");
                 } else {
-                    sender.sendMessage("00A7cDer Spieler " + args[1] + " ist nicht online!");
+                    sender.sendMessage("\u00A7cDer Spieler " + args[1] + " ist nicht online!");
                 }
             }
         } else {
-            sender.sendMessage("00A7c/speed <1-10> [Spieler]");
+            sender.sendMessage("\u00A7c/speed <1-10> [Spieler]");
         }
 
         return false;

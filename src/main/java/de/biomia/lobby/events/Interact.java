@@ -24,15 +24,15 @@ public class Interact implements Listener {
             ItemStack itemstack = pl.getInventory().getItemInMainHand();
             if (itemstack.hasItemMeta()) {
                 if ((itemstack.getType().equals(Material.COMPASS)
-                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("00A7cNavigator"))) {
+                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7cNavigator"))) {
                     pl.openInventory(LobbyMain.getNavigator());
                 } else if ((itemstack.getType().equals(Material.NETHER_STAR)
-                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("00A7dLobby Switcher"))) {
+                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7dLobby Switcher"))) {
                     pl.openInventory(LobbyMain.getLobbySwitcher());
                 } else if ((itemstack.getType().equals(Material.FIREBALL)
-                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("00A7cSilent Lobby:00A78 Off"))) {
+                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7cSilent Lobby:\u00A78 Off"))) {
                     pl.getInventory().setItem(6,
-                            ItemCreator.itemCreate(Material.FIREWORK_CHARGE, "00A7aSilent Lobby:00A78 On"));
+                            ItemCreator.itemCreate(Material.FIREWORK_CHARGE, "\u00A7aSilent Lobby:\u00A78 On"));
 
                     for (Player p : Bukkit.getOnlinePlayers()) {
                         p.hidePlayer(pl);
@@ -41,8 +41,8 @@ public class Interact implements Listener {
                     LobbyMain.getSilentLobby().add(pl);
 
                 } else if ((itemstack.getType().equals(Material.FIREWORK_CHARGE)
-                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("00A7aSilent Lobby:00A78 On"))) {
-                    pl.getInventory().setItem(6, ItemCreator.itemCreate(Material.FIREBALL, "00A7cSilent Lobby:00A78 Off"));
+                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7aSilent Lobby:\u00A78 On"))) {
+                    pl.getInventory().setItem(6, ItemCreator.itemCreate(Material.FIREBALL, "\u00A7cSilent Lobby:\u00A78 Off"));
                     for (Player p : Bukkit.getOnlinePlayers()) {
                         if (!LobbyMain.getSilentLobby().contains(p)) {
                             p.showPlayer(pl);
@@ -51,7 +51,7 @@ public class Interact implements Listener {
                     }
                     LobbyMain.getSilentLobby().remove(pl);
                 } else if ((itemstack.getType().equals(Material.CHEST)
-                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("00A7eCosmetics"))) {
+                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7eCosmetics"))) {
                     de.biomia.api.cosmetics.Cosmetic.openMainInventory(Biomia.getBiomiaPlayer(pl));
                 }
             }
@@ -67,10 +67,10 @@ public class Interact implements Listener {
                     bp.takeCoins(1000);
                     MysteryChest.open(bp);
                     bp.getPlayer().sendMessage(Messages.PREFIX
-                            + "00A7aGl\u00fcckwunsch! Dir wurden 1000 BC abgezogen und du hast ein neues kosmetisches Item erhalten!");
+                            + "\u00A7aGl\u00fcckwunsch! Dir wurden 1000 BC abgezogen und du hast ein neues kosmetisches Item erhalten!");
                 } else {
-                    bp.getPlayer().sendMessage(Messages.PREFIX + "00A7aDu hast nicht genug Geld. Dir fehlen noch "
-                            + (1000 - coins) + "00A7aBC!");
+                    bp.getPlayer().sendMessage(Messages.PREFIX + "\u00A7aDu hast nicht genug Geld. Dir fehlen noch "
+                            + (1000 - coins) + "\u00A7aBC!");
                 }
             }
         }

@@ -48,7 +48,7 @@ public class SW implements CommandExecutor {
                                             break;
                                     }
                                 } else {
-                                    sender.sendMessage("00A7cSchau auf eine Kiste!");
+                                    sender.sendMessage("\u00A7cSchau auf eine Kiste!");
                                 }
                             } else {
                                 sender.sendMessage("/sw addchest mapID <normal/good>");
@@ -58,8 +58,8 @@ public class SW implements CommandExecutor {
                             break;
                     }
                 } else {
-                    sender.sendMessage("00A7c/sw addloc (F\u00fcgt einen Spawnpunkt hinzu)");
-                    sender.sendMessage("00A7c/sw addchest (F\u00fcgt eine Kiste hinzu)");
+                    sender.sendMessage("\u00A7c/sw addloc (F\u00fcgt einen Spawnpunkt hinzu)");
+                    sender.sendMessage("\u00A7c/sw addchest (F\u00fcgt eine Kiste hinzu)");
                 }
             }
         }

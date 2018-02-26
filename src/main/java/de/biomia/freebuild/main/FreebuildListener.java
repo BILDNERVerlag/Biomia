@@ -36,7 +36,7 @@ public class FreebuildListener implements Listener {
 			@Override
 			public void run() {
 				InventorySave.setInventory(p, "FreebuildServer");
-				p.sendMessage("00A77[00A75Bio00A72mia00A77] 00A76Willkommen auf dem FreebuildServer, " + p.getName() + "!");
+				p.sendMessage("\u00A77[\u00A75Bio\u00A72mia\u00A77] \u00A76Willkommen auf dem FreebuildServer, " + p.getName() + "!");
 			}
 
 		}.runTaskLater(Main.getPlugin(), 20);
@@ -74,7 +74,7 @@ public class FreebuildListener implements Listener {
 					}
 				} else
 					p.sendMessage(
-							"00A7cDas Portal zur Farmwelt ist offenbar noch nicht richtig ausgerichtet! Probier es am besten in ein paar Tagen erneut!");
+							"\u00A7cDas Portal zur Farmwelt ist offenbar noch nicht richtig ausgerichtet! Probier es am besten in ein paar Tagen erneut!");
 			} else if ((390 <= z) && (z <= 393)) {
 				// ZUR LOBBY
 				p.teleport(new Location(Bukkit.getWorld("world"), -198, 64, 391, 120, 0));
@@ -83,7 +83,7 @@ public class FreebuildListener implements Listener {
 				if (!servers.isEmpty() && servers != null) {
 					Connect.connectToRandom(p, "Lobby");
 				} else {
-					p.sendMessage("00A7cHuch, da ist offenbar etwas schiefgelaufen! Probiere stattdessen 00A7a/hub00A7c!");
+					p.sendMessage("\u00A7cHuch, da ist offenbar etwas schiefgelaufen! Probiere stattdessen \u00A7a/hub\u00A7c!");
 				}
 			}
 		}
@@ -99,10 +99,10 @@ public class FreebuildListener implements Listener {
 
 		if (p.hasPermission("biomia.coloredchat")) {
 			msg = ChatColor.translateAlternateColorCodes('&', e.getMessage());
-			format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "00A77: 00A7f" + msg;
+			format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "\u00A77: \u00A7f" + msg;
 			e.setFormat(format);
 		} else {
-			format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "00A77: 00A7f" + msg;
+			format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "\u00A77: \u00A7f" + msg;
 			e.setFormat(format);
 		}
 	}

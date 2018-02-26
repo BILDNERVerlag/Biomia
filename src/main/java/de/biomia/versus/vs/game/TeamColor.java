@@ -28,9 +28,9 @@ public enum TeamColor {
     public String getColorcode() {
         switch (this) {
             case RED:
-                return "00A7c";
+                return "\u00A7c";
             case BLUE:
-                return "00A79";
+                return "\u00A79";
             default:
                 return null;
         }

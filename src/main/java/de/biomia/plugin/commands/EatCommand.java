@@ -17,7 +17,7 @@ public class EatCommand implements CommandExecutor {
         }
 
         if (!(sender instanceof Player)) {
-            sender.sendMessage("00A7cNur Spieler k\u00F6nnen essen!");
+            sender.sendMessage("\u00A7cNur Spieler k\u00F6nnen essen!");
             return true;
         }
 

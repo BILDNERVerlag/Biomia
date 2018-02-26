@@ -62,12 +62,12 @@ public class ClickEvent implements Listener {
 
     public static void openSetTimeInventory(BiomiaPlayer biomiaPlayer) {
 
-        Inventory inv = Bukkit.createInventory(null, 27, "00A7cL\u00fcnge");
+        Inventory inv = Bukkit.createInventory(null, 27, "\u00A7cL\u00fcnge");
 
         int i = 0;
 
-        ItemStack plus = ItemCreator.itemCreate(Material.STAINED_GLASS, "00A7a+", (byte) 5);
-        ItemStack minus = ItemCreator.itemCreate(Material.STAINED_GLASS, "00A7c-", (byte) 14);
+        ItemStack plus = ItemCreator.itemCreate(Material.STAINED_GLASS, "\u00A7a+", (byte) 5);
+        ItemStack minus = ItemCreator.itemCreate(Material.STAINED_GLASS, "\u00A7c-", (byte) 14);
 
         boolean b;
 
@@ -78,19 +78,19 @@ public class ClickEvent implements Listener {
 
             switch (i) {
                 case 11:
-                    is = ItemCreator.itemCreate(Material.WOOL, "00A7dJahre");
+                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7dJahre");
                     break;
                 case 12:
-                    is = ItemCreator.itemCreate(Material.WOOL, "00A7dMonate");
+                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7dMonate");
                     break;
                 case 13:
-                    is = ItemCreator.itemCreate(Material.WOOL, "00A7dTage");
+                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7dTage");
                     break;
                 case 14:
-                    is = ItemCreator.itemCreate(Material.WOOL, "00A7dStunden");
+                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7dStunden");
                     break;
                 case 15:
-                    is = ItemCreator.itemCreate(Material.WOOL, "00A7dMinuten");
+                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7dMinuten");
                     break;
                 default:
                     b = false;
@@ -99,13 +99,13 @@ public class ClickEvent implements Listener {
                     } else if (i > 19 && i < 25) {
                         inv.setItem(i, minus);
                     } else if (i == 26) {
-                        inv.setItem(i, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, "00A7cFertig"));
+                        inv.setItem(i, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, "\u00A7cFertig"));
                     }
                     break;
             }
             if (b) {
                 ItemMeta meta = is.getItemMeta();
-                meta.setLore(Collections.singletonList("00A7c" + 0));
+                meta.setLore(Collections.singletonList("\u00A7c" + 0));
                 is.setItemMeta(meta);
                 inv.setItem(i, is);
             }
@@ -126,17 +126,17 @@ public class ClickEvent implements Listener {
             if (e.getInventory().equals(Main.menu)) {
                 if (e.getCurrentItem() != null)
                     if (e.getCurrentItem().hasItemMeta())
-                        if (e.getCurrentItem().getItemMeta().getDisplayName().equals("00A7cBug")) {
+                        if (e.getCurrentItem().getItemMeta().getDisplayName().equals("\u00A7cBug")) {
 
                             ReportManager.waitingForBugReason.add(p);
                             p.sendMessage(
-                                    "00A76Du hast einen Bug gefunden? Dann gib einfach ein was das Problem ist! Wenn es ein richtiger Bug ist, bekommst du sogar eine Belohnung!");
+                                    "\u00A76Du hast einen Bug gefunden? Dann gib einfach ein was das Problem ist! Wenn es ein richtiger Bug ist, bekommst du sogar eine Belohnung!");
                             p.closeInventory();
 
-                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().contains("00A7cSpieler")) {
+                        } else if (e.getCurrentItem().getItemMeta().getDisplayName().contains("\u00A7cSpieler")) {
                             ReportManager.waitingForName.add(p);
                             p.sendMessage(
-                                    "00A76Du willst einen Spieler reporten? Dann gib einfach seinen Namen ein!");
+                                    "\u00A76Du willst einen Spieler reporten? Dann gib einfach seinen Namen ein!");
                             p.closeInventory();
                         }
             } else if (e.getClickedInventory().equals(Main.grund)) {
@@ -158,7 +158,7 @@ public class ClickEvent implements Listener {
                                 report.finish(grund.name());
                                 p.closeInventory();
                                 if (ReportSQL.addPlayerReport(report)) {
-                                    p.sendMessage("00A7aDer Spieler " + report.getReporteterName()
+                                    p.sendMessage("\u00A7aDer Spieler " + report.getReporteterName()
                                             + " wurde erfolgreich reportet wegen: " + Grund.toText(grund));
                                 }
                                 return;
@@ -166,7 +166,7 @@ public class ClickEvent implements Listener {
                         }
                     }
                 }
-            } else if (e.getClickedInventory().getName().equals("00A7cL\u00fcnge")) {
+            } else if (e.getClickedInventory().getName().equals("\u00A7cL\u00fcnge")) {
                 e.setCancelled(true);
                 if (!waitForSetTime.containsKey(bp))
                     return;
@@ -212,7 +212,7 @@ public class ClickEvent implements Listener {
                         is.setAmount(i);
 
                     ItemMeta meta = is.getItemMeta();
-                    meta.setLore(Collections.singletonList("00A7c" + i));
+                    meta.setLore(Collections.singletonList("\u00A7c" + i));
                     is.setItemMeta(meta);
                 }
             } else if (e.getClickedInventory().getName().contains("Permanent")) {

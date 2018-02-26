@@ -1,9 +1,9 @@
 package de.biomia.versus.vs.lobby;
 
-import de.biomia.versus.bw.messages.Messages;
-import de.biomia.versus.vs.main.VSMain;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
+import de.biomia.versus.bw.messages.Messages;
+import de.biomia.versus.vs.main.VSMain;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,6 +15,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 public class Lobby implements Listener {
 
@@ -32,6 +33,14 @@ public class Lobby implements Listener {
             e.setCancelled(true);
     }
 
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent e) {
+        if (e.getPlayer().getWorld().getName().contains("Spawn")) {
+            if (e.getTo().getBlockY() <= 0) {
+                e.getPlayer().teleport(VSMain.getManager().getHome());
+            }
+        }
+    }
     @EventHandler
     public void onPickup(EntityPickupItemEvent e) {
         if (e.getEntity() instanceof Player) {

@@ -18,7 +18,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class VSGroupInventory implements Listener {
 
-    private static final ItemStack backItem = ItemCreator.itemCreate(Material.STICK, "00A7cZur\u00fcck");
+    private static final ItemStack backItem = ItemCreator.itemCreate(Material.STICK, "\u00A7cZur\u00fcck");
     private static final int backItemSlot = 22;
     private final BiomiaPlayer bp;
     private final Inventory inv;
