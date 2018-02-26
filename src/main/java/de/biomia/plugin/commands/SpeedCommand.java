@@ -15,7 +15,7 @@ public class SpeedCommand implements CommandExecutor {
         // (optional) argument is another player
 
         if (!sender.hasPermission("biomia.speed")) {
-            sender.sendMessage(Messages.noperm);
+            sender.sendMessage(Messages.NO_PERM);
             return true;
         }
 
@@ -39,9 +39,9 @@ public class SpeedCommand implements CommandExecutor {
                 if (p != null) {
                     p.setWalkSpeed(speed);
                     p.setFlySpeed(speed);
-                    sender.sendMessage("§cDeine Geschwindigkeit wurde angepasst!");
+                    sender.sendMessage("00A7cDeine Geschwindigkeit wurde angepasst!");
                 } else {
-                    sender.sendMessage("§cDu musst ein Spieler sein, um diesen Command auszuführen!");
+                    sender.sendMessage("00A7cDu musst ein Spieler sein, um diesen Command auszuf\u00fchren!");
                 }
             } else {
                 toSet = Bukkit.getPlayer(args[1]);
@@ -49,14 +49,14 @@ public class SpeedCommand implements CommandExecutor {
                 if (toSet != null) {
                     toSet.setWalkSpeed(speed);
                     toSet.setFlySpeed(speed);
-                    sender.sendMessage("§cGeschwindigkeit von " + args[1] + " wurde angepasst!");
-                    toSet.sendMessage("§cDeine Geschwindigkeit wurde von " + sender.getName() + " angepasst!");
+                    sender.sendMessage("00A7cGeschwindigkeit von " + args[1] + " wurde angepasst!");
+                    toSet.sendMessage("00A7cDeine Geschwindigkeit wurde von " + sender.getName() + " angepasst!");
                 } else {
-                    sender.sendMessage("§cDer Spieler " + args[1] + " ist nicht online!");
+                    sender.sendMessage("00A7cDer Spieler " + args[1] + " ist nicht online!");
                 }
             }
         } else {
-            sender.sendMessage("§c/speed <1-10> [Spieler]");
+            sender.sendMessage("00A7c/speed <1-10> [Spieler]");
         }
 
         return false;

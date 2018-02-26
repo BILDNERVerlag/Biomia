@@ -26,7 +26,7 @@ public class MySQL {
     }
 
     private static void handleSQLException(SQLException e) {
-        System.out.println("Verbindung nicht möglich");
+        System.out.println("Verbindung nicht m\u00F6glich");
         System.out.println("SQLException: " + e.getMessage());
         System.out.println("SQLState: " + e.getSQLState());
         System.out.println("VendorError: " + e.getErrorCode());

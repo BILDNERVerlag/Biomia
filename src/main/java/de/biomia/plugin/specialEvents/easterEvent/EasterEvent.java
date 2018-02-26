@@ -132,27 +132,27 @@ public class EasterEvent implements Listener {
                 blocks.remove(e.getClickedBlock());
                 e.getClickedBlock().setType(Material.AIR);
                 Stats.incrementStat(Stats.BiomiaStat.EasterEggsFound, bp.getBiomiaPlayerID());
-                bp.getPlayer().sendMessage("§cDu hast ein Normales Ei gefunden! Schau zum Osterhasen in der Lobby um Belohnungen zu erhalten!");
+                bp.getPlayer().sendMessage("\u00A7cDu hast ein Normales Ei gefunden! Schau zum Osterhasen in der Lobby um Belohnungen zu erhalten!");
             } else if (((Skull) e.getClickedBlock().getState()).getOwningPlayer().getName().equals(specialEggName)) {
                 int eggsFound = Stats.getStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer(), de.biomia.api.main.Main.getGroupName());
                 if (eggsFound == 0) {
                     Stats.incrementStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer(), de.biomia.api.main.Main.getGroupName());
                     if (Stats.getStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer()) == specialEggsAmount) {
-                        e.getPlayer().sendMessage("§cDu hast alle besonderen Eier gefunden! Dafür erhältst du:");
+                        e.getPlayer().sendMessage("\u00A7cDu hast alle besonderen Eier gefunden! Daf\u00fcr erh\u00fcltst du:");
                         // TODO setWinns ( + nachrichten)
                     } else {
-                        e.getPlayer().sendMessage("§cDu hast ein besonderes Ei gefunden! Als Belohnung erhältst du XXXX Coins!");
+                        e.getPlayer().sendMessage("\u00A7cDu hast ein besonderes Ei gefunden! Als Belohnung erh\u00fcltst du XXXX Coins!");
                         int temp = specialEggsAmount - eggsFound;
 
                         if (temp == 1) {
-                            e.getPlayer().sendMessage("§cDer Osterhase hat noch ein weites, besonderes Ei versteckt! Finde es und erhalte eine riesen Belohnung!");
+                            e.getPlayer().sendMessage("\u00A7cDer Osterhase hat noch ein weites, besonderes Ei versteckt! Finde es und erhalte eine riesen Belohnung!");
                         } else {
-                            e.getPlayer().sendMessage("§cDer Osterhase hat noch §d" + temp + " §cweite, besondere Eier versteckt! Findest du sie?");
+                            e.getPlayer().sendMessage("\u00A7cDer Osterhase hat noch \u00A7d" + temp + " \u00A7cweite, besondere Eier versteckt! Findest du sie?");
                         }
                         // TODO setWinns
                     }
                 } else {
-                    e.getPlayer().sendMessage("§cDu hast das Besondere Ei in dieser Welt schon Gefunden! Suche in einer anderen weiter!");
+                    e.getPlayer().sendMessage("\u00A7cDu hast das Besondere Ei in dieser Welt schon Gefunden! Suche in einer anderen weiter!");
                 }
             }
         }

@@ -18,11 +18,6 @@ public class Messages {
 	public static final String noInformationAboutThisQuest = "\u00A7aIm Moment sind leider noch keine genaueren Infos zu dieser Quest in unserer Datenbank vermerkt.";
 	public static final String involvedNPCs = "Beteiligte NPCs:";
 
-	private static final String prefix = "\u00A77[\u00A75Bio\u00A72mia\u00A77] ";
-	public static String noperm = prefix + "\u00A7cDu hast keine Rechte um diesen Befehl auszuf\u00fchren!";
-	public static String notonline = prefix + "\u00A7cDer Spieler ist nicht Online!";
-	public static final String noPlayer = prefix + "\u00A7cDu musst ein Spieler sein!";
-
 	public static final String dividerLine = "\u00A78------------------------------------";
 
 	public static final String allNPCsAligned = "\u00A7aAlle \u00A7d%n \u00A7aNPCs erfolgreich aufgereiht!";

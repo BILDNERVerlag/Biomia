@@ -43,9 +43,9 @@
     </repositories>
     <dependencies>
         <dependency>
-            <groupId>at.TimoCraft.TimoCloud</groupId>
+            <groupId>cloud.timo.TimoCloud</groupId>
             <artifactId>TimoCloud-API</artifactId>
-            <version>4.7.1</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>net.citizensnpcs</groupId>

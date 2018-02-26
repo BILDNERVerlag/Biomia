@@ -1,16 +1,16 @@
 package de.biomia.lobby.main;
 
-import at.TimoCraft.TimoCloud.api.objects.ServerObject;
+import cloud.timo.TimoCloud.api.objects.ServerObject;
+import de.biomia.api.itemcreator.ItemCreator;
+import de.biomia.api.lastPosition.LastPositionListener;
+import de.biomia.api.main.Main;
+import de.biomia.api.tools.Teleporter;
 import de.biomia.lobby.commands.LobbyComands;
 import de.biomia.lobby.commands.SendToRandomServer;
 import de.biomia.lobby.commands.WC;
 import de.biomia.lobby.events.*;
 import de.biomia.lobby.scoreboard.ChatColors;
 import de.biomia.lobby.scoreboard.ScoreboardClass;
-import de.biomia.api.itemcreator.ItemCreator;
-import de.biomia.api.lastPosition.LastPositionListener;
-import de.biomia.api.main.Main;
-import de.biomia.api.tools.Teleporter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -90,20 +90,20 @@ public class LobbyMain {
         new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 360, -1000, 150), new Location(Bukkit.getWorld("SkywarsSignlobby"), 800, 1000, 700), new Location(Bukkit.getWorld("LobbyBiomia"), 534.5, 67.5, 193.5)).setInverted();
 
 
-        navigator = Bukkit.createInventory(null, 27, "§cNavigator");
+        navigator = Bukkit.createInventory(null, 27, "00A7cNavigator");
         // First Line
-        navigator.setItem(2, ItemCreator.itemCreate(Material.WORKBENCH, "§6Bau Welt"));
-        navigator.setItem(4, ItemCreator.itemCreate(Material.DRAGON_EGG, "§5Biomia | general"));
-        navigator.setItem(6, ItemCreator.itemCreate(Material.THIN_GLASS, "§eDemo Welt", Short.valueOf("3")));
+        navigator.setItem(2, ItemCreator.itemCreate(Material.WORKBENCH, "00A76Bau Welt"));
+        navigator.setItem(4, ItemCreator.itemCreate(Material.DRAGON_EGG, "00A75Biomia | general"));
+        navigator.setItem(6, ItemCreator.itemCreate(Material.THIN_GLASS, "00A7eDemo Welt", Short.valueOf("3")));
         // Second Line
-        navigator.setItem(12, ItemCreator.itemCreate(Material.MAGMA_CREAM, "§cSpawn"));
-        navigator.setItem(14, ItemCreator.itemCreate(Material.IRON_SWORD, "§6Freebuild Welt"));
+        navigator.setItem(12, ItemCreator.itemCreate(Material.MAGMA_CREAM, "00A7cSpawn"));
+        navigator.setItem(14, ItemCreator.itemCreate(Material.IRON_SWORD, "00A76Freebuild Welt"));
         // Third Line
-        navigator.setItem(20, ItemCreator.itemCreate(Material.BED, "§4BedWars"));
-        navigator.setItem(22, ItemCreator.itemCreate(Material.CHEST, "§5Mysteriöse Box"));
-        navigator.setItem(24, ItemCreator.itemCreate(Material.GRASS, "§bSkyWars"));
+        navigator.setItem(20, ItemCreator.itemCreate(Material.BED, "00A74BedWars"));
+        navigator.setItem(22, ItemCreator.itemCreate(Material.CHEST, "00A75Mysteri\u00F6se Box"));
+        navigator.setItem(24, ItemCreator.itemCreate(Material.GRASS, "00A7bSkyWars"));
 
-        lobbySwitcher = Bukkit.createInventory(null, 27, "§dLobby Switcher");
+        lobbySwitcher = Bukkit.createInventory(null, 27, "00A7dLobby Switcher");
 
         new BukkitRunnable() {
             @Override
@@ -118,15 +118,15 @@ public class LobbyMain {
                 int i = 0;
 
                 for (ServerObject so : lobbyServer) {
-                    int amount = so.getCurrentPlayers();
+                    int amount = so.getOnlinePlayerCount();
                     if (amount == 0)
                         amount = 1;
                     if (serverObject.getName().equalsIgnoreCase(so.getName()))
                         lobbySwitcher.setItem(i, ItemCreator
-                                .setAmount(ItemCreator.itemCreate(Material.SUGAR, "§6" + so.getName()), amount));
+                                .setAmount(ItemCreator.itemCreate(Material.SUGAR, "00A76" + so.getName()), amount));
                     else
                         lobbySwitcher.setItem(i, ItemCreator
-                                .setAmount(ItemCreator.itemCreate(Material.SULPHUR, "§e" + so.getName()), amount));
+                                .setAmount(ItemCreator.itemCreate(Material.SULPHUR, "00A7e" + so.getName()), amount));
                     i++;
                 }
             }

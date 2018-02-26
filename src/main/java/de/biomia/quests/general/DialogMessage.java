@@ -2,12 +2,14 @@ package de.biomia.quests.general;
 
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
-import de.biomia.quests.QuestEvents.Event;
 import de.biomia.api.main.Main;
+import de.biomia.quests.QuestEvents.Event;
 import net.citizensnpcs.api.npc.NPC;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ClickEvent.Action;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -56,27 +58,28 @@ public class DialogMessage {
     }
 
     public DialogMessage setNext(String s, int i, NPC npc) {
-        nexterAbschnitt[i] = new DialogMessage(q, npc).setInhalt(s);
-        return nexterAbschnitt[i];
+        return nexterAbschnitt[i] = new DialogMessage(q, npc).setInhalt(s);
     }
 
     public DialogMessage setNext(DialogMessage dm0, int i) {
-        nexterAbschnitt[i] = dm0;
-        return nexterAbschnitt[i];
+        return nexterAbschnitt[i] = dm0;
     }
 
     private void sendeAntwort(QuestPlayer qp) {
 
-        ArrayList<QuestPlayer> players = new ArrayList<>();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(qp.getPlayer());
+        ArrayList<QuestPlayer> players = new ArrayList<>();
 
-        if (bp.isInParty() && bp.isPartyLeader()) {
-            bp.getParty().getAllPlayers().forEach(each -> players.add(qp));
-        } else {
-            players.add(qp);
+        if (bp.isPartyLeader()) {
+            bp.getParty().getAllPlayers().forEach(each -> {
+                Player p = Bukkit.getPlayer(each.getUniqueId());
+                if (p != null && !qp.getPlayer().equals(p))
+                    players.add(Biomia.getQuestPlayer(p));
+            });
         }
+        players.add(qp);
 
-        if (qp.getPlayer().getWalkSpeed() != 0)
+        if (qp.getPlayer().getWalkSpeed() != 0 && !isLast())
             qp.getPlayer().setWalkSpeed(0);
 
         players.forEach(each -> {
@@ -107,7 +110,6 @@ public class DialogMessage {
             return;
         }
         if (getFortsetzung() == null) {
-            int delay = 20;
             new BukkitRunnable() {
                 @Override
                 public void run() {
@@ -115,7 +117,7 @@ public class DialogMessage {
                     if (qp.getDialog() != null)
                         qp.getDialog().execute(qp);
                 }
-            }.runTaskLater(Main.plugin, delay);
+            }.runTaskLater(Main.plugin, 20);
         }
     }
 
@@ -125,10 +127,6 @@ public class DialogMessage {
 
     public DialogMessage getNext(int slot) {
         return nexterAbschnitt[slot];
-    }
-
-    public String getInhalt() {
-        return inhalt;
     }
 
     private void executeEvent(QuestPlayer qp) {

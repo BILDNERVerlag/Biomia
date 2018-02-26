@@ -327,7 +327,6 @@ public class Biomia {
 
             @Override
             public Quest registerNewQuest(String questName0, int Band) {
-                //noinspection unchecked
                 Quest q = new Quest() {
 
                     String questName = questName0;

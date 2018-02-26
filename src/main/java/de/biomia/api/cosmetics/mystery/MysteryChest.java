@@ -56,7 +56,7 @@ public class MysteryChest {
         CosmeticItem item = items.get(i);
 
         Inventory inv = Bukkit.createInventory(null, 27, "\u00A74Mysteri\u00f6se Box \u00A78- \u00A74Dein Gewinn:");
-        ItemStack itemStack = item.getItem().clone();
+        ItemStack itemStack = item.getItem();
 
         int menge = -1;
         if (item instanceof CosmeticGadgetItem)
@@ -107,24 +107,25 @@ public class MysteryChest {
         Stats.incrementStat(Stats.BiomiaStat.MysteryChestsOpened, bp.getBiomiaPlayerID());
 
         new BukkitRunnable() {
-            int counter = -1;
+            int counter = 0;
+
+            ItemStack is = ItemCreator.itemCreate(Material.BLACK_GLAZED_TERRACOTTA);
 
             @Override
             public void run() {
-                counter++;
-                ItemStack is = ItemCreator.itemCreate(Material.BLACK_GLAZED_TERRACOTTA);
-                for (int index = counter; index < 27; index++) {
-                    inv.setItem(index, is);
-                }
-                for (int index2 = 0; index2 < counter; index2++) {
-                    inv.setItem(index2, null);
-                }
-                if (counter == 14) {
-                    inv.setItem(13, itemStack);
-                }
-                if (counter >= 27) {
+
+                switch (counter) {
+                case 13:
+                    inv.setItem(counter, itemStack);
+                    break;
+                case 27:
                     cancel();
+                    return;
+                default:
+                    inv.setItem(counter, is);
+                    break;
                 }
+                counter++;
             }
         }.runTaskTimer(Main.plugin, 0, 2);
     }

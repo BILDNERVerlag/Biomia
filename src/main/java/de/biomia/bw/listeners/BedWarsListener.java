@@ -1,5 +1,15 @@
 package de.biomia.bw.listeners;
 
+import de.biomia.api.Biomia;
+import de.biomia.api.BiomiaPlayer;
+import de.biomia.api.Teams.Team;
+import de.biomia.api.achievements.statEvents.bedwars.BedWarsDeathEvent;
+import de.biomia.api.achievements.statEvents.bedwars.BedWarsKillEvent;
+import de.biomia.api.achievements.statEvents.bedwars.BedWarsLeaveEvent;
+import de.biomia.api.achievements.statEvents.bedwars.BedWarsUseShopEvent;
+import de.biomia.api.itemcreator.ItemCreator;
+import de.biomia.api.pex.Rank;
+import de.biomia.api.tools.BackToLobby;
 import de.biomia.bw.gamestates.GameState;
 import de.biomia.bw.gamestates.InGame;
 import de.biomia.bw.ingame.Dead;
@@ -11,16 +21,6 @@ import de.biomia.bw.shop.Shop;
 import de.biomia.bw.shop.ShopGroup;
 import de.biomia.bw.shop.ShopItem;
 import de.biomia.bw.var.*;
-import de.biomia.api.Biomia;
-import de.biomia.api.BiomiaPlayer;
-import de.biomia.api.Teams.Team;
-import de.biomia.api.achievements.statEvents.bedwars.BedWarsDeathEvent;
-import de.biomia.api.achievements.statEvents.bedwars.BedWarsKillEvent;
-import de.biomia.api.achievements.statEvents.bedwars.BedWarsLeaveEvent;
-import de.biomia.api.achievements.statEvents.bedwars.BedWarsUseShopEvent;
-import de.biomia.api.itemcreator.ItemCreator;
-import de.biomia.api.pex.Rank;
-import de.biomia.api.tools.BackToLobby;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
 import org.bukkit.entity.ArmorStand;
@@ -106,11 +106,11 @@ public class BedWarsListener implements Listener {
             bp.getPlayer().setLevel(Variables.countDown.getCountdown());
 
             if (bp.isPremium()) {
-                Bukkit.broadcastMessage("ä6" + p.getName() + Messages.joinedTheGame);
+                Bukkit.broadcastMessage("\u00fc6" + p.getName() + Messages.joinedTheGame);
             } else {
-                Bukkit.broadcastMessage("ä7" + p.getName() + Messages.joinedTheGame);
+                Bukkit.broadcastMessage("\u00fc7" + p.getName() + Messages.joinedTheGame);
             }
-            if (bp.isInParty() && bp.isPartyLeader()) {
+            if (bp.isPartyLeader()) {
                 if (bp.getParty().getAllPlayers().size() > 1) {
                     JoinTeam.partyJoin(bp);
                 }

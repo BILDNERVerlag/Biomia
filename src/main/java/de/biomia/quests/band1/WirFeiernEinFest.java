@@ -1,14 +1,13 @@
 package de.biomia.quests.band1;
 
-import de.biomia.quests.main.QuestMain;
 import de.biomia.api.Biomia;
+import de.biomia.api.main.Main;
 import de.biomia.quests.QuestConditions.ItemConditions;
 import de.biomia.quests.QuestEvents.AddCoinEvent;
 import de.biomia.quests.QuestEvents.GiveItemEvent;
 import de.biomia.quests.QuestEvents.TakeItemEvent;
 import de.biomia.quests.general.*;
-import de.biomia.api.main.Main;
-import net.citizensnpcs.api.event.NPCRightClickEvent;
+import de.biomia.quests.main.QuestMain;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -16,6 +15,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -46,10 +46,12 @@ public class WirFeiernEinFest implements Listener {
 	}
 
 	@EventHandler
-	public void onInteract(NPCRightClickEvent e) {
-		if (habil.equals(e.getNPC())) {
+	public void onInteract(PlayerInteractEntityEvent e) {
+		if (habil.getEntity().equals(e.getRightClicked())) {
 
-			QuestPlayer qp = Biomia.getQuestPlayer(e.getClicker());
+			Bukkit.broadcastMessage("clicked!!");
+
+			QuestPlayer qp = Biomia.getQuestPlayer(e.getPlayer());
 
 			if (qp.getDialog() == null) {
 				States state = qp.getState(q);
@@ -66,7 +68,6 @@ public class WirFeiernEinFest implements Listener {
 					}
 				} else
 					QuestMain.restartQuestIfTimeOver(qp, q, startDialog, nachQuest);
-
 				qp.getDialog().execute(qp);
 			}
 		}

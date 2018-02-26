@@ -29,7 +29,7 @@ public class SendToRandomServer implements CommandExecutor {
 				sender.sendMessage("Nutze /randomServerGroup <Gruppe>");
 			}
 		} else {
-			sender.sendMessage(Messages.noperm);
+			sender.sendMessage(Messages.NO_PERM);
 		}
 		return true;
 	}

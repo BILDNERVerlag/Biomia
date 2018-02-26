@@ -29,6 +29,6 @@ public class BedWarsScoreboard {
     private void initScoreboard() {
         for (TeamColor colors : TeamColor.values())
             sb.registerNewTeam(colors.name()).setPrefix(colors.getColorcode());
-        sb.registerNewTeam("spectator").setPrefix("§7§o");
+        sb.registerNewTeam("spectator").setPrefix("00A7700A7o");
     }
 }

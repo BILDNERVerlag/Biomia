@@ -51,12 +51,12 @@ public class JoinTeam {
     public static void join(Player p, Team team) {
 
         if (BedWarsMain.gameState != GameState.LOBBY) {
-            p.sendMessage("§cDas Spiel hat bereits begonnen!");
+            p.sendMessage("\u00A7cDas Spiel hat bereits begonnen!");
             return;
         }
 
         if (team == null) {
-            p.sendMessage("§cNull");
+            p.sendMessage("\u00A7cNull");
         }
 
         if (Objects.requireNonNull(team).full()) {

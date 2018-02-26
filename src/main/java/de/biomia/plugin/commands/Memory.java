@@ -23,10 +23,10 @@ public class Memory implements CommandExecutor {
             long allocatedMemory = runtime.totalMemory();
             long freeMemory = runtime.freeMemory();
 
-            sb.append("§cAktuelle free memory: §6").append(format.format(freeMemory)).append("mb\n");
-            sb.append("§cAllocated memory: §6").append(format.format(allocatedMemory)).append("mb\n");
-            sb.append("§cMax memory: §6").append(format.format(maxMemory)).append("mb\n");
-            sb.append("§cTotal free memory: §6").append(format.format((freeMemory + (maxMemory - allocatedMemory)))).append("mb");
+            sb.append("00A7cAktuelle free memory: 00A76").append(format.format(freeMemory)).append("mb\n");
+            sb.append("00A7cAllocated memory: 00A76").append(format.format(allocatedMemory)).append("mb\n");
+            sb.append("00A7cMax memory: 00A76").append(format.format(maxMemory)).append("mb\n");
+            sb.append("00A7cTotal free memory: 00A76").append(format.format((freeMemory + (maxMemory - allocatedMemory)))).append("mb");
             sender.sendMessage(sb.toString());
         }
 

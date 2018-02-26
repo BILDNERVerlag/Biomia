@@ -13,45 +13,45 @@ public class FlyCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
         if (!sender.hasPermission("biomia.fly")) {
-            sender.sendMessage(Messages.noperm);
+            sender.sendMessage(Messages.NO_PERM);
             return true;
         }
 
         if (sender instanceof Player && args.length == 0) {
-            // Falls Sender ein Spieler und kein Spielername übergeben
+            // Falls Sender ein Spieler und kein Spielername \u00fcbergeben
             Player p = (Player) sender;
 
             if (p.getAllowFlight()) {
                 p.setAllowFlight(false);
-                p.sendMessage("§cFly Mode deaktiviert.");
+                p.sendMessage("00A7cFly Mode deaktiviert.");
             } else {
                 p.setAllowFlight(true);
-                p.sendMessage("§cFly Mode aktiviert.");
+                p.sendMessage("00A7cFly Mode aktiviert.");
             }
 
         } else if (args.length == 1) {
-            // Falls Spielername übergeben
+            // Falls Spielername \u00fcbergeben
             Player toSet = Bukkit.getPlayer(args[0]);
             if (toSet == null) {
-                sender.sendMessage("§cDieser Spieler ist nicht online!");
+                sender.sendMessage("00A7cDieser Spieler ist nicht online!");
             } else {
                 if (toSet.getAllowFlight()) {
                     toSet.setAllowFlight(false);
-                    sender.sendMessage("§cFly Mode für Spieler " + toSet.getName() + " deaktiviert.");
-                    toSet.sendMessage("§cFly Mode für Spieler " + toSet.getName() + " wurde von " + sender.getName()
+                    sender.sendMessage("00A7cFly Mode f\u00fcr Spieler " + toSet.getName() + " deaktiviert.");
+                    toSet.sendMessage("00A7cFly Mode f\u00fcr Spieler " + toSet.getName() + " wurde von " + sender.getName()
                             + " deaktiviert.");
 
                 } else {
                     toSet.setAllowFlight(true);
-                    sender.sendMessage("§cFly Mode für Spieler " + toSet.getName() + " aktiviert.");
-                    toSet.sendMessage("§cFly Mode für Spieler " + toSet.getName() + " wurde von " + sender.getName()
+                    sender.sendMessage("00A7cFly Mode f\u00fcr Spieler " + toSet.getName() + " aktiviert.");
+                    toSet.sendMessage("00A7cFly Mode f\u00fcr Spieler " + toSet.getName() + " wurde von " + sender.getName()
                             + " aktiviert.");
 
                 }
             }
         } else {
             // Ansonsten
-            sender.sendMessage("§c/fly [optional:Spielername]");
+            sender.sendMessage("00A7c/fly [optional:Spielername]");
         }
 
         return false;

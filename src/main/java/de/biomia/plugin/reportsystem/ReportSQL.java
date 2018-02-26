@@ -27,7 +27,7 @@ public class ReportSQL {
             return true;
         } else {
             Player plReporter = Bukkit.getPlayer(report.getReporterName());
-            plReporter.sendMessage("§cDu hast den Spieler bereits reportet!");
+            plReporter.sendMessage("00A7cDu hast den Spieler bereits reportet!");
             return false;
         }
     }

@@ -23,25 +23,25 @@ package de.biomia.plugin.specialEvents.winterEvent;//package de.biomia.specialEv
 //					.contains(e.getRightClicked().getUniqueId().toString())) {
 //
 //				if (getDay() == 0) {
-//					e.getPlayer().sendMessage("§4Wir bauen gerade noch auf!");
+//					e.getPlayer().sendMessage("00A74Wir bauen gerade noch auf!");
 //					return;
 //				} else if (getDay() == -1 || getDay() > 24) {
-//					e.getPlayer().sendMessage("§4Tja da hast du was verpasst!");
+//					e.getPlayer().sendMessage("00A74Tja da hast du was verpasst!");
 //					return;
 //				}
 //
 //				if (getDay() == day) {
 //					if (!WinterTag.hasOpened(Biomia.getBiomiaPlayer(e.getPlayer()), day)) {
-//						e.getPlayer().sendMessage("§4Hoho! Schön dass du vorbei schaust!");
+//						e.getPlayer().sendMessage("00A74Hoho! Sch\u00F6n dass du vorbei schaust!");
 //						openCalendar(Biomia.getBiomiaPlayer(e.getPlayer()), day);
 //					} else
-//						e.getPlayer().sendMessage("§4Warst du heute nicht schonmal da?");
+//						e.getPlayer().sendMessage("00A74Warst du heute nicht schonmal da?");
 //				} else if (getDay() < day)
 //					e.getPlayer()
-//							.sendMessage("§4Heute hab ich leider nichts für dich... komm doch am " + day + ". wieder!");
+//							.sendMessage("00A74Heute hab ich leider nichts f\u00fcr dich... komm doch am " + day + ". wieder!");
 //				else
 //					e.getPlayer().sendMessage(
-//							"§4Noch so einer der wieder zu spät kommt... ich war schon am " + day + ". dran!");
+//							"00A74Noch so einer der wieder zu sp\u00fct kommt... ich war schon am " + day + ". dran!");
 //			}
 //		}
 //	}

@@ -57,7 +57,7 @@ public class VSCommands implements CommandExecutor {
                         }
                     }
                 } else
-                    sender.sendMessage(Messages.notonline);
+                    sender.sendMessage(Messages.NOT_ONLINE);
             } else
                 sender.sendMessage("Bitte nutze /" + cmd.getName() + " <Spielername>");
         }

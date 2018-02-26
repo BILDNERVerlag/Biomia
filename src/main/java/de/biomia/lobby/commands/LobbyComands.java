@@ -25,12 +25,12 @@ public class LobbyComands implements CommandExecutor {
                         Player p = (Player) sender;
                         if (!targetarmorstands.contains(p)) {
                             targetarmorstands.add(p);
-                            p.sendMessage(Messages.prefix + "§aDu kannst nun ArmorStands auf der Lobby abbauen!");
+                            p.sendMessage(Messages.PREFIX + "00A7aDu kannst nun ArmorStands auf der Lobby abbauen!");
                             return true;
                         } else {
                             targetarmorstands.remove(p);
                             p.sendMessage(
-                                    Messages.prefix + "§cDu kannst nun keine ArmorStands mehr auf der Lobby abbauen!");
+                                    Messages.PREFIX + "00A7cDu kannst nun keine ArmorStands mehr auf der Lobby abbauen!");
                             return true;
                         }
 
@@ -42,16 +42,16 @@ public class LobbyComands implements CommandExecutor {
                             pl.setFlying(flyall);
                         }
                         if (flyall) {
-                            sender.sendMessage(Messages.prefix + "§aEs können nun alle auf der Lobby fliegen!");
+                            sender.sendMessage(Messages.PREFIX + "00A7aEs k\u00F6nnen nun alle auf der Lobby fliegen!");
                         } else {
                             sender.sendMessage(
-                                    Messages.prefix + "§cEs kann nun keiner mehr auf der Lobby fliegen!");
+                                    Messages.PREFIX + "00A7cEs kann nun keiner mehr auf der Lobby fliegen!");
                         }
                     }
                 }
 
             } else {
-                sender.sendMessage(Messages.noperm);
+                sender.sendMessage(Messages.NO_PERM);
             }
         }
         return false;

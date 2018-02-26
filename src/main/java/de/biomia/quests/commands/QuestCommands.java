@@ -1,12 +1,12 @@
 package de.biomia.quests.commands;
 
-import de.biomia.quests.main.NPCManager;
-import de.biomia.quests.messages.Messages;
 import de.biomia.api.Biomia;
+import de.biomia.api.msg.ActionBar;
 import de.biomia.quests.general.DialogMessage;
 import de.biomia.quests.general.Quest;
 import de.biomia.quests.general.QuestPlayer;
-import de.biomia.api.msg.ActionBar;
+import de.biomia.quests.main.NPCManager;
+import de.biomia.quests.messages.Messages;
 import net.citizensnpcs.api.ai.GoalController;
 import net.citizensnpcs.api.ai.goals.WanderGoal;
 import net.citizensnpcs.api.npc.NPC;
@@ -254,7 +254,7 @@ public class QuestCommands implements CommandExecutor {
             }
 
         } else {
-            sender.sendMessage(Messages.noPlayer);
+            sender.sendMessage(de.biomia.api.msg.Messages.NO_PLAYER);
         }
 
         long stopTime = System.currentTimeMillis();

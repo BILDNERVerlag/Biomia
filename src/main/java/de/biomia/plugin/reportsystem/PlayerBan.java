@@ -64,7 +64,7 @@ public class PlayerBan {
     public void setReason(String reason) {
         if (reason.equals(Grund.ANDERER_GRUND.name())) {
             ChatEvent.waitForCostumReason.put(bp, this);
-            bp.getPlayer().sendMessage("§bBitte gib den Grund in den Chat ein!");
+            bp.getPlayer().sendMessage("00A7bBitte gib den Grund in den Chat ein!");
         } else {
             this.reason = reason;
             ClickEvent.waitForIsPermBan.put(bp, this);
@@ -74,9 +74,9 @@ public class PlayerBan {
 
     private void openIsPermInv() {
         if (isPermInv == null) {
-            isPermInv = Bukkit.createInventory(null, 27, "§bPermanenter Ban?");
-            isPermInv.setItem(12, ItemCreator.itemCreate(Material.STAINED_GLASS, "§aJa", (short) 5));
-            isPermInv.setItem(14, ItemCreator.itemCreate(Material.STAINED_GLASS, "§cNein", (short) 14));
+            isPermInv = Bukkit.createInventory(null, 27, "00A7bPermanenter Ban?");
+            isPermInv.setItem(12, ItemCreator.itemCreate(Material.STAINED_GLASS, "00A7aJa", (short) 5));
+            isPermInv.setItem(14, ItemCreator.itemCreate(Material.STAINED_GLASS, "00A7cNein", (short) 14));
         }
         bp.getPlayer().openInventory(isPermInv);
     }

@@ -20,30 +20,30 @@ public class Scoreboards {
 
         Objective o = lobbySB.registerNewObjective("ccc", "ddd");
 
-        o.setDisplayName("§6Sky§fWars");
+        o.setDisplayName("00A76Sky00A7fWars");
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         o.getScore(" ").setScore(7);
-        o.getScore("§5Map:").setScore(6);
-        o.getScore("§c").setScore(5);
-        o.getScore("§a").setScore(4);
-        o.getScore("§5Teams:").setScore(3);
-        o.getScore("§f").setScore(2);
-        o.getScore("§1").setScore(1);
+        o.getScore("00A75Map:").setScore(6);
+        o.getScore("00A7c").setScore(5);
+        o.getScore("00A7a").setScore(4);
+        o.getScore("00A75Teams:").setScore(3);
+        o.getScore("00A7f").setScore(2);
+        o.getScore("00A71").setScore(1);
 
         Team map = lobbySB.registerNewTeam("map");
         Team teams = lobbySB.registerNewTeam("teams");
 
-        map.addEntry("§c");
-        teams.addEntry("§f");
+        map.addEntry("00A7c");
+        teams.addEntry("00A7f");
 
-        map.setPrefix("§2" + Variables.name);
-        teams.setPrefix("§5" + Variables.teams + " §7x " + "§2" + Variables.playerPerTeam);
+        map.setPrefix("00A72" + Variables.name);
+        teams.setPrefix("00A75" + Variables.teams + " 00A77x " + "00A72" + Variables.playerPerTeam);
 
         for (de.biomia.api.Teams.Team t : Biomia.TeamManager().getTeams()) {
             lobbySB.registerNewTeam("0" + t.getTeamname()).setPrefix(t.getColorcode());
         }
-        lobbySB.registerNewTeam("noteam").setPrefix("§7");
+        lobbySB.registerNewTeam("noteam").setPrefix("00A77");
 
     }
 
@@ -61,18 +61,18 @@ public class Scoreboards {
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         o.getScore(" ").setScore(7);
-        o.getScore("§5Kit:").setScore(6);
-        o.getScore("§c").setScore(5);
-        o.getScore("§a").setScore(4);
-        o.getScore("§5Team:").setScore(3);
-        o.getScore("§f").setScore(2);
-        o.getScore("§1").setScore(1);
+        o.getScore("00A75Kit:").setScore(6);
+        o.getScore("00A7c").setScore(5);
+        o.getScore("00A7a").setScore(4);
+        o.getScore("00A75Team:").setScore(3);
+        o.getScore("00A7f").setScore(2);
+        o.getScore("00A71").setScore(1);
 
         Team kit = sb.registerNewTeam("kitname");
         Team team = sb.registerNewTeam("team");
 
-        kit.addEntry("§c");
-        team.addEntry("§f");
+        kit.addEntry("00A7c");
+        team.addEntry("00A7f");
 
         String name = Biomia.TeamManager().translate(Biomia.TeamManager().getTeam(p).getTeamname());
 
@@ -85,9 +85,9 @@ public class Scoreboards {
         }
 
         if (Variables.selectedKit.get(p) != null)
-            kit.setPrefix("§c" + Variables.selectedKit.get(p).getName());
+            kit.setPrefix("00A7c" + Variables.selectedKit.get(p).getName());
         else
-            kit.setPrefix("§cKein Kit");
+            kit.setPrefix("00A7cKein Kit");
 
         team.setPrefix(Biomia.TeamManager().getTeam(p).getColorcode() + name);
 
@@ -100,7 +100,7 @@ public class Scoreboards {
             spectatorSB.registerNewTeam(t.getTeamname()).setPrefix(t.getColorcode());
         }
 
-        spectatorSB.registerNewTeam("spectator").setPrefix("§7§o");
+        spectatorSB.registerNewTeam("spectator").setPrefix("00A7700A7o");
 
         for (Player pl : Bukkit.getOnlinePlayers()) {
 

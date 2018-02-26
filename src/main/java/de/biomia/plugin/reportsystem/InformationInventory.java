@@ -31,7 +31,7 @@ class InformationInventory {
         String name = BiomiaPlayer.getName(biomiaPlayerID);
         this.bp = bp;
         this.biomiaID = biomiaPlayerID;
-        this.inv = Bukkit.createInventory(null, 27, "§cInformationen über " + name);
+        this.inv = Bukkit.createInventory(null, 27, "00A7cInformationen \u00fcber " + name);
 
         int level = ReportSQL.getLevel(biomiaPlayerID);
         int bans = 0;
@@ -54,7 +54,7 @@ class InformationInventory {
                     boolean wurdeEntbannt = rs.getBoolean("wurdeEntbannt");
                     int entbanntVon = rs.getInt("entbanntVon");
 
-                    ItemStack is = ItemCreator.headWithSkin(BiomiaPlayer.getName(von), "§b" + (bans + 1) + ". Ban");
+                    ItemStack is = ItemCreator.headWithSkin(BiomiaPlayer.getName(von), "00A7b" + (bans + 1) + ". Ban");
                     ItemMeta meta = is.getItemMeta();
 
                     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
@@ -66,12 +66,12 @@ class InformationInventory {
                     wann.set(Calendar.SECOND, timestemp);
 
                     if (perm)
-                        meta.setLore(Arrays.asList("", "§r§bWann: §c" + df.format(wann.getTime()), "§r§bGrund: §c" + reason, "§r§bGebannt von: §c" + BiomiaPlayer.getName(von), "§r§bTemporär: §cNein", "§r§bWurde Entbannt: §c" + (!wurdeEntbannt ? "Nein" : "Ja")));
+                        meta.setLore(Arrays.asList("", "00A7r00A7bWann: 00A7c" + df.format(wann.getTime()), "00A7r00A7bGrund: 00A7c" + reason, "00A7r00A7bGebannt von: 00A7c" + BiomiaPlayer.getName(von), "00A7r00A7bTempor\u00fcr: 00A7cNein", "00A7r00A7bWurde Entbannt: 00A7c" + (!wurdeEntbannt ? "Nein" : "Ja")));
                     else
-                        meta.setLore(Arrays.asList("", "§r§bWann: §c" + df.format(wann.getTime()), "§r§bBis: §c" + df.format(bis.getTime()), "§r§bGrund: §c" + reason, "§r§bGebannt von: §c" + BiomiaPlayer.getName(von), "§r§bTemporär: §cJa", "§r§bWurde Entbannt: §c" + (!wurdeEntbannt ? "Nein" : "Ja")));
+                        meta.setLore(Arrays.asList("", "00A7r00A7bWann: 00A7c" + df.format(wann.getTime()), "00A7r00A7bBis: 00A7c" + df.format(bis.getTime()), "00A7r00A7bGrund: 00A7c" + reason, "00A7r00A7bGebannt von: 00A7c" + BiomiaPlayer.getName(von), "00A7r00A7bTempor\u00fcr: 00A7cJa", "00A7r00A7bWurde Entbannt: 00A7c" + (!wurdeEntbannt ? "Nein" : "Ja")));
 
                     if (wurdeEntbannt) {
-                        meta.getLore().add("§r§bEntbannt von: §c" + BiomiaPlayer.getName(entbanntVon));
+                        meta.getLore().add("00A7r00A7bEntbannt von: 00A7c" + BiomiaPlayer.getName(entbanntVon));
                         entbannungen++;
                     }
                     meta.getLore().add("");
@@ -99,7 +99,7 @@ class InformationInventory {
                     boolean perm = rs.getBoolean("permanent");
                     int von = rs.getInt("von");
 
-                    is = ItemCreator.itemCreate(Material.STAINED_GLASS, "§aAktuell Gebannt!", (short) 5);
+                    is = ItemCreator.itemCreate(Material.STAINED_GLASS, "00A7aAktuell Gebannt!", (short) 5);
                     ItemMeta meta = is.getItemMeta();
 
                     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
@@ -111,9 +111,9 @@ class InformationInventory {
                     wann.set(Calendar.SECOND, timestamp);
 
                     if (perm) {
-                        meta.setLore(Arrays.asList("", "§r§bWann: §c" + df.format(wann.getTime()), "§r§bGrund: §c" + reason, "§r§bGebannt von: §c" + BiomiaPlayer.getName(von), "§r§bTemporär: §cNein", ""));
+                        meta.setLore(Arrays.asList("", "00A7r00A7bWann: 00A7c" + df.format(wann.getTime()), "00A7r00A7bGrund: 00A7c" + reason, "00A7r00A7bGebannt von: 00A7c" + BiomiaPlayer.getName(von), "00A7r00A7bTempor\u00fcr: 00A7cNein", ""));
                     } else {
-                        meta.setLore(Arrays.asList("", "§r§bWann: §c" + df.format(wann.getTime()), "§r§bBis: §c" + df.format(bis.getTime()), "§r§bGrund: §c" + reason, "§r§bGebannt von: §c" + BiomiaPlayer.getName(von), "§r§bTemporär: §cJa", ""));
+                        meta.setLore(Arrays.asList("", "00A7r00A7bWann: 00A7c" + df.format(wann.getTime()), "00A7r00A7bBis: 00A7c" + df.format(bis.getTime()), "00A7r00A7bGrund: 00A7c" + reason, "00A7r00A7bGebannt von: 00A7c" + BiomiaPlayer.getName(von), "00A7r00A7bTempor\u00fcr: 00A7cJa", ""));
                     }
                     is.setItemMeta(meta);
                 }
@@ -121,35 +121,35 @@ class InformationInventory {
                 if (isBanned) {
                     inv.setItem(14, is);
                 } else {
-                    inv.setItem(14, ItemCreator.itemCreate(Material.STAINED_GLASS, "§cZur Zeit nicht gebannt", (short) 14));
+                    inv.setItem(14, ItemCreator.itemCreate(Material.STAINED_GLASS, "00A7cZur Zeit nicht gebannt", (short) 14));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
 
-        ItemStack banns = ItemCreator.itemCreate(Material.PAPER, "§cBanns");
+        ItemStack banns = ItemCreator.itemCreate(Material.PAPER, "00A7cBanns");
         ItemMeta bannsItemMeta = banns.getItemMeta();
         if (bans > 0)
             banns.setAmount(bans);
-        bannsItemMeta.setLore(Collections.singletonList("§r§b" + bans));
+        bannsItemMeta.setLore(Collections.singletonList("00A7r00A7b" + bans));
         banns.setItemMeta(bannsItemMeta);
         inv.setItem(9, banns);
 
-        inv.setItem(12, ItemCreator.itemCreate(Material.BARRIER, "§cBannen"));
+        inv.setItem(12, ItemCreator.itemCreate(Material.BARRIER, "00A7cBannen"));
 
-        ItemStack reports = ItemCreator.itemCreate(Material.PAPER, "§cReport-Level");
+        ItemStack reports = ItemCreator.itemCreate(Material.PAPER, "00A7cReport-Level");
         ItemMeta reportsMeta = reports.getItemMeta();
         if (level > 0)
             reports.setAmount(level);
-        reportsMeta.setLore(Collections.singletonList("§r§b" + level));
+        reportsMeta.setLore(Collections.singletonList("00A7r00A7b" + level));
         reports.setItemMeta(reportsMeta);
         inv.setItem(18, reports);
 
-        inv.setItem(21, ItemCreator.itemCreate(Material.STAINED_GLASS, "§cReport Entfernen", (short) 5));
-        inv.setItem(23, ItemCreator.itemCreate(Material.STAINED_GLASS, "§aReport Fertigstellen", (short) 14));
+        inv.setItem(21, ItemCreator.itemCreate(Material.STAINED_GLASS, "00A7cReport Entfernen", (short) 5));
+        inv.setItem(23, ItemCreator.itemCreate(Material.STAINED_GLASS, "00A7aReport Fertigstellen", (short) 14));
 
-        inv.setItem(26, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, "§cZurück"));
+        inv.setItem(26, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, "00A7cZur\u00fcck"));
     }
 
     public int getBiomiaID() {

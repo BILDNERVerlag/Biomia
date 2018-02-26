@@ -24,26 +24,26 @@ public class Scoreboards {
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         o.getScore(" ").setScore(7);
-        o.getScore("§5Map:").setScore(6);
-        o.getScore("§c").setScore(5);
-        o.getScore("§a").setScore(4);
-        o.getScore("§5Teams:").setScore(3);
-        o.getScore("§f").setScore(2);
-        o.getScore("§1").setScore(1);
+        o.getScore("\u00A75Map:").setScore(6);
+        o.getScore("\u00A7c").setScore(5);
+        o.getScore("\u00A7a").setScore(4);
+        o.getScore("\u00A75Teams:").setScore(3);
+        o.getScore("\u00A7f").setScore(2);
+        o.getScore("\u00A71").setScore(1);
 
         Team map = lobbySB.registerNewTeam("map");
         Team teams = lobbySB.registerNewTeam("teams");
 
-        map.addEntry("§c");
-        teams.addEntry("§f");
+        map.addEntry("\u00A7c");
+        teams.addEntry("\u00A7f");
 
-        map.setPrefix("§2" + Variables.name);
-        teams.setPrefix("§5" + Variables.teams + " §7x " + "§2" + Variables.playerPerTeam);
+        map.setPrefix("\u00A72" + Variables.name);
+        teams.setPrefix("\u00A75" + Variables.teams + " \u00A77x " + "\u00A72" + Variables.playerPerTeam);
 
         for (de.biomia.api.Teams.Team t : Biomia.TeamManager().getTeams()) {
             lobbySB.registerNewTeam("0" + t.getTeamname()).setPrefix(t.getColorcode());
         }
-        lobbySB.registerNewTeam("noteam").setPrefix("§7");
+        lobbySB.registerNewTeam("noteam").setPrefix("\u00A77");
 
     }
 
@@ -61,11 +61,11 @@ public class Scoreboards {
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         o.getScore(" ").setScore(3);
-        o.getScore("§5Team:").setScore(2);
-        o.getScore("§c").setScore(1);
+        o.getScore("\u00A75Team:").setScore(2);
+        o.getScore("\u00A7c").setScore(1);
 
         Team team = sb.registerNewTeam("team");
-        team.addEntry("§c");
+        team.addEntry("\u00A7c");
 
         String name = Biomia.TeamManager().translate(Biomia.TeamManager().getTeam(p).getTeamname());
 
@@ -88,7 +88,7 @@ public class Scoreboards {
             spectatorSB.registerNewTeam(t.getTeamname()).setPrefix(t.getColorcode());
         }
 
-        spectatorSB.registerNewTeam("spectator").setPrefix("§7§o");
+        spectatorSB.registerNewTeam("spectator").setPrefix("\u00A77\u00A7o");
 
         for (Player pl : Bukkit.getOnlinePlayers()) {
 

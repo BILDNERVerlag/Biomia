@@ -23,7 +23,7 @@ import java.util.UUID;
 public class Variables {
 
     // Message
-    public static final String prefix = Messages.prefix;
+    public static final String prefix = Messages.PREFIX;
 
     // Game
     public static final ArrayList<Block> destroyableBlocks = new ArrayList<>();

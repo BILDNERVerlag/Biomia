@@ -12,18 +12,18 @@ public class HealCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
         if (!sender.hasPermission("biomia.heal")) {
-            sender.sendMessage(Messages.noperm);
+            sender.sendMessage(Messages.NO_PERM);
             return true;
         }
 
         if (!(sender instanceof Player)) {
-            sender.sendMessage("§cNur Spieler können sich heilen!");
+            sender.sendMessage("00A7cNur Spieler k\u00F6nnen sich heilen!");
             return true;
         }
 
         Player p = (Player) sender;
         p.setHealth(p.getHealthScale());
-        sender.sendMessage("§dDu wurdest vollständig geheilt!");
+        sender.sendMessage("00A7dDu wurdest vollst\u00fcndig geheilt!");
 
         return true;
     }

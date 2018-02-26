@@ -43,7 +43,7 @@ public class Kit {
         this.setId(id);
         KitManager.allKits.put(id, this);
         ItemMeta meta = getIcon().getItemMeta();
-        meta.setDisplayName("§a" + getName());
+        meta.setDisplayName("00A7a" + getName());
         getIcon().setItemMeta(meta);
     }
 
@@ -165,7 +165,7 @@ public class Kit {
     }
 
     public String getDisplayName() {
-        return "§a" + getName();
+        return "00A7a" + getName();
     }
 
     public boolean isShowable() {

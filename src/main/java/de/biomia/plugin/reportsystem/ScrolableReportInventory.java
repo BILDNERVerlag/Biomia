@@ -29,7 +29,7 @@ class ScrolableReportInventory implements Listener {
 
     public ScrolableReportInventory(BiomiaPlayer bp) {
         this.bp = bp;
-        inv = Bukkit.createInventory(null, 27, "§dUnbearbeitete Reports");
+        inv = Bukkit.createInventory(null, 27, "00A7dUnbearbeitete Reports");
         Bukkit.getPluginManager().registerEvents(this, Main.plugin);
     }
 
@@ -70,12 +70,12 @@ class ScrolableReportInventory implements Listener {
                     int backItemSlotInBanInformation = 26;
                     if (e.getSlot() == backItemSlotInBanInformation) {
                         openInventory();
-                    } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§cReport Entfernen")) {
+                    } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("00A7cReport Entfernen")) {
                         //TODO
-                    } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§aReport Fertigstellen")) {
+                    } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("00A7aReport Fertigstellen")) {
                         //TODO
                         new PlayerBan(bp, banInformationInv.getBiomiaID());
-                    } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§cBannen")) {
+                    } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("00A7cBannen")) {
                         new PlayerBan(bp, banInformationInv.getBiomiaID());
                     }
                 }
@@ -123,9 +123,9 @@ class ScrolableReportInventory implements Listener {
 
                 ids.add(playerReport.getReporteterBiomiaID());
 
-                ItemStack stack = ItemCreator.headWithSkin(playerReport.getReporteterName(), "§c" + playerReport.getReporteterName());
+                ItemStack stack = ItemCreator.headWithSkin(playerReport.getReporteterName(), "00A7c" + playerReport.getReporteterName());
                 ItemMeta meta = stack.getItemMeta();
-                meta.setLore(Arrays.asList("", "§r§bReport Level: §c" + playerReport.getLevel(), "§r§bReportet von §c" + playerReport.getReporterName(), "§r§bGrund: §c" + playerReport.getGrund(), ""));
+                meta.setLore(Arrays.asList("", "00A7r00A7bReport Level: 00A7c" + playerReport.getLevel(), "00A7r00A7bReportet von 00A7c" + playerReport.getReporterName(), "00A7r00A7bGrund: 00A7c" + playerReport.getGrund(), ""));
                 stack.setItemMeta(meta);
                 items.add(stack);
             }

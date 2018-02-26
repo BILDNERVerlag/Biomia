@@ -45,7 +45,7 @@ public class Kit {
         this.setId(id);
         Variables.kits.put(id, this);
         ItemMeta meta = getIcon().getItemMeta();
-        meta.setDisplayName("§a" + getName());
+        meta.setDisplayName("00A7a" + getName());
         getIcon().setItemMeta(meta);
     }
 

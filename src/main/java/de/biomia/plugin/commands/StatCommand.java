@@ -15,7 +15,7 @@ public class StatCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
         if (!sender.hasPermission("biomia.stats")) {
-            sender.sendMessage(Messages.noperm);
+            sender.sendMessage(Messages.NO_PERM);
             return true;
         }
 

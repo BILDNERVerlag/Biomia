@@ -37,7 +37,7 @@ public class Teleport {
         Iterator<? extends Player> players = Bukkit.getOnlinePlayers().iterator();
 
         if (Variables.teamSpawns.size() < Variables.teams) {
-            Bukkit.broadcastMessage("§cZu wenig Spawn Locations!");
+            Bukkit.broadcastMessage("\u00A7cZu wenig Spawn Locations!");
             Biomia.stopWithDelay();
             return;
         }

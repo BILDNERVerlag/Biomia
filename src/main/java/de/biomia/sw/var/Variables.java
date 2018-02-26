@@ -22,7 +22,7 @@ import java.util.UUID;
 public class Variables {
 
     // Message
-    public static final String prefix = Messages.prefix;
+    public static final String prefix = Messages.PREFIX;
     public static final String name = Config.config.getString("Name");
     public static final int teams = Config.config.getInt("NumberOfTeams");
     public static final int playerPerTeam = Config.config.getInt("TeamSize");

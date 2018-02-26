@@ -11,7 +11,7 @@ public class CreateTableCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmc, String label, String[] args) {
         if (!sender.hasPermission("biomia.sql")) {
-            sender.sendMessage(Messages.noperm);
+            sender.sendMessage(Messages.NO_PERM);
             return true;
         }
 
@@ -59,7 +59,7 @@ public class CreateTableCommand implements CommandExecutor {
                 MySQL.execute("CREATE TABLE IF NOT EXISTS `achiev_db`.`" + args[1] + "` ( `ID` INT NOT NULL , `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`ID`) );", MySQL.Databases.achiev_db);
                 break;
             default:
-                sender.sendMessage("\u00A77" + args[0] + "\u00A7c ist ungültig. Benutze \u00A77stat \u00A7coder \u00A77achiev\u00A7c.");
+                sender.sendMessage("\u00A77" + args[0] + "\u00A7c ist ung\u00fcltig. Benutze \u00A77stat \u00A7coder \u00A77achiev\u00A7c.");
                 return true;
         }
 

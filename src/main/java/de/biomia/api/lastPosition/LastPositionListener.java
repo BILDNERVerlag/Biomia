@@ -1,7 +1,6 @@
 package de.biomia.api.lastPosition;
 
-import at.TimoCraft.TimoCloud.api.TimoCloudAPI;
-import at.TimoCraft.TimoCloud.api.objects.GroupObject;
+import cloud.timo.TimoCloud.api.objects.ServerGroupObject;
 import de.biomia.api.Biomia;
 import de.biomia.api.main.Main;
 import de.biomia.api.mysql.MySQL;
@@ -32,7 +31,7 @@ public class LastPositionListener implements Listener {
             @Override
             public void run() {
                 Location loc = getLastLocation(e.getPlayer(),
-                        TimoCloudAPI.getBukkitInstance().getThisServer().getGroup());
+                        Main.getBukkitTimoapi().getThisServer().getGroup());
                 if (loc != null) {
                     e.getPlayer().teleport(loc);
                 }
@@ -43,10 +42,10 @@ public class LastPositionListener implements Listener {
 
     @EventHandler
     public void onDisonnect(PlayerQuitEvent e) {
-        saveLocation(e.getPlayer(), TimoCloudAPI.getBukkitInstance().getThisServer().getGroup());
+        saveLocation(e.getPlayer(), Main.getBukkitTimoapi().getThisServer().getGroup());
     }
 
-    private static void saveLocation(Player p, GroupObject group) {
+    private static void saveLocation(Player p, ServerGroupObject group) {
         Location loc = p.getLocation();
 
         double x = (int) (loc.getX() * 100);
@@ -94,7 +93,7 @@ public class LastPositionListener implements Listener {
             }
     }
 
-    private static boolean containsLocation(Player p, GroupObject group) {
+    private static boolean containsLocation(Player p, ServerGroupObject group) {
         Connection con = de.biomia.api.mysql.MySQL.Connect(database);
         try {
             PreparedStatement ps = con
@@ -112,7 +111,7 @@ public class LastPositionListener implements Listener {
         return false;
     }
 
-    private static Location getLastLocation(Player p, GroupObject group) {
+    private static Location getLastLocation(Player p, ServerGroupObject group) {
         Connection con = de.biomia.api.mysql.MySQL.Connect(database);
         Location loc = null;
         try {

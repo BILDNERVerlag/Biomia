@@ -1,8 +1,19 @@
 package de.biomia.api.main;
 
-import at.TimoCraft.TimoCloud.api.TimoCloudAPI;
-import at.TimoCraft.TimoCloud.api.TimoCloudBukkitAPI;
-import at.TimoCraft.TimoCloud.api.TimoCloudUniversalAPI;
+import cloud.timo.TimoCloud.api.TimoCloudAPI;
+import cloud.timo.TimoCloud.api.TimoCloudBukkitAPI;
+import cloud.timo.TimoCloud.api.TimoCloudUniversalAPI;
+import de.biomia.api.Biomia;
+import de.biomia.api.achievements.Achievements;
+import de.biomia.api.achievements.StatListener;
+import de.biomia.api.connect.Connect;
+import de.biomia.api.cosmetics.Cosmetic;
+import de.biomia.api.cosmetics.Cosmetic.Group;
+import de.biomia.api.cosmetics.CosmeticGroup;
+import de.biomia.api.cosmetics.GadgetItems.GadgetIniter;
+import de.biomia.api.cosmetics.ParticleItems.ParticleIniter;
+import de.biomia.api.itemcreator.ItemCreator;
+import de.biomia.api.mysql.MySQL;
 import de.biomia.bw.main.BedWarsMain;
 import de.biomia.demoserver.main.WeltenlaborMain;
 import de.biomia.freebuild.main.FreebuildMain;
@@ -18,17 +29,6 @@ import de.biomia.plugin.specialEvents.easterEvent.EasterEvent;
 import de.biomia.quests.main.QuestMain;
 import de.biomia.sw.main.SkyWarsMain;
 import de.biomia.versus.vs.main.VSMain;
-import de.biomia.api.Biomia;
-import de.biomia.api.achievements.Achievements;
-import de.biomia.api.achievements.StatListener;
-import de.biomia.api.connect.Connect;
-import de.biomia.api.cosmetics.Cosmetic;
-import de.biomia.api.cosmetics.Cosmetic.Group;
-import de.biomia.api.cosmetics.CosmeticGroup;
-import de.biomia.api.cosmetics.GadgetItems.GadgetIniter;
-import de.biomia.api.cosmetics.ParticleItems.ParticleIniter;
-import de.biomia.api.itemcreator.ItemCreator;
-import de.biomia.api.mysql.MySQL;
 import net.minecraft.server.v1_12_R1.DedicatedServer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -37,14 +37,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Main extends JavaPlugin {
 
-    //TODO Klassenname ändern
+    //TODO Klassenname \u00fcndern
     public static Inventory menu;
     public static Inventory grund;
 
@@ -52,7 +51,6 @@ public class Main extends JavaPlugin {
 
     public static final ArrayList<String> group = new ArrayList<>();
     public static final HashMap<String, String> prefixes = new HashMap<>();
-    public static final ArrayList<String> allPlayersOnAllServer = new ArrayList<>();
 
     private static TimoCloudBukkitAPI bukkitTimoapi;
     private static TimoCloudUniversalAPI universalTimoapi;
@@ -105,13 +103,6 @@ public class Main extends JavaPlugin {
         for (Player p : Bukkit.getOnlinePlayers()) {
             de.biomia.api.cosmetics.Cosmetic.load(Biomia.getBiomiaPlayer(p));
         }
-
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                Connect.getOnlinePlayers();
-            }
-        }.runTaskTimer(this, 0, 20 * 5);
 
         GadgetIniter.init();
         ParticleIniter.init();
@@ -169,7 +160,8 @@ public class Main extends JavaPlugin {
         prefixes.put("RegSpieler", "\u00A77");
         prefixes.put("UnregSpieler", "\u00A78");
 
-        groupName = ((DedicatedServer) ((CraftServer) Bukkit.getServer()).getServer()).propertyManager.properties.getProperty("server-name");
+//        groupName = TimoCloudAPI.getBukkitInstance().getThisServer().getName();
+        groupName = ((DedicatedServer) ((CraftServer) Bukkit.getServer()).getServer()).propertyManager.properties.getProperty("server-name").split("-")[0];
 
         switch (groupName) {
             case "Lobby":
@@ -220,6 +212,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        super.onDisable();
         this.saveConfig();
         MySQL.closeConnections();
         switch (getGroupName()) {
@@ -249,23 +242,23 @@ public class Main extends JavaPlugin {
 
     private void initInventories() {
 
-        menu = Bukkit.createInventory(null, 9, "§eREPORT MENÜ");
-        ItemStack bug = ItemCreator.itemCreate(Material.BARRIER, "§cBug");
-        ItemStack spieler = ItemCreator.headWithSkin("DerJulsn", "§cSpieler");
+        menu = Bukkit.createInventory(null, 9, "00A7eREPORT MEN\u00fc");
+        ItemStack bug = ItemCreator.itemCreate(Material.BARRIER, "00A7cBug");
+        ItemStack spieler = ItemCreator.headWithSkin("DerJulsn", "00A7cSpieler");
         menu.setItem(3, bug);
         menu.setItem(5, spieler);
 
-        grund = Bukkit.createInventory(null, 18, "§eGRUND");
-        grund.setItem(2, ItemCreator.itemCreate(Material.ELYTRA, "§cFlyHack"));
-        grund.setItem(3, ItemCreator.itemCreate(Material.DIAMOND, "§cNoSlowdown"));
-        grund.setItem(4, ItemCreator.itemCreate(Material.IRON_SWORD, "§cKillaura"));
-        grund.setItem(5, ItemCreator.itemCreate(Material.LEATHER_BOOTS, "§cSpeedHack"));
-        grund.setItem(6, ItemCreator.itemCreate(Material.PAPER, "§cSonstiger Hack"));
-        grund.setItem(11, ItemCreator.itemCreate(Material.TNT, "§cGriefing"));
-        grund.setItem(12, ItemCreator.itemCreate(Material.BARRIER, "§cSpamming"));
-        grund.setItem(13, ItemCreator.itemCreate(Material.RAW_FISH, "§cTrolling"));
-        grund.setItem(14, ItemCreator.itemCreate(Material.BONE, "§cBeleidigung"));
-        grund.setItem(15, ItemCreator.itemCreate(Material.BOOK, "§cAnderer Grund"));
+        grund = Bukkit.createInventory(null, 18, "00A7eGRUND");
+        grund.setItem(2, ItemCreator.itemCreate(Material.ELYTRA, "00A7cFlyHack"));
+        grund.setItem(3, ItemCreator.itemCreate(Material.DIAMOND, "00A7cNoSlowdown"));
+        grund.setItem(4, ItemCreator.itemCreate(Material.IRON_SWORD, "00A7cKillaura"));
+        grund.setItem(5, ItemCreator.itemCreate(Material.LEATHER_BOOTS, "00A7cSpeedHack"));
+        grund.setItem(6, ItemCreator.itemCreate(Material.PAPER, "00A7cSonstiger Hack"));
+        grund.setItem(11, ItemCreator.itemCreate(Material.TNT, "00A7cGriefing"));
+        grund.setItem(12, ItemCreator.itemCreate(Material.BARRIER, "00A7cSpamming"));
+        grund.setItem(13, ItemCreator.itemCreate(Material.RAW_FISH, "00A7cTrolling"));
+        grund.setItem(14, ItemCreator.itemCreate(Material.BONE, "00A7cBeleidigung"));
+        grund.setItem(15, ItemCreator.itemCreate(Material.BOOK, "00A7cAnderer Grund"));
     }
 
     private void registerListeners() {

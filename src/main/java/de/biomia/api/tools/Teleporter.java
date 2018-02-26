@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.ArrayList;
 
-public class Teleporter implements Listener {
+public class Teleporter {
 
     private static final TeleportListener listener;
 
@@ -18,25 +18,32 @@ public class Teleporter implements Listener {
         listener = new TeleportListener();
     }
 
-    private Location from;
-    private Location to;
-    private Location backTeleport;
-    private Destination dest;
+    private final Location from;
+    private final Location to;
+    private final Location backTeleport;
+    private final Destination dest;
     private boolean inverted;
-    private String serverGroup;
-    private Location location;
+    private final String serverGroup;
+    private final Location location;
 
     public Teleporter(Location from, Location to, Location backTeleport, String serverGroup) {
+        this.from = from;
+        this.to = to;
         dest = Destination.SERVER_GROUP;
         this.serverGroup = serverGroup;
         this.backTeleport = backTeleport;
         listener.addTeleporter(this);
+        this.location = null;
     }
 
     public Teleporter(Location from, Location to, Location destinationLocation) {
+        this.from = from;
+        this.to = to;
         dest = Destination.LOCATION;
         this.location = destinationLocation;
         listener.addTeleporter(this);
+        this.backTeleport = null;
+        this.serverGroup = null;
     }
 
     public void setInverted() {

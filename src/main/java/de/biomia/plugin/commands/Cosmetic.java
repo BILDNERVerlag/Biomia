@@ -38,23 +38,23 @@ public class Cosmetic implements CommandExecutor {
                                         StringBuilder sb = new StringBuilder();
                                         int i = 5;
                                         while (args.length > i) {
-                                            sb.append("§r").append(args[i]).append(" ");
+                                            sb.append("00A7r").append(args[i]).append(" ");
                                             i++;
                                         }
 
-                                        ItemStack is = ItemCreator.headWithSkin(headName, "§5" + name);
+                                        ItemStack is = ItemCreator.headWithSkin(headName, "00A75" + name);
                                         ItemStack head = is.clone();
 
                                         ItemMeta isMeta = is.getItemMeta();
                                         isMeta.setLore(Arrays.asList(ChatColor.translateAlternateColorCodes('&',
-                                                "§o§4" + c.deutsch() + ";§r" + sb.toString()).split(";")));
+                                                "00A7o00A74" + c.deutsch() + ";00A7r" + sb.toString()).split(";")));
                                         is.setItemMeta(isMeta);
 
                                         de.biomia.api.cosmetics.Cosmetic
                                                 .addItemToDatabase(new CosmeticHeadItem(-1, name, is, c, head));
                                     } else {
                                         p.sendMessage(
-                                                "§5/§2cosmetic add head <Head Name> <Name> <Commonness> <Description (split lines with ';')>");
+                                                "00A75/00A72cosmetic add head <Head Name> <Name> <Commonness> <Description (split lines with ';')>");
                                     }
                                     break;
                                 case "gadget":
@@ -72,18 +72,18 @@ public class Cosmetic implements CommandExecutor {
                                         ItemStack is = p.getInventory().getItemInMainHand();
 
                                         ItemMeta meta = is.getItemMeta();
-                                        meta.setDisplayName("§d" + name);
+                                        meta.setDisplayName("00A7d" + name);
                                         is.setItemMeta(meta);
                                         ItemStack gadgetItem = is.clone();
                                         meta.setLore(Arrays.asList(ChatColor.translateAlternateColorCodes('&',
-                                                "§o§4" + c.deutsch() + ";§r" + sb.toString()).split(";")));
+                                                "00A7o00A74" + c.deutsch() + ";00A7r" + sb.toString()).split(";")));
                                         is.setItemMeta(meta);
 
                                         de.biomia.api.cosmetics.Cosmetic
                                                 .addItemToDatabase(new CosmeticGadgetItem(-1, name, is, c, gadgetItem));
                                     } else {
                                         p.sendMessage(
-                                                "§5/§2cosmetic add gadget <Name> <Commonness> <Description (split lines with ';')>");
+                                                "00A75/00A72cosmetic add gadget <Name> <Commonness> <Description (split lines with ';')>");
                                     }
                                     break;
                                 case "suit":
@@ -101,9 +101,9 @@ public class Cosmetic implements CommandExecutor {
                                         ItemStack is = p.getInventory().getItemInMainHand();
 
                                         ItemMeta meta = is.getItemMeta();
-                                        meta.setDisplayName("§2" + name);
+                                        meta.setDisplayName("00A72" + name);
                                         meta.setLore(Arrays.asList(ChatColor.translateAlternateColorCodes('&',
-                                                "§o§4" + c.deutsch() + ";§r" + sb.toString()).split(";")));
+                                                "00A7o00A74" + c.deutsch() + ";00A7r" + sb.toString()).split(";")));
                                         is.setItemMeta(meta);
 
                                         CosmeticSuitItem item = new CosmeticSuitItem(-1, name, is, c);
@@ -115,7 +115,7 @@ public class Cosmetic implements CommandExecutor {
                                         de.biomia.api.cosmetics.Cosmetic.addItemToDatabase(item);
                                     } else {
                                         p.sendMessage(
-                                                "§5/§2cosmetic add suit <Name> <Commonness> <Description (split lines with ';')>");
+                                                "00A75/00A72cosmetic add suit <Name> <Commonness> <Description (split lines with ';')>");
                                     }
                                     break;
                                 case "particle":
@@ -133,16 +133,16 @@ public class Cosmetic implements CommandExecutor {
                                         ItemStack is = p.getInventory().getItemInMainHand();
 
                                         ItemMeta meta = is.getItemMeta();
-                                        meta.setDisplayName("§b" + name);
+                                        meta.setDisplayName("00A7b" + name);
                                         meta.setLore(Arrays.asList(ChatColor.translateAlternateColorCodes('&',
-                                                "§o§4" + c.deutsch() + ";§r" + sb.toString()).split(";")));
+                                                "00A7o00A74" + c.deutsch() + ";00A7r" + sb.toString()).split(";")));
                                         is.setItemMeta(meta);
 
                                         de.biomia.api.cosmetics.Cosmetic
                                                 .addItemToDatabase(new CosmeticParticleItem(-1, name, is, c));
                                     } else {
                                         p.sendMessage(
-                                                "§5/§2cosmetic add particle <Name> <Commonness> <Description (split lines with ';')>");
+                                                "00A75/00A72cosmetic add particle <Name> <Commonness> <Description (split lines with ';')>");
                                     }
                                     break;
                                 case "pet":
@@ -161,16 +161,16 @@ public class Cosmetic implements CommandExecutor {
                                         ItemStack is = p.getInventory().getItemInMainHand();
 
                                         ItemMeta meta = is.getItemMeta();
-                                        meta.setDisplayName("§4" + name);
+                                        meta.setDisplayName("00A74" + name);
                                         meta.setLore(Arrays.asList(ChatColor.translateAlternateColorCodes('&',
-                                                "§o§4" + c.deutsch() + ";§r" + sb.toString()).split(";")));
+                                                "00A7o00A74" + c.deutsch() + ";00A7r" + sb.toString()).split(";")));
                                         is.setItemMeta(meta);
 
                                         de.biomia.api.cosmetics.Cosmetic
                                                 .addItemToDatabase(new CosmeticPetItem(-1, name, is, c, type));
                                     } else {
                                         p.sendMessage(
-                                                "§5/§2cosmetic add pet <Name> <Commonness> <entitytype> <Description (split lines with ';')>");
+                                                "00A75/00A72cosmetic add pet <Name> <Commonness> <entitytype> <Description (split lines with ';')>");
                                     }
                                     break;
                                 default:

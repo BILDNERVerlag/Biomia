@@ -47,13 +47,13 @@ public class Config {
 
             if (config.getString(i + ".Name") != null && config.getString(i + ".Name").equalsIgnoreCase(name)) {
                 config.set(i + "", null);
-                Bukkit.broadcastMessage("§aObjekt entfernt!");
+                Bukkit.broadcastMessage("00A7aObjekt entfernt!");
                 Main.getPlugin().saveConfig();
                 return;
             }
 
         }
-        Bukkit.broadcastMessage("§cObjekt nicht gefunden!");
+        Bukkit.broadcastMessage("00A7cObjekt nicht gefunden!");
 
     }
 

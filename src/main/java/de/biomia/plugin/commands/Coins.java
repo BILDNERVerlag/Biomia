@@ -16,7 +16,7 @@ public class Coins implements CommandExecutor {
         if (sender instanceof Player) {
             BiomiaPlayer p = Biomia.getBiomiaPlayer((Player) sender);
             if (args.length == 0) {
-                sender.sendMessage(Messages.prefix + "§aDu besitzt §b" + p.getCoins() + " §aBC's!");
+                sender.sendMessage(Messages.PREFIX + "00A7aDu besitzt 00A7b" + p.getCoins() + " 00A7aBC's!");
             }
 
             if (p.getPlayer().hasPermission("biomia.coins")) {
@@ -29,20 +29,20 @@ public class Coins implements CommandExecutor {
                                 int coins = Integer.valueOf(args[2]);
 
                                 if (target.getCoins() < coins) {
-                                    sender.sendMessage(Messages.prefix + "§aDer Spieler " + args[1]
+                                    sender.sendMessage(Messages.PREFIX + "00A7aDer Spieler " + args[1]
                                             + " kann keinen negativen Betrag besitzen!");
                                 } else {
                                     target.takeCoins(coins);
-                                    sender.sendMessage(Messages.prefix + "§aDem Spieler" + target.getPlayer().getName() + " wurden §b"
-                                            + coins + " §aBC's genommen!");
-                                    sender.sendMessage(Messages.prefix + "§a" + target.getPlayer().getName()
-                                            + " besitzt jetzt §b" + target.getCoins() + " §aBC's!");
+                                    sender.sendMessage(Messages.PREFIX + "00A7aDem Spieler" + target.getPlayer().getName() + " wurden 00A7b"
+                                            + coins + " 00A7aBC's genommen!");
+                                    sender.sendMessage(Messages.PREFIX + "00A7a" + target.getPlayer().getName()
+                                            + " besitzt jetzt 00A7b" + target.getCoins() + " 00A7aBC's!");
                                 }
                             } else {
-                                sender.sendMessage(Messages.notonline);
+                                sender.sendMessage(Messages.NOT_ONLINE);
                             }
                         } else {
-                            sender.sendMessage(Messages.prefix + "§c/coins take <Spieler> <Menge>");
+                            sender.sendMessage(Messages.PREFIX + "00A7c/coins take <Spieler> <Menge>");
                         }
                     }
                     if (args[0].equalsIgnoreCase("set")) {
@@ -54,13 +54,13 @@ public class Coins implements CommandExecutor {
 
                                 target.setCoins(coins);
 
-                                sender.sendMessage(Messages.prefix + "§aDer Spieler " + args[1] + " besitzt jetzt §b"
-                                        + args[2] + " §aBC's!");
+                                sender.sendMessage(Messages.PREFIX + "00A7aDer Spieler " + args[1] + " besitzt jetzt 00A7b"
+                                        + args[2] + " 00A7aBC's!");
                             } else {
-                                sender.sendMessage(Messages.notonline);
+                                sender.sendMessage(Messages.NOT_ONLINE);
                             }
                         } else {
-                            sender.sendMessage(Messages.prefix + "§c/coins set <Spieler> <Menge>");
+                            sender.sendMessage(Messages.PREFIX + "00A7c/coins set <Spieler> <Menge>");
                         }
                     }
                     if (args[0].equalsIgnoreCase("add")) {
@@ -72,15 +72,15 @@ public class Coins implements CommandExecutor {
 
                                 target.addCoins(coins, false);
 
-                                sender.sendMessage(Messages.prefix + "§a" + target.getPlayer().getName() + " wurden §b"
-                                        + coins + " §aBC's hinzugfügt!");
-                                sender.sendMessage(Messages.prefix + "§a" + target.getPlayer().getName()
-                                        + " besitzt jetzt §b" + target.getCoins() + " §aBC's!");
+                                sender.sendMessage(Messages.PREFIX + "00A7a" + target.getPlayer().getName() + " wurden 00A7b"
+                                        + coins + " 00A7aBC's hinzugf\u00fcgt!");
+                                sender.sendMessage(Messages.PREFIX + "00A7a" + target.getPlayer().getName()
+                                        + " besitzt jetzt 00A7b" + target.getCoins() + " 00A7aBC's!");
                             } else {
-                                sender.sendMessage(Messages.notonline);
+                                sender.sendMessage(Messages.NOT_ONLINE);
                             }
                         } else {
-                            sender.sendMessage(Messages.prefix + "§c/coins add <Spieler> <Menge>");
+                            sender.sendMessage(Messages.PREFIX + "00A7c/coins add <Spieler> <Menge>");
                         }
                     }
                     if (args[0].equalsIgnoreCase("get")) {
@@ -89,13 +89,13 @@ public class Coins implements CommandExecutor {
 
                                 BiomiaPlayer target = Biomia.getBiomiaPlayer(Bukkit.getPlayer(args[1]));
 
-                                sender.sendMessage(Messages.prefix + "§aDer Spieler " + target.getPlayer().getName()
-                                        + " besitzt §b" + target.getCoins() + " §aBC's!");
+                                sender.sendMessage(Messages.PREFIX + "00A7aDer Spieler " + target.getPlayer().getName()
+                                        + " besitzt 00A7b" + target.getCoins() + " 00A7aBC's!");
                             } else {
-                                sender.sendMessage(Messages.notonline);
+                                sender.sendMessage(Messages.NOT_ONLINE);
                             }
                         } else {
-                            sender.sendMessage(Messages.prefix + "§c/coins get <Spieler>");
+                            sender.sendMessage(Messages.PREFIX + "00A7c/coins get <Spieler>");
                         }
                     }
                 }

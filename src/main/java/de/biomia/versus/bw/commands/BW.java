@@ -29,7 +29,7 @@ public class BW implements CommandExecutor {
                     case "addloc":
                         if (args.length >= 3) {
                             BedWarsConfig.addLocation(p.getLocation(), Integer.valueOf(args[1]), Integer.valueOf(args[2]));
-                            sender.sendMessage("Spawnpoint wurde hinzugefügt!");
+                            sender.sendMessage("Spawnpoint wurde hinzugef\u00fcgt!");
                         } else
                             sender.sendMessage("/bw addloc mapID teamID");
                         break;
@@ -49,10 +49,10 @@ public class BW implements CommandExecutor {
                                 BedWarsConfig.addSpawnerLocations(l, ItemType.GOLD, mapID);
                                 break;
                             default:
-                                p.sendMessage("Schau auf einen verfügbaren Block!");
+                                p.sendMessage("Schau auf einen verf\u00fcgbaren Block!");
                                 return true;
                             }
-                            p.sendMessage("Spawner hinzugefügt!");
+                            p.sendMessage("Spawner hinzugef\u00fcgt!");
                         } else
                             sender.sendMessage("/bw addspawner mapID");
                         break;
@@ -66,7 +66,7 @@ public class BW implements CommandExecutor {
 
                             if (blockFoot.getType() == Material.BED_BLOCK && blockHead.getType() == Material.BED_BLOCK) {
                                 BedWarsConfig.setBed(Integer.valueOf(args[1]), Integer.valueOf(args[2]), blockHead.getLocation(), blockFoot.getLocation());
-                                Bukkit.broadcastMessage("§cBett hinzugefügt!");
+                                Bukkit.broadcastMessage("00A7cBett hinzugef\u00fcgt!");
                             } else
                                 p.sendMessage(Messages.blocksMustBeBeds);
                         } else
@@ -80,10 +80,10 @@ public class BW implements CommandExecutor {
                         break;
                     }
                 } else {
-                    sender.sendMessage("§c/bw addloc (Fügt einen Spawnpunkt hinzu)");
-                    sender.sendMessage("§c/bw addbed (Fügt ein Bett hinzu)");
-                    sender.sendMessage("§c/bw addspawner (Schau auf einen Spawner)");
-                    sender.sendMessage("§c/bw villager (Gibt einen Villager Spawner zurück)");
+                    sender.sendMessage("00A7c/bw addloc (F\u00fcgt einen Spawnpunkt hinzu)");
+                    sender.sendMessage("00A7c/bw addbed (F\u00fcgt ein Bett hinzu)");
+                    sender.sendMessage("00A7c/bw addspawner (Schau auf einen Spawner)");
+                    sender.sendMessage("00A7c/bw villager (Gibt einen Villager Spawner zur\u00fcck)");
                 }
             }
         }

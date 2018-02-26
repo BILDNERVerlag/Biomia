@@ -60,7 +60,7 @@ public class ChatColors implements Listener {
                     + ChatColor.GRAY + ".de");
             register.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://biomia.de"));
             p.spigot().sendMessage(register);
-            p.sendMessage(ChatColor.GRAY + "Oder später mit " + ChatColor.GOLD + "/register");
+            p.sendMessage(ChatColor.GRAY + "Oder sp\u00fcter mit " + ChatColor.GOLD + "/register");
         }
 
     }

@@ -22,7 +22,7 @@ public class EventCommands implements CommandExecutor {
 //
 //					Entity entity = p.getNearbyEntities(1, 5, 1).get(0);
 //					if (entity == null) {
-//						sender.sendMessage("Stell dich in die Nähe eines Entities");
+//						sender.sendMessage("Stell dich in die N\u00fche eines Entities");
 //						return true;
 //					}
 //
@@ -31,7 +31,7 @@ public class EventCommands implements CommandExecutor {
 //						if (args.length == 2) {
 //							WinterTag.bindCalendarDayToEntity(Integer.valueOf(args[1]), entity.getUniqueId());
 //							sender.sendMessage("Entity mit der uuid " + entity.getUniqueId().toString()
-//									+ " wurde hinzugefügt zu Tag " + args[1] + "!");
+//									+ " wurde hinzugef\u00fcgt zu Tag " + args[1] + "!");
 //						} else
 //							sender.sendMessage("/calendar add <Tag>");
 //
@@ -40,7 +40,7 @@ public class EventCommands implements CommandExecutor {
 //						if (args.length == 2) {
 //							BiomiaPluginMain.plugin.getConfig().set("Calendar." + args[1], null);
 //							BiomiaPluginMain.plugin.saveConfig();
-//							sender.sendMessage("Entities für den Tag " + args[1] + " wurden gelöscht!");
+//							sender.sendMessage("Entities f\u00fcr den Tag " + args[1] + " wurden gel\u00F6scht!");
 //						} else
 //							sender.sendMessage("/calendar remove <Tag>");
 //

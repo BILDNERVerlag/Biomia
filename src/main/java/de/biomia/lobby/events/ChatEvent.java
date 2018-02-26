@@ -19,10 +19,10 @@ public class ChatEvent implements Listener {
 
 		if (p.hasPermission("biomia.coloredchat")) {
 			msg = ChatColor.translateAlternateColorCodes('&', e.getMessage());
-			format = group + p.getName() + "§7: §f" + msg;
+			format = group + p.getName() + "00A77: 00A7f" + msg;
 			e.setFormat(format);
 		} else {
-			format = group + p.getName() + "§7: §f" + msg;
+			format = group + p.getName() + "00A77: 00A7f" + msg;
 			e.setFormat(format);
 		}
 	}

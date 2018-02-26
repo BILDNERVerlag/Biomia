@@ -71,22 +71,22 @@ package de.biomia.plugin.specialEvents.winterEvent;//package de.biomia.specialEv
 //
 //    public void give(BiomiaPlayer biomiaPlayer) {
 //
-//        biomiaPlayer.getPlayer().sendMessage("§4Heute in deinem §5Advents§8-§2Kalender:");
+//        biomiaPlayer.getPlayer().sendMessage("00A74Heute in deinem 00A75Advents00A78-00A72Kalender:");
 //
 //        switch (type) {
 //            case Coins_Boost:
 //                biomiaPlayer.giveBoost(200, 86400);
-//                biomiaPlayer.getPlayer().sendMessage("§424 Stunden doppelte Coins auf alles!");
-//                biomiaPlayer.getPlayer().sendMessage("§4(außer Tiernahrung)");
+//                biomiaPlayer.getPlayer().sendMessage("00A7424 Stunden doppelte Coins auf alles!");
+//                biomiaPlayer.getPlayer().sendMessage("00A74(au\u00DFer Tiernahrung)");
 //                break;
 //            case Ingame_Coins:
 //                biomiaPlayer.addCoins(3000, false);
-//                biomiaPlayer.getPlayer().sendMessage("§43000 Coins!");
+//                biomiaPlayer.getPlayer().sendMessage("00A743000 Coins!");
 //                break;
 //            case QuestWelt_Items:
 //                ItemStack is = null;
 //                biomiaPlayer.getPlayer()
-//                        .sendMessage("§4Ein Item für die Quest Welt! Schau es dir direkt in der Quest Welt an!");
+//                        .sendMessage("00A74Ein Item f\u00fcr die Quest Welt! Schau es dir direkt in der Quest Welt an!");
 //                switch (id) {
 //                    case 0:
 //                        is = ItemCreator.itemCreate(Material.LEATHER_HELMET, "Hut des Weihnachtselfen");
@@ -140,26 +140,26 @@ package de.biomia.plugin.specialEvents.winterEvent;//package de.biomia.specialEv
 //                    QuestItems.addQuestItem(biomiaPlayer, is);
 //                break;
 //            case Shop_Gutschein:
-//                biomiaPlayer.getPlayer().sendMessage("§4Einen 5€ Gutschein für den BILDNER-Verlag Online Shop!");
-//                biomiaPlayer.getPlayer().sendMessage("§4(Mindestbestellwert 10€)");
+//                biomiaPlayer.getPlayer().sendMessage("00A74Einen 5€ Gutschein f\u00fcr den BILDNER-Verlag Online Shop!");
+//                biomiaPlayer.getPlayer().sendMessage("00A74(Mindestbestellwert 10€)");
 //
 //                switch (id) {
 //                    case 0:
-//                        biomiaPlayer.getPlayer().sendMessage("§4Der Gutschein Code lautet: §5ZHP5WXA");
+//                        biomiaPlayer.getPlayer().sendMessage("00A74Der Gutschein Code lautet: 00A75ZHP5WXA");
 //                        break;
 //                    case 1:
-//                        biomiaPlayer.getPlayer().sendMessage("§4Der Gutschein Code lautet: §5AHU9PWP");
+//                        biomiaPlayer.getPlayer().sendMessage("00A74Der Gutschein Code lautet: 00A75AHU9PWP");
 //                        break;
 //                    case 2:
-//                        biomiaPlayer.getPlayer().sendMessage("§4Der Gutschein Code lautet: §5KEXNW2S");
+//                        biomiaPlayer.getPlayer().sendMessage("00A74Der Gutschein Code lautet: 00A75KEXNW2S");
 //                        break;
 //                    default:
 //                        break;
 //                }
 //                break;
 //            case SkyWars_Kit:
-//                biomiaPlayer.getPlayer().sendMessage("§4Ein SkyWars Kit! Schau direkt nach was für ein Kit es ist!");
-//                biomiaPlayer.getPlayer().sendMessage("§4Info: Du kannst das Kit nur im EventCommands benutzen!");
+//                biomiaPlayer.getPlayer().sendMessage("00A74Ein SkyWars Kit! Schau direkt nach was f\u00fcr ein Kit es ist!");
+//                biomiaPlayer.getPlayer().sendMessage("00A74Info: Du kannst das Kit nur im EventCommands benutzen!");
 //                switch (id) {
 //                    case 0:
 //                        SkyWarsKit.addKit(biomiaPlayer, 20171, 12, 1, 2);

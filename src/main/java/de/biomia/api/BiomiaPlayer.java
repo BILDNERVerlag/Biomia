@@ -1,10 +1,11 @@
 package de.biomia.api;
 
-import de.biomia.quests.general.QuestPlayer;
+import cloud.timo.TimoCloud.api.objects.PlayerObject;
 import de.biomia.api.coins.Coins;
 import de.biomia.api.main.Main;
 import de.biomia.api.mysql.MySQL;
 import de.biomia.api.pex.Rank;
+import de.biomia.quests.general.QuestPlayer;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayer;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayerManager;
 import de.simonsator.partyandfriends.spigot.api.party.PartyManager;
@@ -150,9 +151,10 @@ public class BiomiaPlayer {
     public List<PAFPlayer> getOnlineFriends() {
         List<PAFPlayer> onlineFriends = new ArrayList<>();
         for (PAFPlayer pafplayer : getFriends()) {
-            if (!Main.allPlayersOnAllServer.isEmpty()) {
-                if (Main.allPlayersOnAllServer.contains(pafplayer.getName()))
-                    onlineFriends.add(pafplayer);
+
+            PlayerObject po = Main.getUniversalTimoapi().getPlayer(pafplayer.getUniqueId());
+            if (po != null && po.isOnline()) {
+                onlineFriends.add(pafplayer);
             }
         }
         return onlineFriends;
@@ -193,7 +195,7 @@ public class BiomiaPlayer {
         return isInParty() && spigotPafpl.equals(getParty().getLeader());
     }
 
-    public boolean isInParty() {
+    private boolean isInParty() {
         return getParty() != null;
     }
 

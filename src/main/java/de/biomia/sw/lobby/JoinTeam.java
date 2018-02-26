@@ -50,7 +50,7 @@ public class JoinTeam {
     public static void join(Player p, Team team) {
 
         if (SkyWarsMain.gameState != GameState.LOBBY) {
-            p.sendMessage("§cDas Spiel hat bereits begonnen!");
+            p.sendMessage("00A7cDas Spiel hat bereits begonnen!");
             return;
         }
 

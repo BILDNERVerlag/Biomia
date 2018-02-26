@@ -29,7 +29,7 @@ public class BW implements CommandExecutor {
                             spielerProTeam = Integer.parseInt(args[1]);
                             teams = Integer.parseInt(args[2]);
                         } catch (NumberFormatException e) {
-                            Bukkit.broadcastMessage("§c/sw setup <SpielerProTeam> <Teams> <MapName>");
+                            Bukkit.broadcastMessage("\u00A7c/sw setup <SpielerProTeam> <Teams> <MapName>");
                             return true;
                         }
                         String name = args[3];
@@ -38,11 +38,11 @@ public class BW implements CommandExecutor {
                         Config.config.set("NumberOfTeams", teams);
                         Main.getPlugin().saveConfig();
                     } else if (args[0].equalsIgnoreCase("setup")) {
-                        sender.sendMessage("§c/sw setup <SpielerProTeam> <Teams> <MapName>");
+                        sender.sendMessage("\u00A7c/sw setup <SpielerProTeam> <Teams> <MapName>");
                     } else if (args[0].equalsIgnoreCase("addloc")) {
                         if (args.length >= 2) {
                             Config.addLocation(p.getLocation(), Teams.valueOf(args[1]));
-                            sender.sendMessage("Spawnpoint wurde hinzugefügt!");
+                            sender.sendMessage("Spawnpoint wurde hinzugef\u00fcgt!");
                         } else {
                             sender.sendMessage("Bitte gib ein Team an!");
                         }
@@ -69,14 +69,14 @@ public class BW implements CommandExecutor {
                                 .addItem(ItemCreator.itemCreate(Material.MONSTER_EGG, ItemNames.villagerSpawner));
                     }
                 } else {
-                    sender.sendMessage("§c/bw setup (Setup für BedWars-Map)");
-                    sender.sendMessage("§c/bw addloc (Fügt einen Spawnpunkt hinzu)");
-                    sender.sendMessage("§c/bw removelocs (Entfernt alle Spawnpunkte)");
-                    sender.sendMessage("§c/bw deleteallsigns (Entfernt alle Schilder)");
-                    sender.sendMessage("§c/bw getTeamjoinersetter (Gibt den Teamjoinersetter zurück)");
-                    sender.sendMessage("§c/bw getbedsetter (Gibt den Bedsetter zurück)");
-                    sender.sendMessage("§c/bw getSpawner (Gibt alle Verfügbaren Spawner zurück)");
-                    sender.sendMessage("§c/bw villager (Gibt einen Villager Spawner zurück)");
+                    sender.sendMessage("\u00A7c/bw setup (Setup f\u00fcr BedWars-Map)");
+                    sender.sendMessage("\u00A7c/bw addloc (F\u00fcgt einen Spawnpunkt hinzu)");
+                    sender.sendMessage("\u00A7c/bw removelocs (Entfernt alle Spawnpunkte)");
+                    sender.sendMessage("\u00A7c/bw deleteallsigns (Entfernt alle Schilder)");
+                    sender.sendMessage("\u00A7c/bw getTeamjoinersetter (Gibt den Teamjoinersetter zur\u00fcck)");
+                    sender.sendMessage("\u00A7c/bw getbedsetter (Gibt den Bedsetter zur\u00fcck)");
+                    sender.sendMessage("\u00A7c/bw getSpawner (Gibt alle Verf\u00fcgbaren Spawner zur\u00fcck)");
+                    sender.sendMessage("\u00A7c/bw villager (Gibt einen Villager Spawner zur\u00fcck)");
                 }
             }
         }

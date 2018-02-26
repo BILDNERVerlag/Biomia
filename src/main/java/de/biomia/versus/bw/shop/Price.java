@@ -27,15 +27,15 @@ public class Price {
         switch (getItemType()) {
             case BRONZE:
                 m = Material.CLAY_BRICK;
-                name = "§c" + getPrice() + " Bronze";
+                name = "00A7c" + getPrice() + " Bronze";
                 break;
             case IRON:
                 m = Material.IRON_INGOT;
-                name = "§7" + getPrice() + " Eisen";
+                name = "00A77" + getPrice() + " Eisen";
                 break;
             case GOLD:
                 m = Material.GOLD_INGOT;
-                name = "§6" + getPrice() + " Gold";
+                name = "00A76" + getPrice() + " Gold";
                 break;
             default:
                 break;

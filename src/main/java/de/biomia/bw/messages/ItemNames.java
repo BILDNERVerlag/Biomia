@@ -2,22 +2,22 @@ package de.biomia.bw.messages;
 
 public class ItemNames {
 
-    public static final String teamWaehlerItem = "§cTeam Wähler";
-    public static final String startItem = "§bStart";
-    public static final String teamJoinerSetter = "§cTeamJoinerSetter";
-    public static final String bedSetter = "§cBedSetter";
-    public static final String bronze = "§cBronze";
-    public static final String iron = "§7Eisen";
-    public static final String gold = "§6Gold";
+    public static final String teamWaehlerItem = "\u00A7cTeam W\u00fchler";
+    public static final String startItem = "\u00A7bStart";
+    public static final String teamJoinerSetter = "\u00A7cTeamJoinerSetter";
+    public static final String bedSetter = "\u00A7cBedSetter";
+    public static final String bronze = "\u00A7cBronze";
+    public static final String iron = "\u00A77Eisen";
+    public static final String gold = "\u00A76Gold";
 
-    public static final String bronzeSetter = "§cBronzeSetter";
-    public static final String ironSetter = "§7EisenSetter";
-    public static final String goldSetter = "§6GoldSetter";
-    public static final String villagerSpawner = "§2Villager Spawner";
-    public static final String back = "§cZurück";
-    public static final String teamChest = "§5Team Kiste";
-    public static final String warper = "§cWarper";
-    public static final String wand = "§cSchutzwand";
-    public static final String rettungsPlattform = "§cRettungs Plattform";
-    public static final String shortShop = "§c30 Sekunden Shop";
+    public static final String bronzeSetter = "\u00A7cBronzeSetter";
+    public static final String ironSetter = "\u00A77EisenSetter";
+    public static final String goldSetter = "\u00A76GoldSetter";
+    public static final String villagerSpawner = "\u00A72Villager Spawner";
+    public static final String back = "\u00A7cZur\u00fcck";
+    public static final String teamChest = "\u00A75Team Kiste";
+    public static final String warper = "\u00A7cWarper";
+    public static final String wand = "\u00A7cSchutzwand";
+    public static final String rettungsPlattform = "\u00A7cRettungs Plattform";
+    public static final String shortShop = "\u00A7c30 Sekunden Shop";
 }

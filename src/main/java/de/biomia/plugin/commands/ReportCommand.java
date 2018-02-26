@@ -24,7 +24,7 @@ public class ReportCommand implements CommandExecutor {
                     new PlayerReport(Biomia.getBiomiaPlayer((Player) sender).getBiomiaPlayerID(), BiomiaPlayer.getID(args[0]));
 
                 } else {
-                    sender.sendMessage(Messages.noPlayer);
+                    sender.sendMessage(Messages.NO_PLAYER);
                 }
             } else {
                 ((Player) sender).openInventory(Main.menu);

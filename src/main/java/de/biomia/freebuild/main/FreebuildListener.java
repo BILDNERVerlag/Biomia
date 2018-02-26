@@ -1,6 +1,6 @@
 package de.biomia.freebuild.main;
 
-import at.TimoCraft.TimoCloud.api.objects.ServerObject;
+import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.api.connect.Connect;
@@ -16,7 +16,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -37,7 +36,7 @@ public class FreebuildListener implements Listener {
 			@Override
 			public void run() {
 				InventorySave.setInventory(p, "FreebuildServer");
-				p.sendMessage("§7[§5Bio§2mia§7] §6Willkommen auf dem FreebuildServer, " + p.getName() + "!");
+				p.sendMessage("00A77[00A75Bio00A72mia00A77] 00A76Willkommen auf dem FreebuildServer, " + p.getName() + "!");
 			}
 
 		}.runTaskLater(Main.getPlugin(), 20);
@@ -68,23 +67,23 @@ public class FreebuildListener implements Listener {
 				// ZUM FARMSERVER
 				p.teleport(new Location(Bukkit.getWorld("world"), -198, 64, 385, 90, 0));
 				if (Biomia.getBiomiaPlayer(p).isStaff()) {
-					servers.addAll(Main.getUniversalTimoapi().getGroup("FarmServer").getServers());
+					servers.addAll(Main.getUniversalTimoapi().getServerGroup("FarmServer").getServers());
 
 					if (!servers.isEmpty() && servers != null) {
 						Connect.connectToRandom(p, "FarmServer");
 					}
 				} else
 					p.sendMessage(
-							"§cDas Portal zur Farmwelt ist offenbar noch nicht richtig ausgerichtet! Probier es am besten in ein paar Tagen erneut!");
+							"00A7cDas Portal zur Farmwelt ist offenbar noch nicht richtig ausgerichtet! Probier es am besten in ein paar Tagen erneut!");
 			} else if ((390 <= z) && (z <= 393)) {
 				// ZUR LOBBY
 				p.teleport(new Location(Bukkit.getWorld("world"), -198, 64, 391, 120, 0));
-				servers.addAll(Main.getUniversalTimoapi().getGroup("Lobby").getServers());
+				servers.addAll(Main.getUniversalTimoapi().getServerGroup("Lobby").getServers());
 
 				if (!servers.isEmpty() && servers != null) {
 					Connect.connectToRandom(p, "Lobby");
 				} else {
-					p.sendMessage("§cHuch, da ist offenbar etwas schiefgelaufen! Probiere stattdessen §a/hub§c!");
+					p.sendMessage("00A7cHuch, da ist offenbar etwas schiefgelaufen! Probiere stattdessen 00A7a/hub00A7c!");
 				}
 			}
 		}
@@ -100,10 +99,10 @@ public class FreebuildListener implements Listener {
 
 		if (p.hasPermission("biomia.coloredchat")) {
 			msg = ChatColor.translateAlternateColorCodes('&', e.getMessage());
-			format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "§7: §f" + msg;
+			format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "00A77: 00A7f" + msg;
 			e.setFormat(format);
 		} else {
-			format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "§7: §f" + msg;
+			format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "00A77: 00A7f" + msg;
 			e.setFormat(format);
 		}
 	}

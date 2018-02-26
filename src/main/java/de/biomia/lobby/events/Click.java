@@ -1,9 +1,9 @@
 package de.biomia.lobby.events;
 
-import at.TimoCraft.TimoCloud.api.objects.ServerObject;
-import de.biomia.lobby.main.LobbyMain;
+import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.api.Biomia;
 import de.biomia.api.connect.Connect;
+import de.biomia.lobby.main.LobbyMain;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -22,43 +22,43 @@ public class Click implements Listener {
         Player pl = (Player) ie.getWhoClicked();
         if (ie.getAction() == InventoryAction.PICKUP_ALL)
             if (ie.getClickedInventory().equals(LobbyMain.getNavigator())
-                    || ie.getClickedInventory().getName().equals("§dLobby Switcher"))
+                    || ie.getClickedInventory().getName().equals("00A7dLobby Switcher"))
                 if (ie.getClick().isLeftClick())
                     if (ie.getCurrentItem() != null)
                         if (ie.getCurrentItem().hasItemMeta()) {
                             String itemName = ie.getCurrentItem().getItemMeta().getDisplayName();
-                            if (itemName.equalsIgnoreCase("§6Bau Welt")) {
+                            if (itemName.equalsIgnoreCase("00A76Bau Welt")) {
                                 pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 551.5, 80, 285.5, -90, 0));
                                 pl.closeInventory();
-                            } else if (itemName.equalsIgnoreCase("§eDemo Welt")) {
+                            } else if (itemName.equalsIgnoreCase("00A7eDemo Welt")) {
                                 pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 512, 80, 354, -50, 8));
                                 pl.closeInventory();
-                            } else if (itemName.equalsIgnoreCase("§cSpawn")) {
+                            } else if (itemName.equalsIgnoreCase("00A7cSpawn")) {
                                 pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 534.5, 67, 193.5));
                                 pl.closeInventory();
-                            } else if (itemName.equalsIgnoreCase("§5Biomia | general")) {
+                            } else if (itemName.equalsIgnoreCase("00A75Biomia | general")) {
                                 pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 473.5, 123, 359.5, -90, 0));
                                 pl.closeInventory();
-                            } else if (itemName.equalsIgnoreCase("§bSkyWars")) {
+                            } else if (itemName.equalsIgnoreCase("00A7bSkyWars")) {
                                 pl.teleport(new Location(Bukkit.getWorld("SkywarsSignlobby"), 370.5, 82, 264.5, 70, 0));
                                 pl.closeInventory();
-                            } else if (itemName.equalsIgnoreCase("§4BedWars")) {
+                            } else if (itemName.equalsIgnoreCase("00A74BedWars")) {
                                 pl.teleport(new Location(Bukkit.getWorld("BedwarsSignlobby"), 370.5, 82, 264.5, 70, 0));
                                 pl.closeInventory();
-                            } else if (itemName.equalsIgnoreCase("§5Mysteriöse Box")) {
+                            } else if (itemName.equalsIgnoreCase("00A75Mysteri\u00F6se Box")) {
                                 pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 605.5, 68, 358, 0, 0));
                                 pl.closeInventory();
-                            } else if (itemName.equalsIgnoreCase("§6Freebuild Welt")) {
+                            } else if (itemName.equalsIgnoreCase("00A76Freebuild Welt")) {
                                 pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 560, 96, 290, 80, 0));
                                 pl.closeInventory();
-                            } else if (ie.getClickedInventory().getName().equals("§dLobby Switcher"))
-                                for (ServerObject so : de.biomia.api.main.Main.getUniversalTimoapi().getGroup("Lobby")
+                            } else if (ie.getClickedInventory().getName().equals("00A7dLobby Switcher"))
+                                for (ServerObject so : de.biomia.api.main.Main.getUniversalTimoapi().getServerGroup("Lobby")
                                         .getServers())
                                     if (itemName.contains(so.getName()))
                                         if (!so.getName().equals(de.biomia.api.main.Main.getBukkitTimoapi().getThisServer().getName()))
                                             Connect.connect(pl, so.getName());
                                         else
-                                            pl.sendMessage("§cDu bist schon auf dieser Lobby!");
+                                            pl.sendMessage("00A7cDu bist schon auf dieser Lobby!");
                         }
     }
 

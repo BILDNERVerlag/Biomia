@@ -1,6 +1,6 @@
 package de.biomia.api.connect;
 
-import at.TimoCraft.TimoCloud.api.objects.ServerObject;
+import cloud.timo.TimoCloud.api.objects.ServerObject;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 import de.biomia.api.Biomia;
@@ -21,7 +21,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class Connect implements PluginMessageListener {
@@ -65,7 +65,7 @@ public class Connect implements PluginMessageListener {
                     }
                 }
         }
-        ArrayList<ServerObject> servers = new ArrayList<>(Main.getUniversalTimoapi().getGroup(group).getServers());
+        List<ServerObject> servers = Main.getUniversalTimoapi().getServerGroup(group).getServers();
 
         if (servers.size() > 1) {
             ServerObject random = servers.get(new Random().nextInt(servers.size() - 1));
@@ -144,15 +144,6 @@ public class Connect implements PluginMessageListener {
         ByteArrayDataInput in = ByteStreams.newDataInput(message);
         String subchannel = in.readUTF();
 
-        if (subchannel.equals("PlayerList")) {
-            if (in.readUTF().equals("ALL")) {
-                Main.allPlayersOnAllServer.clear();
-                String players = in.readUTF();
-                String[] stringarray = players.split(",");
-
-                Collections.addAll(Main.allPlayersOnAllServer, stringarray);
-            }
-        }
         if (subchannel.equals("TeleportToPlayer")) {
 
             Player from = Bukkit.getPlayer(in.readUTF());

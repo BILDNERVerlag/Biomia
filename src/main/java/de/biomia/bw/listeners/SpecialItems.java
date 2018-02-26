@@ -41,7 +41,7 @@ public class SpecialItems implements Listener {
                 Team t = Variables.getTeamByTeamChests(e.getClickedBlock());
                 if (t != null) {
                     Inventory inv = Variables.teamChests.computeIfAbsent(t, t1 -> Bukkit.createInventory(null, 27,
-                            "§8Team Kiste: " + t1.getColorcode() + Biomia.TeamManager().translate(t1.getTeamname())));
+                            "00A78Team Kiste: " + t1.getColorcode() + Biomia.TeamManager().translate(t1.getTeamname())));
                     e.setCancelled(true);
                     p.openInventory(inv);
                 }
@@ -63,7 +63,7 @@ public class SpecialItems implements Listener {
 
                     Config.addBedsLocations(blockFoot.getLocation(), blockHead.getLocation(),
                             Biomia.TeamManager().DataToTeam(e.getItem().getData().getData()));
-                    Bukkit.broadcastMessage("Bett hinzugefü§gt!");
+                    Bukkit.broadcastMessage("Bett hinzugef\u00fc00A7gt!");
 
                 } else {
                     p.sendMessage(Messages.blocksMustBeBeds);
@@ -97,13 +97,13 @@ public class SpecialItems implements Listener {
                     spawnVillager(e.getClickedBlock().getLocation().add(0.5, 1, 0.5));
                     e.setCancelled(true);
                 }
-            } else if (displayname.equals("§c30 Sekunden Shop")) {
+            } else if (displayname.equals("00A7c30 Sekunden Shop")) {
                 e.setCancelled(true);
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                     spawn30secShop(e.getClickedBlock().getLocation().add(0.5, 1, 0.5), e.getItem());
                     e.setCancelled(true);
                 }
-            } else if (displayname.equals("§cRettungs Plattform")) {
+            } else if (displayname.equals("00A7cRettungs Plattform")) {
                 if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                     buildRettungsplattform(e.getPlayer().getLocation(), e.getItem());
                     e.setCancelled(true);
@@ -234,7 +234,7 @@ public class SpecialItems implements Listener {
                             is.setAmount(is.getAmount() - 1);
                         } else if (i <= 50) {
                             if (i % 10 == 0) {
-                                ActionBar.sendActionBarTime("§6" + i / 10 + " Sekunden", p, 0, 10, 0);
+                                ActionBar.sendActionBarTime("00A76" + i / 10 + " Sekunden", p, 0, 10, 0);
                                 for (Player allPlayer : Bukkit.getOnlinePlayers())
                                     allPlayer.playSound(allPlayer.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
                             }
@@ -266,7 +266,7 @@ public class SpecialItems implements Listener {
             }.runTaskTimer(Main.getPlugin(), 0, 2);
 
         } else {
-            p.sendMessage("§cDu bist in keinem Team!");
+            p.sendMessage("00A7cDu bist in keinem Team!");
         }
     }
 
@@ -285,7 +285,7 @@ public class SpecialItems implements Listener {
                     as.remove();
                     cancel();
                 }
-                as.setCustomName("§c" + i + " Sekunden");
+                as.setCustomName("00A7c" + i + " Sekunden");
                 i--;
             }
         }.runTaskTimer(Main.getPlugin(), 0, 20);

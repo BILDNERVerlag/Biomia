@@ -59,14 +59,14 @@ public class Shop {
 
         ShopGroup waffen = addNewGroup("Waffen", ChatColor.GRAY, ItemCreator.itemCreate(Material.IRON_SWORD));
 
-        ShopGroup ruestung = addNewGroup("Rüstung", ChatColor.DARK_PURPLE,
+        ShopGroup ruestung = addNewGroup("R\u00fcstung", ChatColor.DARK_PURPLE,
                 ItemCreator.itemCreate(Material.IRON_CHESTPLATE));
 
-        ShopGroup boegen = addNewGroup("Bögen", ChatColor.BLUE, ItemCreator.itemCreate(Material.BOW));
+        ShopGroup boegen = addNewGroup("B\u00F6gen", ChatColor.BLUE, ItemCreator.itemCreate(Material.BOW));
 
         ShopGroup essen = addNewGroup("Essen", ChatColor.GREEN, ItemCreator.itemCreate(Material.MELON));
 
-        ShopGroup traenke = addNewGroup("Tränke", ChatColor.YELLOW, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM));
+        ShopGroup traenke = addNewGroup("Tr\u00fcnke", ChatColor.YELLOW, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM));
 
         ShopGroup special = addNewGroup("Special", ChatColor.LIGHT_PURPLE,
                 ItemCreator.itemCreate(Material.EYE_OF_ENDER));
@@ -128,7 +128,7 @@ public class Shop {
         rod.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
         waffen.addItem(new ShopItem(ItemType.IRON, 5, rod));
 
-        // Rässi
+        // R\u00fcssi
         ItemStack leathercap = ItemCreator.itemCreate(Material.LEATHER_HELMET);
         ItemStack leatherchest = ItemCreator.itemCreate(Material.LEATHER_CHESTPLATE);
         ItemStack leatherpants = ItemCreator.itemCreate(Material.LEATHER_LEGGINGS);
@@ -201,7 +201,7 @@ public class Shop {
         ItemStack goldenApple = ItemCreator.itemCreate(Material.GOLDEN_APPLE);
         essen.addItem(new ShopItem(ItemType.GOLD, 1, goldenApple));
 
-        // Tränke
+        // Tr\u00fcnke
         ItemStack heal1 = getPotionItemStack(Material.POTION, PotionType.INSTANT_HEAL, false);
         traenke.addItem(new ShopItem(ItemType.IRON, 1, heal1));
 

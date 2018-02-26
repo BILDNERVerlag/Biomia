@@ -1,5 +1,13 @@
 package de.biomia.sw.listeners;
 
+import de.biomia.api.Biomia;
+import de.biomia.api.BiomiaPlayer;
+import de.biomia.api.Teams.Team;
+import de.biomia.api.achievements.statEvents.skywars.*;
+import de.biomia.api.itemcreator.ItemCreator;
+import de.biomia.api.mysql.MySQL;
+import de.biomia.api.pex.Rank;
+import de.biomia.api.tools.BackToLobby;
 import de.biomia.sw.chests.Chests;
 import de.biomia.sw.gamestates.GameState;
 import de.biomia.sw.gamestates.InGame;
@@ -13,14 +21,6 @@ import de.biomia.sw.messages.Messages;
 import de.biomia.sw.var.Config;
 import de.biomia.sw.var.Scoreboards;
 import de.biomia.sw.var.Variables;
-import de.biomia.api.Biomia;
-import de.biomia.api.BiomiaPlayer;
-import de.biomia.api.Teams.Team;
-import de.biomia.api.achievements.statEvents.skywars.*;
-import de.biomia.api.itemcreator.ItemCreator;
-import de.biomia.api.mysql.MySQL;
-import de.biomia.api.pex.Rank;
-import de.biomia.api.tools.BackToLobby;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
 import org.bukkit.block.Chest;
@@ -118,11 +118,11 @@ public class SkyWarsListener implements Listener {
             bp.getPlayer().setLevel(Variables.countDown.getCountdown());
 
             if (bp.isPremium()) {
-                Bukkit.broadcastMessage("§6" + p.getName() + Messages.joinedTheGame);
+                Bukkit.broadcastMessage("00A76" + p.getName() + Messages.joinedTheGame);
             } else {
-                Bukkit.broadcastMessage("§7" + p.getName() + Messages.joinedTheGame);
+                Bukkit.broadcastMessage("00A77" + p.getName() + Messages.joinedTheGame);
             }
-            if (bp.isInParty() && bp.isPartyLeader()) {
+            if (bp.isPartyLeader()) {
                 if (bp.getParty().getAllPlayers().size() > 1) {
                     JoinTeam.partyJoin(bp);
                 }

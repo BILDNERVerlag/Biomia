@@ -47,25 +47,25 @@ public class ScoreboardClass {
 
         Objective o = sb.registerNewObjective("aaa", "bbb");
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
-        o.setDisplayName("§5Bio§2mia");
+        o.setDisplayName("00A75Bio00A72mia");
         o.getScore(" ").setScore(10);
-        o.getScore("§5Coins:").setScore(9);
-        o.getScore("§c").setScore(8);
-        o.getScore("§a").setScore(7);
-        o.getScore("§5Freunde:").setScore(6);
-        o.getScore("§f").setScore(5);
-        o.getScore("§1").setScore(4);
-        o.getScore("§5Rank:").setScore(3);
-        o.getScore("§r").setScore(2);
-        o.getScore("§l").setScore(1);
+        o.getScore("00A75Coins:").setScore(9);
+        o.getScore("00A7c").setScore(8);
+        o.getScore("00A7a").setScore(7);
+        o.getScore("00A75Freunde:").setScore(6);
+        o.getScore("00A7f").setScore(5);
+        o.getScore("00A71").setScore(4);
+        o.getScore("00A75Rank:").setScore(3);
+        o.getScore("00A7r").setScore(2);
+        o.getScore("00A7l").setScore(1);
 
         coins = sb.registerNewTeam("coins");
         freunde = sb.registerNewTeam("freunde");
         rank = sb.registerNewTeam("rank");
 
-        rank.addEntry("§r");
-        coins.addEntry("§c");
-        freunde.addEntry("§f");
+        rank.addEntry("00A7r");
+        coins.addEntry("00A7c");
+        freunde.addEntry("00A7f");
         p.setScoreboard(sb);
 
         new BukkitRunnable() {
@@ -89,15 +89,15 @@ public class ScoreboardClass {
         freunde = sb.getTeam("freunde");
         rank = sb.getTeam("rank");
 
-        rank.setPrefix("§e" + ChatColors.getGroupName(p));
+        rank.setPrefix("00A7e" + ChatColors.getGroupName(p));
         if (rank.getPrefix().contains("Registriert")) {
-            rank.setPrefix("§eNicht ");
-            rank.setSuffix("§eRegistriert!");
+            rank.setPrefix("00A7eNicht ");
+            rank.setSuffix("00A7eRegistriert!");
         } else {
             rank.setSuffix("");
         }
-        coins.setPrefix("§b" + bp.getCoins());
-        freunde.setPrefix("§6" + bp.getOnlineFriends().size() + " §7/ §c" + bp.getFriends().size());
+        coins.setPrefix("00A7b" + bp.getCoins());
+        freunde.setPrefix("00A76" + bp.getOnlineFriends().size() + " 00A77/ 00A7c" + bp.getFriends().size());
     }
 
     private static void initScoreboard(Scoreboard sb) {

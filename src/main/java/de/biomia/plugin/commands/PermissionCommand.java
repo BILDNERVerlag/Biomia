@@ -16,19 +16,19 @@ public class PermissionCommand implements CommandExecutor {
                 if (args[0].equalsIgnoreCase("add")) {
                     Permission.addPermission(args[1], args[2]);
                     sender.sendMessage(
-                            "§6Der Spieler §a" + args[1] + " §6hat jetzt die Permission§a " + args[2] + "§6!");
+                            "00A76Der Spieler 00A7a" + args[1] + " 00A76hat jetzt die Permission00A7a " + args[2] + "00A76!");
                 } else if (args[0].equalsIgnoreCase("remove")) {
                     Permission.removePermission(args[1], args[2]);
                     sender.sendMessage(
-                            "§6Dem Spieler §a" + args[1] + " §6wurde die Permission§a " + args[2] + " §6entzogen!");
+                            "00A76Dem Spieler 00A7a" + args[1] + " 00A76wurde die Permission00A7a " + args[2] + " 00A76entzogen!");
                 } else {
-                    sender.sendMessage("§c/permission <add|remove> <Spieler> <Permission>");
+                    sender.sendMessage("00A7c/permission <add|remove> <Spieler> <Permission>");
                 }
             } else {
-                sender.sendMessage("§c/permission <add|remove> <Spieler> <Permission>");
+                sender.sendMessage("00A7c/permission <add|remove> <Spieler> <Permission>");
             }
         } else {
-            sender.sendMessage(Messages.noperm);
+            sender.sendMessage(Messages.NO_PERM);
 
         }
         return true;

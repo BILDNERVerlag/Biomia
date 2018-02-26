@@ -37,7 +37,7 @@ public class BiomiaListener extends Observable implements Listener {
         if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             if (e.getItem() != null) {
                 if (e.getItem().getType().equals(Material.MAGMA_CREAM)
-                        && e.getItem().getItemMeta().getDisplayName().equals("§cLobby"))
+                        && e.getItem().getItemMeta().getDisplayName().equals("00A7cLobby"))
                     Connect.connectToRandom(e.getPlayer(), "Lobby");
             }
         }
@@ -63,8 +63,8 @@ public class BiomiaListener extends Observable implements Listener {
         if (Rank.getRank(e.getPlayer()).equals("default"))
             Rank.setRank(e.getPlayer(), "UnregSpieler");
         e.setJoinMessage(null);
-        HeaderAndFooter.sendHeaderAndFooter(e.getPlayer(), "\n§5Bio§2mia\n",
-                "§5Website: §2www.biomia.de\n§5TS: §2ts.biomia.de");
+        HeaderAndFooter.sendHeaderAndFooter(e.getPlayer(), "\n00A75Bio00A72mia\n",
+                "00A75Website: 00A72www.biomia.de\n00A75TS: 00A72ts.biomia.de");
     }
 
     @EventHandler
@@ -125,13 +125,13 @@ public class BiomiaListener extends Observable implements Listener {
         if (cmd.equalsIgnoreCase("/rl") || cmd.equalsIgnoreCase("/reload")) {
             pe.setCancelled(true);
             if (pe.getPlayer().hasPermission("biomia.reload")) {
-                Bukkit.broadcastMessage(Messages.prefix + "§cAlle Serverdateien werden von §6"
-                        + pe.getPlayer().getDisplayName() + " §cneu geladen!");
+                Bukkit.broadcastMessage(Messages.PREFIX + "00A7cAlle Serverdateien werden von 00A76"
+                        + pe.getPlayer().getDisplayName() + " 00A7cneu geladen!");
                 Bukkit.reload();
-                Bukkit.broadcastMessage(Messages.prefix + "§aAlle Serverdateien wurden erfolgreich von §6"
-                        + pe.getPlayer().getDisplayName() + " §aneu geladen!");
+                Bukkit.broadcastMessage(Messages.PREFIX + "00A7aAlle Serverdateien wurden erfolgreich von 00A76"
+                        + pe.getPlayer().getDisplayName() + " 00A7aneu geladen!");
             } else
-                pe.getPlayer().sendMessage(Messages.noperm);
+                pe.getPlayer().sendMessage(Messages.NO_PERM);
         } else if (cmd.equalsIgnoreCase("/gamemode")) {
 
             pe.setCancelled(true);
@@ -172,15 +172,15 @@ public class BiomiaListener extends Observable implements Listener {
                         Player target = Bukkit.getPlayer(args[1]);
 
                         target.setGameMode(gameMode);
-                        target.sendMessage("§5Du bist nun im GameMode §2" + gameMode.name().toLowerCase());
-                        p.sendMessage("§5Der Spieler§2 " + target.getName() + " §5ist nun im GameMode §2"
+                        target.sendMessage("00A75Du bist nun im GameMode 00A72" + gameMode.name().toLowerCase());
+                        p.sendMessage("00A75Der Spieler00A72 " + target.getName() + " 00A75ist nun im GameMode 00A72"
                                 + gameMode.name().toLowerCase());
                     }
                 } else {
 
                     if (gameMode != null) {
                         p.setGameMode(gameMode);
-                        p.sendMessage("§5Du bist nun im GameMode §2" + gameMode.name().toLowerCase());
+                        p.sendMessage("00A75Du bist nun im GameMode 00A72" + gameMode.name().toLowerCase());
                     }
                 }
             } else {
@@ -198,7 +198,7 @@ public class BiomiaListener extends Observable implements Listener {
             ItemStack is = e.getPlayer().getInventory().getItemInMainHand();
 
             if (is != null && is.getType().equals(Material.ARMOR_STAND)
-                    && is.getItemMeta().getDisplayName().equals("§cHologrammentferner")) {
+                    && is.getItemMeta().getDisplayName().equals("00A7cHologrammentferner")) {
                 Hologram.removeHologram((ArmorStand) e.getRightClicked());
             }
         }
