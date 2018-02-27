@@ -157,10 +157,10 @@ public class StatListener implements Listener {
         Stats.incrementStat(Stats.BiomiaStat.Logins, e.getPlayer(), Main.getGroupName());
     }
 
-    @EventHandler
-    public void onQuit(PlayerQuitEvent e) {
-        //track minutes played
-    }
+//    @EventHandler
+//    public void onQuit(PlayerQuitEvent e) {
+//        //track minutes played
+//    }
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {

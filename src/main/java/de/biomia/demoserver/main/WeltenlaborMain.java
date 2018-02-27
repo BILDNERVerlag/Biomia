@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class WeltenlaborMain {
 
-	public static ArrayList<Bauten> bauten = new ArrayList<>();
+	public static final ArrayList<Bauten> bauten = new ArrayList<>();
 	public static ScrollingInventory si;
 
 	public static void initWeltenlabor() {

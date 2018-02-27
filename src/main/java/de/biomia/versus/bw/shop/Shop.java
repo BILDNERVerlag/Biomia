@@ -17,7 +17,7 @@ import org.bukkit.potion.PotionType;
 
 import java.util.ArrayList;
 
-public class Shop {
+class Shop {
 
     public static final ItemStack backItem;
     private static final ArrayList<ShopGroup> groups;

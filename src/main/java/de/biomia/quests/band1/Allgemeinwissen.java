@@ -155,7 +155,7 @@ public class Allgemeinwissen implements Listener {
 
 	}
 
-	public void initDialog() {
+	private void initDialog() {
 
 		// startDL
 		startDialog = new DialogMessage(q, herbert)

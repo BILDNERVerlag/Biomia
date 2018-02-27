@@ -2,8 +2,8 @@ package de.biomia.plugin.reportsystem;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
-import de.biomia.plugin.reportsystem.listener.Channel;
 import de.biomia.api.BiomiaPlayer;
+import de.biomia.plugin.reportsystem.listener.Channel;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -30,6 +30,21 @@ public class ReportManager {
     public static void openScrolableInventory(BiomiaPlayer bp) {
         ScrolableReportInventory reportInventory = currentReportsMenu.computeIfAbsent(bp, inventory -> new ScrolableReportInventory(bp));
         reportInventory.openInventory();
+    }
+
+    public static void removeReports(ArrayList<PlayerReport> playerReports) {
+        playerReports.forEach(playerReports::remove);
+    }
+
+
+    public static ArrayList<PlayerReport> getReports(int biomiaID) {
+        final ArrayList<PlayerReport> reports = new ArrayList<>();
+        plReports.forEach(each -> {
+            if (each.getReporteterBiomiaID() == biomiaID) {
+                reports.add(each);
+            }
+        });
+        return reports;
     }
 
 }

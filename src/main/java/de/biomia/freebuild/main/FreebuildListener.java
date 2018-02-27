@@ -25,7 +25,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 
-public class FreebuildListener implements Listener {
+class FreebuildListener implements Listener {
 
 	@EventHandler
 	public static void onJoin(PlayerJoinEvent e) {

@@ -11,7 +11,7 @@ import org.bukkit.plugin.PluginManager;
 
 public class FreebuildMain{
 
-	static Home home;
+	private static Home home;
 
 	public static void initFreebuild() {
 		home = new Home();

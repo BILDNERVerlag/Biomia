@@ -170,7 +170,7 @@ public class Items {
         g.put(ItemCreator.setAmount(ItemCreator.itemCreate(Material.ARROW), random(2, 3)), 1);
     }
 
-    public static int random(int arg1, int arg2) {
+    private static int random(int arg1, int arg2) {
 
         int randomZahl = 0;
 

@@ -14,18 +14,18 @@ public class Home {
 	private HomeFileManager homeFileManager;
 	private HomeManager homeManager;
 
-	public static String HOME_DELETED = ChatColor.YELLOW + "Home gel\u00f6scht.";
-	public static String HOME_LIST_PREFIX = ChatColor.YELLOW + "Homes:";
-	public static String HOME_NOT_FOUND = ChatColor.RED + "Home nicht gefunden.";
-	public static String HOME_MAX_REACHED = ChatColor.RED
+	public static final String HOME_DELETED = ChatColor.YELLOW + "Home gel\u00f6scht.";
+	public static final String HOME_LIST_PREFIX = ChatColor.YELLOW + "Homes:";
+	public static final String HOME_NOT_FOUND = ChatColor.RED + "Home nicht gefunden.";
+	public static final String HOME_MAX_REACHED = ChatColor.RED
 			+ "Home kann nicht gesetzt werden. Die maximale Home-Anzahl wurde erreicht.";
 
-	public static String HOME_SET = ChatColor.YELLOW + "Home gesetzt.";
-	public static String NO_HOMES_FOUND = ChatColor.RED + "Keine Homes gefunden.";
-	public static String PLAYER_COMMAND_ONLY = ChatColor.RED + "Nur Spieler k\u00f6nnen dieses Command benutzen.";
-	public static String TELEPORT_OTHERHOME = ChatColor.YELLOW + "Zu %p's Home teleportiert.";
-	public static String TELEPORT_SUCCESS = ChatColor.YELLOW + "Teleportiert.";
-	public static String PLAYER_NOT_EXIST = ChatColor.RED + "Dieser Spieler existiert nicht.";
+	public static final String HOME_SET = ChatColor.YELLOW + "Home gesetzt.";
+	public static final String NO_HOMES_FOUND = ChatColor.RED + "Keine Homes gefunden.";
+	public static final String PLAYER_COMMAND_ONLY = ChatColor.RED + "Nur Spieler k\u00f6nnen dieses Command benutzen.";
+	public static final String TELEPORT_OTHERHOME = ChatColor.YELLOW + "Zu %p's Home teleportiert.";
+	public static final String TELEPORT_SUCCESS = ChatColor.YELLOW + "Teleportiert.";
+	public static final String PLAYER_NOT_EXIST = ChatColor.RED + "Dieser Spieler existiert nicht.";
 
 	public void onEnable() {
 		FileConfiguration config = Main.getPlugin().getConfig();

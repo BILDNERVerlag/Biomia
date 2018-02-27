@@ -17,12 +17,12 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 
 public class ScrollingInventory implements Listener {
-	private Inventory inv;
-	public ArrayList<ItemStack> items = new ArrayList<>();
+	private final Inventory inv;
+	private final ArrayList<ItemStack> items = new ArrayList<>();
 	private ItemStack next;
 	private ItemStack back;
 	private int side = 0;
-	private int items_per_side;
+	private final int items_per_side;
 
 	ScrollingInventory(String name, int reihen) {
 		inv = Bukkit.createInventory(null, reihen * 9 + 9, name);
@@ -111,7 +111,7 @@ public class ScrollingInventory implements Listener {
 		inv.setItem(inv.getSize() - 8, back);
 	}
 
-	public void openInventorry(Player p) {
+	private void openInventorry(Player p) {
 		displaySide(0);
 		p.openInventory(inv);
 	}

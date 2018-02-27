@@ -65,15 +65,15 @@ class ScrolableReportInventory implements Listener {
                     }
 
                 }
-            } else if (e.getClickedInventory().equals(banInformationInv.getInventory())) {
+            } else if (banInformationInv != null && e.getClickedInventory().equals(banInformationInv.getInventory())) {
                 if (e.getCurrentItem() != null) {
                     int backItemSlotInBanInformation = 26;
                     if (e.getSlot() == backItemSlotInBanInformation) {
                         openInventory();
                     } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("\u00A7cReport Entfernen")) {
-                        //TODO
+                        ReportManager.removeReports(ReportManager.getReports(banInformationInv.getBiomiaID()));
                     } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("\u00A7aReport Fertigstellen")) {
-                        //TODO
+                        ReportManager.removeReports(ReportManager.getReports(banInformationInv.getBiomiaID()));
                         new PlayerBan(bp, banInformationInv.getBiomiaID());
                     } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("\u00A7cBannen")) {
                         new PlayerBan(bp, banInformationInv.getBiomiaID());

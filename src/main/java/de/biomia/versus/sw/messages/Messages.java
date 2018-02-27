@@ -23,8 +23,8 @@ public class Messages {
     public static String chatMessageTeam = "\u00A78[\u00A77Team\u00A78] %p\u00A77: \u00A7f%msg";
     public static String chatMessageDead = "\u00A78[\u00A77Tot\u00A78] \u00A77\u00A7o%p\u00A7r\u00A77: \u00A7f%msg";
     public static String chatMessageLobby = "%p\u00A77: \u00A7f%msg";
-    public static String playerKilledByPlayer = "\u00A78Der Spieler %p1 \u00A78wurde von %p2 \u00A78get\u00F6tet!";
-    public static String playerDied = "\u00A78Der Spieler %p \u00A78ist gestorben!";
+    public static final String playerKilledByPlayer = "\u00A78Der Spieler %p1 \u00A78wurde von %p2 \u00A78get\u00F6tet!";
+    public static final String playerDied = "\u00A78Der Spieler %p \u00A78ist gestorben!";
 
     public static String chestAddModeON = "\u00A7cDu bist jetzt im \u00A74KISTENHINZUF\u00fcGEMODUS!!!";
     public static String chestAddModeOFF = "\u00A7cDu bist jetzt nicht mehr im \u00A74KISTENHINZUF\u00fcGEMODUS!!!";

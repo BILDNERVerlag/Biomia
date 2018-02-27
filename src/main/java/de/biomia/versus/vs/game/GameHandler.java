@@ -23,7 +23,7 @@ public class GameHandler implements Listener {
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
     }
 
-    protected void unregister() {
+    void unregister() {
         HandlerList.unregisterAll(this);
     }
 

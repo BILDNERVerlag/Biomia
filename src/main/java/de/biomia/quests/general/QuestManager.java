@@ -6,7 +6,9 @@ public interface QuestManager {
 
 	ArrayList<Quest> quests = new ArrayList<>();
 
-	ArrayList<Quest> getQuests();
+	default ArrayList<Quest> getQuests() {
+		return quests;
+	}
 
 	Quest getQuest(int questID);
 

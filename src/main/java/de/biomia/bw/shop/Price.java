@@ -44,7 +44,7 @@ public class Price {
         return ItemCreator.setAmount(ItemCreator.itemCreate(m, name), price);
     }
 
-    public int getPrice() {
+    int getPrice() {
         return price;
     }
 

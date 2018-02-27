@@ -5,7 +5,7 @@ import de.biomia.api.pex.Rank;
 
 import java.util.UUID;
 
-public class OfflineBiomiaPlayer {
+class OfflineBiomiaPlayer {
 
     private final int biomiaPlayerID;
     private String name;
@@ -23,7 +23,7 @@ public class OfflineBiomiaPlayer {
         return uuid != null ? uuid : (uuid = BiomiaPlayer.getUUID(biomiaPlayerID));
     }
 
-    public String getName() {
+    private String getName() {
         return name != null ? name : (name = BiomiaPlayer.getName(biomiaPlayerID));
     }
 

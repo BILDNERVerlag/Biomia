@@ -39,7 +39,7 @@ public class Bauten {
 		this.name = name;
 	}
 
-	public int getSeite() {
+	private int getSeite() {
 		return seite;
 	}
 

@@ -10,7 +10,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public class Config {
 
-    public static FileConfiguration config = Main.getPlugin().getConfig();
+    public static final FileConfiguration config = Main.getPlugin().getConfig();
 
     public static void addObjekt(int seite, String name, Location loc, Material material) {
         int lastID = config.getInt("lastID");

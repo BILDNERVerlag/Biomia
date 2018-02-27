@@ -300,11 +300,6 @@ public class Biomia {
         return new QuestManager() {
 
             @Override
-            public ArrayList<Quest> getQuests() {
-                return quests;
-            }
-
-            @Override
             public Quest getQuest(int questID) {
                 for (Quest q : quests) {
                     if (q.getQuestID() == questID) {
