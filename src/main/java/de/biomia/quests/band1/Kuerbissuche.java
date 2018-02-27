@@ -38,7 +38,6 @@ public class Kuerbissuche implements Listener {
 		Location loc = new Location(Bukkit.getWorld("Quests"), 97.5, 70, -305.5, -60, 0);
 		korbinian.spawn(loc);
 		initDialog();
-		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	@EventHandler

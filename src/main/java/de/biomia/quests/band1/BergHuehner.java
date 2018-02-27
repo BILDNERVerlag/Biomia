@@ -49,7 +49,6 @@ public class BergHuehner implements Listener {
 		Location npcLoc = new Location(Bukkit.getWorld("Quests"), 181, 72, -220, 140, 0);
 		tom.spawn(npcLoc);
 		initDialog();
-		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	@EventHandler

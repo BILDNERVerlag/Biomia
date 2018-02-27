@@ -41,7 +41,6 @@ public class Geheimnis implements Listener {
 		Location loc = new Location(Bukkit.getWorld("Quests"), 130, 65, -326, 0, 0);
 		nana.spawn(loc);
 		initDialog();
-		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	@EventHandler

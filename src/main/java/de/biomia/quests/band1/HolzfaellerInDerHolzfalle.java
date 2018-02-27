@@ -44,7 +44,6 @@ public class HolzfaellerInDerHolzfalle implements Listener {
 		Location npcLoc = new Location(Bukkit.getWorld("Quests"), 84.5, 70, -281.5, -25, 0);
 		npc.spawn(npcLoc);
 		initDialog();
-		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	@EventHandler

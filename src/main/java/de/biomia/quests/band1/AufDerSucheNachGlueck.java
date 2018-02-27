@@ -41,7 +41,6 @@ public class AufDerSucheNachGlueck implements Listener {
 		Location loc = new Location(Bukkit.getWorld("Quests"), 139, 64, -235.5, 17, 0);
 		npc.spawn(loc);
 		initDialog();
-		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	@EventHandler

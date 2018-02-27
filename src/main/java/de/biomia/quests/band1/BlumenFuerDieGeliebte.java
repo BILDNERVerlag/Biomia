@@ -51,7 +51,6 @@ public class BlumenFuerDieGeliebte implements Listener {
 		Location locJulchen = new Location(Bukkit.getWorld("Quests"), 133.5, 71, -295.5, 90, 0);
 		julchen.spawn(locJulchen);
 		initDialog();
-		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	@EventHandler

@@ -42,7 +42,6 @@ public class WirFeiernEinFest implements Listener {
 		q.setCooldown(24, TIME.STUNDEN);
 
 		initDialog();
-		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	@EventHandler

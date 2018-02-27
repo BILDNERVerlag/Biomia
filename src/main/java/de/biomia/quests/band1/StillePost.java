@@ -73,7 +73,6 @@ public class StillePost implements Listener {
 		Location locMario = new Location(Bukkit.getWorld("Quests"), 83.7, 70, -267.5, 180, 0);
 		mario.spawn(locMario);
 		initDialog();
-		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	@EventHandler

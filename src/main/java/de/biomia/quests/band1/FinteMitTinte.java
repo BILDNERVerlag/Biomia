@@ -45,7 +45,6 @@ public class FinteMitTinte implements Listener {
 		npc.spawn(npcLoc);
 
 		initDialog();
-		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	@EventHandler

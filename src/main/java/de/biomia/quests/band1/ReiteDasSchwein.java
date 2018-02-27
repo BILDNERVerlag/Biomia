@@ -89,7 +89,6 @@ public class ReiteDasSchwein implements Listener {
 		q.setCooldown(1, TIME.MINUTEN);
 
 		initDialog();
-		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	// methods and stuff for the race

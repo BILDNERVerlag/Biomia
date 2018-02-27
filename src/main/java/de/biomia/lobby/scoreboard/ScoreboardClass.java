@@ -47,7 +47,7 @@ public class ScoreboardClass {
 
         Objective o = sb.registerNewObjective("aaa", "bbb");
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
-        o.setDisplayName("\u00A7d5Bio\u00A72mia");
+        o.setDisplayName("\u00A75Bio\u00A72mia");
         o.getScore(" ").setScore(10);
         o.getScore("\u00A75Coins:").setScore(9);
         o.getScore("\u00A7c").setScore(8);

@@ -65,7 +65,6 @@ public class RitterGoldFuss implements Listener {
 		e.set(EquipmentSlot.HAND, ItemCreator.itemCreate(Material.IRON_SWORD));
 
 		initDialog();
-		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	@EventHandler

@@ -36,7 +36,6 @@ public class Wasserholen implements Listener {
 		q.setRepeatable(true);
 		q.setCooldown(24, TIME.STUNDEN);
 		initDialog();
-		Bukkit.getPluginManager().registerEvents(this,Main.getPlugin());
 	}
 
 	@EventHandler

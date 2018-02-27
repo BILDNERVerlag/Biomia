@@ -36,7 +36,6 @@ public class Intro implements Listener {
 		aaron.spawn(locAaron);
 
 		initDialog();
-		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 
 	@EventHandler
