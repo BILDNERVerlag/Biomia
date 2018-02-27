@@ -33,18 +33,21 @@ public class MySQL {
         e.printStackTrace();
     }
 
+    private static Connection newConnection(Databases db) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.jdbc.Driver");
+        String dbPass = "O78s3SObra0QzDZh";
+        String dbUser = "biomia_usertest";
+        String dbName = db.name();
+        String dbPort = "3306";
+        String dbHost = "89.163.160.106";
+        return DriverManager.getConnection("jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName + "?" + "user="
+                + dbUser + "&" + "password=" + dbPass + "&verifyServerCertificate=false&useSSL=true");
+    }
 
     public static Connection Connect(Databases db) {
-        return connections.computeIfAbsent(db, con -> {
+        Connection connection = connections.computeIfAbsent(db, con -> {
             try {
-                Class.forName("com.mysql.jdbc.Driver");
-                String dbPass = "O78s3SObra0QzDZh";
-                String dbUser = "biomia_usertest";
-                String dbName = db.name();
-                String dbPort = "3306";
-                String dbHost = "89.163.160.106";
-                return DriverManager.getConnection("jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName + "?" + "user="
-                        + dbUser + "&" + "password=" + dbPass + "&verifyServerCertificate=false&useSSL=true");
+                return newConnection(db);
             } catch (ClassNotFoundException e) {
                 System.out.println("Treiber nicht gefunden");
             } catch (SQLException e) {
@@ -52,12 +55,17 @@ public class MySQL {
             }
             return null;
         });
-//        try {
-//            if (!connection.isClosed()) return connection;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return null;
+        try {
+            if (connection.isClosed()) {
+                connection = newConnection(db);
+                connections.put(db, connection);
+            }
+        } catch (ClassNotFoundException e) {
+            System.out.println("Treiber nicht gefunden");
+        } catch (SQLException e) {
+            handleSQLException(e);
+        }
+        return connection;
     }
 
     public static void execute(String cmd, Databases db) {
@@ -104,29 +112,26 @@ public class MySQL {
         }
     }
 
-    public static boolean executeQuerygetbool(String cmd, String gettingspalte, Databases db) {
-        Connection con = Connect(db);
-
-        if (con != null) {
-            try {
-                PreparedStatement sql = con.prepareStatement(cmd);
-                ResultSet rs = sql.executeQuery();
-                boolean b = false;
-                //noinspection LoopStatementThatDoesntLoop
-                while (rs.next()) {
-                    b = rs.getBoolean(gettingspalte);
-                    break;
-                }
-                rs.close();
-                sql.close();
-                return b;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-        }
-        return false;
-    }
+//    public static boolean executeQuerygetbool(String cmd, String gettingspalte, Databases db) {
+//        Connection con = Connect(db);
+//
+//        if (con != null) {
+//            try {
+//                PreparedStatement sql = con.prepareStatement(cmd);
+//                ResultSet rs = sql.executeQuery();
+//                boolean b = false;
+//                if (rs.next())
+//                    b = rs.getBoolean(gettingspalte);
+//                rs.close();
+//                sql.close();
+//                return b;
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
+//        return false;
+//    }
 
     public static int executeQuerygetint(String cmd, String gettingspalte, Databases db) {
         Connection con = Connect(db);

@@ -63,7 +63,6 @@ public class VSSettings {
                 statement.setString(4, group.name());
                 statement.executeUpdate();
             }
-            con.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
