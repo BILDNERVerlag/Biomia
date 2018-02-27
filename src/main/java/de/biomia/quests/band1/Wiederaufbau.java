@@ -1,7 +1,6 @@
 package de.biomia.quests.band1;
 
 import de.biomia.api.Biomia;
-import de.biomia.api.main.Main;
 import de.biomia.quests.QuestConditions.ItemConditions;
 import de.biomia.quests.QuestEvents.AddCoinEvent;
 import de.biomia.quests.QuestEvents.TakeItemEvent;
@@ -46,7 +45,6 @@ public class Wiederaufbau implements Listener {
     @EventHandler
     public void onInteract(NPCRightClickEvent e) {
         if (npc.equals(e.getNPC())) {
-
             QuestPlayer qp = Biomia.getQuestPlayer(e.getClicker());
 
             if (qp.getDialog() == null) {

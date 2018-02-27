@@ -6,7 +6,7 @@ import de.biomia.quests.QuestEvents.AddCoinEvent;
 import de.biomia.quests.QuestEvents.GiveItemEvent;
 import de.biomia.quests.QuestEvents.TakeItemEvent;
 import de.biomia.quests.general.*;
-import de.biomia.api.main.Main;
+import de.biomia.quests.main.QuestMain;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
@@ -56,16 +56,10 @@ public class Wasserholen implements Listener {
 					default:
 						break;
 					}
-				} else if (qp.hasFinished(q)) {
-					if (qp.checkCooldown(q)) {
-						qp.unfinish(q);
-						qp.setDialog(dialog_Start);
-					} else {
-						qp.setDialog(nachQuest);
-					}
 				} else {
-					qp.setDialog(dialog_Start);
+					QuestMain.restartQuestIfTimeOver(qp, q, dialog_Start, nachQuest);
 				}
+
 
 				qp.getDialog().execute(qp);
 			}

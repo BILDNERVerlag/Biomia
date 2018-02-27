@@ -1,7 +1,6 @@
 package de.biomia.quests.band1;
 
 import de.biomia.api.Biomia;
-import de.biomia.api.main.Main;
 import de.biomia.quests.QuestConditions.ItemConditions;
 import de.biomia.quests.QuestEvents.AddCoinEvent;
 import de.biomia.quests.QuestEvents.GiveItemEvent;
@@ -17,12 +16,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
-import java.util.HashMap;
-import java.util.UUID;
-
 public class WirFeiernEinFest implements Listener {
 	private final Quest q = Biomia.QuestManager().registerNewQuest("WirFeiernEinFest", 1);
-	HashMap<UUID, Quest> hm = new HashMap<>();
 	private final NPC habil;
 
     private DialogMessage startDialog;
@@ -47,9 +42,6 @@ public class WirFeiernEinFest implements Listener {
 	@EventHandler
 	public void onInteract(PlayerInteractEntityEvent e) {
 		if (habil.getEntity().equals(e.getRightClicked())) {
-
-			Bukkit.broadcastMessage("clicked!!");
-
 			QuestPlayer qp = Biomia.getQuestPlayer(e.getPlayer());
 
 			if (qp.getDialog() == null) {
