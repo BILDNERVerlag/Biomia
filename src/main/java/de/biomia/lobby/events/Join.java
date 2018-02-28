@@ -26,18 +26,10 @@ public class Join implements Listener {
             p.hidePlayer(pl);
             pl.hidePlayer(p);
         }
-
-        pj.getPlayer().sendMessage(Messages.PREFIX + "\u00A7cAchtung!");
-        pj.getPlayer().sendMessage("\u00A7cMomentan werden Arbeiten am Servercode durchgeführt.");
-        pj.getPlayer().sendMessage("\u00A7cDeswegen sind Bed- und SkyWars vorübergehend deaktiviert!");
-
     }
 
     @EventHandler
     public static void onQuit(PlayerQuitEvent e) {
-
-        Lobby.getSilentLobby().remove(e.getPlayer());
-
         e.getPlayer().getInventory().clear();
     }
 

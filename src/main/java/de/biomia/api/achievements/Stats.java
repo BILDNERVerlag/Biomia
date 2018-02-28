@@ -228,7 +228,7 @@ public class Stats {
      * bricht ab, falls der Spieler das Achievement bereits hat. Gibt true zurueck,
      * falls ein Achievement unlocked wird (ansonsten false).
      */
-    private static void unlock(Achievements.BiomiaAchievement bA, int biomiaPlayerID) {
+    private static void unlock(BiomiaAchievement bA, int biomiaPlayerID) {
         MySQL.executeUpdate("INSERT IGNORE INTO `" + bA.toString() + "` (`ID`) VALUES (" + biomiaPlayerID + ")", MySQL.Databases.achiev_db);
     }
 

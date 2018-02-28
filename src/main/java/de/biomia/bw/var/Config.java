@@ -233,16 +233,6 @@ public class Config {
         Main.getPlugin().saveConfig();
     }
 
-    public static void removeSpawnerLocations(Location loc, ItemType spawner) {
-        Config.config.set("Spawner." + spawner.name(), null);
-        Main.getPlugin().saveConfig();
-    }
-
-    public static void removeAllSpawnerLocations(Location loc, ItemType spawner) {
-        Config.config.set("Spawner", null);
-        Main.getPlugin().saveConfig();
-    }
-
     public static void removeAllBeds() {
         Config.config.set("Beds", null);
         Main.getPlugin().saveConfig();

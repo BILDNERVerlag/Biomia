@@ -109,7 +109,7 @@ class TeleportListener implements Listener {
 
             if ((from.getX() <= x) && (x <= to.getX()) && (from.getY() <= y) && (y <= to.getY()) && (from.getZ() <= z) && (z <= to.getZ())) {
 
-                if (eachTeleporter.isInverted())
+                if (!e.getTo().getWorld().equals(eachTeleporter.getFrom().getWorld()) || eachTeleporter.isInverted())
                     return;
 
                 if (eachTeleporter.getDestination() == Teleporter.Destination.SERVER_GROUP) {
@@ -119,7 +119,7 @@ class TeleportListener implements Listener {
                     e.getPlayer().teleport(eachTeleporter.getLocation());
                 }
 
-            } else if (eachTeleporter.isInverted()) {
+            } else if (e.getTo().getWorld().equals(eachTeleporter.getFrom().getWorld()) && eachTeleporter.isInverted()) {
                 e.getPlayer().teleport(eachTeleporter.getLocation());
             }
         });

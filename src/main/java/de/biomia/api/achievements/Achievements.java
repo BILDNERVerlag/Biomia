@@ -11,9 +11,6 @@ public class Achievements {
     private final String displayName;
     private String description = "Leider ist keine Beschreibung vorhanden. Beschwer dich am besten bei den Admins.";
 
-    //ASSOCIATED ENUM
-
-
     //CONSTRUCTOR
 
     private Achievements(BiomiaAchievement achievement, Stats.BiomiaStat stat, int value, String displayName) {

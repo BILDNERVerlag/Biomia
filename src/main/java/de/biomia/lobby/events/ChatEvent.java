@@ -8,22 +8,21 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class ChatEvent implements Listener {
-	@EventHandler
+
+    @EventHandler
 	public void onChat(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();
 
 		String msg = e.getMessage();
 		String format;
 		String group = Rank.getPrefix(p);
-		msg = msg.replaceAll("%", "prozent");
-
 		if (p.hasPermission("biomia.coloredchat")) {
 			msg = ChatColor.translateAlternateColorCodes('&', e.getMessage());
 			format = group + p.getName() + "\u00A77: \u00A7f" + msg;
-			e.setFormat(format);
 		} else {
 			format = group + p.getName() + "\u00A77: \u00A7f" + msg;
-			e.setFormat(format);
 		}
+		Thread.currentThread().getStackTrace();
+        e.setMessage(format);
 	}
 }

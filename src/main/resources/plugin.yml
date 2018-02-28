@@ -1,5 +1,5 @@
 main: de.biomia.api.main.Main
-name: BiomiaAPI
+name: Biomia
 version: 0.3
 authors: [DerJulsn, DerAaron]
 depend: [TimoCloud]
@@ -26,7 +26,6 @@ commands:
   qtest:
   qreset:
   lobbysettings:
-    usage: /lobbysettings <destroyarmorstands|fly>
   randomServerGroup:
   world:
   rank:

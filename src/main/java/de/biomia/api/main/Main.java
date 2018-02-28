@@ -43,7 +43,6 @@ import java.util.HashMap;
 
 public class Main extends JavaPlugin {
 
-    //TODO Klassenname ändern
     public static Inventory menu;
     public static Inventory grund;
 

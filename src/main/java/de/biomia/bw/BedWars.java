@@ -21,13 +21,12 @@ public class BedWars {
 
     public static void init() {
 
-        Main.getPlugin().getServer().createWorld(new WorldCreator(Variables.name));
-
-        Biomia.TeamManager().initTeams(Variables.playerPerTeam, Variables.teams);
-
         Config.addDefaults();
         Main.getPlugin().saveDefaultConfig();
         Main.getPlugin().saveConfig();
+
+        Main.getPlugin().getServer().createWorld(new WorldCreator(Variables.name));
+        Biomia.TeamManager().initTeams(Variables.playerPerTeam, Variables.teams);
 
         Config.loadLocsFromConfig();
         Config.loadTeamJoiner();

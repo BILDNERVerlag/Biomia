@@ -148,7 +148,6 @@ public class SkyWarsListener implements Listener {
                     ArrayList<Player> player = new ArrayList<>(Bukkit.getOnlinePlayers());
                     player.forEach(eachPlayer -> {
                         if (Integer.valueOf(Rank.getRankID(Rank.getRank(eachPlayer))) > i) {
-
                             e.allow();
                             eachPlayer.sendMessage(Messages.kickedForPremium);
                             eachPlayer.kickPlayer("");
