@@ -1,4 +1,4 @@
-package de.biomia.lobby.main;
+package de.biomia.lobby;
 
 import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.api.itemcreator.ItemCreator;
@@ -24,7 +24,7 @@ import java.util.Comparator;
 
 import static de.biomia.api.main.Main.getPlugin;
 
-public class LobbyMain {
+public class Lobby {
 
     private static final ArrayList<Player> silentLobby = new ArrayList<>();
     private static final ArrayList<Player> inAir = new ArrayList<>();
@@ -47,7 +47,7 @@ public class LobbyMain {
         return lobbySwitcher;
     }
 
-    public static void initLobby() {
+    public static void init() {
         Bukkit.getServer().createWorld(new WorldCreator("BedwarsSignlobby"));
         Bukkit.getServer().createWorld(new WorldCreator("SkywarsSignlobby"));
         for (Player p : Bukkit.getOnlinePlayers()) {
@@ -89,9 +89,9 @@ public class LobbyMain {
         // new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 552, 97, 294), new Location(Bukkit.getWorld("LobbyBiomia"), 553, 98, 295), new Location(Bukkit.getWorld("LobbyBiomia"), 556.5, 96, 292.5, -90, 0), "FarmServer");
 
         // SkyWars Portal
-        new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 459.5, 71, 264), new Location(Bukkit.getWorld("LobbyBiomia"), 460, 73, 269), new Location(Bukkit.getWorld("SkywarsSignlobby"), 370.5, 82, 264.5, 70, 0));
+        //TODO new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 459.5, 71, 264), new Location(Bukkit.getWorld("LobbyBiomia"), 460, 73, 269), new Location(Bukkit.getWorld("SkywarsSignlobby"), 370.5, 82, 264.5, 70, 0));
         // BedWars Portal
-        new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 459.5, 71, 252), new Location(Bukkit.getWorld("LobbyBiomia"), 460, 73, 257), new Location(Bukkit.getWorld("BedwarsSignlobby"), 370.5, 82, 264.5, 70, 0));
+        //TODO new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 459.5, 71, 252), new Location(Bukkit.getWorld("LobbyBiomia"), 460, 73, 257), new Location(Bukkit.getWorld("BedwarsSignlobby"), 370.5, 82, 264.5, 70, 0));
 
         //GRENZEN
         new Teleporter(new Location(Bukkit.getWorld("BedwarsSignlobby"), 0, -1000, 0), new Location(Bukkit.getWorld("BedwarsSignlobby"), 800, 1000, 1024), new Location(Bukkit.getWorld("BedwarsSignlobby"), 370.5, 82, 264.5, 70, 0)).setInverted();

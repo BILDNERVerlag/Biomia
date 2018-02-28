@@ -6,7 +6,7 @@ import de.biomia.quests.QuestEvents.AddCoinEvent;
 import de.biomia.quests.QuestEvents.GiveItemEvent;
 import de.biomia.quests.QuestEvents.TakeItemEvent;
 import de.biomia.quests.general.*;
-import de.biomia.quests.main.QuestMain;
+import de.biomia.quests.Quests;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -58,7 +58,7 @@ public class WirFeiernEinFest implements Listener {
 						break;
 					}
 				} else
-					QuestMain.restartQuestIfTimeOver(qp, q, startDialog, nachQuest);
+					Quests.restartQuestIfTimeOver(qp, q, startDialog, nachQuest);
 				qp.getDialog().execute(qp);
 			}
 		}

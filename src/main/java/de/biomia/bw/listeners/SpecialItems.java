@@ -1,7 +1,7 @@
 package de.biomia.bw.listeners;
 
 import de.biomia.bw.gamestates.GameState;
-import de.biomia.bw.main.BedWarsMain;
+import de.biomia.bw.BedWars;
 import de.biomia.bw.messages.ItemNames;
 import de.biomia.bw.messages.Messages;
 import de.biomia.bw.var.*;
@@ -117,7 +117,7 @@ public class SpecialItems implements Listener {
         }
 
         if (!Biomia.getBiomiaPlayer(p).canBuild()) {
-            if (!Variables.livingPlayer.contains(p) || BedWarsMain.gameState != GameState.INGAME)
+            if (!Variables.livingPlayer.contains(p) || BedWars.gameState != GameState.INGAME)
                 e.setCancelled(true);
         }
     }

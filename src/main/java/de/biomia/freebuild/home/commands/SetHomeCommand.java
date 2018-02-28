@@ -25,7 +25,8 @@ public class SetHomeCommand implements CommandExecutor {
 			}
 			if (homeManager == null) Bukkit.broadcastMessage("test");
 			int bpID = Biomia.getBiomiaPlayer(player).getBiomiaPlayerID();
-			if ((homeManager.reachedMaxHomes(bpID))
+            assert homeManager != null;
+            if ((homeManager.reachedMaxHomes(bpID))
 					&& (!homeManager.getPlayerHomes(bpID).containsKey(homeName))) {
 				player.sendMessage(Home.HOME_MAX_REACHED);
 				return true;

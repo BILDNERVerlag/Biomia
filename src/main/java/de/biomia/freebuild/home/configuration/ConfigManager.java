@@ -1,12 +1,11 @@
 package de.biomia.freebuild.home.configuration;
 
-import de.biomia.freebuild.home.Home;
 import de.biomia.api.main.Main;
 
 public class ConfigManager {
 	private static int maxHomes;
 
-	public ConfigManager(Home simpleHomes) {
+	public ConfigManager() {
 		maxHomes = Main.getPlugin().getConfig().getInt("MaxHomes", 1);
 	}
 

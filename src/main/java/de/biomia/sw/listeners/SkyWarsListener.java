@@ -15,7 +15,7 @@ import de.biomia.sw.ingame.Dead;
 import de.biomia.sw.kits.Kit;
 import de.biomia.sw.kits.Kits;
 import de.biomia.sw.lobby.JoinTeam;
-import de.biomia.sw.main.SkyWarsMain;
+import de.biomia.sw.SkyWars;
 import de.biomia.sw.messages.ItemNames;
 import de.biomia.sw.messages.Messages;
 import de.biomia.sw.var.Config;
@@ -51,7 +51,7 @@ public class SkyWarsListener implements Listener {
         bp.setDamageEntitys(false);
         bp.setGetDamage(false);
 
-        if (SkyWarsMain.gameState.equals(GameState.INGAME)) {
+        if (SkyWars.gameState.equals(GameState.INGAME)) {
 
             // Hide
             for (Player all : Bukkit.getOnlinePlayers()) {
@@ -88,7 +88,7 @@ public class SkyWarsListener implements Listener {
 
             p.teleport(new Location(Bukkit.getWorld(Variables.name), 0, 100, 0));
 
-        } else if (SkyWarsMain.gameState.equals(GameState.LOBBY)) {
+        } else if (SkyWars.gameState.equals(GameState.LOBBY)) {
 
             Kits.loadKits(p);
             p.teleport(Variables.warteLobbySpawn);
@@ -138,7 +138,7 @@ public class SkyWarsListener implements Listener {
     public void onLogin(PlayerLoginEvent e) {
         if (e.getResult().equals(PlayerLoginEvent.Result.KICK_FULL)) {
 
-            if (SkyWarsMain.gameState.equals(GameState.LOBBY)) {
+            if (SkyWars.gameState.equals(GameState.LOBBY)) {
 
                 String rank = Rank.getRank(e.getPlayer());
                 int i = Integer.valueOf(Rank.getRankID(rank));
@@ -155,8 +155,8 @@ public class SkyWarsListener implements Listener {
                         }
                     });
                 }
-            } else if (SkyWarsMain.gameState.equals(GameState.WAITINGFORSTART)
-                    || SkyWarsMain.gameState.equals(GameState.INGAME)) {
+            } else if (SkyWars.gameState.equals(GameState.WAITINGFORSTART)
+                    || SkyWars.gameState.equals(GameState.INGAME)) {
                 e.allow();
             }
         }
@@ -166,7 +166,7 @@ public class SkyWarsListener implements Listener {
     public void onHungerSwitch(FoodLevelChangeEvent e) {
         if (e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
-            if (!SkyWarsMain.gameState.equals(GameState.INGAME)) {
+            if (!SkyWars.gameState.equals(GameState.INGAME)) {
                 p.setFoodLevel(20);
                 e.setCancelled(true);
             } else if (!Variables.livingPlayer.contains(p)) {
@@ -179,7 +179,7 @@ public class SkyWarsListener implements Listener {
     @EventHandler
     public void onDrop(PlayerDropItemEvent e) {
         Player p = e.getPlayer();
-        if (!SkyWarsMain.gameState.equals(GameState.INGAME)) {
+        if (!SkyWars.gameState.equals(GameState.INGAME)) {
             e.setCancelled(true);
         } else if (!Variables.livingPlayer.contains(p)) {
             e.setCancelled(true);
@@ -190,7 +190,7 @@ public class SkyWarsListener implements Listener {
     public void onPickUp(EntityPickupItemEvent e) {
         if (e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
-            if (!SkyWarsMain.gameState.equals(GameState.INGAME)) {
+            if (!SkyWars.gameState.equals(GameState.INGAME)) {
                 e.setCancelled(true);
             } else if (!Variables.livingPlayer.contains(p)) {
                 e.setCancelled(true);
@@ -200,7 +200,7 @@ public class SkyWarsListener implements Listener {
 
     @EventHandler
     public void onPlayerSwap(PlayerSwapHandItemsEvent e) {
-        if (!SkyWarsMain.gameState.equals(GameState.INGAME)) {
+        if (!SkyWars.gameState.equals(GameState.INGAME)) {
             e.setCancelled(true);
         } else if (!Variables.livingPlayer.contains(e.getPlayer())) {
             e.setCancelled(true);
@@ -236,7 +236,7 @@ public class SkyWarsListener implements Listener {
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent e) {
 
-        if (SkyWarsMain.gameState == GameState.INGAME) {
+        if (SkyWars.gameState == GameState.INGAME) {
             if (e.getPlayer().getKiller() != null) {
                 e.setRespawnLocation(e.getPlayer().getKiller().getLocation().add(0, 2, 0));
             } else {
@@ -285,7 +285,7 @@ public class SkyWarsListener implements Listener {
     @EventHandler
     public void onProjectileThrow(ProjectileLaunchEvent event) {
 
-        if (!(SkyWarsMain.gameState == GameState.INGAME)) {
+        if (!(SkyWars.gameState == GameState.INGAME)) {
             event.setCancelled(true);
         }
     }
@@ -422,7 +422,7 @@ public class SkyWarsListener implements Listener {
                 Chest chest = (Chest) e.getClickedBlock().getState();
                 boolean firstOpen = false;
                 SkyWarsOpenChestEvent.ChestType chestType = SkyWarsOpenChestEvent.ChestType.NORMAL_Chest;
-                if (!Variables.opendChests.contains(chest.getLocation()) && SkyWarsMain.gameState == GameState.INGAME) {
+                if (!Variables.opendChests.contains(chest.getLocation()) && SkyWars.gameState == GameState.INGAME) {
                     if (Variables.normalChestsFill.containsKey(chest)) {
                         chest.getInventory().setContents(Variables.normalChestsFill.get(chest));
                         Variables.opendChests.add(chest.getLocation());
@@ -446,7 +446,7 @@ public class SkyWarsListener implements Listener {
         if (!(Biomia.getBiomiaPlayer(p).canBuild()) && !Variables.livingPlayer.contains(p)) {
             e.setCancelled(true);
         }
-        if (!(Biomia.getBiomiaPlayer(p).canBuild()) && SkyWarsMain.gameState != GameState.INGAME) {
+        if (!(Biomia.getBiomiaPlayer(p).canBuild()) && SkyWars.gameState != GameState.INGAME) {
             e.setCancelled(true);
         }
 
@@ -489,7 +489,7 @@ public class SkyWarsListener implements Listener {
 
         Player p = e.getPlayer();
 
-        if (SkyWarsMain.gameState.equals(GameState.INGAME)) {
+        if (SkyWars.gameState.equals(GameState.INGAME)) {
             // Check if Player is instatnce of the act round
             if (Variables.livingPlayer.contains(p)) {
                 Variables.livingPlayer.remove(p);
@@ -512,7 +512,7 @@ public class SkyWarsListener implements Listener {
                     InGame.end();
                 }
             }
-        } else if (SkyWarsMain.gameState.equals(GameState.LOBBY)) {
+        } else if (SkyWars.gameState.equals(GameState.LOBBY)) {
             // Remove Player from Team
             if (Biomia.TeamManager().isPlayerInAnyTeam(p)) {
                 Scoreboards.lobbySB.getTeam("0" + Biomia.TeamManager().getTeam(p).getTeamname())
@@ -530,7 +530,7 @@ public class SkyWarsListener implements Listener {
             if (e.getDamager() instanceof Player) {
                 Player killer = (Player) e.getDamager();
 
-                if (!SkyWarsMain.gameState.equals(GameState.INGAME))
+                if (!SkyWars.gameState.equals(GameState.INGAME))
                     e.setCancelled(true);
 
                 // Check if the Entity in the same team like the damager
@@ -576,14 +576,14 @@ public class SkyWarsListener implements Listener {
     @EventHandler
     public void onSignChange(SignChangeEvent e) {
 
-        if (e.getPlayer().hasPermission("biomia.leaderboard") && SkyWarsMain.gameState != GameState.INGAME) {
+        if (e.getPlayer().hasPermission("biomia.leaderboard") && SkyWars.gameState != GameState.INGAME) {
             if (e.getLine(0).equalsIgnoreCase("leaderboard")) {
 
                 String second = e.getLine(1);
-                int i = 0;
+                //            int i = 0;
                 try {
                     second = second.replaceAll(" ", "");
-                    i = Integer.valueOf(second);
+                    //               i = Integer.valueOf(second);
                 } catch (Exception ex) {
                     e.getPlayer().sendMessage(Messages.fillSecondLine);
                 }
@@ -623,7 +623,7 @@ public class SkyWarsListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void cancelInvClick(InventoryClickEvent ie) {
 
-        if (!SkyWarsMain.gameState.equals(GameState.INGAME)) {
+        if (!SkyWars.gameState.equals(GameState.INGAME)) {
             if (ie.getCurrentItem() != null) {
                 Player p = (Player) ie.getWhoClicked();
                 if (!Variables.livingPlayer.contains(p)) {
@@ -641,7 +641,7 @@ public class SkyWarsListener implements Listener {
 
         Player p = e.getPlayer();
 
-        if (SkyWarsMain.gameState != GameState.INGAME) {
+        if (SkyWars.gameState != GameState.INGAME) {
             e.setCancelled(true);
         }
 
@@ -694,7 +694,7 @@ public class SkyWarsListener implements Listener {
         if (p.hasPermission("biomia.coloredchat"))
             msg = ChatColor.translateAlternateColorCodes('&', e.getMessage());
 
-        if (SkyWarsMain.gameState.equals(GameState.INGAME) || SkyWarsMain.gameState.equals(GameState.WAITINGFORSTART)) {
+        if (SkyWars.gameState.equals(GameState.INGAME) || SkyWars.gameState.equals(GameState.WAITINGFORSTART)) {
 
             Team t = Biomia.TeamManager().getTeam(p);
 
@@ -740,7 +740,7 @@ public class SkyWarsListener implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
 
-        if (SkyWarsMain.gameState == GameState.INGAME) {
+        if (SkyWars.gameState == GameState.INGAME) {
             if (e.getTo().getBlockY() <= 0) {
                 e.getPlayer().setHealth(0);
             }
@@ -748,7 +748,7 @@ public class SkyWarsListener implements Listener {
             e.getPlayer().teleport(Variables.warteLobbySpawn);
         }
 
-        if (SkyWarsMain.gameState.equals(GameState.WAITINGFORSTART)) {
+        if (SkyWars.gameState.equals(GameState.WAITINGFORSTART)) {
             e.setCancelled(true);
         }
     }

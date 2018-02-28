@@ -1,4 +1,4 @@
-package de.biomia.freebuild.main;
+package de.biomia.freebuild.listeners;
 
 import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.api.Biomia;
@@ -25,7 +25,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 
-class FreebuildListener implements Listener {
+public class FreebuildListener implements Listener {
 
 	@EventHandler
 	public static void onJoin(PlayerJoinEvent e) {
@@ -69,7 +69,7 @@ class FreebuildListener implements Listener {
 				if (Biomia.getBiomiaPlayer(p).isStaff()) {
 					servers.addAll(Main.getUniversalTimoapi().getServerGroup("FarmServer").getServers());
 
-					if (!servers.isEmpty() && servers != null) {
+					if (!servers.isEmpty()) {
 						Connect.connectToRandom(p, "FarmServer");
 					}
 				} else
@@ -80,7 +80,7 @@ class FreebuildListener implements Listener {
 				p.teleport(new Location(Bukkit.getWorld("world"), -198, 64, 391, 120, 0));
 				servers.addAll(Main.getUniversalTimoapi().getServerGroup("Lobby").getServers());
 
-				if (!servers.isEmpty() && servers != null) {
+				if (!servers.isEmpty()) {
 					Connect.connectToRandom(p, "Lobby");
 				} else {
 					p.sendMessage("\u00A7cHuch, da ist offenbar etwas schiefgelaufen! Probiere stattdessen \u00A7a/hub\u00A7c!");

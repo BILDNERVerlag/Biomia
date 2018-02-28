@@ -6,7 +6,6 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class Permission {
 
-	
 	public static void addPermission(Player p, String permission) {
 		PermissionUser user = PermissionsEx.getUser(p);
 		user.addPermission(permission);		

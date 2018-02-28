@@ -1,6 +1,6 @@
 package de.biomia.quests.band1;
 
-import de.biomia.quests.main.QuestMain;
+import de.biomia.quests.Quests;
 import de.biomia.quests.messages.ItemNames;
 import de.biomia.api.Biomia;
 import de.biomia.quests.QuestConditions.ItemConditions;
@@ -71,7 +71,7 @@ public class BergHuehner implements Listener {
 						break;
 					}
 				} else
-					QuestMain.restartQuestIfTimeOver(qp, q, startDialog, nachQuest);
+					Quests.restartQuestIfTimeOver(qp, q, startDialog, nachQuest);
 
 				qp.getDialog().execute(qp);
 			}

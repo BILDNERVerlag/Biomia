@@ -3,7 +3,7 @@ package de.biomia.lobby.events;
 import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.api.Biomia;
 import de.biomia.api.connect.Connect;
-import de.biomia.lobby.main.LobbyMain;
+import de.biomia.lobby.Lobby;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -21,7 +21,7 @@ public class Click implements Listener {
     public void onClick(InventoryClickEvent ie) {
         Player pl = (Player) ie.getWhoClicked();
         if (ie.getAction() == InventoryAction.PICKUP_ALL)
-            if (ie.getClickedInventory().equals(LobbyMain.getNavigator())
+            if (ie.getClickedInventory().equals(Lobby.getNavigator())
                     || ie.getClickedInventory().getName().equals("\u00A7dLobby Switcher"))
                 if (ie.getClick().isLeftClick())
                     if (ie.getCurrentItem() != null)

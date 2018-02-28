@@ -1,6 +1,7 @@
 package de.biomia.lobby.events;
 
-import de.biomia.lobby.main.LobbyMain;
+import de.biomia.api.msg.Messages;
+import de.biomia.lobby.Lobby;
 import de.biomia.lobby.scoreboard.ChatColors;
 import de.biomia.lobby.scoreboard.ScoreboardClass;
 import org.bukkit.GameMode;
@@ -21,17 +22,21 @@ public class Join implements Listener {
         Inventory.setInventory(p);
         ScoreboardClass.sendScoreboard(p);
 
-        for (Player pl : LobbyMain.getSilentLobby()) {
+        for (Player pl : Lobby.getSilentLobby()) {
             p.hidePlayer(pl);
             pl.hidePlayer(p);
         }
+
+        pj.getPlayer().sendMessage(Messages.PREFIX + "\u00A7cAchtung!");
+        pj.getPlayer().sendMessage("\u00A7cMomentan werden Arbeiten am Servercode durchgeführt.");
+        pj.getPlayer().sendMessage("\u00A7cDeswegen sind Bed- und SkyWars vorübergehend deaktiviert!");
 
     }
 
     @EventHandler
     public static void onQuit(PlayerQuitEvent e) {
 
-        LobbyMain.getSilentLobby().remove(e.getPlayer());
+        Lobby.getSilentLobby().remove(e.getPlayer());
 
         e.getPlayer().getInventory().clear();
     }

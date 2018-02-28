@@ -2,7 +2,7 @@ package de.biomia.bw.ingame;
 
 import de.biomia.bw.gamestates.GameState;
 import de.biomia.bw.gamestates.InGame;
-import de.biomia.bw.main.BedWarsMain;
+import de.biomia.bw.BedWars;
 import de.biomia.bw.var.Scoreboards;
 import de.biomia.bw.var.Variables;
 import de.biomia.api.Biomia;
@@ -54,7 +54,7 @@ public class Dead {
         Scoreboards.setSpectatorSB(target);
 
         // Check if only one or less Team(s) left
-        if (BedWarsMain.gameState != GameState.END) {
+        if (BedWars.gameState != GameState.END) {
 
             ArrayList<Team> livingTeams = new ArrayList<>();
             if (Variables.livingPlayer.size() <= 1) {

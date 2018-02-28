@@ -1,7 +1,7 @@
 package de.biomia.demoserver.cmds;
 
 import de.biomia.demoserver.config.Config;
-import de.biomia.demoserver.main.WeltenlaborMain;
+import de.biomia.demoserver.Weltenlabor;
 import de.biomia.api.main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -66,8 +66,8 @@ public class Bau implements CommandExecutor {
             if (args[0].equalsIgnoreCase("reload")) {
                 Bukkit.broadcastMessage("\u00A7cReloading....");
                 Main.getPlugin().reloadConfig();
-                WeltenlaborMain.bauten.clear();
-                WeltenlaborMain.si.clearAllItems();
+                Weltenlabor.bauten.clear();
+                Weltenlabor.si.clearAllItems();
                 Config.hookInPlugin();
                 Bukkit.broadcastMessage("\u00A7aReloaded!");
             }

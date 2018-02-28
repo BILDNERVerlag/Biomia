@@ -43,7 +43,7 @@ public class Connect implements PluginMessageListener {
 
     // public static void connectToRandom(Player p, String group) {
     // ArrayList<ServerObject> servers = new
-    // ArrayList<>(QuestMain.getUniversalTimoapi().getGroup(group).getServers());
+    // ArrayList<>(Quests.getUniversalTimoapi().getGroup(group).getServers());
     // ServerObject random = servers.get(new Random().nextInt(servers.size() - 1));
     // connect(p, random.getName());
     // }

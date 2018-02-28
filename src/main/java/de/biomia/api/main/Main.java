@@ -14,20 +14,20 @@ import de.biomia.api.cosmetics.GadgetItems.GadgetIniter;
 import de.biomia.api.cosmetics.ParticleItems.ParticleIniter;
 import de.biomia.api.itemcreator.ItemCreator;
 import de.biomia.api.mysql.MySQL;
-import de.biomia.bw.main.BedWarsMain;
-import de.biomia.demoserver.main.WeltenlaborMain;
-import de.biomia.freebuild.main.FreebuildMain;
-import de.biomia.lobby.main.LobbyMain;
+import de.biomia.bw.BedWars;
+import de.biomia.demoserver.Weltenlabor;
+import de.biomia.freebuild.Freebuild;
+import de.biomia.lobby.Lobby;
 import de.biomia.plugin.commands.*;
-import de.biomia.plugin.listener.BiomiaListener;
-import de.biomia.plugin.listener.ChannelListener;
-import de.biomia.plugin.listener.CosmeticListener;
+import de.biomia.plugin.listeners.BiomiaListener;
+import de.biomia.plugin.listeners.ChannelListener;
+import de.biomia.plugin.listeners.CosmeticListener;
 import de.biomia.plugin.reportsystem.ReportSQL;
 import de.biomia.plugin.reportsystem.listener.ChatEvent;
 import de.biomia.plugin.reportsystem.listener.ClickEvent;
 import de.biomia.plugin.specialEvents.easterEvent.EasterEvent;
-import de.biomia.quests.main.QuestMain;
-import de.biomia.sw.main.SkyWarsMain;
+import de.biomia.quests.Quests;
+import de.biomia.sw.SkyWars;
 import de.biomia.versus.vs.main.VSMain;
 import net.minecraft.server.v1_12_R1.DedicatedServer;
 import org.bukkit.Bukkit;
@@ -163,26 +163,26 @@ public class Main extends JavaPlugin {
 
         switch (groupName) {
             case "Lobby":
-                LobbyMain.initLobby();
+                Lobby.init();
                 break;
             case "TestServer":
             case "QuestServer":
-                QuestMain.initQuests();
+                Quests.initQuests();
                 break;
             case "BedWars":
-                BedWarsMain.initBedWars();
+                BedWars.init();
                 break;
             case "SkyWars":
-                SkyWarsMain.initSkyWars();
+                SkyWars.init();
                 break;
             case "DuellLobby":
                 VSMain.initVersus();
                 break;
             case "Weltenlabor#1":
-                WeltenlaborMain.initWeltenlabor();
+                Weltenlabor.init();
                 break;
             case "FreebuildServer":
-                FreebuildMain.initFreebuild();
+                Freebuild.init();
                 break;
             case "FarmServer":
                 //TODO
@@ -222,16 +222,16 @@ public class Main extends JavaPlugin {
                 break;
             case "TestServer":
             case "QuestServer":
-                QuestMain.terminateQuests();
+                Quests.terminateQuests();
                 break;
             case "FreebuildServer":
-                FreebuildMain.terminateFreebuild();
+                Freebuild.terminate();
                 break;
             case "FarmServer":
                 //TODO
                 break;
             case "Weltenlabor#1":
-                WeltenlaborMain.initWeltenlabor();
+                Weltenlabor.init();
                 break;
             default:
                 break;

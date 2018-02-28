@@ -10,10 +10,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class HomeListCommand implements CommandExecutor {
 	private final HomeManager homeManager;
@@ -23,7 +20,7 @@ public class HomeListCommand implements CommandExecutor {
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
-		Set<String> homeSet;
+		HashSet<?> homeSet;
 		if ((sender instanceof Player) && sender.hasPermission("biomia.adminhomes")) {
 			Player player = (Player) sender;
 			homeSet = new HashSet();
@@ -31,14 +28,14 @@ public class HomeListCommand implements CommandExecutor {
 			if (strings.length != 0) {
 				int bpID = BiomiaPlayer.getID(strings[0]);
 				if (bpID != -1) {
-					homeSet = homeManager.getPlayerHomes(bpID).keySet();
+					homeSet = (HashSet<?>) homeManager.getPlayerHomes(bpID).keySet();
 				} else {
 					player.sendMessage(Home.PLAYER_NOT_EXIST);
 				}
 			} else {
-				homeSet = homeManager.getPlayerHomes(Biomia.getBiomiaPlayer(player).getBiomiaPlayerID()).keySet();
+				homeSet = (HashSet<?>) homeManager.getPlayerHomes(Biomia.getBiomiaPlayer(player).getBiomiaPlayerID()).keySet();
 			}
-			String[] homeString = homeSet.toArray(new String[homeSet.size()]);
+			@SuppressWarnings("SuspiciousToArrayCall") String[] homeString = homeSet.toArray(new String[homeSet.size()]);
 			Arrays.sort(homeString);
 
 			String homes = homeListString(homeString);
@@ -50,11 +47,11 @@ public class HomeListCommand implements CommandExecutor {
 			return true;
 		}
 
-		Map<Integer, Map<String, Location>> homes = homeManager.getHomes();
-		for (Map.Entry<Integer, Map<String, Location>> entry : homes.entrySet()) {
+		HashMap<Integer, HashMap<String, Location>> homes = homeManager.getHomes();
+		for (Map.Entry<Integer, HashMap<String, Location>> entry : homes.entrySet()) {
 			String playerName = BiomiaPlayer.getName(entry.getKey());
-			Set<String> playerHomes = ((Map) entry.getValue()).keySet();
-			String[] homeStrings = playerHomes.toArray(new String[playerHomes.size()]);
+			HashSet<?> playerHomes = (HashSet<?>) ((Map) entry.getValue()).keySet();
+			@SuppressWarnings("SuspiciousToArrayCall") String[] homeStrings = playerHomes.toArray(new String[playerHomes.size()]);
 			Arrays.sort(homeStrings);
 			String homeList = homeListString(homeStrings);
 			if (homeList != null) {

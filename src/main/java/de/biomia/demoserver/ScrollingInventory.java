@@ -1,4 +1,4 @@
-package de.biomia.demoserver.main;
+package de.biomia.demoserver;
 
 import de.biomia.demoserver.config.Bauten;
 import de.biomia.api.itemcreator.ItemCreator;
@@ -59,7 +59,7 @@ public class ScrollingInventory implements Listener {
 		if (e.getInventory().equals(inv)) {
 			e.setCancelled(true);
 			if (e.getCurrentItem() != null && e.getCurrentItem().hasItemMeta()) {
-				for (Bauten b : WeltenlaborMain.bauten)
+				for (Bauten b : Weltenlabor.bauten)
 					if (b.getName().equals(e.getCurrentItem().getItemMeta().getDisplayName())) {
 						e.getWhoClicked().teleport(b.getLoc());
 						return;

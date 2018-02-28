@@ -20,11 +20,11 @@ public class HomeFileManager {
 
 	private void reloadHomes() {
 		if (homesFile == null) {
-			homesFile = new File(Main.getPlugin().getDataFolder(), "Homes.yml");
+			homesFile = new File(Main.getPlugin().getDataFolder(), fileName);
 		}
 		homes = YamlConfiguration.loadConfiguration(homesFile);
 
-		InputStream defHomes = Main.getPlugin().getResource("Homes.yml");
+		InputStream defHomes = Main.getPlugin().getResource(fileName);
 		if (defHomes != null) {
 			YamlConfiguration defConfig = YamlConfiguration
 					.loadConfiguration(new BufferedReader(new InputStreamReader(defHomes)));

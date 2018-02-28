@@ -36,7 +36,7 @@ public class Home {
 		config.options().copyDefaults(true);
 		Main.getPlugin().saveConfig();
 
-		new ConfigManager(this);
+		new ConfigManager();
 		homeFileManager.saveHomes();
 		loadHomeListeners();
 		Main.getPlugin().getLogger().info("Homes Enabled!");

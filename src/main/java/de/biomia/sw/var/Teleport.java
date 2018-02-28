@@ -1,7 +1,7 @@
 package de.biomia.sw.var;
 
 import de.biomia.sw.gamestates.GameState;
-import de.biomia.sw.main.SkyWarsMain;
+import de.biomia.sw.SkyWars;
 import de.biomia.api.Biomia;
 import de.biomia.api.main.Main;
 import de.biomia.api.msg.ActionBar;
@@ -61,7 +61,7 @@ public class Teleport {
                         Biomia.getBiomiaPlayer(p).setBuild(true);
                         Biomia.getBiomiaPlayer(p).setDamageEntitys(true);
                         Biomia.getBiomiaPlayer(p).setGetDamage(true);
-                        SkyWarsMain.gameState = GameState.INGAME;
+                        SkyWars.gameState = GameState.INGAME;
                         cancel();
                     } else {
                         ActionBar.sendActionBar("\u00A78" + waitForStartCountdown, p);

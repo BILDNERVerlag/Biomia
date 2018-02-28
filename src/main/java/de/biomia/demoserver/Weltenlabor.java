@@ -1,4 +1,4 @@
-package de.biomia.demoserver.main;
+package de.biomia.demoserver;
 
 import de.biomia.demoserver.cmds.Bau;
 import de.biomia.demoserver.config.Bauten;
@@ -11,12 +11,12 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
-public class WeltenlaborMain {
+public class Weltenlabor {
 
 	public static final ArrayList<Bauten> bauten = new ArrayList<>();
 	public static ScrollingInventory si;
 
-	public static void initWeltenlabor() {
+	public static void init() {
 
 		si = new ScrollingInventory("\u00A7eW\u00e4hle dein Ziel!", 3);
 		

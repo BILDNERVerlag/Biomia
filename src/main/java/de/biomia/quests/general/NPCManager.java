@@ -1,4 +1,4 @@
-package de.biomia.quests.main;
+package de.biomia.quests.general;
 
 import de.biomia.api.Biomia;
 import de.biomia.quests.general.Quest;

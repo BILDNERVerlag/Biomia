@@ -1,7 +1,7 @@
 package de.biomia.bw.listeners;
 
 import de.biomia.bw.gamestates.GameState;
-import de.biomia.bw.main.BedWarsMain;
+import de.biomia.bw.BedWars;
 import de.biomia.bw.messages.Messages;
 import de.biomia.bw.var.Variables;
 import de.biomia.api.Biomia;
@@ -56,7 +56,7 @@ public class BedListener implements Listener {
                 Team t = Variables.getTeamByTeamChests(e.getBlock());
                 Variables.teamChestsLocs.get(t).remove(e.getBlock());
             }
-        } else if (BedWarsMain.gameState == GameState.INGAME) {
+        } else if (BedWars.gameState == GameState.INGAME) {
             e.getPlayer().sendMessage(Messages.cantDestroyThisBlock);
             e.setCancelled(true);
         } else {

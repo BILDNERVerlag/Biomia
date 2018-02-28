@@ -1,4 +1,4 @@
-package de.biomia.sw.main;
+package de.biomia.sw;
 
 import de.biomia.sw.chests.Chests;
 import de.biomia.sw.chests.Items;
@@ -15,11 +15,11 @@ import de.biomia.api.main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 
-public class SkyWarsMain {
+public class SkyWars {
 
     public static GameState gameState = GameState.LOBBY;
 
-    public static void initSkyWars() {
+    public static void init() {
 
         Main.getPlugin().getServer().createWorld(new WorldCreator(Variables.name));
 
@@ -37,8 +37,8 @@ public class SkyWarsMain {
         Variables.normalChestsFill = Chests.fillNormalChests();
         Variables.goodChestsFill = Chests.fillGoodChests();
 
-        initListener();
-        initCommands();
+        loadListeners();
+        registerCommands();
 
         Kits.initKits();
         Variables.teamJoiner = JoinTeam.getTeamSwitcher();
@@ -46,11 +46,11 @@ public class SkyWarsMain {
         InLobby.start();
     }
 
-    private static void initListener() {
+    private static void loadListeners() {
         Bukkit.getPluginManager().registerEvents(new SkyWarsListener(), Main.getPlugin());
     }
 
-    private static void initCommands() {
+    private static void registerCommands() {
         Main.getPlugin().getCommand("sw").setExecutor(new SW());
     }
 }

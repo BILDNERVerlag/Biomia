@@ -1,7 +1,7 @@
 package de.biomia.sw.lobby;
 
 import de.biomia.sw.gamestates.GameState;
-import de.biomia.sw.main.SkyWarsMain;
+import de.biomia.sw.SkyWars;
 import de.biomia.sw.messages.ItemNames;
 import de.biomia.sw.messages.Messages;
 import de.biomia.sw.var.Scoreboards;
@@ -49,7 +49,7 @@ public class JoinTeam {
 
     public static void join(Player p, Team team) {
 
-        if (SkyWarsMain.gameState != GameState.LOBBY) {
+        if (SkyWars.gameState != GameState.LOBBY) {
             p.sendMessage("\u00A7cDas Spiel hat bereits begonnen!");
             return;
         }

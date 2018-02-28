@@ -1,7 +1,7 @@
 package de.biomia.bw.lobby;
 
 import de.biomia.bw.gamestates.GameState;
-import de.biomia.bw.main.BedWarsMain;
+import de.biomia.bw.BedWars;
 import de.biomia.bw.messages.ItemNames;
 import de.biomia.bw.messages.Messages;
 import de.biomia.bw.var.Scoreboards;
@@ -50,7 +50,7 @@ public class JoinTeam {
 
     public static void join(Player p, Team team) {
 
-        if (BedWarsMain.gameState != GameState.LOBBY) {
+        if (BedWars.gameState != GameState.LOBBY) {
             p.sendMessage("\u00A7cDas Spiel hat bereits begonnen!");
             return;
         }

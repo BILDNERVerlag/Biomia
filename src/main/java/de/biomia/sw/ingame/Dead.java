@@ -2,7 +2,7 @@ package de.biomia.sw.ingame;
 
 import de.biomia.sw.gamestates.GameState;
 import de.biomia.sw.gamestates.InGame;
-import de.biomia.sw.main.SkyWarsMain;
+import de.biomia.sw.SkyWars;
 import de.biomia.sw.var.Scoreboards;
 import de.biomia.sw.var.Variables;
 import de.biomia.api.Biomia;
@@ -59,7 +59,7 @@ public class Dead {
         Scoreboards.setSpectatorSB(target);
 
         // Check if only one or less Team(s) left
-        if (SkyWarsMain.gameState != GameState.END) {
+        if (SkyWars.gameState != GameState.END) {
 
             ArrayList<Team> livingTeams = new ArrayList<>();
             if (Variables.livingPlayer.size() <= 1) {

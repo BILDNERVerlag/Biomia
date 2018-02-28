@@ -1,7 +1,7 @@
 package de.biomia.sw.gamestates;
 
 import de.biomia.sw.kits.Kits;
-import de.biomia.sw.main.SkyWarsMain;
+import de.biomia.sw.SkyWars;
 import de.biomia.sw.var.Scoreboards;
 import de.biomia.sw.var.Teleport;
 import de.biomia.sw.var.Variables;
@@ -36,7 +36,7 @@ public class InGame {
 
         Bukkit.getPluginManager();
 
-        SkyWarsMain.gameState = GameState.WAITINGFORSTART;
+        SkyWars.gameState = GameState.WAITINGFORSTART;
         Main.getBukkitTimoapi().getThisServer().setState(GameState.INGAME.name());
 
 
@@ -62,7 +62,7 @@ public class InGame {
 
     public static void end() {
         clock.cancel();
-        SkyWarsMain.gameState = GameState.END;
+        SkyWars.gameState = GameState.END;
 
         ArrayList<BiomiaPlayer> biomiaPlayers = new ArrayList<>();
         for (Player p : Variables.livingPlayer) {

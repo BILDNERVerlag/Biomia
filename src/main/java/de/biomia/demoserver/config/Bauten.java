@@ -1,6 +1,6 @@
 package de.biomia.demoserver.config;
 
-import de.biomia.demoserver.main.WeltenlaborMain;
+import de.biomia.demoserver.Weltenlabor;
 import de.biomia.api.itemcreator.ItemCreator;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -22,13 +22,13 @@ public class Bauten {
 		setLoc(loc);
 		setMaterial(material);
 
-		WeltenlaborMain.bauten.add(this);
+		Weltenlabor.bauten.add(this);
 
 		ItemStack stack = ItemCreator.itemCreate(getMaterial(), getName());
 		ItemMeta meta = stack.getItemMeta();
 		meta.setLore(Collections.singletonList("S. " + getSeite()));
 		stack.setItemMeta(meta);
-		WeltenlaborMain.si.addItem(stack);
+		Weltenlabor.si.addItem(stack);
 	}
 
 	public String getName() {

@@ -1,11 +1,10 @@
 package de.biomia.quests.band1;
 
-import de.biomia.quests.main.QuestMain;
+import de.biomia.quests.Quests;
 import de.biomia.api.Biomia;
 import de.biomia.quests.QuestConditions.ItemConditions;
 import de.biomia.quests.QuestEvents.TakeItemEvent;
 import de.biomia.quests.general.*;
-import de.biomia.api.main.Main;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
@@ -62,7 +61,7 @@ public class Forsthilfe implements Listener {
 						break;
 					}
 				} else
-					QuestMain.restartQuestIfTimeOver(qp, q, startDialog, nachQuest);
+					Quests.restartQuestIfTimeOver(qp, q, startDialog, nachQuest);
 
 				qp.getDialog().execute(qp);
 			}

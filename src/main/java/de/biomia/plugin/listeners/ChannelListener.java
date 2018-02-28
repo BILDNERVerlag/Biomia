@@ -1,4 +1,4 @@
-package de.biomia.plugin.listener;
+package de.biomia.plugin.listeners;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;

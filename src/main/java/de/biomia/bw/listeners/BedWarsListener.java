@@ -14,7 +14,7 @@ import de.biomia.bw.gamestates.GameState;
 import de.biomia.bw.gamestates.InGame;
 import de.biomia.bw.ingame.Dead;
 import de.biomia.bw.lobby.JoinTeam;
-import de.biomia.bw.main.BedWarsMain;
+import de.biomia.bw.BedWars;
 import de.biomia.bw.messages.ItemNames;
 import de.biomia.bw.messages.Messages;
 import de.biomia.bw.shop.Shop;
@@ -55,7 +55,7 @@ public class BedWarsListener implements Listener {
         bp.setDamageEntitys(false);
         bp.setGetDamage(false);
 
-        if (BedWarsMain.gameState.equals(GameState.INGAME)) {
+        if (BedWars.gameState.equals(GameState.INGAME)) {
 
             // Hide
             for (Player all : Bukkit.getOnlinePlayers()) {
@@ -91,7 +91,7 @@ public class BedWarsListener implements Listener {
 
             p.teleport(new Location(Bukkit.getWorld(Variables.name), 0, 100, 0));
 
-        } else if (BedWarsMain.gameState.equals(GameState.LOBBY)) {
+        } else if (BedWars.gameState.equals(GameState.LOBBY)) {
 
             p.teleport(Variables.warteLobbySpawn);
 
@@ -126,7 +126,7 @@ public class BedWarsListener implements Listener {
     public void onLogin(PlayerLoginEvent e) {
         if (e.getResult().equals(PlayerLoginEvent.Result.KICK_FULL)) {
 
-            if (BedWarsMain.gameState.equals(GameState.LOBBY)) {
+            if (BedWars.gameState.equals(GameState.LOBBY)) {
 
                 String rank = Rank.getRank(e.getPlayer());
                 int i = Integer.valueOf(Rank.getRankID(rank));
@@ -143,7 +143,7 @@ public class BedWarsListener implements Listener {
                         }
                     });
                 }
-            } else if (BedWarsMain.gameState.equals(GameState.INGAME)) {
+            } else if (BedWars.gameState.equals(GameState.INGAME)) {
                 e.allow();
             }
         }
@@ -153,7 +153,7 @@ public class BedWarsListener implements Listener {
     public void onHungerSwitch(FoodLevelChangeEvent e) {
         if (e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
-            if (!BedWarsMain.gameState.equals(GameState.INGAME)) {
+            if (!BedWars.gameState.equals(GameState.INGAME)) {
                 p.setFoodLevel(20);
                 e.setCancelled(true);
             } else if (!Variables.livingPlayer.contains(p)) {
@@ -166,7 +166,7 @@ public class BedWarsListener implements Listener {
     @EventHandler
     public void onDrop(PlayerDropItemEvent e) {
         Player p = e.getPlayer();
-        if (!BedWarsMain.gameState.equals(GameState.INGAME)) {
+        if (!BedWars.gameState.equals(GameState.INGAME)) {
             e.setCancelled(true);
         } else if (!Variables.livingPlayer.contains(p)) {
             e.setCancelled(true);
@@ -177,7 +177,7 @@ public class BedWarsListener implements Listener {
     public void onPickUp(EntityPickupItemEvent e) {
         if (e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
-            if (!BedWarsMain.gameState.equals(GameState.INGAME)) {
+            if (!BedWars.gameState.equals(GameState.INGAME)) {
                 e.setCancelled(true);
             } else if (!Variables.livingPlayer.contains(p)) {
                 e.setCancelled(true);
@@ -187,7 +187,7 @@ public class BedWarsListener implements Listener {
 
     @EventHandler
     public void onPlayerSwap(PlayerSwapHandItemsEvent e) {
-        if (!BedWarsMain.gameState.equals(GameState.INGAME)) {
+        if (!BedWars.gameState.equals(GameState.INGAME)) {
             e.setCancelled(true);
         } else if (!Variables.livingPlayer.contains(e.getPlayer())) {
             e.setCancelled(true);
@@ -228,7 +228,7 @@ public class BedWarsListener implements Listener {
 
         Player p = e.getPlayer();
 
-        if (BedWarsMain.gameState == GameState.INGAME) {
+        if (BedWars.gameState == GameState.INGAME) {
 
             if (Biomia.TeamManager().isPlayerInAnyTeam(p)) {
 
@@ -248,7 +248,7 @@ public class BedWarsListener implements Listener {
     @EventHandler
     public void onProjectileThrow(ProjectileLaunchEvent event) {
 
-        if (!(BedWarsMain.gameState == GameState.INGAME)) {
+        if (!(BedWars.gameState == GameState.INGAME)) {
             event.setCancelled(true);
         }
     }
@@ -376,7 +376,7 @@ public class BedWarsListener implements Listener {
 
         Player p = e.getPlayer();
 
-        if (BedWarsMain.gameState.equals(GameState.INGAME)) {
+        if (BedWars.gameState.equals(GameState.INGAME)) {
             // Check if Player is instatnce of the act round
             if (Variables.livingPlayer.contains(p)) {
                 Variables.livingPlayer.remove(p);
@@ -401,7 +401,7 @@ public class BedWarsListener implements Listener {
                 }
 
             }
-        } else if (BedWarsMain.gameState.equals(GameState.LOBBY)) {
+        } else if (BedWars.gameState.equals(GameState.LOBBY)) {
             // Remove Player from Team
             if (Biomia.TeamManager().isPlayerInAnyTeam(p)) {
                 Scoreboards.lobbySB.getTeam("0" + Biomia.TeamManager().getTeam(p).getTeamname())
@@ -417,7 +417,7 @@ public class BedWarsListener implements Listener {
             Player p = (Player) e.getEntity();
             if (e.getDamager() instanceof Player) {
                 Player killer = (Player) e.getDamager();
-                if (!BedWarsMain.gameState.equals(GameState.INGAME)) {
+                if (!BedWars.gameState.equals(GameState.INGAME)) {
                     e.setCancelled(true);
                     return;
                 }
@@ -452,14 +452,14 @@ public class BedWarsListener implements Listener {
     @EventHandler
     public void onSignChange(SignChangeEvent e) {
 
-        if (e.getPlayer().hasPermission("biomia.leaderboard") && BedWarsMain.gameState != GameState.INGAME) {
+        if (e.getPlayer().hasPermission("biomia.leaderboard") && BedWars.gameState != GameState.INGAME) {
             if (e.getLine(0).equalsIgnoreCase("leaderboard")) {
 
                 String second = e.getLine(1);
-                int i = 0;
+                //  int i = 0;
                 try {
                     second = second.replaceAll(" ", "");
-                    i = Integer.valueOf(second);
+                    //        i = Integer.valueOf(second);
                 } catch (Exception ex) {
                     e.getPlayer().sendMessage(Messages.fillSecondLine);
                 }
@@ -508,7 +508,7 @@ public class BedWarsListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void cancelInvClick(InventoryClickEvent ie) {
 
-        if (!BedWarsMain.gameState.equals(GameState.INGAME)) {
+        if (!BedWars.gameState.equals(GameState.INGAME)) {
             if (ie.getCurrentItem() != null) {
                 Material t = ie.getCurrentItem().getType();
                 Player p = (Player) ie.getWhoClicked();
@@ -594,7 +594,7 @@ public class BedWarsListener implements Listener {
         if (p.hasPermission("biomia.coloredchat"))
             msg = ChatColor.translateAlternateColorCodes('&', e.getMessage());
 
-        if (BedWarsMain.gameState.equals(GameState.INGAME)) {
+        if (BedWars.gameState.equals(GameState.INGAME)) {
 
             Team t = Biomia.TeamManager().getTeam(p);
 
@@ -639,7 +639,7 @@ public class BedWarsListener implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
 
-        if (BedWarsMain.gameState == GameState.INGAME) {
+        if (BedWars.gameState == GameState.INGAME) {
             if (e.getTo().getBlockY() <= 0) {
                 e.getPlayer().setHealth(0);
                 return;

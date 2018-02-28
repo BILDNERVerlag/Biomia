@@ -1,6 +1,6 @@
 package de.biomia.lobby.events;
 
-import de.biomia.lobby.main.LobbyMain;
+import de.biomia.lobby.Lobby;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -18,23 +18,23 @@ public class DoubleJump implements Listener {
         Player p = e.getPlayer();
         if (p.getGameMode() != GameMode.CREATIVE) {
             e.setCancelled(true);
-            if (!LobbyMain.getInAir().contains(p)) {
+            if (!Lobby.getInAir().contains(p)) {
                 p.setFlying(false);
                 p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_LARGE_BLAST, 1, 0);
                 Vector jump = p.getLocation().getDirection().multiply(2.6D).setY(1.2);
                 p.setVelocity(p.getVelocity().add(jump));
                 p.setAllowFlight(false);
-                LobbyMain.getInAir().add(p);
+                Lobby.getInAir().add(p);
             }
         }
     }
 
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
-        if (LobbyMain.getInAir().contains(e.getPlayer())) {
+        if (Lobby.getInAir().contains(e.getPlayer())) {
             if (e.getPlayer().isOnGround()) {
                 e.getPlayer().setAllowFlight(true);
-                LobbyMain.getInAir().remove(e.getPlayer());
+                Lobby.getInAir().remove(e.getPlayer());
             }
         }
     }

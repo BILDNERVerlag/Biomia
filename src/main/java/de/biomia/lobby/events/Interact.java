@@ -1,6 +1,6 @@
 package de.biomia.lobby.events;
 
-import de.biomia.lobby.main.LobbyMain;
+import de.biomia.lobby.Lobby;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.api.cosmetics.mystery.MysteryChest;
@@ -25,10 +25,10 @@ public class Interact implements Listener {
             if (itemstack.hasItemMeta()) {
                 if ((itemstack.getType().equals(Material.COMPASS)
                         && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7cNavigator"))) {
-                    pl.openInventory(LobbyMain.getNavigator());
+                    pl.openInventory(Lobby.getNavigator());
                 } else if ((itemstack.getType().equals(Material.NETHER_STAR)
                         && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7dLobby Switcher"))) {
-                    pl.openInventory(LobbyMain.getLobbySwitcher());
+                    pl.openInventory(Lobby.getLobbySwitcher());
                 } else if ((itemstack.getType().equals(Material.FIREBALL)
                         && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7cSilent Lobby:\u00A78 Off"))) {
                     pl.getInventory().setItem(6,
@@ -38,18 +38,18 @@ public class Interact implements Listener {
                         p.hidePlayer(pl);
                         pl.hidePlayer(p);
                     }
-                    LobbyMain.getSilentLobby().add(pl);
+                    Lobby.getSilentLobby().add(pl);
 
                 } else if ((itemstack.getType().equals(Material.FIREWORK_CHARGE)
                         && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7aSilent Lobby:\u00A78 On"))) {
                     pl.getInventory().setItem(6, ItemCreator.itemCreate(Material.FIREBALL, "\u00A7cSilent Lobby:\u00A78 Off"));
                     for (Player p : Bukkit.getOnlinePlayers()) {
-                        if (!LobbyMain.getSilentLobby().contains(p)) {
+                        if (!Lobby.getSilentLobby().contains(p)) {
                             p.showPlayer(pl);
                             pl.showPlayer(p);
                         }
                     }
-                    LobbyMain.getSilentLobby().remove(pl);
+                    Lobby.getSilentLobby().remove(pl);
                 } else if ((itemstack.getType().equals(Material.CHEST)
                         && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7eCosmetics"))) {
                     de.biomia.api.cosmetics.Cosmetic.openMainInventory(Biomia.getBiomiaPlayer(pl));

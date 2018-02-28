@@ -1,7 +1,7 @@
 package de.biomia.bw.gamestates;
 
 import de.biomia.bw.listeners.SpawnItems;
-import de.biomia.bw.main.BedWarsMain;
+import de.biomia.bw.BedWars;
 import de.biomia.bw.var.Scoreboards;
 import de.biomia.bw.var.Teleport;
 import de.biomia.bw.var.Variables;
@@ -36,7 +36,7 @@ public class InGame {
 
 
         Main.getBukkitTimoapi().getThisServer().setState(GameState.INGAME.name());
-        BedWarsMain.gameState = GameState.INGAME;
+        BedWars.gameState = GameState.INGAME;
 
         HashMap<BiomiaPlayer, String> biomiaPlayerTeams = new HashMap<>();
 
@@ -72,7 +72,7 @@ public class InGame {
         clock.cancel();
         ArrayList<BiomiaPlayer> biomiaPlayersWinner = new ArrayList<>();
 
-        BedWarsMain.gameState = GameState.END;
+        BedWars.gameState = GameState.END;
         SpawnItems.stopSpawning();
         for (Player p : Variables.livingPlayer) {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);

@@ -1,4 +1,4 @@
-package de.biomia.freebuild.main;
+package de.biomia.freebuild;
 
 import de.biomia.freebuild.commands.BuildForAllCommand;
 import de.biomia.freebuild.commands.RespawnCommand;
@@ -6,21 +6,22 @@ import de.biomia.freebuild.home.Home;
 import de.biomia.freebuild.home.commands.*;
 import de.biomia.freebuild.home.homes.HomeManager;
 import de.biomia.api.main.Main;
+import de.biomia.freebuild.listeners.FreebuildListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
-public class FreebuildMain{
+public class Freebuild {
 
 	private static Home home;
 
-	public static void initFreebuild() {
+	public static void init() {
 		home = new Home();
 		home.onEnable();
 		registerEvents();
 		loadListeners();
 	}
 	
-	public static void terminateFreebuild() {
+	public static void terminate() {
 		home.terminateHomes();
 	}
 	

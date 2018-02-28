@@ -1,4 +1,4 @@
-package de.biomia.bw.main;
+package de.biomia.bw;
 
 import de.biomia.bw.commands.BW;
 import de.biomia.bw.gamestates.GameState;
@@ -15,11 +15,11 @@ import de.biomia.api.main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 
-public class BedWarsMain {
+public class BedWars {
 
     public static GameState gameState = GameState.LOBBY;
 
-    public static void initBedWars() {
+    public static void init() {
 
         Main.getPlugin().getServer().createWorld(new WorldCreator(Variables.name));
 
@@ -37,21 +37,21 @@ public class BedWarsMain {
 
         Shop.init();
 
-        initListener();
-        initCommands();
+        loadListeners();
+        registerCommands();
 
         Variables.teamJoiner = JoinTeam.getTeamSwitcher();
         InLobby.start();
     }
 
-    private static void initListener() {
+    private static void loadListeners() {
         Bukkit.getPluginManager().registerEvents(new BedWarsListener(), Main.getPlugin());
         Bukkit.getPluginManager().registerEvents(new BedListener(), Main.getPlugin());
         Bukkit.getPluginManager().registerEvents(new SpecialItems(), Main.getPlugin());
 
     }
 
-    private static void initCommands() {
+    private static void registerCommands() {
         Main.getPlugin().getCommand("bw").setExecutor(new BW());
     }
 }

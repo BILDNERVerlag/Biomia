@@ -5,7 +5,7 @@ import de.biomia.api.msg.ActionBar;
 import de.biomia.quests.general.DialogMessage;
 import de.biomia.quests.general.Quest;
 import de.biomia.quests.general.QuestPlayer;
-import de.biomia.quests.main.NPCManager;
+import de.biomia.quests.general.NPCManager;
 import de.biomia.quests.messages.Messages;
 import net.citizensnpcs.api.ai.GoalController;
 import net.citizensnpcs.api.ai.goals.WanderGoal;

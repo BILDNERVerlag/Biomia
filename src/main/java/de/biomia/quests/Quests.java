@@ -1,7 +1,8 @@
-package de.biomia.quests.main;
+package de.biomia.quests;
 
 import de.biomia.quests.band1.*;
 import de.biomia.quests.commands.QuestCommands;
+import de.biomia.quests.general.NPCManager;
 import de.biomia.quests.listeners.QuestListener;
 import de.biomia.quests.general.DialogMessage;
 import de.biomia.quests.general.Quest;
@@ -13,7 +14,7 @@ import org.bukkit.plugin.PluginManager;
 
 import static de.biomia.api.main.Main.getPlugin;
 
-public class QuestMain {
+public class Quests {
 
     public static void initQuests() {
 

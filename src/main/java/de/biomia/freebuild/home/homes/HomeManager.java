@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class HomeManager {
     private final HomeFileManager fileManager;
-    private final Map<Integer, Map<String, Location>> loadedHomes;
+    private final HashMap<Integer, HashMap<String, Location>> loadedHomes;
 
 
     public HomeManager(HomeFileManager fileManager) {
@@ -51,18 +51,18 @@ public class HomeManager {
         Integer biomiaID = Biomia.getBiomiaPlayer(player).getBiomiaPlayerID();
         Location location = player.getLocation();
 
-        Map<String, Location> homeLocation = loadedHomes.get(biomiaID);
+        HashMap<String, Location> homeLocation = loadedHomes.get(biomiaID);
         if (homeLocation == null) {
             homeLocation = new HashMap();
         }
         homeLocation.put(homeName.toLowerCase(), location);
-        loadedHomes.put(biomiaID, homeLocation);
+        loadedHomes.put(biomiaID, (HashMap<String, Location>) homeLocation);
 
         saveHomeToFile(biomiaID, location, homeName);
     }
 
     public void deleteHome(Integer biomiaID, String homeName) {
-        Map homeLocations = loadedHomes.get(biomiaID);
+        HashMap homeLocations = loadedHomes.get(biomiaID);
         if (homeLocations != null) {
             homeLocations.remove(homeName.toLowerCase());
             loadedHomes.put(biomiaID, homeLocations);
@@ -75,7 +75,7 @@ public class HomeManager {
     public void loadPlayerHomes(Integer biomiaID) {
         ConfigurationSection homes = fileManager.getHomes().getConfigurationSection(biomiaID.toString());
         if (homes != null) {
-            Map<String, Location> homeLocation = new HashMap();
+            HashMap<String, Location> homeLocation = new HashMap();
 
             for (String homeName : homes.getKeys(false)) {
                 ConfigurationSection home = homes.getConfigurationSection(homeName);
@@ -128,9 +128,9 @@ public class HomeManager {
         return homeLocation.get(homeName.toLowerCase());
     }
 
-    public Map<String, Location> getPlayerHomes(Integer biomiaID) {
+    public HashMap getPlayerHomes(Integer biomiaID) {
         if (loadedHomes.containsKey(biomiaID)) {
-            return loadedHomes.get(biomiaID);
+            return (HashMap) loadedHomes.get(biomiaID);
         }
         loadPlayerHomes(biomiaID);
         HashMap playerHomes = (HashMap) loadedHomes.get(biomiaID);
@@ -138,7 +138,7 @@ public class HomeManager {
         return playerHomes;
     }
 
-    public Map<Integer, Map<String, Location>> getHomes() {
+    public HashMap<Integer, HashMap<String, Location>> getHomes() {
         return loadedHomes;
     }
 }

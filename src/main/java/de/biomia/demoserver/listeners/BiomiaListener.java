@@ -3,8 +3,8 @@ package de.biomia.demoserver.listeners;
 import de.biomia.demoserver.config.Bauten;
 import de.biomia.demoserver.config.Config;
 import de.biomia.demoserver.config.Teleporter;
-import de.biomia.demoserver.main.ScrollingInventory;
-import de.biomia.demoserver.main.WeltenlaborMain;
+import de.biomia.demoserver.ScrollingInventory;
+import de.biomia.demoserver.Weltenlabor;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.api.msg.Scoreboards;
@@ -105,7 +105,7 @@ public class BiomiaListener implements Listener {
                 ie.setCursor(new ItemStack(Material.AIR));
             }
 
-            for (Bauten b : WeltenlaborMain.bauten) {
+            for (Bauten b : Weltenlabor.bauten) {
                 if (t.equals(b.getMaterial())
                         && ie.getCurrentItem().getItemMeta().getDisplayName().equals(b.getName())) {
                     p.teleport(b.getLoc());
@@ -122,7 +122,7 @@ public class BiomiaListener implements Listener {
     public void onInteract(PlayerInteractEvent e) {
         if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK))
             if (e.getItem() != null && e.getItem().getItemMeta().getDisplayName().equals("\u00A7dTeleporter")) {
-                WeltenlaborMain.si.openCopy(e.getPlayer());
+                Weltenlabor.si.openCopy(e.getPlayer());
                 e.setCancelled(true);
 
             }
