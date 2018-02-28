@@ -9,9 +9,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Coins extends  BiomiaCommand {
+public class CoinsCommand extends  BiomiaCommand {
 
-    public Coins() {
+    public CoinsCommand() {
         super("coins");
     }
 

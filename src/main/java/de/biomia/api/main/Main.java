@@ -95,7 +95,7 @@ public class Main extends JavaPlugin {
 
         ReportSQL.getAllReports();
 
-        //TODO: enable
+        //TODO: Osterevent nach Fertigstellung freischalten
         //event = new EasterEvent();
 
         for (Player p : Bukkit.getOnlinePlayers()) {
@@ -185,7 +185,7 @@ public class Main extends JavaPlugin {
                 Freebuild.init();
                 break;
             case "FarmServer":
-                //TODO
+                //TODO Farmserver existiert noch nicht
                 break;
             default:
                 break;
@@ -228,7 +228,7 @@ public class Main extends JavaPlugin {
                 Freebuild.terminate();
                 break;
             case "FarmServer":
-                //TODO
+                //TODO Farmserver existiert noch nicht
                 break;
             case "Weltenlabor#1":
                 Weltenlabor.init();
@@ -270,18 +270,18 @@ public class Main extends JavaPlugin {
         getCommand("permission").setExecutor(new PermissionCommand());
         getCommand("rank").setExecutor(new RankCommand());
         getCommand("hologram").setExecutor(new HologramCommand());
-        getCommand("troll").setExecutor(new Troll());
-        getCommand("crash").setExecutor(new Troll());
-        getCommand("gm").setExecutor(new Gamemode());
+        getCommand("troll").setExecutor(new TrollCommand());
+        getCommand("crash").setExecutor(new TrollCommand());
+        getCommand("gm").setExecutor(new GamemodeCommand());
         getCommand("report").setExecutor(new ReportCommand());
         getCommand("seereports").setExecutor(new ReportCommand());
         getCommand("fly").setExecutor(new FlyCommand());
         getCommand("speed").setExecutor(new SpeedCommand());
         getCommand("heal").setExecutor(new HealCommand());
         getCommand("eat").setExecutor(new EatCommand());
-        getCommand("memory").setExecutor(new Memory());
-        getCommand("cosmetic").setExecutor(new de.biomia.plugin.commands.Cosmetic());
-        getCommand("head").setExecutor(new Head());
+        getCommand("memory").setExecutor(new MemoryCommand());
+        getCommand("cosmetic").setExecutor(new CosmeticCommand());
+        getCommand("head").setExecutor(new HeadCommand());
         getCommand("stat").setExecutor(new StatCommand());
         getCommand("ct").setExecutor(new CreateTableCommand());
         getCommand("givereward").setExecutor(new EventCommands());

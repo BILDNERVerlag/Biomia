@@ -13,9 +13,6 @@ public class Achievements {
 
     //ASSOCIATED ENUM
 
-    public enum BiomiaAchievement {
-        LogDichFuenfmalAufDemQuestServerEin, VerdieneFuenftausendCoins
-    }
 
     //CONSTRUCTOR
 
@@ -35,6 +32,8 @@ public class Achievements {
     public static void init() {
         new Achievements(BiomiaAchievement.VerdieneFuenftausendCoins, Stats.BiomiaStat.CoinsAccumulated, 5000, "Sparfuchs")
                 .setDescription("Verdiene insgesamt mindestens 5000 BC.");
+        new Achievements(BiomiaAchievement.OeffneZehnTruhen, Stats.BiomiaStat.ChestsOpened, 10, "Truhenöffner")
+                .setDescription("Öffne zehn Truhen.");
     }
 
     //SETTER AND GETTER
@@ -59,3 +58,4 @@ public class Achievements {
         return value;
     }
 }
+

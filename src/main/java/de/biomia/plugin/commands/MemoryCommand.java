@@ -6,7 +6,7 @@ import org.bukkit.command.CommandSender;
 
 import java.text.NumberFormat;
 
-public class Memory implements CommandExecutor {
+public class MemoryCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command arg1, String arg2, String[] args) {
