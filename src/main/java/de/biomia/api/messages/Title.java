@@ -1,4 +1,4 @@
-package de.biomia.api.msg;
+package de.biomia.api.messages;
 
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.server.v1_12_R1.IChatBaseComponent;

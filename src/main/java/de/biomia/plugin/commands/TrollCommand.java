@@ -2,7 +2,7 @@ package de.biomia.plugin.commands;
 
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
-import de.biomia.api.msg.Messages;
+import de.biomia.api.messages.Messages;
 import net.minecraft.server.v1_12_R1.EntityPlayer;
 import net.minecraft.server.v1_12_R1.PacketPlayOutExplosion;
 import net.minecraft.server.v1_12_R1.Vec3D;

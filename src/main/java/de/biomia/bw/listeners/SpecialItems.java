@@ -8,7 +8,7 @@ import de.biomia.bw.var.*;
 import de.biomia.api.Biomia;
 import de.biomia.api.Teams.Team;
 import de.biomia.api.main.Main;
-import de.biomia.api.msg.ActionBar;
+import de.biomia.api.messages.ActionBar;
 import net.minecraft.server.v1_12_R1.AttributeInstance;
 import net.minecraft.server.v1_12_R1.EnumParticle;
 import net.minecraft.server.v1_12_R1.GenericAttributes;

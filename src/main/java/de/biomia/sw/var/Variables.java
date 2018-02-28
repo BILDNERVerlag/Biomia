@@ -5,7 +5,7 @@ import de.biomia.sw.listeners.CountDown;
 import de.biomia.sw.messages.ItemNames;
 import de.biomia.api.Teams.Team;
 import de.biomia.api.itemcreator.ItemCreator;
-import de.biomia.api.msg.Messages;
+import de.biomia.api.messages.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;

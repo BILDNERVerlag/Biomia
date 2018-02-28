@@ -11,7 +11,7 @@ import de.biomia.api.BiomiaPlayer;
 import de.biomia.api.Teams.Team;
 import de.biomia.api.itemcreator.ItemCreator;
 import de.biomia.api.main.Main;
-import de.biomia.api.msg.ActionBar;
+import de.biomia.api.messages.ActionBar;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

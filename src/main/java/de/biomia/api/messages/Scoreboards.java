@@ -1,4 +1,4 @@
-package de.biomia.api.msg;
+package de.biomia.api.messages;
 
 import de.biomia.api.main.Main;
 import de.biomia.api.pex.Rank;

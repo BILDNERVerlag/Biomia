@@ -1,4 +1,4 @@
-package de.biomia.api.msg;
+package de.biomia.api.messages;
 
 import net.minecraft.server.v1_12_R1.IChatBaseComponent;
 import net.minecraft.server.v1_12_R1.IChatBaseComponent.ChatSerializer;

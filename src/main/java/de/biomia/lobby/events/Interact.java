@@ -5,7 +5,7 @@ import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.api.cosmetics.mystery.MysteryChest;
 import de.biomia.api.itemcreator.ItemCreator;
-import de.biomia.api.msg.Messages;
+import de.biomia.api.messages.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

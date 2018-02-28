@@ -7,7 +7,7 @@ import de.biomia.demoserver.ScrollingInventory;
 import de.biomia.demoserver.Weltenlabor;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
-import de.biomia.api.msg.Scoreboards;
+import de.biomia.api.messages.Scoreboards;
 import de.biomia.api.mysql.MySQL;
 import de.biomia.api.pex.Rank;
 import de.biomia.api.tools.BackToLobby;

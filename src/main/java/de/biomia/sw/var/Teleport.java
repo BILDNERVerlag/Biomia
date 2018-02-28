@@ -4,7 +4,7 @@ import de.biomia.sw.gamestates.GameState;
 import de.biomia.sw.SkyWars;
 import de.biomia.api.Biomia;
 import de.biomia.api.main.Main;
-import de.biomia.api.msg.ActionBar;
+import de.biomia.api.messages.ActionBar;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;

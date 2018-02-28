@@ -17,4 +17,5 @@ public class BiomiaCommand extends BukkitCommand {
     public boolean execute(CommandSender sender, String label, String[] args) {
         return true;
     }
+
 }

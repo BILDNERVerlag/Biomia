@@ -4,7 +4,7 @@ import de.biomia.versus.vs.main.VSMain;
 import de.biomia.versus.vs.settings.VSRequest;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
-import de.biomia.api.msg.Messages;
+import de.biomia.api.messages.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

@@ -13,7 +13,7 @@ import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.api.itemcreator.ItemCreator;
 import de.biomia.api.main.Main;
-import de.biomia.api.msg.ActionBar;
+import de.biomia.api.messages.ActionBar;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;

@@ -1,6 +1,6 @@
 package de.biomia.lobby.events;
 
-import de.biomia.api.msg.Messages;
+import de.biomia.api.messages.Messages;
 import de.biomia.lobby.Lobby;
 import de.biomia.lobby.scoreboard.ChatColors;
 import de.biomia.lobby.scoreboard.ScoreboardClass;

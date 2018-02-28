@@ -1,6 +1,6 @@
 package de.biomia.plugin.commands;
 
-import de.biomia.api.msg.Messages;
+import de.biomia.api.messages.Messages;
 import de.biomia.api.pex.Permission;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

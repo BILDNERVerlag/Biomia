@@ -5,7 +5,7 @@ import de.biomia.demoserver.config.Bauten;
 import de.biomia.demoserver.config.Config;
 import de.biomia.demoserver.listeners.BiomiaListener;
 import de.biomia.api.main.Main;
-import de.biomia.api.msg.Scoreboards;
+import de.biomia.api.messages.Scoreboards;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

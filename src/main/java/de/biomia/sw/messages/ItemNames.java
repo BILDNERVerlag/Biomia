@@ -1,6 +1,6 @@
 package de.biomia.sw.messages;
 
-import de.biomia.api.msg.SpecialCharacters;
+import de.biomia.api.messages.SpecialCharacters;
 
 import java.util.ArrayList;
 import java.util.Arrays;

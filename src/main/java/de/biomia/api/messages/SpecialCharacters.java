@@ -1,4 +1,4 @@
-package de.biomia.api.msg;
+package de.biomia.api.messages;
 
 public class SpecialCharacters {
 

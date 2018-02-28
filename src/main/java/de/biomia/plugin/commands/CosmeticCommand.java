@@ -16,10 +16,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
 
-public class CosmeticCommand implements CommandExecutor {
+public class CosmeticCommand extends BiomiaCommand {
+
+    public CosmeticCommand() {
+        super("cosmetic");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
 
         if (sender instanceof Player) {
             Player p = (Player) sender;

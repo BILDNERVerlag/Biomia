@@ -5,7 +5,7 @@ import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.api.connect.Connect;
 import de.biomia.api.main.Main;
-import de.biomia.api.msg.Scoreboards;
+import de.biomia.api.messages.Scoreboards;
 import de.biomia.api.pex.Rank;
 import de.biomia.api.tools.InventorySave;
 import net.md_5.bungee.api.ChatColor;

@@ -267,6 +267,10 @@ public class Main extends JavaPlugin {
     }
 
     private void registerCommands() {
+        registerCommand(new CosmeticCommand());
+        registerCommand(new BuildCommand());
+        registerCommand(new CoinsCommand());
+
         getCommand("permission").setExecutor(new PermissionCommand());
         getCommand("rank").setExecutor(new RankCommand());
         getCommand("hologram").setExecutor(new HologramCommand());
@@ -280,11 +284,14 @@ public class Main extends JavaPlugin {
         getCommand("heal").setExecutor(new HealCommand());
         getCommand("eat").setExecutor(new EatCommand());
         getCommand("memory").setExecutor(new MemoryCommand());
-        getCommand("cosmetic").setExecutor(new CosmeticCommand());
         getCommand("head").setExecutor(new HeadCommand());
         getCommand("stat").setExecutor(new StatCommand());
         getCommand("ct").setExecutor(new CreateTableCommand());
         getCommand("givereward").setExecutor(new EventCommands());
         getCommand("addeggs").setExecutor(new EventCommands());
+    }
+
+    public void registerCommand(BiomiaCommand biomiaCommand) {
+        ((CraftServer) Bukkit.getServer()).getCommandMap().register(biomiaCommand.getName(), biomiaCommand);
     }
 }
