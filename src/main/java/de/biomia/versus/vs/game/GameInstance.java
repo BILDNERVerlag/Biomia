@@ -82,8 +82,7 @@ public class GameInstance {
         Bukkit.unloadWorld(world, false);
         try {
             FileUtils.deleteDirectory(world.getWorldFolder());
-        } catch (IOException e) {
-            //TODO: ?
+        } catch (IOException ignored) {
         }
     }
 }
