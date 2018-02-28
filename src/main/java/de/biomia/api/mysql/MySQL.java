@@ -100,19 +100,59 @@ public class MySQL {
         return null;
     }
 
-    private static void closeQuietly(ResultSet rs, PreparedStatement ps) {
-        //TODO: implement in every method
-        try {
-            if (rs != null) rs.close();
-        } catch (Exception ignored) {
+    public static int executeQuerygetint(String cmd, String gettingspalte, Databases db) {
+        Connection con = Connect(db);
+        int i = -1;
+        if (con != null) {
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            try {
+                ps = con.prepareStatement(cmd);
+                rs = ps.executeQuery();
+                if (rs.next())
+                    i = rs.getInt(gettingspalte);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                closeQuietly(rs, ps);
+            }
         }
-        try {
-            if (ps != null) ps.close();
-        } catch (Exception ignored) {
+        return i;
+    }
+
+    public static boolean executeUpdate(String cmd, Databases db) {
+        Connection con = Connect(db);
+
+        if (con != null) {
+            PreparedStatement ps = null;
+            try {
+                ps = con.prepareStatement(cmd);
+                ps.executeUpdate();
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                closeQuietly(null, ps);
+            }
+        }
+        return false;
+    }
+
+    private static void executeStatement(String cmd, Connection con) {
+        if (con != null) {
+            PreparedStatement ps = null;
+            try {
+                ps = con.prepareStatement(cmd);
+                ps.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                closeQuietly(null, ps);
+            }
         }
     }
 
-//    public static boolean executeQuerygetbool(String cmd, String gettingspalte, Databases db) {
+    //public static boolean executeQuerygetbool(String cmd, String gettingspalte, Databases db) {
 //        Connection con = Connect(db);
 //
 //        if (con != null) {
@@ -133,49 +173,15 @@ public class MySQL {
 //        return false;
 //    }
 
-    public static int executeQuerygetint(String cmd, String gettingspalte, Databases db) {
-        Connection con = Connect(db);
-        int i = -1;
-        if (con != null) {
-            try {
-                PreparedStatement sql = con.prepareStatement(cmd);
-                ResultSet rs = sql.executeQuery();
-                if (rs.next())
-                    i = rs.getInt(gettingspalte);
-                rs.close();
-                sql.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+    private static void closeQuietly(ResultSet rs, PreparedStatement ps) {
+        try {
+            if (rs != null) rs.close();
+        } catch (Exception ignored) {
         }
-        return i;
-    }
-
-    public static boolean executeUpdate(String cmd, Databases db) {
-        Connection con = Connect(db);
-
-        if (con != null) {
-            try {
-                PreparedStatement sql = con.prepareStatement(cmd);
-                sql.executeUpdate();
-                sql.close();
-                return true;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
-    }
-
-    private static void executeStatement(String cmd, Connection con) {
-        if (con != null) {
-            try {
-                PreparedStatement sql = con.prepareStatement(cmd);
-                sql.execute();
-                sql.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        try {
+            if (ps != null) ps.close();
+        } catch (Exception ignored) {
         }
     }
+
 }

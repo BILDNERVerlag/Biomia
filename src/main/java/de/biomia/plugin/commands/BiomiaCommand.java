@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class BiomiaCommand extends BukkitCommand {
 
-    //TODO extend in every CommandClass (see Build class)
+    //TODO extend in every CommandClass (see BuildCommand class)
 
     public BiomiaCommand(String command, String... args) {
         super(command, "", "", Arrays.asList(args));
