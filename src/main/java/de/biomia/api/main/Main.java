@@ -43,7 +43,7 @@ import java.util.HashMap;
 
 public class Main extends JavaPlugin {
 
-    //TODO Klassenname \u00fcndern
+    //TODO Klassenname ändern
     public static Inventory menu;
     public static Inventory grund;
 
@@ -81,8 +81,6 @@ public class Main extends JavaPlugin {
 
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         Bukkit.getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new Connect());
-        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "RedisBungee");
-        Bukkit.getMessenger().registerIncomingPluginChannel(this, "RedisBungee", new Connect());
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BiomiaChannel");
         Bukkit.getMessenger().registerIncomingPluginChannel(this, "BiomiaChannel", new Connect());
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BiomiaChannel");
@@ -233,8 +231,8 @@ public class Main extends JavaPlugin {
                 //TODO
                 break;
             case "Weltenlabor#1":
+                WeltenlaborMain.initWeltenlabor();
                 break;
-            //TODO
             default:
                 break;
         }
@@ -271,8 +269,6 @@ public class Main extends JavaPlugin {
     private void registerCommands() {
         getCommand("permission").setExecutor(new PermissionCommand());
         getCommand("rank").setExecutor(new RankCommand());
-        getCommand("build").setExecutor(new Build());
-        getCommand("coins").setExecutor(new Coins());
         getCommand("hologram").setExecutor(new HologramCommand());
         getCommand("troll").setExecutor(new Troll());
         getCommand("crash").setExecutor(new Troll());

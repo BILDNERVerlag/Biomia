@@ -2,7 +2,7 @@ package de.biomia.lobby.main;
 
 import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.api.itemcreator.ItemCreator;
-import de.biomia.api.lastPosition.LastPositionListener;
+import de.biomia.api.tools.LastPositionListener;
 import de.biomia.api.main.Main;
 import de.biomia.api.tools.Teleporter;
 import de.biomia.lobby.commands.LobbyComands;

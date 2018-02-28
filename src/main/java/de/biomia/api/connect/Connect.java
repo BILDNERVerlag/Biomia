@@ -96,26 +96,6 @@ public class Connect implements PluginMessageListener {
         return null;
     }
 
-    public static void getOnlinePlayers() {
-
-        ByteArrayOutputStream b = new ByteArrayOutputStream();
-        DataOutputStream out = new DataOutputStream(b);
-
-        try {
-            out.writeUTF("PlayerList");
-            out.writeUTF("ALL");
-        } catch (IOException ignored) {
-
-        }
-
-        Player player;
-
-        if (!Bukkit.getOnlinePlayers().isEmpty()) {
-            player = Bukkit.getOnlinePlayers().iterator().next();
-            player.sendPluginMessage(Main.plugin, "RedisBungee", b.toByteArray());
-        }
-    }
-
     public static void teleport(Player p, String zielName) {
 
         ByteArrayOutputStream b = new ByteArrayOutputStream();
@@ -139,7 +119,7 @@ public class Connect implements PluginMessageListener {
     @Override
     public void onPluginMessageReceived(String channel, Player player, byte[] message) {
 
-        if (!channel.equalsIgnoreCase("RedisBungee") && !channel.equalsIgnoreCase("BiomiaChannel"))
+        if (!channel.equalsIgnoreCase("BiomiaChannel"))
             return;
         ByteArrayDataInput in = ByteStreams.newDataInput(message);
         String subchannel = in.readUTF();

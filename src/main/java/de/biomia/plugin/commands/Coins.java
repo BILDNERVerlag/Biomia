@@ -9,10 +9,14 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Coins implements CommandExecutor {
+public class Coins extends  BiomiaCommand {
+
+    public Coins() {
+        super("coins");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
         if (sender instanceof Player) {
             BiomiaPlayer p = Biomia.getBiomiaPlayer((Player) sender);
             if (args.length == 0) {

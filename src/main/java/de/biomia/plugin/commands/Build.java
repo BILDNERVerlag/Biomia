@@ -10,11 +10,14 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Build implements CommandExecutor {
+public class Build extends BiomiaCommand {
+
+    public Build() {
+        super("build");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) {
-
+    public boolean execute(CommandSender sender, String label, String[] args) {
         if (sender.hasPermission("biomia.build." + Main.getGroupName()) || sender.hasPermission("biomia.build.*")) {
             BiomiaPlayer bp;
             if (args.length == 0) {
@@ -53,5 +56,4 @@ public class Build implements CommandExecutor {
 
         return true;
     }
-
 }

@@ -6,7 +6,7 @@ import de.biomia.quests.listeners.QuestListener;
 import de.biomia.quests.general.DialogMessage;
 import de.biomia.quests.general.Quest;
 import de.biomia.quests.general.QuestPlayer;
-import de.biomia.api.lastPosition.LastPositionListener;
+import de.biomia.api.tools.LastPositionListener;
 import de.biomia.api.msg.Scoreboards;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;

@@ -1,4 +1,4 @@
-package de.biomia.api.lastPosition;
+package de.biomia.api.tools;
 
 import cloud.timo.TimoCloud.api.objects.ServerGroupObject;
 import de.biomia.api.Biomia;
@@ -21,7 +21,6 @@ import java.sql.SQLException;
 
 public class LastPositionListener implements Listener {
 
-    private static final String tableName = "LastPosition";
     private static final MySQL.Databases database = MySQL.Databases.biomia_db;
 
     @EventHandler
@@ -63,8 +62,7 @@ public class LastPositionListener implements Listener {
             try {
                 PreparedStatement ps;
                 if (!containsLocation(p, group)) {
-                    ps = con.prepareStatement("INSERT INTO " + tableName
-                            + "(`biomiaID`, `ServerGroup`, `x`, `y`, `z`, `yaw`, `pitch`, `world`) VALUES (?,?,?,?,?,?,?,?)");
+                    ps = con.prepareStatement("INSERT INTO LastPosition (`biomiaID`, `ServerGroup`, `x`, `y`, `z`, `yaw`, `pitch`, `world`) VALUES (?,?,?,?,?,?,?,?)");
 
                     ps.setInt(1, Biomia.getBiomiaPlayer(p).getBiomiaPlayerID());
                     ps.setString(2, group.getName());
@@ -75,8 +73,7 @@ public class LastPositionListener implements Listener {
                     ps.setDouble(7, pitch);
                     ps.setString(8, loc.getWorld().getName());
                 } else {
-                    ps = con.prepareStatement("UPDATE " + tableName
-                            + " SET `x`=?,`y`=?,`z`=?,`yaw`=?,`pitch`=?,`world`=? WHERE `biomiaID`=? AND `ServerGroup`=?");
+                    ps = con.prepareStatement("UPDATE LastPosition SET `x`=?,`y`=?,`z`=?,`yaw`=?,`pitch`=?,`world`=? WHERE `biomiaID`=? AND `ServerGroup`=?");
                     ps.setDouble(1, x);
                     ps.setDouble(2, y);
                     ps.setDouble(3, z);
@@ -97,7 +94,7 @@ public class LastPositionListener implements Listener {
         Connection con = de.biomia.api.mysql.MySQL.Connect(database);
         try {
             PreparedStatement ps = con
-                    .prepareStatement("Select x from " + tableName + " where ServerGroup = ? AND biomiaID = ?");
+                    .prepareStatement("Select x from LastPosition where ServerGroup = ? AND biomiaID = ?");
             ps.setString(1, group.getName());
             ps.setString(2, Biomia.getBiomiaPlayer(p).getBiomiaPlayerID() + "");
             ResultSet s = ps.executeQuery();
@@ -116,7 +113,7 @@ public class LastPositionListener implements Listener {
         Location loc = null;
         try {
             PreparedStatement ps = con.prepareStatement(
-                    "Select x,y,z,yaw,pitch,world from " + tableName + " where ServerGroup = ? AND biomiaID = ?");
+                    "Select x,y,z,yaw,pitch,world from LastPosition where ServerGroup = ? AND biomiaID = ?");
             ps.setString(1, group.getName());
             ps.setString(2, Biomia.getBiomiaPlayer(p).getBiomiaPlayerID() + "");
 
