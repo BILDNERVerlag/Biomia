@@ -40,6 +40,8 @@ public class Quest {
         this.band = bandNummer;
         this.infoText = null;
         this.questid = -1;
+        registerQuestIfnotExist();
+        Biomia.getQuestManager().getQuests().add(this);
     }
 
     //METHODS

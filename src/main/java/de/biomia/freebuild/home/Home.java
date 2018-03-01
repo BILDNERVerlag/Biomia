@@ -1,10 +1,9 @@
 package de.biomia.freebuild.home;
 
-import de.biomia.freebuild.home.configuration.ConfigManager;
+import de.biomia.Main;
 import de.biomia.freebuild.home.homes.HomeManager;
 import de.biomia.freebuild.home.listeners.GatewayListener;
 import de.biomia.freebuild.home.storage.HomeFileManager;
-import de.biomia.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -37,7 +36,6 @@ public class Home {
 		config.options().copyDefaults(true);
 		Main.getPlugin().saveConfig();
 
-		new ConfigManager();
 		homeFileManager.saveHomes();
 		loadHomeListeners();
 		Main.getPlugin().getLogger().info("Homes Enabled!");

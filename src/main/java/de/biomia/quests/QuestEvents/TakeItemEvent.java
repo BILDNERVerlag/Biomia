@@ -29,7 +29,6 @@ public class TakeItemEvent implements Event {
     }
 
     private void takeItem() {
-
         int i = 0;
         for (ItemStack is : qp.getPlayer().getInventory().getContents()) {
             if (is != null)

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class QuestManager {
 
-    ArrayList<Quest> quests = new ArrayList<>();
+    private ArrayList<Quest> quests = new ArrayList<>();
 
     public Quest getQuest(int questID) {
         for (Quest q : quests) {
@@ -22,14 +22,11 @@ public class QuestManager {
             }
         }
         return null;
-
     }
 
     public Quest registerNewQuest(String questName, int bandNummer) {
-        Quest q = new Quest(questName, bandNummer);
-        quests.add(q);
-        q.registerQuestIfnotExist();
-        return q;
+        return new Quest(questName, bandNummer);
+
     }
 
     public ArrayList<Quest> getQuests() {

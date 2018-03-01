@@ -3,9 +3,9 @@ package de.biomia.quests.commands;
 import de.biomia.api.Biomia;
 import de.biomia.api.messages.ActionBar;
 import de.biomia.quests.general.DialogMessage;
+import de.biomia.quests.general.NPCManager;
 import de.biomia.quests.general.Quest;
 import de.biomia.quests.general.QuestPlayer;
-import de.biomia.quests.general.NPCManager;
 import de.biomia.quests.messages.Messages;
 import net.citizensnpcs.api.ai.GoalController;
 import net.citizensnpcs.api.ai.goals.WanderGoal;
@@ -36,15 +36,14 @@ public class QuestCommands implements CommandExecutor {
 
     private static boolean logTime = false;
 
-    @SuppressWarnings("unchecked")
-    private static void qupdatebookCommand(QuestPlayer qp) {
+    public static void qupdatebookCommand(QuestPlayer qp) {
 
         BookMeta bookMeta = (BookMeta) qp.getBook().getItemMeta();
         List<IChatBaseComponent> pages;
 
         // Referenz auf die Liste der Buchseiten holen
         try {
-            pages = ((List<IChatBaseComponent>) CraftMetaBook.class.getDeclaredField("pages").get(bookMeta));
+            pages = (List<IChatBaseComponent>) CraftMetaBook.class.getDeclaredField("pages").get(bookMeta);
             pages.clear();
         } catch (ReflectiveOperationException e) {
             e.printStackTrace();
@@ -66,7 +65,7 @@ public class QuestCommands implements CommandExecutor {
             finishedQuests.add(q);
         }
 
-        // Seite(n) mit aktiven general bef\u00fcllen
+        // Seite(n) mit aktiven Quests befuellen
         if (activeQuests.isEmpty()) {
             TextComponent output = new TextComponent("\u00A71\u00A7l\u00A7nAktive general:\n\n\n\u00A74(Noch keine!)");
             IChatBaseComponent page = ChatSerializer.a(ComponentSerializer.toString(output));
@@ -84,25 +83,25 @@ public class QuestCommands implements CommandExecutor {
                 output.addExtra(text);
 
                 if ((i % 10 == 0 && i != 0) || i == activeQuests.size() - 1) {
-                    // falls zehn schleifendurchl\u00fcufe vergangen sind ODER falls
+                    // falls zehn schleifendurchlaeufe vergangen sind ODER falls
                     // dies der letzte
                     // schleifendurchlauf ist werden die bisher durchlaufenen
                     // quests als neue seite
-                    // hinzugef\u00fcgt
+                    // hinzugefuegt
                     IChatBaseComponent page = ChatSerializer.a(ComponentSerializer.toString(output));
                     pages.add(page);
                     output = new TextComponent("\n");
                 }
             }
         }
-        // Seite mit abgeschlossenen general bef\u00fcllen
+        // Seite mit abgeschlossenen Quests befuellen
         if (finishedQuests.isEmpty()) {
             TextComponent output = new TextComponent(
                     "\u00A71\u00A7l\u00A7nAbgeschlossene\n     \u00A71\u00A7l\u00A7nQuests:\n\n\u00A74(Noch keine!)");
             IChatBaseComponent page = ChatSerializer.a(ComponentSerializer.toString(output));
             pages.add(page);
         } else {
-            // Alle general nacheinander auflisten, pro Quest je eine neue Zeile
+            // Alle Quests nacheinander auflisten, pro Quest je eine neue Zeile
             TextComponent output = new TextComponent(
                     "\u00A71\u00A7l\u00A7nAbgeschlossene\n     \u00A71\u00A7l\u00A7nQuests:\n\n");
             TextComponent text;
@@ -114,18 +113,18 @@ public class QuestCommands implements CommandExecutor {
                 output.addExtra(text);
 
                 if ((i % 10 == 0 && i != 0) || i == finishedQuests.size() - 1) {
-                    // falls zehn schleifendurchl\u00fcufe vergangen sind ODER falls
+                    // falls zehn schleifendurchlaeufe vergangen sind ODER falls
                     // dies der letzte
                     // schleifendurchlauf ist werden die bisher durchlaufenen
                     // quests als neue seite
-                    // hinzugef\u00fcgt
+                    // hinzugefuegt
                     IChatBaseComponent page = ChatSerializer.a(ComponentSerializer.toString(output));
                     pages.add(page);
                     output = new TextComponent("\n");
                 }
             }
         }
-        // Bonusseite bef\u00fcllen (Optionen, Stats, etc)
+        // Bonusseite befuellen (Optionen, Stats, etc)
         TextComponent verschiedenesUeberschrift = new TextComponent("\u00A71\u00A7l\u00A7nVerschiedenes\n\n");
 
         TextComponent statsButton = new TextComponent("\u00A79\u00A7l<Statistik>\n\n");
@@ -325,9 +324,7 @@ public class QuestCommands implements CommandExecutor {
     }
 
     /**
-     * Listet ALLE questserverspezifischen QuestCommands auf. F\u00fcr diesen Command die
-     * Nachrichten bitte erstmal nicht in BedWarsMessages verschieben und hier immer gleich
-     * \u00fcndern, falls neue QuestCommands hinzugef\u00fcgt werden. :)
+     * Listet ALLE questserverspezifischen QuestCommands auf.
      */
     private void qhelpCommand(CommandSender sender) {
         sender.sendMessage("\u00A78------------\u00A76QuestCommands\u00A78-----------");
@@ -615,4 +612,5 @@ public class QuestCommands implements CommandExecutor {
         }
         sender.sendMessage(Messages.bookFilled);
     }
+
 }

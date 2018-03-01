@@ -23,8 +23,6 @@ class TeleportPlayerEvent implements Event {
 			qp.getPlayer().teleport(e);
 		} else if (e == null && loc != null) {
 			qp.getPlayer().teleport(loc);
-		} else {
-			qp.getPlayer().sendMessage("Teleport Player Event not correctly initialized.");
 		}
 	}
 	
