@@ -69,7 +69,7 @@ public class InGame {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
             biomiaPlayers.add(bp);
         }
-        Bukkit.getPluginManager().callEvent(new SkyWarsEndEvent(biomiaPlayers, duration, Biomia.TeamManager().getTeam(Variables.livingPlayer.get(0)).getTeamname()));
+        Bukkit.getPluginManager().callEvent(new SkyWarsEndEvent(biomiaPlayers, duration, Biomia.getTeamManager().getTeam(Variables.livingPlayer.get(0)).getTeamname()));
         End.start();
     }
 }

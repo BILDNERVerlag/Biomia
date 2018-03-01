@@ -41,7 +41,7 @@ public class SpecialItems implements Listener {
                 Team t = Variables.getTeamByTeamChests(e.getClickedBlock());
                 if (t != null) {
                     Inventory inv = Variables.teamChests.computeIfAbsent(t, t1 -> Bukkit.createInventory(null, 27,
-                            "\u00A78Team Kiste: " + t1.getColorcode() + Biomia.TeamManager().translate(t1.getTeamname())));
+                            "\u00A78Team Kiste: " + t1.getColorcode() + Biomia.getTeamManager().translate(t1.getTeamname())));
                     e.setCancelled(true);
                     p.openInventory(inv);
                 }
@@ -62,7 +62,7 @@ public class SpecialItems implements Listener {
                 if (blockFoot.getType() == Material.BED_BLOCK && blockHead.getType() == Material.BED_BLOCK) {
 
                     Config.addBedsLocations(blockFoot.getLocation(), blockHead.getLocation(),
-                            Biomia.TeamManager().DataToTeam(e.getItem().getData().getData()));
+                            Biomia.getTeamManager().getTeamFromData(e.getItem().getData().getData()));
                     Bukkit.broadcastMessage("Bett hinzugef\u00fc\u00A7gt!");
 
                 } else {
@@ -217,8 +217,8 @@ public class SpecialItems implements Listener {
 
     private void warpHome(Player p, ItemStack is) {
 
-        if (Biomia.TeamManager().isPlayerInAnyTeam(p)) {
-            Team team = Biomia.TeamManager().getTeam(p);
+        if (Biomia.getTeamManager().isPlayerInAnyTeam(p)) {
+            Team team = Biomia.getTeamManager().getTeam(p);
             Teleport.teleportBackHome(p);
 
             new BukkitRunnable() {
@@ -330,7 +330,7 @@ public class SpecialItems implements Listener {
 
     private void summonTNTSheep(Player p, ItemStack is) {
 
-        Team t = Biomia.TeamManager().getTeam(p);
+        Team t = Biomia.getTeamManager().getTeam(p);
         if (t != null) {
             is.setAmount(is.getAmount() - 1);
             Sheep sheep = (Sheep) p.getWorld().spawnEntity(p.getLocation().add(0, 1, 0), EntityType.SHEEP);
@@ -339,7 +339,7 @@ public class SpecialItems implements Listener {
             for (Entity entity : entities) {
                 if (entities instanceof Player) {
                     Player target = (Player) entity;
-                    if (Biomia.TeamManager().getTeam(p) != null && !Biomia.TeamManager().getTeam(p).equals(t)) {
+                    if (Biomia.getTeamManager().getTeam(p) != null && !Biomia.getTeamManager().getTeam(p).equals(t)) {
                         sheep.setTarget(target);
                         new BukkitRunnable() {
                             int i = 0;

@@ -293,7 +293,7 @@ public class QuestCommands implements CommandExecutor {
         // waere 17, falls es 17 Quests fuer Band 1 gibt etc
         if (args.length == 0) {
             int[] questsProBand = new int[5];
-            for (Quest q : Biomia.QuestManager().getQuests()) {
+            for (Quest q : Biomia.getQuestManager().getQuests()) {
                 questsProBand[q.getBand()]++;
             }
             sender.sendMessage("\u00A78----------\u00A76Quest Stats & Info\u00A78----------");
@@ -361,7 +361,7 @@ public class QuestCommands implements CommandExecutor {
         StringBuilder aktiviert = new StringBuilder(" ");
         StringBuilder deaktiviert = new StringBuilder(" ");
         Set<NPC> npcs = new HashSet<>();
-        for (Quest q : Biomia.QuestManager().getQuests()) {
+        for (Quest q : Biomia.getQuestManager().getQuests()) {
             npcs.addAll(q.getNpcs());
         }
         for (NPC n : npcs) {
@@ -397,7 +397,7 @@ public class QuestCommands implements CommandExecutor {
          * e.g. if an npc has found a destination location and you turn off the ai, the
          * npc will still continue to walk until he's reached his destination.
          */
-        for (Quest q : Biomia.QuestManager().getQuests()) {
+        for (Quest q : Biomia.getQuestManager().getQuests()) {
             for (NPC n : q.getNpcs()) {
                 n.getDefaultGoalController().clear();
             }
@@ -407,7 +407,7 @@ public class QuestCommands implements CommandExecutor {
 
     private void aionCommand() {
         // activates npc AI
-        for (Quest q : Biomia.QuestManager().getQuests()) {
+        for (Quest q : Biomia.getQuestManager().getQuests()) {
             for (NPC n : q.getNpcs()) {
                 n.getNavigator().getLocalParameters().speedModifier(0.8f);
                 n.getDefaultGoalController().addBehavior(WanderGoal.createWithNPC(n), 3);
@@ -424,7 +424,7 @@ public class QuestCommands implements CommandExecutor {
         // aligns all npcs in a row at the hardcoded location
         int i = 0;
         int j;
-        for (Quest q : Biomia.QuestManager().getQuests()) {
+        for (Quest q : Biomia.getQuestManager().getQuests()) {
             for (NPC n : q.getNpcs()) {
                 j = (i % 2 == 0) ? 0 : 1;
                 n.teleport(new Location(Bukkit.getWorld("Quests"), 160 + i, 64, -263 + j), TeleportCause.COMMAND);
@@ -570,7 +570,7 @@ public class QuestCommands implements CommandExecutor {
         // get infop about a specific quest
         if (args.length == 1) {
             // get quest
-            Quest q = Biomia.QuestManager().getQuest(args[0]);
+            Quest q = Biomia.getQuestManager().getQuest(args[0]);
             if (q == null) {
                 sender.sendMessage(Messages.questDoesNotExist);
                 return;
@@ -598,7 +598,7 @@ public class QuestCommands implements CommandExecutor {
             sender.sendMessage(Messages.dividerLine);
             if (Biomia.getBiomiaPlayer(p).isStaff()) {
                 sender.sendMessage("\u00A78ID=" + q.getQuestID() + ", \u00A78Cooldown=" + q.getCooldown()
-                        + "s, \u00A78Repeatable=" + q.isRepeatble());
+                        + "s, \u00A78Repeatable=" + q.isRepeatable());
                 sender.sendMessage(Messages.dividerLine);
             }
         } else {
@@ -607,7 +607,7 @@ public class QuestCommands implements CommandExecutor {
     }
 
     private void qfilldiaryCommand(CommandSender sender, QuestPlayer qp) {
-        for (Quest q : Biomia.QuestManager().getQuests()) {
+        for (Quest q : Biomia.getQuestManager().getQuests()) {
             qp.addToQuest(q);
             qp.finish(q);
             qp.addToQuest(q);

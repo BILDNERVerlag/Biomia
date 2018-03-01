@@ -1,6 +1,7 @@
 package de.biomia.api.achievements.statEvents.general;
 
 import de.biomia.api.BiomiaPlayer;
+import de.biomia.api.OfflineBiomiaPlayer;
 import org.bukkit.event.HandlerList;
 
 public class CoinAddEvent extends CoinEvent {
@@ -12,8 +13,8 @@ public class CoinAddEvent extends CoinEvent {
         return handlers;
     }
 
-    public CoinAddEvent(BiomiaPlayer biomiaPlayer, int amount) {
-        super(biomiaPlayer, amount);
+    public CoinAddEvent(OfflineBiomiaPlayer offlineBiomiaPlayer, int amount) {
+        super(offlineBiomiaPlayer, amount);
     }
 
     public static HandlerList getHandlerList() {

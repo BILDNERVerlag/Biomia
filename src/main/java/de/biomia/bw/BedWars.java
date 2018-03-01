@@ -26,7 +26,7 @@ public class BedWars {
         Main.getPlugin().saveConfig();
 
         Main.getPlugin().getServer().createWorld(new WorldCreator(Variables.name));
-        Biomia.TeamManager().initTeams(Variables.playerPerTeam, Variables.teams);
+        Biomia.getTeamManager().initTeams(Variables.playerPerTeam, Variables.teams);
 
         Config.loadLocsFromConfig();
         Config.loadTeamJoiner();

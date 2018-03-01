@@ -40,7 +40,7 @@ public class Scoreboards {
         map.setPrefix("\u00A72" + Variables.name);
         teams.setPrefix("\u00A75" + Variables.teams + " \u00A77x " + "\u00A72" + Variables.playerPerTeam);
 
-        for (de.biomia.api.Teams.Team t : Biomia.TeamManager().getTeams()) {
+        for (de.biomia.api.Teams.Team t : Biomia.getTeamManager().getTeams()) {
             lobbySB.registerNewTeam("0" + t.getTeamname()).setPrefix(t.getColorcode());
         }
         lobbySB.registerNewTeam("noteam").setPrefix("\u00A77");
@@ -74,14 +74,14 @@ public class Scoreboards {
         kit.addEntry("\u00A7c");
         team.addEntry("\u00A7f");
 
-        String name = Biomia.TeamManager().translate(Biomia.TeamManager().getTeam(p).getTeamname());
+        String name = Biomia.getTeamManager().translate(Biomia.getTeamManager().getTeam(p).getTeamname());
 
-        for (de.biomia.api.Teams.Team t : Biomia.TeamManager().getTeams()) {
+        for (de.biomia.api.Teams.Team t : Biomia.getTeamManager().getTeams()) {
             sb.registerNewTeam(t.getTeamname()).setPrefix(t.getColorcode());
         }
 
         for (Player pl : Bukkit.getOnlinePlayers()) {
-            sb.getTeam(Biomia.TeamManager().getTeam(pl).getTeamname()).addEntry(pl.getName());
+            sb.getTeam(Biomia.getTeamManager().getTeam(pl).getTeamname()).addEntry(pl.getName());
         }
 
         if (Variables.selectedKit.get(p) != null)
@@ -89,14 +89,14 @@ public class Scoreboards {
         else
             kit.setPrefix("\u00A7cKein Kit");
 
-        team.setPrefix(Biomia.TeamManager().getTeam(p).getColorcode() + name);
+        team.setPrefix(Biomia.getTeamManager().getTeam(p).getColorcode() + name);
 
         p.setScoreboard(sb);
     }
 
     public static void initSpectatorSB() {
 
-        for (de.biomia.api.Teams.Team t : Biomia.TeamManager().getTeams()) {
+        for (de.biomia.api.Teams.Team t : Biomia.getTeamManager().getTeams()) {
             spectatorSB.registerNewTeam(t.getTeamname()).setPrefix(t.getColorcode());
         }
 
@@ -105,7 +105,7 @@ public class Scoreboards {
         for (Player pl : Bukkit.getOnlinePlayers()) {
 
             if (Variables.livingPlayer.contains(pl)) {
-                spectatorSB.getTeam(Biomia.TeamManager().getTeam(pl).getTeamname()).addEntry(pl.getName());
+                spectatorSB.getTeam(Biomia.getTeamManager().getTeam(pl).getTeamname()).addEntry(pl.getName());
             } else {
                 spectatorSB.getTeam("spectator").addEntry(pl.getName());
             }

@@ -22,7 +22,7 @@ public class Wiederaufbau implements Listener {
     private final Material itemZuBesorgen = Material.COBBLESTONE;
     private final String questName = "Wiederaufbau";
 
-    private final Quest q = Biomia.QuestManager().registerNewQuest(questName, 1);
+    private final Quest q = Biomia.getQuestManager().registerNewQuest(questName, 1);
     private final NPC npc;
 
     private DialogMessage startDialog;

@@ -55,7 +55,7 @@ public class SkyWarsListener implements Listener {
 
             // Hide
             for (Player all : Bukkit.getOnlinePlayers()) {
-                if (Biomia.TeamManager().livesPlayer(all)) {
+                if (Biomia.getTeamManager().isPlayerAlive(all)) {
                     all.hidePlayer(p);
                 } else {
                     all.showPlayer(all);
@@ -219,12 +219,12 @@ public class SkyWarsListener implements Listener {
                 bpKiller = Biomia.getBiomiaPlayer(killer);
                 Bukkit.getPluginManager().callEvent(new SkyWarsKillEvent(bpKiller, bp));
                 e.setDeathMessage(Messages.playerKilledByPlayer
-                        .replace("%p1", Biomia.TeamManager().getTeam(p).getColorcode() + p.getName())
-                        .replace("%p2", Biomia.TeamManager().getTeam(killer).getColorcode() + killer.getName()));
+                        .replace("%p1", Biomia.getTeamManager().getTeam(p).getColorcode() + p.getName())
+                        .replace("%p2", Biomia.getTeamManager().getTeam(killer).getColorcode() + killer.getName()));
             } else {
                 bpKiller = null;
                 e.setDeathMessage(Messages.playerDied.replace("%p",
-                        Biomia.TeamManager().getTeam(p).getColorcode() + p.getName()));
+                        Biomia.getTeamManager().getTeam(p).getColorcode() + p.getName()));
             }
             Dead.setDead(p, killer);
             Bukkit.getPluginManager().callEvent(new SkyWarsDeathEvent(bp, bpKiller));
@@ -318,7 +318,7 @@ public class SkyWarsListener implements Listener {
                     if (e.getInventory().getName().equals(Variables.teamJoiner.getName())) {
 
                         Variables.teamJoiner = JoinTeam.getTeamSwitcher();
-                        JoinTeam.join(p, Biomia.TeamManager().DataToTeam(e.getCurrentItem().getData().getData()));
+                        JoinTeam.join(p, Biomia.getTeamManager().getTeamFromData(e.getCurrentItem().getData().getData()));
                         p.updateInventory();
                         p.closeInventory();
 
@@ -369,9 +369,9 @@ public class SkyWarsListener implements Listener {
                                 if (entity instanceof Player) {
                                     Player nearest = (Player) entity;
 
-                                    if (Biomia.TeamManager().livesPlayer(nearest)
-                                            && Biomia.TeamManager().getTeam(p) != null
-                                            && !Biomia.TeamManager().getTeam(p).playerInThisTeam(nearest)) {
+                                    if (Biomia.getTeamManager().isPlayerAlive(nearest)
+                                            && Biomia.getTeamManager().getTeam(p) != null
+                                            && !Biomia.getTeamManager().getTeam(p).playerInThisTeam(nearest)) {
                                         p.setCompassTarget(nearest.getLocation());
                                         p.sendMessage(Messages.compassMessages.replace("%p", nearest.getName())
                                                 .replace("%d", (int) p.getLocation().distance(nearest.getLocation()) + ""));
@@ -502,7 +502,7 @@ public class SkyWarsListener implements Listener {
                     return;
                 }
                 for (Player player : Variables.livingPlayer) {
-                    Team t = Biomia.TeamManager().getTeam(player);
+                    Team t = Biomia.getTeamManager().getTeam(player);
                     if (!livingTeams.contains(t)) {
                         livingTeams.add(t);
                     }
@@ -513,10 +513,10 @@ public class SkyWarsListener implements Listener {
             }
         } else if (SkyWars.gameState.equals(GameState.LOBBY)) {
             // Remove Player from Team
-            if (Biomia.TeamManager().isPlayerInAnyTeam(p)) {
-                Scoreboards.lobbySB.getTeam("0" + Biomia.TeamManager().getTeam(p).getTeamname())
+            if (Biomia.getTeamManager().isPlayerInAnyTeam(p)) {
+                Scoreboards.lobbySB.getTeam("0" + Biomia.getTeamManager().getTeam(p).getTeamname())
                         .removeEntry(p.getName());
-                Biomia.TeamManager().getTeam(p).removePlayer(p);
+                Biomia.getTeamManager().getTeam(p).removePlayer(p);
             }
         }
     }
@@ -533,8 +533,8 @@ public class SkyWarsListener implements Listener {
                     e.setCancelled(true);
 
                 // Check if the Entity in the same team like the damager
-                if (Biomia.TeamManager().isPlayerInAnyTeam(killer) && Biomia.TeamManager().isPlayerInAnyTeam(p)) {
-                    if (Biomia.TeamManager().getTeam(killer).playerInThisTeam(p)) {
+                if (Biomia.getTeamManager().isPlayerInAnyTeam(killer) && Biomia.getTeamManager().isPlayerInAnyTeam(p)) {
+                    if (Biomia.getTeamManager().getTeam(killer).playerInThisTeam(p)) {
                         e.setCancelled(true);
                     }
                 } else {
@@ -555,8 +555,8 @@ public class SkyWarsListener implements Listener {
                         e.setCancelled(true);
                         Dead.setDead(p, killer);
                         Bukkit.broadcastMessage(Messages.killedBy
-                                .replace("%t", Biomia.TeamManager().getTeam(p).getColorcode() + p.getName())
-                                .replace("%k", Biomia.TeamManager().getTeam(killer).getColorcode() + killer.getName()));
+                                .replace("%t", Biomia.getTeamManager().getTeam(p).getColorcode() + p.getName())
+                                .replace("%k", Biomia.getTeamManager().getTeam(killer).getColorcode() + killer.getName()));
 
                         Location loc = p.getLocation().add(0, 1, 0);
 
@@ -655,14 +655,14 @@ public class SkyWarsListener implements Listener {
                         if (is.getType().equals(Material.WOOL)) {
 
                             @SuppressWarnings("deprecation")
-                            Team team = Biomia.TeamManager().DataToTeam(is.getData().getData());
+                            Team team = Biomia.getTeamManager().getTeamFromData(is.getData().getData());
 
                             if (team != null) {
                                 UUID uuid = e.getRightClicked().getUniqueId();
                                 Entity armorstand = e.getRightClicked();
                                 Config.addTeamJoiner(uuid, team);
                                 armorstand.setCustomName(
-                                        team.getColorcode() + Biomia.TeamManager().translate(team.getTeamname()));
+                                        team.getColorcode() + Biomia.getTeamManager().translate(team.getTeamname()));
                                 armorstand.setCustomNameVisible(true);
                                 p.sendMessage(Messages.teamJoinerSet.replace("%t", team.getTeamname()));
                             }
@@ -670,7 +670,7 @@ public class SkyWarsListener implements Listener {
                     }
                 }
             }
-            for (Team allteams : Biomia.TeamManager().getTeams()) {
+            for (Team allteams : Biomia.getTeamManager().getTeams()) {
 
                 UUID uuid = Variables.joiner.get(allteams);
 
@@ -695,9 +695,9 @@ public class SkyWarsListener implements Listener {
 
         if (SkyWars.gameState.equals(GameState.INGAME) || SkyWars.gameState.equals(GameState.WAITINGFORSTART)) {
 
-            Team t = Biomia.TeamManager().getTeam(p);
+            Team t = Biomia.getTeamManager().getTeam(p);
 
-            if (t != null && !Biomia.TeamManager().getTeam(p).isPlayerDead(p)) {
+            if (t != null && !Biomia.getTeamManager().getTeam(p).isPlayerDead(p)) {
                 if (e.getMessage().substring(0, 1).contains("@")) {
 
                     msg = msg.replace("@all ", "");
@@ -725,8 +725,8 @@ public class SkyWarsListener implements Listener {
                 }
 
             }
-        } else if (Biomia.TeamManager().isPlayerInAnyTeam(p)) {
-            Team t = Biomia.TeamManager().getTeam(p);
+        } else if (Biomia.getTeamManager().isPlayerInAnyTeam(p)) {
+            Team t = Biomia.getTeamManager().getTeam(p);
             format = Messages.chatMessageLobby.replaceAll("%p", t.getColorcode() + p.getDisplayName())
                     .replaceAll("%msg", msg);
             e.setFormat(format);

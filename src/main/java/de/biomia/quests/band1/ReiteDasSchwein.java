@@ -44,7 +44,7 @@ public class ReiteDasSchwein implements Listener {
     private static DialogMessage nachQuest;
     private static DialogMessage geschafft;
 
-	private static final Quest q = Biomia.QuestManager().registerNewQuest("ReiteDasSchwein", 1);
+	private static final Quest q = Biomia.getQuestManager().registerNewQuest("ReiteDasSchwein", 1);
 	private static final HashMap<QuestPlayer, Boolean> onEndLoc = new HashMap<>();
 	private static final HashMap<QuestPlayer, BukkitTask> thread = new HashMap<>();
     private static DialogMessage schummler;

@@ -1,17 +1,18 @@
 package de.biomia.api.achievements.statEvents;
 
 import de.biomia.api.BiomiaPlayer;
+import de.biomia.api.OfflineBiomiaPlayer;
 import org.bukkit.event.Event;
 
 public abstract class BiomiaPlayerEvent extends Event {
 
-    private final BiomiaPlayer biomiaPlayer;
+    private final OfflineBiomiaPlayer offlineBiomiaPlayer;
 
-    public BiomiaPlayer getBiomiaPlayer() {
-        return biomiaPlayer;
+    public OfflineBiomiaPlayer getBiomiaPlayer() {
+        return offlineBiomiaPlayer;
     }
 
-    protected BiomiaPlayerEvent(BiomiaPlayer biomiaPlayer) {
-        this.biomiaPlayer = biomiaPlayer;
+    protected BiomiaPlayerEvent(OfflineBiomiaPlayer offlineBiomiaPlayer) {
+        this.offlineBiomiaPlayer = offlineBiomiaPlayer;
     }
 }

@@ -24,7 +24,7 @@ public class Forsthilfe implements Listener {
     private DialogMessage comeBackWithoutItem;
     private DialogMessage nachQuest;
 
-	private final Quest q = Biomia.QuestManager().registerNewQuest(questName, 1);
+	private final Quest q = Biomia.getQuestManager().registerNewQuest(questName, 1);
 	private final NPC npc;
 
 	public Forsthilfe() {

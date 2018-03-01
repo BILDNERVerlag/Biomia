@@ -4,36 +4,116 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
-public interface Team {
+public class Team {
 
-	ArrayList<Player> players = new ArrayList<>();
-	
-	ArrayList<Player> deadPlayers = new ArrayList<>();
+    String teamname;
+    int maxPlayer;
+    short colordata;
+    String colorcode;
+    final ArrayList<Player> players = new ArrayList<>();
+    final ArrayList<Player> deadPlayers = new ArrayList<>();
 
-	void initialize(String teamname, int maxPlayer);
+    public String getTeamname() {
+        return teamname;
+    }
 
-	String getTeamname();
+    public void addPlayer(Player player) {
+        players.add(player);
+    }
 
-	void addPlayer(Player player);
+    public void removePlayer(Player player) {
+        players.remove(player);
+    }
 
-	void removePlayer(Player player);
+    public int getMaxPlayer() {
+        return maxPlayer;
+    }
 
-	int getMaxPlayer();
+    public short getColordata() {
+        return colordata;
+    }
 
-	short getColordata();
+    public String getColorcode() {
+        return colorcode;
+    }
 
-	String getColorcode();
+    public int getPlayersInTeam() {
+        return players.size();
+    }
 
-	int getPlayersInTeam();
+    public boolean playerInThisTeam(Player player) {
 
-	boolean playerInThisTeam(Player player);
+        return players.contains(player);
+    }
 
-	boolean full();
+    public ArrayList<Player> getPlayers() {
 
-	boolean isPlayerDead(Player player);
+        return players;
+    }
 
-	void setPlayerDead(Player player);
+    public boolean full() {
 
-	ArrayList<Player> getPlayers();
+        return maxPlayer == players.size();
+    }
+
+    public void initialize(String teamname, int maxPlayer) {
+        short colordata;
+        String colorcode;
+
+        switch (teamname) {
+            case "BLACK":
+                colorcode = "\u00A70";
+                colordata = 15;
+                break;
+            case "BLUE":
+                colorcode = "\u00A79";
+                colordata = 11;
+                break;
+            case "ORANGE":
+                colorcode = "\u00A76";
+                colordata = 1;
+                break;
+            case "GREEN":
+                colorcode = "\u00A72";
+                colordata = 13;
+                break;
+            case "PURPLE":
+                colorcode = "\u00A7d";
+                colordata = 10;
+                break;
+            case "RED":
+                colorcode = "\u00A7c";
+                colordata = 14;
+                break;
+            case "WHITE":
+                colorcode = "\u00A7f";
+                colordata = 0;
+                break;
+            case "YELLOW":
+                colorcode = "\u00A7e";
+                colordata = 4;
+                break;
+            default:
+                colorcode = "\u00A7f";
+                colordata = 0;
+                break;
+        }
+
+        this.colorcode = colorcode;
+        this.colordata = colordata;
+        this.maxPlayer = maxPlayer;
+        this.teamname = teamname;
+    }
+
+    public boolean isPlayerDead(Player player) {
+        return deadPlayers.contains(player);
+    }
+
+    public void setPlayerDead(Player player) {
+        if (!deadPlayers.contains(player)) {
+            deadPlayers.add(player);
+        }
+    }
 
 }
+

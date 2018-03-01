@@ -51,12 +51,12 @@ public class BWCommand implements CommandExecutor {
                         Config.removeAllLocations();
                         sender.sendMessage("Alle Spawnlocations entfernt!");
                     } else if (args[0].equalsIgnoreCase("getTeamjoinersetter")) {
-                        for (Team t : Biomia.TeamManager().getTeams()) {
+                        for (Team t : Biomia.getTeamManager().getTeams()) {
                             p.getInventory().addItem(ItemCreator.itemCreate(Material.WOOL, ItemNames.teamJoinerSetter,
                                     t.getColordata()));
                         }
                     } else if (args[0].equalsIgnoreCase("getbedsetter")) {
-                        for (Team t : Biomia.TeamManager().getTeams()) {
+                        for (Team t : Biomia.getTeamManager().getTeams()) {
                             p.getInventory().addItem(
                                     ItemCreator.itemCreate(Material.WOOL, ItemNames.bedSetter, t.getColordata()));
                         }

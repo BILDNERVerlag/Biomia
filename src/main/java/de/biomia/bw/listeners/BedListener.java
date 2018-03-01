@@ -23,12 +23,12 @@ public class BedListener implements Listener {
     public void onBlockBreak(BlockBreakEvent e) {
 
         if (e.getBlock().getType() == Material.BED_BLOCK) {
-            for (Team t : Biomia.TeamManager().getTeams()) {
+            for (Team t : Biomia.getTeamManager().getTeams()) {
                 for (Location l : Variables.beds.get(t)) {
                     if (l != null && l.getBlock().getType() == Material.BED_BLOCK
                             && l.equals(e.getBlock().getLocation())) {
-                        if (Biomia.TeamManager().isPlayerInAnyTeam(e.getPlayer())) {
-                            Team playersTeam = Biomia.TeamManager().getTeam(e.getPlayer());
+                        if (Biomia.getTeamManager().isPlayerInAnyTeam(e.getPlayer())) {
+                            Team playersTeam = Biomia.getTeamManager().getTeam(e.getPlayer());
                             if (t.equals(playersTeam)) {
                                 e.setCancelled(true);
                                 e.getPlayer().sendMessage(Messages.cantDestroyYourOwnBed);
@@ -37,7 +37,7 @@ public class BedListener implements Listener {
                             Bukkit.getPluginManager().callEvent(new BedWarsDestroyBedEvent(Biomia.getBiomiaPlayer(e.getPlayer()), Variables.beds.get(t).get(0), Variables.beds.get(t).get(1), t.getTeamname()));
                             Variables.teamsWithBeds.remove(t);
                             Bukkit.broadcastMessage("\u00A7cDas Bett von Team " + t.getColorcode()
-                                    + Biomia.TeamManager().translate(t.getTeamname()) + " \u00A7cwurde zerst\u00F6rt!");
+                                    + Biomia.getTeamManager().translate(t.getTeamname()) + " \u00A7cwurde zerst\u00F6rt!");
                             e.setDropItems(false);
                             for (Player p : Bukkit.getOnlinePlayers()) {
                                 p.playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_FIREBALL_EXPLODE, 1, 1);

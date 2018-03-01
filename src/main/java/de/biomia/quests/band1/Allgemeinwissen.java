@@ -9,7 +9,6 @@ import de.biomia.quests.general.DialogMessage;
 import de.biomia.quests.general.Quest;
 import de.biomia.quests.general.QuestPlayer;
 import de.biomia.quests.general.States;
-import de.biomia.api.main.Main;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
@@ -28,7 +27,7 @@ import java.util.UUID;
 
 public class Allgemeinwissen implements Listener {
 
-	private final Quest q = Biomia.QuestManager().registerNewQuest("Allgemeinwissen", 1);
+	private final Quest q = Biomia.getQuestManager().registerNewQuest("Allgemeinwissen", 1);
 	HashMap<UUID, Quest> hm = new HashMap<>();
 	private final NPC herbert, ghost;
 

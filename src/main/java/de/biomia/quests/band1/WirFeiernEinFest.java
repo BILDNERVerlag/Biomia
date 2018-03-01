@@ -17,7 +17,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
 public class WirFeiernEinFest implements Listener {
-	private final Quest q = Biomia.QuestManager().registerNewQuest("WirFeiernEinFest", 1);
+	private final Quest q = Biomia.getQuestManager().registerNewQuest("WirFeiernEinFest", 1);
 	private final NPC habil;
 
     private DialogMessage startDialog;

@@ -57,7 +57,7 @@ public class QuestPlayer {
                         .executeQuery();
 
                 while (s.next()) {
-                    quests.add(Biomia.QuestManager().getQuest(s.getInt("questID")));
+                    quests.add(Biomia.getQuestManager().getQuest(s.getInt("questID")));
                 }
 
                 // quests.removeIf(Objects::isNull);
@@ -105,7 +105,7 @@ public class QuestPlayer {
     public int getQuestPercentage(int band) {
 
         int[] questsProBand = new int[5];
-        for (Quest q : Biomia.QuestManager().getQuests()) {
+        for (Quest q : Biomia.getQuestManager().getQuests()) {
             questsProBand[q.getBand()]++;
         }
         for (int i = 0; i < questsProBand.length; i++) {
@@ -168,7 +168,7 @@ public class QuestPlayer {
                 ResultSet s = con.prepareStatement("SELECT questID FROM `Quests_erledigt` WHERE biomiaID = " + biomiaPlayer.getBiomiaPlayerID()).executeQuery();
 
                 while (s.next()) {
-                    quests.add(Biomia.QuestManager().getQuest(s.getInt("questID")));
+                    quests.add(Biomia.getQuestManager().getQuest(s.getInt("questID")));
                 }
                 } catch (SQLException e) {
                 e.printStackTrace();
@@ -234,7 +234,7 @@ public class QuestPlayer {
     }
 
     public boolean checkCooldown(Quest q) {
-        if (q.isRepeatble()) {
+        if (q.isRepeatable()) {
             if (Biomia.getBiomiaPlayer(getPlayer()).isPremium()) {
                 return System.currentTimeMillis() / 1000 >= (getFinishTime(q) + (q.getCooldown() * 0.8));
             } else {

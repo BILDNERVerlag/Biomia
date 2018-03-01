@@ -20,11 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class BiomiaPlayer {
+public class BiomiaPlayer extends OfflineBiomiaPlayer{
 
     // CONSTANTS
     private final Player p;
-    private final int biomiaPlayerID;
     private final PAFPlayer spigotPafpl;
 
     // ATTRIBUTES
@@ -36,112 +35,17 @@ public class BiomiaPlayer {
 
     // CONSTRUCTOR
     public BiomiaPlayer(Player p) {
-        biomiaPlayerID = getBiomiaPlayerID(p);
+        super(p);
         this.p = p;
         spigotPafpl = PAFPlayerManager.getInstance().getPlayer(p.getUniqueId());
     }
 
     // PUBLIC METHODS
-    // ID and UUID RELATED METHODS
-    public static int getBiomiaPlayerID(String playerName) {
-        return MySQL.executeQuerygetint("Select id from BiomiaPlayer where name = '" + playerName + "'", "id", MySQL.Databases.biomia_db);
-    }
-
-    public static int getBiomiaPlayerID(UUID uuid) {
-        return MySQL.executeQuerygetint("Select id from BiomiaPlayer where uuid = '" + uuid.toString() + "'", "id", MySQL.Databases.biomia_db);
-    }
-
-    public static UUID getUUID(int biomiaID) {
-        String s = MySQL.executeQuery("Select uuid from BiomiaPlayer where id = " + biomiaID, "uuid", MySQL.Databases.biomia_db);
-        if (s != null)
-            return UUID.fromString(s);
-        else return null;
-    }
-
-    public static String getName(int biomiaID) {
-        return MySQL.executeQuery("Select name from BiomiaPlayer where id = " + biomiaID, "name", MySQL.Databases.biomia_db);
-    }
 
     // BIOMIA-COIN RELATED METHODS
-    public void setCoins(int coins) {
-        Coins.setCoins(coins, this);
-    }
 
-    public int getCoins() {
-        return Coins.getCoins(this);
-    }
-
-    public void addCoins(int coins, boolean enableBoost) {
-        Connection con = MySQL.Connect(MySQL.Databases.biomia_db);
-        int prozent = 100;
-        if (enableBoost)
-            try {
-                assert con != null;
-                PreparedStatement ps = con
-                        .prepareStatement("SELECT `percent`, `until` FROM `CoinBoost` WHERE BiomiaPlayer = ?");
-                ps.setInt(1, getBiomiaPlayerID());
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    long until = rs.getLong("until");
-                    if (System.currentTimeMillis() / 1000 > until) {
-                        prozent = rs.getInt("percent");
-                    } else {
-                        stopCoinBoost();
-                    }
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return;
-            }
-        if (prozent != 100) {
-            double coinsDouble = (double) coins / 100 * prozent;
-            coins = (int) coinsDouble;
-        }
-        Coins.addCoins(coins, this);
-    }
-
-    public void takeCoins(int coins) {
-        Coins.takeCoins(coins, this);
-    }
-
-    private void stopCoinBoost() {
-        MySQL.executeUpdate("DELETE FROM `CoinBoost` WHERE BiomiaPlayer = " + biomiaPlayerID, MySQL.Databases.biomia_db);
-    }
-
-    public void giveBoost(int percent, int timeinseconds) {
-        stopCoinBoost();
-        MySQL.executeUpdate("INSERT INTO `CoinBoost`(`BiomiaPlayer`, `percent`, `until`) VALUES (" + biomiaPlayerID
-                + "," + percent + "," + timeinseconds + (System.currentTimeMillis() / 1000) + ")", MySQL.Databases.biomia_db);
-    }
-
-    // RANK RELATED METHODS
-    public boolean isPremium() {
-        return Rank.isPremium(p);
-
-    }
-
-    public boolean isStaff() {
-        String rank = Rank.getRank(p);
-        rank = rank.toLowerCase();
-        return (rank.contains("Owner") || rank.contains("Admin") || rank.contains("Moderator") || rank.contains("Builder") || rank.contains("Supporter"));
-    }
-
-    public boolean isOwner() {
-        String rank = Rank.getRank(p);
-        return rank.contains("Owner");
-    }
-
-    public boolean isYouTuber() {
-
-        String rank = Rank.getRank(p);
-
-        return rank.contains("YouTube");
-    }
 
     // GETTERS AND SETTERS
-    public int getPremiumLevel() {
-        return Rank.getPremiumLevel(p);
-    }
 
     public PlayerParty getParty() {
         return PartyManager.getInstance().getParty(spigotPafpl);
@@ -157,10 +61,6 @@ public class BiomiaPlayer {
 
     public void setTrollmode(boolean trollmode) {
         this.trollmode = trollmode;
-    }
-
-    public int getBiomiaPlayerID() {
-        return biomiaPlayerID;
     }
 
     public Player getPlayer() {
@@ -196,10 +96,6 @@ public class BiomiaPlayer {
     }
 
     // PRIVATE METHODS
-    private int getBiomiaPlayerID(Player p) {
-        return MySQL.executeQuerygetint("Select id from BiomiaPlayer where uuid = '" + p.getUniqueId().toString() + "'",
-                "id", MySQL.Databases.biomia_db);
-    }
 
     private boolean isInParty() {
         return getParty() != null;

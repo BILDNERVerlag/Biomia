@@ -32,7 +32,7 @@ public class Config {
         Config.config.set("Spawnpoints." + team.name() + ".Yaw", ya);
         Config.config.set("Spawnpoints." + team.name() + ".World", wo);
 
-        Team t = Biomia.TeamManager().getTeam(team.name());
+        Team t = Biomia.getTeamManager().getTeam(team.name());
         if (t != null) {
             Variables.teamSpawns.put(t, loc);
         }
@@ -46,7 +46,7 @@ public class Config {
     }
 
     public static void loadLocsFromConfig() {
-        for (Team t : Biomia.TeamManager().getTeams()) {
+        for (Team t : Biomia.getTeamManager().getTeams()) {
 
             if (Config.config.getString("Spawnpoints." + t.getTeamname() + ".World") != null) {
                 double x = Config.config.getDouble("Spawnpoints." + t.getTeamname() + ".X");
@@ -168,7 +168,7 @@ public class Config {
     }
 
     public static void loadBeds() {
-        for (Team t : Biomia.TeamManager().getTeams()) {
+        for (Team t : Biomia.getTeamManager().getTeams()) {
             String fwo = Config.config.getString("Beds." + t.getTeamname() + ".Foot.World");
             if (fwo != null) {
                 double fx = Config.config.getDouble("Beds." + t.getTeamname() + ".Foot.X");
@@ -251,7 +251,7 @@ public class Config {
 
     public static void loadTeamJoiner() {
 
-        if (Biomia.TeamManager().getTeams().size() == 4) {
+        if (Biomia.getTeamManager().getTeams().size() == 4) {
             for (Teams t : Teams.values()) {
                 if (t.name().equalsIgnoreCase("Black") || t.name().equalsIgnoreCase("White")
                         || t.name().equalsIgnoreCase("Orange") || t.name().equalsIgnoreCase("Purple")) {
@@ -260,7 +260,7 @@ public class Config {
             }
         }
 
-        for (Team team : Biomia.TeamManager().getTeams()) {
+        for (Team team : Biomia.getTeamManager().getTeams()) {
             String stringuuid = Config.config.getString("Joiner." + team.getTeamname());
 
             if (stringuuid != null) {
@@ -268,7 +268,7 @@ public class Config {
                 Variables.joiner.put(team, uuid);
                 Bukkit.getEntity(uuid).setCustomNameVisible(true);
                 Bukkit.getEntity(uuid)
-                        .setCustomName(team.getColorcode() + Biomia.TeamManager().translate(team.getTeamname()));
+                        .setCustomName(team.getColorcode() + Biomia.getTeamManager().translate(team.getTeamname()));
             }
 
         }

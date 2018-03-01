@@ -51,7 +51,7 @@ public class QuestListener implements Listener {
                 Material material = event.getItem().getType();
                 if (material == Material.BUCKET || material == Material.WATER_BUCKET
                         || material == Material.LAVA_BUCKET) {
-                    if (!qp.isInQuest(Biomia.QuestManager().getQuest("Wasserholen")))
+                    if (!qp.isInQuest(Biomia.getQuestManager().getQuest("Wasserholen")))
                         event.setCancelled(true);
                     // TODO Eimer-Verhalten auf dem Questserver nochmal auschecken - buildable
                     // blocks mit buckets
@@ -174,7 +174,7 @@ public class QuestListener implements Listener {
         QuestItems.giveQuestItems(bp);
 
         QuestPlayer qp = bp.getQuestPlayer();
-        for (Quest quest : Biomia.QuestManager().getQuests()) {
+        for (Quest quest : Biomia.getQuestManager().getQuests()) {
             if (quest.getRemoveOnReload())
                 if (quest.getActivePlayerBiomiaIDs().contains(qp.getBiomiaPlayer().getBiomiaPlayerID()))
                     qp.rmFromQuest(quest);

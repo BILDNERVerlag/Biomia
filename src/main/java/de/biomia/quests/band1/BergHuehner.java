@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class BergHuehner implements Listener {
-	private final Quest q = Biomia.QuestManager().registerNewQuest("BergHuehner", 1);
+	private final Quest q = Biomia.getQuestManager().registerNewQuest("BergHuehner", 1);
 	private final HashMap<QuestPlayer, Boolean> hasEggs = new HashMap<>();
 	HashMap<UUID, Quest> hm = new HashMap<>();
 	private final Location zielLoc = new Location(Bukkit.getWorld("Quests"), 216, 158, -162);

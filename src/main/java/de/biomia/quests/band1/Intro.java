@@ -4,7 +4,6 @@ import de.biomia.api.Biomia;
 import de.biomia.quests.general.DialogMessage;
 import de.biomia.quests.general.Quest;
 import de.biomia.quests.general.QuestPlayer;
-import de.biomia.api.main.Main;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
@@ -30,7 +29,7 @@ public class Intro implements Listener {
     private final Quest q;
 
 	public Intro() {
-		q = Biomia.QuestManager().registerNewQuest("Intro", 1);
+		q = Biomia.getQuestManager().registerNewQuest("Intro", 1);
 		aaron = q.createNPC(EntityType.PLAYER, "DerAaron");
 		Location locAaron = new Location(Bukkit.getWorld("Quests"), -35, 68, -204, 30, 5);
 		aaron.spawn(locAaron);

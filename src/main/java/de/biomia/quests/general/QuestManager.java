@@ -2,18 +2,35 @@ package de.biomia.quests.general;
 
 import java.util.ArrayList;
 
-public interface QuestManager {
+public class QuestManager {
 
 	ArrayList<Quest> quests = new ArrayList<>();
 
-	default ArrayList<Quest> getQuests() {
-		return quests;
+	public Quest getQuest(int questID) {
+		for (Quest q : quests) {
+			if (q.getQuestID() == questID) {
+				return q;
+			}
+		}
+		return null;
 	}
 
-	Quest getQuest(int questID);
+	public Quest getQuest(String questName) {
+		for (Quest q : quests) {
+			if (q.getQuestName().equals(questName)) {
+				return q;
+			}
+		}
+		return null;
 
-	Quest getQuest(String questName);
+	}
 
-	Quest registerNewQuest(String questName, int Band);
+	public Quest registerNewQuest(String questName, int bandNummer) {
+		Quest q = new Quest(questName, bandNummer);
+		quests.add(q);
+		q.registerQuestIfnotExist();
+		return q;
+	}
+
 
 }

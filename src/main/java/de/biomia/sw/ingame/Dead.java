@@ -21,12 +21,12 @@ public class Dead {
         Variables.livingPlayer.remove(target);
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(target);
 
-        Biomia.TeamManager().getTeam(target).setPlayerDead(target);
+        Biomia.getTeamManager().getTeam(target).setPlayerDead(target);
         bp.addCoins(Variables.playReward, true);
 
         // Hide
         for (Player all : Bukkit.getOnlinePlayers()) {
-            if (Biomia.TeamManager().livesPlayer(all))
+            if (Biomia.getTeamManager().isPlayerAlive(all))
                 all.hidePlayer(target);
             else
                 all.showPlayer(all);
@@ -51,7 +51,7 @@ public class Dead {
 //				stat.deaths++;
 //			if (killer != null)
 //				if (stat.uuid.equals(killer.getUniqueId()))
-//					if (!Biomia.TeamManager().getTeam(killer).playerInThisTeam(target))
+//					if (!Biomia.getTeamManager().getTeam(killer).playerInThisTeam(target))
 //						stat.kills++;
 //		}
         // Scoreboard
@@ -67,7 +67,7 @@ public class Dead {
                 return;
             }
             for (Player player : Variables.livingPlayer) {
-                Team t = Biomia.TeamManager().getTeam(player);
+                Team t = Biomia.getTeamManager().getTeam(player);
                 if (!livingTeams.contains(t)) {
                     livingTeams.add(t);
                 }

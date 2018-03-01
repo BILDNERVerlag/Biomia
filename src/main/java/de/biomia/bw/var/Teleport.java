@@ -48,7 +48,7 @@ public class Teleport {
                 if (players.hasNext()) {
                     Player p = players.next();
                     p.setFallDistance(0);
-                    p.teleport(Variables.teamSpawns.get(Biomia.TeamManager().getTeam(p)));
+                    p.teleport(Variables.teamSpawns.get(Biomia.getTeamManager().getTeam(p)));
                 } else {
                     cancel();
                 }

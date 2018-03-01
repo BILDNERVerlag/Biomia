@@ -59,7 +59,7 @@ public class BedWarsListener implements Listener {
 
             // Hide
             for (Player all : Bukkit.getOnlinePlayers()) {
-                if (Biomia.TeamManager().livesPlayer(all)) {
+                if (Biomia.getTeamManager().isPlayerAlive(all)) {
                     all.hidePlayer(p);
                 } else {
                     all.showPlayer(all);
@@ -206,16 +206,16 @@ public class BedWarsListener implements Listener {
 
         if (!Variables.livingPlayer.contains(p)) {
             e.setDeathMessage(Messages.playerDiedFinally.replace("%p",
-                    Biomia.TeamManager().getTeam(p).getColorcode() + p.getName()));
+                    Biomia.getTeamManager().getTeam(p).getColorcode() + p.getName()));
         } else {
             if (killer == null) {
                 e.setDeathMessage(Messages.playerDied.replace("%p",
-                        Biomia.TeamManager().getTeam(p).getColorcode() + p.getName()));
+                        Biomia.getTeamManager().getTeam(p).getColorcode() + p.getName()));
             } else {
                 BiomiaPlayer bpKiller = Biomia.getBiomiaPlayer(killer);
                 e.setDeathMessage(Messages.playerKilledByPlayer
-                        .replace("%p1", Biomia.TeamManager().getTeam(p).getColorcode() + p.getName())
-                        .replace("%p2", Biomia.TeamManager().getTeam(killer).getColorcode() + killer.getName()));
+                        .replace("%p1", Biomia.getTeamManager().getTeam(p).getColorcode() + p.getName())
+                        .replace("%p2", Biomia.getTeamManager().getTeam(killer).getColorcode() + killer.getName()));
                 Bukkit.getPluginManager().callEvent(new BedWarsKillEvent(bp, bpKiller, false));
             }
         }
@@ -230,9 +230,9 @@ public class BedWarsListener implements Listener {
 
         if (BedWars.gameState == GameState.INGAME) {
 
-            if (Biomia.TeamManager().isPlayerInAnyTeam(p)) {
+            if (Biomia.getTeamManager().isPlayerInAnyTeam(p)) {
 
-                Team t = Biomia.TeamManager().getTeam(p);
+                Team t = Biomia.getTeamManager().getTeam(p);
 
                 if (Variables.livingPlayer.contains(p)) {
                     e.setRespawnLocation(Variables.teamSpawns.get(t));
@@ -279,7 +279,7 @@ public class BedWarsListener implements Listener {
                     }
                 } else if (e.getClickedInventory().getName().equals(Variables.teamJoiner.getName())) {
                     Variables.teamJoiner = JoinTeam.getTeamSwitcher();
-                    JoinTeam.join(p, Biomia.TeamManager().DataToTeam(e.getCurrentItem().getData().getData()));
+                    JoinTeam.join(p, Biomia.getTeamManager().getTeamFromData(e.getCurrentItem().getData().getData()));
                     e.setCancelled(true);
                     p.closeInventory();
                 } else {
@@ -293,7 +293,7 @@ public class BedWarsListener implements Listener {
                             } else {
                                 ShopItem shopItem = group.getShopItem(iStack);
                                 if (shopItem != null) {
-                                    Team team = Biomia.TeamManager().getTeam(p);
+                                    Team team = Biomia.getTeamManager().getTeam(p);
 
                                     ItemStack returnItem = iStack.clone();
 
@@ -391,7 +391,7 @@ public class BedWarsListener implements Listener {
                     return;
                 }
                 for (Player player : Variables.livingPlayer) {
-                    Team t = Biomia.TeamManager().getTeam(player);
+                    Team t = Biomia.getTeamManager().getTeam(player);
                     if (!livingTeams.contains(t)) {
                         livingTeams.add(t);
                     }
@@ -403,10 +403,10 @@ public class BedWarsListener implements Listener {
             }
         } else if (BedWars.gameState.equals(GameState.LOBBY)) {
             // Remove Player from Team
-            if (Biomia.TeamManager().isPlayerInAnyTeam(p)) {
-                Scoreboards.lobbySB.getTeam("0" + Biomia.TeamManager().getTeam(p).getTeamname())
+            if (Biomia.getTeamManager().isPlayerInAnyTeam(p)) {
+                Scoreboards.lobbySB.getTeam("0" + Biomia.getTeamManager().getTeam(p).getTeamname())
                         .removeEntry(p.getName());
-                Biomia.TeamManager().getTeam(p).removePlayer(p);
+                Biomia.getTeamManager().getTeam(p).removePlayer(p);
             }
         }
     }
@@ -423,11 +423,11 @@ public class BedWarsListener implements Listener {
                 }
 
                 // Check if the Entity in the same team like the damager
-                if (Biomia.TeamManager().isPlayerInAnyTeam(killer) && Biomia.TeamManager().isPlayerInAnyTeam(p)) {
-                    if (Biomia.TeamManager().getTeam(killer).playerInThisTeam(p)) {
+                if (Biomia.getTeamManager().isPlayerInAnyTeam(killer) && Biomia.getTeamManager().isPlayerInAnyTeam(p)) {
+                    if (Biomia.getTeamManager().getTeam(killer).playerInThisTeam(p)) {
                         e.setCancelled(true);
                     } else if (e.getFinalDamage() > p.getHealth()
-                            && !Variables.teamsWithBeds.contains(Biomia.TeamManager().getTeam(p))) {
+                            && !Variables.teamsWithBeds.contains(Biomia.getTeamManager().getTeam(p))) {
                         e.setCancelled(true);
 
                         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
@@ -552,14 +552,14 @@ public class BedWarsListener implements Listener {
                     if (is.getItemMeta().getDisplayName().equals(ItemNames.teamJoinerSetter)) {
                         if (is.getType().equals(Material.WOOL)) {
                             @SuppressWarnings("deprecation")
-                            Team team = Biomia.TeamManager().DataToTeam(is.getData().getData());
+                            Team team = Biomia.getTeamManager().getTeamFromData(is.getData().getData());
 
                             if (team != null) {
                                 UUID uuid = e.getRightClicked().getUniqueId();
                                 Entity armorstand = e.getRightClicked();
                                 Config.addTeamJoiner(uuid, team);
                                 armorstand.setCustomName(
-                                        team.getColorcode() + Biomia.TeamManager().translate(team.getTeamname()));
+                                        team.getColorcode() + Biomia.getTeamManager().translate(team.getTeamname()));
                                 armorstand.setCustomNameVisible(true);
                                 p.sendMessage(Messages.teamJoinerSet.replace("%t", team.getTeamname()));
                             }
@@ -567,7 +567,7 @@ public class BedWarsListener implements Listener {
                     }
                 }
             }
-            for (Team allteams : Biomia.TeamManager().getTeams()) {
+            for (Team allteams : Biomia.getTeamManager().getTeams()) {
 
                 UUID uuid = Variables.joiner.get(allteams);
                 if (uuid != null) {
@@ -596,7 +596,7 @@ public class BedWarsListener implements Listener {
 
         if (BedWars.gameState.equals(GameState.INGAME)) {
 
-            Team t = Biomia.TeamManager().getTeam(p);
+            Team t = Biomia.getTeamManager().getTeam(p);
 
             if (t != null) {
                 if (e.getMessage().startsWith("@")) {
@@ -625,8 +625,8 @@ public class BedWarsListener implements Listener {
                 }
 
             }
-        } else if (Biomia.TeamManager().isPlayerInAnyTeam(p)) {
-            Team t = Biomia.TeamManager().getTeam(p);
+        } else if (Biomia.getTeamManager().isPlayerInAnyTeam(p)) {
+            Team t = Biomia.getTeamManager().getTeam(p);
             format = Messages.chatMessageLobby.replaceAll("%p", t.getColorcode() + p.getDisplayName())
                     .replaceAll("%msg", msg);
             e.setFormat(format);
@@ -658,7 +658,7 @@ public class BedWarsListener implements Listener {
     public void onBlockPlace(BlockPlaceEvent e) {
         Variables.destroyableBlocks.add(e.getBlock());
         if (e.getBlock().getType() == Material.ENDER_CHEST) {
-            Team team = Biomia.TeamManager().getTeam(e.getPlayer());
+            Team team = Biomia.getTeamManager().getTeam(e.getPlayer());
             if (team != null) {
                 if (!Variables.teamChestsLocs.containsKey(team)) {
                     Variables.teamChestsLocs.put(team, new ArrayList<>());

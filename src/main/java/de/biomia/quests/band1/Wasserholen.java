@@ -17,7 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 public class Wasserholen implements Listener {
-	private final Quest q = Biomia.QuestManager().registerNewQuest("Wasserholen", 1);
+	private final Quest q = Biomia.getQuestManager().registerNewQuest("Wasserholen", 1);
 	private final NPC elsa;
 
     private DialogMessage dialog_Start;

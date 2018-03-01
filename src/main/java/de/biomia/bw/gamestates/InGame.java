@@ -44,7 +44,7 @@ public class InGame {
 
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
 
-            biomiaPlayerTeams.put(bp, Biomia.TeamManager().getTeam(p).getTeamname());
+            biomiaPlayerTeams.put(bp, Biomia.getTeamManager().getTeam(p).getTeamname());
             Bukkit.getPluginManager().callEvent(new BedWarsStartEvent(biomiaPlayerTeams));
 
             for (Player p2 : Bukkit.getOnlinePlayers()) {
@@ -78,7 +78,7 @@ public class InGame {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
             biomiaPlayersWinner.add(bp);
         }
-        Bukkit.getPluginManager().callEvent(new BedWarsEndEvent(biomiaPlayersWinner, duration, Biomia.TeamManager().getTeam(Variables.livingPlayer.get(0)).getTeamname()));
+        Bukkit.getPluginManager().callEvent(new BedWarsEndEvent(biomiaPlayersWinner, duration, Biomia.getTeamManager().getTeam(Variables.livingPlayer.get(0)).getTeamname()));
         End.start();
     }
 }

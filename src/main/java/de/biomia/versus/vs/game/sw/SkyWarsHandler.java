@@ -40,7 +40,7 @@ class SkyWarsHandler extends GameHandler {
                                 for (Entity entity : p.getNearbyEntities(500, 500, 500)) {
                                     if (entity instanceof Player) {
                                         Player nearest = (Player) entity;
-                                        if (!Biomia.TeamManager().livesPlayer(nearest) && Biomia.TeamManager().getTeam(p) != null && !Biomia.TeamManager().getTeam(p).playerInThisTeam(nearest)) {
+                                        if (!Biomia.getTeamManager().isPlayerAlive(nearest) && Biomia.getTeamManager().getTeam(p) != null && !Biomia.getTeamManager().getTeam(p).playerInThisTeam(nearest)) {
                                             p.setCompassTarget(nearest.getLocation());
                                             p.sendMessage(Messages.compassMessages.replace("%p", nearest.getName()).replace("%d", (int) p.getLocation().distance(nearest.getLocation()) + ""));
                                             return;

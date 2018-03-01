@@ -27,7 +27,7 @@ public class SkyWars {
 
         Main.getPlugin().getServer().createWorld(new WorldCreator(Variables.name));
 
-        Biomia.TeamManager().initTeams(Variables.playerPerTeam, Variables.teams);
+        Biomia.getTeamManager().initTeams(Variables.playerPerTeam, Variables.teams);
 
         Config.loadChestsFromConfig();
         Config.loadLocsFromConfig();

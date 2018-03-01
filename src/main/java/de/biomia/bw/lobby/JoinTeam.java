@@ -32,7 +32,7 @@ public class JoinTeam {
         int i = l.size() - 1;
 
         getallteams:
-        for (Team team : Biomia.TeamManager().getTeams()) {
+        for (Team team : Biomia.getTeamManager().getTeams()) {
 
             while (!team.full()) {
                 if (i >= 0) {
@@ -65,13 +65,13 @@ public class JoinTeam {
         }
 
 
-        if (Biomia.TeamManager().isPlayerInAnyTeam(p)) {
-            if (team.equals(Biomia.TeamManager().getTeam(p))) {
+        if (Biomia.getTeamManager().isPlayerInAnyTeam(p)) {
+            if (team.equals(Biomia.getTeamManager().getTeam(p))) {
                 p.sendMessage(Messages.alreadyInTeam);
                 return;
             }
 
-            Biomia.TeamManager().getTeam(p).removePlayer(p);
+            Biomia.getTeamManager().getTeam(p).removePlayer(p);
         }
 
         for (Player pl : team.getPlayers()) {
@@ -92,7 +92,7 @@ public class JoinTeam {
             return false;
         }
 
-        if (Biomia.TeamManager().isPlayerInAnyTeam(p)) {
+        if (Biomia.getTeamManager().isPlayerInAnyTeam(p)) {
             return true;
         }
         team.addPlayer(p);
@@ -120,7 +120,7 @@ public class JoinTeam {
                         cancel();
                     }
                 } else {
-                    for (Team t : Biomia.TeamManager().getTeams()) {
+                    for (Team t : Biomia.getTeamManager().getTeams()) {
                         if (t.getMaxPlayer() - t.getPlayersInTeam() <= party.size()) {
                             for (Player p : party) {
                                 t.addPlayer(p);
@@ -148,9 +148,9 @@ public class JoinTeam {
 
         switch (Variables.teams) {
             case (2):
-                for (Team team : Biomia.TeamManager().getTeams()) {
+                for (Team team : Biomia.getTeamManager().getTeams()) {
                     ItemStack itemstack = ItemCreator.itemCreate(Material.WOOL,
-                            team.getColorcode() + Biomia.TeamManager().translate(team.getTeamname()), team.getColordata());
+                            team.getColorcode() + Biomia.getTeamManager().translate(team.getTeamname()), team.getColordata());
 
                     if (team.getPlayersInTeam() > 1) {
                         itemstack.setAmount(team.getPlayersInTeam());
@@ -165,9 +165,9 @@ public class JoinTeam {
                 }
                 break;
             case (4):
-                for (Team team : Biomia.TeamManager().getTeams()) {
+                for (Team team : Biomia.getTeamManager().getTeams()) {
                     ItemStack itemstack = ItemCreator.itemCreate(Material.WOOL,
-                            team.getColorcode() + Biomia.TeamManager().translate(team.getTeamname()), team.getColordata());
+                            team.getColorcode() + Biomia.getTeamManager().translate(team.getTeamname()), team.getColordata());
 
                     if (team.getPlayersInTeam() > 1) {
                         itemstack.setAmount(team.getPlayersInTeam());
@@ -179,9 +179,9 @@ public class JoinTeam {
                 }
                 break;
             case (8):
-                for (Team team : Biomia.TeamManager().getTeams()) {
+                for (Team team : Biomia.getTeamManager().getTeams()) {
                     ItemStack itemstack = ItemCreator.itemCreate(Material.WOOL,
-                            team.getColorcode() + Biomia.TeamManager().translate(team.getTeamname()), team.getColordata());
+                            team.getColorcode() + Biomia.getTeamManager().translate(team.getTeamname()), team.getColordata());
 
                     if (team.getPlayersInTeam() > 1) {
                         itemstack.setAmount(team.getPlayersInTeam());

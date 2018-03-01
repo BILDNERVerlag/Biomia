@@ -77,7 +77,7 @@ public class SWCommand implements CommandExecutor {
                         Config.removeAllSigns();
                         sender.sendMessage("\u00A7cAlle Signs entfernt.");
                     } else if (args[0].equalsIgnoreCase("getTeamjoinersetter")) {
-                        for (Team t : Biomia.TeamManager().getTeams()) {
+                        for (Team t : Biomia.getTeamManager().getTeams()) {
                             p.getInventory().addItem(ItemCreator.itemCreate(Material.WOOL, ItemNames.teamJoinerSetter,
                                     t.getColordata()));
                         }

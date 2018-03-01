@@ -58,7 +58,7 @@ public class Variables {
     public static Inventory teamJoiner;
 
     public static Team getTeamByTeamChests(Block block) {
-        for (Team team : Biomia.TeamManager().getTeams()) {
+        for (Team team : Biomia.getTeamManager().getTeams()) {
             if (teamChestsLocs.containsKey(team)) {
                 for (Block b : teamChestsLocs.get(team)) {
                     if (block.equals(b)) {

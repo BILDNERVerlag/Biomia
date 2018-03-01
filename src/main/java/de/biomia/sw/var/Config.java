@@ -35,7 +35,7 @@ public class Config {
         Config.config.set("Spawnpoints." + (lastID + 1) + ".World", wo);
 
         Config.config.set("lastID", lastID + 1);
-        Variables.teamSpawns.put(Biomia.TeamManager().getTeams().get(lastID), loc);
+        Variables.teamSpawns.put(Biomia.getTeamManager().getTeams().get(lastID), loc);
         Main.getPlugin().saveConfig();
     }
 
@@ -115,7 +115,7 @@ public class Config {
                 World wo = Bukkit.getWorld(Config.config.getString("Spawnpoints." + i + ".World"));
 
                 Location loc = new Location(wo, x, y, z, ya, 0);
-                Variables.teamSpawns.put(Biomia.TeamManager().getTeams().get(i - 1), loc);
+                Variables.teamSpawns.put(Biomia.getTeamManager().getTeams().get(i - 1), loc);
             }
         }
     }
@@ -236,7 +236,7 @@ public class Config {
 
     public static void loadTeamJoiner() {
 
-        if (Biomia.TeamManager().getTeams().size() == 4) {
+        if (Biomia.getTeamManager().getTeams().size() == 4) {
             for (Teams t : Teams.values()) {
                 if (t.name().equalsIgnoreCase("Black") || t.name().equalsIgnoreCase("White")
                         || t.name().equalsIgnoreCase("Orange") || t.name().equalsIgnoreCase("Purple")) {
@@ -245,7 +245,7 @@ public class Config {
             }
         }
 
-        for (Team team : Biomia.TeamManager().getTeams()) {
+        for (Team team : Biomia.getTeamManager().getTeams()) {
             String stringuuid = Config.config.getString("Joiner." + team.getTeamname());
 
             if (stringuuid != null) {
@@ -255,7 +255,7 @@ public class Config {
             }
 
             Bukkit.getEntity(UUID.fromString(stringuuid))
-                    .setCustomName(team.getColorcode() + Biomia.TeamManager().translate(team.getTeamname()));
+                    .setCustomName(team.getColorcode() + Biomia.getTeamManager().translate(team.getTeamname()));
         }
 
     }
