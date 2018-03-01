@@ -326,7 +326,7 @@ public class QuestCommands implements CommandExecutor {
 
     /**
      * Listet ALLE questserverspezifischen QuestCommands auf. F\u00fcr diesen Command die
-     * Nachrichten bitte erstmal nicht in Messages verschieben und hier immer gleich
+     * Nachrichten bitte erstmal nicht in BedWarsMessages verschieben und hier immer gleich
      * \u00fcndern, falls neue QuestCommands hinzugef\u00fcgt werden. :)
      */
     private void qhelpCommand(CommandSender sender) {

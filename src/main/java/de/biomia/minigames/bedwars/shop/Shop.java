@@ -2,10 +2,10 @@ package de.biomia.minigames.bedwars.shop;
 
 import de.biomia.minigames.bedwars.messages.ItemNames;
 import de.biomia.minigames.bedwars.messages.Messages;
-import de.biomia.minigames.bedwars.var.ColorType;
-import de.biomia.minigames.bedwars.var.ItemType;
+import de.biomia.minigames.general.ItemType;
 import de.biomia.minigames.bedwars.var.Variables;
 import de.biomia.api.itemcreator.ItemCreator;
+import de.biomia.minigames.general.ColorType;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

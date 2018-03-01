@@ -16,6 +16,7 @@ public class Variables {
     public static final HashMap<ItemStack, Integer> goodItems = new HashMap<>();
     // Items
     public static final ItemStack kitItem = ItemCreator.itemCreate(Material.CHEST, ItemNames.kitItemName);
+
     //TODO Rewards
     public static int winReward = 300;
     public static int playReward = 60;

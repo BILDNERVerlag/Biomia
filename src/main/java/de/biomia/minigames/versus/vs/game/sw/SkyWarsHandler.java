@@ -1,6 +1,6 @@
 package de.biomia.minigames.versus.vs.game.sw;
 
-import de.biomia.minigames.versus.global.Dead;
+import de.biomia.minigames.general.Dead;
 import de.biomia.minigames.versus.sw.messages.ItemNames;
 import de.biomia.minigames.versus.sw.messages.Messages;
 import de.biomia.minigames.versus.vs.game.GameHandler;

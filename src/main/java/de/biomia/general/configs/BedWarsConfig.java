@@ -4,7 +4,7 @@ import de.biomia.api.Biomia;
 import de.biomia.api.Teams.Team;
 import de.biomia.api.Teams.Teams;
 import de.biomia.Main;
-import de.biomia.minigames.bedwars.var.ItemType;
+import de.biomia.minigames.general.ItemType;
 import de.biomia.minigames.bedwars.var.Variables;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

@@ -2,7 +2,7 @@ package de.biomia.minigames.versus.vs.lobby;
 
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
-import de.biomia.minigames.versus.bw.messages.Messages;
+import de.biomia.general.messages.BedWarsMessages;
 import de.biomia.minigames.versus.VSMain;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
@@ -80,7 +80,7 @@ public class Lobby implements Listener {
         if (p.getWorld().getName().contains("Spawn")) {
             if (p.hasPermission("biomia.coloredchat"))
                 msg = ChatColor.translateAlternateColorCodes('&', e.getMessage());
-            format = Messages.chatMessageLobby.replaceAll("%p", p.getDisplayName()).replaceAll("%msg", msg);
+            format = BedWarsMessages.chatMessageLobby.replaceAll("%p", p.getDisplayName()).replaceAll("%msg", msg);
             e.setFormat(format);
         }
     }

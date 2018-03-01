@@ -1,6 +1,6 @@
 package de.biomia.general.configs;
 
-import de.biomia.minigames.versus.bw.var.ItemType;
+import de.biomia.minigames.general.ItemType;
 import de.biomia.Main;
 import org.bukkit.Location;
 import org.bukkit.World;

@@ -1,7 +1,7 @@
 package de.biomia.minigames.bedwars.listeners;
 
 import de.biomia.minigames.bedwars.messages.ItemNames;
-import de.biomia.minigames.bedwars.var.ItemType;
+import de.biomia.minigames.general.ItemType;
 import de.biomia.minigames.bedwars.var.Variables;
 import de.biomia.api.itemcreator.ItemCreator;
 import de.biomia.Main;

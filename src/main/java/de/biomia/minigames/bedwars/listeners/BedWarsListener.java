@@ -22,6 +22,8 @@ import de.biomia.minigames.bedwars.shop.Shop;
 import de.biomia.minigames.bedwars.shop.ShopGroup;
 import de.biomia.minigames.bedwars.shop.ShopItem;
 import de.biomia.minigames.bedwars.var.*;
+import de.biomia.minigames.general.ColorType;
+import de.biomia.minigames.general.ItemType;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
 import org.bukkit.entity.ArmorStand;
@@ -474,10 +476,10 @@ public class BedWarsListener implements Listener {
 //					NumberFormat n = NumberFormat.getInstance();
 //					n.setMaximumFractionDigits(2);
 //
-//					e.setLine(0, Messages.rank.replaceAll("%rank", i + "").replaceAll("%p", e.getPlayer().getName()));
-//					e.setLine(1, Messages.wunGames + stat.wins);
-//					e.setLine(2, Messages.kd + n.format(kd));
-//					e.setLine(3, Messages.playedGames + stat.played_games);
+//					e.setLine(0, BedWarsMessages.rank.replaceAll("%rank", i + "").replaceAll("%p", e.getPlayer().getName()));
+//					e.setLine(1, BedWarsMessages.wunGames + stat.wins);
+//					e.setLine(2, BedWarsMessages.kd + n.format(kd));
+//					e.setLine(3, BedWarsMessages.playedGames + stat.played_games);
 //
 //					org.bukkit.material.Sign signData = (org.bukkit.material.Sign) e.getBlock().getState().getData();
 //

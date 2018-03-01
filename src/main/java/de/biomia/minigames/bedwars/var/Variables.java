@@ -7,6 +7,7 @@ import de.biomia.api.messages.Messages;
 import de.biomia.general.configs.Config;
 import de.biomia.minigames.bedwars.listeners.CountDown;
 import de.biomia.minigames.bedwars.messages.ItemNames;
+import de.biomia.minigames.general.ItemType;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;

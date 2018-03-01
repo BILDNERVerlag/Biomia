@@ -1,6 +1,6 @@
-package de.biomia.minigames.versus.bw.messages;
+package de.biomia.general.messages;
 
-public class Messages {
+public class BedWarsMessages {
 
     public static final String bedwars = "\u00A75Bed\u00A72Wars";
 

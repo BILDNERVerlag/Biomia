@@ -1,4 +1,4 @@
-package de.biomia.minigames.versus.bw.var;
+package de.biomia.minigames.general;
 
 public enum ColorType {
     LEATHER, BLOCK

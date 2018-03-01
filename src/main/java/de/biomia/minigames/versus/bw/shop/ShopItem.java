@@ -1,6 +1,6 @@
 package de.biomia.minigames.versus.bw.shop;
 
-import de.biomia.minigames.versus.bw.var.ColorType;
+import de.biomia.minigames.general.ColorType;
 import org.bukkit.inventory.ItemStack;
 
 public class ShopItem {

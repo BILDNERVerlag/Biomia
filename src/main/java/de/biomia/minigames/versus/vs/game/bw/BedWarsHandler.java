@@ -1,8 +1,8 @@
 package de.biomia.minigames.versus.vs.game.bw;
 
-import de.biomia.minigames.versus.bw.messages.ItemNames;
-import de.biomia.minigames.versus.bw.messages.Messages;
-import de.biomia.minigames.versus.global.Dead;
+import de.biomia.general.messages.BedWarsMessages;
+import de.biomia.general.messages.BedWarsItemNames;
+import de.biomia.minigames.general.Dead;
 import de.biomia.minigames.versus.vs.game.GameHandler;
 import de.biomia.minigames.versus.vs.game.GameTeam;
 import de.biomia.api.Biomia;
@@ -42,7 +42,7 @@ class BedWarsHandler extends GameHandler {
     @EventHandler
     private void onInteract(PlayerInteractEvent e) {
         if (e.hasItem() && e.getItem().hasItemMeta() && e.getItem().getItemMeta().hasDisplayName()) {
-            if (e.getItem().getItemMeta().getDisplayName().equals(ItemNames.rettungsPlattform)) {
+            if (e.getItem().getItemMeta().getDisplayName().equals(BedWarsItemNames.rettungsPlattform)) {
                 if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                     buildRettungsplattform(e.getPlayer().getLocation(), e.getItem());
                     e.setCancelled(true);
@@ -63,7 +63,7 @@ class BedWarsHandler extends GameHandler {
                         if (b1.equals(b)) {
                             if (team.containsPlayer(bp)) {
                                 e.setCancelled(true);
-                                e.getPlayer().sendMessage(Messages.cantDestroyYourOwnBed);
+                                e.getPlayer().sendMessage(BedWarsMessages.cantDestroyYourOwnBed);
                             } else {
                                 Bukkit.broadcastMessage("\u00A77Das Bett von Team " + team.getColorcode() + team.getTeamname() + " \u00A77wurde zerst\u00F6rt!");
                                 e.setDropItems(false);
@@ -77,7 +77,7 @@ class BedWarsHandler extends GameHandler {
                 destroyableBlocks.remove(b);
             } else {
                 e.setCancelled(true);
-                e.getPlayer().sendMessage(Messages.cantDestroyThisBlock);
+                e.getPlayer().sendMessage(BedWarsMessages.cantDestroyThisBlock);
             }
 
     }
@@ -93,16 +93,16 @@ class BedWarsHandler extends GameHandler {
             p.getInventory().clear();
             if (!((BedWarsTeam) mode.getTeam(bp)).hasBed()) {
                 for (BiomiaPlayer all : mode.getPlayers())
-                    all.getPlayer().sendMessage(Messages.playerDiedFinally.replaceAll("%p", p.getName()));
+                    all.getPlayer().sendMessage(BedWarsMessages.playerDiedFinally.replaceAll("%p", p.getName()));
                 Dead.respawn(p);
                 mode.getTeam(bp).setDead(bp);
                 ((BedWars) mode).getBedWarsScoreboard().setScoreboard(bp, true);
             } else
                 for (BiomiaPlayer all : mode.getPlayers())
                     if (killer == null)
-                        all.getPlayer().sendMessage(Messages.playerDied.replaceAll("%p", p.getName()));
+                        all.getPlayer().sendMessage(BedWarsMessages.playerDied.replaceAll("%p", p.getName()));
                     else
-                        all.getPlayer().sendMessage(Messages.playerKilledByPlayer.replaceAll("%p1", p.getName()).replaceAll("%p2", killer.getName()));
+                        all.getPlayer().sendMessage(BedWarsMessages.playerKilledByPlayer.replaceAll("%p1", p.getName()).replaceAll("%p2", killer.getName()));
         }
     }
 

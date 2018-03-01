@@ -1,6 +1,6 @@
-package de.biomia.minigames.versus.bw.messages;
+package de.biomia.general.messages;
 
-public class ItemNames {
+public class BedWarsItemNames {
 
     public static final String bronze = "\u00A7cBronze";
     public static final String iron = "\u00A77Eisen";

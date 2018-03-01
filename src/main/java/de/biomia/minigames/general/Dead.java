@@ -1,4 +1,4 @@
-package de.biomia.minigames.versus.global;
+package de.biomia.minigames.general;
 
 import de.biomia.api.BiomiaPlayer;
 import net.minecraft.server.v1_12_R1.PacketPlayInClientCommand;

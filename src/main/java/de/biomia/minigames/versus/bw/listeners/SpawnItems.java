@@ -1,7 +1,7 @@
 package de.biomia.minigames.versus.bw.listeners;
 
-import de.biomia.minigames.versus.bw.messages.ItemNames;
-import de.biomia.minigames.versus.bw.var.ItemType;
+import de.biomia.general.messages.BedWarsItemNames;
+import de.biomia.minigames.general.ItemType;
 import de.biomia.minigames.versus.bw.var.Variables;
 import de.biomia.general.configs.BedWarsVersusConfig;
 import de.biomia.minigames.versus.vs.game.bw.BedWars;
@@ -25,9 +25,9 @@ public class SpawnItems {
 
         World world = bedWars.getInstance().getWorld();
 
-        ItemStack gold = ItemCreator.itemCreate(Material.GOLD_INGOT, ItemNames.gold);
-        ItemStack iron = ItemCreator.itemCreate(Material.IRON_INGOT, ItemNames.iron);
-        ItemStack bronze = ItemCreator.itemCreate(Material.CLAY_BRICK, ItemNames.bronze);
+        ItemStack gold = ItemCreator.itemCreate(Material.GOLD_INGOT, BedWarsItemNames.gold);
+        ItemStack iron = ItemCreator.itemCreate(Material.IRON_INGOT, BedWarsItemNames.iron);
+        ItemStack bronze = ItemCreator.itemCreate(Material.CLAY_BRICK, BedWarsItemNames.bronze);
 
         HashMap<ItemType, ArrayList<Location>> spawner = BedWarsVersusConfig.getSpawner(bedWars.getInstance().getMapID(), world);
 

@@ -1,9 +1,9 @@
 package de.biomia.minigames.versus.bw.shop;
 
-import de.biomia.minigames.versus.bw.messages.ItemNames;
-import de.biomia.minigames.versus.bw.messages.Messages;
-import de.biomia.minigames.versus.bw.var.ColorType;
-import de.biomia.minigames.versus.bw.var.ItemType;
+import de.biomia.general.messages.BedWarsMessages;
+import de.biomia.general.messages.BedWarsItemNames;
+import de.biomia.minigames.general.ColorType;
+import de.biomia.minigames.general.ItemType;
 import de.biomia.minigames.versus.vs.game.bw.BedWars;
 import de.biomia.minigames.versus.vs.game.bw.BedWarsTeam;
 import de.biomia.api.Biomia;
@@ -54,7 +54,7 @@ public class BedWarsShopListener implements Listener {
         if (bedWars.containsPlayer(bp))
             if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
                 ItemStack iStack = e.getCurrentItem();
-                if (e.getInventory().getName().equals(Messages.shopInventory)) {
+                if (e.getInventory().getName().equals(BedWarsMessages.shopInventory)) {
                     for (ShopGroup group : Shop.getGroups()) {
                         if (iStack.equals(group.getIcon())) {
                             e.setCancelled(true);
@@ -66,7 +66,7 @@ public class BedWarsShopListener implements Listener {
                     for (ShopGroup group : Shop.getGroups()) {
                         if (e.getClickedInventory().getName().equals(group.getFullName())) {
                             e.setCancelled(true);
-                            if (iStack.hasItemMeta() && iStack.getItemMeta().hasDisplayName() && iStack.getItemMeta().getDisplayName().equals(ItemNames.back)) {
+                            if (iStack.hasItemMeta() && iStack.getItemMeta().hasDisplayName() && iStack.getItemMeta().getDisplayName().equals(BedWarsItemNames.back)) {
                                 p.openInventory(Shop.getInventory());
                                 return;
                             } else {
@@ -106,7 +106,7 @@ public class BedWarsShopListener implements Listener {
                                         } else if (first) {
                                             String name = ItemType.getName(price.getItemType());
                                             assert name != null;
-                                            p.sendMessage(Messages.notEnoughItemsToPay.replace("%n", name));
+                                            p.sendMessage(BedWarsMessages.notEnoughItemsToPay.replace("%n", name));
                                             return;
                                         } else {
                                             return;
@@ -118,7 +118,7 @@ public class BedWarsShopListener implements Listener {
                                 } else {
                                     String name = ItemType.getName(price.getItemType());
                                     assert name != null;
-                                    p.sendMessage(Messages.notEnoughItemsToPay.replace("%n", name));
+                                    p.sendMessage(BedWarsMessages.notEnoughItemsToPay.replace("%n", name));
                                     return;
 
                                 }
@@ -156,7 +156,7 @@ public class BedWarsShopListener implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
         if (e.hasItem() && e.getItem().hasItemMeta() && e.getItem().getItemMeta().hasDisplayName()) {
-            if (e.getItem().getItemMeta().getDisplayName().equals(ItemNames.villagerSpawner)) {
+            if (e.getItem().getItemMeta().getDisplayName().equals(BedWarsItemNames.villagerSpawner)) {
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                     spawnVillager(e.getClickedBlock().getLocation().add(0.5, 1, 0.5));
                     e.setCancelled(true);

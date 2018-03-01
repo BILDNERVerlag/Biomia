@@ -1,9 +1,9 @@
 package de.biomia.minigames.bedwars.shop;
 
-import de.biomia.minigames.bedwars.var.ColorType;
-import de.biomia.minigames.bedwars.var.ItemType;
+import de.biomia.minigames.general.ItemType;
 import de.biomia.api.Biomia;
 import de.biomia.api.achievements.statEvents.bedwars.BedWarsBuyItemEvent;
+import de.biomia.minigames.general.ColorType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

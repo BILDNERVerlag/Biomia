@@ -146,10 +146,10 @@ public class SkyWarsConfig extends Config {
 //					kd = Math.round(kd * 100);
 //					kd = kd / 100;
 //
-//					sign.setLine(0, Messages.rank.replaceAll("%rank", i + "").replaceAll("%p", stat.name));
-//					sign.setLine(1, Messages.wunGames + stat.wins);
-//					sign.setLine(2, Messages.kd + kd);
-//					sign.setLine(3, Messages.playedGames + stat.played_games);
+//					sign.setLine(0, BedWarsMessages.rank.replaceAll("%rank", i + "").replaceAll("%p", stat.name));
+//					sign.setLine(1, BedWarsMessages.wunGames + stat.wins);
+//					sign.setLine(2, BedWarsMessages.kd + kd);
+//					sign.setLine(3, BedWarsMessages.playedGames + stat.played_games);
 //					sign.update();
 //
 //					Block b = sign.getBlock().getLocation().add(0, 1, 0).getBlock();

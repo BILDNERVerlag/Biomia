@@ -594,10 +594,10 @@ public class SkyWarsListener implements Listener {
 //                    double kd = stat.kills / stat.deaths;
 //                    kd = ((double) Math.round(kd * 100) / 100);
 //
-//                    e.setLine(0, Messages.rank.replaceAll("%rank", i + "").replaceAll("%p", stat.name));
-//                    e.setLine(1, Messages.wunGames + stat.wins);
-//                    e.setLine(2, Messages.kd + kd);
-//                    e.setLine(3, Messages.playedGames + stat.played_games);
+//                    e.setLine(0, BedWarsMessages.rank.replaceAll("%rank", i + "").replaceAll("%p", stat.name));
+//                    e.setLine(1, BedWarsMessages.wunGames + stat.wins);
+//                    e.setLine(2, BedWarsMessages.kd + kd);
+//                    e.setLine(3, BedWarsMessages.playedGames + stat.played_games);
 //
 //                    org.bukkit.material.Sign signData = (org.bukkit.material.Sign) e.getBlock().getState().getData();
 //

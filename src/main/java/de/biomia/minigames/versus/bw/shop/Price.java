@@ -1,6 +1,6 @@
 package de.biomia.minigames.versus.bw.shop;
 
-import de.biomia.minigames.versus.bw.var.ItemType;
+import de.biomia.minigames.general.ItemType;
 import de.biomia.api.itemcreator.ItemCreator;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

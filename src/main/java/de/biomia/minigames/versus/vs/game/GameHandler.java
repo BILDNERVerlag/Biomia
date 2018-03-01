@@ -1,7 +1,7 @@
 package de.biomia.minigames.versus.vs.game;
 
-import de.biomia.minigames.versus.bw.messages.Messages;
-import de.biomia.minigames.versus.global.Dead;
+import de.biomia.general.messages.BedWarsMessages;
+import de.biomia.minigames.general.Dead;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.Main;
@@ -55,15 +55,15 @@ public class GameHandler implements Listener {
                 msg = msg.replaceAll("@a", "");
                 msg = msg.replaceAll("@ ", "");
                 msg = msg.replaceAll("@", "");
-                format = Messages.chatMessageAll.replaceAll("%p", team.getColorcode() + p.getDisplayName()).replaceAll("%msg", msg);
+                format = BedWarsMessages.chatMessageAll.replaceAll("%p", team.getColorcode() + p.getDisplayName()).replaceAll("%msg", msg);
             } else if (team != null) {
                 e.setCancelled(true);
-                format = Messages.chatMessageTeam.replaceAll("%p", team.getColorcode() + p.getDisplayName()).replaceAll("%msg", msg);
+                format = BedWarsMessages.chatMessageTeam.replaceAll("%p", team.getColorcode() + p.getDisplayName()).replaceAll("%msg", msg);
                 for (BiomiaPlayer teamPlayer : team.getPlayers())
                     teamPlayer.getPlayer().sendMessage(format);
                 return;
             } else {
-                format = Messages.chatMessageDead.replaceAll("%p", p.getDisplayName()).replaceAll("%msg", msg);
+                format = BedWarsMessages.chatMessageDead.replaceAll("%p", p.getDisplayName()).replaceAll("%msg", msg);
             }
             e.setFormat(format);
         }

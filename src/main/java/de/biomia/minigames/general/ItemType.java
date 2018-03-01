@@ -1,4 +1,4 @@
-package de.biomia.minigames.bedwars.var;
+package de.biomia.minigames.general;
 
 import org.bukkit.Material;
 

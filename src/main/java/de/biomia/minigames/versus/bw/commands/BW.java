@@ -2,9 +2,9 @@ package de.biomia.minigames.versus.bw.commands;
 
 import de.biomia.api.itemcreator.ItemCreator;
 import de.biomia.general.configs.Config;
-import de.biomia.minigames.versus.bw.messages.ItemNames;
-import de.biomia.minigames.versus.bw.messages.Messages;
-import de.biomia.minigames.versus.bw.var.ItemType;
+import de.biomia.general.messages.BedWarsMessages;
+import de.biomia.general.messages.BedWarsItemNames;
+import de.biomia.minigames.general.ItemType;
 import de.biomia.general.configs.BedWarsVersusConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -58,7 +58,7 @@ public class BW implements CommandExecutor {
                             sender.sendMessage("/bw addspawner mapID");
                         break;
                     case "villager":
-                        p.getInventory().addItem(ItemCreator.itemCreate(Material.MONSTER_EGG, ItemNames.villagerSpawner));
+                        p.getInventory().addItem(ItemCreator.itemCreate(Material.MONSTER_EGG, BedWarsItemNames.villagerSpawner));
                         break;
                     case "addbed":
                         if (args.length >= 3) {
@@ -69,7 +69,7 @@ public class BW implements CommandExecutor {
                                 BedWarsVersusConfig.setBed(Integer.valueOf(args[1]), Integer.valueOf(args[2]), blockHead.getLocation(), blockFoot.getLocation());
                                 Bukkit.broadcastMessage("\u00A7cBett hinzugef\u00fcgt!");
                             } else
-                                p.sendMessage(Messages.blocksMustBeBeds);
+                                p.sendMessage(BedWarsMessages.blocksMustBeBeds);
                         } else
                             sender.sendMessage("/bw addbed mapID teamID");
                         break;

@@ -1,6 +1,6 @@
 package de.biomia.minigames.versus.vs.game;
 
-import de.biomia.minigames.versus.global.Dead;
+import de.biomia.minigames.general.Dead;
 import de.biomia.api.BiomiaPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
