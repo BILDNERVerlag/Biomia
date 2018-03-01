@@ -1,7 +1,7 @@
 package de.biomia.api.cosmetics.GadgetItems;
 
 import de.biomia.api.cosmetics.Cosmetic;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import org.bukkit.Bukkit;
 
 public class GadgetIniter {

@@ -1,6 +1,6 @@
 package de.biomia.minigames.versus.sw.commands;
 
-import de.biomia.minigames.versus.global.configs.SkyWarsConfig;
+import de.biomia.general.configs.SkyWarsVersusConfig;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -24,7 +24,7 @@ public class SW implements CommandExecutor {
                             if (args.length >= 3) {
                                 int mapID = Integer.valueOf(args[1]);
                                 int teamID = Integer.valueOf(args[2]);
-                                SkyWarsConfig.addLocation(p.getLocation(), mapID, teamID);
+                                SkyWarsVersusConfig.addLocation(p.getLocation(), mapID, teamID);
                                 sender.sendMessage("Spawnpoint wurde hinzugef\u00fcgt!");
                             } else
                                 sender.sendMessage("/sw addloc mapID teamID");
@@ -36,11 +36,11 @@ public class SW implements CommandExecutor {
                                     int mapID = Integer.valueOf(args[1]);
                                     switch (args[2].toLowerCase()) {
                                         case "good":
-                                            SkyWarsConfig.addGoodChestLocation(l, mapID);
+                                            SkyWarsVersusConfig.addGoodChestLocation(l, mapID);
                                             sender.sendMessage("Bessere Kiste hinzugef\u00fcgt!");
                                             break;
                                         case "normal":
-                                            SkyWarsConfig.addNormalChestLocation(l, mapID);
+                                            SkyWarsVersusConfig.addNormalChestLocation(l, mapID);
                                             sender.sendMessage("Normale Kiste hinzugef\u00fcgt!");
                                             break;
                                         default:

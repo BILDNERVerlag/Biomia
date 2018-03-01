@@ -8,7 +8,7 @@ import de.biomia.api.achievements.statEvents.general.CoinAddEvent;
 import de.biomia.api.achievements.statEvents.general.CoinTakeEvent;
 import de.biomia.api.achievements.statEvents.skywars.*;
 import de.biomia.api.cosmetics.CosmeticItem;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;

@@ -1,6 +1,6 @@
 package de.biomia.api.messages;
 
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import de.biomia.api.pex.Rank;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

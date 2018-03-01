@@ -28,9 +28,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Observable;
-
-public class BiomiaListener extends Observable implements Listener {
+public class BiomiaListener implements Listener {
 
     @EventHandler
     public static void onInteract(PlayerInteractEvent e) {
@@ -79,8 +77,6 @@ public class BiomiaListener extends Observable implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
-        setChanged();
-        notifyObservers(e);
         if (!Biomia.getBiomiaPlayer(e.getPlayer()).canBuild())
             if (!Biomia.getQuestPlayer(e.getPlayer()).getMineableBlocks().contains(e.getBlock().getType()))
                 e.setCancelled(true);

@@ -1,6 +1,6 @@
 package de.biomia.plugin.listeners;
 
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

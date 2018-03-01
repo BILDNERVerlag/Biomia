@@ -8,7 +8,7 @@ import de.biomia.api.cosmetics.CosmeticItem;
 import de.biomia.api.cosmetics.CosmeticItem.Commonness;
 import de.biomia.api.cosmetics.CosmeticParticleItem;
 import de.biomia.api.itemcreator.ItemCreator;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;

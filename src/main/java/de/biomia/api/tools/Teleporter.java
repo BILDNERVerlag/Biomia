@@ -1,7 +1,7 @@
 package de.biomia.api.tools;
 
 import de.biomia.api.connect.Connect;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;

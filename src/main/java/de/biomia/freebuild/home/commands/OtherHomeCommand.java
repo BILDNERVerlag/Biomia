@@ -3,7 +3,7 @@ package de.biomia.freebuild.home.commands;
 import de.biomia.freebuild.home.Home;
 import de.biomia.freebuild.home.homes.HomeManager;
 import de.biomia.api.BiomiaPlayer;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

@@ -1,20 +1,17 @@
 package de.biomia.general.configs;
 
-import de.biomia.general.configs.Config;
-import de.biomia.minigames.sw.chests.Chests;
+import de.biomia.minigames.skywars.chests.Chests;
 import de.biomia.api.Biomia;
 import de.biomia.api.Teams.Team;
 import de.biomia.api.Teams.Teams;
-import de.biomia.api.main.Main;
-import de.biomia.minigames.sw.var.Variables;
+import de.biomia.Main;
+import de.biomia.minigames.skywars.var.Variables;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
-import org.bukkit.configuration.file.FileConfiguration;
 
-import java.io.File;
 import java.util.UUID;
 
 public class SkyWarsConfig extends Config {
@@ -266,22 +263,6 @@ public class SkyWarsConfig extends Config {
 
         if (Variables.joiner.containsKey(t))
             Variables.joiner.remove(t);
-    }
-
-    public static void addDefaults() {
-        if (!Main.getPlugin().getDataFolder().exists()) {
-            if (!Main.getPlugin().getDataFolder().mkdirs()) {
-                return;
-            }
-        }
-        File file = new File(Main.getPlugin().getDataFolder(), "config.yml");
-        if (!file.exists()) {
-            Main.getPlugin().getLogger().info("configs.yml not found, creating!");
-            Main.getPlugin().saveDefaultConfig();
-            Main.getPlugin().getConfig().options().copyDefaults(true);
-        } else {
-            Main.getPlugin().getLogger().info("configs.yml found, loading!");
-        }
     }
 
 }

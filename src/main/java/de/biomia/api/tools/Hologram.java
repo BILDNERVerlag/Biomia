@@ -1,6 +1,6 @@
 package de.biomia.api.tools;
 
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;

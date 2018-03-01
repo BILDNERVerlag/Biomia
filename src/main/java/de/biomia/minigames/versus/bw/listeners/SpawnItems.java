@@ -3,10 +3,10 @@ package de.biomia.minigames.versus.bw.listeners;
 import de.biomia.minigames.versus.bw.messages.ItemNames;
 import de.biomia.minigames.versus.bw.var.ItemType;
 import de.biomia.minigames.versus.bw.var.Variables;
-import de.biomia.minigames.versus.global.configs.BedWarsConfig;
+import de.biomia.general.configs.BedWarsVersusConfig;
 import de.biomia.minigames.versus.vs.game.bw.BedWars;
 import de.biomia.api.itemcreator.ItemCreator;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -29,7 +29,7 @@ public class SpawnItems {
         ItemStack iron = ItemCreator.itemCreate(Material.IRON_INGOT, ItemNames.iron);
         ItemStack bronze = ItemCreator.itemCreate(Material.CLAY_BRICK, ItemNames.bronze);
 
-        HashMap<ItemType, ArrayList<Location>> spawner = BedWarsConfig.getSpawner(bedWars.getInstance().getMapID(), world);
+        HashMap<ItemType, ArrayList<Location>> spawner = BedWarsVersusConfig.getSpawner(bedWars.getInstance().getMapID(), world);
 
         items = new BukkitRunnable() {
             int i = 0;

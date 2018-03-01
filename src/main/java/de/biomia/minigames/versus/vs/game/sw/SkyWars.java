@@ -1,6 +1,6 @@
 package de.biomia.minigames.versus.vs.game.sw;
 
-import de.biomia.minigames.versus.global.configs.SkyWarsConfig;
+import de.biomia.general.configs.SkyWarsVersusConfig;
 import de.biomia.minigames.versus.sw.chests.Chests;
 import de.biomia.minigames.versus.sw.kits.KitManager;
 import de.biomia.minigames.versus.vs.game.GameInstance;
@@ -18,8 +18,8 @@ public class SkyWars extends GameMode {
     public SkyWars(GameInstance instance) {
         super(instance);
         HashMap<Integer, ArrayList<BiomiaPlayer>> teamPlayers = splitPlayers(getPlayers());
-        team1 = new SkyWarsTeam(this, TeamColor.BLUE, teamPlayers.get(1), SkyWarsConfig.loadLocsFromConfig(instance.getMapID(), TeamColor.BLUE.getID(), instance.getWorld()));
-        team2 = new SkyWarsTeam(this, TeamColor.RED, teamPlayers.get(2), SkyWarsConfig.loadLocsFromConfig(instance.getMapID(), TeamColor.RED.getID(), instance.getWorld()));
+        team1 = new SkyWarsTeam(this, TeamColor.BLUE, teamPlayers.get(1), SkyWarsVersusConfig.loadLocsFromConfig(instance.getMapID(), TeamColor.BLUE.getID(), instance.getWorld()));
+        team2 = new SkyWarsTeam(this, TeamColor.RED, teamPlayers.get(2), SkyWarsVersusConfig.loadLocsFromConfig(instance.getMapID(), TeamColor.RED.getID(), instance.getWorld()));
         handler = new SkyWarsHandler(this);
     }
 

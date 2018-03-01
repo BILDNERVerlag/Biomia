@@ -1,9 +1,9 @@
 package de.biomia.plugin.specialEvents.easterEvent;
 
+import de.biomia.Main;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.api.achievements.Stats;
-import de.biomia.api.main.Main;
 import net.minecraft.server.v1_12_R1.BlockPosition;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -42,7 +42,7 @@ public class EasterEvent implements Listener {
 
     public EasterEvent() {
         final String world;
-        switch (de.biomia.api.main.Main.getGroupName()) {
+        switch (Main.getGroupName()) {
         //TODO addServers
         case "Lobby":
             world = "Spawn";
@@ -134,9 +134,9 @@ public class EasterEvent implements Listener {
                 Stats.incrementStat(Stats.BiomiaStat.EasterEggsFound, bp.getBiomiaPlayerID());
                 bp.getPlayer().sendMessage("\u00A7cDu hast ein Normales Ei gefunden! Schau zum Osterhasen in der Lobby um Belohnungen zu erhalten!");
             } else if (((Skull) e.getClickedBlock().getState()).getOwningPlayer().getName().equals(specialEggName)) {
-                int eggsFound = Stats.getStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer(), de.biomia.api.main.Main.getGroupName());
+                int eggsFound = Stats.getStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer(), Main.getGroupName());
                 if (eggsFound == 0) {
-                    Stats.incrementStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer(), de.biomia.api.main.Main.getGroupName());
+                    Stats.incrementStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer(), Main.getGroupName());
                     if (Stats.getStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer()) == specialEggsAmount) {
                         e.getPlayer().sendMessage("\u00A7cDu hast alle besonderen Eier gefunden! Daf\u00fcr erh\u00fcltst du:");
                         // TODO setWinns ( + nachrichten)

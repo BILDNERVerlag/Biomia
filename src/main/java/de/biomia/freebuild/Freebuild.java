@@ -5,7 +5,7 @@ import de.biomia.freebuild.commands.RespawnCommand;
 import de.biomia.freebuild.home.Home;
 import de.biomia.freebuild.home.commands.*;
 import de.biomia.freebuild.home.homes.HomeManager;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import de.biomia.freebuild.listeners.FreebuildListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;

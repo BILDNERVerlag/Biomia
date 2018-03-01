@@ -3,7 +3,7 @@ package de.biomia.plugin.commands;
 import de.biomia.plugin.reportsystem.PlayerReport;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import de.biomia.api.messages.Messages;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

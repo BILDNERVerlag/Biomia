@@ -2,7 +2,7 @@ package de.biomia.quests.general;
 
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import de.biomia.quests.QuestEvents.Event;
 import net.citizensnpcs.api.npc.NPC;
 import net.md_5.bungee.api.chat.ClickEvent;

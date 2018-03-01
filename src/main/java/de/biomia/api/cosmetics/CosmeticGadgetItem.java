@@ -4,7 +4,7 @@ import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.quests.QuestEvents.TakeItemEvent;
 import de.biomia.api.cosmetics.Cosmetic.Group;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;

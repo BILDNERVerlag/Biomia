@@ -1,6 +1,6 @@
 package de.biomia.freebuild.home.configuration;
 
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 
 public class ConfigManager {
 	private static int maxHomes;

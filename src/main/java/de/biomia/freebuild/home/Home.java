@@ -4,7 +4,7 @@ import de.biomia.freebuild.home.configuration.ConfigManager;
 import de.biomia.freebuild.home.homes.HomeManager;
 import de.biomia.freebuild.home.listeners.GatewayListener;
 import de.biomia.freebuild.home.storage.HomeFileManager;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 

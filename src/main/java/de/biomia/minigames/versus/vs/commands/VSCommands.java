@@ -1,6 +1,6 @@
 package de.biomia.minigames.versus.vs.commands;
 
-import de.biomia.minigames.versus.vs.main.VSMain;
+import de.biomia.minigames.versus.VSMain;
 import de.biomia.minigames.versus.vs.settings.VSRequest;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;

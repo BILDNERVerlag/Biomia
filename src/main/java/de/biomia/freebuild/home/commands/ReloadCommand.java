@@ -1,6 +1,6 @@
 package de.biomia.freebuild.home.commands;
 
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

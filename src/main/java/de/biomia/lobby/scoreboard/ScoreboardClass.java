@@ -2,7 +2,7 @@ package de.biomia.lobby.scoreboard;
 
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import de.biomia.api.pex.Rank;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -103,7 +103,7 @@ public class ScoreboardClass {
     private static void initScoreboard(Scoreboard sb) {
         int i = 0;
 
-        for (String s : de.biomia.api.main.Main.group) {
+        for (String s : Main.group) {
 
             Team t;
 

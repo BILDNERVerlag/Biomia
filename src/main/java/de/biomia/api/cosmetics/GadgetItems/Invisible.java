@@ -3,7 +3,7 @@ package de.biomia.api.cosmetics.GadgetItems;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.api.cosmetics.CosmeticGadgetItem;
 import de.biomia.api.cosmetics.GadgetListener;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import de.biomia.api.tools.Particles;
 import net.minecraft.server.v1_12_R1.EnumParticle;
 import org.bukkit.Bukkit;

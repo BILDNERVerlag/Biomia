@@ -9,7 +9,7 @@ import de.biomia.minigames.versus.vs.game.bw.BedWarsTeam;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.api.itemcreator.ItemCreator;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import net.minecraft.server.v1_12_R1.AttributeInstance;
 import net.minecraft.server.v1_12_R1.GenericAttributes;
 import org.bukkit.Bukkit;

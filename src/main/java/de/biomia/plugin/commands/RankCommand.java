@@ -1,10 +1,8 @@
 package de.biomia.plugin.commands;
 
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import de.biomia.api.pex.Rank;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;

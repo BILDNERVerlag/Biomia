@@ -1,10 +1,11 @@
 package de.biomia.minigames.versus.bw.commands;
 
 import de.biomia.api.itemcreator.ItemCreator;
+import de.biomia.general.configs.Config;
 import de.biomia.minigames.versus.bw.messages.ItemNames;
 import de.biomia.minigames.versus.bw.messages.Messages;
 import de.biomia.minigames.versus.bw.var.ItemType;
-import de.biomia.minigames.versus.global.configs.BedWarsConfig;
+import de.biomia.general.configs.BedWarsVersusConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -28,7 +29,7 @@ public class BW implements CommandExecutor {
                     switch (args[0].toLowerCase()) {
                     case "addloc":
                         if (args.length >= 3) {
-                            BedWarsConfig.addLocation(p.getLocation(), Integer.valueOf(args[1]), Integer.valueOf(args[2]));
+                            BedWarsVersusConfig.addLocation(p.getLocation(), Integer.valueOf(args[1]), Integer.valueOf(args[2]));
                             sender.sendMessage("Spawnpoint wurde hinzugef\u00fcgt!");
                         } else
                             sender.sendMessage("/bw addloc mapID teamID");
@@ -40,13 +41,13 @@ public class BW implements CommandExecutor {
 
                             switch (l.getBlock().getType()) {
                             case HARD_CLAY:
-                                BedWarsConfig.addSpawnerLocations(l, ItemType.BRONZE, mapID);
+                                BedWarsVersusConfig.addSpawnerLocations(l, ItemType.BRONZE, mapID);
                                 break;
                             case IRON_BLOCK:
-                                BedWarsConfig.addSpawnerLocations(l, ItemType.IRON, mapID);
+                                BedWarsVersusConfig.addSpawnerLocations(l, ItemType.IRON, mapID);
                                 break;
                             case GOLD_BLOCK:
-                                BedWarsConfig.addSpawnerLocations(l, ItemType.GOLD, mapID);
+                                BedWarsVersusConfig.addSpawnerLocations(l, ItemType.GOLD, mapID);
                                 break;
                             default:
                                 p.sendMessage("Schau auf einen verf\u00fcgbaren Block!");
@@ -65,7 +66,7 @@ public class BW implements CommandExecutor {
                             Block blockHead = p.getTargetBlock((Set<Material>) null, 100);
 
                             if (blockFoot.getType() == Material.BED_BLOCK && blockHead.getType() == Material.BED_BLOCK) {
-                                BedWarsConfig.setBed(Integer.valueOf(args[1]), Integer.valueOf(args[2]), blockHead.getLocation(), blockFoot.getLocation());
+                                BedWarsVersusConfig.setBed(Integer.valueOf(args[1]), Integer.valueOf(args[2]), blockHead.getLocation(), blockFoot.getLocation());
                                 Bukkit.broadcastMessage("\u00A7cBett hinzugef\u00fcgt!");
                             } else
                                 p.sendMessage(Messages.blocksMustBeBeds);
@@ -75,8 +76,8 @@ public class BW implements CommandExecutor {
                     default:
                         break;
                     case "yaml":
-                        Bukkit.broadcastMessage(BedWarsConfig.config.getString("BedWars." + 100 + "." + 1 + ".Spawnpoints"));
-                        Bukkit.broadcastMessage(BedWarsConfig.config.getString("BedWars." + 100 + "." + 2 + ".Spawnpoints"));
+                        Bukkit.broadcastMessage(Config.getConfig().getString("BedWars." + 100 + "." + 1 + ".Spawnpoints"));
+                        Bukkit.broadcastMessage(Config.getConfig().getString("BedWars." + 100 + "." + 2 + ".Spawnpoints"));
                         break;
                     }
                 } else {

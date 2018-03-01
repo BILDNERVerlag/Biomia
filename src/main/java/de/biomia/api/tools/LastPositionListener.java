@@ -2,7 +2,7 @@ package de.biomia.api.tools;
 
 import cloud.timo.TimoCloud.api.objects.ServerGroupObject;
 import de.biomia.api.Biomia;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import de.biomia.api.mysql.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

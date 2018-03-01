@@ -1,6 +1,6 @@
 package de.biomia.api.pex;
 
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import org.bukkit.entity.Player;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;

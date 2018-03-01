@@ -6,7 +6,7 @@ import de.biomia.plugin.reportsystem.ReportManager;
 import de.biomia.plugin.reportsystem.ReportSQL;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

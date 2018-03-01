@@ -5,7 +5,7 @@ import de.biomia.plugin.reportsystem.listener.ChatEvent;
 import de.biomia.plugin.reportsystem.listener.ClickEvent;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.api.itemcreator.ItemCreator;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;

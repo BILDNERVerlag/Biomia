@@ -3,7 +3,7 @@ package de.biomia.minigames.versus.vs.game.bw;
 import de.biomia.minigames.versus.bw.listeners.SpawnItems;
 import de.biomia.minigames.versus.bw.shop.BedWarsShopListener;
 import de.biomia.minigames.versus.bw.var.BedWarsScoreboard;
-import de.biomia.minigames.versus.global.configs.BedWarsConfig;
+import de.biomia.general.configs.BedWarsVersusConfig;
 import de.biomia.minigames.versus.vs.game.GameInstance;
 import de.biomia.minigames.versus.vs.game.GameMode;
 import de.biomia.minigames.versus.vs.game.TeamColor;
@@ -25,8 +25,8 @@ public class BedWars extends GameMode {
         bedWarsScoreboard = new BedWarsScoreboard(this);
 
         HashMap<Integer, ArrayList<BiomiaPlayer>> teamPlayers = splitPlayers(getPlayers());
-        Location loc1 = BedWarsConfig.getLocation(getInstance().getMapID(), 1, getInstance().getWorld());
-        Location loc2 = BedWarsConfig.getLocation(getInstance().getMapID(), 2, getInstance().getWorld());
+        Location loc1 = BedWarsVersusConfig.getLocation(getInstance().getMapID(), 1, getInstance().getWorld());
+        Location loc2 = BedWarsVersusConfig.getLocation(getInstance().getMapID(), 2, getInstance().getWorld());
         team1 = new BedWarsTeam(this, TeamColor.BLUE, teamPlayers.get(1), loc1);
         team2 = new BedWarsTeam(this, TeamColor.RED, teamPlayers.get(2), loc2);
         handler = new BedWarsHandler(this);

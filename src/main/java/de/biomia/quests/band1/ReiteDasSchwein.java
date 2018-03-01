@@ -5,7 +5,7 @@ import de.biomia.quests.QuestEvents.GiveItemEvent;
 import de.biomia.quests.QuestEvents.TakeItemEvent;
 import de.biomia.quests.general.*;
 import de.biomia.api.itemcreator.ItemCreator;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import de.biomia.api.messages.ActionBar;
 import de.biomia.api.messages.Title;
 import net.citizensnpcs.api.event.NPCRightClickEvent;

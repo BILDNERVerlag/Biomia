@@ -1,6 +1,6 @@
 package de.biomia.freebuild.home.storage;
 
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;

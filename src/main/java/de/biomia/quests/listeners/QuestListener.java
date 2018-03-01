@@ -8,7 +8,7 @@ import de.biomia.quests.QuestConditions.ItemConditions;
 import de.biomia.quests.QuestEvents.TakeItemEvent;
 import de.biomia.quests.general.Quest;
 import de.biomia.quests.general.QuestPlayer;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import de.biomia.api.messages.ActionBar;
 import de.biomia.api.messages.Scoreboards;
 import de.biomia.api.pex.Rank;

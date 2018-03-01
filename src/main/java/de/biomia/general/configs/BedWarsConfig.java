@@ -3,16 +3,15 @@ package de.biomia.general.configs;
 import de.biomia.api.Biomia;
 import de.biomia.api.Teams.Team;
 import de.biomia.api.Teams.Teams;
-import de.biomia.api.main.Main;
-import de.biomia.minigames.bw.var.ItemType;
-import de.biomia.minigames.bw.var.Variables;
+import de.biomia.Main;
+import de.biomia.minigames.bedwars.var.ItemType;
+import de.biomia.minigames.bedwars.var.Variables;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -279,22 +278,6 @@ public class BedWarsConfig extends Config {
         Main.getPlugin().saveConfig();
         if (Variables.joiner.containsKey(t))
             Variables.joiner.remove(t);
-    }
-
-    public static void addDefaults() {
-        if (!Main.getPlugin().getDataFolder().exists()) {
-            if (!Main.getPlugin().getDataFolder().mkdirs()) {
-                return;
-            }
-        }
-        File file = new File(Main.getPlugin().getDataFolder(), "config.yml");
-        if (!file.exists()) {
-            Main.getPlugin().getLogger().info("configs.yml not found, creating!");
-            Main.getPlugin().saveDefaultConfig();
-            getConfig().options().copyDefaults(true);
-        } else {
-            Main.getPlugin().getLogger().info("configs.yml found, loading!");
-        }
     }
 
 }

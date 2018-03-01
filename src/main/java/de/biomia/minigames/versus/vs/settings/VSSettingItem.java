@@ -1,6 +1,6 @@
 package de.biomia.minigames.versus.vs.settings;
 
-import de.biomia.minigames.versus.vs.main.VSMain;
+import de.biomia.minigames.versus.VSMain;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.api.itemcreator.ItemCreator;
 import org.bukkit.Material;

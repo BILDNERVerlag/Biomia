@@ -1,10 +1,7 @@
 package de.biomia.api;
 
 import cloud.timo.TimoCloud.api.objects.PlayerObject;
-import de.biomia.api.coins.Coins;
-import de.biomia.api.main.Main;
-import de.biomia.api.mysql.MySQL;
-import de.biomia.api.pex.Rank;
+import de.biomia.Main;
 import de.biomia.quests.general.QuestPlayer;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayer;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayerManager;
@@ -12,13 +9,8 @@ import de.simonsator.partyandfriends.spigot.api.party.PartyManager;
 import de.simonsator.partyandfriends.spigot.api.party.PlayerParty;
 import org.bukkit.entity.Player;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class BiomiaPlayer extends OfflineBiomiaPlayer{
 

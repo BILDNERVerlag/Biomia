@@ -1,10 +1,11 @@
 package de.biomia.demoserver;
 
 import de.biomia.demoserver.commands.BauCommand;
-import de.biomia.demoserver.config.Bauten;
-import de.biomia.demoserver.config.Config;
-import de.biomia.demoserver.listeners.BiomiaListener;
-import de.biomia.api.main.Main;
+import de.biomia.demoserver.teleporter.Bauten;
+import de.biomia.demoserver.teleporter.ScrollingInventory;
+import de.biomia.general.configs.DemoConfig;
+import de.biomia.demoserver.listeners.DemoListener;
+import de.biomia.Main;
 import de.biomia.api.messages.Scoreboards;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -19,10 +20,10 @@ public class Weltenlabor {
 	public static void init() {
 
 		si = new ScrollingInventory("\u00A7eW\u00e4hle dein Ziel!", 3);
-		
-		Bukkit.getPluginManager().registerEvents(new BiomiaListener(), Main.getPlugin());
 
-		Main.getPlugin().getCommand("bau").setExecutor(new BauCommand());
+		Bukkit.getPluginManager().registerEvents(new DemoListener(), Main.getPlugin());
+
+		Main.getPlugin().getCommand("bauwerk").setExecutor(new BauCommand());
 
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			Scoreboards.setTabList(p);
@@ -30,7 +31,7 @@ public class Weltenlabor {
 
 		Main.getPlugin().getConfig().addDefault("lastID", 0);
 		Main.getPlugin().saveDefaultConfig();
-		Config.hookInPlugin();
+		DemoConfig.hookInPlugin();
 
 	}
 

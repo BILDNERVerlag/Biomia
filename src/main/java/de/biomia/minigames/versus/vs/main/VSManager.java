@@ -12,7 +12,7 @@ import de.biomia.minigames.versus.vs.settings.VSSettings;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.api.itemcreator.ItemCreator;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import de.biomia.api.messages.ActionBar;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -40,7 +40,7 @@ public class VSManager implements Listener {
     private final ItemStack settingItem = ItemCreator.itemCreate(Material.REDSTONE, "\u00A7cEinstellungen");
     private VSGroup main;
 
-    VSManager() {
+    public VSManager() {
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
         init();
     }

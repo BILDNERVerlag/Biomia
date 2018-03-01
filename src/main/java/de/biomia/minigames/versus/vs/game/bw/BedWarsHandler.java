@@ -7,7 +7,7 @@ import de.biomia.minigames.versus.vs.game.GameHandler;
 import de.biomia.minigames.versus.vs.game.GameTeam;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;

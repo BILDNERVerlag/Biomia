@@ -1,7 +1,7 @@
 package de.biomia.minigames.versus.vs.settings;
 
 import de.biomia.minigames.versus.vs.game.GameInstance;
-import de.biomia.minigames.versus.vs.main.VSMain;
+import de.biomia.minigames.versus.VSMain;
 import de.biomia.minigames.versus.vs.main.VSManager;
 import de.biomia.api.BiomiaPlayer;
 import net.md_5.bungee.api.chat.BaseComponent;

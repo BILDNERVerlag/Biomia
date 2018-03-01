@@ -1,4 +1,4 @@
-main: de.biomia.api.main.Main
+main: de.biomia.Main
 name: Biomia
 version: 0.3
 authors: [DerJulsn, DerAaron]
@@ -6,6 +6,7 @@ depend: [TimoCloud]
 softdepend: [Citizens]
 
 commands:
+  bauwerk:
   q:
   qr:
   qlist:

@@ -1,7 +1,7 @@
 package de.biomia.api;
 
 import de.biomia.api.Teams.TeamManager;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import de.biomia.quests.general.*;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

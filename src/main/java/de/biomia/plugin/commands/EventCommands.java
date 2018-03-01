@@ -1,7 +1,7 @@
 package de.biomia.plugin.commands;
 
 import de.biomia.api.BiomiaPlayer;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -56,16 +56,16 @@ public class EventCommands implements CommandExecutor {
 
             // Easter
 
-            if (cmd.getName().equals("givereward") && p.hasPermission("biomia.events.givereward")) {
-                if (args.length >= 1) {
-                    Main.getEvent().giveReward(BiomiaPlayer.getBiomiaPlayerID(args[0]));
-                }
-            }
-            if (cmd.getName().equals("addeggs") && p.hasPermission("biomia.events.addeggs")) {
-                if (args.length >= 2) {
-                    Main.getEvent().addEggs(BiomiaPlayer.getBiomiaPlayerID(args[0]), Integer.valueOf(args[1]));
-                }
-            }
+//            if (cmd.getName().equals("givereward") && p.hasPermission("biomia.events.givereward")) {
+//                if (args.length >= 1) {
+//                    Main.getEvent().giveReward(BiomiaPlayer.getBiomiaPlayerID(args[0]));
+//                }
+//            }
+//            if (cmd.getName().equals("addeggs") && p.hasPermission("biomia.events.addeggs")) {
+//                if (args.length >= 2) {
+//                    Main.getEvent().addEggs(BiomiaPlayer.getBiomiaPlayerID(args[0]), Integer.valueOf(args[1]));
+//                }
+//            }
         }
         return true;
 

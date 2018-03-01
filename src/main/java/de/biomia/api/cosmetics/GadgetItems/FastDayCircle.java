@@ -3,7 +3,7 @@ package de.biomia.api.cosmetics.GadgetItems;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.api.cosmetics.CosmeticGadgetItem;
 import de.biomia.api.cosmetics.GadgetListener;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import org.bukkit.World;
 import org.bukkit.scheduler.BukkitRunnable;
 

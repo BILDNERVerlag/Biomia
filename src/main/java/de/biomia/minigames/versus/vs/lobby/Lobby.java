@@ -3,7 +3,7 @@ package de.biomia.minigames.versus.vs.lobby;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.minigames.versus.bw.messages.Messages;
-import de.biomia.minigames.versus.vs.main.VSMain;
+import de.biomia.minigames.versus.VSMain;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -12,7 +12,7 @@ import de.biomia.api.messages.Scoreboards;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
-import static de.biomia.api.main.Main.getPlugin;
+import static de.biomia.Main.getPlugin;
 
 public class Quests {
 

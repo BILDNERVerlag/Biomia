@@ -4,7 +4,7 @@ import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.api.connect.Connect;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import de.biomia.api.messages.Scoreboards;
 import de.biomia.api.pex.Rank;
 import de.biomia.api.tools.InventorySave;

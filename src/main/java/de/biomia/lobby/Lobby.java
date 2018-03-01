@@ -3,7 +3,7 @@ package de.biomia.lobby;
 import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.api.itemcreator.ItemCreator;
 import de.biomia.api.tools.LastPositionListener;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import de.biomia.api.tools.Teleporter;
 import de.biomia.lobby.commands.LobbySettingsCommand;
 import de.biomia.lobby.commands.RandomServerGroupCommand;
@@ -22,7 +22,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import static de.biomia.api.main.Main.getPlugin;
+import static de.biomia.Main.getPlugin;
 
 public class Lobby {
 

@@ -4,7 +4,7 @@ import de.biomia.minigames.versus.bw.messages.Messages;
 import de.biomia.minigames.versus.global.Dead;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
-import de.biomia.api.main.Main;
+import de.biomia.Main;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
