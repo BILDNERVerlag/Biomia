@@ -6,10 +6,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class PermissionCommand implements CommandExecutor {
+public class PermissionCommand extends BiomiaCommand {
+
+    public PermissionCommand() {
+        super("permission");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
         if (sender.hasPermission("biomia.setpermission")) {
             if (args.length >= 3) {
 

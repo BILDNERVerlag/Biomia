@@ -58,12 +58,12 @@ public class EventCommands implements CommandExecutor {
 
             if (cmd.getName().equals("givereward") && p.hasPermission("biomia.events.givereward")) {
                 if (args.length >= 1) {
-                    Main.getEvent().giveReward(BiomiaPlayer.getID(args[0]));
+                    Main.getEvent().giveReward(BiomiaPlayer.getBiomiaPlayerID(args[0]));
                 }
             }
             if (cmd.getName().equals("addeggs") && p.hasPermission("biomia.events.addeggs")) {
                 if (args.length >= 2) {
-                    Main.getEvent().addEggs(BiomiaPlayer.getID(args[0]), Integer.valueOf(args[1]));
+                    Main.getEvent().addEggs(BiomiaPlayer.getBiomiaPlayerID(args[0]), Integer.valueOf(args[1]));
                 }
             }
         }

@@ -2,7 +2,7 @@ package de.biomia.sw;
 
 import de.biomia.sw.chests.Chests;
 import de.biomia.sw.chests.Items;
-import de.biomia.sw.commands.SW;
+import de.biomia.sw.commands.SWCommand;
 import de.biomia.sw.gamestates.GameState;
 import de.biomia.sw.gamestates.InLobby;
 import de.biomia.sw.kits.Kits;
@@ -51,6 +51,6 @@ public class SkyWars {
     }
 
     private static void registerCommands() {
-        Main.getPlugin().getCommand("sw").setExecutor(new SW());
+        Main.getPlugin().getCommand("sw").setExecutor(new SWCommand());
     }
 }

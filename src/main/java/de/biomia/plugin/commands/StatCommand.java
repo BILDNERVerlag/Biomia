@@ -4,15 +4,17 @@ import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.api.achievements.Stats;
 import de.biomia.api.messages.Messages;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class StatCommand implements CommandExecutor {
+public class StatCommand extends BiomiaCommand {
+
+    public StatCommand() {
+        super("stat");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
 
         if (!sender.hasPermission("biomia.stats")) {
             sender.sendMessage(Messages.NO_PERM);
@@ -41,7 +43,7 @@ public class StatCommand implements CommandExecutor {
                         sender.sendMessage("\u00A77" + args[1] + " \u00A7cist kein erlaubter Stat.");
                         return true;
                     }
-                    tempID = BiomiaPlayer.getID(args[2]);
+                    tempID = BiomiaPlayer.getBiomiaPlayerID(args[2]);
                     if (tempID != -1) {
                         sender.sendMessage(Stats.getComments(stat, tempID).toString());
                     } else {
@@ -65,7 +67,7 @@ public class StatCommand implements CommandExecutor {
                     if (args.length == 2) {
                         Stats.incrementStat(stat, Biomia.getBiomiaPlayer((Player) sender).getBiomiaPlayerID());
                     } else {
-                        tempID = BiomiaPlayer.getID(args[2]);
+                        tempID = BiomiaPlayer.getBiomiaPlayerID(args[2]);
                         if (tempID != -1) {
                             Stats.incrementStat(stat, tempID);
                         } else {
@@ -86,7 +88,7 @@ public class StatCommand implements CommandExecutor {
                     if (args.length == 3) {
                         Stats.incrementStat(stat, Biomia.getBiomiaPlayer((Player) sender).getBiomiaPlayerID(), args[2]);
                     } else {
-                        tempID = BiomiaPlayer.getID(args[3]);
+                        tempID = BiomiaPlayer.getBiomiaPlayerID(args[3]);
                         if (tempID != -1) {
                             Stats.incrementStat(stat, tempID, args[2]);
                         } else {
@@ -111,7 +113,7 @@ public class StatCommand implements CommandExecutor {
                     if (args.length == 3) {
                         Stats.incrementStatBy(stat, Biomia.getBiomiaPlayer((Player) sender).getBiomiaPlayerID(), value);
                     } else {
-                        tempID = BiomiaPlayer.getID(args[3]);
+                        tempID = BiomiaPlayer.getBiomiaPlayerID(args[3]);
                         if (tempID != -1) {
                             Stats.incrementStatBy(stat, tempID, value);
                         } else {
@@ -132,7 +134,7 @@ public class StatCommand implements CommandExecutor {
                         value = Stats.getStat(stat, Biomia.getBiomiaPlayer((Player) sender).getBiomiaPlayerID());
                         sender.sendMessage("\u00A77" + statString + " (" + sender.getName() + "): \u00A7a" + value);
                     } else {
-                        value = Stats.getStat(stat, BiomiaPlayer.getID(args[2]));
+                        value = Stats.getStat(stat, BiomiaPlayer.getBiomiaPlayerID(args[2]));
                         if (value != -1) {
                             sender.sendMessage("\u00A77" + statString + " (" + args[2] + "): \u00A7a" + value);
                         } else {
@@ -157,9 +159,9 @@ public class StatCommand implements CommandExecutor {
 
                     if (args.length == 5) {
                         String playerName = args[4];
-                        sender.sendMessage("\u00A77" + statString + " (" + playerName + ", " + dateString + "): \u00A7a" + Stats.getStatLastX(stat, BiomiaPlayer.getID(playerName), daytime_expr, amount));
+                        sender.sendMessage("\u00A77" + statString + " (" + playerName + ", " + dateString + "): \u00A7a" + Stats.getStatLastX(stat, BiomiaPlayer.getBiomiaPlayerID(playerName), daytime_expr, amount));
                     } else
-                        sender.sendMessage("\u00A77" + statString + " (" + sender.getName() + ", " + dateString + "): \u00A7a" + Stats.getStatLastX(stat, BiomiaPlayer.getID(sender.getName()), daytime_expr, amount));
+                        sender.sendMessage("\u00A77" + statString + " (" + sender.getName() + ", " + dateString + "): \u00A7a" + Stats.getStatLastX(stat, BiomiaPlayer.getBiomiaPlayerID(sender.getName()), daytime_expr, amount));
                     return true;
                 default:
                     sendError(sender);

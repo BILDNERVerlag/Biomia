@@ -6,10 +6,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class CreateTableCommand implements CommandExecutor {
+public class CreateTableCommand extends BiomiaCommand {
+
+    public CreateTableCommand() {
+        super("ct");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmc, String label, String[] args) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
         if (!sender.hasPermission("biomia.sql")) {
             sender.sendMessage(Messages.NO_PERM);
             return true;

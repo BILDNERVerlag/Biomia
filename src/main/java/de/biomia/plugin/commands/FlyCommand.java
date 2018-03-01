@@ -7,10 +7,14 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class FlyCommand implements CommandExecutor {
+public class FlyCommand extends BiomiaCommand {
+
+    public FlyCommand() {
+        super("fly");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
 
         if (!sender.hasPermission("biomia.fly")) {
             sender.sendMessage(Messages.NO_PERM);

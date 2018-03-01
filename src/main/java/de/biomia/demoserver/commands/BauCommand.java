@@ -1,4 +1,4 @@
-package de.biomia.demoserver.cmds;
+package de.biomia.demoserver.commands;
 
 import de.biomia.demoserver.config.Config;
 import de.biomia.demoserver.Weltenlabor;
@@ -10,7 +10,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Bau implements CommandExecutor {
+public class BauCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) {

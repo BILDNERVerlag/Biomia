@@ -43,14 +43,12 @@ public class TrollCommand implements CommandExecutor {
                     if (bp.isInTrollmode()) {
                         crashPlayer(target);
                         sender.sendMessage("\u00A7aDu hast den Spieler\u00A7c " + target.getName() + " \u00A7agecrashed!");
-                    } else {
-                        sender.sendMessage("\u00A7cDu bist nicht im Trollmodus!");
-                    }
+                    } else sender.sendMessage("\u00A7cDu bist nicht im Trollmodus!");
                 }
             }
 
         } else {
-            sender.sendMessage("noplayer");
+            sender.sendMessage(Messages.NO_PLAYER);
         }
         return false;
     }

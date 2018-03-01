@@ -3,15 +3,17 @@ package de.biomia.plugin.commands;
 import de.biomia.api.itemcreator.ItemCreator;
 import de.biomia.api.tools.Hologram;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class HologramCommand implements CommandExecutor {
+public class HologramCommand extends BiomiaCommand {
+
+    public HologramCommand() {
+        super("hologram");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
 
         if (sender instanceof Player) {
             if (sender.hasPermission("biomia.holograms")) {

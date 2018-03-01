@@ -26,7 +26,7 @@ public class HomeListCommand implements CommandExecutor {
 			homeSet = new HashSet();
 
 			if (strings.length != 0) {
-				int bpID = BiomiaPlayer.getID(strings[0]);
+				int bpID = BiomiaPlayer.getBiomiaPlayerID(strings[0]);
 				if (bpID != -1) {
 					homeSet = (HashSet<?>) homeManager.getPlayerHomes(bpID).keySet();
 				} else {

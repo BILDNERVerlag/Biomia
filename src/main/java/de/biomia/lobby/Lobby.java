@@ -5,9 +5,9 @@ import de.biomia.api.itemcreator.ItemCreator;
 import de.biomia.api.tools.LastPositionListener;
 import de.biomia.api.main.Main;
 import de.biomia.api.tools.Teleporter;
-import de.biomia.lobby.commands.LobbyComands;
-import de.biomia.lobby.commands.SendToRandomServer;
-import de.biomia.lobby.commands.WC;
+import de.biomia.lobby.commands.LobbySettingsCommand;
+import de.biomia.lobby.commands.RandomServerGroupCommand;
+import de.biomia.lobby.commands.WorldCommand;
 import de.biomia.lobby.events.*;
 import de.biomia.lobby.scoreboard.ChatColors;
 import de.biomia.lobby.scoreboard.ScoreboardClass;
@@ -54,9 +54,9 @@ public class Lobby {
             ScoreboardClass.sendScoreboard(p);
             p.setAllowFlight(true);
         }
-        getPlugin().getCommand("lobbysettings").setExecutor(new LobbyComands());
-        getPlugin().getCommand("randomServerGroup").setExecutor(new SendToRandomServer());
-        getPlugin().getCommand("world").setExecutor(new WC());
+        getPlugin().getCommand("lobbysettings").setExecutor(new LobbySettingsCommand());
+        getPlugin().getCommand("randomServerGroup").setExecutor(new RandomServerGroupCommand());
+        getPlugin().getCommand("world").setExecutor(new WorldCommand());
 
         Bukkit.getPluginManager().registerEvents(new Click(), getPlugin());
         Bukkit.getPluginManager().registerEvents(new Drop(), getPlugin());

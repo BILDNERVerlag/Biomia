@@ -53,11 +53,11 @@ class ScrolableReportInventory implements Listener {
                     if (e.getClick().isRightClick()) {
                         if (e.getClick().isShiftClick()) {
 
-                            new ReporterInventoryOfPlayer(bp, BiomiaPlayer.getID(name), this).openInventory();
+                            new ReporterInventoryOfPlayer(bp, BiomiaPlayer.getBiomiaPlayerID(name), this).openInventory();
 
                         } else {
 
-                            banInformationInv = new InformationInventory(bp, BiomiaPlayer.getID(name));
+                            banInformationInv = new InformationInventory(bp, BiomiaPlayer.getBiomiaPlayerID(name));
                             banInformationInv.openInventory();
                         }
                     } else if (e.getClick().isLeftClick()) {

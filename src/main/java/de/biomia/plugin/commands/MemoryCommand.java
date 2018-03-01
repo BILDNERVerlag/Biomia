@@ -1,16 +1,17 @@
 package de.biomia.plugin.commands;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import java.text.NumberFormat;
 
-public class MemoryCommand implements CommandExecutor {
+public class MemoryCommand extends BiomiaCommand {
+
+    public MemoryCommand() {
+        super("memory");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command arg1, String arg2, String[] args) {
-
+    public boolean execute(CommandSender sender, String arg2, String[] args) {
 
         if (sender.hasPermission("biomia.workload")) {
 
@@ -29,7 +30,6 @@ public class MemoryCommand implements CommandExecutor {
             sb.append("\u00A7cTotal free memory: \u00A76").append(format.format((freeMemory + (maxMemory - allocatedMemory)))).append("mb");
             sender.sendMessage(sb.toString());
         }
-
 
         return false;
     }

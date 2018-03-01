@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BiomiaPlugin.iml" filepath="$PROJECT_DIR$/BiomiaPlugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Biomia.iml" filepath="$PROJECT_DIR$/Biomia.iml" />
     </modules>
   </component>
 </project>

@@ -6,10 +6,14 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class HealCommand implements CommandExecutor {
+public class HealCommand extends BiomiaCommand {
+
+    public HealCommand() {
+        super("heal");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
 
         if (!sender.hasPermission("biomia.heal")) {
             sender.sendMessage(Messages.NO_PERM);

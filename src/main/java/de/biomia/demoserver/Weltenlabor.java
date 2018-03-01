@@ -1,6 +1,6 @@
 package de.biomia.demoserver;
 
-import de.biomia.demoserver.cmds.Bau;
+import de.biomia.demoserver.commands.BauCommand;
 import de.biomia.demoserver.config.Bauten;
 import de.biomia.demoserver.config.Config;
 import de.biomia.demoserver.listeners.BiomiaListener;
@@ -22,7 +22,7 @@ public class Weltenlabor {
 		
 		Bukkit.getPluginManager().registerEvents(new BiomiaListener(), Main.getPlugin());
 
-		Main.getPlugin().getCommand("bau").setExecutor(new Bau());
+		Main.getPlugin().getCommand("bau").setExecutor(new BauCommand());
 
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			Scoreboards.setTabList(p);

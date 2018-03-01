@@ -6,10 +6,14 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class EatCommand implements CommandExecutor {
+public class EatCommand extends BiomiaCommand {
+
+    public EatCommand(){
+        super("eat");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
 
         if (!sender.hasPermission("biomia.eat")) {
             sender.sendMessage(Messages.NO_PERM);

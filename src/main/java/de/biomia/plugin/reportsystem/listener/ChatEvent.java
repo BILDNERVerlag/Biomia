@@ -34,7 +34,7 @@ public class ChatEvent implements Listener {
         } else if (ReportManager.waitingForName.contains(p)) {
             ReportManager.waitingForName.remove(p);
             e.setCancelled(true);
-            new PlayerReport(Biomia.getBiomiaPlayer(p).getBiomiaPlayerID(), BiomiaPlayer.getID(e.getMessage()));
+            new PlayerReport(Biomia.getBiomiaPlayer(p).getBiomiaPlayerID(), BiomiaPlayer.getBiomiaPlayerID(e.getMessage()));
             p.openInventory(Main.grund);
         } else if (waitForCostumReason.containsKey(bp)) {
             e.setCancelled(true);

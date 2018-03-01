@@ -5,6 +5,8 @@
       <entry_point TYPE="field" FQNAME="de.biomiaAPI.QuestEvents.TakeItemEvent qp" />
     </entry_points>
     <pattern value="de.biomiaAPI.main.Main" />
+    <pattern value="de.biomia.api.main.Main" />
+    <pattern value="de.biomia.api.main.Main" method="onEnable" />
   </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Desktop/BiomiaDoc" />

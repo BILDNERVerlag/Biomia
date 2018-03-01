@@ -27,7 +27,7 @@ public class ReportManager {
         Channel.send(out);
     }
 
-    public static void openScrolableInventory(BiomiaPlayer bp) {
+    public static void openScrollableInventory(BiomiaPlayer bp) {
         ScrolableReportInventory reportInventory = currentReportsMenu.computeIfAbsent(bp, inventory -> new ScrolableReportInventory(bp));
         reportInventory.openInventory();
     }

@@ -213,7 +213,7 @@ public class QuestCommands implements CommandExecutor {
                     break;
             }
 
-            // COMMANDS MFOR PLAYERS WITH SPECIAL PERMISSIONS
+            // COMMANDS FOR PLAYERS WITH SPECIAL PERMISSIONS
             if (sender.hasPermission("biomia.quests.*")) {
                 switch (cmd.getName().toLowerCase()) {
                     case "qr":
@@ -289,8 +289,8 @@ public class QuestCommands implements CommandExecutor {
     }
 
     private void qstatCommand(CommandSender sender, QuestPlayer qp, String[] args) {
-        // Array, das speichert, wie viele general es pro Band gibt, zB questsProBand[1]
-        // w\u00fcre 17, falls es 17 general f\u00fcr Band 1 gibt etc
+        // Array, das speichert, wie viele Quests es pro Band gibt, zB questsProBand[1]
+        // waere 17, falls es 17 Quests fuer Band 1 gibt etc
         if (args.length == 0) {
             int[] questsProBand = new int[5];
             for (Quest q : Biomia.QuestManager().getQuests()) {

@@ -14,13 +14,11 @@ public class GatewayListener implements Listener {
         homeManager = manager;
     }
 
-    @SuppressWarnings("unused")
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         homeManager.loadPlayerHomes(Biomia.getBiomiaPlayer(event.getPlayer()).getBiomiaPlayerID());
     }
 
-    @SuppressWarnings("unused")
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         homeManager.unloadPlayerHomes(Biomia.getBiomiaPlayer(event.getPlayer()).getBiomiaPlayerID());

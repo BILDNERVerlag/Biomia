@@ -7,10 +7,14 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class SpeedCommand implements CommandExecutor {
+public class SpeedCommand extends BiomiaCommand {
+
+    public SpeedCommand() {
+        super("speed");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
         // fly command, first argument is flight speed on a scale from 1-10, second
         // (optional) argument is another player
 

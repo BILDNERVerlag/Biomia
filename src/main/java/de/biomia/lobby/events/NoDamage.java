@@ -1,6 +1,6 @@
 package de.biomia.lobby.events;
 
-import de.biomia.lobby.commands.LobbyComands;
+import de.biomia.lobby.commands.LobbySettingsCommand;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
@@ -26,7 +26,7 @@ public class NoDamage implements Listener {
         if (e.getEntity() instanceof ArmorStand || e.getEntity() instanceof ItemFrame) {
             if (e.getDamager() instanceof Player) {
                 Player pl = (Player) e.getDamager();
-				if (!LobbyComands.targetarmorstands.contains(pl)) {
+				if (!LobbySettingsCommand.targetarmorstands.contains(pl)) {
                     e.setCancelled(true);
 				}
 			} else {

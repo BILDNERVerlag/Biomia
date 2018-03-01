@@ -11,6 +11,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import java.util.logging.Level;
 
 public class Home {
+	//TODO: Neu schreiben
 	private HomeFileManager homeFileManager;
 	private HomeManager homeManager;
 

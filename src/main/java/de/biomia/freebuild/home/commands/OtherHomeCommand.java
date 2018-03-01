@@ -37,7 +37,7 @@ public class OtherHomeCommand implements CommandExecutor {
 						int bpID;
 
 						public void run() {
-							bpID = BiomiaPlayer.getID(targetName);
+							bpID = BiomiaPlayer.getBiomiaPlayerID(targetName);
 							if (bpID != -1) {
 								Main.getPlugin().getServer().getScheduler().runTask(Main.getPlugin(),
 										new BukkitRunnable() {

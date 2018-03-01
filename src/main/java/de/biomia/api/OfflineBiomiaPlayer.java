@@ -57,7 +57,7 @@ class OfflineBiomiaPlayer {
 //                assert con != null;
 //                PreparedStatement ps = con
 //                        .prepareStatement("SELECT `percent`, `until` FROM `CoinBoost` WHERE BiomiaPlayer = ?");
-//                ps.setInt(1, getID());
+//                ps.setInt(1, getBiomiaPlayerID());
 //                ResultSet rs = ps.executeQuery();
 //                if (rs.next()) {
 //                    long until = rs.getLong("until");

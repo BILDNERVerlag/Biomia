@@ -85,9 +85,6 @@ public class Main extends JavaPlugin {
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BiomiaChannel");
         Bukkit.getMessenger().registerIncomingPluginChannel(this, "BiomiaChannel", new ChannelListener());
 
-        plugin = this;
-
-
         registerListeners();
         registerCommands();
         initInventories();
@@ -269,23 +266,24 @@ public class Main extends JavaPlugin {
         registerCommand(new CosmeticCommand());
         registerCommand(new BuildCommand());
         registerCommand(new CoinsCommand());
+        registerCommand(new CreateTableCommand());
+        registerCommand(new EatCommand());
+        registerCommand(new FlyCommand());
+        registerCommand(new GamemodeCommand());
+        registerCommand(new HeadCommand());
+        registerCommand(new HealCommand());
+        registerCommand(new HologramCommand());
+        registerCommand(new MemoryCommand());
+        registerCommand(new PermissionCommand());
+        registerCommand(new RankCommand());
+        registerCommand(new SpeedCommand());
+        registerCommand(new StatCommand());
+        registerCommand(new ReportCommand());
+        registerCommand(new SeeReportsCommand());
+        registerCommand(new StatCommand());
 
-        getCommand("permission").setExecutor(new PermissionCommand());
-        getCommand("rank").setExecutor(new RankCommand());
-        getCommand("hologram").setExecutor(new HologramCommand());
         getCommand("troll").setExecutor(new TrollCommand());
         getCommand("crash").setExecutor(new TrollCommand());
-        getCommand("gm").setExecutor(new GamemodeCommand());
-        getCommand("report").setExecutor(new ReportCommand());
-        getCommand("seereports").setExecutor(new ReportCommand());
-        getCommand("fly").setExecutor(new FlyCommand());
-        getCommand("speed").setExecutor(new SpeedCommand());
-        getCommand("heal").setExecutor(new HealCommand());
-        getCommand("eat").setExecutor(new EatCommand());
-        getCommand("memory").setExecutor(new MemoryCommand());
-        getCommand("head").setExecutor(new HeadCommand());
-        getCommand("stat").setExecutor(new StatCommand());
-        getCommand("ct").setExecutor(new CreateTableCommand());
         getCommand("givereward").setExecutor(new EventCommands());
         getCommand("addeggs").setExecutor(new EventCommands());
     }

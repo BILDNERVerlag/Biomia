@@ -1,6 +1,6 @@
 package de.biomia.bw;
 
-import de.biomia.bw.commands.BW;
+import de.biomia.bw.commands.BWCommand;
 import de.biomia.bw.gamestates.GameState;
 import de.biomia.bw.gamestates.InLobby;
 import de.biomia.bw.listeners.BedListener;
@@ -51,6 +51,6 @@ public class BedWars {
     }
 
     private static void registerCommands() {
-        Main.getPlugin().getCommand("bw").setExecutor(new BW());
+        Main.getPlugin().getCommand("bw").setExecutor(new BWCommand());
     }
 }
