@@ -47,15 +47,15 @@ public class ScoreboardClass {
 
         Objective o = sb.registerNewObjective("aaa", "bbb");
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
-        o.setDisplayName("\u00A75Bio\u00A72mia");
+        o.setDisplayName("\u00A7cBIO\u00A7bMIA");
         o.getScore(" ").setScore(10);
-        o.getScore("\u00A75Coins:").setScore(9);
+        o.getScore("\u00A7cCoins:").setScore(9);
         o.getScore("\u00A7c").setScore(8);
         o.getScore("\u00A7a").setScore(7);
-        o.getScore("\u00A75Freunde:").setScore(6);
+        o.getScore("\u00A7cFreunde:").setScore(6);
         o.getScore("\u00A7f").setScore(5);
         o.getScore("\u00A71").setScore(4);
-        o.getScore("\u00A75Rank:").setScore(3);
+        o.getScore("\u00A7cRank:").setScore(3);
         o.getScore("\u00A7r").setScore(2);
         o.getScore("\u00A7l").setScore(1);
 
@@ -89,15 +89,15 @@ public class ScoreboardClass {
         freunde = sb.getTeam("freunde");
         rank = sb.getTeam("rank");
 
-        rank.setPrefix("\u00A7e" + ChatColors.getGroupName(p));
+        rank.setPrefix("\u00A7b" + ChatColors.getGroupName(p));
         if (rank.getPrefix().contains("Registriert")) {
-            rank.setPrefix("\u00A7eNicht ");
-            rank.setSuffix("\u00A7eRegistriert!");
+            rank.setPrefix("\u00A7bNicht ");
+            rank.setSuffix("\u00A7bRegistriert!");
         } else {
             rank.setSuffix("");
         }
         coins.setPrefix("\u00A7b" + bp.getCoins());
-        freunde.setPrefix("\u00A76" + bp.getOnlineFriends().size() + " \u00A77/ \u00A7c" + bp.getFriends().size());
+        freunde.setPrefix("\u00A7b" + bp.getOnlineFriends().size() + " \u00A77/ \u00A7b" + bp.getFriends().size());
     }
 
     private static void initScoreboard(Scoreboard sb) {
