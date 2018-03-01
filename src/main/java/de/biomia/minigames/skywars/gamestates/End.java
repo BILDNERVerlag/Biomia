@@ -1,6 +1,6 @@
 package de.biomia.minigames.skywars.gamestates;
 
-import de.biomia.minigames.skywars.messages.Messages;
+import de.biomia.general.messages.SkyWarsMessages;
 import de.biomia.minigames.skywars.var.Teleport;
 import de.biomia.minigames.skywars.var.Variables;
 import de.biomia.api.Biomia;
@@ -39,11 +39,11 @@ class End {
             public void run() {
                 while (i >= 0) {
                     if (i == 15) {
-                        Bukkit.broadcastMessage(Variables.prefix + Messages.restartCountDown.replaceAll("%t", i + ""));
+                        Bukkit.broadcastMessage(Variables.prefix + SkyWarsMessages.restartCountDown.replaceAll("%t", i + ""));
                     } else if (i == 10) {
-                        Bukkit.broadcastMessage(Variables.prefix + Messages.restartCountDown.replaceAll("%t", i + ""));
+                        Bukkit.broadcastMessage(Variables.prefix + SkyWarsMessages.restartCountDown.replaceAll("%t", i + ""));
                     } else if (i <= 5 && i != 0) {
-                        Bukkit.broadcastMessage(Variables.prefix + Messages.restartCountDown.replaceAll("%t", i + ""));
+                        Bukkit.broadcastMessage(Variables.prefix + SkyWarsMessages.restartCountDown.replaceAll("%t", i + ""));
                     } else if (i == 0) {
                         for (Player p : Bukkit.getOnlinePlayers()) {
                             Connect.connectToRandom(p, "Lobby");

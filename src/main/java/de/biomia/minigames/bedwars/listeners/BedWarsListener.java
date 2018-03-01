@@ -16,8 +16,8 @@ import de.biomia.minigames.bedwars.gamestates.InGame;
 import de.biomia.minigames.bedwars.ingame.Dead;
 import de.biomia.minigames.bedwars.lobby.JoinTeam;
 import de.biomia.minigames.bedwars.BedWars;
-import de.biomia.minigames.bedwars.messages.ItemNames;
-import de.biomia.minigames.bedwars.messages.Messages;
+import de.biomia.general.messages.BedWarsItemNames;
+import de.biomia.general.messages.BedWarsMessages;
 import de.biomia.minigames.bedwars.shop.Shop;
 import de.biomia.minigames.bedwars.shop.ShopGroup;
 import de.biomia.minigames.bedwars.shop.ShopItem;
@@ -100,18 +100,18 @@ public class BedWarsListener implements Listener {
 
             if (p.hasPermission("biomia.sw.start")) {
 
-                p.getInventory().setItem(0, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, ItemNames.startItem));
+                p.getInventory().setItem(0, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, BedWarsItemNames.startItem));
 
             }
 
-            p.getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, ItemNames.teamWaehlerItem));
+            p.getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, BedWarsItemNames.teamWaehlerItem));
 
             bp.getPlayer().setLevel(Variables.countDown.getCountdown());
 
             if (bp.isPremium()) {
-                Bukkit.broadcastMessage("\u00A76" + p.getName() + Messages.joinedTheGame);
+                Bukkit.broadcastMessage("\u00A76" + p.getName() + BedWarsMessages.joinedTheGame);
             } else {
-                Bukkit.broadcastMessage("\u00A77" + p.getName() + Messages.joinedTheGame);
+                Bukkit.broadcastMessage("\u00A77" + p.getName() + BedWarsMessages.joinedTheGame);
             }
             if (bp.isPartyLeader()) {
                 if (bp.getParty().getAllPlayers().size() > 1) {
@@ -141,7 +141,7 @@ public class BedWarsListener implements Listener {
                         if (Integer.valueOf(Rank.getRankID(Rank.getRank(eachPlayer))) > i) {
 
                             e.allow();
-                            eachPlayer.sendMessage(Messages.kickedForPremium);
+                            eachPlayer.sendMessage(BedWarsMessages.kickedForPremium);
                             eachPlayer.kickPlayer("");
                         }
                     });
@@ -208,15 +208,15 @@ public class BedWarsListener implements Listener {
         p.getInventory().clear();
 
         if (!Variables.livingPlayer.contains(p)) {
-            e.setDeathMessage(Messages.playerDiedFinally.replace("%p",
+            e.setDeathMessage(BedWarsMessages.playerDiedFinally.replace("%p",
                     Biomia.getTeamManager().getTeam(p).getColorcode() + p.getName()));
         } else {
             if (killer == null) {
-                e.setDeathMessage(Messages.playerDied.replace("%p",
+                e.setDeathMessage(BedWarsMessages.playerDied.replace("%p",
                         Biomia.getTeamManager().getTeam(p).getColorcode() + p.getName()));
             } else {
                 BiomiaPlayer bpKiller = Biomia.getBiomiaPlayer(killer);
-                e.setDeathMessage(Messages.playerKilledByPlayer
+                e.setDeathMessage(BedWarsMessages.playerKilledByPlayer
                         .replace("%p1", Biomia.getTeamManager().getTeam(p).getColorcode() + p.getName())
                         .replace("%p2", Biomia.getTeamManager().getTeam(killer).getColorcode() + killer.getName()));
                 Bukkit.getPluginManager().callEvent(new BedWarsKillEvent(bp, bpKiller, false));
@@ -272,7 +272,7 @@ public class BedWarsListener implements Listener {
 
             if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
                 ItemStack iStack = e.getCurrentItem();
-                if (e.getInventory().getName().equals(Messages.shopInventory)) {
+                if (e.getInventory().getName().equals(BedWarsMessages.shopInventory)) {
                     for (ShopGroup group : Shop.getGroups()) {
                         if (iStack.equals(group.getIcon())) {
                             e.setCancelled(true);
@@ -290,7 +290,7 @@ public class BedWarsListener implements Listener {
                         if (e.getClickedInventory().getName().equals(group.getFullName())) {
                             e.setCancelled(true);
                             if (iStack.hasItemMeta() && iStack.getItemMeta().hasDisplayName()
-                                    && iStack.getItemMeta().getDisplayName().equals(ItemNames.back)) {
+                                    && iStack.getItemMeta().getDisplayName().equals(BedWarsItemNames.back)) {
                                 p.openInventory(Shop.getInventory());
                                 return;
                             } else {
@@ -348,7 +348,7 @@ public class BedWarsListener implements Listener {
                                             } else if (first) {
                                                 String name = ItemType.getName(shopItem.getItemType());
                                                 if (name != null) {
-                                                    p.sendMessage(Messages.notEnoughItemsToPay.replace("%n", name));
+                                                    p.sendMessage(BedWarsMessages.notEnoughItemsToPay.replace("%n", name));
                                                 }
                                                 return;
                                             } else {
@@ -361,7 +361,7 @@ public class BedWarsListener implements Listener {
                                     } else {
                                         String name = ItemType.getName(shopItem.getItemType());
                                         if (name != null) {
-                                            p.sendMessage(Messages.notEnoughItemsToPay.replace("%n", name));
+                                            p.sendMessage(BedWarsMessages.notEnoughItemsToPay.replace("%n", name));
                                         }
                                         return;
                                     }
@@ -464,7 +464,7 @@ public class BedWarsListener implements Listener {
                     second = second.replaceAll(" ", "");
                     //        i = Integer.valueOf(second);
                 } catch (Exception ex) {
-                    e.getPlayer().sendMessage(Messages.fillSecondLine);
+                    e.getPlayer().sendMessage(BedWarsMessages.fillSecondLine);
                 }
 
 //				Stats stat = Leaderboard.getStat(i);
@@ -552,7 +552,7 @@ public class BedWarsListener implements Listener {
 
             if (is != null) {
                 if (is.hasItemMeta()) {
-                    if (is.getItemMeta().getDisplayName().equals(ItemNames.teamJoinerSetter)) {
+                    if (is.getItemMeta().getDisplayName().equals(BedWarsItemNames.teamJoinerSetter)) {
                         if (is.getType().equals(Material.WOOL)) {
                             @SuppressWarnings("deprecation")
                             Team team = Biomia.getTeamManager().getTeamFromData(is.getData().getData());
@@ -564,7 +564,7 @@ public class BedWarsListener implements Listener {
                                 armorstand.setCustomName(
                                         team.getColorcode() + Biomia.getTeamManager().translate(team.getTeamname()));
                                 armorstand.setCustomNameVisible(true);
-                                p.sendMessage(Messages.teamJoinerSet.replace("%t", team.getTeamname()));
+                                p.sendMessage(BedWarsMessages.teamJoinerSet.replace("%t", team.getTeamname()));
                             }
                         }
                     }
@@ -611,18 +611,18 @@ public class BedWarsListener implements Listener {
                     msg = msg.replaceAll("@ ", "");
                     msg = msg.replaceAll("@", "");
 
-                    e.setFormat(Messages.chatMessageAll.replaceAll("%p", t.getColorcode() + p.getDisplayName())
+                    e.setFormat(BedWarsMessages.chatMessageAll.replaceAll("%p", t.getColorcode() + p.getDisplayName())
                             .replaceAll("%msg", msg));
                 } else {
                     e.setCancelled(true);
-                    format = Messages.chatMessageTeam.replaceAll("%p", t.getColorcode() + p.getDisplayName())
+                    format = BedWarsMessages.chatMessageTeam.replaceAll("%p", t.getColorcode() + p.getDisplayName())
                             .replaceAll("%msg", msg);
                     for (Player teamPlayer : t.getPlayers()) {
                         teamPlayer.sendMessage(format);
                     }
                 }
             } else {
-                format = Messages.chatMessageDead.replaceAll("%p", p.getDisplayName()).replaceAll("%msg", msg);
+                format = BedWarsMessages.chatMessageDead.replaceAll("%p", p.getDisplayName()).replaceAll("%msg", msg);
                 for (Player spec : Variables.spectator) {
                     spec.sendMessage(format);
                 }
@@ -630,11 +630,11 @@ public class BedWarsListener implements Listener {
             }
         } else if (Biomia.getTeamManager().isPlayerInAnyTeam(p)) {
             Team t = Biomia.getTeamManager().getTeam(p);
-            format = Messages.chatMessageLobby.replaceAll("%p", t.getColorcode() + p.getDisplayName())
+            format = BedWarsMessages.chatMessageLobby.replaceAll("%p", t.getColorcode() + p.getDisplayName())
                     .replaceAll("%msg", msg);
             e.setFormat(format);
         } else {
-            format = Messages.chatMessageLobby.replaceAll("%p", p.getDisplayName()).replaceAll("%msg", msg);
+            format = BedWarsMessages.chatMessageLobby.replaceAll("%p", p.getDisplayName()).replaceAll("%msg", msg);
             e.setFormat(format);
         }
     }

@@ -1,8 +1,8 @@
-package de.biomia.minigames.skywars.messages;
+package de.biomia.general.messages;
 
 import de.biomia.minigames.skywars.var.Variables;
 
-public class Messages {
+public class SkyWarsMessages {
 
     public static final String skywars = "\u00A75Sky\u00A72Wars";
     // %t = CountDown

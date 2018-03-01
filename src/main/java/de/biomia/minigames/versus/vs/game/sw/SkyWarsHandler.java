@@ -1,8 +1,8 @@
 package de.biomia.minigames.versus.vs.game.sw;
 
 import de.biomia.minigames.general.Dead;
-import de.biomia.minigames.versus.sw.messages.ItemNames;
-import de.biomia.minigames.versus.sw.messages.Messages;
+import de.biomia.general.messages.SkyWarsItemNames;
+import de.biomia.general.messages.SkyWarsMessages;
 import de.biomia.minigames.versus.vs.game.GameHandler;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
@@ -35,36 +35,36 @@ class SkyWarsHandler extends GameHandler {
             if (e.getItem() != null) {
                 if (e.getItem().hasItemMeta() && e.getItem().getItemMeta().hasDisplayName()) {
                     switch (e.getItem().getItemMeta().getDisplayName()) {
-                        case ItemNames.playerTracker:
+                    case SkyWarsItemNames.playerTracker:
                             if (e.getItem().getType() == Material.COMPASS) {
                                 for (Entity entity : p.getNearbyEntities(500, 500, 500)) {
                                     if (entity instanceof Player) {
                                         Player nearest = (Player) entity;
                                         if (!Biomia.getTeamManager().isPlayerAlive(nearest) && Biomia.getTeamManager().getTeam(p) != null && !Biomia.getTeamManager().getTeam(p).playerInThisTeam(nearest)) {
                                             p.setCompassTarget(nearest.getLocation());
-                                            p.sendMessage(Messages.compassMessages.replace("%p", nearest.getName()).replace("%d", (int) p.getLocation().distance(nearest.getLocation()) + ""));
+                                            p.sendMessage(SkyWarsMessages.compassMessages.replace("%p", nearest.getName()).replace("%d", (int) p.getLocation().distance(nearest.getLocation()) + ""));
                                             return;
                                         }
                                     }
                                 }
                             }
                             break;
-                        case ItemNames.oneHitSnowball:
+                    case SkyWarsItemNames.oneHitSnowball:
                             if (e.getItem().getType() == Material.SNOW_BALL) {
                                 if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                                     e.setCancelled(true);
                                     Projectile ball = p.launchProjectile(Snowball.class);
-                                    ball.setCustomName(ItemNames.oneHitSnowball);
+                                    ball.setCustomName(SkyWarsItemNames.oneHitSnowball);
                                     ball.setShooter(p);
                                     p.getInventory().remove(e.getItem());
                                 }
                             }
                             break;
-                        case ItemNames.gummibogen:
+                    case SkyWarsItemNames.gummibogen:
                             if (e.getItem().getType() == Material.BOW) {
                                 e.setCancelled(true);
                                 Projectile arrow = p.launchProjectile(Arrow.class);
-                                arrow.setCustomName(ItemNames.gummipfeil);
+                                arrow.setCustomName(SkyWarsItemNames.gummipfeil);
                                 arrow.setShooter(p);
                                 p.getInventory().remove(e.getItem());
                             }
@@ -99,9 +99,9 @@ class SkyWarsHandler extends GameHandler {
             Dead.respawn(p);
             String msg;
             if (killer == null)
-                msg = Messages.playerDied.replaceAll("%p", p.getName());
+                msg = SkyWarsMessages.playerDied.replaceAll("%p", p.getName());
             else
-                msg = Messages.playerKilledByPlayer.replaceAll("%p1", p.getName()).replaceAll("%p2", killer.getName());
+                msg = SkyWarsMessages.playerKilledByPlayer.replaceAll("%p1", p.getName()).replaceAll("%p2", killer.getName());
             for (BiomiaPlayer all : mode.getPlayers())
                 all.getPlayer().sendMessage(msg);
             mode.getTeam(bp).setDead(bp);

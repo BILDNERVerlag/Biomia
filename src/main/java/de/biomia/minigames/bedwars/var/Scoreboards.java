@@ -1,6 +1,6 @@
 package de.biomia.minigames.bedwars.var;
 
-import de.biomia.minigames.bedwars.messages.Messages;
+import de.biomia.general.messages.BedWarsMessages;
 import de.biomia.api.Biomia;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -20,7 +20,7 @@ public class Scoreboards {
 
         Objective o = lobbySB.registerNewObjective("ccc", "ddd");
 
-        o.setDisplayName(Messages.bedwars);
+        o.setDisplayName(BedWarsMessages.bedwars);
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         o.getScore(" ").setScore(7);
@@ -57,7 +57,7 @@ public class Scoreboards {
 
         Objective o = sb.registerNewObjective("aaa", "bbb");
 
-        o.setDisplayName(Messages.bedwars);
+        o.setDisplayName(BedWarsMessages.bedwars);
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         o.getScore(" ").setScore(3);

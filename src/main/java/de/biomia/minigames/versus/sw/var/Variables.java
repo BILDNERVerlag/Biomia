@@ -1,6 +1,6 @@
 package de.biomia.minigames.versus.sw.var;
 
-import de.biomia.minigames.versus.sw.messages.ItemNames;
+import de.biomia.general.messages.SkyWarsItemNames;
 import de.biomia.api.itemcreator.ItemCreator;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -15,7 +15,7 @@ public class Variables {
     public static final HashMap<ItemStack, Integer> normalItems = new HashMap<>();
     public static final HashMap<ItemStack, Integer> goodItems = new HashMap<>();
     // Items
-    public static final ItemStack kitItem = ItemCreator.itemCreate(Material.CHEST, ItemNames.kitItemName);
+    public static final ItemStack kitItem = ItemCreator.itemCreate(Material.CHEST, SkyWarsItemNames.kitItemName);
 
     //TODO Rewards
     public static int winReward = 300;

@@ -1,7 +1,7 @@
 package de.biomia.minigames.versus.vs.settings;
 
 import de.biomia.minigames.versus.sw.kits.KitManager;
-import de.biomia.minigames.versus.sw.messages.ItemNames;
+import de.biomia.general.messages.SkyWarsItemNames;
 import de.biomia.minigames.versus.vs.main.VSManager;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
@@ -67,7 +67,7 @@ public class VSGroupInventory implements Listener {
 
         for (VSGroup g : group.getGroups()) {
             if (g.getSlot() == slot) {
-                if (g.getTitle().equals(ItemNames.kitItemName))
+                if (g.getTitle().equals(SkyWarsItemNames.kitItemName))
                     KitManager.getManager(bp).openKitMenu();
                 else
                     g.getInventory(bp).openInventory();

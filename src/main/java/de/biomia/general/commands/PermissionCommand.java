@@ -1,9 +1,7 @@
-package de.biomia.plugin.commands;
+package de.biomia.general.commands;
 
 import de.biomia.api.messages.Messages;
 import de.biomia.api.pex.Permission;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 public class PermissionCommand extends BiomiaCommand {

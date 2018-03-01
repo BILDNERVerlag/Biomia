@@ -2,8 +2,8 @@ package de.biomia.minigames.skywars.lobby;
 
 import de.biomia.minigames.GameState;
 import de.biomia.minigames.skywars.SkyWars;
-import de.biomia.minigames.skywars.messages.ItemNames;
-import de.biomia.minigames.skywars.messages.Messages;
+import de.biomia.general.messages.SkyWarsItemNames;
+import de.biomia.general.messages.SkyWarsMessages;
 import de.biomia.minigames.skywars.var.Scoreboards;
 import de.biomia.minigames.skywars.var.Variables;
 import de.biomia.api.Biomia;
@@ -55,14 +55,14 @@ public class JoinTeam {
         }
 
         if (team.full()) {
-            p.sendMessage(team.getColorcode() + Messages.teamFull);
+            p.sendMessage(team.getColorcode() + SkyWarsMessages.teamFull);
             return;
         }
 
         if (Biomia.getTeamManager().isPlayerInAnyTeam(p)) {
 
             if (team.equals(Biomia.getTeamManager().getTeam(p))) {
-                p.sendMessage(Messages.alreadyInTeam);
+                p.sendMessage(SkyWarsMessages.alreadyInTeam);
                 return;
             }
 
@@ -70,20 +70,20 @@ public class JoinTeam {
         }
 
         for (Player pl : team.getPlayers()) {
-            ActionBar.sendActionBar(Messages.joinedTeam.replace("%p", team.getColorcode() + p.getName()), pl);
+            ActionBar.sendActionBar(SkyWarsMessages.joinedTeam.replace("%p", team.getColorcode() + p.getName()), pl);
         }
 
         team.addPlayer(p);
         Variables.teamJoiner = JoinTeam.getTeamSwitcher();
         Scoreboards.lobbySB.getTeam("0" + team.getTeamname()).addEntry(p.getName());
         p.getInventory().setItem(4,
-                ItemCreator.itemCreate(Material.WOOL, ItemNames.teamWaehlerItem, team.getColordata()));
+                ItemCreator.itemCreate(Material.WOOL, SkyWarsItemNames.teamWaehlerItem, team.getColordata()));
     }
 
     private static boolean joinIfInNoTeam(Player p, Team team) {
 
         if (team.full()) {
-            p.sendMessage(team.getColorcode() + Messages.teamFull);
+            p.sendMessage(team.getColorcode() + SkyWarsMessages.teamFull);
             return false;
         }
 
@@ -93,7 +93,7 @@ public class JoinTeam {
         team.addPlayer(p);
         Scoreboards.lobbySB.getTeam("0" + team.getTeamname()).addEntry(p.getName());
         p.getInventory().setItem(4,
-                ItemCreator.itemCreate(Material.WOOL, ItemNames.teamWaehlerItem, team.getColordata()));
+                ItemCreator.itemCreate(Material.WOOL, SkyWarsItemNames.teamWaehlerItem, team.getColordata()));
         return true;
     }
 
@@ -111,7 +111,7 @@ public class JoinTeam {
                 }
                 if (party.size() > Variables.playerPerTeam) {
                     for (Player p : party) {
-                        p.sendMessage(Messages.noFittingTeamParty);
+                        p.sendMessage(SkyWarsMessages.noFittingTeamParty);
                         cancel();
                     }
                 } else {
@@ -127,7 +127,7 @@ public class JoinTeam {
                         }
                     }
                     for (Player p : party) {
-                        p.sendMessage(Messages.noFittingTeamPlayer);
+                        p.sendMessage(SkyWarsMessages.noFittingTeamPlayer);
                     }
                 }
             }
@@ -136,7 +136,7 @@ public class JoinTeam {
 
     public static Inventory getTeamSwitcher() {
 
-        Inventory inv = Bukkit.createInventory(null, 9, Messages.teamInventoryName);
+        Inventory inv = Bukkit.createInventory(null, 9, SkyWarsMessages.teamInventoryName);
 
         int i = 0;
 

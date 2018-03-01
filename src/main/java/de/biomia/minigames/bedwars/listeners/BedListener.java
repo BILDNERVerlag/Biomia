@@ -2,7 +2,7 @@ package de.biomia.minigames.bedwars.listeners;
 
 import de.biomia.minigames.GameState;
 import de.biomia.minigames.bedwars.BedWars;
-import de.biomia.minigames.bedwars.messages.Messages;
+import de.biomia.general.messages.BedWarsMessages;
 import de.biomia.minigames.bedwars.var.Variables;
 import de.biomia.api.Biomia;
 import de.biomia.api.Teams.Team;
@@ -31,7 +31,7 @@ public class BedListener implements Listener {
                             Team playersTeam = Biomia.getTeamManager().getTeam(e.getPlayer());
                             if (t.equals(playersTeam)) {
                                 e.setCancelled(true);
-                                e.getPlayer().sendMessage(Messages.cantDestroyYourOwnBed);
+                                e.getPlayer().sendMessage(BedWarsMessages.cantDestroyYourOwnBed);
                                 return;
                             }
                             Bukkit.getPluginManager().callEvent(new BedWarsDestroyBedEvent(Biomia.getBiomiaPlayer(e.getPlayer()), Variables.beds.get(t).get(0), Variables.beds.get(t).get(1), t.getTeamname()));
@@ -57,7 +57,7 @@ public class BedListener implements Listener {
                 Variables.teamChestsLocs.get(t).remove(e.getBlock());
             }
         } else if (BedWars.gameState == GameState.INGAME) {
-            e.getPlayer().sendMessage(Messages.cantDestroyThisBlock);
+            e.getPlayer().sendMessage(BedWarsMessages.cantDestroyThisBlock);
             e.setCancelled(true);
         } else {
             if (!Biomia.getBiomiaPlayer(e.getPlayer()).canBuild()) {

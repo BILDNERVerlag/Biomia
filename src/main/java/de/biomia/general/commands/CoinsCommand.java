@@ -1,4 +1,4 @@
-package de.biomia.plugin.commands;
+package de.biomia.general.commands;
 
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CoinsCommand extends  BiomiaCommand {
+public class CoinsCommand extends BiomiaCommand {
 
     public CoinsCommand() {
         super("coins");

@@ -1,7 +1,7 @@
 package de.biomia.minigames.versus.sw.kits;
 
-import de.biomia.minigames.versus.sw.messages.ItemNames;
-import de.biomia.minigames.versus.sw.messages.Messages;
+import de.biomia.general.messages.SkyWarsItemNames;
+import de.biomia.general.messages.SkyWarsMessages;
 import de.biomia.api.Biomia;
 import de.biomia.api.itemcreator.ItemCreator;
 import org.bukkit.Bukkit;
@@ -100,7 +100,7 @@ public class Kit {
     public Inventory getDemoInv() {
 
         if (demoInv == null) {
-            demoInv = Bukkit.createInventory(null, 36, Messages.demoInventory.replaceAll("%k", getName()));
+            demoInv = Bukkit.createInventory(null, 36, SkyWarsMessages.demoInventory.replaceAll("%k", getName()));
 
             for (int i = 0; i < 26; i++)
                 demoInv.setItem(35 - i, contents.get(i));
@@ -121,11 +121,11 @@ public class Kit {
         if (setupInventorys.containsKey(p))
             return setupInventorys.get(p);
 
-        Inventory inv = Bukkit.createInventory(null, 9, Messages.setupInventory.replaceAll("%k", getName()));
+        Inventory inv = Bukkit.createInventory(null, 9, SkyWarsMessages.setupInventory.replaceAll("%k", getName()));
 
-        ItemStack pay = ItemCreator.itemCreate(Material.GOLD_INGOT, ItemNames.purchaseKit);
-        ItemStack select = ItemCreator.itemCreate(Material.ARMOR_STAND, ItemNames.selectKit);
-        ItemStack look = ItemCreator.itemCreate(Material.THIN_GLASS, ItemNames.showKit);
+        ItemStack pay = ItemCreator.itemCreate(Material.GOLD_INGOT, SkyWarsItemNames.purchaseKit);
+        ItemStack select = ItemCreator.itemCreate(Material.ARMOR_STAND, SkyWarsItemNames.selectKit);
+        ItemStack look = ItemCreator.itemCreate(Material.THIN_GLASS, SkyWarsItemNames.showKit);
 
         ItemMeta meta = pay.getItemMeta();
 
@@ -133,9 +133,9 @@ public class Kit {
         ArrayList<String> list = new ArrayList<>();
         if (playerAvailableKits != null) {
             if (playerAvailableKits.contains(this)) {
-                list.addAll(ItemNames.purchasedKitLore);
+                list.addAll(SkyWarsItemNames.purchasedKitLore);
             } else {
-                list.addAll(ItemNames.notPurchasedKitLore);
+                list.addAll(SkyWarsItemNames.notPurchasedKitLore);
             }
             int i = 0;
             for (String s : list) {

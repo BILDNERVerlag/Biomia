@@ -1,7 +1,7 @@
 package de.biomia.minigames.bedwars.shop;
 
-import de.biomia.minigames.bedwars.messages.ItemNames;
-import de.biomia.minigames.bedwars.messages.Messages;
+import de.biomia.general.messages.BedWarsItemNames;
+import de.biomia.general.messages.BedWarsMessages;
 import de.biomia.minigames.general.ItemType;
 import de.biomia.minigames.bedwars.var.Variables;
 import de.biomia.api.itemcreator.ItemCreator;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class Shop {
 
-    public static final ItemStack backItem = ItemCreator.headWithSkin("MHF_ArrowLeft", ItemNames.back);
+    public static final ItemStack backItem = ItemCreator.headWithSkin("MHF_ArrowLeft", BedWarsItemNames.back);
     private static final ArrayList<ShopGroup> groups = new ArrayList<>();
     private static Inventory inv = null;
 
@@ -38,7 +38,7 @@ public class Shop {
         int invSize = (int) (Math.ceil(groups.size() / 7) * 9) + 18;
 
         if (inv == null) {
-            inv = Bukkit.createInventory(null, invSize, Messages.shopInventory);
+            inv = Bukkit.createInventory(null, invSize, BedWarsMessages.shopInventory);
             int groupNum = 0;
             for (ShopGroup group : groups) {
                 if (groupNum % 9 == 8) {
@@ -223,16 +223,16 @@ public class Shop {
         ItemStack strength = getPotionItemStack(Material.POTION, PotionType.STRENGTH, false);
         traenke.addItem(new ShopItem(ItemType.GOLD, 7, strength));
 
-        ItemStack wand = ItemCreator.itemCreate(Material.BRICK, ItemNames.wand);
+        ItemStack wand = ItemCreator.itemCreate(Material.BRICK, BedWarsItemNames.wand);
         special.addItem(new ShopItem(ItemType.BRONZE, 64, wand));
 
-        ItemStack warp = ItemCreator.itemCreate(Material.BLAZE_POWDER, ItemNames.warper);
+        ItemStack warp = ItemCreator.itemCreate(Material.BLAZE_POWDER, BedWarsItemNames.warper);
         special.addItem(new ShopItem(ItemType.IRON, 3, warp));
 
-        ItemStack platform = ItemCreator.itemCreate(Material.END_ROD, ItemNames.rettungsPlattform);
+        ItemStack platform = ItemCreator.itemCreate(Material.END_ROD, BedWarsItemNames.rettungsPlattform);
         special.addItem(new ShopItem(ItemType.GOLD, 3, platform));
 
-        ItemStack shop = ItemCreator.itemCreate(Material.ARMOR_STAND, ItemNames.shortShop);
+        ItemStack shop = ItemCreator.itemCreate(Material.ARMOR_STAND, BedWarsItemNames.shortShop);
         special.addItem(new ShopItem(ItemType.GOLD, 5, shop));
 
         ItemStack enderpearl = ItemCreator.itemCreate(Material.ENDER_PEARL);

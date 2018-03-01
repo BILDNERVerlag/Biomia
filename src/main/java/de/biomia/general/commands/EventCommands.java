@@ -1,4 +1,4 @@
-package de.biomia.plugin.commands;
+package de.biomia.general.commands;
 
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.Main;

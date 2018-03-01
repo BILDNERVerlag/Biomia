@@ -1,6 +1,6 @@
 package de.biomia.minigames.bedwars.listeners;
 
-import de.biomia.minigames.bedwars.messages.ItemNames;
+import de.biomia.general.messages.BedWarsItemNames;
 import de.biomia.minigames.general.ItemType;
 import de.biomia.minigames.bedwars.var.Variables;
 import de.biomia.api.itemcreator.ItemCreator;
@@ -22,15 +22,15 @@ public class SpawnItems {
             public void run() {
                 if (i % Variables.bronzeSpawnDelay == 0) {
                     Variables.spawner.get(ItemType.BRONZE).forEach(each -> Bukkit.getWorld(Variables.name).dropItem(each,
-                            ItemCreator.itemCreate(Material.CLAY_BRICK, ItemNames.bronze)));
+                            ItemCreator.itemCreate(Material.CLAY_BRICK, BedWarsItemNames.bronze)));
                 }
                 if (i % Variables.ironSpawnDelay == 0) {
                     Variables.spawner.get(ItemType.IRON).forEach(each -> Bukkit.getWorld(Variables.name).dropItem(each,
-                            ItemCreator.itemCreate(Material.IRON_INGOT, ItemNames.iron)));
+                            ItemCreator.itemCreate(Material.IRON_INGOT, BedWarsItemNames.iron)));
                 }
                 if (i % Variables.goldSpawnDelay == 0) {
                     Variables.spawner.get(ItemType.GOLD).forEach(each -> Bukkit.getWorld(Variables.name).dropItem(each,
-                            ItemCreator.itemCreate(Material.GOLD_INGOT, ItemNames.gold)));
+                            ItemCreator.itemCreate(Material.GOLD_INGOT, BedWarsItemNames.gold)));
                 }
                 i++;
             }

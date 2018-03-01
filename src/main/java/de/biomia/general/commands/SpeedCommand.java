@@ -1,9 +1,7 @@
-package de.biomia.plugin.commands;
+package de.biomia.general.commands;
 
 import de.biomia.api.messages.Messages;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -69,29 +67,29 @@ public class SpeedCommand extends BiomiaCommand {
     // returns a corresponding speed to a value from 0-10 (1 is default speed)
     private float getSpeed(int i) {
         switch (i) {
-            case 10:
-                return 1.0f;
-            case 9:
-                return 0.999f;
-            case 8:
-                return 0.9f;
-            case 7:
-                return 0.8f;
-            case 6:
-                return 0.7f;
-            case 5:
-                return 0.6f;
-            case 4:
-                return 0.5f;
-            case 3:
-                return 0.4f;
-            case 2:
-                return 0.3f;
-            case 1:
-            default:
-                return 0.2f;
-            case 0:
-                return 0;
+        case 10:
+            return 1.0f;
+        case 9:
+            return 0.999f;
+        case 8:
+            return 0.9f;
+        case 7:
+            return 0.8f;
+        case 6:
+            return 0.7f;
+        case 5:
+            return 0.6f;
+        case 4:
+            return 0.5f;
+        case 3:
+            return 0.4f;
+        case 2:
+            return 0.3f;
+        case 1:
+        default:
+            return 0.2f;
+        case 0:
+            return 0;
         }
     }
 

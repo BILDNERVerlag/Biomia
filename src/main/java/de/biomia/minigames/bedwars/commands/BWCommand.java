@@ -1,7 +1,7 @@
 package de.biomia.minigames.bedwars.commands;
 
 import de.biomia.general.configs.Config;
-import de.biomia.minigames.bedwars.messages.ItemNames;
+import de.biomia.general.messages.BedWarsItemNames;
 import de.biomia.general.configs.BedWarsConfig;
 import de.biomia.api.Biomia;
 import de.biomia.api.Teams.Team;
@@ -53,21 +53,21 @@ public class BWCommand implements CommandExecutor {
                         sender.sendMessage("Alle Spawnlocations entfernt!");
                     } else if (args[0].equalsIgnoreCase("getTeamjoinersetter")) {
                         for (Team t : Biomia.getTeamManager().getTeams()) {
-                            p.getInventory().addItem(ItemCreator.itemCreate(Material.WOOL, ItemNames.teamJoinerSetter,
+                            p.getInventory().addItem(ItemCreator.itemCreate(Material.WOOL, BedWarsItemNames.teamJoinerSetter,
                                     t.getColordata()));
                         }
                     } else if (args[0].equalsIgnoreCase("getbedsetter")) {
                         for (Team t : Biomia.getTeamManager().getTeams()) {
                             p.getInventory().addItem(
-                                    ItemCreator.itemCreate(Material.WOOL, ItemNames.bedSetter, t.getColordata()));
+                                    ItemCreator.itemCreate(Material.WOOL, BedWarsItemNames.bedSetter, t.getColordata()));
                         }
                     } else if (args[0].equalsIgnoreCase("getSpawner")) {
-                        p.getInventory().addItem(ItemCreator.itemCreate(Material.HARD_CLAY, ItemNames.bronzeSetter));
-                        p.getInventory().addItem(ItemCreator.itemCreate(Material.IRON_BLOCK, ItemNames.ironSetter));
-                        p.getInventory().addItem(ItemCreator.itemCreate(Material.GOLD_BLOCK, ItemNames.goldSetter));
+                        p.getInventory().addItem(ItemCreator.itemCreate(Material.HARD_CLAY, BedWarsItemNames.bronzeSetter));
+                        p.getInventory().addItem(ItemCreator.itemCreate(Material.IRON_BLOCK, BedWarsItemNames.ironSetter));
+                        p.getInventory().addItem(ItemCreator.itemCreate(Material.GOLD_BLOCK, BedWarsItemNames.goldSetter));
                     } else if (args[0].equalsIgnoreCase("villager")) {
                         p.getInventory()
-                                .addItem(ItemCreator.itemCreate(Material.MONSTER_EGG, ItemNames.villagerSpawner));
+                                .addItem(ItemCreator.itemCreate(Material.MONSTER_EGG, BedWarsItemNames.villagerSpawner));
                     }
                 } else {
                     sender.sendMessage("\u00A7c/bw setup (Setup f\u00fcr BedWars-Map)");

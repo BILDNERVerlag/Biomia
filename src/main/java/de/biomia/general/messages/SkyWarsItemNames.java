@@ -1,11 +1,11 @@
-package de.biomia.minigames.skywars.messages;
+package de.biomia.general.messages;
 
 import de.biomia.api.messages.SpecialCharacters;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ItemNames {
+public class SkyWarsItemNames {
 
     public static final String playerTracker = "\u00A75Spieler Tracker";
     public static final String purchaseKit = "\u00A7aKaufen";

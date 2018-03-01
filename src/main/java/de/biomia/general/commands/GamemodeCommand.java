@@ -1,10 +1,8 @@
-package de.biomia.plugin.commands;
+package de.biomia.general.commands;
 
 import de.biomia.api.messages.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -25,44 +23,44 @@ public class GamemodeCommand extends BiomiaCommand {
                     GameMode gameMode = null;
 
                     switch (args[0]) {
-                        case "0":
-                            gameMode = GameMode.SURVIVAL;
-                            break;
-                        case "1":
-                            gameMode = GameMode.CREATIVE;
-                            break;
-                        case "2":
-                            gameMode = GameMode.ADVENTURE;
-                            break;
-                        case "3":
-                            gameMode = GameMode.SPECTATOR;
-                            break;
-                        case "s":
-                            gameMode = GameMode.SURVIVAL;
-                            break;
-                        case "c":
-                            gameMode = GameMode.CREATIVE;
-                            break;
-                        case "a":
-                            gameMode = GameMode.ADVENTURE;
-                            break;
-                        case "sp":
-                            gameMode = GameMode.SPECTATOR;
-                            break;
-                        case "survival":
-                            gameMode = GameMode.SURVIVAL;
-                            break;
-                        case "creative":
-                            gameMode = GameMode.CREATIVE;
-                            break;
-                        case "adventure":
-                            gameMode = GameMode.ADVENTURE;
-                            break;
-                        case "spectator":
-                            gameMode = GameMode.SPECTATOR;
-                            break;
-                        default:
-                            break;
+                    case "0":
+                        gameMode = GameMode.SURVIVAL;
+                        break;
+                    case "1":
+                        gameMode = GameMode.CREATIVE;
+                        break;
+                    case "2":
+                        gameMode = GameMode.ADVENTURE;
+                        break;
+                    case "3":
+                        gameMode = GameMode.SPECTATOR;
+                        break;
+                    case "s":
+                        gameMode = GameMode.SURVIVAL;
+                        break;
+                    case "c":
+                        gameMode = GameMode.CREATIVE;
+                        break;
+                    case "a":
+                        gameMode = GameMode.ADVENTURE;
+                        break;
+                    case "sp":
+                        gameMode = GameMode.SPECTATOR;
+                        break;
+                    case "survival":
+                        gameMode = GameMode.SURVIVAL;
+                        break;
+                    case "creative":
+                        gameMode = GameMode.CREATIVE;
+                        break;
+                    case "adventure":
+                        gameMode = GameMode.ADVENTURE;
+                        break;
+                    case "spectator":
+                        gameMode = GameMode.SPECTATOR;
+                        break;
+                    default:
+                        break;
                     }
 
                     if (args.length >= 2) {

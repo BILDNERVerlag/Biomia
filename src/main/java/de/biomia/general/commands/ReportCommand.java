@@ -1,4 +1,4 @@
-package de.biomia.plugin.commands;
+package de.biomia.general.commands;
 
 import de.biomia.plugin.reportsystem.PlayerReport;
 import de.biomia.api.Biomia;
@@ -29,7 +29,7 @@ public class ReportCommand extends BiomiaCommand {
         } else {
             ((Player) sender).openInventory(Main.menu);
         }
-        
+
         return true;
 
     }

@@ -1,6 +1,6 @@
 package de.biomia.minigames.skywars.var;
 
-import de.biomia.minigames.skywars.messages.Messages;
+import de.biomia.general.messages.SkyWarsMessages;
 import de.biomia.api.Biomia;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -57,7 +57,7 @@ public class Scoreboards {
 
         Objective o = sb.registerNewObjective("aaa", "bbb");
 
-        o.setDisplayName(Messages.skywars);
+        o.setDisplayName(SkyWarsMessages.skywars);
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         o.getScore(" ").setScore(7);

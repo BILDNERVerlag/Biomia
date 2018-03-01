@@ -1,4 +1,4 @@
-package de.biomia.plugin.commands;
+package de.biomia.general.commands;
 
 import de.biomia.api.itemcreator.ItemCreator;
 import de.biomia.api.tools.Hologram;

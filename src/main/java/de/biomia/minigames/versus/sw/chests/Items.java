@@ -1,6 +1,6 @@
 package de.biomia.minigames.versus.sw.chests;
 
-import de.biomia.minigames.versus.sw.messages.ItemNames;
+import de.biomia.general.messages.SkyWarsItemNames;
 import de.biomia.minigames.versus.sw.var.Variables;
 import de.biomia.api.itemcreator.ItemCreator;
 import org.bukkit.Material;
@@ -106,7 +106,7 @@ public class Items {
         stack.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
         n.put(stack, 5);
 
-        n.put(ItemCreator.setAmount(ItemCreator.itemCreate(Material.COMPASS, ItemNames.playerTracker), 1), 5);
+        n.put(ItemCreator.setAmount(ItemCreator.itemCreate(Material.COMPASS, SkyWarsItemNames.playerTracker), 1), 5);
 
         n.put(ItemCreator.setAmount(ItemCreator.itemCreate(Material.TNT), random(3, 8)), 3);
 

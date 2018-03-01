@@ -1,6 +1,6 @@
 package de.biomia.minigames.skywars.kits;
 
-import de.biomia.minigames.skywars.messages.ItemNames;
+import de.biomia.general.messages.SkyWarsItemNames;
 import de.biomia.minigames.skywars.var.Variables;
 import de.biomia.api.Biomia;
 import de.biomia.api.BiomiaPlayer;
@@ -231,12 +231,12 @@ public class Kits {
 
         // OneHitKit
         Kit onehit = new Kit("One-Hit-Kit", 9, 50000, ItemCreator.itemCreate(Material.SNOW_BALL), true);
-        onehit.addItem(0, ItemCreator.itemCreate(Material.SNOW_BALL, ItemNames.oneHitSnowball));
+        onehit.addItem(0, ItemCreator.itemCreate(Material.SNOW_BALL, SkyWarsItemNames.oneHitSnowball));
 
         // Gummibogen
         Kit gummibogen = new Kit("Gummibogen", 10, 50000, ItemCreator.itemCreate(Material.BOW), true);
-        ItemStack gummibogenitem = ItemCreator.itemCreate(Material.BOW, ItemNames.gummibogen);
-        ItemStack gummipfeile = ItemCreator.itemCreate(Material.ARROW, ItemNames.gummipfeil);
+        ItemStack gummibogenitem = ItemCreator.itemCreate(Material.BOW, SkyWarsItemNames.gummibogen);
+        ItemStack gummipfeile = ItemCreator.itemCreate(Material.ARROW, SkyWarsItemNames.gummipfeil);
         gummipfeile.setAmount(16);
         gummibogen.addItem(0, gummibogenitem);
         gummibogen.addItem(1, gummipfeile);

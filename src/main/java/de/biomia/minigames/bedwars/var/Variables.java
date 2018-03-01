@@ -6,7 +6,7 @@ import de.biomia.api.itemcreator.ItemCreator;
 import de.biomia.api.messages.Messages;
 import de.biomia.general.configs.Config;
 import de.biomia.minigames.bedwars.listeners.CountDown;
-import de.biomia.minigames.bedwars.messages.ItemNames;
+import de.biomia.general.messages.BedWarsItemNames;
 import de.biomia.minigames.general.ItemType;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -52,7 +52,7 @@ public class Variables {
     public static final HashMap<UUID, ArrayList<Player>> handlerMap = new HashMap<>();
     // Joiner
     public static final HashMap<Team, UUID> joiner = new HashMap<>();
-    public static final ItemStack teamChest = ItemCreator.itemCreate(Material.ENDER_CHEST, ItemNames.teamChest);
+    public static final ItemStack teamChest = ItemCreator.itemCreate(Material.ENDER_CHEST, BedWarsItemNames.teamChest);
     public static final HashMap<Team, Inventory> teamChests = new HashMap<>();
     public static final HashMap<Team, ArrayList<Block>> teamChestsLocs = new HashMap<>();
     public static CountDown countDown;

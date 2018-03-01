@@ -2,8 +2,8 @@ package de.biomia.minigames.bedwars.lobby;
 
 import de.biomia.minigames.GameState;
 import de.biomia.minigames.bedwars.BedWars;
-import de.biomia.minigames.bedwars.messages.ItemNames;
-import de.biomia.minigames.bedwars.messages.Messages;
+import de.biomia.general.messages.BedWarsItemNames;
+import de.biomia.general.messages.BedWarsMessages;
 import de.biomia.minigames.bedwars.var.Scoreboards;
 import de.biomia.minigames.bedwars.var.Variables;
 import de.biomia.api.Biomia;
@@ -60,14 +60,14 @@ public class JoinTeam {
         }
 
         if (Objects.requireNonNull(team).full()) {
-            p.sendMessage(team.getColorcode() + Messages.teamFull);
+            p.sendMessage(team.getColorcode() + BedWarsMessages.teamFull);
             return;
         }
 
 
         if (Biomia.getTeamManager().isPlayerInAnyTeam(p)) {
             if (team.equals(Biomia.getTeamManager().getTeam(p))) {
-                p.sendMessage(Messages.alreadyInTeam);
+                p.sendMessage(BedWarsMessages.alreadyInTeam);
                 return;
             }
 
@@ -75,20 +75,20 @@ public class JoinTeam {
         }
 
         for (Player pl : team.getPlayers()) {
-            ActionBar.sendActionBar(Messages.joinedTeam.replace("%p", team.getColorcode() + p.getName()), pl);
+            ActionBar.sendActionBar(BedWarsMessages.joinedTeam.replace("%p", team.getColorcode() + p.getName()), pl);
         }
 
         team.addPlayer(p);
         Variables.teamJoiner = JoinTeam.getTeamSwitcher();
         Scoreboards.lobbySB.getTeam("0" + team.getTeamname()).addEntry(p.getName());
         p.getInventory().setItem(4,
-                ItemCreator.itemCreate(Material.WOOL, ItemNames.teamWaehlerItem, team.getColordata()));
+                ItemCreator.itemCreate(Material.WOOL, BedWarsItemNames.teamWaehlerItem, team.getColordata()));
     }
 
     private static boolean joinIfInNoTeam(Player p, Team team) {
 
         if (team.full()) {
-            p.sendMessage(team.getColorcode() + Messages.teamFull);
+            p.sendMessage(team.getColorcode() + BedWarsMessages.teamFull);
             return false;
         }
 
@@ -98,7 +98,7 @@ public class JoinTeam {
         team.addPlayer(p);
         Scoreboards.lobbySB.getTeam("0" + team.getTeamname()).addEntry(p.getName());
         p.getInventory().setItem(4,
-                ItemCreator.itemCreate(Material.WOOL, ItemNames.teamWaehlerItem, team.getColordata()));
+                ItemCreator.itemCreate(Material.WOOL, BedWarsItemNames.teamWaehlerItem, team.getColordata()));
         return true;
     }
 
@@ -116,7 +116,7 @@ public class JoinTeam {
                 }
                 if (party.size() > Variables.playerPerTeam) {
                     for (Player p : party) {
-                        p.sendMessage(Messages.noFittingTeamParty);
+                        p.sendMessage(BedWarsMessages.noFittingTeamParty);
                         cancel();
                     }
                 } else {
@@ -132,7 +132,7 @@ public class JoinTeam {
                         }
                     }
                     for (Player p : party) {
-                        p.sendMessage(Messages.noFittingTeamPlayer);
+                        p.sendMessage(BedWarsMessages.noFittingTeamPlayer);
                     }
                 }
             }
@@ -142,7 +142,7 @@ public class JoinTeam {
 
     public static Inventory getTeamSwitcher() {
 
-        Inventory inv = Bukkit.createInventory(null, 9, Messages.teamInventoryName);
+        Inventory inv = Bukkit.createInventory(null, 9, BedWarsMessages.teamInventoryName);
 
         int i = 0;
 

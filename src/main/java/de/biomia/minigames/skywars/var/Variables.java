@@ -1,10 +1,9 @@
 package de.biomia.minigames.skywars.var;
 
 import de.biomia.general.configs.Config;
-import de.biomia.general.configs.SkyWarsConfig;
 import de.biomia.minigames.skywars.kits.Kit;
 import de.biomia.minigames.skywars.listeners.CountDown;
-import de.biomia.minigames.skywars.messages.ItemNames;
+import de.biomia.general.messages.SkyWarsItemNames;
 import de.biomia.api.Teams.Team;
 import de.biomia.api.itemcreator.ItemCreator;
 import de.biomia.api.messages.Messages;
@@ -51,7 +50,7 @@ public class Variables {
     public static final HashMap<Player, Kit> selectedKit = new HashMap<>();
     public static final int playReward = 60;
     // Items
-    public static final ItemStack kitItem = ItemCreator.itemCreate(Material.CHEST, ItemNames.kitItemName);
+    public static final ItemStack kitItem = ItemCreator.itemCreate(Material.CHEST, SkyWarsItemNames.kitItemName);
     // Joiner
     public static final HashMap<Team, UUID> joiner = new HashMap<>();
     // Setup

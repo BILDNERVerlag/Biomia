@@ -1,14 +1,12 @@
-package de.biomia.plugin.commands;
+package de.biomia.general.commands;
 
 import de.biomia.api.messages.Messages;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class EatCommand extends BiomiaCommand {
 
-    public EatCommand(){
+    public EatCommand() {
         super("eat");
     }
 

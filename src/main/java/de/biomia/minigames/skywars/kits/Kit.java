@@ -1,7 +1,7 @@
 package de.biomia.minigames.skywars.kits;
 
-import de.biomia.minigames.skywars.messages.ItemNames;
-import de.biomia.minigames.skywars.messages.Messages;
+import de.biomia.general.messages.SkyWarsItemNames;
+import de.biomia.general.messages.SkyWarsMessages;
 import de.biomia.minigames.skywars.var.Variables;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.api.achievements.statEvents.skywars.KitBuyEvent;
@@ -111,7 +111,7 @@ public class Kit {
 
     public Inventory getDemoInv() {
 
-        Inventory inv = Bukkit.createInventory(null, 36, Messages.demoInventory.replaceAll("%k", getName()));
+        Inventory inv = Bukkit.createInventory(null, 36, SkyWarsMessages.demoInventory.replaceAll("%k", getName()));
 
         for (int i = 0; i < 26; i++) {
             inv.setItem(35 - i, contents.get(i));
@@ -135,18 +135,18 @@ public class Kit {
                 if (b) {
                     Bukkit.getPluginManager().callEvent(new KitBuyEvent(bp, getID()));
                     bp.takeCoins(price);
-                    bp.getPlayer().sendMessage(Messages.kitPurchased.replaceAll("%k", getName()));
+                    bp.getPlayer().sendMessage(SkyWarsMessages.kitPurchased.replaceAll("%k", getName()));
                     Variables.availableKits.get(bp.getPlayer()).add(this);
                 } else
-                    bp.getPlayer().sendMessage(Messages.errorWhilePurchasing.replaceAll("%k", getName()));
+                    bp.getPlayer().sendMessage(SkyWarsMessages.errorWhilePurchasing.replaceAll("%k", getName()));
                 return b;
             } else {
-                bp.getPlayer().sendMessage(Messages.notEnoughCoins.replaceAll("%k", getName()));
+                bp.getPlayer().sendMessage(SkyWarsMessages.notEnoughCoins.replaceAll("%k", getName()));
                 bp.getPlayer().sendMessage(
-                        Messages.missingCoins.replaceAll("%k", getName()).replaceAll("%c", price - bp.getCoins() + ""));
+                        SkyWarsMessages.missingCoins.replaceAll("%k", getName()).replaceAll("%c", price - bp.getCoins() + ""));
             }
         } else {
-            bp.getPlayer().sendMessage(Messages.alreadyPurchased.replaceAll("%k", getName()));
+            bp.getPlayer().sendMessage(SkyWarsMessages.alreadyPurchased.replaceAll("%k", getName()));
         }
         return false;
     }
@@ -156,18 +156,18 @@ public class Kit {
         if (setupInventorys.containsKey(p))
             return setupInventorys.get(p);
 
-        Inventory inv = Bukkit.createInventory(null, 9, Messages.setupInventory.replaceAll("%k", getName()));
+        Inventory inv = Bukkit.createInventory(null, 9, SkyWarsMessages.setupInventory.replaceAll("%k", getName()));
 
-        ItemStack pay = ItemCreator.itemCreate(Material.GOLD_INGOT, ItemNames.purchaseKit);
-        ItemStack select = ItemCreator.itemCreate(Material.ARMOR_STAND, ItemNames.selectKit);
-        ItemStack look = ItemCreator.itemCreate(Material.THIN_GLASS, ItemNames.showKit);
+        ItemStack pay = ItemCreator.itemCreate(Material.GOLD_INGOT, SkyWarsItemNames.purchaseKit);
+        ItemStack select = ItemCreator.itemCreate(Material.ARMOR_STAND, SkyWarsItemNames.selectKit);
+        ItemStack look = ItemCreator.itemCreate(Material.THIN_GLASS, SkyWarsItemNames.showKit);
 
         ItemMeta meta = pay.getItemMeta();
 
         if (Variables.availableKits.get(p) != null)
             if (Variables.availableKits.get(p).contains(this)) {
                 int i = 0;
-                ArrayList<String> list = new ArrayList<>(ItemNames.purchasedKitLore);
+                ArrayList<String> list = new ArrayList<>(SkyWarsItemNames.purchasedKitLore);
                 for (String s : list) {
                     list.set(i, s.replaceAll("%c", price + ""));
                     i++;
@@ -175,7 +175,7 @@ public class Kit {
                 meta.setLore(list);
             } else {
                 int i = 0;
-                ArrayList<String> list = new ArrayList<>(ItemNames.notPurchasedKitLore);
+                ArrayList<String> list = new ArrayList<>(SkyWarsItemNames.notPurchasedKitLore);
                 for (String s : list) {
                     list.set(i, s.replaceAll("%c", price + ""));
                     i++;

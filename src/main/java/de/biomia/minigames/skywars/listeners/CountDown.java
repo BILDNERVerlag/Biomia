@@ -1,7 +1,7 @@
 package de.biomia.minigames.skywars.listeners;
 
 import de.biomia.minigames.skywars.gamestates.InLobby;
-import de.biomia.minigames.skywars.messages.Messages;
+import de.biomia.general.messages.SkyWarsMessages;
 import de.biomia.minigames.skywars.var.Variables;
 import de.biomia.Main;
 import org.bukkit.Bukkit;
@@ -45,7 +45,7 @@ public class CountDown {
 
                         if (getCountdown() == 45 || getCountdown() == 30 || getCountdown() == 20 || getCountdown() == 15
                                 || getCountdown() == 10 || (getCountdown() <= 5 && getCountdown() > 0)) {
-                            Bukkit.broadcastMessage(Messages.lobbyCountDown.replaceAll("%t", getCountdown() + ""));
+                            Bukkit.broadcastMessage(SkyWarsMessages.lobbyCountDown.replaceAll("%t", getCountdown() + ""));
                             for (Player p : Bukkit.getOnlinePlayers()) {
                                 p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10, 2);
                             }
@@ -59,7 +59,7 @@ public class CountDown {
 
                     } else if (onlinePlayer > 0)
                         if (zuWenig == 30) {
-                            Bukkit.broadcastMessage(Messages.notEnoughPlayerToStart);
+                            Bukkit.broadcastMessage(SkyWarsMessages.notEnoughPlayerToStart);
                             zuWenig = 0;
                         } else
                             zuWenig++;

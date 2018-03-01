@@ -2,8 +2,8 @@ package de.biomia.minigames.skywars.commands;
 
 import de.biomia.general.configs.Config;
 import de.biomia.minigames.skywars.gamestates.InLobby;
-import de.biomia.minigames.skywars.messages.ItemNames;
-import de.biomia.minigames.skywars.messages.Messages;
+import de.biomia.general.messages.SkyWarsItemNames;
+import de.biomia.general.messages.SkyWarsMessages;
 import de.biomia.general.configs.SkyWarsConfig;
 import de.biomia.minigames.skywars.var.Variables;
 import de.biomia.api.Biomia;
@@ -67,9 +67,9 @@ public class SWCommand implements CommandExecutor {
                     } else if (args[0].equalsIgnoreCase("chestaddmode")) {
                         Variables.chestAddMode = !Variables.chestAddMode;
                         if (Variables.chestAddMode) {
-                            sender.sendMessage(Messages.chestAddModeON);
+                            sender.sendMessage(SkyWarsMessages.chestAddModeON);
                         } else {
-                            sender.sendMessage(Messages.chestAddModeOFF);
+                            sender.sendMessage(SkyWarsMessages.chestAddModeOFF);
                         }
                     } else if (args[0].equalsIgnoreCase("deleteallchests")) {
                         SkyWarsConfig.removeAllChests();
@@ -79,7 +79,7 @@ public class SWCommand implements CommandExecutor {
                         sender.sendMessage("\u00A7cAlle Signs entfernt.");
                     } else if (args[0].equalsIgnoreCase("getTeamjoinersetter")) {
                         for (Team t : Biomia.getTeamManager().getTeams()) {
-                            p.getInventory().addItem(ItemCreator.itemCreate(Material.WOOL, ItemNames.teamJoinerSetter,
+                            p.getInventory().addItem(ItemCreator.itemCreate(Material.WOOL, SkyWarsItemNames.teamJoinerSetter,
                                     t.getColordata()));
                         }
                     }

@@ -2,8 +2,8 @@ package de.biomia.minigames.versus.vs.main;
 
 import de.biomia.minigames.versus.sw.kits.Kit;
 import de.biomia.minigames.versus.sw.kits.KitManager;
-import de.biomia.minigames.versus.sw.messages.ItemNames;
-import de.biomia.minigames.versus.sw.messages.Messages;
+import de.biomia.general.messages.SkyWarsItemNames;
+import de.biomia.general.messages.SkyWarsMessages;
 import de.biomia.minigames.versus.sw.var.Variables;
 import de.biomia.minigames.versus.vs.settings.VSGroup;
 import de.biomia.minigames.versus.vs.settings.VSRequest;
@@ -72,7 +72,7 @@ public class VSManager implements Listener {
         VSGroup skywars = main.registerNewGroup(VSMode.SkyWars, skywarsSettingItem, "\u00A7aSkyWars", 4, 0, true);
         VSGroup skywarsMaps = skywars.registerNewGroup(VSMode.SkyWars, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
         skywarsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, skywarsMaps));
-        skywars.registerNewGroup(VSMode.SkyWars, Variables.kitItem, ItemNames.kitItemName, 1);
+        skywars.registerNewGroup(VSMode.SkyWars, Variables.kitItem, SkyWarsItemNames.kitItemName, 1);
 
         VSGroup kitpvp = main.registerNewGroup(VSMode.KitPVP, kitPvPSettingItem, "\u00A7dKitPvP", 2, 0, true);
         VSGroup kitpvpsMaps = kitpvp.registerNewGroup(VSMode.KitPVP, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
@@ -225,31 +225,31 @@ public class VSManager implements Listener {
                         }
                     }
                     switch (name) {
-                        case ItemNames.purchaseKit:
+                    case SkyWarsItemNames.purchaseKit:
                             p.closeInventory();
                             KitManager kitManager = KitManager.getManager(bp);
                             if (kitManager.buy(kit)) {
                                 kitManager.selectSkyWarsKit(kit);
-                                p.sendMessage(Messages.youChoseKit.replace("%k", kit.getName()));
+                                p.sendMessage(SkyWarsMessages.youChoseKit.replace("%k", kit.getName()));
                             }
                             break;
-                        case ItemNames.selectKit:
+                    case SkyWarsItemNames.selectKit:
                             final ArrayList<Kit> kits = KitManager.getManager(bp).getAvailableKits();
                             if (kits.contains(kit)) {
                                 p.closeInventory();
                                 if (!KitManager.getManager(bp).selectSkyWarsKit(kit)) {
-                                    p.sendMessage(Messages.kitAlreadyChosen);
+                                    p.sendMessage(SkyWarsMessages.kitAlreadyChosen);
                                 } else {
-                                    p.sendMessage(Messages.youChoseKit.replace("%k", kit.getName()));
+                                    p.sendMessage(SkyWarsMessages.youChoseKit.replace("%k", kit.getName()));
                                 }
                             } else {
                                 p.closeInventory();
-                                p.sendMessage(Messages.kitNotBought);
+                                p.sendMessage(SkyWarsMessages.kitNotBought);
                             }
                             break;
-                        case ItemNames.showKit:
+                    case SkyWarsItemNames.showKit:
                             KitManager.getManager(bp).showInventory(kit);
-                            p.sendMessage(Messages.nowLookingAtKit.replace("%k", kit.getName()));
+                        p.sendMessage(SkyWarsMessages.nowLookingAtKit.replace("%k", kit.getName()));
                             break;
                     }
                     e.setCancelled(true);

@@ -3,8 +3,8 @@ package de.biomia.minigames.bedwars.listeners;
 import de.biomia.general.configs.BedWarsConfig;
 import de.biomia.minigames.GameState;
 import de.biomia.minigames.bedwars.BedWars;
-import de.biomia.minigames.bedwars.messages.ItemNames;
-import de.biomia.minigames.bedwars.messages.Messages;
+import de.biomia.general.messages.BedWarsItemNames;
+import de.biomia.general.messages.BedWarsMessages;
 import de.biomia.minigames.bedwars.var.*;
 import de.biomia.api.Biomia;
 import de.biomia.api.Teams.Team;
@@ -52,12 +52,12 @@ public class SpecialItems implements Listener {
         if (e.hasItem() && e.getItem().hasItemMeta() && e.getItem().getItemMeta().hasDisplayName()) {
             String displayname = e.getItem().getItemMeta().getDisplayName();
 
-            if (displayname.equals(ItemNames.teamWaehlerItem))
+            if (displayname.equals(BedWarsItemNames.teamWaehlerItem))
                 p.openInventory(Variables.teamJoiner);
-            else if (displayname.equals(ItemNames.startItem)) {
+            else if (displayname.equals(BedWarsItemNames.startItem)) {
                 if (Variables.countDown.getCountdown() > 5)
                     Variables.countDown.setCountdown(5);
-            } else if (displayname.equals(ItemNames.bedSetter)) {
+            } else if (displayname.equals(BedWarsItemNames.bedSetter)) {
                 Block blockFoot = p.getLocation().getBlock();
                 Block blockHead = p.getTargetBlock((Set<Material>)null, 100);
 
@@ -68,33 +68,33 @@ public class SpecialItems implements Listener {
                     Bukkit.broadcastMessage("Bett hinzugef\u00fc\u00A7gt!");
 
                 } else {
-                    p.sendMessage(Messages.blocksMustBeBeds);
+                    p.sendMessage(BedWarsMessages.blocksMustBeBeds);
                 }
 
-            } else if (displayname.equals(ItemNames.warper)) {
+            } else if (displayname.equals(BedWarsItemNames.warper)) {
                 if (Teleport.getStartLocation(p) == null) {
                     warpHome(p, e.getItem());
                 }
-            } else if (displayname.equals(ItemNames.wand)) {
+            } else if (displayname.equals(BedWarsItemNames.wand)) {
                 e.setCancelled(true);
                 if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)
                     buildProtectionWall(p);
-            } else if (displayname.equals(ItemNames.bronzeSetter)) {
+            } else if (displayname.equals(BedWarsItemNames.bronzeSetter)) {
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                     addSpawner(e.getClickedBlock().getLocation(), e.getBlockFace(), p, ItemType.BRONZE);
-                    p.sendMessage(Messages.bronzeSpawnAdded);
+                    p.sendMessage(BedWarsMessages.bronzeSpawnAdded);
                 }
-            } else if (displayname.equals(ItemNames.ironSetter)) {
+            } else if (displayname.equals(BedWarsItemNames.ironSetter)) {
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                     addSpawner(e.getClickedBlock().getLocation(), e.getBlockFace(), p, ItemType.IRON);
-                    p.sendMessage(Messages.ironSpawnAdded);
+                    p.sendMessage(BedWarsMessages.ironSpawnAdded);
                 }
-            } else if (displayname.equals(ItemNames.goldSetter)) {
+            } else if (displayname.equals(BedWarsItemNames.goldSetter)) {
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                     addSpawner(e.getClickedBlock().getLocation(), e.getBlockFace(), p, ItemType.GOLD);
-                    p.sendMessage(Messages.goldSpawnAdded);
+                    p.sendMessage(BedWarsMessages.goldSpawnAdded);
                 }
-            } else if (displayname.equals(ItemNames.villagerSpawner)) {
+            } else if (displayname.equals(BedWarsItemNames.villagerSpawner)) {
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                     spawnVillager(e.getClickedBlock().getLocation().add(0.5, 1, 0.5));
                     e.setCancelled(true);
@@ -154,7 +154,7 @@ public class SpecialItems implements Listener {
                 l = l.add(-1, 0, 2);
                 break;
             default:
-                p.sendMessage(Messages.invailedSide);
+                p.sendMessage(BedWarsMessages.invailedSide);
                 return;
         }
         Block start = l.getBlock();
@@ -176,7 +176,7 @@ public class SpecialItems implements Listener {
                         l = l.add(0, 0, -1);
                         break;
                     default:
-                        p.sendMessage(Messages.invailedSide);
+                        p.sendMessage(BedWarsMessages.invailedSide);
                         return;
                 }
                 if (l.getBlock().getType() == Material.AIR) {
@@ -210,7 +210,7 @@ public class SpecialItems implements Listener {
                 l = l.add(-1, 0, 0);
                 break;
             default:
-                p.sendMessage(Messages.invailedSide);
+                p.sendMessage(BedWarsMessages.invailedSide);
                 return;
         }
 

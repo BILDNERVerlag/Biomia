@@ -1,7 +1,7 @@
 package de.biomia.minigames.versus.sw.kits;
 
-import de.biomia.minigames.versus.sw.messages.ItemNames;
-import de.biomia.minigames.versus.sw.messages.Messages;
+import de.biomia.general.messages.SkyWarsItemNames;
+import de.biomia.general.messages.SkyWarsMessages;
 import de.biomia.api.BiomiaPlayer;
 import de.biomia.api.itemcreator.ItemCreator;
 import de.biomia.api.mysql.MySQL;
@@ -158,12 +158,12 @@ public class KitManager {
 
         // OneHitKit
         Kit onehit = new Kit("One-Hit-Kit", 9, 50000, ItemCreator.itemCreate(Material.SNOW_BALL), true);
-        onehit.addItem(0, ItemCreator.itemCreate(Material.SNOW_BALL, ItemNames.oneHitSnowball));
+        onehit.addItem(0, ItemCreator.itemCreate(Material.SNOW_BALL, SkyWarsItemNames.oneHitSnowball));
 
         // Gummibogen
         Kit gummibogen = new Kit("Gummibogen", 10, 50000, ItemCreator.itemCreate(Material.BOW), true);
-        ItemStack gummibogenitem = ItemCreator.itemCreate(Material.BOW, ItemNames.gummibogen);
-        ItemStack gummipfeile = ItemCreator.itemCreate(Material.ARROW, ItemNames.gummipfeil);
+        ItemStack gummibogenitem = ItemCreator.itemCreate(Material.BOW, SkyWarsItemNames.gummibogen);
+        ItemStack gummipfeile = ItemCreator.itemCreate(Material.ARROW, SkyWarsItemNames.gummipfeil);
         gummipfeile.setAmount(16);
         gummibogen.addItem(0, gummibogenitem);
         gummibogen.addItem(1, gummipfeile);
@@ -321,18 +321,18 @@ public class KitManager {
                 boolean b = SkyWarsKit.addKit(bp, k.getID());
                 if (b) {
                     bp.takeCoins(k.getPrice());
-                    bp.getPlayer().sendMessage(Messages.kitPurchased.replaceAll("%k", k.getName()));
+                    bp.getPlayer().sendMessage(SkyWarsMessages.kitPurchased.replaceAll("%k", k.getName()));
                     availableKits.add(k);
                 } else
-                    bp.getPlayer().sendMessage(Messages.errorWhilePurchasing.replaceAll("%k", k.getName()));
+                    bp.getPlayer().sendMessage(SkyWarsMessages.errorWhilePurchasing.replaceAll("%k", k.getName()));
                 return b;
             } else {
-                bp.getPlayer().sendMessage(Messages.notEnoughCoins.replaceAll("%k", k.getName()));
+                bp.getPlayer().sendMessage(SkyWarsMessages.notEnoughCoins.replaceAll("%k", k.getName()));
                 bp.getPlayer().sendMessage(
-                        Messages.missingCoins.replaceAll("%k", k.getName()).replaceAll("%c", k.getPrice() - bp.getCoins() + ""));
+                        SkyWarsMessages.missingCoins.replaceAll("%k", k.getName()).replaceAll("%c", k.getPrice() - bp.getCoins() + ""));
             }
         } else {
-            bp.getPlayer().sendMessage(Messages.alreadyPurchased.replaceAll("%k", k.getName()));
+            bp.getPlayer().sendMessage(SkyWarsMessages.alreadyPurchased.replaceAll("%k", k.getName()));
         }
         return false;
     }
