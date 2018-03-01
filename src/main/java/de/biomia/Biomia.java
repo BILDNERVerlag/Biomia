@@ -44,7 +44,9 @@ public class Biomia {
 
     public static OfflineBiomiaPlayer getOfflineBiomiaPlayer(int biomiaID) {
         String name = OfflineBiomiaPlayer.getName(biomiaID);
-        return getOfflineBiomiaPlayer(name);
+        if (name != null)
+            return getOfflineBiomiaPlayer(name);
+        return null;
     }
 
     public static OfflineBiomiaPlayer getOfflineBiomiaPlayer(String name) {

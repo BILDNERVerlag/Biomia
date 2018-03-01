@@ -26,7 +26,7 @@ public class ReportCommand extends BiomiaCommand {
                 sender.sendMessage(Messages.NO_PLAYER);
             }
         } else {
-            ((Player) sender).openInventory(ReportManager.reportMenu);
+            ReportManager.openReportMenu((Player) sender);
         }
 
         return true;
