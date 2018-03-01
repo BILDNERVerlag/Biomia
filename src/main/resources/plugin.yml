@@ -1,71 +1,11 @@
 main: de.biomia.Main
 name: Biomia
-version: 0.3
+version: 0.5
 authors: [DerJulsn, DerAaron]
 depend: [TimoCloud]
 softdepend: [Citizens]
 
 commands:
-  bauwerk:
-  q:
-  qr:
-  qlist:
-  tagebuch:
-  qinfo:
-  qalign:
-  qrestore:
-  aion:
-  aioff:
-  aitoggle:
-  qhelp:
-  qfilldiary:
-  qstats:
-  respawn:
-    aliases: [die, suicide]
-  qupdatebook:
-  qlog:
-  qtest:
-  qreset:
-  lobbysettings:
-  randomServerGroup:
-  world:
-  rank:
-  build:
-  coins:
-  permission:
-  reloadplugin:
-  hologram:
-  troll:
-  crash:
-  report:
-  finishreport:
-  seereports:
-  gm:
-  fly:
-  speed:
-  heal:
-  eat:
-  permission:
-    aliases: [perm]
-  memory:
-    aliases: [mem]
-  calendar:
-  cosmetic:
-  head:
-  stat:
-  ct:
-  givereward:
-  addeggs:
-  bw:
-  sw:
-  accept:
-  decline:
-  request:
-  spawn:
-  buildforall:
   delhome:
   home:
   sethome:
-  homelist:
-  otherhome:
-  shreload:
