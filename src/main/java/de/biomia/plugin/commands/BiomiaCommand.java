@@ -5,7 +5,7 @@ import org.bukkit.command.defaults.BukkitCommand;
 
 import java.util.Arrays;
 
-public class BiomiaCommand extends BukkitCommand {
+abstract public class BiomiaCommand extends BukkitCommand {
 
     //TODO extend in every CommandClass (see BuildCommand class)
 

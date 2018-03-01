@@ -74,7 +74,7 @@ public class BiomiaListener extends Observable implements Listener {
         e.setQuitMessage(null);
         for (Group g : Cosmetic.getGroups().keySet())
             Cosmetic.getGroups().get(g).remove(bp);
-        Biomia.removePlayers(e.getPlayer());
+        Biomia.removeBiomiaPlayer(e.getPlayer());
     }
 
     @EventHandler
