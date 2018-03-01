@@ -1,8 +1,8 @@
 package de.biomia.freebuild.home.homes;
 
-import de.biomia.freebuild.home.configuration.ConfigManager;
-import de.biomia.freebuild.home.storage.HomeFileManager;
 import de.biomia.api.Biomia;
+import de.biomia.freebuild.home.storage.HomeFileManager;
+import de.biomia.general.configs.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
@@ -22,7 +22,7 @@ public class HomeManager {
     }
 
     public boolean reachedMaxHomes(Integer biomiaID) {
-        return getHomesSize(biomiaID) == ConfigManager.getMaxHomes();
+        return getHomesSize(biomiaID) == Config.getConfig().getInt("MaxHomes");
     }
 
     private int getHomesSize(Integer biomiaID) {
