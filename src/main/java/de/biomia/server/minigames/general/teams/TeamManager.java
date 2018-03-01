@@ -10,7 +10,7 @@ public class TeamManager {
 
     // TODO remake
 
-    ArrayList<Team> allteams = new ArrayList<>();
+    private final ArrayList<Team> allteams = new ArrayList<>();
 
     public void initTeams(int playerPerTeam, int teams) {
 

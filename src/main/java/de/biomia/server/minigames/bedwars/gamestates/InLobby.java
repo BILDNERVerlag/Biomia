@@ -1,5 +1,6 @@
 package de.biomia.server.minigames.bedwars.gamestates;
 
+import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import de.biomia.Main;
 import de.biomia.messages.BedWarsMessages;
 import de.biomia.server.minigames.bedwars.listeners.CountDown;
@@ -13,8 +14,8 @@ public class InLobby {
     public static void start() {
         Scoreboards.initLobbySB();
         Variables.countDown = new CountDown();
-        Main.getBukkitTimoapi().getThisServer().setExtra(BedWarsMessages.mapSize.replaceAll("%mt", Variables.teams + "").replaceAll("%ts", Variables.playerPerTeam + ""));
-        Main.getBukkitTimoapi().getThisServer().setState(GameState.LOBBY.name());
+        TimoCloudAPI.getBukkitInstance().getThisServer().setExtra(BedWarsMessages.mapSize.replaceAll("%mt", Variables.teams + "").replaceAll("%ts", Variables.playerPerTeam + ""));
+        TimoCloudAPI.getBukkitInstance().getThisServer().setState(GameState.LOBBY.name());
     }
 
     public static void end() {

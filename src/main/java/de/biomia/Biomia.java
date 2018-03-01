@@ -38,21 +38,33 @@ public class Biomia {
     }
 
     public static BiomiaPlayer getBiomiaPlayer(Player p) {
+        if (p == null) return null;
         return biomiaPlayers.computeIfAbsent(p, biomiaplayer -> new BiomiaPlayer(p));
     }
 
     public static OfflineBiomiaPlayer getOfflineBiomiaPlayer(int biomiaID) {
-        return offlineBiomiaPlayers.computeIfAbsent(biomiaID, biomiaplayer -> new OfflineBiomiaPlayer(biomiaID));
+        String name = OfflineBiomiaPlayer.getName(biomiaID);
+        return getOfflineBiomiaPlayer(name);
     }
 
     public static OfflineBiomiaPlayer getOfflineBiomiaPlayer(String name) {
-        int biomiaPlayerID = OfflineBiomiaPlayer.getBiomiaPlayerID(name);
-        return offlineBiomiaPlayers.computeIfAbsent(biomiaPlayerID, biomiaplayer -> new OfflineBiomiaPlayer(biomiaPlayerID, name));
+        Player p = Bukkit.getPlayer(name);
+        if (p == null) {
+            int biomiaPlayerID = OfflineBiomiaPlayer.getBiomiaPlayerID(name);
+            return offlineBiomiaPlayers.computeIfAbsent(biomiaPlayerID, biomiaplayer -> new OfflineBiomiaPlayer(biomiaPlayerID, name));
+        } else {
+            return getBiomiaPlayer(p);
+        }
     }
 
     public static OfflineBiomiaPlayer getOfflineBiomiaPlayer(UUID uuid) {
-        int biomiaPlayerID = OfflineBiomiaPlayer.getBiomiaPlayerID(uuid);
-        return offlineBiomiaPlayers.computeIfAbsent(biomiaPlayerID, biomiaplayer -> new OfflineBiomiaPlayer(biomiaPlayerID, uuid));
+        Player p = Bukkit.getPlayer(uuid);
+        if (p == null) {
+            int biomiaPlayerID = OfflineBiomiaPlayer.getBiomiaPlayerID(uuid);
+            return offlineBiomiaPlayers.computeIfAbsent(biomiaPlayerID, biomiaplayer -> new OfflineBiomiaPlayer(biomiaPlayerID, uuid));
+        } else {
+            return getBiomiaPlayer(p);
+        }
     }
 
     public static TeamManager getTeamManager() {

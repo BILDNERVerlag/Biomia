@@ -54,9 +54,9 @@ public class Scoreboards {
     }
 
     private static void initScoreboard(Scoreboard sb) {
-        int i = 0;
 
-        for (String s : Main.group) {
+        int i = 0;
+        for (String s : Main.RANK_NAMES_PREFIXES.keySet()) {
 
             if (i < 10)
                 sb.registerNewTeam("0" + i + s);

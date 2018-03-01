@@ -1,5 +1,6 @@
 package de.biomia.server.minigames.bedwars.gamestates;
 
+import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
 import de.biomia.Main;
@@ -36,7 +37,7 @@ public class InGame {
         }.runTaskTimer(Main.getPlugin(), 0, 20);
 
 
-        Main.getBukkitTimoapi().getThisServer().setState(GameState.INGAME.name());
+        TimoCloudAPI.getBukkitInstance().getThisServer().setState(GameState.INGAME.name());
         BedWars.gameState = GameState.INGAME;
 
         HashMap<BiomiaPlayer, String> biomiaPlayerTeams = new HashMap<>();

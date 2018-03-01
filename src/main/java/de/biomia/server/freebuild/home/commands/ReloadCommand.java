@@ -1,13 +1,17 @@
 package de.biomia.server.freebuild.home.commands;
 
 import de.biomia.Main;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
+import de.biomia.commands.BiomiaCommand;
 import org.bukkit.command.CommandSender;
 
-public class ReloadCommand implements CommandExecutor {
+public class ReloadCommand extends BiomiaCommand {
 
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public ReloadCommand() {
+        super("rlconfig", "reloadconfig", "rlc");
+    }
+
+    @Override
+    public boolean execute(CommandSender sender, String label, String[] args) {
 		Main.getPlugin().reloadConfig();
 		return true;
 	}

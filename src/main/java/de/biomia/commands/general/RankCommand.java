@@ -20,7 +20,7 @@ public class RankCommand extends BiomiaCommand {
 
         if (sender.hasPermission("biomia.setrank")) {
             if (args.length == 2) {
-                if (Main.group.contains(args[1])) {
+                if (Main.RANK_NAMES_PREFIXES.keySet().contains(args[1])) {
                     Player p = Bukkit.getPlayer(args[0]);
                     if (p != null) {
                         RankManager.setRank(p, args[1]);
@@ -41,7 +41,7 @@ public class RankCommand extends BiomiaCommand {
                 } else {
                     sender.sendMessage("\u00A7cEs sind nur diese R\u00fcnge verf\u00fcgbar:");
 
-                    for (String s : Main.group) {
+                    for (String s : Main.RANK_NAMES_PREFIXES.keySet()) {
                         sender.sendMessage("\u00A7c" + s);
                     }
                 }

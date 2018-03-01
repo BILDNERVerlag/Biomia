@@ -67,24 +67,14 @@ public class FreebuildListener implements Listener {
                 // ZUM FARMSERVER
                 p.teleport(new Location(Bukkit.getWorld("world"), -198, 64, 385, 90, 0));
                 if (Biomia.getBiomiaPlayer(p).isStaff()) {
-                    servers.addAll(Main.getUniversalTimoapi().getServerGroup("FarmServer").getServers());
-
-                    if (!servers.isEmpty()) {
                         PlayerToServerConnector.connectToRandom(p, "FarmServer");
-                    }
                 } else
                     p.sendMessage(
                             "\u00A7cDas Portal zur Farmwelt ist offenbar noch nicht richtig ausgerichtet! Probier es am besten in ein paar Tagen erneut!");
             } else if ((390 <= z) && (z <= 393)) {
                 // ZUR LOBBY
                 p.teleport(new Location(Bukkit.getWorld("world"), -198, 64, 391, 120, 0));
-                servers.addAll(Main.getUniversalTimoapi().getServerGroup("Lobby").getServers());
-
-                if (!servers.isEmpty()) {
                     PlayerToServerConnector.connectToRandom(p, "Lobby");
-                } else {
-                    p.sendMessage("\u00A7cHuch, da ist offenbar etwas schiefgelaufen! Probiere stattdessen \u00A7a/hub\u00A7c!");
-                }
             }
         }
     }

@@ -50,6 +50,6 @@ public class BedWars {
     }
 
     private static void registerCommands() {
-        Main.getPlugin().getCommand("bw").setExecutor(new BWCommand());
+        Main.registerCommand(new BWCommand());
     }
 }

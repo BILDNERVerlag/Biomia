@@ -1,5 +1,6 @@
 package de.biomia.general.reportsystem;
 
+import de.biomia.Biomia;
 import de.biomia.dataManager.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -18,15 +19,15 @@ public class ReportSQL {
     }
 
     public static boolean addPlayerReport(PlayerReport report) {
-        if (!hasReportet(report.getReporterBiomiaID(), report.getReporteterBiomiaID())) {
+        if (!hasReportet(report.getReporterBiomiaPlayer().getBiomiaPlayerID(), report.getReporteterBiomiaPlayer().getBiomiaPlayerID())) {
             MySQL.executeUpdate(
                     "INSERT INTO `PlayerReports`(`Reporter`, `Reporteter`, `Grund`, `Time`) VALUES ("
-                            + report.getReporterBiomiaID() + "," + report.getReporteterBiomiaID() + ",'"
+                            + report.getReporterBiomiaPlayer().getBiomiaPlayerID() + "," + report.getReporteterBiomiaPlayer().getBiomiaPlayerID() + ",'"
                             + report.getGrund() + "', " + System.currentTimeMillis() / 1000 + ")", MySQL.Databases.biomia_db);
             ReportManager.sendReport(report);
             return true;
         } else {
-            Player plReporter = Bukkit.getPlayer(report.getReporterName());
+            Player plReporter = Bukkit.getPlayer(report.getReporterBiomiaPlayer().getName());
             plReporter.sendMessage("\u00A7cDu hast den Spieler bereits reportet!");
             return false;
         }
@@ -84,7 +85,7 @@ public class ReportSQL {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     int reportetplayerID = rs.getInt("Reporteter");
-                    PlayerReport report = new PlayerReport(rs.getInt("Reporter"), reportetplayerID, rs.getString("Grund"));
+                    PlayerReport report = new PlayerReport(Biomia.getOfflineBiomiaPlayer(rs.getInt("Reporter")), Biomia.getOfflineBiomiaPlayer(reportetplayerID), rs.getString("Grund"));
                     ReportManager.plReports.add(report);
                 }
                 rs.close();
@@ -110,7 +111,7 @@ public class ReportSQL {
                 PreparedStatement ps = con.prepareStatement("SELECT Reporter, Grund FROM `PlayerReports` WHERE Reporteter = " + biomiaIDReportedPlayer);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    reports.add(new PlayerReport(rs.getInt("Reporter"), biomiaIDReportedPlayer, rs.getString("Grund")));
+                    reports.add(new PlayerReport(Biomia.getOfflineBiomiaPlayer(rs.getInt("Reporter")), Biomia.getOfflineBiomiaPlayer(biomiaIDReportedPlayer), rs.getString("Grund")));
                 }
                 rs.close();
                 ps.close();

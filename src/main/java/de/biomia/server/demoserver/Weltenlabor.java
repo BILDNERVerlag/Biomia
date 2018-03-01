@@ -23,7 +23,7 @@ public class Weltenlabor {
 
         Bukkit.getPluginManager().registerEvents(new DemoListener(), Main.getPlugin());
 
-        Main.getPlugin().getCommand("bauwerk").setExecutor(new BauCommand());
+        Main.registerCommand(new BauCommand());
 
         for (Player p : Bukkit.getOnlinePlayers()) {
             Scoreboards.setTabList(p);

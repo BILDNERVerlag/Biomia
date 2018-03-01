@@ -1,7 +1,7 @@
 package de.biomia.commands.general;
 
 import de.biomia.Biomia;
-import de.biomia.BiomiaPlayer;
+import de.biomia.OfflineBiomiaPlayer;
 import de.biomia.achievements.Stats;
 import de.biomia.commands.BiomiaCommand;
 import de.biomia.messages.Messages;
@@ -33,7 +33,7 @@ public class StatCommand extends BiomiaCommand {
             int value;
             Stats.BiomiaStat stat;
             String switchString = args[0].toLowerCase();
-            int tempID;
+            OfflineBiomiaPlayer biomiaPlayer;
 
             switch (switchString) {
             case "getcomments":
@@ -44,11 +44,11 @@ public class StatCommand extends BiomiaCommand {
                     sender.sendMessage("\u00A77" + args[1] + " \u00A7cist kein erlaubter Stat.");
                     return true;
                 }
-                tempID = BiomiaPlayer.getBiomiaPlayerID(args[2]);
-                if (tempID != -1) {
-                    sender.sendMessage(Stats.getComments(stat, tempID).toString());
+                biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[2]);
+                if (biomiaPlayer.getBiomiaPlayerID() != -1) {
+                    sender.sendMessage(Stats.getComments(stat, biomiaPlayer.getBiomiaPlayerID()).toString());
                 } else {
-                    sender.sendMessage("\u00A7cDer Spieler \u00A77" + args[2] + " \u00A7cist nicht in der Datenbank vermerkt.");
+                    sender.sendMessage("\u00A7cDer Spieler \u00A77" + biomiaPlayer.getName() + " \u00A7cist nicht in der Datenbank vermerkt.");
                     return true;
                 }
 
@@ -68,9 +68,9 @@ public class StatCommand extends BiomiaCommand {
                 if (args.length == 2) {
                     Stats.incrementStat(stat, Biomia.getBiomiaPlayer((Player) sender).getBiomiaPlayerID());
                 } else {
-                    tempID = BiomiaPlayer.getBiomiaPlayerID(args[2]);
-                    if (tempID != -1) {
-                        Stats.incrementStat(stat, tempID);
+                    biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[2]);
+                    if (biomiaPlayer.getBiomiaPlayerID() != -1) {
+                        Stats.incrementStat(stat, biomiaPlayer.getBiomiaPlayerID());
                     } else {
                         sender.sendMessage("\u00A7cDer Spieler \u00A77" + args[2] + " \u00A7cist nicht in der Datenbank vermerkt.");
                         return true;
@@ -89,9 +89,9 @@ public class StatCommand extends BiomiaCommand {
                 if (args.length == 3) {
                     Stats.incrementStat(stat, Biomia.getBiomiaPlayer((Player) sender).getBiomiaPlayerID(), args[2]);
                 } else {
-                    tempID = BiomiaPlayer.getBiomiaPlayerID(args[3]);
-                    if (tempID != -1) {
-                        Stats.incrementStat(stat, tempID, args[2]);
+                    biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[2]);
+                    if (biomiaPlayer.getBiomiaPlayerID() != -1) {
+                        Stats.incrementStat(stat, biomiaPlayer.getBiomiaPlayerID(), args[2]);
                     } else {
                         sender.sendMessage("\u00A7cDer Spieler \u00A77" + args[3] + " \u00A7cist nicht in der Datenbank vermerkt.");
                         return true;
@@ -114,9 +114,9 @@ public class StatCommand extends BiomiaCommand {
                 if (args.length == 3) {
                     Stats.incrementStatBy(stat, Biomia.getBiomiaPlayer((Player) sender).getBiomiaPlayerID(), value);
                 } else {
-                    tempID = BiomiaPlayer.getBiomiaPlayerID(args[3]);
-                    if (tempID != -1) {
-                        Stats.incrementStatBy(stat, tempID, value);
+                    biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[2]);
+                    if (biomiaPlayer.getBiomiaPlayerID() != -1) {
+                        Stats.incrementStatBy(stat, biomiaPlayer.getBiomiaPlayerID(), value);
                     } else {
                         sender.sendMessage("\u00A7cDer Spieler \u00A77" + args[3] + " \u00A7cist nicht in der Datenbank vermerkt.");
                         return true;
@@ -135,7 +135,8 @@ public class StatCommand extends BiomiaCommand {
                     value = Stats.getStat(stat, Biomia.getBiomiaPlayer((Player) sender).getBiomiaPlayerID());
                     sender.sendMessage("\u00A77" + statString + " (" + sender.getName() + "): \u00A7a" + value);
                 } else {
-                    value = Stats.getStat(stat, BiomiaPlayer.getBiomiaPlayerID(args[2]));
+                    biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[2]);
+                    value = Stats.getStat(stat, biomiaPlayer.getBiomiaPlayerID());
                     if (value != -1) {
                         sender.sendMessage("\u00A77" + statString + " (" + args[2] + "): \u00A7a" + value);
                     } else {
@@ -159,10 +160,12 @@ public class StatCommand extends BiomiaCommand {
                 String dateString = amount + " " + daytime_expr.toLowerCase() + "s";
 
                 if (args.length == 5) {
-                    String playerName = args[4];
-                    sender.sendMessage("\u00A77" + statString + " (" + playerName + ", " + dateString + "): \u00A7a" + Stats.getStatLastX(stat, BiomiaPlayer.getBiomiaPlayerID(playerName), daytime_expr, amount));
-                } else
-                    sender.sendMessage("\u00A77" + statString + " (" + sender.getName() + ", " + dateString + "): \u00A7a" + Stats.getStatLastX(stat, BiomiaPlayer.getBiomiaPlayerID(sender.getName()), daytime_expr, amount));
+                    biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[4]);
+                    sender.sendMessage("\u00A77" + statString + " (" + biomiaPlayer.getName() + ", " + dateString + "): \u00A7a" + Stats.getStatLastX(stat, biomiaPlayer.getBiomiaPlayerID(), daytime_expr, amount));
+                } else {
+                    biomiaPlayer = Biomia.getBiomiaPlayer((Player) sender);
+                    sender.sendMessage("\u00A77" + statString + " (" + sender.getName() + ", " + dateString + "): \u00A7a" + Stats.getStatLastX(stat, biomiaPlayer.getBiomiaPlayerID(), daytime_expr, amount));
+                }
                 return true;
             default:
                 sendError(sender);

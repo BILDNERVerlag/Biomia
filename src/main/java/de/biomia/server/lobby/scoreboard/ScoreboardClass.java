@@ -103,15 +103,12 @@ public class ScoreboardClass {
     private static void initScoreboard(Scoreboard sb) {
         int i = 0;
 
-        for (String s : Main.group) {
-
+        for (String s : Main.RANK_NAMES_PREFIXES.keySet()) {
             Team t;
-
             if (i < 10)
                 t = sb.registerNewTeam("0" + i + s);
             else
                 t = sb.registerNewTeam(i + s);
-
             t.setPrefix(RankManager.getPrefix(s));
             i++;
         }

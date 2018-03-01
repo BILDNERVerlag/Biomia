@@ -185,9 +185,9 @@ public class EasterEvent implements Listener {
 
                 if (p.isOnline())
                     if (missingEggs == 1) {
-                        p.getPlayer().sendMessage("Finde mindestens noch 1 weiteres Ei!");
+                        p.getBiomiaPlayer().getPlayer().sendMessage("Finde mindestens noch 1 weiteres Ei!");
                     } else {
-                        p.getPlayer().sendMessage("Finde mindestens " + missingEggs + " weitere Eier!");
+                        p.getBiomiaPlayer().getPlayer().sendMessage("Finde mindestens " + missingEggs + " weitere Eier!");
                     }
             } else {
                 eggsAbgegeben += 10;

@@ -25,7 +25,7 @@ public class ChannelListener implements PluginMessageListener {
             int reporteter = in.readInt();
             String grund = in.readUTF();
 
-            PlayerReport report = new PlayerReport(reporter, reporteter, grund);
+            PlayerReport report = new PlayerReport(Biomia.getOfflineBiomiaPlayer(reporter), Biomia.getOfflineBiomiaPlayer(reporteter), grund);
             ReportManager.plReports.add(report);
         }
 

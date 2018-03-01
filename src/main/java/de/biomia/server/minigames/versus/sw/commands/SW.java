@@ -1,19 +1,22 @@
 package de.biomia.server.minigames.versus.sw.commands;
 
+import de.biomia.commands.BiomiaCommand;
 import de.biomia.dataManager.configs.SkyWarsVersusConfig;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Set;
 
-public class SW implements CommandExecutor {
+public class SW extends BiomiaCommand {
+
+    public SW() {
+        super("skywars", "sw");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
 
         if (sender instanceof Player) {
             Player p = (Player) sender;

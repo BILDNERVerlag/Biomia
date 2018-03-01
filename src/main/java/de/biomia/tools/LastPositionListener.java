@@ -1,5 +1,6 @@
 package de.biomia.tools;
 
+import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import cloud.timo.TimoCloud.api.objects.ServerGroupObject;
 import de.biomia.Biomia;
 import de.biomia.Main;
@@ -30,7 +31,7 @@ public class LastPositionListener implements Listener {
             @Override
             public void run() {
                 Location loc = getLastLocation(e.getPlayer(),
-                        Main.getBukkitTimoapi().getThisServer().getGroup());
+                        TimoCloudAPI.getBukkitInstance().getThisServer().getGroup());
                 if (loc != null) {
                     e.getPlayer().teleport(loc);
                 }
@@ -41,7 +42,7 @@ public class LastPositionListener implements Listener {
 
     @EventHandler
     public void onDisonnect(PlayerQuitEvent e) {
-        saveLocation(e.getPlayer(), Main.getBukkitTimoapi().getThisServer().getGroup());
+        saveLocation(e.getPlayer(), TimoCloudAPI.getBukkitInstance().getThisServer().getGroup());
     }
 
     private static void saveLocation(Player p, ServerGroupObject group) {

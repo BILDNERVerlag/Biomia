@@ -1,6 +1,7 @@
 package de.biomia.commands.quest;
 
 import de.biomia.Biomia;
+import de.biomia.commands.BiomiaCommand;
 import de.biomia.messages.manager.ActionBar;
 import de.biomia.server.quests.general.DialogMessage;
 import de.biomia.server.quests.general.NPCManager;
@@ -18,8 +19,6 @@ import net.minecraft.server.v1_12_R1.IChatBaseComponent.ChatSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftMetaBook;
 import org.bukkit.entity.Player;
@@ -32,10 +31,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class QuestCommands implements CommandExecutor {
+public class QuestCommands extends BiomiaCommand {
 
     private static boolean logTime = false;
 
+    public QuestCommands(String command) {
+        super(command);
+    }
+
+    @SuppressWarnings("unchecked")
     public static void qupdatebookCommand(QuestPlayer qp) {
 
         BookMeta bookMeta = (BookMeta) qp.getBook().getItemMeta();
@@ -170,7 +174,7 @@ public class QuestCommands implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
 
         long startTime = System.currentTimeMillis();
 
@@ -180,7 +184,7 @@ public class QuestCommands implements CommandExecutor {
             QuestPlayer qp = Biomia.getQuestPlayer(p);
 
             // COMMANDS FOR ALL PLAYERS
-            switch (cmd.getName().toLowerCase()) {
+            switch (getName().toLowerCase()) {
             case "q":
                 qCommand(args, p, qp);
                 break;
@@ -214,7 +218,7 @@ public class QuestCommands implements CommandExecutor {
 
             // COMMANDS FOR PLAYERS WITH SPECIAL PERMISSIONS
             if (sender.hasPermission("biomia.quests.*")) {
-                switch (cmd.getName().toLowerCase()) {
+                switch (getName().toLowerCase()) {
                 case "qr":
                     qrCommand(sender, args, qp);
                     break;

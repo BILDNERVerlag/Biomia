@@ -1,19 +1,22 @@
 package de.biomia.commands.lobby;
 
+import de.biomia.commands.BiomiaCommand;
 import de.biomia.messages.Messages;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
-public class LobbySettingsCommand implements CommandExecutor {
+public class LobbySettingsCommand extends BiomiaCommand {
 
     public static final ArrayList<Player> targetarmorstands = new ArrayList<>();
 
+    public LobbySettingsCommand() {
+        super("destroyarmorstands");
+    }
+
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
 
         if (sender.hasPermission("biomia.lobbysettings")) {
             if ((sender instanceof Player)) {

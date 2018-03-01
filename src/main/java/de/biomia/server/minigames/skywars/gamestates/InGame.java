@@ -1,5 +1,6 @@
 package de.biomia.server.minigames.skywars.gamestates;
 
+import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
 import de.biomia.Main;
@@ -38,7 +39,7 @@ public class InGame {
         Bukkit.getPluginManager();
 
         SkyWars.gameState = GameState.WAITINGFORSTART;
-        Main.getBukkitTimoapi().getThisServer().setState(GameState.INGAME.name());
+        TimoCloudAPI.getBukkitInstance().getThisServer().setState(GameState.INGAME.name());
 
 
         HashMap<BiomiaPlayer, Integer> biomiaPlayerKits = new HashMap<>();

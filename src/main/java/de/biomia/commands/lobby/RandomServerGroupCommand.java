@@ -1,17 +1,20 @@
 package de.biomia.commands.lobby;
 
+import de.biomia.commands.BiomiaCommand;
 import de.biomia.messages.Messages;
 import de.biomia.tools.PlayerToServerConnector;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class RandomServerGroupCommand implements CommandExecutor {
+public class RandomServerGroupCommand extends BiomiaCommand {
+
+    public RandomServerGroupCommand() {
+        super("randomservergroup", "rsg");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
 
         if (sender.hasPermission("biomia.*")) {
 
@@ -21,12 +24,10 @@ public class RandomServerGroupCommand implements CommandExecutor {
                 } else if (sender instanceof Player) {
                     PlayerToServerConnector.connectToRandom((Player) sender, args[0]);
                 } else {
-                    sender.sendMessage("Nutze /randomServerGroup <Gruppe> [Player] oder");
-                    sender.sendMessage("Nutze /randomServerGroup <Gruppe>");
+                    sender.sendMessage("Nutze /randomServerGroup <Gruppe> [Player]");
                 }
             } else {
-                sender.sendMessage("Nutze /randomServerGroup <Gruppe> [Player] oder");
-                sender.sendMessage("Nutze /randomServerGroup <Gruppe>");
+                sender.sendMessage("Nutze /randomServerGroup <Gruppe> [Player]");
             }
         } else {
             sender.sendMessage(Messages.NO_PERM);

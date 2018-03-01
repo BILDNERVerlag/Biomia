@@ -1,19 +1,22 @@
 package de.biomia.commands.weltenlabor;
 
 import de.biomia.Main;
+import de.biomia.commands.BiomiaCommand;
 import de.biomia.dataManager.configs.DemoConfig;
 import de.biomia.server.demoserver.Weltenlabor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class BauCommand implements CommandExecutor {
+public class BauCommand extends BiomiaCommand {
+
+    public BauCommand() {
+        super("bauwerk", "building");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) {
+    public boolean execute(CommandSender sender, String arg2, String[] args) {
 
         if (sender.hasPermission("biomia.createBauwerk")) {
 

@@ -2,7 +2,6 @@ package de.biomia.general.reportsystem.listener;
 
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
-import de.biomia.Main;
 import de.biomia.general.reportsystem.PlayerBan;
 import de.biomia.general.reportsystem.PlayerReport;
 import de.biomia.general.reportsystem.ReportManager;
@@ -34,8 +33,8 @@ public class ChatEvent implements Listener {
         } else if (ReportManager.waitingForName.contains(p)) {
             ReportManager.waitingForName.remove(p);
             e.setCancelled(true);
-            new PlayerReport(bp.getBiomiaPlayerID(), Biomia.getOfflineBiomiaPlayer(e.getMessage()).getBiomiaPlayerID());
-            p.openInventory(Main.grund);
+            new PlayerReport(bp, Biomia.getOfflineBiomiaPlayer(e.getMessage()));
+            p.openInventory(ReportManager.grund);
         } else if (waitForCostumReason.containsKey(bp)) {
             e.setCancelled(true);
             waitForCostumReason.get(bp).setReason(e.getMessage());

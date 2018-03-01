@@ -15,7 +15,13 @@ abstract public class BiomiaCommand extends BukkitCommand {
 
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
+        onCommand(sender, label, args);
         return true;
     }
+
+    public boolean onCommand(CommandSender sender, String label, String[] args) {
+        return true;
+    }
+
 
 }

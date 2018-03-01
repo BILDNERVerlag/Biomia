@@ -32,13 +32,13 @@ public class RankManager {
     }
 
     public static String getRankLevel(String rank) {
-        for (int i = 0; i < Main.group.size(); i++)
-            if (Main.group.get(i).equalsIgnoreCase(rank)) {
-                if (i < 10)
-                    return "00" + i;
-                else
-                    return "0" + i;
+        int i = 0;
+        for (String prefix : Main.RANK_NAMES_PREFIXES.keySet()) {
+            if (prefix.equalsIgnoreCase(rank)) {
+                return i < 10 ? "00" + i : "0" + i;
             }
+            i++;
+        }
         return "-1";
     }
 
@@ -77,10 +77,10 @@ public class RankManager {
     }
 
     public static String getPrefix(Player p) {
-        return Main.prefixes.get(getRank(p));
+        return getPrefix(getRank(p));
     }
 
     public static String getPrefix(String s) {
-        return Main.prefixes.get(s);
+        return Main.RANK_NAMES_PREFIXES.get(s);
     }
 }

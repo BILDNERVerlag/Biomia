@@ -1,5 +1,6 @@
 package de.biomia.tools;
 
+import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import cloud.timo.TimoCloud.api.objects.ServerObject;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
@@ -40,6 +41,7 @@ public class PlayerToServerConnector implements PluginMessageListener {
     }
 
     public static void connectToRandom(Player p, String group) {
+
         if (group.contains("Weltenlabor")) {
             ArrayList<String> list = executeQuery(
                     "Select code from CodesFuerRaenge where rangEingeloestFuerPlayeruuid = '" + p.getUniqueId() + "'");
@@ -49,14 +51,14 @@ public class PlayerToServerConnector implements PluginMessageListener {
                         p.sendMessage(
                                 "\u00A7cNur Spieler die das entsprechende Buch besitzen k\u00A7nnen der jeweiligen Welt beitreten");
                         TextComponent text = new TextComponent("\u00A78>\u00A75F\u00fcr mehr Infos hier klicken!\u00A78<");
-                        text.setClickEvent(new ClickEvent(Action.OPEN_URL,
-                                "https://biomia.bildnerverlag.de/forum/topic/id/18-code-eingabe"));
+                        text.setClickEvent(new ClickEvent(Action.OPEN_URL, "https://biomia.bildnerverlag.de/forum/topic/id/18-code-eingabe"));
                         p.spigot().sendMessage(text);
                         return;
                     }
                 }
         }
-        List<ServerObject> servers = Main.getUniversalTimoapi().getServerGroup(group).getServers();
+
+        List<ServerObject> servers = TimoCloudAPI.getUniversalInstance().getServerGroup(group).getServers();
 
         if (servers.size() > 1) {
             ServerObject random = servers.get(new Random().nextInt(servers.size() - 1));

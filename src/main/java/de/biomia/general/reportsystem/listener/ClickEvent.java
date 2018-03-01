@@ -2,7 +2,6 @@ package de.biomia.general.reportsystem.listener;
 
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
-import de.biomia.Main;
 import de.biomia.general.reportsystem.*;
 import de.biomia.tools.ItemCreator;
 import org.bukkit.Bukkit;
@@ -23,7 +22,6 @@ public class ClickEvent implements Listener {
     public static final HashMap<BiomiaPlayer, PlayerBan> waitForSetTime = new HashMap<>();
     public static final HashMap<BiomiaPlayer, PlayerBan> waitForIsPermBan = new HashMap<>();
     public static final HashMap<BiomiaPlayer, PlayerBan> waitForBanReason = new HashMap<>();
-    public static HashMap<BiomiaPlayer, PlayerReport> waitForReportReason = new HashMap<>();
 
     private static int readSetTimeInventory(Inventory inventory) {
 
@@ -123,7 +121,7 @@ public class ClickEvent implements Listener {
             Player p = (Player) e.getWhoClicked();
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
 
-            if (e.getInventory().equals(Main.reportMenu)) {
+            if (e.getInventory().equals(ReportManager.reportMenu)) {
                 if (e.getCurrentItem() != null)
                     if (e.getCurrentItem().hasItemMeta())
                         if (e.getCurrentItem().getItemMeta().getDisplayName().equals("\u00A7cBug")) {
@@ -139,7 +137,7 @@ public class ClickEvent implements Listener {
                                     "\u00A76Du willst einen Spieler reporten? Dann gib einfach seinen Namen ein!");
                             p.closeInventory();
                         }
-            } else if (e.getClickedInventory().equals(Main.grund)) {
+            } else if (e.getClickedInventory().equals(ReportManager.grund)) {
                 if (e.getCurrentItem() != null) {
                     e.setCancelled(true);
                     if (waitForBanReason.containsKey(bp)) {
@@ -154,11 +152,11 @@ public class ClickEvent implements Listener {
                                 .substring(2, e.getCurrentItem().getItemMeta().getDisplayName().length()).replace(' ', '_')
                                 .toUpperCase());
                         for (PlayerReport report : ReportManager.unfinishedReports) {
-                            if (report.getReporterBiomiaID() == Biomia.getBiomiaPlayer(p).getBiomiaPlayerID()) {
+                            if (report.getReporterBiomiaPlayer().getBiomiaPlayerID() == (Biomia.getBiomiaPlayer(p).getBiomiaPlayerID())) {
                                 report.finish(grund.name());
                                 p.closeInventory();
                                 if (ReportSQL.addPlayerReport(report)) {
-                                    p.sendMessage("\u00A7aDer Spieler " + report.getReporteterName()
+                                    p.sendMessage("\u00A7aDer Spieler " + report.getReporteterBiomiaPlayer().getName()
                                             + " wurde erfolgreich reportet wegen: " + Grund.toText(grund));
                                 }
                                 return;

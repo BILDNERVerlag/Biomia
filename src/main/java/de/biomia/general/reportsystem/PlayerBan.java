@@ -82,6 +82,6 @@ public class PlayerBan {
     }
 
     private void openBugReasonInv() {
-        bp.getPlayer().openInventory(Main.grund);
+        bp.getPlayer().openInventory(ReportManager.grund);
     }
 }

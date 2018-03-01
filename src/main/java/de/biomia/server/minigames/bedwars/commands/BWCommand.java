@@ -2,6 +2,7 @@ package de.biomia.server.minigames.bedwars.commands;
 
 import de.biomia.Biomia;
 import de.biomia.Main;
+import de.biomia.commands.BiomiaCommand;
 import de.biomia.dataManager.configs.BedWarsConfig;
 import de.biomia.dataManager.configs.Config;
 import de.biomia.messages.BedWarsItemNames;
@@ -11,14 +12,17 @@ import de.biomia.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class BWCommand implements CommandExecutor {
+public class BWCommand extends BiomiaCommand {
+
+    public BWCommand() {
+        super("bedwars", "bw");
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
 
         if (sender instanceof Player) {
             Player p = (Player) sender;

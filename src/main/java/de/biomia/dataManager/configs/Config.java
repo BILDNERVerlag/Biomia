@@ -30,4 +30,8 @@ abstract public class Config {
             plugin.getLogger().info("configs.yml found, loading!");
         }
     }
+
+    public static void saveConfig() {
+        Main.getPlugin().saveConfig();
+    }
 }

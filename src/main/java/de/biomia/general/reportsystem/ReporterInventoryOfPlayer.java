@@ -40,7 +40,6 @@ class ReporterInventoryOfPlayer implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent e) {
-
         if (bp.equals(Biomia.getBiomiaPlayer((Player) e.getWhoClicked())))
             if (e.getInventory().equals(inv)) {
                 e.setCancelled(true);
@@ -97,7 +96,7 @@ class ReporterInventoryOfPlayer implements Listener {
 
         items.clear();
         for (PlayerReport playerReport : ReportSQL.getAllReportsOf(biomiaIDReportedPlayer)) {
-            String reporter = playerReport.getReporterName();
+            String reporter = playerReport.getReporterBiomiaPlayer().getName();
 
             ItemStack stack = ItemCreator.headWithSkin(reporter, "\u00A7c" + reporter);
             ItemMeta meta = stack.getItemMeta();

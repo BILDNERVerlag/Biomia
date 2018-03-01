@@ -32,15 +32,13 @@ public class VSMain {
 
     private static void loadCommands() {
 
-        VSCommands cmds = new VSCommands();
+        Main.registerCommand(new VSCommands("accept"));
+        Main.registerCommand(new VSCommands("decline"));
+        Main.registerCommand(new VSCommands("request"));
+        Main.registerCommand(new VSCommands("spawn"));
 
-        Main.getPlugin().getCommand("accept").setExecutor(cmds);
-        Main.getPlugin().getCommand("decline").setExecutor(cmds);
-        Main.getPlugin().getCommand("request").setExecutor(cmds);
-        Main.getPlugin().getCommand("spawn").setExecutor(cmds);
-
-        Main.getPlugin().getCommand("sw").setExecutor(new SW());
-        Main.getPlugin().getCommand("bw").setExecutor(new BW());
+        Main.registerCommand(new BW());
+        Main.registerCommand(new SW());
     }
 
 }

@@ -1,27 +1,22 @@
 package de.biomia.general.reportsystem;
 
-import de.biomia.BiomiaPlayer;
+import de.biomia.OfflineBiomiaPlayer;
 
 public class PlayerReport {
 
-    private final int reporterBiomiaID;
-    private final int reporteterBiomiaID;
+    private final OfflineBiomiaPlayer reporterBiomiaPlayer;
+    private final OfflineBiomiaPlayer reporteterBiomiaPlayer;
     private String grund;
 
-    private String reporterName;
-    private String reporteterName;
-
-    public PlayerReport(int reporterBiomiaID, int reporteterBiomiaID) {
-        this.reporterBiomiaID = reporterBiomiaID;
-        this.reporteterBiomiaID = reporteterBiomiaID;
-        this.reporterName = BiomiaPlayer.getName(reporterBiomiaID);
-        this.reporteterName = BiomiaPlayer.getName(reporteterBiomiaID);
+    public PlayerReport(OfflineBiomiaPlayer reporterBiomiaPlayer, OfflineBiomiaPlayer reporteterBiomiaPlayer) {
+        this.reporterBiomiaPlayer = reporterBiomiaPlayer;
+        this.reporteterBiomiaPlayer = reporteterBiomiaPlayer;
         ReportManager.unfinishedReports.add(this);
     }
 
-    public PlayerReport(int reporterBiomiaID, int reporteterBiomiaID, String grund) {
-        this.reporterBiomiaID = reporterBiomiaID;
-        this.reporteterBiomiaID = reporteterBiomiaID;
+    public PlayerReport(OfflineBiomiaPlayer reporterBiomiaPlayer, OfflineBiomiaPlayer reporteterBiomiaPlayer, String grund) {
+        this.reporterBiomiaPlayer = reporterBiomiaPlayer;
+        this.reporteterBiomiaPlayer = reporteterBiomiaPlayer;
         this.grund = grund;
         ReportManager.plReports.add(this);
     }
@@ -32,27 +27,19 @@ public class PlayerReport {
         ReportManager.plReports.add(this);
     }
 
-    public String getReporterName() {
-        return reporterName;
+    public OfflineBiomiaPlayer getReporterBiomiaPlayer() {
+        return reporterBiomiaPlayer;
     }
 
-    public String getReporteterName() {
-        return reporteterName;
+    public OfflineBiomiaPlayer getReporteterBiomiaPlayer() {
+        return reporteterBiomiaPlayer;
     }
 
     public String getGrund() {
         return grund;
     }
 
-    public int getReporteterBiomiaID() {
-        return reporteterBiomiaID;
-    }
-
-    public int getReporterBiomiaID() {
-        return reporterBiomiaID;
-    }
-
     public int getLevel() {
-        return ReportSQL.getLevel(getReporteterBiomiaID());
+        return ReportSQL.getLevel(getReporteterBiomiaPlayer().getBiomiaPlayerID());
     }
 }

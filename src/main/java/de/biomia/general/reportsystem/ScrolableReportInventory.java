@@ -116,13 +116,13 @@ class ScrolableReportInventory implements Listener {
 
         ArrayList<Integer> ids = new ArrayList<>();
         for (PlayerReport playerReport : ReportManager.plReports) {
-            if (!ids.contains(playerReport.getReporteterBiomiaID())) {
+            if (!ids.contains(playerReport.getReporteterBiomiaPlayer().getBiomiaPlayerID())) {
 
-                ids.add(playerReport.getReporteterBiomiaID());
+                ids.add(playerReport.getReporteterBiomiaPlayer().getBiomiaPlayerID());
 
-                ItemStack stack = ItemCreator.headWithSkin(playerReport.getReporteterName(), "\u00A7c" + playerReport.getReporteterName());
+                ItemStack stack = ItemCreator.headWithSkin(playerReport.getReporteterBiomiaPlayer().getName(), "\u00A7c" + playerReport.getReporteterBiomiaPlayer().getName());
                 ItemMeta meta = stack.getItemMeta();
-                meta.setLore(Arrays.asList("", "\u00A7r\u00A7bReport Level: \u00A7c" + playerReport.getLevel(), "\u00A7r\u00A7bReportet von \u00A7c" + playerReport.getReporterName(), "\u00A7r\u00A7bGrund: \u00A7c" + playerReport.getGrund(), ""));
+                meta.setLore(Arrays.asList("", "\u00A7r\u00A7bReport Level: \u00A7c" + playerReport.getLevel(), "\u00A7r\u00A7bReportet von \u00A7c" + playerReport.getReporterBiomiaPlayer().getName(), "\u00A7r\u00A7bGrund: \u00A7c" + playerReport.getGrund(), ""));
                 stack.setItemMeta(meta);
                 items.add(stack);
             }

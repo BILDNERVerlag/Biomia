@@ -5,7 +5,6 @@ import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.Main;
 import de.biomia.commands.lobby.LobbySettingsCommand;
 import de.biomia.commands.lobby.RandomServerGroupCommand;
-import de.biomia.commands.lobby.WorldCommand;
 import de.biomia.server.lobby.listener.*;
 import de.biomia.server.lobby.scoreboard.ChatColors;
 import de.biomia.server.lobby.scoreboard.ScoreboardClass;
@@ -55,9 +54,9 @@ public class Lobby {
             ScoreboardClass.sendScoreboard(p);
             p.setAllowFlight(true);
         }
-        getPlugin().getCommand("lobbysettings").setExecutor(new LobbySettingsCommand());
-        getPlugin().getCommand("randomServerGroup").setExecutor(new RandomServerGroupCommand());
-        getPlugin().getCommand("world").setExecutor(new WorldCommand());
+
+        Main.registerCommand(new LobbySettingsCommand());
+        Main.registerCommand(new RandomServerGroupCommand());
 
         Bukkit.getPluginManager().registerEvents(new Click(), getPlugin());
         Bukkit.getPluginManager().registerEvents(new Drop(), getPlugin());

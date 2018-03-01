@@ -1,5 +1,6 @@
 package de.biomia.server.lobby.listener;
 
+import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.Biomia;
 import de.biomia.Main;
@@ -53,10 +54,9 @@ public class Click implements Listener {
                                 pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 560, 96, 290, 80, 0));
                                 pl.closeInventory();
                             } else if (ie.getClickedInventory().getName().equals("\u00A7dLobby Switcher"))
-                                for (ServerObject so : Main.getUniversalTimoapi().getServerGroup("Lobby")
-                                        .getServers())
+                                for (ServerObject so : TimoCloudAPI.getBukkitInstance().getThisServer().getGroup().getServers())
                                     if (itemName.contains(so.getName()))
-                                        if (!so.getName().equals(Main.getBukkitTimoapi().getThisServer().getName()))
+                                        if (!so.equals(TimoCloudAPI.getBukkitInstance().getThisServer()))
                                             PlayerToServerConnector.connect(pl, so.getName());
                                         else
                                             pl.sendMessage("\u00A7cDu bist schon auf dieser Lobby!");

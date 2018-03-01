@@ -2,25 +2,28 @@ package de.biomia.server.minigames.versus.vs.commands;
 
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
+import de.biomia.commands.BiomiaCommand;
 import de.biomia.messages.Messages;
 import de.biomia.server.minigames.versus.VSMain;
 import de.biomia.server.minigames.versus.vs.settings.VSRequest;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class VSCommands implements CommandExecutor {
+public class VSCommands extends BiomiaCommand {
+
+    public VSCommands(String string) {
+        super(string);
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, String label, String[] args) {
 
         if (sender instanceof Player) {
             Player p = (Player) sender;
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
 
-            if (args.length == 0 && cmd.getName().equalsIgnoreCase("spawn")) {
+            if (args.length == 0 && getName().equalsIgnoreCase("spawn")) {
                 VSMain.getManager().moveToLobby(p);
             } else if (args.length == 1) {
                 String player = args[0];
@@ -29,7 +32,7 @@ public class VSCommands implements CommandExecutor {
                     BiomiaPlayer bparg = Biomia.getBiomiaPlayer(parg);
                     if (VSRequest.hasRequestSended(bparg, bp)) {
                         VSRequest request = VSRequest.getRequest(bparg);
-                        switch (cmd.getName()) {
+                        switch (getName()) {
                         case "accept":
                             assert request != null;
                             request.accept();
@@ -42,7 +45,7 @@ public class VSCommands implements CommandExecutor {
                             break;
                         }
                     } else {
-                        switch (cmd.getName()) {
+                        switch (getName()) {
                         case "accept":
                             p.sendMessage("Dieser Spieler hat dich nicht herausgefordert!");
                             break;
@@ -59,7 +62,7 @@ public class VSCommands implements CommandExecutor {
                 } else
                     sender.sendMessage(Messages.NOT_ONLINE);
             } else
-                sender.sendMessage("Bitte nutze /" + cmd.getName() + " <Spielername>");
+                sender.sendMessage("Bitte nutze /" + getName() + " <Spielername>");
         }
         return true;
     }

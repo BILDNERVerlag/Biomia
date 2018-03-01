@@ -23,11 +23,13 @@ public class BiomiaPlayer extends OfflineBiomiaPlayer {
     private boolean getDamage = true;
     private boolean damageEntitys = true;
     private QuestPlayer questPlayer;
+    private Player player;
 
     // CONSTRUCTOR
     public BiomiaPlayer(Player p) {
         super(p);
-        spigotPafpl = PAFPlayerManager.getInstance().getPlayer(getPlayer().getUniqueId());
+        this.player = p;
+        spigotPafpl = PAFPlayerManager.getInstance().getPlayer(getUUID());
     }
 
     // GETTERS AND SETTERS
@@ -73,6 +75,10 @@ public class BiomiaPlayer extends OfflineBiomiaPlayer {
 
     public void setDamageEntitys(boolean damageEntitys) {
         this.damageEntitys = damageEntitys;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     // PUBLIC METHODS

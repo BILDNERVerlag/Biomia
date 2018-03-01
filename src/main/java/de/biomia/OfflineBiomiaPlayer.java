@@ -17,13 +17,7 @@ public class OfflineBiomiaPlayer {
 
     private final int biomiaPlayerID;
     private String name;
-    private Player player;
     private UUID uuid;
-    private BiomiaPlayer biomiaPlayer;
-
-    OfflineBiomiaPlayer(int biomiaPlayerID) {
-        this.biomiaPlayerID = biomiaPlayerID;
-    }
 
     OfflineBiomiaPlayer(int biomiaPlayerID, String name) {
         this.biomiaPlayerID = biomiaPlayerID;
@@ -36,15 +30,11 @@ public class OfflineBiomiaPlayer {
     }
 
     OfflineBiomiaPlayer(Player p) {
-        this.name = p.getName();
-        this.biomiaPlayerID = getBiomiaPlayerID(name);
-        this.player = p;
-        this.uuid = p.getUniqueId();
+        this.biomiaPlayerID = getBiomiaPlayerID(p.getName());
     }
 
-    // ID and UUID RELATED METHODS
-    @Deprecated
-    public static int getBiomiaPlayerID(String playerName) {
+    // ID and UUID METHODS
+    static int getBiomiaPlayerID(String playerName) {
         return MySQL.executeQuerygetint("Select id from BiomiaPlayer where name = '" + playerName + "'", "id", MySQL.Databases.biomia_db);
     }
 
@@ -52,14 +42,13 @@ public class OfflineBiomiaPlayer {
         return MySQL.executeQuerygetint("Select id from BiomiaPlayer where uuid = '" + uuid.toString() + "'", "id", MySQL.Databases.biomia_db);
     }
 
+    static String getName(int biomiaID) {
+        return MySQL.executeQuery("Select name from BiomiaPlayer where id = " + biomiaID, "name", MySQL.Databases.biomia_db);
+    }
+
     private static UUID getUUID(int biomiaID) {
         String s = MySQL.executeQuery("Select uuid from BiomiaPlayer where id = " + biomiaID, "uuid", MySQL.Databases.biomia_db);
         return s != null ? UUID.fromString(s) : null;
-    }
-
-    @Deprecated
-    public static String getName(int biomiaID) {
-        return MySQL.executeQuery("Select name from BiomiaPlayer where id = " + biomiaID, "name", MySQL.Databases.biomia_db);
     }
 
     //RANK METHODS
@@ -68,14 +57,7 @@ public class OfflineBiomiaPlayer {
     }
 
     public final boolean isStaff() {
-        String rank = RankManager.getRank(getName());
-        rank = rank.toLowerCase();
-        return (rank.contains("Owner") || rank.contains("Admin") || rank.contains("Moderator") || rank.contains("Builder") || rank.contains("Supporter"));
-    }
-
-    public final boolean isOwner() {
-        String rank = RankManager.getRank(getName());
-        return rank.contains("Owner");
+        return !isPremium() && !isYouTuber() && !RankManager.getRank(getName()).contains("Player");
     }
 
     public final boolean isYouTuber() {
@@ -91,7 +73,7 @@ public class OfflineBiomiaPlayer {
                 assert con != null;
                 PreparedStatement ps = con
                         .prepareStatement("SELECT `percent`, `until` FROM `CoinBoost` WHERE BiomiaPlayer = ?");
-                ps.setInt(1, getBiomiaPlayerID());
+                ps.setInt(1, biomiaPlayerID);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     long until = rs.getLong("until");
@@ -113,7 +95,9 @@ public class OfflineBiomiaPlayer {
         Bukkit.getServer().getPluginManager().callEvent(coinEvent);
         if (!coinEvent.isCancelled()) {
             setCoins(getCoins() + coins);
-            this.getPlayer().sendMessage("\u00A77Du erh\u00e4ltst \u00A7f" + coins + "\u00A77 BC!");
+            if (isOnline()) {
+                getBiomiaPlayer().getPlayer().sendMessage("\u00A77Du erh\u00e4ltst \u00A7f" + coins + "\u00A77 BC!");
+            }
         }
     }
 
@@ -129,19 +113,8 @@ public class OfflineBiomiaPlayer {
 
     // GETTERS AND SETTERS
 
-    /**
-     * Returns the Player, if they are online. Returns null otherwise.
-     */
-    public Player getPlayer() {
-        return player != null ? player : (player = Bukkit.getPlayer(getName()));
-    }
-
-    public BiomiaPlayer getBiomiaPlayer() {
-        return Biomia.getBiomiaPlayer(getPlayer());
-    }
-
     public boolean isOnline() {
-        return getPlayer() != null;
+        return getBiomiaPlayer() != null;
     }
 
     public final UUID getUUID() {
@@ -152,20 +125,25 @@ public class OfflineBiomiaPlayer {
         return biomiaPlayerID;
     }
 
-    public final int getPremiumLevel() {
-        return RankManager.getPremiumLevel(getName());
+    public final BiomiaPlayer getBiomiaPlayer() {
+        return this instanceof BiomiaPlayer ? (BiomiaPlayer) this : Biomia.getBiomiaPlayer(Bukkit.getPlayer(getName()));
     }
 
+    //    TODO: NEEDED?
+    //    public final int getPremiumLevel() {
+    //        return RankManager.getPremiumLevel(getName());
+    //    }
+
     public final String getName() {
-        return player != null ? player.getName() : name != null ? name : (name = getName(biomiaPlayerID));
+        return name != null ? name : (name = getName(biomiaPlayerID));
     }
 
     public final int getCoins() {
-        return MySQL.executeQuerygetint("SELECT * FROM `BiomiaCoins` where ID = " + getBiomiaPlayerID(), "coins", MySQL.Databases.biomia_db);
+        return MySQL.executeQuerygetint("SELECT * FROM `BiomiaCoins` where ID = " + biomiaPlayerID, "coins", MySQL.Databases.biomia_db);
     }
 
     public final void setCoins(int coins) {
-        MySQL.executeUpdate("UPDATE `BiomiaCoins` SET `coins` = " + coins + " WHERE `ID` = " + getBiomiaPlayerID(), MySQL.Databases.biomia_db);
+        MySQL.executeUpdate("UPDATE `BiomiaCoins` SET `coins` = " + coins + " WHERE `ID` = " + biomiaPlayerID, MySQL.Databases.biomia_db);
     }
 
     public final void takeCoins(int coins) {
@@ -173,7 +151,8 @@ public class OfflineBiomiaPlayer {
         int actualCoins = getCoins();
 
         if (actualCoins < coins && isOnline()) {
-            getPlayer().sendMessage("Du hast nicht genug BC! Dir fehlen noch " + (actualCoins - coins) + " BC!");
+            getBiomiaPlayer().getPlayer().sendMessage("Du hast nicht genug BC! Dir fehlen noch " + (actualCoins - coins) + " BC!");
+            return;
         }
         CoinTakeEvent coinEvent = new CoinTakeEvent(this, coins);
         Bukkit.getServer().getPluginManager().callEvent(coinEvent);
