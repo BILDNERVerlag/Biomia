@@ -1,15 +1,15 @@
 package de.biomia.plugin.listeners;
 
-import de.biomia.api.Biomia;
-import de.biomia.api.BiomiaPlayer;
-import de.biomia.api.connect.Connect;
-import de.biomia.api.cosmetics.Cosmetic;
-import de.biomia.api.cosmetics.Cosmetic.Group;
-import de.biomia.api.cosmetics.CosmeticPetItem;
-import de.biomia.api.messages.HeaderAndFooter;
-import de.biomia.api.messages.Messages;
-import de.biomia.api.pex.Rank;
-import de.biomia.api.tools.Hologram;
+import de.biomia.Biomia;
+import de.biomia.BiomiaPlayer;
+import de.biomia.general.cosmetics.Cosmetic;
+import de.biomia.general.cosmetics.Cosmetic.Group;
+import de.biomia.general.cosmetics.CosmeticPetItem;
+import de.biomia.messages.Messages;
+import de.biomia.messages.manager.HeaderAndFooter;
+import de.biomia.tools.Hologram;
+import de.biomia.tools.PlayerToServerConnector;
+import de.biomia.tools.RankManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -36,7 +36,7 @@ public class BiomiaListener implements Listener {
             if (e.getItem() != null) {
                 if (e.getItem().getType().equals(Material.MAGMA_CREAM)
                         && e.getItem().getItemMeta().getDisplayName().equals("\u00A7cLobby"))
-                    Connect.connectToRandom(e.getPlayer(), "Lobby");
+                    PlayerToServerConnector.connectToRandom(e.getPlayer(), "Lobby");
             }
         }
         if (e.getAction().equals(Action.PHYSICAL) && e.getClickedBlock().getType() == Material.SOIL) {
@@ -58,8 +58,8 @@ public class BiomiaListener implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         Cosmetic.load(bp);
-        if (Rank.getRank(e.getPlayer()).equals("default"))
-            Rank.setRank(e.getPlayer(), "UnregSpieler");
+        if (RankManager.getRank(e.getPlayer()).equals("default"))
+            RankManager.setRank(e.getPlayer(), "UnregSpieler");
         e.setJoinMessage(null);
         HeaderAndFooter.sendHeaderAndFooter(e.getPlayer(), "\n\u00A75Bio\u00A72mia\n",
                 "\u00A75Website: \u00A72www.biomia.de\n\u00A75TS: \u00A72ts.biomia.de");

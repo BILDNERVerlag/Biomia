@@ -13,11 +13,11 @@ package de.biomia.plugin.specialEvents.winterEvent;//package de.biomia.specialEv
 //import org.bukkit.inventory.ItemStack;
 //import org.bukkit.inventory.meta.LeatherArmorMeta;
 //
-//import de.biomia.api.BiomiaPlayer;
-//import de.biomia.api.itemcreator.ItemCreator;
-//import de.biomia.api.mysql.MySQL;
-//import de.biomia.api.tools.QuestItems;
-//import de.biomia.api.tools.SkyWarsKit;
+//import de.biomia.BiomiaPlayer;
+//import ItemCreator;
+//import de.biomia.dataManager.MySQL;
+//import QuestItems;
+//import SkyWarsKitManager;
 //
 //public class Reward {
 //
@@ -162,10 +162,10 @@ package de.biomia.plugin.specialEvents.winterEvent;//package de.biomia.specialEv
 //                biomiaPlayer.getPlayer().sendMessage("\u00A74Info: Du kannst das Kit nur im EventCommands benutzen!");
 //                switch (id) {
 //                    case 0:
-//                        SkyWarsKit.addKit(biomiaPlayer, 20171, 12, 1, 2);
+//                        SkyWarsKitManager.addKit(biomiaPlayer, 20171, 12, 1, 2);
 //                        break;
 //                    case 1:
-//                        SkyWarsKit.addKit(biomiaPlayer, 20172, 12, 1, 2);
+//                        SkyWarsKitManager.addKit(biomiaPlayer, 20172, 12, 1, 2);
 //                        break;
 //                    default:
 //                        break;

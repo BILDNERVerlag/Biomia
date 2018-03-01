@@ -22,7 +22,6 @@ public class CosmeticListener implements Listener {
     private static final HashMap<Location, Material> blocksMaterial = new HashMap<>();
     private static final HashMap<Location, Byte> blocksData = new HashMap<>();
 
-    @SuppressWarnings("deprecation")
     @EventHandler
     public void onProjectileHit(ProjectileHitEvent e) {
 

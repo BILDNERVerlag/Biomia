@@ -1,9 +1,10 @@
 package de.biomia.plugin.specialEvents.easterEvent;
 
+import de.biomia.Biomia;
+import de.biomia.BiomiaPlayer;
 import de.biomia.Main;
-import de.biomia.api.Biomia;
-import de.biomia.api.BiomiaPlayer;
-import de.biomia.api.achievements.Stats;
+import de.biomia.OfflineBiomiaPlayer;
+import de.biomia.achievements.Stats;
 import net.minecraft.server.v1_12_R1.BlockPosition;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -11,7 +12,6 @@ import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.block.Block;
 import org.bukkit.block.Skull;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -22,7 +22,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static de.biomia.api.tools.HeadCreator.setSkullUrl;
+import static de.biomia.tools.HeadCreator.setSkullUrl;
 
 public class EasterEvent implements Listener {
 
@@ -165,7 +165,7 @@ public class EasterEvent implements Listener {
 
     public void giveReward(int bpID) {
 
-        Player p = Bukkit.getPlayer(BiomiaPlayer.getName(bpID));
+        OfflineBiomiaPlayer p = Biomia.getOfflineBiomiaPlayer(bpID);
 
         int eggsFound = Stats.getStat(Stats.BiomiaStat.EasterEggsFound, bpID);
         int eggsRewardsErhalten = Stats.getStat(Stats.BiomiaStat.EasterRewardsErhalten, bpID);
@@ -182,11 +182,13 @@ public class EasterEvent implements Listener {
                 if (coinsToAdd == 0)
                     return;
                 int missingEggs = 10 - eggsWithoutRewards;
-                if (missingEggs == 1) {
-                    if (p != null) p.sendMessage("Finde mindestens noch 1 weiteres Ei!");
-                } else {
-                    if (p != null) p.sendMessage("Finde mindestens " + missingEggs + " weitere Eier!");
-                }
+
+                if (p.isOnline())
+                    if (missingEggs == 1) {
+                        p.getPlayer().sendMessage("Finde mindestens noch 1 weiteres Ei!");
+                    } else {
+                        p.getPlayer().sendMessage("Finde mindestens " + missingEggs + " weitere Eier!");
+                    }
             } else {
                 eggsAbgegeben += 10;
                 b = true;
@@ -194,7 +196,7 @@ public class EasterEvent implements Listener {
             }
         } while (b);
         Stats.incrementStatBy(Stats.BiomiaStat.EasterRewardsErhalten, bpID, eggsAbgegeben);
-        if (p != null)
-            Biomia.getBiomiaPlayer(p).addCoins(coinsToAdd, false);
+        if (p.isOnline())
+            p.addCoins(coinsToAdd, false);
     }
 }

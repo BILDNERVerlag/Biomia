@@ -5,8 +5,8 @@ package de.biomia.plugin.specialEvents.winterEvent;//package de.biomia.specialEv
 //import java.util.UUID;
 //
 //import BiomiaPluginMain;
-//import de.biomia.api.BiomiaPlayer;
-//import de.biomia.api.mysql.MySQL;
+//import de.biomia.BiomiaPlayer;
+//import de.biomia.dataManager.MySQL;
 //
 //public class WinterTag {
 //

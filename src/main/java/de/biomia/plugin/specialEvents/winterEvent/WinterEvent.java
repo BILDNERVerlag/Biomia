@@ -9,8 +9,8 @@ package de.biomia.plugin.specialEvents.winterEvent;//package de.biomia.specialEv
 //
 //import BiomiaPluginMain;
 //import de.biomia.specialEvents.winterEvent.Reward.rewardType;
-//import de.biomia.api.Biomia;
-//import de.biomia.api.BiomiaPlayer;
+//import de.biomia.Biomia;
+//import de.biomia.BiomiaPlayer;
 //
 //public class WinterEvent implements Listener {
 //

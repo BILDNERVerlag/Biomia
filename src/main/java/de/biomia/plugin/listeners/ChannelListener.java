@@ -2,12 +2,12 @@ package de.biomia.plugin.listeners;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
-import de.biomia.plugin.reportsystem.PlayerBan;
-import de.biomia.plugin.reportsystem.PlayerReport;
-import de.biomia.plugin.reportsystem.ReportManager;
-import de.biomia.api.Biomia;
-import de.biomia.api.BiomiaPlayer;
-import de.biomia.api.pex.Rank;
+import de.biomia.Biomia;
+import de.biomia.OfflineBiomiaPlayer;
+import de.biomia.general.reportsystem.PlayerBan;
+import de.biomia.general.reportsystem.PlayerReport;
+import de.biomia.general.reportsystem.ReportManager;
+import de.biomia.tools.RankManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
@@ -34,17 +34,14 @@ public class ChannelListener implements PluginMessageListener {
             String rank = in.readUTF();
 
             Player p = Bukkit.getPlayer(pl);
-            Rank.setRank(p, rank);
+            RankManager.setRank(p, rank);
         }
 
         if (subchannel.equals("BanReason")) {
             int id = in.readInt();
-            String name = BiomiaPlayer.getName(id);
-
-            Player p = Bukkit.getPlayer(name);
-            if (p != null) {
-                int banID = in.readInt();
-                new PlayerBan(Biomia.getBiomiaPlayer(p), banID);
+            OfflineBiomiaPlayer offlineBiomiaPlayer = Biomia.getOfflineBiomiaPlayer(id);
+            if (offlineBiomiaPlayer.isOnline()) {
+                new PlayerBan(offlineBiomiaPlayer.getBiomiaPlayer(), in.readInt());
             }
         }
     }
