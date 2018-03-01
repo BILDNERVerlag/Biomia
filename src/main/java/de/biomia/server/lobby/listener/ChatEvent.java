@@ -12,16 +12,9 @@ public class ChatEvent implements Listener {
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
-
-        String msg = e.getMessage();
-        String format;
-        String group = RankManager.getPrefix(p);
         if (p.hasPermission("biomia.coloredchat")) {
-            msg = ChatColor.translateAlternateColorCodes('&', e.getMessage());
-            format = group + p.getName() + "\u00A77: \u00A7f" + msg;
-        } else {
-            format = group + p.getName() + "\u00A77: \u00A7f" + msg;
+            e.setMessage(ChatColor.translateAlternateColorCodes('&', e.getMessage()));
         }
-        e.setFormat(format);
+        e.setFormat(RankManager.getPrefix(p) + "%s\u00A77: \u00A7f%s");
     }
 }
