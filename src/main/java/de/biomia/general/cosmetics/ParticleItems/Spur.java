@@ -35,7 +35,7 @@ class Spur implements ParticleListener {
 				i++;
 			}
 
-		}.runTaskTimer(Main.plugin, 0, 2);
+        }.runTaskTimer(Main.getPlugin(), 0, 2);
 	}
 
 }

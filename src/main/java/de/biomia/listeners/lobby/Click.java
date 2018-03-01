@@ -1,9 +1,8 @@
-package de.biomia.server.lobby.listener;
+package de.biomia.listeners.lobby;
 
 import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.Biomia;
-import de.biomia.Main;
 import de.biomia.server.lobby.Lobby;
 import de.biomia.tools.PlayerToServerConnector;
 import org.bukkit.Bukkit;

@@ -18,7 +18,7 @@ public class GadgetIniter {
 		Cosmetic.addGagetListener(71, new Levitator());
 		Cosmetic.addGagetListener(72, new Suizid());
 		Switcher s = new Switcher();
-		Bukkit.getPluginManager().registerEvents(s, Main.plugin);
+        Bukkit.getPluginManager().registerEvents(s, Main.getPlugin());
 		Cosmetic.addGagetListener(73, s);
 		Cosmetic.addGagetListener(74, new TNTCanon());
 		Cosmetic.addGagetListener(75, new Witch());

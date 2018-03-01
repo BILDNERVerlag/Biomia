@@ -73,11 +73,10 @@ public class TeamManager {
     }
 
     //GETTER AND SETTER
-    public Team registerNewTeam(String teamName, int maxPlayer) {
+    private void registerNewTeam(String teamName, int maxPlayer) {
         Team t = new Team();
         t.initialize(teamName, maxPlayer);
         allteams.add(t);
-        return t;
     }
 
     public Team getTeam(String team) {

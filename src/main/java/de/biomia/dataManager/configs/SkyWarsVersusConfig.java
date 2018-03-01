@@ -1,6 +1,5 @@
 package de.biomia.dataManager.configs;
 
-import de.biomia.Main;
 import org.bukkit.Location;
 import org.bukkit.World;
 
@@ -19,7 +18,7 @@ public class SkyWarsVersusConfig extends Config {
         getConfig().set("SkyWars." + mapID + ".Spawnpoints." + teamID + ".Y", y);
         getConfig().set("SkyWars." + mapID + ".Spawnpoints." + teamID + ".Z", z + 0.5);
         getConfig().set("SkyWars." + mapID + ".Spawnpoints." + teamID + ".Yaw", ya);
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static void addGoodChestLocation(Location loc, int mapID) {
@@ -34,7 +33,7 @@ public class SkyWarsVersusConfig extends Config {
         getConfig().set("SkyWars." + mapID + ".Chests.GoodChest." + chestID + ".Z", z);
 
         getConfig().set("SkyWars." + mapID + ".lastGoodChestID", chestID);
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static void addNormalChestLocation(Location loc, int mapID) {
@@ -49,7 +48,7 @@ public class SkyWarsVersusConfig extends Config {
         getConfig().set("SkyWars." + mapID + ".Chests.NormalChest." + lastChestID + ".Z", z);
 
         getConfig().set("SkyWars." + mapID + ".lastNormalChestID", lastChestID);
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static Location loadLocsFromConfig(int mapID, int teamID, World wo) {

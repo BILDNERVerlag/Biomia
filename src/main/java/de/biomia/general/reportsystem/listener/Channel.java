@@ -10,7 +10,7 @@ import org.bukkit.Bukkit;
 public class Channel {
 
     public static void send(ByteArrayDataOutput out) {
-        Iterables.getLast(Bukkit.getOnlinePlayers()).sendPluginMessage(Main.plugin, "BiomiaChannel", out.toByteArray());
+        Iterables.getLast(Bukkit.getOnlinePlayers()).sendPluginMessage(Main.getPlugin(), "BiomiaChannel", out.toByteArray());
     }
 
     public static void send(PlayerBan ban) {

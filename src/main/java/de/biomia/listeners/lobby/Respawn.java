@@ -1,4 +1,4 @@
-package de.biomia.server.lobby.listener;
+package de.biomia.listeners.lobby;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

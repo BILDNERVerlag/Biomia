@@ -1,7 +1,6 @@
 package de.biomia.dataManager.configs;
 
 import de.biomia.Biomia;
-import de.biomia.Main;
 import de.biomia.server.minigames.bedwars.var.Variables;
 import de.biomia.server.minigames.general.ItemType;
 import de.biomia.server.minigames.general.teams.Team;
@@ -34,13 +33,13 @@ public class BedWarsConfig extends Config {
         if (t != null) {
             Variables.teamSpawns.put(t, loc);
         }
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static void removeAllLocations() {
         getConfig().set("Spawnpoints", null);
         Variables.teamSpawns.clear();
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static void loadLocsFromConfig() {
@@ -129,7 +128,7 @@ public class BedWarsConfig extends Config {
         getConfig().set("Signs." + (id) + ".World", wo);
 
         Variables.signLocations.put(sign, id);
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static void addBedsLocations(Location foot, Location head, Team team) {
@@ -162,7 +161,7 @@ public class BedWarsConfig extends Config {
 
         Variables.beds.put(team, ar);
         Variables.teamsWithBeds.add(team);
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static void loadBeds() {
@@ -228,23 +227,23 @@ public class BedWarsConfig extends Config {
             Variables.spawner.put(spawner, new ArrayList<>());
         }
         Variables.spawner.get(spawner).add(loc);
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static void removeAllBeds() {
         getConfig().set("Beds", null);
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static void removeAllSigns() {
         getConfig().set("Signs", null);
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static void addTeamJoiner(UUID uuid, Team t) {
         getConfig().set("Joiner." + t.getTeamname(), uuid.toString());
         Variables.joiner.put(t, uuid);
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static void loadTeamJoiner() {
@@ -275,7 +274,7 @@ public class BedWarsConfig extends Config {
 
     public static void removeTeamJoiner(Team t) {
         getConfig().set("Joiner." + t.getTeamname(), null);
-        Main.getPlugin().saveConfig();
+        saveConfig();
         if (Variables.joiner.containsKey(t))
             Variables.joiner.remove(t);
     }

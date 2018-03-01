@@ -50,7 +50,7 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
         super(id, name, is, c, Group.GADGETS);
         gadgetListener = Cosmetic.getGadgetListener(id);
         this.gadgetItem = gadgetItem;
-        Bukkit.getPluginManager().registerEvents(this, Main.plugin);
+        Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
     }
 
     public void setGadgetListener(GadgetListener gadgetListener) {

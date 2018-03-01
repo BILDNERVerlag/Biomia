@@ -9,6 +9,8 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import static de.biomia.dataManager.configs.Config.saveConfig;
+
 public class DemoConfig {
 
     public static final FileConfiguration config = Main.getPlugin().getConfig();
@@ -37,7 +39,7 @@ public class DemoConfig {
 
         config.set("lastID", lastID + 1);
         new Bauten(name, seite, loc, material);
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static void removeObjekt(String name) {
@@ -49,7 +51,7 @@ public class DemoConfig {
             if (config.getString(i + ".Name") != null && config.getString(i + ".Name").equalsIgnoreCase(name)) {
                 config.set(i + "", null);
                 Bukkit.broadcastMessage("\u00A7aObjekt entfernt!");
-                Main.getPlugin().saveConfig();
+                saveConfig();
                 return;
             }
 

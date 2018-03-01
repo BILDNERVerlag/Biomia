@@ -41,7 +41,7 @@ class Witch implements GadgetListener {
 					followPlayer(bat, bp.getPlayer());
 					i++;
 				}
-			}.runTaskTimer(Main.plugin, 0, 10);
+            }.runTaskTimer(Main.getPlugin(), 0, 10);
 		}
 		item.removeOne(bp, true);
 

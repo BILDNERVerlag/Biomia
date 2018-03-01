@@ -37,7 +37,7 @@ public class PlayerToServerConnector implements PluginMessageListener {
         } catch (IOException ignored) {
 
         }
-        p.sendPluginMessage(Main.plugin, "BungeeCord", b.toByteArray());
+        p.sendPluginMessage(Main.getPlugin(), "BungeeCord", b.toByteArray());
     }
 
     public static void connectToRandom(Player p, String group) {

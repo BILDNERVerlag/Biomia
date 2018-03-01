@@ -1,4 +1,4 @@
-package de.biomia.server.quests.listeners;
+package de.biomia.listeners;
 
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
@@ -13,25 +13,22 @@ import de.biomia.server.quests.messages.ItemNames;
 import de.biomia.server.quests.messages.Messages;
 import de.biomia.tools.InventorySave;
 import de.biomia.tools.QuestItems;
-import de.biomia.tools.RankManager;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class QuestListener implements Listener {
+public class QuestListener extends BiomiaListener {
 
     private static final Location holzfarmLoc = new Location(Bukkit.getWorld("Quests"), 283, 69, -234);
     private static final Location cobblefarmLoc = new Location(Bukkit.getWorld("Quests"), 128, 71, -187);
@@ -69,12 +66,12 @@ public class QuestListener implements Listener {
     }
 
     @EventHandler
-    public static void onQuit(PlayerQuitEvent e) {
+    public void onQuit(PlayerQuitEvent e) {
         InventorySave.saveInventory(e.getPlayer(), "QuestServer");
     }
 
     @EventHandler
-    public static void onJoin(PlayerJoinEvent e) {
+    public void onJoin_(PlayerJoinEvent e) {
         InventorySave.setInventory(e.getPlayer(), "QuestServer");
 
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
@@ -107,7 +104,11 @@ public class QuestListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onBlockBreak(BlockBreakEvent e) {
+    public void onBlockBreak_(BlockBreakEvent e) {
+
+        if (!Biomia.getQuestPlayer(e.getPlayer()).getMineableBlocks().contains(e.getBlock().getType())) {
+            e.setCancelled(true);
+        }
 
         if (e.getBlock().getLocation().distance(holzfarmLoc) <= 40) {
             // HOLZFARM
@@ -140,18 +141,10 @@ public class QuestListener implements Listener {
         }
     }
 
-    private void replace(int durationInSeconds, Location loc, byte data, Material material) {
-        new BukkitRunnable() {
-
-            @SuppressWarnings("deprecation")
-            @Override
-            public void run() {
-                loc.getBlock().setType(material);
-                // noinspection deprecation
-                loc.getBlock().setData(data);
-                loc.getWorld().playEffect(loc, Effect.ENDER_SIGNAL, 3);
-            }
-        }.runTaskLater(Main.getPlugin(), 20 * durationInSeconds);
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onBlockPlace_(BlockPlaceEvent e) {
+        if (!Biomia.getQuestPlayer(e.getPlayer()).getBuildableBlocks().contains(e.getBlock().getType()))
+            e.setCancelled(true);
     }
 
     @EventHandler
@@ -190,22 +183,18 @@ public class QuestListener implements Listener {
         }
     }
 
-    @EventHandler
-    public void onChat(AsyncPlayerChatEvent e) {
-        Player p = e.getPlayer();
+    private void replace(int durationInSeconds, Location loc, byte data, Material material) {
+        new BukkitRunnable() {
 
-        String msg = e.getMessage();
-        String format;
-        String group = RankManager.getPrefix(p);
-
-        if (p.hasPermission("biomia.coloredchat")) {
-            msg = ChatColor.translateAlternateColorCodes('&', e.getMessage());
-            format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "\u00A77: \u00A7f" + msg;
-            e.setFormat(format);
-        } else {
-            format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "\u00A77: \u00A7f" + msg;
-            e.setFormat(format);
-        }
+            @SuppressWarnings("deprecation")
+            @Override
+            public void run() {
+                loc.getBlock().setType(material);
+                // noinspection deprecation
+                loc.getBlock().setData(data);
+                loc.getWorld().playEffect(loc, Effect.ENDER_SIGNAL, 3);
+            }
+        }.runTaskLater(Main.getPlugin(), 20 * durationInSeconds);
     }
 
 }

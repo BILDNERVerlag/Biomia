@@ -66,7 +66,7 @@ public class CosmeticPetItem extends CosmeticItem {
 					cancel();
 				}
 			}
-		}.runTaskTimer(Main.plugin, 10, 10);
+        }.runTaskTimer(Main.getPlugin(), 10, 10);
 	}
 
 	private void followPlayer(Creature creature, Player player) {

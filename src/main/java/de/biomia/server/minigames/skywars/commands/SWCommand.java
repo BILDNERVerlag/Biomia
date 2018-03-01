@@ -1,7 +1,6 @@
 package de.biomia.server.minigames.skywars.commands;
 
 import de.biomia.Biomia;
-import de.biomia.Main;
 import de.biomia.commands.BiomiaCommand;
 import de.biomia.dataManager.configs.Config;
 import de.biomia.dataManager.configs.SkyWarsConfig;
@@ -15,6 +14,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import static de.biomia.dataManager.configs.Config.saveConfig;
 
 public class SWCommand extends BiomiaCommand {
 
@@ -54,7 +55,8 @@ public class SWCommand extends BiomiaCommand {
                         Config.getConfig().set("Name", name);
                         Config.getConfig().set("TeamSize", spielerProTeam);
                         Config.getConfig().set("NumberOfTeams", teams);
-                        Main.getPlugin().saveConfig();
+
+                        saveConfig();
                     } else if (args[0].equalsIgnoreCase("setup")) {
                         sender.sendMessage("\u00A7c/sw setup <SpielerProTeam> <Teams> <MapName>");
                     } else if (args[0].equalsIgnoreCase("addloc")) {
@@ -70,6 +72,7 @@ public class SWCommand extends BiomiaCommand {
                         Variables.countDown.setCountdown(0);
                     } else if (args[0].equalsIgnoreCase("chestaddmode")) {
                         Variables.chestAddMode = !Variables.chestAddMode;
+
                         if (Variables.chestAddMode) {
                             sender.sendMessage(SkyWarsMessages.chestAddModeON);
                         } else {

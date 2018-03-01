@@ -1,6 +1,5 @@
 package de.biomia.dataManager.configs;
 
-import de.biomia.Main;
 import de.biomia.server.minigames.general.ItemType;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -21,7 +20,7 @@ public class BedWarsVersusConfig extends Config {
         getConfig().set("BedWars." + mapID + "." + team + ".Spawnpoints.Y", y);
         getConfig().set("BedWars." + mapID + "." + team + ".Spawnpoints.Z", z + 0.5);
         getConfig().set("BedWars." + mapID + "." + team + ".Spawnpoints.Yaw", ya);
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static ArrayList<Block> getBed(int mapID, int team, World w) {
@@ -58,7 +57,7 @@ public class BedWarsVersusConfig extends Config {
         getConfig().set("BedWars." + mapID + "." + team + ".BedPart2.X", hx + 0.5);
         getConfig().set("BedWars." + mapID + "." + team + ".BedPart2.Y", hy);
         getConfig().set("BedWars." + mapID + "." + team + ".BedPart2.Z", hz + 0.5);
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static Location getLocation(int mapID, int team, World wo) {
@@ -82,7 +81,7 @@ public class BedWarsVersusConfig extends Config {
         getConfig().set("BedWars." + mapID + "." + spawner.name() + "." + i + ".Y", y);
         getConfig().set("BedWars." + mapID + "." + spawner.name() + "." + i + ".Z", z);
         getConfig().set("BedWars." + mapID + "." + spawner.name() + ".lastID", i);
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static HashMap<ItemType, ArrayList<Location>> getSpawner(int mapID, World w) {

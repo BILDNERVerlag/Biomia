@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
+import static de.biomia.dataManager.configs.Config.saveConfig;
+
 public class Hologram {
 
     public static void newHologram(Player p, String[] s) {
@@ -23,24 +25,24 @@ public class Hologram {
             armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', string));
             armorStand.setCustomNameVisible(true);
 
-            ArrayList<String> l = new ArrayList<>(Main.plugin.getConfig().getStringList("Holograms"));
+            ArrayList<String> l = new ArrayList<>(Main.getPlugin().getConfig().getStringList("Holograms"));
             l.add(armorStand.getUniqueId().toString());
 
-            Main.plugin.getConfig().set("Holograms", l);
-            Main.plugin.saveConfig();
+            Main.getPlugin().getConfig().set("Holograms", l);
+            saveConfig();
             i++;
         }
     }
 
     public static void removeHologram(ArmorStand armorStand) {
 
-        ArrayList<String> l = new ArrayList<>(Main.plugin.getConfig().getStringList("Holograms"));
+        ArrayList<String> l = new ArrayList<>(Main.getPlugin().getConfig().getStringList("Holograms"));
 
         if (l.contains(armorStand.getUniqueId().toString())) {
             armorStand.remove();
             l.remove(armorStand.getUniqueId().toString());
-            Main.plugin.getConfig().set("Holograms", l);
-            Main.plugin.saveConfig();
+            Main.getPlugin().getConfig().set("Holograms", l);
+            saveConfig();
         }
     }
 }

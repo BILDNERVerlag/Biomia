@@ -1,4 +1,4 @@
-package de.biomia.server.demoserver.listeners;
+package de.biomia.listeners;
 
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
@@ -17,24 +17,27 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.inventory.ItemStack;
 
+import javax.xml.bind.Marshaller;
 import java.util.HashMap;
 
-public class DemoListener implements Listener {
+public class DemoListener extends BiomiaListener {
 
     public static HashMap<Player, ScrollingInventory> invs = new HashMap<>();
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
+    public void onJoin_(PlayerJoinEvent e) {
 
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
@@ -76,25 +79,6 @@ public class DemoListener implements Listener {
         }
     }
 
-    @EventHandler
-    public void onChat(AsyncPlayerChatEvent e) {
-        Player p = e.getPlayer();
-
-        String msg = e.getMessage();
-        String format;
-
-        String group = RankManager.getPrefix(p);
-
-        if (p.hasPermission("biomia.coloredchat")) {
-            msg = ChatColor.translateAlternateColorCodes('&', msg);
-            format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "\u00A77: \u00A7f" + msg;
-            e.setFormat(format);
-        } else {
-            format = group + Biomia.getBiomiaPlayer(p).getPlayer().getDisplayName() + "\u00A77: \u00A7f" + msg;
-            e.setFormat(format);
-        }
-    }
-
     @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onMove(InventoryClickEvent ie) {
@@ -120,10 +104,11 @@ public class DemoListener implements Listener {
     }
 
     @EventHandler
-    public void onInteract(PlayerInteractEvent e) {
+    public void onInteract_(PlayerInteractEvent e) {
         if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK))
             if (e.getItem() != null && e.getItem().getItemMeta().getDisplayName().equals("\u00A7dTeleporter")) {
-                Weltenlabor.si.openCopy(e.getPlayer());
+
+                Weltenlabor.si.computeIfAbsent(Biomia.getBiomiaPlayer(e.getPlayer()), inv -> new ScrollingInventory(e.getPlayer())).openInventorry();
                 e.setCancelled(true);
 
             }

@@ -1,4 +1,4 @@
-package de.biomia.server.lobby.scoreboard;
+package de.biomia.server.lobby;
 
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
@@ -12,7 +12,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
-public class ScoreboardClass {
+public class LobbyScoreboard {
 
     private static void addToEach(Player p) {
         for (Player pl : Bukkit.getOnlinePlayers()) {
@@ -89,7 +89,7 @@ public class ScoreboardClass {
         freunde = sb.getTeam("freunde");
         rank = sb.getTeam("rank");
 
-        rank.setPrefix("\u00A7b" + ChatColors.getGroupName(p));
+        rank.setPrefix("\u00A7b" + getGroupName(p));
         if (rank.getPrefix().contains("Registriert")) {
             rank.setPrefix("\u00A7bNicht ");
             rank.setSuffix("\u00A7bRegistriert!");
@@ -113,5 +113,52 @@ public class ScoreboardClass {
             i++;
         }
 
+    }
+
+    public static String getGroupName(Player p) {
+
+        String rankName = RankManager.getRank(p);
+        if (rankName.contains("Premium")) {
+            rankName = rankName.substring(7);
+            switch (rankName) {
+            case "Eins":
+                rankName = "Premium I";
+                break;
+            case "Zwei":
+                rankName = "Premium II";
+                break;
+            case "Drei":
+                rankName = "Premium III";
+                break;
+            case "Vier":
+                rankName = "Premium IV";
+                break;
+            case "Fuenf":
+                rankName = "Premium V";
+                break;
+            case "Sechs":
+                rankName = "Premium VI";
+                break;
+            case "Sieben":
+                rankName = "Premium VII";
+                break;
+            case "Acht":
+                rankName = "Premium VIII";
+                break;
+            case "Neun":
+                rankName = "Premium IX";
+                break;
+            case "Zehn":
+                rankName = "Premium X";
+                break;
+            case "Reg":
+                rankName = "Spieler";
+                break;
+            case "Unreg":
+                rankName = "Registriert";
+                break;
+            }
+        }
+        return rankName;
     }
 }

@@ -33,7 +33,7 @@ class CosmeticInventory implements Listener {
         this.bp = bp;
         this.cosmeticItems = (ArrayList<CosmeticItem>) items;
         inv = Bukkit.createInventory(null, 27, "\u00A75Cosmetics");
-        Bukkit.getPluginManager().registerEvents(this, Main.plugin);
+        Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
     }
 
     @EventHandler

@@ -7,6 +7,10 @@
     <pattern value="de.biomiaAPI.main.Main" />
     <pattern value="de.biomia.api.main.Main" />
     <pattern value="de.biomia.api.main.Main" method="onEnable" />
+    <pattern value="de.biomia.Main" />
+    <pattern value="de.biomia.Main" method="onEnable" />
+    <pattern value="de.biomia.Main" method="onLoad" />
+    <pattern value="de.biomia.Main" method="onDisable" />
   </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Desktop/BiomiaDoc" />

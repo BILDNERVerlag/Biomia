@@ -23,7 +23,7 @@ public class BiomiaPlayer extends OfflineBiomiaPlayer {
     private boolean getDamage = true;
     private boolean damageEntitys = true;
     private QuestPlayer questPlayer;
-    private Player player;
+    private final Player player;
 
     // CONSTRUCTOR
     public BiomiaPlayer(Player p) {

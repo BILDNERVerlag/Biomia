@@ -60,7 +60,7 @@ public class EasterEvent implements Listener {
             specialEggLocation = null;
             return;
         }
-        Bukkit.getPluginManager().registerEvents(this, Main.plugin);
+        Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
         startSpawningEggs();
         spawnSpecialEgg();
     }
@@ -119,7 +119,7 @@ public class EasterEvent implements Listener {
                     blocks.add(b);
                 }
             }
-        }.runTaskTimer(Main.plugin, 0, 20 * 60 * 2);
+        }.runTaskTimer(Main.getPlugin(), 0, 20 * 60 * 2);
     }
 
     @EventHandler

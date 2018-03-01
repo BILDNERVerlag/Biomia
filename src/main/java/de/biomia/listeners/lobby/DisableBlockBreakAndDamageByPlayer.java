@@ -1,4 +1,4 @@
-package de.biomia.server.lobby.listener;
+package de.biomia.listeners.lobby;
 
 import de.biomia.Biomia;
 import org.bukkit.Bukkit;

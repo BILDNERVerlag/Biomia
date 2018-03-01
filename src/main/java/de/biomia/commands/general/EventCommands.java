@@ -8,6 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import static de.biomia.dataManager.configs.Config.saveConfig;
+
 public class EventCommands extends BiomiaCommand {
     public EventCommands(String string) {
         super(string);
@@ -16,7 +18,7 @@ public class EventCommands extends BiomiaCommand {
     //TODO move WinterEvent to special Events
 
     @Override
-    public boolean onCommand(CommandSender sender, String label, String[] args) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
 
         if (sender instanceof Player) {
             Player p = (Player) sender;
@@ -32,7 +34,6 @@ public class EventCommands extends BiomiaCommand {
                             sender.sendMessage("Stell dich in die N\u00fche eines Entities");
                             return true;
                         }
-
                         switch (args[0].toLowerCase()) {
                         case "add":
                             if (args.length == 2) {
@@ -46,7 +47,7 @@ public class EventCommands extends BiomiaCommand {
                         case "remove":
                             if (args.length == 2) {
                                 Config.getConfig().set("Calendar." + args[1], null);
-                                Config.saveConfig();
+                                saveConfig();
                                 sender.sendMessage("Entities f\u00fcr den Tag " + args[1] + " wurden gel\u00F6scht!");
                             } else
                                 sender.sendMessage("/calendar remove <Tag>");
@@ -73,6 +74,5 @@ public class EventCommands extends BiomiaCommand {
             }
         }
         return true;
-
     }
 }

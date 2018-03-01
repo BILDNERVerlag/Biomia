@@ -13,7 +13,6 @@ import de.biomia.general.cosmetics.ParticleItems.ParticleIniter;
 import de.biomia.general.reportsystem.ReportSQL;
 import de.biomia.general.reportsystem.listener.ChatEvent;
 import de.biomia.general.reportsystem.listener.ClickEvent;
-import de.biomia.plugin.listeners.BiomiaListener;
 import de.biomia.plugin.listeners.ChannelListener;
 import de.biomia.plugin.listeners.CosmeticListener;
 import de.biomia.plugin.specialEvents.easterEvent.EasterEvent;
@@ -37,13 +36,10 @@ import java.util.HashMap;
 
 public class Main extends JavaPlugin {
 
-    public static Main plugin;
-
     public static final HashMap<String, String> RANK_NAMES_PREFIXES = new HashMap<>();
-
-    private static String groupName;
-
     private static final EasterEvent event = null;
+    private static Main plugin;
+    private static String groupName;
 
     public static EasterEvent getEvent() {
         return event;
@@ -55,6 +51,10 @@ public class Main extends JavaPlugin {
 
     public static String getGroupName() {
         return groupName;
+    }
+
+    public static void registerCommand(BiomiaCommand biomiaCommand) {
+        ((CraftServer) Bukkit.getServer()).getCommandMap().register(biomiaCommand.getName(), biomiaCommand);
     }
 
     @Override
@@ -85,7 +85,6 @@ public class Main extends JavaPlugin {
         ParticleIniter.init();
         Achievements.init();
         Bukkit.getPluginManager().registerEvents(new StatListener(), this);
-
 
         Cosmetic.initGroup(new CosmeticGroup(Group.HEADS, ItemCreator.itemCreate(Material.SKULL_ITEM, "\u00A7cHeads")));
         Cosmetic.initGroup(new CosmeticGroup(Group.PETS, ItemCreator.itemCreate(Material.MONSTER_EGG, "\u00A7bPets")));
@@ -155,7 +154,6 @@ public class Main extends JavaPlugin {
     }
 
     private void registerListeners() {
-        Bukkit.getPluginManager().registerEvents(new BiomiaListener(), this);
         Bukkit.getPluginManager().registerEvents(new ChatEvent(), this);
         Bukkit.getPluginManager().registerEvents(new ClickEvent(), this);
         Bukkit.getPluginManager().registerEvents(new CosmeticListener(), this);
@@ -184,10 +182,6 @@ public class Main extends JavaPlugin {
 
         registerCommand(new EventCommands("addeggs"));
         registerCommand(new EventCommands("givereward"));
-    }
-
-    public static void registerCommand(BiomiaCommand biomiaCommand) {
-        ((CraftServer) Bukkit.getServer()).getCommandMap().register(biomiaCommand.getName(), biomiaCommand);
     }
 
     @Override

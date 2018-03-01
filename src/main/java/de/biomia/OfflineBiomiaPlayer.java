@@ -117,7 +117,7 @@ public class OfflineBiomiaPlayer {
         return getBiomiaPlayer() != null;
     }
 
-    public final UUID getUUID() {
+    final UUID getUUID() {
         return uuid != null ? uuid : (uuid = getUUID(biomiaPlayerID));
     }
 

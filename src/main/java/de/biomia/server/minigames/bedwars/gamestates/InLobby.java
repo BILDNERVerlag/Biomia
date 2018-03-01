@@ -1,7 +1,6 @@
 package de.biomia.server.minigames.bedwars.gamestates;
 
 import cloud.timo.TimoCloud.api.TimoCloudAPI;
-import de.biomia.Main;
 import de.biomia.messages.BedWarsMessages;
 import de.biomia.server.minigames.bedwars.listeners.CountDown;
 import de.biomia.server.minigames.bedwars.lobby.JoinTeam;

@@ -45,7 +45,7 @@ class CrazyCat implements GadgetListener {
 					i++;
 				}
 			}
-		}.runTaskTimer(Main.plugin, 0, 2);
+        }.runTaskTimer(Main.getPlugin(), 0, 2);
 		item.removeOne(bp, true);
 	}
 

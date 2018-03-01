@@ -17,13 +17,13 @@ public class Quest {
 
     private final ArrayList<NPC> npcs = new ArrayList<>();
     private final HashMap<States, DialogMessage> dialog = new HashMap<>();
-    private String questName;
+    private final String questName;
     private String displayName;
     private String infoText;
     private int questid;
     private final ArrayList<Integer> active_Player_biomiaIDs = getActivePlayerBiomiaIDs();
     private int cooldown;
-    private int band;
+    private final int band;
     private boolean repeatable;
     private boolean removeOnReload;
     private boolean playableWithParty;

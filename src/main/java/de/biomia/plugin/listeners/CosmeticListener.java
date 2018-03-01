@@ -49,7 +49,7 @@ public class CosmeticListener implements Listener {
                             b.setType(blocksMaterial.get(b.getLocation()));
                             b.setData(blocksData.get(b.getLocation()));
                         }
-                    }.runTaskLater(Main.plugin, 20 * 25);
+                    }.runTaskLater(Main.getPlugin(), 20 * 25);
                 } else if (e.getHitEntity() != null) {
                     Entity ent = e.getHitEntity();
                     if (ent instanceof ArmorStand) {
@@ -61,7 +61,7 @@ public class CosmeticListener implements Listener {
                         public void run() {
                             ent.setGlowing(false);
                         }
-                    }.runTaskLater(Main.plugin, 20 * 25);
+                    }.runTaskLater(Main.getPlugin(), 20 * 25);
                 }
                 break;
             case "Freezer":

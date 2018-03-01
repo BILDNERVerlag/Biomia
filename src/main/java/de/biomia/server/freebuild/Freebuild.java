@@ -2,14 +2,14 @@ package de.biomia.server.freebuild;
 
 import de.biomia.Main;
 import de.biomia.commands.freebuild.RespawnCommand;
+import de.biomia.listeners.FreebuildListener;
 import de.biomia.server.freebuild.home.Home;
 import de.biomia.server.freebuild.home.commands.DeleteHomeCommand;
 import de.biomia.server.freebuild.home.commands.HomeCommand;
-import de.biomia.server.freebuild.home.commands.ReloadCommand;
 import de.biomia.server.freebuild.home.commands.SetHomeCommand;
 import de.biomia.server.freebuild.home.homes.HomeManager;
-import de.biomia.server.freebuild.listeners.FreebuildListener;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.plugin.PluginManager;
 
 public class Freebuild {
@@ -21,6 +21,7 @@ public class Freebuild {
         home.onEnable();
         registerEvents();
         loadListeners();
+        Bukkit.setDefaultGameMode(GameMode.SURVIVAL);
     }
 
     public static void terminate() {

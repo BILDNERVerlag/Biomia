@@ -1,7 +1,6 @@
 package de.biomia.server.minigames.bedwars.commands;
 
 import de.biomia.Biomia;
-import de.biomia.Main;
 import de.biomia.commands.BiomiaCommand;
 import de.biomia.dataManager.configs.BedWarsConfig;
 import de.biomia.dataManager.configs.Config;
@@ -11,7 +10,6 @@ import de.biomia.server.minigames.general.teams.Teams;
 import de.biomia.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -41,7 +39,7 @@ public class BWCommand extends BiomiaCommand {
                         Config.getConfig().set("Name", name);
                         Config.getConfig().set("TeamSize", spielerProTeam);
                         Config.getConfig().set("NumberOfTeams", teams);
-                        Main.getPlugin().saveConfig();
+                        Config.saveConfig();
                     } else if (args[0].equalsIgnoreCase("setup")) {
                         sender.sendMessage("\u00A7c/sw setup <SpielerProTeam> <Teams> <MapName>");
                     } else if (args[0].equalsIgnoreCase("addloc")) {

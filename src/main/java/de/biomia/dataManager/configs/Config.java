@@ -18,16 +18,15 @@ abstract public class Config {
     }
 
     private static void addDefaults() {
-        Main plugin = Main.getPlugin();
 
-        File file = new File(plugin.getDataFolder(), "config.yml");
+        File file = new File(Main.getPlugin().getDataFolder(), "config.yml");
         if (!file.exists()) {
-            plugin.getLogger().info("configs.yml not found, creating!");
-            plugin.saveDefaultConfig();
-            plugin.saveConfig();
+            Main.getPlugin().getLogger().info("configs.yml not found, creating!");
+            Main.getPlugin().saveDefaultConfig();
+            saveConfig();
             getConfig().options().copyDefaults(true);
         } else {
-            plugin.getLogger().info("configs.yml found, loading!");
+            Main.getPlugin().getLogger().info("configs.yml found, loading!");
         }
     }
 

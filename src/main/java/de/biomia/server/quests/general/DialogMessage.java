@@ -106,7 +106,7 @@ public class DialogMessage {
                     if (qp.getDialog() != null)
                         qp.getDialog().execute(qp);
                 }
-            }.runTaskLater(Main.plugin, 20);
+            }.runTaskLater(Main.getPlugin(), 20);
         }
     }
 

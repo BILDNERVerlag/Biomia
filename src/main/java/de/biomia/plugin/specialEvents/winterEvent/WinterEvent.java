@@ -19,7 +19,7 @@ package de.biomia.plugin.specialEvents.winterEvent;//package de.biomia.specialEv
 //	@EventHandler
 //	public void onEntityInteract(PlayerInteractAtEntityEvent e) {
 //		for (int day = 1; day < 25; day++) {
-//			if (BiomiaPluginMain.plugin.getConfig().getStringList("Calendar." + day)
+//			if (BiomiaPluginMain.getPlugin().getConfig().getStringList("Calendar." + day)
 //					.contains(e.getRightClicked().getUniqueId().toString())) {
 //
 //				if (getDay() == 0) {

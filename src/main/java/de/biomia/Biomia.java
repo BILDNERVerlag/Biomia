@@ -25,7 +25,7 @@ public class Biomia {
                     p.kickPlayer(null);
                 Bukkit.shutdown();
             }
-        }.runTaskLater(Main.plugin, 10 * 20);
+        }.runTaskLater(Main.getPlugin(), 10 * 20);
     }
 
     public static void removeBiomiaPlayer(Player p) {
@@ -46,7 +46,8 @@ public class Biomia {
         String name = OfflineBiomiaPlayer.getName(biomiaID);
         if (name != null)
             return getOfflineBiomiaPlayer(name);
-        return null;
+        else
+            return getOfflineBiomiaPlayer(biomiaID);
     }
 
     public static OfflineBiomiaPlayer getOfflineBiomiaPlayer(String name) {

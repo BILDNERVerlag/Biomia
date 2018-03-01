@@ -232,6 +232,4 @@ public class ClickEvent implements Listener {
             }
         }
     }
-
-
 }

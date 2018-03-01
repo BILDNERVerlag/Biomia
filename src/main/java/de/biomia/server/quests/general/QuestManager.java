@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class QuestManager {
 
-    private ArrayList<Quest> quests = new ArrayList<>();
+    private final ArrayList<Quest> quests = new ArrayList<>();
 
     public Quest getQuest(int questID) {
         for (Quest q : quests) {

@@ -5,9 +5,7 @@ import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.Main;
 import de.biomia.commands.lobby.LobbySettingsCommand;
 import de.biomia.commands.lobby.RandomServerGroupCommand;
-import de.biomia.server.lobby.listener.*;
-import de.biomia.server.lobby.scoreboard.ChatColors;
-import de.biomia.server.lobby.scoreboard.ScoreboardClass;
+import de.biomia.listeners.lobby.*;
 import de.biomia.tools.ItemCreator;
 import de.biomia.tools.LastPositionListener;
 import de.biomia.tools.Teleporter;
@@ -51,7 +49,7 @@ public class Lobby {
         Bukkit.getServer().createWorld(new WorldCreator("BedwarsSignlobby"));
         Bukkit.getServer().createWorld(new WorldCreator("SkywarsSignlobby"));
         for (Player p : Bukkit.getOnlinePlayers()) {
-            ScoreboardClass.sendScoreboard(p);
+            LobbyScoreboard.sendScoreboard(p);
             p.setAllowFlight(true);
         }
 
@@ -65,12 +63,11 @@ public class Lobby {
         Bukkit.getPluginManager().registerEvents(new HungerFull(), getPlugin());
         Bukkit.getPluginManager().registerEvents(new Join(), getPlugin());
         Bukkit.getPluginManager().registerEvents(new NoDamage(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new ChatColors(), getPlugin());
         Bukkit.getPluginManager().registerEvents(new ChatEvent(), getPlugin());
         Bukkit.getPluginManager().registerEvents(new PlayerSwapHandItems(), getPlugin());
         Bukkit.getPluginManager().registerEvents(new DisableBlockBreakAndDamageByPlayer(), getPlugin());
         Bukkit.getPluginManager().registerEvents(new DoubleJump(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new de.biomia.server.lobby.listener.Inventory(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new de.biomia.listeners.lobby.Inventory(), getPlugin());
         Bukkit.getPluginManager().registerEvents(new LastPositionListener(), getPlugin());
 
         // BauWelt Portal

@@ -1,9 +1,7 @@
 package de.biomia.general.reportsystem;
 
 import de.biomia.BiomiaPlayer;
-import de.biomia.Main;
 import de.biomia.general.reportsystem.listener.Channel;
-import de.biomia.general.reportsystem.listener.ChatEvent;
 import de.biomia.general.reportsystem.listener.ClickEvent;
 import de.biomia.tools.ItemCreator;
 import org.bukkit.Bukkit;
@@ -63,7 +61,7 @@ public class PlayerBan {
 
     public void setReason(String reason) {
         if (reason.equals(Grund.ANDERER_GRUND.name())) {
-            ChatEvent.waitForCostumReason.put(bp, this);
+            ReportManager.waitForCostumReason.put(bp, this);
             bp.getPlayer().sendMessage("\u00A7bBitte gib den Grund in den Chat ein!");
         } else {
             this.reason = reason;

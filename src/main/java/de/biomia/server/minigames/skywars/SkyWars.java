@@ -15,6 +15,8 @@ import de.biomia.server.minigames.skywars.var.Variables;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 
+import static de.biomia.dataManager.configs.Config.saveConfig;
+
 public class SkyWars {
 
     public static GameState gameState = GameState.LOBBY;
@@ -22,7 +24,7 @@ public class SkyWars {
     public static void init() {
 
         Main.getPlugin().saveDefaultConfig();
-        Main.getPlugin().saveConfig();
+        saveConfig();
 
         Main.getPlugin().getServer().createWorld(new WorldCreator(Variables.name));
 

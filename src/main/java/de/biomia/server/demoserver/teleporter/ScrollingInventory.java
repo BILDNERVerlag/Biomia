@@ -23,10 +23,12 @@ public class ScrollingInventory implements Listener {
     private ItemStack next;
     private ItemStack back;
     private int side = 0;
+    private Player player;
 
-    public ScrollingInventory(String name, int reihen) {
-        inv = Bukkit.createInventory(null, reihen * 9 + 9, name);
-        this.items_per_side = reihen * 9;
+    public ScrollingInventory(Player player) {
+        this.player = player;
+        inv = Bukkit.createInventory(null, 36, "\u00A7eW\u00e4hle dein Ziel!");
+        this.items_per_side = 27;
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
     }
 
@@ -35,13 +37,44 @@ public class ScrollingInventory implements Listener {
     }
 
     private void clearItems() {
-        for (ItemStack is : inv.getContents()) {
-            inv.remove(is);
-        }
+        inv.clear();
+        items.clear();
     }
 
-    public void clearAllItems() {
-        items.clear();
+    private void displaySide(int i) {
+        clearItems();
+        side = i;
+        if (items.size() - side - items_per_side > side * items_per_side)
+            setNext();
+        if (side > 0)
+            setBack();
+        int from = side * items_per_side;
+        int to = (side + 1) * items_per_side;
+        int a = 0;
+        for (ItemStack is : items.subList(from, (to > items.size() ? items.size() : to))) {
+            inv.setItem(a, is);
+            a++;
+        }
+
+    }
+
+    private void setNext() {
+        if (next == null)
+            next = ItemCreator.itemCreate(Material.BLAZE_ROD, "\u00A7aN\u00e4chste Seite");
+        inv.setItem(inv.getSize() - 2, next);
+    }
+
+    private void setBack() {
+        if (back == null)
+            back = ItemCreator.itemCreate(Material.STICK, "\u00A7aLetzte Seite");
+        inv.setItem(inv.getSize() - 8, back);
+    }
+
+    public void openInventorry() {
+        clearItems();
+        Weltenlabor.bauten.forEach(each -> items.add(each.getItem()));
+        displaySide(0);
+        player.openInventory(inv);
     }
 
     @EventHandler
@@ -67,48 +100,5 @@ public class ScrollingInventory implements Listener {
                 }
             }
         }
-    }
-
-    private void displaySide(int i) {
-        clearItems();
-        side = i;
-        if (items.size() - side - items_per_side > side * items_per_side)
-            setNext();
-        if (side > 0)
-            setBack();
-        int from = side * items_per_side;
-        int to = (side + 1) * items_per_side;
-        int a = 0;
-        for (ItemStack is : items.subList(from, (to > items.size() ? items.size() : to))) {
-            inv.setItem(a, is);
-            a++;
-        }
-
-    }
-
-    public void openCopy(Player p) {
-        ScrollingInventory sinv = new ScrollingInventory(inv.getName(), items_per_side / 9);
-
-        items.forEach(sinv::addItem);
-
-        sinv.openInventorry(p);
-
-    }
-
-    private void setNext() {
-        if (next == null)
-            next = ItemCreator.itemCreate(Material.BLAZE_ROD, "\u00A7aN\u00e4chste Seite");
-        inv.setItem(inv.getSize() - 2, next);
-    }
-
-    private void setBack() {
-        if (back == null)
-            back = ItemCreator.itemCreate(Material.STICK, "\u00A7aLetzte Seite");
-        inv.setItem(inv.getSize() - 8, back);
-    }
-
-    private void openInventorry(Player p) {
-        displaySide(0);
-        p.openInventory(inv);
     }
 }

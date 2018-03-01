@@ -15,52 +15,40 @@ public class Bauten {
     private int seite;
     private Location loc;
     private Material material;
+    private ItemStack item;
 
     public Bauten(String name, int seite, Location loc, Material material) {
-        setName(name);
-        setSeite(seite);
-        setLoc(loc);
-        setMaterial(material);
-
+        this.name = name;
+        this.seite = seite;
+        this.loc = loc;
+        this.material = material;
         Weltenlabor.bauten.add(this);
 
         ItemStack stack = ItemCreator.itemCreate(getMaterial(), getName());
         ItemMeta meta = stack.getItemMeta();
         meta.setLore(Collections.singletonList("S. " + getSeite()));
         stack.setItemMeta(meta);
-        Weltenlabor.si.addItem(stack);
+
+        this.item = stack;
     }
 
     public String getName() {
         return name;
     }
 
-    private void setName(String name) {
-        this.name = name;
-    }
-
     private int getSeite() {
         return seite;
-    }
-
-    private void setSeite(int seite) {
-        this.seite = seite;
     }
 
     public Location getLoc() {
         return loc;
     }
 
-    private void setLoc(Location loc) {
-        this.loc = loc;
-    }
-
     public Material getMaterial() {
         return material;
     }
 
-    private void setMaterial(Material material) {
-        this.material = material;
+    public ItemStack getItem() {
+        return item;
     }
-
 }

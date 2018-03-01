@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class ReportManager {
 
     public static Inventory reportMenu;
-    public static Inventory grund;
+    public static final Inventory grund;
 
 
     public static final ArrayList<PlayerReport> plReports = new ArrayList<>();
@@ -25,6 +25,9 @@ public class ReportManager {
     public static final ArrayList<PlayerReport> unfinishedReports = new ArrayList<>();
     public static final ArrayList<Player> waitingForBugReason = new ArrayList<>();
     public static final ArrayList<Player> waitingForName = new ArrayList<>();
+    public static final HashMap<BiomiaPlayer, PlayerBan> waitForCostumReason = new HashMap<>();
+
+
     private static final HashMap<BiomiaPlayer, ScrolableReportInventory> currentReportsMenu = new HashMap<>();
 
     static {

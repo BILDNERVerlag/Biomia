@@ -1,6 +1,7 @@
 package de.biomia.server.freebuild.home;
 
 import de.biomia.Main;
+import de.biomia.dataManager.configs.Config;
 import de.biomia.server.freebuild.home.homes.HomeManager;
 import de.biomia.server.freebuild.home.listeners.GatewayListener;
 import de.biomia.server.freebuild.home.storage.HomeFileManager;
@@ -10,18 +11,16 @@ import org.bukkit.configuration.file.FileConfiguration;
 import java.util.logging.Level;
 
 public class Home {
-	//TODO: Neu schreiben
-	private HomeFileManager homeFileManager;
-	private HomeManager homeManager;
-
 	public static final String HOME_DELETED = ChatColor.YELLOW + "Home gel\u00f6scht.";
 	public static final String HOME_NOT_FOUND = ChatColor.RED + "Home nicht gefunden.";
 	public static final String HOME_MAX_REACHED = ChatColor.RED
 			+ "Home kann nicht gesetzt werden. Die maximale Home-Anzahl wurde erreicht.";
-
 	public static final String HOME_SET = ChatColor.YELLOW + "Home gesetzt.";
 	public static final String PLAYER_COMMAND_ONLY = ChatColor.RED + "Nur Spieler k\u00f6nnen dieses Command benutzen.";
 	public static final String TELEPORT_SUCCESS = ChatColor.YELLOW + "Teleportiert.";
+	//TODO: Neu schreiben
+	private HomeFileManager homeFileManager;
+	private HomeManager homeManager;
 
 	public void onEnable() {
 		FileConfiguration config = Main.getPlugin().getConfig();
@@ -30,7 +29,7 @@ public class Home {
 		homeManager = new HomeManager(homeFileManager);
 
 		config.options().copyDefaults(true);
-		Main.getPlugin().saveConfig();
+		Config.saveConfig();
 
 		homeFileManager.saveHomes();
 		loadHomeListeners();

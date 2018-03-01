@@ -15,6 +15,8 @@ import de.biomia.server.minigames.general.GameState;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 
+import static de.biomia.dataManager.configs.Config.saveConfig;
+
 public class BedWars {
 
     public static GameState gameState = GameState.LOBBY;
@@ -22,7 +24,7 @@ public class BedWars {
     public static void init() {
 
         Main.getPlugin().saveDefaultConfig();
-        Main.getPlugin().saveConfig();
+        saveConfig();
 
         Main.getPlugin().getServer().createWorld(new WorldCreator(Variables.name));
         Biomia.getTeamManager().initTeams(Variables.playerPerTeam, Variables.teams);

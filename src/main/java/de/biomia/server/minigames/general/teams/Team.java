@@ -6,12 +6,12 @@ import java.util.ArrayList;
 
 public class Team {
 
-    final ArrayList<Player> players = new ArrayList<>();
-    final ArrayList<Player> deadPlayers = new ArrayList<>();
-    String teamname;
-    int maxPlayer;
-    short colordata;
-    String colorcode;
+    private final ArrayList<Player> players = new ArrayList<>();
+    private final ArrayList<Player> deadPlayers = new ArrayList<>();
+    private String teamname;
+    private int maxPlayer;
+    private short colordata;
+    private String colorcode;
 
     public String getTeamname() {
         return teamname;

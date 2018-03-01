@@ -128,6 +128,6 @@ public class MysteryChest {
                 }
                 counter++;
             }
-        }.runTaskTimer(Main.plugin, 0, 2);
+        }.runTaskTimer(Main.getPlugin(), 0, 2);
     }
 }

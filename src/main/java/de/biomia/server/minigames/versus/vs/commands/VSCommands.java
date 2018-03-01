@@ -17,7 +17,7 @@ public class VSCommands extends BiomiaCommand {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, String label, String[] args) {
+    public boolean execute(CommandSender sender, String label, String[] args) {
 
         if (sender instanceof Player) {
             Player p = (Player) sender;

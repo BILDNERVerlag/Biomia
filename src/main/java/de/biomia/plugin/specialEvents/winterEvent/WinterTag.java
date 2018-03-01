@@ -21,12 +21,12 @@ package de.biomia.plugin.specialEvents.winterEvent;//package de.biomia.specialEv
 //	}
 //
 //	public static void bindCalendarDayToEntity(int day, UUID uuid) {
-//		List<String> entities = BiomiaPluginMain.plugin.getConfig().getStringList("Calendar." + day);
+//		List<String> entities = BiomiaPluginMain.getPlugin().getConfig().getStringList("Calendar." + day);
 //		if(entities == null) {
 //			entities = new ArrayList<>();
 //		}
 //		entities.add(uuid.toString());
-//		BiomiaPluginMain.plugin.getConfig().set("Calendar." + day, entities);
-//		BiomiaPluginMain.plugin.saveConfig();
+//		BiomiaPluginMain.getPlugin().getConfig().set("Calendar." + day, entities);
+//		BiomiaPluginsaveConfig();;
 //	}
 //}

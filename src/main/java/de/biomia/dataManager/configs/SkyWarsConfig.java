@@ -1,7 +1,6 @@
 package de.biomia.dataManager.configs;
 
 import de.biomia.Biomia;
-import de.biomia.Main;
 import de.biomia.server.minigames.general.teams.Team;
 import de.biomia.server.minigames.general.teams.Teams;
 import de.biomia.server.minigames.skywars.chests.Chests;
@@ -33,7 +32,7 @@ public class SkyWarsConfig extends Config {
 
         getConfig().set("lastID", lastID + 1);
         Variables.teamSpawns.put(Biomia.getTeamManager().getTeams().get(lastID), loc);
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static void removeAllLocations() {
@@ -45,7 +44,7 @@ public class SkyWarsConfig extends Config {
         getConfig().set("lastID", 0);
 
         Variables.teamSpawns.clear();
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static void removeAllChests() {
@@ -62,7 +61,7 @@ public class SkyWarsConfig extends Config {
         getConfig().set("lastGoodChestID", 0);
 
         Variables.goodChests.clear();
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static void addGoodChestLocation(Location loc) {
@@ -80,7 +79,7 @@ public class SkyWarsConfig extends Config {
 
         getConfig().set("lastGoodChestID", lastChestID + 1);
         Variables.goodChests.add(Chests.getChestByLoc(loc));
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static void addNormalChestLocation(Location loc) {
@@ -98,7 +97,7 @@ public class SkyWarsConfig extends Config {
 
         getConfig().set("lastNormalChestID", lastChestID + 1);
         Variables.normalChests.add(Chests.getChestByLoc(loc));
-        Main.getPlugin().saveConfig();
+        saveConfig();
 
     }
 
@@ -190,12 +189,12 @@ public class SkyWarsConfig extends Config {
         getConfig().set("Signs." + (id) + ".World", wo);
 
         Variables.signLocations.put(sign, id);
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static void removeAllSigns() {
         getConfig().set("Signs", null);
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static void loadChestsFromConfig() {
@@ -228,7 +227,7 @@ public class SkyWarsConfig extends Config {
     public static void addTeamJoiner(UUID uuid, Team t) {
         getConfig().set("Joiner." + t.getTeamname(), uuid.toString());
         Variables.joiner.put(t, uuid);
-        Main.getPlugin().saveConfig();
+        saveConfig();
     }
 
     public static void loadTeamJoiner() {
@@ -259,7 +258,7 @@ public class SkyWarsConfig extends Config {
 
     public static void removeTeamJoiner(Team t) {
         getConfig().set("Joiner." + t.getTeamname(), null);
-        Main.getPlugin().saveConfig();
+        saveConfig();
 
         if (Variables.joiner.containsKey(t))
             Variables.joiner.remove(t);

@@ -70,7 +70,7 @@ public class BauCommand extends BiomiaCommand {
                 Bukkit.broadcastMessage("\u00A7cReloading....");
                 Main.getPlugin().reloadConfig();
                 Weltenlabor.bauten.clear();
-                Weltenlabor.si.clearAllItems();
+                Weltenlabor.si.clear();
                 DemoConfig.hookInPlugin();
                 Bukkit.broadcastMessage("\u00A7aReloaded!");
             }
