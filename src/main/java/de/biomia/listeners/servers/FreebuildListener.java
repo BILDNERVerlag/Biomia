@@ -1,4 +1,4 @@
-package de.biomia.listeners;
+package de.biomia.listeners.servers;
 
 import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.Biomia;
@@ -48,14 +48,14 @@ public class FreebuildListener extends BiomiaListener {
                 // ZUM FARMSERVER
                 p.teleport(new Location(Bukkit.getWorld("world"), -198, 64, 385, 90, 0));
                 if (Biomia.getBiomiaPlayer(p).isStaff()) {
-                        PlayerToServerConnector.connectToRandom(p, "FarmServer");
+                    PlayerToServerConnector.connectToRandom(p, "FarmServer");
                 } else
                     p.sendMessage(
                             "\u00A7cDas Portal zur Farmwelt ist offenbar noch nicht richtig ausgerichtet! Probier es am besten in ein paar Tagen erneut!");
             } else if ((390 <= z) && (z <= 393)) {
                 // ZUR LOBBY
                 p.teleport(new Location(Bukkit.getWorld("world"), -198, 64, 391, 120, 0));
-                    PlayerToServerConnector.connectToRandom(p, "Lobby");
+                PlayerToServerConnector.connectToRandom(p, "Lobby");
             }
         }
     }

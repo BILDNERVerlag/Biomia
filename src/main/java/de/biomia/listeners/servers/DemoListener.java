@@ -1,4 +1,4 @@
-package de.biomia.listeners;
+package de.biomia.listeners.servers;
 
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
@@ -10,26 +10,19 @@ import de.biomia.server.demoserver.teleporter.Bauten;
 import de.biomia.server.demoserver.teleporter.ScrollingInventory;
 import de.biomia.tools.BackToLobby;
 import de.biomia.tools.ItemCreator;
-import de.biomia.tools.RankManager;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.inventory.ItemStack;
 
-import javax.xml.bind.Marshaller;
 import java.util.HashMap;
 
 public class DemoListener extends BiomiaListener {

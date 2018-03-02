@@ -2,7 +2,7 @@ package de.biomia.server.freebuild;
 
 import de.biomia.Main;
 import de.biomia.commands.freebuild.RespawnCommand;
-import de.biomia.listeners.FreebuildListener;
+import de.biomia.listeners.servers.FreebuildListener;
 import de.biomia.server.freebuild.home.Home;
 import de.biomia.server.freebuild.home.commands.DeleteHomeCommand;
 import de.biomia.server.freebuild.home.commands.HomeCommand;

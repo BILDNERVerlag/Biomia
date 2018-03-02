@@ -8,7 +8,7 @@ import de.biomia.server.quests.general.DialogMessage;
 import de.biomia.server.quests.general.NPCManager;
 import de.biomia.server.quests.general.Quest;
 import de.biomia.server.quests.general.QuestPlayer;
-import de.biomia.listeners.QuestListener;
+import de.biomia.listeners.servers.QuestListener;
 import de.biomia.tools.LastPositionListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;

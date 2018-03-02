@@ -5,8 +5,8 @@ import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.Main;
 import de.biomia.commands.lobby.LobbySettingsCommand;
 import de.biomia.commands.lobby.RandomServerGroupCommand;
-import de.biomia.listeners.LobbyListener;
-import de.biomia.listeners.lobby.*;
+import de.biomia.listeners.LobbyInventoryManager;
+import de.biomia.listeners.servers.LobbyListener;
 import de.biomia.tools.ItemCreator;
 import de.biomia.tools.LastPositionListener;
 import de.biomia.tools.Teleporter;
@@ -53,15 +53,11 @@ public class Lobby {
 
         Bukkit.setDefaultGameMode(GameMode.ADVENTURE);
 
-
         Main.registerCommand(new LobbySettingsCommand());
         Main.registerCommand(new RandomServerGroupCommand());
 
         Bukkit.getPluginManager().registerEvents(new LobbyListener(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new Interact(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new Join(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new DisableBlockBreakAndDamageByPlayer(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new de.biomia.listeners.lobby.Inventory(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new LobbyInventoryManager(), getPlugin());
         Bukkit.getPluginManager().registerEvents(new LastPositionListener(), getPlugin());
 
         // BauWelt Portal

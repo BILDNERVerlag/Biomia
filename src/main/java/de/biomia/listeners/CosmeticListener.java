@@ -1,4 +1,4 @@
-package de.biomia.plugin.listeners;
+package de.biomia.listeners;
 
 import de.biomia.Main;
 import org.bukkit.Location;

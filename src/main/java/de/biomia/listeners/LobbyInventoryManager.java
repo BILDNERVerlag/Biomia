@@ -1,4 +1,4 @@
-package de.biomia.listeners.lobby;
+package de.biomia.listeners;
 
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
@@ -16,7 +16,7 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class Inventory implements Listener {
+public class LobbyInventoryManager implements Listener {
 
     private final static ItemStack elytra = ItemCreator.itemCreate(Material.ELYTRA, "\u00A7bElytra");
     private final static ItemStack bow = ItemCreator.itemCreate(Material.BOW, "\u00A74Teleport-Bogen");

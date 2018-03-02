@@ -4,7 +4,7 @@ import de.biomia.BiomiaPlayer;
 import de.biomia.Main;
 import de.biomia.commands.weltenlabor.BauCommand;
 import de.biomia.dataManager.configs.DemoConfig;
-import de.biomia.listeners.DemoListener;
+import de.biomia.listeners.servers.DemoListener;
 import de.biomia.messages.manager.Scoreboards;
 import de.biomia.server.demoserver.teleporter.Bauten;
 import de.biomia.server.demoserver.teleporter.ScrollingInventory;

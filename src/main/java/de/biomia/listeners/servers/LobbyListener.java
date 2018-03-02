@@ -1,0 +1,242 @@
+package de.biomia.listeners.servers;
+
+import de.biomia.Biomia;
+import de.biomia.BiomiaPlayer;
+import de.biomia.commands.lobby.LobbySettingsCommand;
+import de.biomia.general.cosmetics.MysteryChest;
+import de.biomia.listeners.LobbyInventoryManager;
+import de.biomia.messages.Messages;
+import de.biomia.server.lobby.Lobby;
+import de.biomia.server.lobby.LobbyScoreboard;
+import de.biomia.tools.ItemCreator;
+import de.biomia.tools.RankManager;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.*;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.ItemFrame;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockExplodeEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.player.*;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
+
+public class LobbyListener extends BiomiaListener {
+
+    private final Location stonebutton = new Location(Bukkit.getWorld("LobbyBiomia"), 465, 97, 359);
+
+    @EventHandler
+    public void onDrop(PlayerDropItemEvent di) {
+        if (di.getItemDrop().getItemStack().getItemMeta().getDisplayName() != null) {
+            if (!Biomia.getBiomiaPlayer(di.getPlayer()).canBuild()) {
+                di.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void EntityInteract(PlayerInteractAtEntityEvent e) {
+        e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onHungerSwitch(FoodLevelChangeEvent fe) {
+        if (fe.getEntity() instanceof Player) {
+            Player pl = (Player) fe.getEntity();
+            pl.setFoodLevel(200);
+            fe.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onRespawn(PlayerRespawnEvent pr) {
+        Player pl = pr.getPlayer();
+
+        LobbyInventoryManager.setInventory(pl);
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent e) {
+        e.getPlayer().getInventory().clear();
+    }
+
+    @EventHandler
+    public void onJoin_(PlayerJoinEvent pj) {
+        Player p = pj.getPlayer();
+        p.setAllowFlight(true);
+        sendRegMsg(p);
+        LobbyInventoryManager.setInventory(p);
+        LobbyScoreboard.sendScoreboard(p);
+
+        for (Player pl : Lobby.getSilentLobby()) {
+            p.hidePlayer(pl);
+            pl.hidePlayer(p);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerSwapHandItemsEvent(PlayerSwapHandItemsEvent e) {
+        e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onDamage(EntityDamageEvent e) {
+        if (e.getEntity() instanceof Player) {
+            e.setDamage(0);
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onArmorStandDamage(EntityDamageByEntityEvent e) {
+        if (e.getEntity() instanceof ArmorStand || e.getEntity() instanceof ItemFrame) {
+            if (e.getDamager() instanceof Player) {
+                Player pl = (Player) e.getDamager();
+                if (!LobbySettingsCommand.targetarmorstands.contains(pl)) {
+                    e.setCancelled(true);
+                }
+            } else {
+                e.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void stopCreepers(EntityExplodeEvent e) {
+        e.blockList().clear();
+    }
+
+    @EventHandler
+    public void stopOtherExplosions(BlockExplodeEvent e) {
+        e.blockList().clear();
+    }
+
+    @EventHandler
+    public void onToggleFlight(PlayerToggleFlightEvent e) {
+
+        Player p = e.getPlayer();
+        if (p.getGameMode() != GameMode.CREATIVE) {
+            e.setCancelled(true);
+            if (!Lobby.getInAir().contains(p)) {
+                p.setFlying(false);
+                p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_LARGE_BLAST, 1, 0);
+                Vector jump = p.getLocation().getDirection().multiply(2.6D).setY(1.2);
+                p.setVelocity(p.getVelocity().add(jump));
+                p.setAllowFlight(false);
+                Lobby.getInAir().add(p);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onMove(PlayerMoveEvent e) {
+        if (Lobby.getInAir().contains(e.getPlayer())) {
+            if (e.getPlayer().isOnGround()) {
+                e.getPlayer().setAllowFlight(true);
+                Lobby.getInAir().remove(e.getPlayer());
+            }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onInteract_(PlayerInteractEvent e) {
+        Player pl = e.getPlayer().getPlayer();
+        if ((e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
+            ItemStack itemstack = pl.getInventory().getItemInMainHand();
+            if (itemstack.hasItemMeta()) {
+                if ((itemstack.getType().equals(Material.COMPASS)
+                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7cNavigator"))) {
+                    pl.openInventory(Lobby.getNavigator());
+                } else if ((itemstack.getType().equals(Material.NETHER_STAR)
+                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7dLobby Switcher"))) {
+                    pl.openInventory(Lobby.getLobbySwitcher());
+                } else if ((itemstack.getType().equals(Material.FIREBALL)
+                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7cSilent Lobby:\u00A78 Off"))) {
+                    pl.getInventory().setItem(6,
+                            ItemCreator.itemCreate(Material.FIREWORK_CHARGE, "\u00A7aSilent Lobby:\u00A78 On"));
+
+                    for (Player p : Bukkit.getOnlinePlayers()) {
+                        p.hidePlayer(pl);
+                        pl.hidePlayer(p);
+                    }
+                    Lobby.getSilentLobby().add(pl);
+
+                } else if ((itemstack.getType().equals(Material.FIREWORK_CHARGE)
+                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7aSilent Lobby:\u00A78 On"))) {
+                    pl.getInventory().setItem(6, ItemCreator.itemCreate(Material.FIREBALL, "\u00A7cSilent Lobby:\u00A78 Off"));
+                    for (Player p : Bukkit.getOnlinePlayers()) {
+                        if (!Lobby.getSilentLobby().contains(p)) {
+                            p.showPlayer(pl);
+                            pl.showPlayer(p);
+                        }
+                    }
+                    Lobby.getSilentLobby().remove(pl);
+                } else if ((itemstack.getType().equals(Material.CHEST)
+                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7eCosmetics"))) {
+                    de.biomia.general.cosmetics.Cosmetic.openMainInventory(Biomia.getBiomiaPlayer(pl));
+                }
+            }
+        }
+        if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+
+            if (e.getClickedBlock() != null) {
+                if (e.getClickedBlock().getType() == Material.STONE_BUTTON
+                        && e.getClickedBlock().getLocation().distance(stonebutton) <= 2) {
+                    return;
+                }
+                if (e.getItem() != null && e.getItem().getType() == Material.BOW) {
+                    if (!(e.getClickedBlock().getType() == Material.STONE_BUTTON)
+                            && !(e.getClickedBlock().getLocation().distance(stonebutton) <= 2))
+                        return;
+                    if (e.getClickedBlock().getType() == Material.DAYLIGHT_DETECTOR
+                            || e.getClickedBlock().getType() == Material.DAYLIGHT_DETECTOR_INVERTED
+                            || e.getClickedBlock().getType() == Material.WOOD_BUTTON
+                            || e.getClickedBlock().getType() == Material.LEVER || e.getClickedBlock().getType() == Material.FENCE_GATE)
+                        e.setCancelled(true);
+                }
+                if (!Biomia.getBiomiaPlayer(e.getPlayer()).canBuild()) {
+                    e.setCancelled(true);
+                }
+
+                //TODO check if is right chest
+                if (e.getClickedBlock().getType() == Material.CHEST) {
+                    e.setCancelled(true);
+
+                    BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
+
+                    int coins = bp.getCoins();
+                    if (coins >= 1000) {
+                        bp.takeCoins(1000);
+                        MysteryChest.open(bp);
+                        bp.getPlayer().sendMessage(Messages.PREFIX
+                                + "\u00A7aGl\u00fcckwunsch! Dir wurden 1000 BC abgezogen und du hast ein neues kosmetisches Item erhalten!");
+                    } else {
+                        bp.getPlayer().sendMessage(Messages.PREFIX + "\u00A7aDu hast nicht genug Geld. Dir fehlen noch "
+                                + (1000 - coins) + "\u00A7aBC!");
+                    }
+                }
+            }
+        }
+    }
+
+    private static void sendRegMsg(Player p) {
+        if (RankManager.getRank(p).equals("UnregSpieler")) {
+            TextComponent register = new TextComponent();
+            p.sendMessage(ChatColor.DARK_PURPLE + "Du bist noch nicht registriert!");
+            register.setText(ChatColor.BLUE + "Registriere dich jetzt auf: " + ChatColor.GRAY + "www."
+                    + ChatColor.DARK_PURPLE + "Bio" + ChatColor.DARK_GREEN + "mia"
+                    + ChatColor.GRAY + ".de");
+            register.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://biomia.de"));
+            p.spigot().sendMessage(register);
+            p.sendMessage(ChatColor.GRAY + "Oder sp\u00fcter mit " + ChatColor.GOLD + "/register");
+        }
+    }
+}

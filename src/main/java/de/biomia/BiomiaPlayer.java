@@ -81,7 +81,6 @@ public class BiomiaPlayer extends OfflineBiomiaPlayer {
         return player;
     }
 
-    // PUBLIC METHODS
     public List<PAFPlayer> getFriends() {
         return spigotPafpl.getFriends();
     }

@@ -1,4 +1,4 @@
-package de.biomia.listeners;
+package de.biomia.listeners.servers;
 
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;

@@ -13,8 +13,8 @@ import de.biomia.general.cosmetics.ParticleItems.ParticleIniter;
 import de.biomia.general.reportsystem.ReportSQL;
 import de.biomia.general.reportsystem.listener.ChatEvent;
 import de.biomia.general.reportsystem.listener.ClickEvent;
-import de.biomia.plugin.listeners.ChannelListener;
-import de.biomia.plugin.listeners.CosmeticListener;
+import de.biomia.listeners.ChannelListener;
+import de.biomia.listeners.CosmeticListener;
 import de.biomia.plugin.specialEvents.easterEvent.EasterEvent;
 import de.biomia.server.demoserver.Weltenlabor;
 import de.biomia.server.freebuild.Freebuild;
@@ -131,7 +131,8 @@ public class Main extends JavaPlugin {
         groupName = ((DedicatedServer) ((CraftServer) Bukkit.getServer()).getServer()).propertyManager.properties.getProperty("server-name").split("-")[0];
 
         groupName = groupName.equals("TestServer") ? actualTestGroup : groupName;
-
+//TODO add BauServer ??
+        // se
         switch (groupName) {
         case "Lobby":
             Lobby.init();
