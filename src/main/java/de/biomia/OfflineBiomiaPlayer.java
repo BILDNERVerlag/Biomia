@@ -19,6 +19,10 @@ public class OfflineBiomiaPlayer {
     private String name;
     private UUID uuid;
 
+    OfflineBiomiaPlayer(int biomiaPlayerID) {
+        this.biomiaPlayerID = biomiaPlayerID;
+    }
+
     OfflineBiomiaPlayer(int biomiaPlayerID, String name) {
         this.biomiaPlayerID = biomiaPlayerID;
         this.name = name;

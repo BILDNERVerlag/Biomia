@@ -47,28 +47,22 @@ public class GamemodeCommand extends BiomiaCommand {
                     default:
                         break;
                     }
-
-                    if (args.length >= 2) {
-                        if (gameMode != null) {
-
+                    if (gameMode != null) {
+                        if (args.length >= 2) {
                             Player target = Bukkit.getPlayer(args[1]);
-
                             target.setGameMode(gameMode);
                             target.sendMessage("\u00A75Du bist nun im GameMode \u00A72" + gameMode.name().toLowerCase());
-                            p.sendMessage("\u00A75Der Spieler\u00A72 " + target.getName() + " \u00A75ist nun im GameMode \u00A72"
-                                    + gameMode.name().toLowerCase());
-                        }
-                    } else {
-                        if (gameMode != null) {
+                            p.sendMessage("\u00A75Der Spieler\u00A72 " + target.getName() + " \u00A75ist nun im GameMode \u00A72" + gameMode.name().toLowerCase());
+                        } else {
                             p.setGameMode(gameMode);
                             p.sendMessage("\u00A75Du bist nun im GameMode \u00A72" + gameMode.name().toLowerCase());
                         }
+                    } else {
+                        p.sendMessage("/gm <GameMode> [Spieler]");
                     }
                 } else {
-                    p.sendMessage("/gm <GameMode> [Spieler]");
+                    sender.sendMessage(Messages.NO_PERM);
                 }
-            } else {
-                sender.sendMessage(Messages.NO_PERM);
             }
         }
         return true;

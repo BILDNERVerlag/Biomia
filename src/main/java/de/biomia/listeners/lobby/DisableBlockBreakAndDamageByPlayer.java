@@ -39,8 +39,4 @@ public class DisableBlockBreakAndDamageByPlayer implements Listener {
         }
     }
 
-    @EventHandler
-    public void EntityInteract(PlayerInteractAtEntityEvent e) {
-        e.setCancelled(true);
-    }
 }

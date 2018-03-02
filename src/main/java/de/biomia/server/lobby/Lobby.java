@@ -5,14 +5,12 @@ import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.Main;
 import de.biomia.commands.lobby.LobbySettingsCommand;
 import de.biomia.commands.lobby.RandomServerGroupCommand;
+import de.biomia.listeners.LobbyListener;
 import de.biomia.listeners.lobby.*;
 import de.biomia.tools.ItemCreator;
 import de.biomia.tools.LastPositionListener;
 import de.biomia.tools.Teleporter;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.WorldCreator;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -53,20 +51,16 @@ public class Lobby {
             p.setAllowFlight(true);
         }
 
+        Bukkit.setDefaultGameMode(GameMode.ADVENTURE);
+
+
         Main.registerCommand(new LobbySettingsCommand());
         Main.registerCommand(new RandomServerGroupCommand());
 
-        Bukkit.getPluginManager().registerEvents(new Click(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new Drop(), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new LobbyListener(), getPlugin());
         Bukkit.getPluginManager().registerEvents(new Interact(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new Respawn(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new HungerFull(), getPlugin());
         Bukkit.getPluginManager().registerEvents(new Join(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new NoDamage(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new ChatEvent(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new PlayerSwapHandItems(), getPlugin());
         Bukkit.getPluginManager().registerEvents(new DisableBlockBreakAndDamageByPlayer(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new DoubleJump(), getPlugin());
         Bukkit.getPluginManager().registerEvents(new de.biomia.listeners.lobby.Inventory(), getPlugin());
         Bukkit.getPluginManager().registerEvents(new LastPositionListener(), getPlugin());
 

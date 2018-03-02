@@ -28,6 +28,7 @@ import de.biomia.tools.PlayerToServerConnector;
 import net.minecraft.server.v1_12_R1.DedicatedServer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.command.CommandMap;
 import org.bukkit.craftbukkit.v1_12_R1.CraftServer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -40,6 +41,8 @@ public class Main extends JavaPlugin {
     private static final EasterEvent event = null;
     private static Main plugin;
     private static String groupName;
+    private static CommandMap commandMap;
+
 
     public static EasterEvent getEvent() {
         return event;
@@ -54,7 +57,13 @@ public class Main extends JavaPlugin {
     }
 
     public static void registerCommand(BiomiaCommand biomiaCommand) {
-        ((CraftServer) Bukkit.getServer()).getCommandMap().register(biomiaCommand.getName(), biomiaCommand);
+        try {
+            if (commandMap == null)
+                commandMap = ((CraftServer) plugin.getServer()).getCommandMap();
+            commandMap.register("biomia", biomiaCommand);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

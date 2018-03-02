@@ -35,7 +35,7 @@ import org.bukkit.event.player.*;
 abstract class BiomiaListener implements Listener {
 
     @EventHandler
-    protected final void onInteract(PlayerInteractEvent e) {
+    public final void onInteract(PlayerInteractEvent e) {
         if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             if (e.getItem() != null) {
                 if (e.getItem().isSimilar(BackToLobby.getBackToLobbyItem()))
@@ -48,7 +48,7 @@ abstract class BiomiaListener implements Listener {
     }
 
     @EventHandler
-    protected final void onClick(InventoryClickEvent e) {
+    public final void onClick(InventoryClickEvent e) {
         if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
             if (Cosmetic.getMainInventory().equals(e.getClickedInventory()) && Cosmetic.openGroupInventory(Biomia.getBiomiaPlayer((Player) e.getWhoClicked()), e.getCurrentItem().getItemMeta().getDisplayName())) {
                 e.setCancelled(true);
@@ -57,7 +57,7 @@ abstract class BiomiaListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    protected final void onJoin(PlayerJoinEvent e) {
+    public final void onJoin(PlayerJoinEvent e) {
         e.setJoinMessage(null);
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         if (RankManager.getRank(e.getPlayer()).equals("default")) {
@@ -69,7 +69,7 @@ abstract class BiomiaListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    protected final void onLeave(PlayerQuitEvent e) {
+    public final void onLeave(PlayerQuitEvent e) {
         e.setQuitMessage(null);
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         for (Cosmetic.Group g : Cosmetic.getGroups().keySet())
@@ -78,19 +78,19 @@ abstract class BiomiaListener implements Listener {
     }
 
     @EventHandler
-    protected final void onBlockBreak(BlockBreakEvent e) {
+    public final void onBlockBreak(BlockBreakEvent e) {
         if (!Biomia.getBiomiaPlayer(e.getPlayer()).canBuild())
             e.setCancelled(true);
     }
 
     @EventHandler
-    protected final void onBlockSet(BlockPlaceEvent e) {
+    public final void onBlockSet(BlockPlaceEvent e) {
         if (!Biomia.getBiomiaPlayer(e.getPlayer()).canBuild())
             e.setCancelled(true);
     }
 
     @EventHandler
-    protected final void damageToPlayer(EntityDamageEvent e) {
+    public final void damageToPlayer(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player) {
             if (!Biomia.getBiomiaPlayer((Player) e.getEntity()).canGetDamage()) {
                 e.setCancelled(true);
@@ -101,7 +101,7 @@ abstract class BiomiaListener implements Listener {
     }
 
     @EventHandler
-    protected final void damageByPlayer(EntityDamageByEntityEvent e) {
+    public final void damageByPlayer(EntityDamageByEntityEvent e) {
         if (e.getDamager() instanceof Player) {
             Player p = (Player) e.getDamager();
 
@@ -112,14 +112,14 @@ abstract class BiomiaListener implements Listener {
     }
 
     @EventHandler
-    protected final void onCommand(PlayerCommandPreprocessEvent pe) {
+    public final void onCommand(PlayerCommandPreprocessEvent pe) {
 
         String cmd = pe.getMessage().split(" ")[0];
 
         if (cmd.equalsIgnoreCase("/rl") || cmd.equalsIgnoreCase("/reload")) {
             pe.setCancelled(true);
             if (pe.getPlayer().hasPermission("biomia.reload")) {
-                Bukkit.broadcastMessage(Messages.PREFIX + "\u00A77Alle Serverdateien\u00A7c werden \u00A77von \u00A7b" + pe.getPlayer().getDisplayName() + " \u00A7cneu geladen!");
+                Bukkit.broadcastMessage(Messages.PREFIX + "\u00A77Alle Serverdateien \u00A7cwerden \u00A77von \u00A7b" + pe.getPlayer().getDisplayName() + " \u00A77neu geladen!");
                 Bukkit.reload();
                 Bukkit.broadcastMessage(Messages.PREFIX + "\u00A77Alle Serverdateien \u00A7cwurden \u00A77erfolgreich von \u00A7b" + pe.getPlayer().getDisplayName() + " \u00A77neu geladen!");
             } else
@@ -131,19 +131,19 @@ abstract class BiomiaListener implements Listener {
     }
 
     @EventHandler
-    protected final void onInteractEntity(PlayerInteractAtEntityEvent e) {
+    public final void onInteractEntity(PlayerInteractAtEntityEvent e) {
         if (CosmeticPetItem.isOwner(Biomia.getBiomiaPlayer(e.getPlayer()), e.getRightClicked())) {
             e.getRightClicked().addPassenger(e.getPlayer());
         }
     }
 
     @EventHandler
-    protected void onDeath(PlayerDeathEvent e) {
+    public void onDeath(PlayerDeathEvent e) {
         e.setDeathMessage(null);
     }
 
     @EventHandler
-    protected void onChat(AsyncPlayerChatEvent e) {
+    public void onChat(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
         if (p.hasPermission("biomia.coloredchat")) {
             e.setMessage(ChatColor.translateAlternateColorCodes('&', e.getMessage()));
@@ -152,7 +152,7 @@ abstract class BiomiaListener implements Listener {
     }
 
     @EventHandler
-    protected void onChat_Report(AsyncPlayerChatEvent e) {
+    public void onChat_Report(AsyncPlayerChatEvent e) {
 
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
