@@ -1,7 +1,7 @@
 package de.biomia.commands.general;
 
 import de.biomia.commands.BiomiaCommand;
-import de.biomia.messages.BiomiaMessages;
+import de.biomia.messages.Messages;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -15,7 +15,7 @@ public class EatCommand extends BiomiaCommand {
     public boolean execute(CommandSender sender, String label, String[] args) {
 
         if (!sender.hasPermission("biomia.eat")) {
-            sender.sendMessage(BiomiaMessages.NO_PERM);
+            sender.sendMessage(Messages.NO_PERM);
             return true;
         }
 

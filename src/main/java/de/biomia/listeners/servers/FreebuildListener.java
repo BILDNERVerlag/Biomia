@@ -1,8 +1,8 @@
 package de.biomia.listeners.servers;
 
-import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
+import de.biomia.messages.Messages;
 import de.biomia.messages.manager.Scoreboards;
 import de.biomia.tools.InventorySave;
 import de.biomia.tools.PlayerToServerConnector;
@@ -14,8 +14,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.util.ArrayList;
-
 public class FreebuildListener extends BiomiaListener {
 
     @EventHandler
@@ -23,7 +21,7 @@ public class FreebuildListener extends BiomiaListener {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         InventorySave.setInventory(p, "FreebuildServer");
-        p.sendMessage("\u00A77[\u00A75Bio\u00A72mia\u00A77] \u00A76Willkommen auf dem FreebuildServer, " + p.getName() + "!");
+        p.sendMessage(Messages.PREFIX + "\u00A76Willkommen auf dem FreebuildServer, " + p.getName() + "!");
         bp.setBuild(true);
         Scoreboards.setTabList(p);
     }
@@ -36,7 +34,6 @@ public class FreebuildListener extends BiomiaListener {
 
     @EventHandler
     private void onMove(PlayerMoveEvent event) {
-        ArrayList<ServerObject> servers = new ArrayList<>();
         Player p = event.getPlayer();
 
         double x = p.getLocation().getX();

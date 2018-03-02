@@ -5,10 +5,10 @@ public class BedWarsMessages {
     public static final String bedwars = "\u00A75Bed\u00A72Wars";
     // %t = CountDown
     public static final String restartCountDown = "\u00A7cRestart in \u00A76%t \u00A7cSekunden!";
-    public static final String lobbyCountDown = BiomiaMessages.PREFIX + "\u00A75Start in \u00A72%t \u00A75Sekunden!";
+    public static final String lobbyCountDown = Messages.PREFIX + "\u00A75Start in \u00A72%t \u00A75Sekunden!";
     // %mt = Max Teams, %ts = Team Size
     public static final String mapSize = "\u00A75%mt \u00A77x \u00A72%ts";
-    public static final String notEnoughPlayerToStart = BiomiaMessages.PREFIX + "\u00A7cZu wenig Spieler! Warte auf weitere...";
+    public static final String notEnoughPlayerToStart = Messages.PREFIX + "\u00A7cZu wenig Spieler! Warte auf weitere...";
     public static final String fillSecondLine = "\u00A7cBitte gib eine Zahl in Zeile 2 ein!";
     public static final String teamFull = "Das Team ist voll!";
     public static final String alreadyInTeam = "Du bist bereits in diesem Team!";

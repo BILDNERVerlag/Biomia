@@ -28,12 +28,12 @@ public class HomeCommands extends BiomiaCommand {
         Location ploc = p.getLocation();
         int biomiaPlayerID = 0;
         switch (getName().toLowerCase()) {
-            case "sethome":
+            case "setwarp":
                 Location oldHomeLocation = getLocation(p);
                 if (oldHomeLocation != null) {
-                    p.sendMessage("&cDu hast bereits ein Home.");
+                    //server
                 } else {
-                    MySQL.executeUpdate("INSERT INTO FreebuildHomes (`biomiaID`, `x`, `y`, `z`, `yaw`, `pitch`) VALUES (" +
+                    MySQL.executeUpdate("INSERT INTO Warps (`biomiaID`, `x`, `y`, `z`, `yaw`, `pitch`) VALUES (" +
                             Biomia.getBiomiaPlayer(p).getBiomiaPlayerID() + "," +
                             ploc.getBlockX() + "," +
                             ploc.getBlockY() + "," +
@@ -43,7 +43,7 @@ public class HomeCommands extends BiomiaCommand {
                             ")", MySQL.Databases.biomia_db);
                 }
                 break;
-            case "home":
+            case "warp":
                 Location homeLoc = getLocation(p);
                 if (homeLoc == null) {
                     p.sendMessage("&cKein Home gefunden.");

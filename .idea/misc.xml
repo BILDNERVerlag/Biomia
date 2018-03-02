@@ -4,6 +4,9 @@
     <entry_points version="2.0">
       <entry_point TYPE="field" FQNAME="de.biomiaAPI.QuestEvents.TakeItemEvent qp" />
     </entry_points>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="org.bukkit.event.EventHandler" />
+    </list>
     <pattern value="de.biomiaAPI.main.Main" />
     <pattern value="de.biomia.api.main.Main" />
     <pattern value="de.biomia.api.main.Main" method="onEnable" />

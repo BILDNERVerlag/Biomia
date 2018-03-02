@@ -4,7 +4,7 @@ import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
 import de.biomia.Main;
 import de.biomia.commands.BiomiaCommand;
-import de.biomia.messages.BiomiaMessages;
+import de.biomia.messages.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -23,7 +23,7 @@ public class BuildCommand extends BiomiaCommand {
                 if (sender instanceof Player)
                     bp = Biomia.getBiomiaPlayer((Player) sender);
                 else {
-                    sender.sendMessage(BiomiaMessages.NO_PLAYER);
+                    sender.sendMessage(Messages.NO_PLAYER);
                     return true;
                 }
             } else {
@@ -31,7 +31,7 @@ public class BuildCommand extends BiomiaCommand {
                 if (p != null)
                     bp = Biomia.getBiomiaPlayer(p);
                 else {
-                    sender.sendMessage(BiomiaMessages.NOT_ONLINE);
+                    sender.sendMessage(Messages.NOT_ONLINE);
                     return true;
                 }
             }
@@ -51,7 +51,7 @@ public class BuildCommand extends BiomiaCommand {
 
             }
         } else
-            sender.sendMessage(BiomiaMessages.NO_PERM);
+            sender.sendMessage(Messages.NO_PERM);
 
         return true;
     }

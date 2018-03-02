@@ -3,7 +3,7 @@ package de.biomia.commands.general;
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
 import de.biomia.commands.BiomiaCommand;
-import de.biomia.messages.BiomiaMessages;
+import de.biomia.messages.Messages;
 import net.minecraft.server.v1_12_R1.EntityPlayer;
 import net.minecraft.server.v1_12_R1.PacketPlayOutExplosion;
 import net.minecraft.server.v1_12_R1.Vec3D;
@@ -37,7 +37,7 @@ public class TrollCommand extends BiomiaCommand {
                         sender.sendMessage("\u00A7aDu bist nun im Trollmodus");
                     }
                 } else {
-                    sender.sendMessage(BiomiaMessages.NO_PERM);
+                    sender.sendMessage(Messages.NO_PERM);
                 }
             } else if (getName().equalsIgnoreCase("crash")) {
                 if (args.length >= 1) {
@@ -51,7 +51,7 @@ public class TrollCommand extends BiomiaCommand {
             }
 
         } else {
-            sender.sendMessage(BiomiaMessages.NO_PLAYER);
+            sender.sendMessage(Messages.NO_PLAYER);
         }
         return false;
     }

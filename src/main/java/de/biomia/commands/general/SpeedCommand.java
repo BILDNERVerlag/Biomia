@@ -1,7 +1,7 @@
 package de.biomia.commands.general;
 
 import de.biomia.commands.BiomiaCommand;
-import de.biomia.messages.BiomiaMessages;
+import de.biomia.messages.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -18,7 +18,7 @@ public class SpeedCommand extends BiomiaCommand {
         // (optional) argument is another player
 
         if (!sender.hasPermission("biomia.speed")) {
-            sender.sendMessage(BiomiaMessages.NO_PERM);
+            sender.sendMessage(Messages.NO_PERM);
             return true;
         }
 

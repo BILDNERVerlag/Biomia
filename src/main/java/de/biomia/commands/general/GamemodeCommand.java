@@ -1,7 +1,7 @@
 package de.biomia.commands.general;
 
 import de.biomia.commands.BiomiaCommand;
-import de.biomia.messages.BiomiaMessages;
+import de.biomia.messages.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
@@ -61,7 +61,7 @@ public class GamemodeCommand extends BiomiaCommand {
                         p.sendMessage("/gm <GameMode> [Spieler]");
                     }
                 } else {
-                    sender.sendMessage(BiomiaMessages.NO_PERM);
+                    sender.sendMessage(Messages.NO_PERM);
                 }
             }
         }

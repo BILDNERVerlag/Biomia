@@ -4,7 +4,7 @@ import de.biomia.Biomia;
 import de.biomia.commands.BiomiaCommand;
 import de.biomia.general.reportsystem.PlayerReport;
 import de.biomia.general.reportsystem.ReportManager;
-import de.biomia.messages.BiomiaMessages;
+import de.biomia.messages.Messages;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -23,7 +23,7 @@ public class ReportCommand extends BiomiaCommand {
                 new PlayerReport(Biomia.getBiomiaPlayer((Player) sender), Biomia.getOfflineBiomiaPlayer(args[0]));
 
             } else {
-                sender.sendMessage(BiomiaMessages.NO_PLAYER);
+                sender.sendMessage(Messages.NO_PLAYER);
             }
         } else {
             ReportManager.openReportMenu((Player) sender);

@@ -14,8 +14,8 @@ public class SkyWarsItemNames {
     public static final String showKitWithoutColors = showKit.substring(2, showKit.length());
 
     // %c = price to split the lines put: '$'
-    public static final ArrayList<String> notPurchasedKitLore = new ArrayList<>(Arrays.asList("", "\u00A7cNicht Gekauft " + SpecialCharacters.BALLOT_X, "Preis: %c BC's"));
-    public static final ArrayList<String> purchasedKitLore = new ArrayList<>(Arrays.asList("", "\u00A7aGekauft " + SpecialCharacters.CHECK_MARK, "Preis: %c BC's"));
+    public static final ArrayList<String> notPurchasedKitLore = new ArrayList<>(Arrays.asList("", "\u00A7cNicht Gekauft " + SpecialChars.BALLOT_X, "Preis: %c BC's"));
+    public static final ArrayList<String> purchasedKitLore = new ArrayList<>(Arrays.asList("", "\u00A7aGekauft " + SpecialChars.CHECK_MARK, "Preis: %c BC's"));
 
     public static final String oneHitSnowball = "\u00A72One-Hit-Schneeball";
     public static final String gummibogen = "\u00A72Gummibogen";

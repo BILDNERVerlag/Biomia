@@ -1,7 +1,7 @@
 package de.biomia.commands.general;
 
 import de.biomia.commands.BiomiaCommand;
-import de.biomia.messages.BiomiaMessages;
+import de.biomia.messages.Messages;
 import org.bukkit.command.CommandSender;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
@@ -42,7 +42,7 @@ public class PermissionCommand extends BiomiaCommand {
                 sender.sendMessage("\u00A7c/permission <add|remove> <Spieler> <Permission>");
             }
         } else {
-            sender.sendMessage(BiomiaMessages.NO_PERM);
+            sender.sendMessage(Messages.NO_PERM);
 
         }
         return true;

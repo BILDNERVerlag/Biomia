@@ -1,7 +1,7 @@
 package de.biomia.commands.general;
 
 import de.biomia.commands.BiomiaCommand;
-import de.biomia.messages.BiomiaMessages;
+import de.biomia.messages.Messages;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -15,7 +15,7 @@ public class HealCommand extends BiomiaCommand {
     public boolean execute(CommandSender sender, String label, String[] args) {
 
         if (!sender.hasPermission("biomia.heal")) {
-            sender.sendMessage(BiomiaMessages.NO_PERM);
+            sender.sendMessage(Messages.NO_PERM);
             return true;
         }
 
@@ -26,7 +26,7 @@ public class HealCommand extends BiomiaCommand {
 
         Player p = (Player) sender;
         p.setHealth(p.getHealthScale());
-        sender.sendMessage("\u00A7dDu wurdest vollst\u00fcndig geheilt!");
+        sender.sendMessage("\u00A7dDu wurdest vollst\u00e4ndig geheilt!");
 
         return true;
     }

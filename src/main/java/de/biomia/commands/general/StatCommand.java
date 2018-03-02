@@ -4,7 +4,7 @@ import de.biomia.Biomia;
 import de.biomia.OfflineBiomiaPlayer;
 import de.biomia.achievements.Stats;
 import de.biomia.commands.BiomiaCommand;
-import de.biomia.messages.BiomiaMessages;
+import de.biomia.messages.Messages;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -18,7 +18,7 @@ public class StatCommand extends BiomiaCommand {
     public boolean execute(CommandSender sender, String label, String[] args) {
 
         if (!sender.hasPermission("biomia.stats")) {
-            sender.sendMessage(BiomiaMessages.NO_PERM);
+            sender.sendMessage(Messages.NO_PERM);
             return true;
         }
 

@@ -3,7 +3,7 @@ package de.biomia.server.minigames.bedwars.gamestates;
 import de.biomia.Biomia;
 import de.biomia.Main;
 import de.biomia.messages.BedWarsMessages;
-import de.biomia.messages.BiomiaMessages;
+import de.biomia.messages.Messages;
 import de.biomia.server.minigames.bedwars.var.Teleport;
 import de.biomia.tools.PlayerToServerConnector;
 import org.bukkit.Bukkit;
@@ -29,11 +29,11 @@ class End {
             public void run() {
                 while (i >= 0) {
                     if (i == 15) {
-                        Bukkit.broadcastMessage(BiomiaMessages.PREFIX + BedWarsMessages.restartCountDown.replaceAll("%t", i + ""));
+                        Bukkit.broadcastMessage(Messages.PREFIX + BedWarsMessages.restartCountDown.replaceAll("%t", i + ""));
                     } else if (i == 10) {
-                        Bukkit.broadcastMessage(BiomiaMessages.PREFIX + BedWarsMessages.restartCountDown.replaceAll("%t", i + ""));
+                        Bukkit.broadcastMessage(Messages.PREFIX + BedWarsMessages.restartCountDown.replaceAll("%t", i + ""));
                     } else if (i <= 5 && i != 0) {
-                        Bukkit.broadcastMessage(BiomiaMessages.PREFIX + BedWarsMessages.restartCountDown.replaceAll("%t", i + ""));
+                        Bukkit.broadcastMessage(Messages.PREFIX + BedWarsMessages.restartCountDown.replaceAll("%t", i + ""));
                     } else if (i == 0) {
                         for (Player p : Bukkit.getOnlinePlayers()) {
                             PlayerToServerConnector.connectToRandom(p, "Lobby");

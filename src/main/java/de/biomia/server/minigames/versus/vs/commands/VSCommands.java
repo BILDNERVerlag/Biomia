@@ -3,7 +3,7 @@ package de.biomia.server.minigames.versus.vs.commands;
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
 import de.biomia.commands.BiomiaCommand;
-import de.biomia.messages.BiomiaMessages;
+import de.biomia.messages.Messages;
 import de.biomia.server.minigames.versus.VSMain;
 import de.biomia.server.minigames.versus.vs.settings.VSRequest;
 import org.bukkit.Bukkit;
@@ -60,7 +60,7 @@ public class VSCommands extends BiomiaCommand {
                         }
                     }
                 } else
-                    sender.sendMessage(BiomiaMessages.NOT_ONLINE);
+                    sender.sendMessage(Messages.NOT_ONLINE);
             } else
                 sender.sendMessage("Bitte nutze /" + getName() + " <Spielername>");
         }

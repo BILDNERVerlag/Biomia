@@ -2,7 +2,7 @@ package de.biomia.commands.quest;
 
 import de.biomia.Biomia;
 import de.biomia.commands.BiomiaCommand;
-import de.biomia.messages.BiomiaMessages;
+import de.biomia.messages.Messages;
 import de.biomia.messages.manager.ActionBar;
 import de.biomia.server.quests.general.DialogMessage;
 import de.biomia.server.quests.general.NPCManager;
@@ -258,7 +258,7 @@ public class QuestCommands extends BiomiaCommand {
             }
 
         } else {
-            sender.sendMessage(BiomiaMessages.NO_PLAYER);
+            sender.sendMessage(Messages.NO_PLAYER);
         }
 
         long stopTime = System.currentTimeMillis();

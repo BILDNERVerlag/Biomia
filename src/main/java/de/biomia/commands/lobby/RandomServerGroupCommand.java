@@ -1,7 +1,7 @@
 package de.biomia.commands.lobby;
 
 import de.biomia.commands.BiomiaCommand;
-import de.biomia.messages.BiomiaMessages;
+import de.biomia.messages.Messages;
 import de.biomia.tools.PlayerToServerConnector;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -30,7 +30,7 @@ public class RandomServerGroupCommand extends BiomiaCommand {
                 sender.sendMessage("Nutze /randomServerGroup <Gruppe> [Player]");
             }
         } else {
-            sender.sendMessage(BiomiaMessages.NO_PERM);
+            sender.sendMessage(Messages.NO_PERM);
         }
         return true;
     }
