@@ -8,7 +8,7 @@ import de.biomia.server.quests.QuestEvents.GiveItemEvent;
 import de.biomia.server.quests.QuestEvents.TakeItemEvent;
 import de.biomia.server.quests.Quests;
 import de.biomia.server.quests.general.*;
-import de.biomia.server.quests.messages.ItemNames;
+import de.biomia.messages.QuestItemNames;
 import de.biomia.tools.ItemCreator;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
@@ -59,7 +59,7 @@ public class BergHuehner implements Listener {
                 if (state != null) {
                     switch (state) {
                     case STATUS1:
-                        if (ItemConditions.hasItemInInventory(qp, Material.EGG, 3, ItemNames.specialEgg)) {
+                        if (ItemConditions.hasItemInInventory(qp, Material.EGG, 3, QuestItemNames.specialEgg)) {
                             qp.setDialog(comeBackWithEggs);
                             hasEggs.remove(qp);
                         } else {
@@ -83,20 +83,20 @@ public class BergHuehner implements Listener {
             QuestPlayer qp = Biomia.getQuestPlayer(e.getPlayer());
             if (!hasEggs.containsKey(qp)) {
                 if (qp.getPlayer().getLocation().distance(zielLoc) <= 10) {
-                    new GiveItemEvent(Material.EGG, ItemNames.specialEgg, 3).executeEvent(qp);
+                    new GiveItemEvent(Material.EGG, QuestItemNames.specialEgg, 3).executeEvent(qp);
                     if (qp.getPlayer().getInventory().getChestplate() == null)
                         qp.getPlayer().getInventory()
-                                .setChestplate(ItemCreator.itemCreate(Material.ELYTRA, ItemNames.twoMinuteElytra));
+                                .setChestplate(ItemCreator.itemCreate(Material.ELYTRA, QuestItemNames.twoMinuteElytra));
                     hasEggs.put(qp, true);
                     new BukkitRunnable() {
                         @Override
                         public void run() {
                             if (qp.getPlayer().getInventory() != null)
                                 if (ItemConditions.hasItemInInventory(Biomia.getQuestPlayer(e.getPlayer()),
-                                        Material.ELYTRA, 1, ItemNames.twoMinuteElytra)
+                                        Material.ELYTRA, 1, QuestItemNames.twoMinuteElytra)
                                         || ItemConditions.hasItemOnArmor(Biomia.getQuestPlayer(e.getPlayer()),
-                                        Material.ELYTRA, 1, ItemNames.twoMinuteElytra))
-                                    new TakeItemEvent(Material.ELYTRA, ItemNames.twoMinuteElytra, 1).executeEvent(qp);
+                                        Material.ELYTRA, 1, QuestItemNames.twoMinuteElytra))
+                                    new TakeItemEvent(Material.ELYTRA, QuestItemNames.twoMinuteElytra, 1).executeEvent(qp);
                         }
                     }.runTaskLater(Main.getPlugin(), 120 * 20);
                 }
@@ -119,8 +119,8 @@ public class BergHuehner implements Listener {
         // with eggs
         comeBackWithEggs = new DialogMessage(q, tom);
         comeBackWithEggs.setInhalt("Vielen Dank, ich mache mich gleich an die Arbeit!");
-        comeBackWithEggs.addEvent(new TakeItemEvent(Material.EGG, ItemNames.specialEgg, 3));
-        comeBackWithEggs.addEvent(new TakeItemEvent(Material.ELYTRA, ItemNames.twoMinuteElytra, 1));
+        comeBackWithEggs.addEvent(new TakeItemEvent(Material.EGG, QuestItemNames.specialEgg, 3));
+        comeBackWithEggs.addEvent(new TakeItemEvent(Material.ELYTRA, QuestItemNames.twoMinuteElytra, 1));
         comeBackWithEggs.setNext("...", 0, tom).setNext("...", 0, tom).setNext(
                 "Hier, fertig! Am liebsten w\u00fcrde ich jeden Tag einen Kuchen backen. Komm doch morgen wieder!", 0,
                 tom);

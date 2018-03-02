@@ -1,4 +1,4 @@
-package de.biomia.general.reportsystem.listener;
+package de.biomia.general.reportsystem.listeners;
 
 import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataOutput;

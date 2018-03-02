@@ -1,7 +1,7 @@
 package de.biomia.server.minigames.skywars.var;
 
 import de.biomia.dataManager.configs.Config;
-import de.biomia.messages.Messages;
+import de.biomia.messages.BiomiaMessages;
 import de.biomia.messages.SkyWarsItemNames;
 import de.biomia.server.minigames.general.teams.Team;
 import de.biomia.server.minigames.skywars.kits.Kit;
@@ -23,7 +23,7 @@ import java.util.UUID;
 public class Variables {
 
     // Message
-    public static final String prefix = Messages.PREFIX;
+    public static final String prefix = BiomiaMessages.PREFIX;
     public static final String name = Config.getConfig().getString("Name");
     public static final int teams = Config.getConfig().getInt("NumberOfTeams");
     public static final int playerPerTeam = Config.getConfig().getInt("TeamSize");

@@ -3,7 +3,7 @@ package de.biomia.commands.general;
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
 import de.biomia.commands.BiomiaCommand;
-import de.biomia.messages.Messages;
+import de.biomia.messages.BiomiaMessages;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -21,7 +21,7 @@ public class CoinsCommand extends BiomiaCommand {
         if (sender instanceof Player) {
             BiomiaPlayer p = Biomia.getBiomiaPlayer((Player) sender);
             if (args.length == 0) {
-                sender.sendMessage(Messages.PREFIX + "\u00A7aDu besitzt \u00A7b" + p.getCoins() + " \u00A7aBC's!");
+                sender.sendMessage(BiomiaMessages.PREFIX + "\u00A7aDu besitzt \u00A7b" + p.getCoins() + " \u00A7aBC's!");
             }
 
             if (p.getPlayer().hasPermission("biomia.coins")) {
@@ -35,20 +35,20 @@ public class CoinsCommand extends BiomiaCommand {
                                 int coins = Integer.valueOf(args[2]);
 
                                 if (target.getCoins() < coins) {
-                                    sender.sendMessage(Messages.PREFIX + "\u00A7aDer Spieler " + args[1]
+                                    sender.sendMessage(BiomiaMessages.PREFIX + "\u00A7aDer Spieler " + args[1]
                                             + " kann keinen negativen Betrag besitzen!");
                                 } else {
                                     target.takeCoins(coins);
-                                    sender.sendMessage(Messages.PREFIX + "\u00A7aDem Spieler" + target.getPlayer().getName() + " wurden \u00A7b"
+                                    sender.sendMessage(BiomiaMessages.PREFIX + "\u00A7aDem Spieler" + target.getPlayer().getName() + " wurden \u00A7b"
                                             + coins + " \u00A7aBC's genommen!");
-                                    sender.sendMessage(Messages.PREFIX + "\u00A7a" + target.getPlayer().getName()
+                                    sender.sendMessage(BiomiaMessages.PREFIX + "\u00A7a" + target.getPlayer().getName()
                                             + " besitzt jetzt \u00A7b" + target.getCoins() + " \u00A7aBC's!");
                                 }
                             } else {
-                                sender.sendMessage(Messages.NOT_ONLINE);
+                                sender.sendMessage(BiomiaMessages.NOT_ONLINE);
                             }
                         } else {
-                            sender.sendMessage(Messages.PREFIX + "\u00A7c/coins take <Spieler> <Menge>");
+                            sender.sendMessage(BiomiaMessages.PREFIX + "\u00A7c/coins take <Spieler> <Menge>");
                         }
                         break;
                     case "set":
@@ -60,13 +60,13 @@ public class CoinsCommand extends BiomiaCommand {
 
                                 target.setCoins(coins);
 
-                                sender.sendMessage(Messages.PREFIX + "\u00A7aDer Spieler " + args[1] + " besitzt jetzt \u00A7b"
+                                sender.sendMessage(BiomiaMessages.PREFIX + "\u00A7aDer Spieler " + args[1] + " besitzt jetzt \u00A7b"
                                         + args[2] + " \u00A7aBC's!");
                             } else {
-                                sender.sendMessage(Messages.NOT_ONLINE);
+                                sender.sendMessage(BiomiaMessages.NOT_ONLINE);
                             }
                         } else {
-                            sender.sendMessage(Messages.PREFIX + "\u00A7c/coins set <Spieler> <Menge>");
+                            sender.sendMessage(BiomiaMessages.PREFIX + "\u00A7c/coins set <Spieler> <Menge>");
                         }
                         break;
                     case "add":
@@ -78,15 +78,15 @@ public class CoinsCommand extends BiomiaCommand {
 
                                 target.addCoins(coins, false);
 
-                                sender.sendMessage(Messages.PREFIX + "\u00A7a" + target.getPlayer().getName() + " wurden \u00A7b"
+                                sender.sendMessage(BiomiaMessages.PREFIX + "\u00A7a" + target.getPlayer().getName() + " wurden \u00A7b"
                                         + coins + " \u00A7aBC's hinzugf\u00fcgt!");
-                                sender.sendMessage(Messages.PREFIX + "\u00A7a" + target.getPlayer().getName()
+                                sender.sendMessage(BiomiaMessages.PREFIX + "\u00A7a" + target.getPlayer().getName()
                                         + " besitzt jetzt \u00A7b" + target.getCoins() + " \u00A7aBC's!");
                             } else {
-                                sender.sendMessage(Messages.NOT_ONLINE);
+                                sender.sendMessage(BiomiaMessages.NOT_ONLINE);
                             }
                         } else {
-                            sender.sendMessage(Messages.PREFIX + "\u00A7c/coins add <Spieler> <Menge>");
+                            sender.sendMessage(BiomiaMessages.PREFIX + "\u00A7c/coins add <Spieler> <Menge>");
                         }
                         break;
                     case "get":
@@ -95,13 +95,13 @@ public class CoinsCommand extends BiomiaCommand {
 
                                 BiomiaPlayer target = Biomia.getBiomiaPlayer(Bukkit.getPlayer(args[1]));
 
-                                sender.sendMessage(Messages.PREFIX + "\u00A7aDer Spieler " + target.getPlayer().getName()
+                                sender.sendMessage(BiomiaMessages.PREFIX + "\u00A7aDer Spieler " + target.getPlayer().getName()
                                         + " besitzt \u00A7b" + target.getCoins() + " \u00A7aBC's!");
                             } else {
-                                sender.sendMessage(Messages.NOT_ONLINE);
+                                sender.sendMessage(BiomiaMessages.NOT_ONLINE);
                             }
                         } else {
-                            sender.sendMessage(Messages.PREFIX + "\u00A7c/coins get <Spieler>");
+                            sender.sendMessage(BiomiaMessages.PREFIX + "\u00A7c/coins get <Spieler>");
                         }
                         break;
                     }

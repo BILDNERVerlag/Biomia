@@ -133,11 +133,6 @@ public class OfflineBiomiaPlayer {
         return this instanceof BiomiaPlayer ? (BiomiaPlayer) this : Biomia.getBiomiaPlayer(Bukkit.getPlayer(getName()));
     }
 
-    //    TODO: NEEDED?
-    //    public final int getPremiumLevel() {
-    //        return RankManager.getPremiumLevel(getName());
-    //    }
-
     public final String getName() {
         return name != null ? name : (name = getName(biomiaPlayerID));
     }

@@ -11,11 +11,10 @@ import de.biomia.general.cosmetics.CosmeticGroup;
 import de.biomia.general.cosmetics.GadgetItems.GadgetIniter;
 import de.biomia.general.cosmetics.ParticleItems.ParticleIniter;
 import de.biomia.general.reportsystem.ReportSQL;
-import de.biomia.general.reportsystem.listener.ChatEvent;
-import de.biomia.general.reportsystem.listener.ClickEvent;
+import de.biomia.general.reportsystem.listeners.ChatEvent;
+import de.biomia.general.reportsystem.listeners.ClickEvent;
 import de.biomia.listeners.ChannelListener;
 import de.biomia.listeners.CosmeticListener;
-import de.biomia.plugin.specialEvents.easterEvent.EasterEvent;
 import de.biomia.server.demoserver.Weltenlabor;
 import de.biomia.server.freebuild.Freebuild;
 import de.biomia.server.lobby.Lobby;
@@ -23,6 +22,7 @@ import de.biomia.server.minigames.bedwars.BedWars;
 import de.biomia.server.minigames.skywars.SkyWars;
 import de.biomia.server.minigames.versus.VSMain;
 import de.biomia.server.quests.Quests;
+import de.biomia.specialEvents.easterEvent.EasterEvent;
 import de.biomia.tools.ItemCreator;
 import de.biomia.tools.PlayerToServerConnector;
 import net.minecraft.server.v1_12_R1.DedicatedServer;
@@ -131,35 +131,35 @@ public class Main extends JavaPlugin {
         groupName = ((DedicatedServer) ((CraftServer) Bukkit.getServer()).getServer()).propertyManager.properties.getProperty("server-name").split("-")[0];
 
         groupName = groupName.equals("TestServer") ? actualTestGroup : groupName;
-//TODO add BauServer ??
+        //TODO BauServer hinzufügen?
         // se
         switch (groupName) {
-        case "Lobby":
-            Lobby.init();
-            break;
-        case "QuestServer":
-            Quests.initQuests();
-            break;
-        case "BedWars":
-            BedWars.init();
-            break;
-        case "SkyWars":
-            SkyWars.init();
-            break;
-        case "DuellLobby":
-            VSMain.initVersus();
-            break;
-        case "Weltenlabor#1":
-            Weltenlabor.init();
-            break;
-        case "FreebuildServer":
-            Freebuild.init();
-            break;
-        case "FarmServer":
-            //TODO Farmserver existiert noch nicht
-            break;
-        default:
-            break;
+            case "Lobby":
+                Lobby.init();
+                break;
+            case "QuestServer":
+                Quests.initQuests();
+                break;
+            case "BedWars":
+                BedWars.init();
+                break;
+            case "SkyWars":
+                SkyWars.init();
+                break;
+            case "DuellLobby":
+                VSMain.initVersus();
+                break;
+            case "Weltenlabor#1":
+                Weltenlabor.init();
+                break;
+            case "FreebuildServer":
+                Freebuild.init();
+                break;
+            case "FarmServer":
+                //TODO Farmserver nach Fertigstellung hinzufügen
+                break;
+            default:
+                break;
         }
     }
 
@@ -189,7 +189,6 @@ public class Main extends JavaPlugin {
         registerCommand(new StatCommand());
         registerCommand(new TrollCommand("crash"));
         registerCommand(new TrollCommand("troll"));
-
         registerCommand(new EventCommands("addeggs"));
         registerCommand(new EventCommands("givereward"));
     }
@@ -200,25 +199,25 @@ public class Main extends JavaPlugin {
         this.saveConfig();
         MySQL.closeConnections();
         switch (getGroupName()) {
-        case "Lobby":
-        case "BedWars":
-        case "SkyWars":
-        case "DuellLobby":
-            break;
-        case "QuestServer":
-            Quests.terminateQuests();
-            break;
-        case "FreebuildServer":
-            Freebuild.terminate();
-            break;
-        case "FarmServer":
-            //TODO Farmserver existiert noch nicht
-            break;
-        case "Weltenlabor#1":
-            Weltenlabor.init();
-            break;
-        default:
-            break;
+            case "Lobby":
+            case "BedWars":
+            case "SkyWars":
+            case "DuellLobby":
+                break;
+            case "QuestServer":
+                Quests.terminateQuests();
+                break;
+            case "FreebuildServer":
+                Freebuild.terminate();
+                break;
+            case "FarmServer":
+                //TODO Farmserver nach Fertigstellung hinzufügen
+                break;
+            case "Weltenlabor#1":
+                Weltenlabor.init();
+                break;
+            default:
+                break;
         }
     }
 }

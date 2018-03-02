@@ -1,4 +1,4 @@
-package de.biomia.general.reportsystem.listener;
+package de.biomia.general.reportsystem.listeners;
 
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
@@ -137,6 +137,8 @@ public class ClickEvent implements Listener {
                                     "\u00A76Du willst einen Spieler reporten? Dann gib einfach seinen Namen ein!");
                             p.closeInventory();
                         }
+            } else if (e.getClickedInventory() == null) {
+                return;
             } else if (e.getClickedInventory().equals(ReportManager.grund)) {
                 if (e.getCurrentItem() != null) {
                     e.setCancelled(true);

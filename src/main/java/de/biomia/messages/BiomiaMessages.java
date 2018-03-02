@@ -1,6 +1,6 @@
 package de.biomia.messages;
 
-public class Messages {
+public class BiomiaMessages {
 
 	public static final String PREFIX = "\u00A77[\u00A75Bio\u00A72mia\u00A77] ";
     public static final String NO_PERM = PREFIX + "\u00A7cDu hast keine Rechte um diesen Befehl auszuf\u00fchren!";

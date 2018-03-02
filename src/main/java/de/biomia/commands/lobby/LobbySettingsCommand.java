@@ -1,7 +1,7 @@
 package de.biomia.commands.lobby;
 
 import de.biomia.commands.BiomiaCommand;
-import de.biomia.messages.Messages;
+import de.biomia.messages.BiomiaMessages;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -23,17 +23,17 @@ public class LobbySettingsCommand extends BiomiaCommand {
                 Player p = (Player) sender;
                 if (!targetarmorstands.contains(p)) {
                     targetarmorstands.add(p);
-                    p.sendMessage(Messages.PREFIX + "\u00A7aDu kannst nun ArmorStands auf der Lobby abbauen!");
+                    p.sendMessage(BiomiaMessages.PREFIX + "\u00A7aDu kannst nun ArmorStands auf der Lobby abbauen!");
                     return true;
                 } else {
                     targetarmorstands.remove(p);
                     p.sendMessage(
-                            Messages.PREFIX + "\u00A7cDu kannst nun keine ArmorStands mehr auf der Lobby abbauen!");
+                            BiomiaMessages.PREFIX + "\u00A7cDu kannst nun keine ArmorStands mehr auf der Lobby abbauen!");
                     return true;
                 }
             }
         } else {
-            sender.sendMessage(Messages.NO_PERM);
+            sender.sendMessage(BiomiaMessages.NO_PERM);
         }
         return false;
     }

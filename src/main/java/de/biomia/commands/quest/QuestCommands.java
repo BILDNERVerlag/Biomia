@@ -2,12 +2,13 @@ package de.biomia.commands.quest;
 
 import de.biomia.Biomia;
 import de.biomia.commands.BiomiaCommand;
+import de.biomia.messages.BiomiaMessages;
 import de.biomia.messages.manager.ActionBar;
 import de.biomia.server.quests.general.DialogMessage;
 import de.biomia.server.quests.general.NPCManager;
 import de.biomia.server.quests.general.Quest;
 import de.biomia.server.quests.general.QuestPlayer;
-import de.biomia.server.quests.messages.Messages;
+import de.biomia.messages.QuestMessages;
 import net.citizensnpcs.api.ai.GoalController;
 import net.citizensnpcs.api.ai.goals.WanderGoal;
 import net.citizensnpcs.api.npc.NPC;
@@ -257,7 +258,7 @@ public class QuestCommands extends BiomiaCommand {
             }
 
         } else {
-            sender.sendMessage(de.biomia.messages.Messages.NO_PLAYER);
+            sender.sendMessage(BiomiaMessages.NO_PLAYER);
         }
 
         long stopTime = System.currentTimeMillis();
@@ -403,7 +404,7 @@ public class QuestCommands extends BiomiaCommand {
                 n.getDefaultGoalController().clear();
             }
         }
-        Bukkit.broadcastMessage(Messages.aiOFF);
+        Bukkit.broadcastMessage(QuestMessages.aiOFF);
     }
 
     private void aionCommand() {
@@ -414,7 +415,7 @@ public class QuestCommands extends BiomiaCommand {
                 n.getDefaultGoalController().addBehavior(WanderGoal.createWithNPC(n), 3);
             }
         }
-        Bukkit.broadcastMessage(Messages.aiON);
+        Bukkit.broadcastMessage(QuestMessages.aiON);
     }
 
     private void qrestoreCommand() {
@@ -434,7 +435,7 @@ public class QuestCommands extends BiomiaCommand {
                 i++;
             }
         }
-        sender.sendMessage(Messages.allNPCsAligned.replace("%n", i + ""));
+        sender.sendMessage(QuestMessages.allNPCsAligned.replace("%n", i + ""));
     }
 
     private void qlistCommand(CommandSender sender) {
@@ -442,7 +443,7 @@ public class QuestCommands extends BiomiaCommand {
         // finished
 
         StringBuilder temp = new StringBuilder();
-        sender.sendMessage(Messages.activeQuests);
+        sender.sendMessage(QuestMessages.activeQuests);
         for (Quest q : (Biomia.getQuestPlayer((Player) sender)).getActiveQuests()) {
             if (q == null)
                 continue;
@@ -453,7 +454,7 @@ public class QuestCommands extends BiomiaCommand {
         else
             sender.sendMessage("\u00A72{ }");
         temp = new StringBuilder();
-        sender.sendMessage(Messages.finishedQuests);
+        sender.sendMessage(QuestMessages.finishedQuests);
         for (Quest q : (Biomia.getQuestPlayer((Player) sender)).getFinishedQuests()) {
             if (q == null)
                 continue;
@@ -471,7 +472,7 @@ public class QuestCommands extends BiomiaCommand {
         // respective lists
         switch (args.length) {
         case 1:
-            sender.sendMessage(Messages.tryingToRemoveQuest);
+            sender.sendMessage(QuestMessages.tryingToRemoveQuest);
             Quest temp = null;
             // active quests
             for (Quest q : qp.getActiveQuests()) {
@@ -480,7 +481,7 @@ public class QuestCommands extends BiomiaCommand {
                 if (args[0].equalsIgnoreCase(q.getQuestName())) {
                     temp = q;
                     qp.rmFromQuest(temp);
-                    sender.sendMessage(Messages.questRemovedFromActive.replace("%q", args[0]));
+                    sender.sendMessage(QuestMessages.questRemovedFromActive.replace("%q", args[0]));
                 }
             }
             // finishedQuests
@@ -490,7 +491,7 @@ public class QuestCommands extends BiomiaCommand {
                 if (args[0].equalsIgnoreCase(q.getQuestName())) {
                     temp = q;
                     qp.unfinish(temp);
-                    sender.sendMessage(Messages.questRemovedFromFinished.replace("%q", args[0]));
+                    sender.sendMessage(QuestMessages.questRemovedFromFinished.replace("%q", args[0]));
                 }
             }
             if (temp == null) {
@@ -499,20 +500,20 @@ public class QuestCommands extends BiomiaCommand {
             break;
         case 0:
 
-            sender.sendMessage(Messages.tryingToRemoveAllQuests);
+            sender.sendMessage(QuestMessages.tryingToRemoveAllQuests);
 
             for (Quest q : qp.getActiveQuests()) {
                 if (q == null)
                     continue;
                 qp.rmFromQuest(q);
-                sender.sendMessage(Messages.questRemovedFromActive.replace("%q", q.getQuestName()));
+                sender.sendMessage(QuestMessages.questRemovedFromActive.replace("%q", q.getQuestName()));
             }
 
             for (Quest q : qp.getFinishedQuests()) {
                 if (q == null)
                     continue;
                 qp.unfinish(q);
-                sender.sendMessage(Messages.questRemovedFromFinished.replace("%q", q.getQuestName()));
+                sender.sendMessage(QuestMessages.questRemovedFromFinished.replace("%q", q.getQuestName()));
             }
 
             qp.getBuildableBlocks().clear();
@@ -560,7 +561,7 @@ public class QuestCommands extends BiomiaCommand {
         for (ItemStack is : p.getInventory().getContents()) {
             if (is != null && is.getType() == Material.WRITTEN_BOOK
                     && is.getItemMeta().getDisplayName().equals("\u00A7cTagebuch")) {
-                p.sendMessage(Messages.alreadyHaveABook);
+                p.sendMessage(QuestMessages.alreadyHaveABook);
                 return;
             }
         }
@@ -573,19 +574,19 @@ public class QuestCommands extends BiomiaCommand {
             // get quest
             Quest q = Biomia.getQuestManager().getQuest(args[0]);
             if (q == null) {
-                sender.sendMessage(Messages.questDoesNotExist);
+                sender.sendMessage(QuestMessages.questDoesNotExist);
                 return;
             }
             // send info messages
             sender.sendMessage("");
-            sender.sendMessage(Messages.dividerLine);
+            sender.sendMessage(QuestMessages.dividerLine);
             sender.sendMessage("\u00A7d\u00A7l" + q.getDisplayName());
             if (q.getInfoText() == null)
-                sender.sendMessage(Messages.noInformationAboutThisQuest);
+                sender.sendMessage(QuestMessages.noInformationAboutThisQuest);
             else
                 sender.sendMessage("\u00A7a" + q.getInfoText());
             sender.sendMessage("");
-            sender.sendMessage("\u00A7d" + Messages.involvedNPCs);
+            sender.sendMessage("\u00A7d" + QuestMessages.involvedNPCs);
             StringBuilder s = new StringBuilder();
             for (NPC n : q.getNpcs()) {
                 if (!n.getName().equals(""))
@@ -596,11 +597,11 @@ public class QuestCommands extends BiomiaCommand {
             else
                 s = new StringBuilder(s.substring(0, s.length() - 2));
             sender.sendMessage(s.toString());
-            sender.sendMessage(Messages.dividerLine);
+            sender.sendMessage(QuestMessages.dividerLine);
             if (Biomia.getBiomiaPlayer(p).isStaff()) {
                 sender.sendMessage("\u00A78ID=" + q.getQuestID() + ", \u00A78Cooldown=" + q.getCooldown()
                         + "s, \u00A78Repeatable=" + q.isRepeatable());
-                sender.sendMessage(Messages.dividerLine);
+                sender.sendMessage(QuestMessages.dividerLine);
             }
         } else {
             sender.sendMessage("\u00A7c/qinfo <QuestName>");
@@ -614,7 +615,7 @@ public class QuestCommands extends BiomiaCommand {
             qp.addToQuest(q);
             qp.updateBook();
         }
-        sender.sendMessage(Messages.bookFilled);
+        sender.sendMessage(QuestMessages.bookFilled);
     }
 
 }

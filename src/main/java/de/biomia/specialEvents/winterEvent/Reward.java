@@ -1,4 +1,4 @@
-package de.biomia.plugin.specialEvents.winterEvent;//package de.biomia.specialEvents.winterEvent;
+package de.biomia.specialEvents.winterEvent;//package de.biomia.specialEvents.winterEvent;
 //
 //import java.sql.Connection;
 //import java.sql.PreparedStatement;

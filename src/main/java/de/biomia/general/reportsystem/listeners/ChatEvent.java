@@ -1,4 +1,4 @@
-package de.biomia.general.reportsystem.listener;
+package de.biomia.general.reportsystem.listeners;
 
 import org.bukkit.event.Listener;
 

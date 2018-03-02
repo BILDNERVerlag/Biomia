@@ -7,7 +7,7 @@ import de.biomia.general.cosmetics.CosmeticPetItem;
 import de.biomia.general.reportsystem.PlayerReport;
 import de.biomia.general.reportsystem.ReportManager;
 import de.biomia.general.reportsystem.ReportSQL;
-import de.biomia.messages.Messages;
+import de.biomia.messages.BiomiaMessages;
 import de.biomia.messages.manager.HeaderAndFooter;
 import de.biomia.tools.BackToLobby;
 import de.biomia.tools.PlayerToServerConnector;
@@ -119,11 +119,11 @@ abstract class BiomiaListener implements Listener {
         if (cmd.equalsIgnoreCase("/rl") || cmd.equalsIgnoreCase("/reload")) {
             pe.setCancelled(true);
             if (pe.getPlayer().hasPermission("biomia.reload")) {
-                Bukkit.broadcastMessage(Messages.PREFIX + "\u00A77Alle Serverdateien \u00A7cwerden \u00A77von \u00A7b" + pe.getPlayer().getDisplayName() + " \u00A77neu geladen!");
+                Bukkit.broadcastMessage(BiomiaMessages.PREFIX + "\u00A77Alle Serverdateien \u00A7cwerden \u00A77von \u00A7b" + pe.getPlayer().getDisplayName() + " \u00A77neu geladen!");
                 Bukkit.reload();
-                Bukkit.broadcastMessage(Messages.PREFIX + "\u00A77Alle Serverdateien \u00A7cwurden \u00A77erfolgreich von \u00A7b" + pe.getPlayer().getDisplayName() + " \u00A77neu geladen!");
+                Bukkit.broadcastMessage(BiomiaMessages.PREFIX + "\u00A77Alle Serverdateien \u00A7cwurden \u00A77erfolgreich von \u00A7b" + pe.getPlayer().getDisplayName() + " \u00A77neu geladen!");
             } else
-                pe.getPlayer().sendMessage(Messages.NO_PERM);
+                pe.getPlayer().sendMessage(BiomiaMessages.NO_PERM);
         } else if (cmd.equalsIgnoreCase("/gamemode")) {
             pe.setCancelled(true);
             pe.getPlayer().sendMessage("/gm <GameMode> [Spieler]");

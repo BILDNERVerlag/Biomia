@@ -3,7 +3,7 @@ package de.biomia.general.reportsystem;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import de.biomia.BiomiaPlayer;
-import de.biomia.general.reportsystem.listener.Channel;
+import de.biomia.general.reportsystem.listeners.Channel;
 import de.biomia.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

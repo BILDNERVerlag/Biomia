@@ -9,8 +9,8 @@ import de.biomia.server.quests.QuestConditions.ItemConditions;
 import de.biomia.server.quests.QuestEvents.TakeItemEvent;
 import de.biomia.server.quests.general.Quest;
 import de.biomia.server.quests.general.QuestPlayer;
-import de.biomia.server.quests.messages.ItemNames;
-import de.biomia.server.quests.messages.Messages;
+import de.biomia.messages.QuestItemNames;
+import de.biomia.messages.QuestMessages;
 import de.biomia.tools.InventorySave;
 import de.biomia.tools.QuestItems;
 import org.bukkit.Bukkit;
@@ -41,7 +41,7 @@ public class QuestListener extends BiomiaListener {
                 event.setCancelled(true);
             }
         } else if (event.hasItem() && event.getItem().getType() == Material.EGG && event.getItem().hasItemMeta()
-                && event.getItem().getItemMeta().getDisplayName().equals(ItemNames.specialEgg)) {
+                && event.getItem().getItemMeta().getDisplayName().equals(QuestItemNames.specialEgg)) {
             event.setCancelled(true);
         } else if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (event.getItem() != null) {
@@ -50,8 +50,7 @@ public class QuestListener extends BiomiaListener {
                         || material == Material.LAVA_BUCKET) {
                     if (!qp.isInQuest(Biomia.getQuestManager().getQuest("Wasserholen")))
                         event.setCancelled(true);
-                    // TODO Eimer-Verhalten auf dem Questserver nochmal auschecken - buildable
-                    // blocks mit buckets
+                    // TODO: buildable blocks mit buckets?
                     if (event.getItem().getType() != null && event.getItem().getType() == Material.WATER_BUCKET
                             || event.getItem().getType() == Material.LAVA_BUCKET) {
                         // Platzieren canceln
@@ -85,9 +84,9 @@ public class QuestListener extends BiomiaListener {
         }
         Scoreboards.setTabList(e.getPlayer());
 
-        if (ItemConditions.hasItemInInventory(qp, Material.ELYTRA, 1, ItemNames.twoMinuteElytra)
-                || ItemConditions.hasItemOnArmor(qp, Material.ELYTRA, 1, ItemNames.twoMinuteElytra)) {
-            TakeItemEvent ie = new TakeItemEvent(Material.ELYTRA, ItemNames.twoMinuteElytra, 1);
+        if (ItemConditions.hasItemInInventory(qp, Material.ELYTRA, 1, QuestItemNames.twoMinuteElytra)
+                || ItemConditions.hasItemOnArmor(qp, Material.ELYTRA, 1, QuestItemNames.twoMinuteElytra)) {
+            TakeItemEvent ie = new TakeItemEvent(Material.ELYTRA, QuestItemNames.twoMinuteElytra, 1);
             ie.executeEvent(qp);
         }
 
@@ -98,7 +97,7 @@ public class QuestListener extends BiomiaListener {
     public void onDrop(PlayerDropItemEvent e) {
 
         ItemStack i = e.getItemDrop().getItemStack();
-        if (i.getType() == Material.EGG && i.getItemMeta().getDisplayName().equals(ItemNames.specialEgg)) {
+        if (i.getType() == Material.EGG && i.getItemMeta().getDisplayName().equals(QuestItemNames.specialEgg)) {
             e.setCancelled(true);
         }
     }
@@ -173,13 +172,13 @@ public class QuestListener extends BiomiaListener {
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
         if (e.getTo().distance(holzfarmLoc) <= 40 && e.getFrom().distance(holzfarmLoc) > 40) {
-            ActionBar.sendActionBar(Messages.woodFarmEnter, e.getPlayer());
+            ActionBar.sendActionBar(QuestMessages.woodFarmEnter, e.getPlayer());
         } else if (e.getTo().distance(holzfarmLoc) > 40 && e.getFrom().distance(holzfarmLoc) <= 40) {
-            ActionBar.sendActionBar(Messages.woodFarmLeave, e.getPlayer());
+            ActionBar.sendActionBar(QuestMessages.woodFarmLeave, e.getPlayer());
         } else if (e.getTo().distance(cobblefarmLoc) <= 30 && e.getFrom().distance(cobblefarmLoc) > 30) {
-            ActionBar.sendActionBar(Messages.cobbleFarmEnter, e.getPlayer());
+            ActionBar.sendActionBar(QuestMessages.cobbleFarmEnter, e.getPlayer());
         } else if (e.getTo().distance(cobblefarmLoc) > 30 && e.getFrom().distance(cobblefarmLoc) <= 30) {
-            ActionBar.sendActionBar(Messages.cobbleFarmLeave, e.getPlayer());
+            ActionBar.sendActionBar(QuestMessages.cobbleFarmLeave, e.getPlayer());
         }
     }
 

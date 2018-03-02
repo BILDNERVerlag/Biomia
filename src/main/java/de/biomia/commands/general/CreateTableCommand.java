@@ -2,7 +2,7 @@ package de.biomia.commands.general;
 
 import de.biomia.commands.BiomiaCommand;
 import de.biomia.dataManager.MySQL;
-import de.biomia.messages.Messages;
+import de.biomia.messages.BiomiaMessages;
 import org.bukkit.command.CommandSender;
 
 public class CreateTableCommand extends BiomiaCommand {
@@ -14,7 +14,7 @@ public class CreateTableCommand extends BiomiaCommand {
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
         if (!sender.hasPermission("biomia.sql")) {
-            sender.sendMessage(Messages.NO_PERM);
+            sender.sendMessage(BiomiaMessages.NO_PERM);
             return true;
         }
 

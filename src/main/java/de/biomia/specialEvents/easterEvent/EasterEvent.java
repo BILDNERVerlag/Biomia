@@ -1,4 +1,4 @@
-package de.biomia.plugin.specialEvents.easterEvent;
+package de.biomia.specialEvents.easterEvent;
 
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;

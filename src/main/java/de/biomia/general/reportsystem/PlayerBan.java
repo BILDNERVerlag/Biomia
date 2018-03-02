@@ -1,8 +1,8 @@
 package de.biomia.general.reportsystem;
 
 import de.biomia.BiomiaPlayer;
-import de.biomia.general.reportsystem.listener.Channel;
-import de.biomia.general.reportsystem.listener.ClickEvent;
+import de.biomia.general.reportsystem.listeners.Channel;
+import de.biomia.general.reportsystem.listeners.ClickEvent;
 import de.biomia.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
