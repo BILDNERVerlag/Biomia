@@ -1,13 +1,10 @@
 package de.biomia.server.freebuild.newhome;
 
-import cloud.timo.TimoCloud.api.objects.ServerGroupObject;
 import de.biomia.Biomia;
-import de.biomia.BiomiaPlayer;
 import de.biomia.commands.BiomiaCommand;
 import de.biomia.dataManager.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -23,10 +20,9 @@ public class HomeCommands extends BiomiaCommand {
     }
 
     public boolean execute(CommandSender sender, String label, String[] args) {
-        if (sender instanceof Player == false) return true;
+        if (!(sender instanceof Player)) return true;
         Player p = (Player) sender;
         Location ploc = p.getLocation();
-        int biomiaPlayerID = 0;
         switch (getName().toLowerCase()) {
             case "setwarp":
                 Location oldHomeLocation = getLocation(p);
