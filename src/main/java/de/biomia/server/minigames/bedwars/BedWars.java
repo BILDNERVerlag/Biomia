@@ -2,11 +2,11 @@ package de.biomia.server.minigames.bedwars;
 
 import de.biomia.Biomia;
 import de.biomia.Main;
-import de.biomia.dataManager.configs.BedWarsConfig;
-import de.biomia.server.minigames.bedwars.commands.BWCommand;
+import de.biomia.data.configs.BedWarsConfig;
+import de.biomia.commands.minigames.BWCommand;
 import de.biomia.server.minigames.bedwars.gamestates.InLobby;
 import de.biomia.server.minigames.bedwars.listeners.BedListener;
-import de.biomia.server.minigames.bedwars.listeners.BedWarsListener;
+import de.biomia.listeners.servers.BedWarsListener;
 import de.biomia.server.minigames.bedwars.listeners.SpecialItems;
 import de.biomia.server.minigames.bedwars.lobby.JoinTeam;
 import de.biomia.server.minigames.bedwars.shop.Shop;
@@ -15,7 +15,7 @@ import de.biomia.server.minigames.general.GameState;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 
-import static de.biomia.dataManager.configs.Config.saveConfig;
+import static de.biomia.data.configs.Config.saveConfig;
 
 public class BedWars {
 

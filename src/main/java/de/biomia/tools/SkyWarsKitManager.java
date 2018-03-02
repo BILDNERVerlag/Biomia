@@ -1,7 +1,7 @@
 package de.biomia.tools;
 
 import de.biomia.BiomiaPlayer;
-import de.biomia.dataManager.MySQL;
+import de.biomia.data.MySQL;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,8 +1,11 @@
 package de.biomia.general.cosmetics;
 
 import de.biomia.BiomiaPlayer;
-import de.biomia.dataManager.MySQL;
-import de.biomia.general.cosmetics.CosmeticItem.Commonness;
+import de.biomia.data.MySQL;
+import de.biomia.general.cosmetics.gadgets.GadgetListener;
+import de.biomia.general.cosmetics.items.*;
+import de.biomia.general.cosmetics.items.CosmeticItem.Commonness;
+import de.biomia.general.cosmetics.particles.ParticleListener;
 import de.biomia.tools.Base64;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
@@ -70,7 +73,7 @@ public class Cosmetic {
 	private static void openGroupInventory(BiomiaPlayer bp, CosmeticGroup group) {
 		CosmeticInventory inv = getInventory(bp);
 		if (inv == null) {
-			ArrayList<? super CosmeticItem> groupItems = new ArrayList<>();
+            ArrayList<CosmeticItem> groupItems = new ArrayList<>();
 			for (int id : limitedItems.get(bp).keySet()) {
 				groupItems.add((CosmeticItem) items.get(id));
 			}
@@ -88,7 +91,7 @@ public class Cosmetic {
 		groups.put(group.getGroup(), group);
 	}
 
-	public static <T extends CosmeticItem> void addItem(T item) {
+    public static void addItem(CosmeticItem item) {
 		items.put(item.getID(), item);
 	}
 
@@ -126,10 +129,6 @@ public class Cosmetic {
 		}
 	}
 
-	public static boolean isLimited(BiomiaPlayer bp, int itemID) {
-		return limitedItems.get(bp).get(itemID) != -1;
-	}
-
 	private static boolean hasItem(BiomiaPlayer bp, int itemID) {
 		return limitedItems.get(bp).containsKey(itemID);
 	}
@@ -158,7 +157,7 @@ public class Cosmetic {
 		}
 	}
 
-	public static <T extends CosmeticItem> void addItemToDatabase(T item) {
+    public static void addItemToDatabase(CosmeticItem item) {
 
 		MySQL.executeUpdate("INSERT INTO `CosmeticItems`(`CosmeticGroup`, `Name`) VALUES ('" + item.getGroup().name()
 				+ "', '" + item.getName() + "')", MySQL.Databases.cosmetics_db);

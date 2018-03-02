@@ -2,7 +2,7 @@ package de.biomia.events.cosmetics;
 
 import de.biomia.BiomiaPlayer;
 import de.biomia.events.BiomiaPlayerEvent;
-import de.biomia.general.cosmetics.CosmeticItem;
+import de.biomia.general.cosmetics.items.CosmeticItem;
 import org.bukkit.event.HandlerList;
 
 public class CosmeticUsedEvent extends BiomiaPlayerEvent {

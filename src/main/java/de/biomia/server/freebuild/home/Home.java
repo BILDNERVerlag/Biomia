@@ -1,7 +1,7 @@
 package de.biomia.server.freebuild.home;
 
 import de.biomia.Main;
-import de.biomia.dataManager.configs.Config;
+import de.biomia.data.configs.Config;
 import de.biomia.server.freebuild.home.homes.HomeManager;
 import de.biomia.server.freebuild.home.listeners.GatewayListener;
 import de.biomia.server.freebuild.home.storage.HomeFileManager;

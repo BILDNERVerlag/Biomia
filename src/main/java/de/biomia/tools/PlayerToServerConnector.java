@@ -5,7 +5,7 @@ import cloud.timo.TimoCloud.api.objects.ServerObject;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 import de.biomia.Main;
-import de.biomia.dataManager.MySQL;
+import de.biomia.data.MySQL;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ClickEvent.Action;
 import net.md_5.bungee.api.chat.TextComponent;

@@ -2,7 +2,7 @@ package de.biomia.general.reportsystem;
 
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
-import de.biomia.dataManager.MySQL;
+import de.biomia.data.MySQL;
 import de.biomia.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

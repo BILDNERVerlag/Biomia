@@ -2,7 +2,7 @@ package de.biomia.server.freebuild.newhome;
 
 import de.biomia.Biomia;
 import de.biomia.commands.BiomiaCommand;
-import de.biomia.dataManager.MySQL;
+import de.biomia.data.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;

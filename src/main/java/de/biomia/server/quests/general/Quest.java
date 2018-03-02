@@ -1,7 +1,7 @@
 package de.biomia.server.quests.general;
 
 import de.biomia.Biomia;
-import de.biomia.dataManager.MySQL;
+import de.biomia.data.MySQL;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.entity.EntityType;

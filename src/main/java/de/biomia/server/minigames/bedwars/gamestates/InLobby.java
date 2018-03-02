@@ -13,7 +13,7 @@ public class InLobby {
     public static void start() {
         Scoreboards.initLobbySB();
         Variables.countDown = new CountDown();
-        TimoCloudAPI.getBukkitInstance().getThisServer().setExtra(BedWarsMessages.mapSize.replaceAll("%mt", Variables.teams + "").replaceAll("%ts", Variables.playerPerTeam + ""));
+        TimoCloudAPI.getBukkitInstance().getThisServer().setExtra(String.format(BedWarsMessages.mapSize, Variables.teams, Variables.playerPerTeam));
         TimoCloudAPI.getBukkitInstance().getThisServer().setState(GameState.LOBBY.name());
     }
 

@@ -1,6 +1,6 @@
 package de.biomia.server.minigames.skywars.var;
 
-import de.biomia.dataManager.configs.Config;
+import de.biomia.data.configs.Config;
 import de.biomia.messages.Messages;
 import de.biomia.messages.SkyWarsItemNames;
 import de.biomia.server.minigames.general.teams.Team;
@@ -60,13 +60,9 @@ public class Variables {
     public static boolean end = false;
 
     // Stats
-//	public static ArrayList<Stats> stats = new ArrayList<>();
     public static HashMap<Chest, ItemStack[]> normalChestsFill;
     public static HashMap<Chest, ItemStack[]> goodChestsFill;
     public static Kit standardKit;
-    // Rewards
-    public static int winReward = 300;
-    public static int killReward = 100;
     // Inventorys
     public static Inventory teamJoiner;
 

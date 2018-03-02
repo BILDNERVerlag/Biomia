@@ -1,7 +1,7 @@
 package de.biomia.server.minigames.versus.vs.game.bw;
 
 import de.biomia.BiomiaPlayer;
-import de.biomia.dataManager.configs.BedWarsVersusConfig;
+import de.biomia.data.configs.BedWarsVersusConfig;
 import de.biomia.server.minigames.versus.bw.listeners.SpawnItems;
 import de.biomia.server.minigames.versus.bw.shop.BedWarsShopListener;
 import de.biomia.server.minigames.versus.bw.var.BedWarsScoreboard;

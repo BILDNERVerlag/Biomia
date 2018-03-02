@@ -1,7 +1,7 @@
 package de.biomia.server.freebuild.home.homes;
 
 import de.biomia.Biomia;
-import de.biomia.dataManager.configs.Config;
+import de.biomia.data.configs.Config;
 import de.biomia.server.freebuild.home.storage.HomeFileManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

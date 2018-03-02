@@ -4,15 +4,14 @@ import de.biomia.achievements.Achievements;
 import de.biomia.achievements.StatListener;
 import de.biomia.commands.BiomiaCommand;
 import de.biomia.commands.general.*;
-import de.biomia.dataManager.MySQL;
+import de.biomia.data.MySQL;
 import de.biomia.general.cosmetics.Cosmetic;
 import de.biomia.general.cosmetics.Cosmetic.Group;
 import de.biomia.general.cosmetics.CosmeticGroup;
-import de.biomia.general.cosmetics.GadgetItems.GadgetIniter;
-import de.biomia.general.cosmetics.ParticleItems.ParticleIniter;
+import de.biomia.general.cosmetics.gadgets.GadgetIniter;
+import de.biomia.general.cosmetics.particles.ParticleIniter;
 import de.biomia.general.reportsystem.ReportSQL;
-import de.biomia.general.reportsystem.listeners.ChatEvent;
-import de.biomia.general.reportsystem.listeners.ClickEvent;
+import de.biomia.listeners.ReportListener;
 import de.biomia.listeners.ChannelListener;
 import de.biomia.listeners.CosmeticListener;
 import de.biomia.listeners.servers.BauServerListener;
@@ -44,6 +43,7 @@ public class Main extends JavaPlugin {
     private static String groupName;
     private static CommandMap commandMap;
 
+    //TODO serverTypesClassInterfacesInstanceForCommandsAndPermissions
 
     public static EasterEvent getEvent() {
         return event;
@@ -166,12 +166,12 @@ public class Main extends JavaPlugin {
     }
 
     private void registerListeners() {
-        Bukkit.getPluginManager().registerEvents(new ChatEvent(), this);
-        Bukkit.getPluginManager().registerEvents(new ClickEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new ReportListener(), this);
         Bukkit.getPluginManager().registerEvents(new CosmeticListener(), this);
     }
 
     private void registerCommands() {
+        registerCommand(new RandomServerGroupCommand());
         registerCommand(new CosmeticCommand());
         registerCommand(new BuildCommand());
         registerCommand(new CoinsCommand());

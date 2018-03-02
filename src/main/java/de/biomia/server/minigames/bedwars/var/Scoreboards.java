@@ -11,7 +11,7 @@ import org.bukkit.scoreboard.Team;
 
 public class Scoreboards {
 
-    // Lobby
+    // VersusLobbyListener
     public static final Scoreboard lobbySB = Bukkit.getScoreboardManager().getNewScoreboard();
     // Spectator
     public static final Scoreboard spectatorSB = Bukkit.getScoreboardManager().getNewScoreboard();

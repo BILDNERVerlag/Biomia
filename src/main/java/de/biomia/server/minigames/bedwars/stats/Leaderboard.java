@@ -9,7 +9,7 @@ package de.biomia.server.minigames.bedwars.stats;//package de.biomia.server.mini
 //import org.bukkit.block.BlockFace;
 //
 //import de.biomia.server.minigames.bedwars.var.Variables;
-//import de.biomia.dataManager.MySQL;
+//import de.biomia.data.MySQL;
 //
 //public class Leaderboard {
 //

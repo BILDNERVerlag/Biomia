@@ -5,10 +5,10 @@ import de.biomia.BiomiaPlayer;
 import de.biomia.Main;
 import de.biomia.events.bedwars.*;
 import de.biomia.events.cosmetics.CosmeticUsedEvent;
-import de.biomia.events.general.CoinAddEvent;
-import de.biomia.events.general.CoinTakeEvent;
+import de.biomia.events.coins.CoinAddEvent;
+import de.biomia.events.coins.CoinTakeEvent;
 import de.biomia.events.skywars.*;
-import de.biomia.general.cosmetics.CosmeticItem;
+import de.biomia.general.cosmetics.items.CosmeticItem;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -30,39 +30,7 @@ import java.util.HashMap;
 
 public class StatListener implements Listener {
 
-    private static HashMap<BiomiaPlayer, BukkitRunnable> bukkittasks = new HashMap<>();
-
-    /*
-        DONE
-        CoinsAccumulated
-        BlocksPlaced, BlocksDestroyed,
-        ChestsOpened,
-        MonstersKilled, PlayersKilled,
-        FishCaught,
-        Logins,
-        HealthLost, HealthRegenerated, HungerLost, HungerRegenerated,
-        DeathCause, KilledByMonster, KilledByPlayer,
-        MessagesSent,
-        TeleportsMade,
-        GadgetsUsed, HeadsUsed, ParticlesUsed, SuitsUsed, PetsUsed
-        FoodEaten, PotionsConsumed,
-        SheepsSheared,
-        BW_Deaths, BW_Wins, BW_Kills, BW_Leaves, BW_ItemsBought,
-
-        MinutesPlayed,
-        MysteryChestsOpened,
-        ItemsEnchanted, ItemsPickedUp, ItemsDropped, ItemsBroken,
-        EXPGained,
-        ProjectilesShot,
-        KilometresRun,
-        ReportsMade,
-        SW_GamesPlayed, BW_GamesPlayed,
-        SW_Deaths, SW_Wins, SW_Kills, SW_Leaves, SW_ChestsOpened, KitsBought, KitsChanged,
-        Q_accepted, Q_returned, Q_NPCTalks, Q_CoinsEarned, Q_Kills, Q_Deaths,
-        Bau_PlotsClaimed, Bau_PlotsReset,
-        FB_CBClaimed, FB_CBUnclaimed, FB_ItemsBought, FB_ItemsSold, FB_WarpsUsed,
-     */
-
+    private static HashMap<BiomiaPlayer, BukkitRunnable> onlineTime = new HashMap<>();
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
@@ -155,12 +123,25 @@ public class StatListener implements Listener {
     @EventHandler
     public void onLogin(PlayerLoginEvent e) {
         Stats.incrementStat(Stats.BiomiaStat.Logins, e.getPlayer(), Main.getGroupName());
+
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
+
+        onlineTime.put(bp, new BukkitRunnable() {
+            @Override
+            public void run() {
+                bp.incrementOnlineMinutes();
+            }
+        }).runTaskTimer(Main.getPlugin(), 20 * 60, 20 * 60);
     }
 
-//    @EventHandler
-//    public void onQuit(PlayerQuitEvent e) {
-//        //track minutes played
-//    }
+    @EventHandler
+    public void onQuit(PlayerQuitEvent e) {
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
+        onlineTime.get(bp).cancel();
+        onlineTime.remove(bp);
+        // TODO addTableWithincby and comments
+        Stats.incrementStatBy(Stats.BiomiaStat.MinutesPlayed, bp.getBiomiaPlayerID(), bp.getActualOnlineMinutes());
+    }
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {

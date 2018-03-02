@@ -2,8 +2,8 @@ package de.biomia.listeners.servers;
 
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
-import de.biomia.dataManager.MySQL;
-import de.biomia.dataManager.configs.DemoConfig;
+import de.biomia.data.MySQL;
+import de.biomia.data.configs.DemoConfig;
 import de.biomia.messages.manager.Scoreboards;
 import de.biomia.server.demoserver.Weltenlabor;
 import de.biomia.server.demoserver.teleporter.Bauten;

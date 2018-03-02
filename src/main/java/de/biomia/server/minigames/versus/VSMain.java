@@ -1,12 +1,12 @@
 package de.biomia.server.minigames.versus;
 
 import de.biomia.Main;
-import de.biomia.server.minigames.versus.bw.commands.BW;
+import de.biomia.commands.minigames.versus.BWCommand;
+import de.biomia.listeners.servers.VersusLobbyListener;
 import de.biomia.server.minigames.versus.sw.chests.Items;
-import de.biomia.server.minigames.versus.sw.commands.SW;
+import de.biomia.commands.minigames.versus.SWCommand;
 import de.biomia.server.minigames.versus.sw.kits.KitManager;
 import de.biomia.server.minigames.versus.vs.commands.VSCommands;
-import de.biomia.server.minigames.versus.vs.lobby.Lobby;
 import de.biomia.server.minigames.versus.vs.main.VSManager;
 import org.bukkit.Bukkit;
 
@@ -23,7 +23,7 @@ public class VSMain {
     }
 
     private static void loadListener() {
-        Bukkit.getPluginManager().registerEvents(new Lobby(), Main.getPlugin());
+        Bukkit.getPluginManager().registerEvents(new VersusLobbyListener(), Main.getPlugin());
     }
 
     public static VSManager getManager() {
@@ -37,8 +37,8 @@ public class VSMain {
         Main.registerCommand(new VSCommands("request"));
         Main.registerCommand(new VSCommands("spawn"));
 
-        Main.registerCommand(new BW());
-        Main.registerCommand(new SW());
+        Main.registerCommand(new BWCommand());
+        Main.registerCommand(new SWCommand());
     }
 
 }

@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
-import static de.biomia.dataManager.configs.Config.saveConfig;
+import static de.biomia.data.configs.Config.saveConfig;
 
 public class Hologram {
 

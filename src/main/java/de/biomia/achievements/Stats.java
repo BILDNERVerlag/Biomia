@@ -1,7 +1,7 @@
 package de.biomia.achievements;
 
 import de.biomia.Biomia;
-import de.biomia.dataManager.MySQL;
+import de.biomia.data.MySQL;
 import org.bukkit.entity.Player;
 
 import java.sql.Connection;
@@ -210,6 +210,7 @@ public class Stats {
      * Immer, wenn sich der Wert eines Stats aendert, checkt diese Methode, ob ein
      * Achievement unlocked werden soll
      */
+    //TODO check for unlock with comments
     private static void checkForAchievementUnlocks(BiomiaStat stat, int biomiaPlayerID, int value) {
         // Step 1: Checke um welchen Stat es geht
         // Step 2: Checke ob der Stat einen bestimmten Wert erreicht hat

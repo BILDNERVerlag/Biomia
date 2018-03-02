@@ -3,7 +3,7 @@ package de.biomia.listeners.servers;
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
 import de.biomia.general.cosmetics.Cosmetic;
-import de.biomia.general.cosmetics.CosmeticPetItem;
+import de.biomia.general.cosmetics.items.CosmeticPetItem;
 import de.biomia.general.reportsystem.PlayerReport;
 import de.biomia.general.reportsystem.ReportManager;
 import de.biomia.general.reportsystem.ReportSQL;
@@ -138,24 +138,16 @@ abstract class BiomiaListener implements Listener {
     }
 
     @EventHandler
-    public void onDeath(PlayerDeathEvent e) {
+    public final void onDeath(PlayerDeathEvent e) {
         e.setDeathMessage(null);
     }
 
     @EventHandler
-    public void onChat(AsyncPlayerChatEvent e) {
-        Player p = e.getPlayer();
-        if (p.hasPermission("biomia.coloredchat")) {
-            e.setMessage(ChatColor.translateAlternateColorCodes('&', e.getMessage()));
-        }
-        e.setFormat(RankManager.getPrefix(p) + "%s\u00A77: \u00A7f%s");
-    }
-
-    @EventHandler
-    public void onChat_Report(AsyncPlayerChatEvent e) {
-
+    public void onSendMessage(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
+
+        e.setFormat(RankManager.getPrefix(p) + "%s\u00A77: \u00A7f%s");
 
         if (ReportManager.waitingForBugReason.contains(p)) {
             ReportManager.waitingForBugReason.remove(p);
@@ -172,6 +164,10 @@ abstract class BiomiaListener implements Listener {
             e.setCancelled(true);
             ReportManager.waitForCostumReason.get(bp).setReason(e.getMessage());
             ReportManager.waitForCostumReason.remove(bp);
+        }
+
+        if (p.hasPermission("biomia.coloredchat")) {
+            e.setMessage(ChatColor.translateAlternateColorCodes('&', e.getMessage()));
         }
     }
 

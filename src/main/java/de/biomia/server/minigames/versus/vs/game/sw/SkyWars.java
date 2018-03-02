@@ -1,7 +1,7 @@
 package de.biomia.server.minigames.versus.vs.game.sw;
 
 import de.biomia.BiomiaPlayer;
-import de.biomia.dataManager.configs.SkyWarsVersusConfig;
+import de.biomia.data.configs.SkyWarsVersusConfig;
 import de.biomia.server.minigames.versus.sw.chests.Chests;
 import de.biomia.server.minigames.versus.sw.kits.KitManager;
 import de.biomia.server.minigames.versus.vs.game.GameInstance;

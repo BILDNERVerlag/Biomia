@@ -1,6 +1,6 @@
 package de.biomia.server.minigames.versus.sw.chests;
 
-import de.biomia.dataManager.configs.SkyWarsVersusConfig;
+import de.biomia.data.configs.SkyWarsVersusConfig;
 import de.biomia.server.minigames.versus.sw.var.Variables;
 import de.biomia.server.minigames.versus.vs.game.sw.SkyWars;
 import org.bukkit.Location;

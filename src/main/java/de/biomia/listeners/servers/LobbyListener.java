@@ -4,7 +4,6 @@ import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
-import de.biomia.commands.lobby.LobbySettingsCommand;
 import de.biomia.general.cosmetics.MysteryChest;
 import de.biomia.listeners.LobbyInventoryManager;
 import de.biomia.messages.Messages;
@@ -28,7 +27,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
@@ -103,14 +101,14 @@ public class LobbyListener extends BiomiaListener {
     @EventHandler
     public void onArmorStandDamage(EntityDamageByEntityEvent e) {
         if (e.getEntity() instanceof ArmorStand || e.getEntity() instanceof ItemFrame) {
-            if (e.getDamager() instanceof Player) {
-                Player pl = (Player) e.getDamager();
-                if (!LobbySettingsCommand.targetarmorstands.contains(pl)) {
-                    e.setCancelled(true);
-                }
-            } else {
-                e.setCancelled(true);
-            }
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void disableItemFrameRotate(PlayerInteractEntityEvent e) {
+        if (e.getRightClicked() instanceof ItemFrame) {
+            e.setCancelled(true);
         }
     }
 
@@ -305,21 +303,10 @@ public class LobbyListener extends BiomiaListener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onMove(InventoryClickEvent ie) {
         if (ie.getCurrentItem() != null) {
-            Material t = ie.getCurrentItem().getType();
             Player p = (Player) ie.getWhoClicked();
             if (!Biomia.getBiomiaPlayer(p).canBuild()) {
-                if (InventoryAction.DROP_ONE_SLOT != null || InventoryAction.DROP_ALL_SLOT != null
-                        || InventoryAction.DROP_ONE_CURSOR != null || InventoryAction.DROP_ALL_CURSOR != null
-                        || InventoryAction.COLLECT_TO_CURSOR != null) {
                     ie.setCancelled(true);
                     ie.setCursor(new ItemStack(Material.AIR));
-                }
-                if (t != null || t != Material.AIR) {
-                    ie.setCancelled(true);
-                    ie.setCursor(new ItemStack(Material.AIR));
-                }
-            } else {
-                ie.setCancelled(false);
             }
         }
     }

@@ -1,8 +1,8 @@
 package de.biomia;
 
-import de.biomia.dataManager.MySQL;
-import de.biomia.events.general.CoinAddEvent;
-import de.biomia.events.general.CoinTakeEvent;
+import de.biomia.data.MySQL;
+import de.biomia.events.coins.CoinAddEvent;
+import de.biomia.events.coins.CoinTakeEvent;
 import de.biomia.tools.RankManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

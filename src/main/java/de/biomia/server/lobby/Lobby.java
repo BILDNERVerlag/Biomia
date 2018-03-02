@@ -3,8 +3,7 @@ package de.biomia.server.lobby;
 import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.Main;
-import de.biomia.commands.lobby.LobbySettingsCommand;
-import de.biomia.commands.lobby.RandomServerGroupCommand;
+import de.biomia.commands.general.RandomServerGroupCommand;
 import de.biomia.listeners.LobbyInventoryManager;
 import de.biomia.listeners.servers.LobbyListener;
 import de.biomia.tools.ItemCreator;
@@ -53,7 +52,6 @@ public class Lobby {
 
         Bukkit.setDefaultGameMode(GameMode.ADVENTURE);
 
-        Main.registerCommand(new LobbySettingsCommand());
         Main.registerCommand(new RandomServerGroupCommand());
 
         Bukkit.getPluginManager().registerEvents(new LobbyListener(), getPlugin());

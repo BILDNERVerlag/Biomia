@@ -1,9 +1,10 @@
 package de.biomia.general.cosmetics;
 
 import de.biomia.BiomiaPlayer;
-import de.biomia.dataManager.MySQL;
+import de.biomia.data.MySQL;
 import de.biomia.general.cosmetics.Cosmetic.Group;
-import de.biomia.general.cosmetics.CosmeticItem.Commonness;
+import de.biomia.general.cosmetics.items.*;
+import de.biomia.general.cosmetics.items.CosmeticItem.Commonness;
 import de.biomia.tools.Base64;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;

@@ -1,7 +1,7 @@
 package de.biomia.server.minigames.versus.vs.settings;
 
 import de.biomia.BiomiaPlayer;
-import de.biomia.dataManager.MySQL;
+import de.biomia.data.MySQL;
 import de.biomia.server.minigames.versus.vs.main.VSManager.VSMode;
 
 import java.sql.Connection;

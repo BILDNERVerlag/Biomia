@@ -3,12 +3,12 @@ package de.biomia.commands.general;
 import de.biomia.Biomia;
 import de.biomia.Main;
 import de.biomia.commands.BiomiaCommand;
-import de.biomia.dataManager.configs.Config;
+import de.biomia.data.configs.Config;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import static de.biomia.dataManager.configs.Config.saveConfig;
+import static de.biomia.data.configs.Config.saveConfig;
 
 public class EventCommands extends BiomiaCommand {
     public EventCommands(String string) {

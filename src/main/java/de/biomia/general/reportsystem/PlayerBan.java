@@ -1,8 +1,7 @@
 package de.biomia.general.reportsystem;
 
 import de.biomia.BiomiaPlayer;
-import de.biomia.general.reportsystem.listeners.Channel;
-import de.biomia.general.reportsystem.listeners.ClickEvent;
+import de.biomia.listeners.ReportListener;
 import de.biomia.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -20,7 +19,7 @@ public class PlayerBan {
     public PlayerBan(BiomiaPlayer bp, int IDtoBan) {
         this.biomiaID = IDtoBan;
         this.bp = bp;
-        ClickEvent.waitForBanReason.put(bp, this);
+        ReportListener.waitForBanReason.put(bp, this);
         openBugReasonInv();
     }
 
@@ -33,13 +32,13 @@ public class PlayerBan {
     }
 
     public void setPerm(boolean perm) {
-        ClickEvent.waitForIsPermBan.remove(bp);
+        ReportListener.waitForIsPermBan.remove(bp);
         time = -1;
         if (perm) {
             finish();
         } else {
-            ClickEvent.waitForSetTime.put(bp, this);
-            ClickEvent.openSetTimeInventory(bp);
+            ReportListener.waitForSetTime.put(bp, this);
+            ReportListener.openSetTimeInventory(bp);
         }
     }
 
@@ -65,7 +64,7 @@ public class PlayerBan {
             bp.getPlayer().sendMessage("\u00A7bBitte gib den Grund in den Chat ein!");
         } else {
             this.reason = reason;
-            ClickEvent.waitForIsPermBan.put(bp, this);
+            ReportListener.waitForIsPermBan.put(bp, this);
             openIsPermInv();
         }
     }

@@ -3,6 +3,7 @@ package de.biomia.general.cosmetics;
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
 import de.biomia.Main;
+import de.biomia.general.cosmetics.items.CosmeticItem;
 import de.biomia.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -28,10 +29,9 @@ class CosmeticInventory implements Listener {
     private ItemStack home;
     private int side = 0;
 
-    @SuppressWarnings("unchecked")
-    public CosmeticInventory(ArrayList<? super CosmeticItem> items, BiomiaPlayer bp) {
+    CosmeticInventory(ArrayList<CosmeticItem> items, BiomiaPlayer bp) {
         this.bp = bp;
-        this.cosmeticItems = (ArrayList<CosmeticItem>) items;
+        this.cosmeticItems = items;
         inv = Bukkit.createInventory(null, 27, "\u00A75Cosmetics");
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
     }

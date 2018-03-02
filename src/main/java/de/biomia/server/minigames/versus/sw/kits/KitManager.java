@@ -1,7 +1,7 @@
 package de.biomia.server.minigames.versus.sw.kits;
 
 import de.biomia.BiomiaPlayer;
-import de.biomia.dataManager.MySQL;
+import de.biomia.data.MySQL;
 import de.biomia.messages.SkyWarsItemNames;
 import de.biomia.messages.SkyWarsMessages;
 import de.biomia.tools.ItemCreator;

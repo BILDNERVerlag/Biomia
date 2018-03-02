@@ -3,7 +3,7 @@ package de.biomia.server.quests.general;
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
 import de.biomia.commands.quest.QuestCommands;
-import de.biomia.dataManager.MySQL;
+import de.biomia.data.MySQL;
 import de.biomia.tools.ItemCreator;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -42,7 +42,7 @@ public class QuestPlayer {
                 // do nothing
             }
         }
-        if (player.getWorld().getName().equals("general"))
+        if (player.getWorld().getName().equals("coins"))
             player.getInventory().addItem(book);
     }
 

@@ -8,7 +8,7 @@
 //import org.bukkit.block.BlockFace;
 //
 //import de.biomia.server.minigames.skywars.var.Variables;
-//import de.biomia.dataManager.MySQL;
+//import de.biomia.data.MySQL;
 //
 //public class Leaderboard {
 //

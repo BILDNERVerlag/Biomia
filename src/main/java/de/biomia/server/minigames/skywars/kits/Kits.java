@@ -2,7 +2,7 @@ package de.biomia.server.minigames.skywars.kits;
 
 import de.biomia.Biomia;
 import de.biomia.BiomiaPlayer;
-import de.biomia.dataManager.MySQL;
+import de.biomia.data.MySQL;
 import de.biomia.events.skywars.KitChangeEvent;
 import de.biomia.messages.SkyWarsItemNames;
 import de.biomia.server.minigames.skywars.var.Variables;

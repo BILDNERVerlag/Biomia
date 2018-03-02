@@ -55,7 +55,7 @@ public class Intro implements Listener {
         startDialog = new DialogMessage(q, aaron).setInhalt("Willkommen auf dem QuestServer von Biomia!");
         startDialog.setNext(
                 "Im nord\u00f6stlich von hier liegenden Dorf findest du verschiedene NPCs, die mit Aufgaben auf dich warten. Bitte "
-                        + "denk daran, dass der Server sich noch im Aufbau befindet und es sein kann, dass manche general noch nicht ganz "
+                        + "denk daran, dass der Server sich noch im Aufbau befindet und es sein kann, dass manche coins noch nicht ganz "
                         + "funktionieren oder in sp\u00fcteren Updates ver\u00fcndert werden.",
                 0, aaron)
                 .setNext(

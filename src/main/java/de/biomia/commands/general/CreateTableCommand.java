@@ -1,7 +1,7 @@
 package de.biomia.commands.general;
 
 import de.biomia.commands.BiomiaCommand;
-import de.biomia.dataManager.MySQL;
+import de.biomia.data.MySQL;
 import de.biomia.messages.Messages;
 import org.bukkit.command.CommandSender;
 

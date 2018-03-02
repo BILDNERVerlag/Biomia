@@ -4,7 +4,7 @@ import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import cloud.timo.TimoCloud.api.objects.ServerGroupObject;
 import de.biomia.Biomia;
 import de.biomia.Main;
-import de.biomia.dataManager.MySQL;
+import de.biomia.data.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;

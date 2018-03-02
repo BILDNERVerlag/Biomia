@@ -2,7 +2,7 @@ package de.biomia.server.minigames.bedwars.listeners;
 
 import de.biomia.Biomia;
 import de.biomia.Main;
-import de.biomia.dataManager.configs.BedWarsConfig;
+import de.biomia.data.configs.BedWarsConfig;
 import de.biomia.messages.BedWarsItemNames;
 import de.biomia.messages.BedWarsMessages;
 import de.biomia.messages.manager.ActionBar;

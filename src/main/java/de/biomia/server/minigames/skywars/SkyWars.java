@@ -2,20 +2,20 @@ package de.biomia.server.minigames.skywars;
 
 import de.biomia.Biomia;
 import de.biomia.Main;
-import de.biomia.dataManager.configs.SkyWarsConfig;
+import de.biomia.data.configs.SkyWarsConfig;
 import de.biomia.server.minigames.general.GameState;
 import de.biomia.server.minigames.skywars.chests.Chests;
 import de.biomia.server.minigames.skywars.chests.Items;
-import de.biomia.server.minigames.skywars.commands.SWCommand;
+import de.biomia.commands.minigames.SWCommand;
 import de.biomia.server.minigames.skywars.gamestates.InLobby;
 import de.biomia.server.minigames.skywars.kits.Kits;
-import de.biomia.server.minigames.skywars.listeners.SkyWarsListener;
+import de.biomia.listeners.servers.SkyWarsListener;
 import de.biomia.server.minigames.skywars.lobby.JoinTeam;
 import de.biomia.server.minigames.skywars.var.Variables;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 
-import static de.biomia.dataManager.configs.Config.saveConfig;
+import static de.biomia.data.configs.Config.saveConfig;
 
 public class SkyWars {
 

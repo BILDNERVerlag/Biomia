@@ -1,7 +1,7 @@
 package de.biomia.server.minigames.bedwars.var;
 
 import de.biomia.Biomia;
-import de.biomia.dataManager.configs.Config;
+import de.biomia.data.configs.Config;
 import de.biomia.messages.BedWarsItemNames;
 import de.biomia.server.minigames.bedwars.listeners.CountDown;
 import de.biomia.server.minigames.general.ItemType;

@@ -14,6 +14,8 @@ import java.util.List;
 
 public class BiomiaPlayer extends OfflineBiomiaPlayer {
 
+    private int actualOnlineMinutes;
+
     // CONSTANTS
     private final PAFPlayer spigotPafpl;
 
@@ -95,5 +97,13 @@ public class BiomiaPlayer extends OfflineBiomiaPlayer {
             }
         }
         return onlineFriends;
+    }
+
+    public void incrementOnlineMinutes() {
+        actualOnlineMinutes++;
+    }
+
+    public int getActualOnlineMinutes() {
+        return actualOnlineMinutes;
     }
 }
