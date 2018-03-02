@@ -1,8 +1,20 @@
 package de.biomia.server.freebuild.newhome;
 
+import cloud.timo.TimoCloud.api.objects.ServerGroupObject;
+import de.biomia.Biomia;
+import de.biomia.BiomiaPlayer;
 import de.biomia.commands.BiomiaCommand;
 import de.biomia.dataManager.MySQL;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class HomeCommands extends BiomiaCommand {
 
@@ -11,27 +23,61 @@ public class HomeCommands extends BiomiaCommand {
     }
 
     public boolean execute(CommandSender sender, String label, String[] args) {
+        if (sender instanceof Player == false) return true;
+        Player p = (Player) sender;
+        Location ploc = p.getLocation();
         int biomiaPlayerID = 0;
         switch (getName().toLowerCase()) {
             case "sethome":
-                MySQL.executeQuerygetint("SELECT `x` FROM `freebuildHome` where ID = '"+ biomiaPlayerID+ "')", "x", MySQL.Databases.biomia_db);
-                MySQL.executeQuerygetint("SELECT `y` FROM `freebuildHome` where ID = '"+ biomiaPlayerID+ "')", "y", MySQL.Databases.biomia_db);
-                MySQL.executeQuerygetint("SELECT `z` FROM `freebuildHome` where ID = '"+ biomiaPlayerID+ "')", "z", MySQL.Databases.biomia_db);
+                Location oldHomeLocation = getLocation(p);
+                if (oldHomeLocation != null) {
+                    p.sendMessage("&cDu hast bereits ein Home.");
+                } else {
+                    MySQL.executeUpdate("INSERT INTO FreebuildHomes (`biomiaID`, `x`, `y`, `z`, `yaw`, `pitch`) VALUES (" +
+                            Biomia.getBiomiaPlayer(p).getBiomiaPlayerID() + "," +
+                            ploc.getBlockX() + "," +
+                            ploc.getBlockY() + "," +
+                            ploc.getBlockZ() + "," +
+                            ploc.getYaw() + "," +
+                            ploc.getPitch() +
+                            ")", MySQL.Databases.biomia_db);
+                }
                 break;
             case "home":
-                //check if there is an argument
-                    //if there is, check if there is a home with that name
-                        //if there is, teleport there
-                        //if there is not, error "no home with that name"
-                    //if there is not, check if player has multiple homes
-                        //if he has none: error
-                        //exactly 1: tp there
-                        //more than 1: give him a list of possible homes
+                Location homeLoc = getLocation(p);
+                if (homeLoc == null) {
+                    p.sendMessage("&cKein Home gefunden.");
+                } else p.teleport(homeLoc);
                 break;
             default:
                 break;
         }
         return true;
+    }
+
+    private Location getLocation(Player p) {
+        Connection con = MySQL.Connect(MySQL.Databases.biomia_db);
+        Location loc = null;
+        try {
+            PreparedStatement ps = con.prepareStatement(
+                    "Select x,y,z,yaw,pitch from FreebuildHome where biomiaPlayerID = ?");
+            ps.setString(2, Biomia.getBiomiaPlayer(p).getBiomiaPlayerID() + "");
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                double x = rs.getDouble("x");
+                double y = rs.getDouble("y");
+                double z = rs.getDouble("z");
+                float yaw = (float) rs.getDouble("yaw");
+                float pitch = (float) rs.getDouble("pitch");
+                loc = new Location(Bukkit.getWorld("world"), x, y, z, yaw, pitch);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return loc;
     }
 
 }
