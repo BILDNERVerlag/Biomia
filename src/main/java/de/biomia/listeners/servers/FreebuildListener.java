@@ -8,8 +8,10 @@ import de.biomia.tools.InventorySave;
 import de.biomia.tools.PlayerToServerConnector;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -53,6 +55,21 @@ public class FreebuildListener extends BiomiaListener {
                 // ZUR LOBBY
                 p.teleport(new Location(Bukkit.getWorld("world"), -198, 64, 391, 120, 0));
                 PlayerToServerConnector.connectToRandom(p, "Lobby");
+            }
+        }
+    }
+
+    @EventHandler
+    public void onCreatureSpawn(CreatureSpawnEvent e) {
+        EntityType type = e.getEntityType();
+        int spawnX = e.getLocation().getBlockX();
+        int spawnZ = e.getLocation().getBlockZ();
+        if (spawnX > -434 && spawnX < -102 && spawnZ > 80 && spawnZ < 547) {
+            if (type.equals(EntityType.ZOMBIE) || type.equals(EntityType.ZOMBIE_VILLAGER)
+                    || type.equals(EntityType.CREEPER) || type.equals(EntityType.WITCH)
+                    || type.equals(EntityType.SKELETON) || type.equals(EntityType.SPIDER)
+                    || type.equals(EntityType.ENDERMAN)) {
+                e.setCancelled(true);
             }
         }
     }
