@@ -41,7 +41,7 @@ public class MySQL {
         String dbPort = "3306";
         String dbHost = "89.163.160.106";
         return DriverManager.getConnection("jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName + "?" + "user="
-                + dbUser + "&" + "password=" + dbPass + "&verifyServerCertificate=false&useSSL=true");
+                + dbUser + "&" + "password=" + dbPass + "&verifyServerCertificate=false&useSSL=true&autoReconnect=true");
     }
 
     public static Connection Connect(Databases db) {

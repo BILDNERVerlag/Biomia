@@ -32,10 +32,6 @@
             <id>TimoCloud-API</id>
             <url>https://maven.timo.cloud/repository/TimoCloud-API/</url>
         </repository>
-        <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
     </repositories>
     <dependencies>
         <dependency>
@@ -57,6 +53,11 @@
             <groupId>de.simonsator</groupId>
             <artifactId>Spigot-Party-API-For-RedisBungee</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>de.simonsator</groupId>
+            <artifactId>BungeecordPartyAndFriends</artifactId>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>

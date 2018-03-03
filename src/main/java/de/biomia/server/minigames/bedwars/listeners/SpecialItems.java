@@ -35,7 +35,6 @@ import java.util.Set;
 
 public class SpecialItems implements Listener {
 
-    @SuppressWarnings("deprecation")
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
 
@@ -64,11 +63,9 @@ public class SpecialItems implements Listener {
                 Block blockHead = p.getTargetBlock((Set<Material>) null, 100);
 
                 if (blockFoot.getType() == Material.BED_BLOCK && blockHead.getType() == Material.BED_BLOCK) {
-
                     BedWarsConfig.addBedsLocations(blockFoot.getLocation(), blockHead.getLocation(),
                             Biomia.getTeamManager().getTeamFromData(e.getItem().getData().getData()));
-                    Bukkit.broadcastMessage("Bett hinzugef\u00fc\u00A7gt!");
-
+                    Bukkit.broadcastMessage("Bett hinzugef\u00fcgt!");
                 } else {
                     p.sendMessage(BedWarsMessages.blocksMustBeBeds);
                 }

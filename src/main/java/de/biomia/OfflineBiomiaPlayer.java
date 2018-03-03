@@ -1,9 +1,13 @@
 package de.biomia;
 
+import de.biomia.bungee.Main;
+import de.biomia.bungee.main.BungeeBiomiaPlayer;
 import de.biomia.data.MySQL;
 import de.biomia.events.coins.CoinAddEvent;
 import de.biomia.events.coins.CoinTakeEvent;
 import de.biomia.tools.RankManager;
+import net.md_5.bungee.BungeeCord;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -19,7 +23,7 @@ public class OfflineBiomiaPlayer {
     private String name;
     private UUID uuid;
 
-    OfflineBiomiaPlayer(int biomiaPlayerID) {
+    protected OfflineBiomiaPlayer(int biomiaPlayerID) {
         this.biomiaPlayerID = biomiaPlayerID;
     }
 
@@ -34,6 +38,10 @@ public class OfflineBiomiaPlayer {
     }
 
     OfflineBiomiaPlayer(Player p) {
+        this.biomiaPlayerID = getBiomiaPlayerID(p.getName());
+    }
+
+    protected OfflineBiomiaPlayer(ProxiedPlayer p) {
         this.biomiaPlayerID = getBiomiaPlayerID(p.getName());
     }
 
@@ -118,7 +126,12 @@ public class OfflineBiomiaPlayer {
     // GETTERS AND SETTERS
 
     public boolean isOnline() {
-        return getBiomiaPlayer() != null;
+        try {
+            Class.forName("org.bukkit.Bukkit");
+            return getBiomiaPlayer() != null;
+        } catch (ClassNotFoundException ignored) {
+            return getBungeeBiomiaPlayer() != null;
+        }
     }
 
     final UUID getUUID() {
@@ -131,6 +144,10 @@ public class OfflineBiomiaPlayer {
 
     public final BiomiaPlayer getBiomiaPlayer() {
         return this instanceof BiomiaPlayer ? (BiomiaPlayer) this : Biomia.getBiomiaPlayer(Bukkit.getPlayer(getName()));
+    }
+
+    public final BungeeBiomiaPlayer getBungeeBiomiaPlayer() {
+        return this instanceof BungeeBiomiaPlayer ? (BungeeBiomiaPlayer) this : Main.getBungeeBiomiaPlayer(BungeeCord.getInstance().getPlayer(getName()));
     }
 
     public final String getName() {

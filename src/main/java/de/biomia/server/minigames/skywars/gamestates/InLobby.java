@@ -2,8 +2,6 @@ package de.biomia.server.minigames.skywars.gamestates;
 
 import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import de.biomia.messages.BedWarsMessages;
-import de.biomia.messages.SkyWarsMessages;
-import de.biomia.server.minigames.general.GameState;
 import de.biomia.server.minigames.skywars.listeners.CountDown;
 import de.biomia.server.minigames.skywars.lobby.JoinTeam;
 import de.biomia.server.minigames.skywars.var.Scoreboards;
@@ -16,7 +14,6 @@ public class InLobby {
         Variables.countDown = new CountDown();
         Variables.countDown.startCountDown();
         TimoCloudAPI.getBukkitInstance().getThisServer().setExtra(String.format(BedWarsMessages.mapSize, Variables.teams, Variables.playerPerTeam));
-        TimoCloudAPI.getBukkitInstance().getThisServer().setState(GameState.LOBBY.name());
     }
 
     public static void end() {

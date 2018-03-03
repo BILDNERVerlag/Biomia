@@ -3,6 +3,8 @@ package de.biomia;
 import de.biomia.server.minigames.general.teams.TeamManager;
 import de.biomia.server.quests.general.QuestManager;
 import de.biomia.server.quests.general.QuestPlayer;
+import net.md_5.bungee.BungeeCord;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -51,22 +53,45 @@ public class Biomia {
     }
 
     public static OfflineBiomiaPlayer getOfflineBiomiaPlayer(String name) {
-        Player p = Bukkit.getPlayer(name);
-        if (p == null) {
-            int biomiaPlayerID = OfflineBiomiaPlayer.getBiomiaPlayerID(name);
-            return offlineBiomiaPlayers.computeIfAbsent(biomiaPlayerID, biomiaplayer -> new OfflineBiomiaPlayer(biomiaPlayerID, name));
-        } else {
-            return getBiomiaPlayer(p);
+
+        try {
+            Class.forName("org.bukkit.Bukkit");
+            Player p = org.bukkit.Bukkit.getPlayer(name);
+            if (p == null) {
+                int biomiaPlayerID = OfflineBiomiaPlayer.getBiomiaPlayerID(name);
+                return offlineBiomiaPlayers.computeIfAbsent(biomiaPlayerID, biomiaplayer -> new OfflineBiomiaPlayer(biomiaPlayerID, name));
+            } else {
+                return getBiomiaPlayer(p);
+            }
+        } catch (ClassNotFoundException ignored) {
+            ProxiedPlayer pp = BungeeCord.getInstance().getPlayer(name);
+            if (pp == null) {
+                int biomiaPlayerID = OfflineBiomiaPlayer.getBiomiaPlayerID(name);
+                return offlineBiomiaPlayers.computeIfAbsent(biomiaPlayerID, biomiaplayer -> new OfflineBiomiaPlayer(biomiaPlayerID, name));
+            } else {
+                return de.biomia.bungee.Main.getBungeeBiomiaPlayer(pp);
+            }
         }
     }
 
     public static OfflineBiomiaPlayer getOfflineBiomiaPlayer(UUID uuid) {
-        Player p = Bukkit.getPlayer(uuid);
-        if (p == null) {
-            int biomiaPlayerID = OfflineBiomiaPlayer.getBiomiaPlayerID(uuid);
-            return offlineBiomiaPlayers.computeIfAbsent(biomiaPlayerID, biomiaplayer -> new OfflineBiomiaPlayer(biomiaPlayerID, uuid));
-        } else {
-            return getBiomiaPlayer(p);
+        try {
+            Class.forName("org.bukkit.Bukkit");
+            Player p = org.bukkit.Bukkit.getPlayer(uuid);
+            if (p == null) {
+                int biomiaPlayerID = OfflineBiomiaPlayer.getBiomiaPlayerID(uuid);
+                return offlineBiomiaPlayers.computeIfAbsent(biomiaPlayerID, biomiaplayer -> new OfflineBiomiaPlayer(biomiaPlayerID, uuid));
+            } else {
+                return getBiomiaPlayer(p);
+            }
+        } catch (ClassNotFoundException ignored) {
+            ProxiedPlayer pp = BungeeCord.getInstance().getPlayer(uuid);
+            if (pp == null) {
+                int biomiaPlayerID = OfflineBiomiaPlayer.getBiomiaPlayerID(uuid);
+                return offlineBiomiaPlayers.computeIfAbsent(biomiaPlayerID, biomiaplayer -> new OfflineBiomiaPlayer(biomiaPlayerID, uuid));
+            } else {
+                return de.biomia.bungee.Main.getBungeeBiomiaPlayer(pp);
+            }
         }
     }
 
