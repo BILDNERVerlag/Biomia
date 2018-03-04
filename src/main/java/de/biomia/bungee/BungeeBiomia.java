@@ -1,5 +1,6 @@
 package de.biomia.bungee;
 
+import de.biomia.bungee.specialEvents.WinterEvent;
 import de.biomia.universal.UniversalBiomiaPlayer;
 
 import java.util.HashMap;

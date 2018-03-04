@@ -4,6 +4,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.tools.RankManager;
+import de.biomia.universal.UniversalBiomia;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -103,7 +104,7 @@ public class LobbyScoreboard {
     private static void initScoreboard(Scoreboard sb) {
         int i = 0;
 
-        for (String s : Main.RANK_NAMES_PREFIXES.keySet()) {
+        for (String s : UniversalBiomia.RANK_NAMES_PREFIXES.keySet()) {
             Team t;
             if (i < 10)
                 t = sb.registerNewTeam("0" + i + s);

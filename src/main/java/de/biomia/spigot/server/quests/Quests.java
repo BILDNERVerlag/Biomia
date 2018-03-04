@@ -22,8 +22,6 @@ public class Quests {
         registerQuestEvents();
         registerQuestCommands();
 
-        Bukkit.getOnlinePlayers().forEach(Scoreboards::setTabList);
-
         NPCManager.saveNPCLocations();
 
     }

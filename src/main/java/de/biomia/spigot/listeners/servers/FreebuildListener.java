@@ -25,7 +25,6 @@ public class FreebuildListener extends BiomiaListener {
         InventorySave.setInventory(p, "FreebuildServer");
         p.sendMessage(Messages.PREFIX + "\u00A76Willkommen auf dem FreebuildServer, " + p.getName() + "!");
         bp.setBuild(true);
-        Scoreboards.setTabList(p);
     }
 
     @EventHandler

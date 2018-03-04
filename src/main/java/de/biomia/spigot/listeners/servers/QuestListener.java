@@ -82,7 +82,6 @@ public class QuestListener extends BiomiaListener {
                 if (quest.getActivePlayerBiomiaIDs().contains(qp.getBiomiaPlayer().getBiomiaPlayerID()))
                     qp.rmFromQuest(quest);
         }
-        Scoreboards.setTabList(e.getPlayer());
 
         if (ItemConditions.hasItemInInventory(qp, Material.ELYTRA, 1, QuestItemNames.twoMinuteElytra)
                 || ItemConditions.hasItemOnArmor(qp, Material.ELYTRA, 1, QuestItemNames.twoMinuteElytra)) {

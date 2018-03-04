@@ -21,6 +21,7 @@ import de.biomia.spigot.server.minigames.skywars.var.Variables;
 import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.RankManager;
+import de.biomia.universal.UniversalBiomia;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
 import org.bukkit.block.Chest;
@@ -140,13 +141,13 @@ public class SkyWarsListener extends BiomiaListener {
             if (SkyWars.gameState.equals(GameState.LOBBY)) {
 
                 String rank = RankManager.getRank(e.getPlayer());
-                int i = Integer.valueOf(RankManager.getRankLevel(rank));
+                int i = Integer.valueOf(UniversalBiomia.getRankLevel(rank));
 
                 if (i < 15) {
 
                     ArrayList<Player> player = new ArrayList<>(Bukkit.getOnlinePlayers());
                     player.forEach(eachPlayer -> {
-                        if (Integer.valueOf(RankManager.getRankLevel(RankManager.getRank(eachPlayer))) > i) {
+                        if (Integer.valueOf(UniversalBiomia.getRankLevel(RankManager.getRank(eachPlayer))) > i) {
                             e.allow();
                             eachPlayer.sendMessage(SkyWarsMessages.kickedForPremium);
                             eachPlayer.kickPlayer("");

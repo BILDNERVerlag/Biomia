@@ -25,10 +25,6 @@ public class Weltenlabor {
 
         Main.registerCommand(new BauWerkCommand());
 
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            Scoreboards.setTabList(p);
-        }
-
         Main.getPlugin().getConfig().addDefault("lastID", 0);
         Main.getPlugin().saveDefaultConfig();
         DemoConfig.hookInPlugin();

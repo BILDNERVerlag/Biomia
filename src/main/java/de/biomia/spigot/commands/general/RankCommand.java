@@ -1,8 +1,8 @@
 package de.biomia.spigot.commands.general;
 
-import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.tools.RankManager;
+import de.biomia.universal.UniversalBiomia;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -20,7 +20,7 @@ public class RankCommand extends BiomiaCommand {
 
         if (sender.hasPermission("biomia.setrank")) {
             if (args.length == 2) {
-                if (Main.RANK_NAMES_PREFIXES.keySet().contains(args[1])) {
+                if (UniversalBiomia.RANK_NAMES_PREFIXES.keySet().contains(args[1])) {
                     Player p = Bukkit.getPlayer(args[0]);
                     if (p != null) {
                         RankManager.setRank(p, args[1]);
@@ -41,7 +41,7 @@ public class RankCommand extends BiomiaCommand {
                 } else {
                     sender.sendMessage("\u00A7cEs sind nur diese R\u00fcnge verf\u00fcgbar:");
 
-                    for (String s : Main.RANK_NAMES_PREFIXES.keySet()) {
+                    for (String s : UniversalBiomia.RANK_NAMES_PREFIXES.keySet()) {
                         sender.sendMessage("\u00A7c" + s);
                     }
                 }

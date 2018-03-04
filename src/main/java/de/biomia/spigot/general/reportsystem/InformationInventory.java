@@ -2,8 +2,8 @@ package de.biomia.spigot.general.reportsystem;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.universal.MySQL;
 import de.biomia.spigot.tools.ItemCreator;
+import de.biomia.universal.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
@@ -36,12 +36,10 @@ class InformationInventory {
 
         int level = ReportSQL.getLevel(biomiaPlayerID);
         int bans = 0;
-        //TODO use "entbannungen"
         int entbannungen = 0;
         Connection con = MySQL.Connect(MySQL.Databases.biomia_db);
         if (con != null) {
             try {
-
                 //Chached Ban List
 
                 PreparedStatement sql = con.prepareStatement("Select * from CachedBanList where biomiaID = ?");
@@ -137,6 +135,14 @@ class InformationInventory {
         bannsItemMeta.setLore(Collections.singletonList("\u00A7r\u00A7b" + bans));
         banns.setItemMeta(bannsItemMeta);
         inv.setItem(9, banns);
+
+        ItemStack entbanns = ItemCreator.itemCreate(Material.PAPER, "\u00A7cEntbannungen");
+        ItemMeta entbannsMeta = entbanns.getItemMeta();
+        if (entbannungen > 0)
+            entbanns.setAmount(entbannungen);
+        entbannsMeta.setLore(Collections.singletonList("\u00A7r\u00A7b" + entbannungen));
+        entbanns.setItemMeta(entbannsMeta);
+        inv.setItem(9, entbanns);
 
         inv.setItem(12, ItemCreator.itemCreate(Material.BARRIER, "\u00A7cBannen"));
 

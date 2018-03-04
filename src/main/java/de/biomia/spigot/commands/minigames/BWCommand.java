@@ -14,7 +14,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class BWCommand extends BiomiaCommand {
-    //TODO renew
+    //TODO renew (merge)
     public BWCommand() {
         super("bedwars", "bw");
     }

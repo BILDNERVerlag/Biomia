@@ -2,13 +2,15 @@ package de.biomia.bungee.events;
 
 import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import de.biomia.bungee.BungeeBiomia;
-import de.biomia.bungee.OfflineBungeeBiomiaPlayer;
-import de.biomia.universal.UniversalBiomiaPlayer;
 import de.biomia.bungee.BungeeMain;
+import de.biomia.bungee.OfflineBungeeBiomiaPlayer;
 import de.biomia.bungee.cmds.Modus;
+import de.biomia.bungee.specialEvents.WinterEvent;
 import de.biomia.bungee.var.Bans;
-import de.biomia.universal.MySQL;
 import de.biomia.spigot.general.reportsystem.ReportSQL;
+import de.biomia.universal.MySQL;
+import de.biomia.universal.UniversalBiomia;
+import de.biomia.universal.UniversalBiomiaPlayer;
 import me.philipsnostrum.bungeepexbridge.BungeePexBridge;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.ChatColor;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 
 public class Login implements Listener {
 
+
     private static boolean isLobbyServerOnline;
     private final TextComponent wartungsmodus = new TextComponent(ChatColor.AQUA + "Der Server ist im Wartungsmodus.\n" + ChatColor.RED + "Bitte versuche es in einer Weile erneut!");
 
@@ -30,7 +33,6 @@ public class Login implements Listener {
     public void onLogin(ServerConnectEvent evt) {
 
         ProxiedPlayer pp = evt.getPlayer();
-
         OfflineBungeeBiomiaPlayer bp;
 
         if (!UniversalBiomiaPlayer.isPlayerRegistered(pp.getUniqueId())) {
@@ -42,39 +44,9 @@ public class Login implements Listener {
             bp = BungeeBiomia.getOfflineBiomiaPlayer(pp.getUniqueId());
         }
 
-        //TODO add to specialEvents
-
-        //        WinterEvent Start
-//		ArrayList<Integer> wintereventwinner = WinterEvent.getPlayerFromWinner(bp.getBiomiaPlayerID());
-//
-//		if (!wintereventwinner.isEmpty()) {
-//			for (int days : wintereventwinner) {
-//				pp.sendMessage(new TextComponent(
-//						"§aGlückwunsch! Du hast am §4" + days + ". §aDezember beim Gewinnspiel gewonnen!"));
-//				pp.sendMessage(new TextComponent(
-//						"§7Wir haben etwas für dich! Schicke eine e-mail an §cbusiness@biomia.de §7mit folgendem Code:"));
-//				String code = "";
-//				switch (days) {
-//				case 3:
-//					code = "ADV3NT";
-//					break;
-//				case 10:
-//					code = "A10NT";
-//					break;
-//				case 17:
-//					code = "D17ENT";
-//					break;
-//				case 24:
-//					code = "XMAS24";
-//					break;
-//				default:
-//					break;
-//				}
-//				pp.sendMessage(new TextComponent("§4" + code));
-//			}
-//			WinterEvent.removePlayerFromWinner(bp.getBiomiaPlayerID());
-//		}
-//		 WinterEvent End
+        if (WinterEvent.isEnabled) {
+            WinterEvent.isWinner(bp);
+        }
 
         isLobbyServerOnline = false;
 
@@ -134,7 +106,7 @@ public class Login implements Listener {
 
                     int lvl = -1;
                     try {
-                        lvl = BungeeMain.ranks.get(BungeePexBridge.getPerms().getPlayerGroups(each).get(0));
+                        lvl = Integer.valueOf(UniversalBiomia.getRankLevel(BungeePexBridge.getPerms().getPlayerGroups(each).get(0)));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

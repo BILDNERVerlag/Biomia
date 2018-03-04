@@ -1,6 +1,6 @@
 package de.biomia.spigot.tools;
 
-import de.biomia.spigot.Main;
+import de.biomia.universal.UniversalBiomia;
 import org.bukkit.entity.Player;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
@@ -29,17 +29,6 @@ public class RankManager {
         PermissionUser user = PermissionsEx.getUser(playerName);
         String[] groups = {rank};
         user.setGroups(groups);
-    }
-
-    public static String getRankLevel(String rank) {
-        int i = 0;
-        for (String prefix : Main.RANK_NAMES_PREFIXES.keySet()) {
-            if (prefix.equalsIgnoreCase(rank)) {
-                return i < 10 ? "00" + i : "0" + i;
-            }
-            i++;
-        }
-        return "-1";
     }
 
     public static boolean isPremium(String name) {
@@ -81,6 +70,6 @@ public class RankManager {
     }
 
     public static String getPrefix(String s) {
-        return Main.RANK_NAMES_PREFIXES.get(s);
+        return UniversalBiomia.RANK_NAMES_PREFIXES.get(s);
     }
 }

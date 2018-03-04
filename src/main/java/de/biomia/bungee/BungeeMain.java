@@ -4,16 +4,17 @@ import de.biomia.bungee.cmds.*;
 import de.biomia.bungee.events.ChannelListener;
 import de.biomia.bungee.events.Login;
 import de.biomia.bungee.msg.Broadcasts;
+import de.biomia.bungee.specialEvents.Winter;
+import de.biomia.bungee.specialEvents.WinterEvent;
 import de.biomia.bungee.var.Bans;
-import de.biomia.universal.MySQL;
 import de.biomia.spigot.general.reportsystem.ReportSQL;
+import de.biomia.universal.MySQL;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Plugin;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class BungeeMain extends Plugin {
 
@@ -24,7 +25,6 @@ public class BungeeMain extends Plugin {
 
     public static Plugin plugin;
 
-    public static final HashMap<String, Integer> ranks = new HashMap<>();
     public static ArrayList<Bans> activeBans = new ArrayList<>();
     public static ArrayList<Bans> cachedBans = new ArrayList<>();
 
@@ -40,44 +40,14 @@ public class BungeeMain extends Plugin {
 
         registerCommands();
         registerEvents();
-        initRanks();
 
         Broadcasts.startBroadcast();
 
-        // WinterEvent
-        // Calendar c = Calendar.getInstance();
-        // int lastday;
 
         Thread thread = new Thread(() -> {
             while (true) {
                 try {
                     Thread.sleep(900000);
-                    // WinterEvent
-//						if (c.get(Calendar.MONTH) == 11)
-//							lastday = c.get(Calendar.DAY_OF_MONTH);
-//						else
-//							lastday = 1;
-//						if (c.get(Calendar.MONTH) == 11) {
-//							if (lastday < c.get(Calendar.DAY_OF_MONTH)) {
-//								switch (lastday) {
-//								case 3:
-//									WinterEvent.randomWin(lastday);
-//									break;
-//								case 10:
-//									WinterEvent.randomWin(lastday);
-//									break;
-//								case 17:
-//									WinterEvent.randomWin(lastday);
-//									break;
-//								case 24:
-//									WinterEvent.randomWin(lastday);
-//									break;
-//								default:
-//									break;
-//								}
-//								lastday = c.get(Calendar.DAY_OF_MONTH);
-//							}
-//						}
                     for (String name : ReportSQL.getAllFinishedBugReports()) {
                         OfflineBungeeBiomiaPlayer obp = BungeeBiomia.getOfflineBiomiaPlayer(name);
                         obp.addCoins(bugRewardMoney, false);
@@ -114,34 +84,13 @@ public class BungeeMain extends Plugin {
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new BiomiaCommand("biomia"));
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new Workload("workload"));
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new Broadcast("broadcast"));
-//        ProxyServer.getInstance().getPluginManager().registerCommand(this, new Winter("winterwinner"));
+
+        if (WinterEvent.isEnabled)
+            ProxyServer.getInstance().getPluginManager().registerCommand(this, new Winter("winterwinner"));
     }
 
     private void registerEvents() {
         ProxyServer.getInstance().getPluginManager().registerListener(this, new Login());
         ProxyServer.getInstance().getPluginManager().registerListener(this, new ChannelListener());
-    }
-
-    private void initRanks() {
-        //FIXME
-        ranks.put("UnregSpieler", 0);
-        ranks.put("RegSpieler", 1);
-        ranks.put("PremiumEins", 2);
-        ranks.put("PremiumZwei", 3);
-        ranks.put("PremiumDrei", 4);
-        ranks.put("PremiumVier", 5);
-        ranks.put("PremiumFuenf", 6);
-        ranks.put("PremiumSechs", 7);
-        ranks.put("PremiumSieben", 8);
-        ranks.put("PremiumAcht", 9);
-        ranks.put("PremiumNeun", 10);
-        ranks.put("PremiumZehn", 11);
-        ranks.put("YouTube", 12);
-        ranks.put("Builder", 13);
-        ranks.put("Moderator", 14);
-        ranks.put("SrModerator", 15);
-        ranks.put("SrBuilder", 16);
-        ranks.put("Admin", 17);
-        ranks.put("Owner", 18);
     }
 }

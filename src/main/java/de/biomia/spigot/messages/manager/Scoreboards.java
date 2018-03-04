@@ -1,7 +1,7 @@
 package de.biomia.spigot.messages.manager;
 
-import de.biomia.spigot.Main;
 import de.biomia.spigot.tools.RankManager;
+import de.biomia.universal.UniversalBiomia;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
@@ -9,63 +9,36 @@ import org.bukkit.scoreboard.Team;
 
 public class Scoreboards {
 
-    //TODO remake
-
-    private static void addToEachOther(Player p) {
-
-        String rank = RankManager.getRank(p);
-
-        for (Player pl : Bukkit.getOnlinePlayers()) {
-            if (p != pl) {
-                for (Team t : pl.getScoreboard().getTeams()) {
-                    if (t.getName().contains(rank)) {
-                        if (t.getPrefix().isEmpty()) {
-                            t.setPrefix(RankManager.getPrefix(p));
-                        }
-                        t.addEntry(p.getDisplayName());
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
     public static void setTabList(Player p) {
 
         Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
+        int i = 0;
+        for (String s : UniversalBiomia.RANK_NAMES_PREFIXES.keySet()) {
 
-        initScoreboard(sb);
+            Team t;
 
-        addToEachOther(p);
+            if (i < 10)
+                t = sb.registerNewTeam("0" + i + s);
+            else
+                t = sb.registerNewTeam(i + s);
+            t.setPrefix(UniversalBiomia.RANK_NAMES_PREFIXES.get(s));
+
+            i++;
+        }
+        String rank = RankManager.getRank(p);
 
         for (Player pl : Bukkit.getOnlinePlayers()) {
             for (Team t : sb.getTeams()) {
                 if (t.getName().contains(RankManager.getRank(pl))) {
-                    if (t.getPrefix().isEmpty()) {
-                        t.setPrefix(RankManager.getPrefix(pl));
-                    }
                     t.addEntry(pl.getDisplayName());
                     break;
                 }
             }
+            for (Team t : pl.getScoreboard().getTeams()) {
+                if (t.getName().contains(rank))
+                    t.addEntry(pl.getDisplayName());
+            }
         }
-
         p.setScoreboard(sb);
     }
-
-    private static void initScoreboard(Scoreboard sb) {
-
-        int i = 0;
-        for (String s : Main.RANK_NAMES_PREFIXES.keySet()) {
-
-            if (i < 10)
-                sb.registerNewTeam("0" + i + s);
-            else
-                sb.registerNewTeam(i + s);
-
-            i++;
-        }
-
-    }
-
 }

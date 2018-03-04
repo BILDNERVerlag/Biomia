@@ -9,6 +9,7 @@ import de.biomia.spigot.general.reportsystem.ReportManager;
 import de.biomia.spigot.general.reportsystem.ReportSQL;
 import de.biomia.spigot.messages.Messages;
 import de.biomia.spigot.messages.manager.HeaderAndFooter;
+import de.biomia.spigot.messages.manager.Scoreboards;
 import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.PlayerToServerConnector;
 import de.biomia.spigot.tools.RankManager;
@@ -34,28 +35,6 @@ import org.bukkit.event.player.*;
  */
 abstract class BiomiaListener implements Listener {
 
-    @EventHandler
-    public final void onInteract(PlayerInteractEvent e) {
-        if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-            if (e.getItem() != null) {
-                if (e.getItem().isSimilar(BackToLobby.getBackToLobbyItem()))
-                    PlayerToServerConnector.connectToRandom(e.getPlayer(), "Lobby");
-            }
-        }
-        if (e.getAction().equals(Action.PHYSICAL) && e.getClickedBlock().getType() == Material.SOIL) {
-            e.setCancelled(true);
-        }
-    }
-
-    @EventHandler
-    public final void onClick(InventoryClickEvent e) {
-        if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
-            if (Cosmetic.getMainInventory().equals(e.getClickedInventory()) && Cosmetic.openGroupInventory(Biomia.getBiomiaPlayer((Player) e.getWhoClicked()), e.getCurrentItem().getItemMeta().getDisplayName())) {
-                e.setCancelled(true);
-            }
-        }
-    }
-
     @EventHandler(priority = EventPriority.HIGHEST)
     public final void onJoin(PlayerJoinEvent e) {
         e.setJoinMessage(null);
@@ -78,6 +57,40 @@ abstract class BiomiaListener implements Listener {
     }
 
     @EventHandler
+    public final void onDeath(PlayerDeathEvent e) {
+        e.setDeathMessage(null);
+    }
+
+    @EventHandler
+    public final void onInteract(PlayerInteractEvent e) {
+        if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+            if (e.getItem() != null) {
+                if (e.getItem().isSimilar(BackToLobby.getBackToLobbyItem()))
+                    PlayerToServerConnector.connectToRandom(e.getPlayer(), "Lobby");
+            }
+        }
+        if (e.getAction().equals(Action.PHYSICAL) && e.getClickedBlock().getType() == Material.SOIL) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public final void onInteractEntity(PlayerInteractAtEntityEvent e) {
+        if (CosmeticPetItem.isOwner(Biomia.getBiomiaPlayer(e.getPlayer()), e.getRightClicked())) {
+            e.getRightClicked().addPassenger(e.getPlayer());
+        }
+    }
+
+    @EventHandler
+    public final void onClick(InventoryClickEvent e) {
+        if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
+            if (Cosmetic.getMainInventory().equals(e.getClickedInventory()) && Cosmetic.openGroupInventory(Biomia.getBiomiaPlayer((Player) e.getWhoClicked()), e.getCurrentItem().getItemMeta().getDisplayName())) {
+                e.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
     public final void onBlockBreak(BlockBreakEvent e) {
         if (!Biomia.getBiomiaPlayer(e.getPlayer()).canBuild())
             e.setCancelled(true);
@@ -90,60 +103,7 @@ abstract class BiomiaListener implements Listener {
     }
 
     @EventHandler
-    public final void damageToPlayer(EntityDamageEvent e) {
-        if (e.getEntity() instanceof Player) {
-            if (!Biomia.getBiomiaPlayer((Player) e.getEntity()).canGetDamage()) {
-                e.setCancelled(true);
-            }
-        } else if (CosmeticPetItem.isPet(e.getEntity())) {
-            e.setCancelled(true);
-        }
-    }
-
-    @EventHandler
-    public final void damageByPlayer(EntityDamageByEntityEvent e) {
-        if (e.getDamager() instanceof Player) {
-            Player p = (Player) e.getDamager();
-
-            if (!Biomia.getBiomiaPlayer(p).canDamageEntitys()) {
-                e.setCancelled(true);
-            }
-        }
-    }
-
-    @EventHandler
-    public final void onCommand(PlayerCommandPreprocessEvent pe) {
-
-        String cmd = pe.getMessage().split(" ")[0];
-
-        if (cmd.equalsIgnoreCase("/rl") || cmd.equalsIgnoreCase("/reload")) {
-            pe.setCancelled(true);
-            if (pe.getPlayer().hasPermission("biomia.reload")) {
-                Bukkit.broadcastMessage(Messages.PREFIX + "\u00A77Alle Serverdateien \u00A7cwerden \u00A77von \u00A7b" + pe.getPlayer().getDisplayName() + " \u00A77neu geladen!");
-                Bukkit.reload();
-                Bukkit.broadcastMessage(Messages.PREFIX + "\u00A77Alle Serverdateien \u00A7cwurden \u00A77erfolgreich von \u00A7b" + pe.getPlayer().getDisplayName() + " \u00A77neu geladen!");
-            } else
-                pe.getPlayer().sendMessage(Messages.NO_PERM);
-        } else if (cmd.equalsIgnoreCase("/gamemode")) {
-            pe.setCancelled(true);
-            pe.getPlayer().sendMessage("/gm <GameMode> [Spieler]");
-        }
-    }
-
-    @EventHandler
-    public final void onInteractEntity(PlayerInteractAtEntityEvent e) {
-        if (CosmeticPetItem.isOwner(Biomia.getBiomiaPlayer(e.getPlayer()), e.getRightClicked())) {
-            e.getRightClicked().addPassenger(e.getPlayer());
-        }
-    }
-
-    @EventHandler
-    public final void onDeath(PlayerDeathEvent e) {
-        e.setDeathMessage(null);
-    }
-
-    @EventHandler
-    public static void onSendMessage(AsyncPlayerChatEvent e) {
+    public final void onSendMessage(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
 
@@ -167,6 +127,47 @@ abstract class BiomiaListener implements Listener {
 
         if (p.hasPermission("biomia.coloredchat")) {
             e.setMessage(ChatColor.translateAlternateColorCodes('&', e.getMessage()));
+        }
+    }
+
+    @EventHandler
+    public final void onCommand(PlayerCommandPreprocessEvent pe) {
+
+        String cmd = pe.getMessage().split(" ")[0];
+
+        if (cmd.equalsIgnoreCase("/rl") || cmd.equalsIgnoreCase("/reload")) {
+            pe.setCancelled(true);
+            if (pe.getPlayer().hasPermission("biomia.reload")) {
+                Bukkit.broadcastMessage(Messages.PREFIX + "\u00A77Alle Serverdateien \u00A7cwerden \u00A77von \u00A7b" + pe.getPlayer().getDisplayName() + " \u00A77neu geladen!");
+                Bukkit.reload();
+                Bukkit.broadcastMessage(Messages.PREFIX + "\u00A77Alle Serverdateien \u00A7cwurden \u00A77erfolgreich von \u00A7b" + pe.getPlayer().getDisplayName() + " \u00A77neu geladen!");
+            } else
+                pe.getPlayer().sendMessage(Messages.NO_PERM);
+        } else if (cmd.equalsIgnoreCase("/gamemode")) {
+            pe.setCancelled(true);
+            pe.getPlayer().sendMessage("/gm <GameMode> [Spieler]");
+        }
+    }
+
+    @EventHandler
+    public final void damageToPlayer(EntityDamageEvent e) {
+        if (e.getEntity() instanceof Player) {
+            if (!Biomia.getBiomiaPlayer((Player) e.getEntity()).canGetDamage()) {
+                e.setCancelled(true);
+            }
+        } else if (CosmeticPetItem.isPet(e.getEntity())) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public final void damageByPlayer(EntityDamageByEntityEvent e) {
+        if (e.getDamager() instanceof Player) {
+            Player p = (Player) e.getDamager();
+
+            if (!Biomia.getBiomiaPlayer(p).canDamageEntitys()) {
+                e.setCancelled(true);
+            }
         }
     }
 
