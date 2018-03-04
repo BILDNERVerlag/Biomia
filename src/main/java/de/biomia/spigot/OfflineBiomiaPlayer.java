@@ -55,8 +55,6 @@ public class OfflineBiomiaPlayer extends UniversalBiomiaPlayer {
 
     public final void takeCoins(int coins) {
 
-        //TODO add BungeeEvent
-
         int actualCoins = getCoins();
 
         if (actualCoins < coins && isOnline()) {

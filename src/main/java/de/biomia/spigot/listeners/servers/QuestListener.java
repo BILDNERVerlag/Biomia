@@ -50,7 +50,7 @@ public class QuestListener extends BiomiaListener {
                         || material == Material.LAVA_BUCKET) {
                     if (!qp.isInQuest(Biomia.getQuestManager().getQuest("Wasserholen")))
                         event.setCancelled(true);
-                    // TODO: buildable blocks mit buckets?
+                    // TODO: buildable blocks mit buckets? : DO it!
                     if (event.getItem().getType() != null && event.getItem().getType() == Material.WATER_BUCKET
                             || event.getItem().getType() == Material.LAVA_BUCKET) {
                         // Platzieren canceln

@@ -6,6 +6,7 @@ import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
 import de.biomia.spigot.messages.manager.ActionBar;
+import de.biomia.spigot.messages.manager.Scoreboards;
 import de.biomia.spigot.server.minigames.versus.sw.kits.Kit;
 import de.biomia.spigot.server.minigames.versus.sw.kits.KitManager;
 import de.biomia.spigot.server.minigames.versus.sw.var.Variables;
@@ -85,7 +86,7 @@ public class VSManager implements Listener {
         setInventory(p);
         p.setHealth(20);
         p.setFoodLevel(20);
-        //TODO scoreboard
+        Scoreboards.setTabList(p);
     }
 
     public String getMapName(VSMode mode, int mapID) {

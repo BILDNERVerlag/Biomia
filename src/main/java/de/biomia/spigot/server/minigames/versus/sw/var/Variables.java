@@ -17,9 +17,4 @@ public class Variables {
     // Items
     public static final ItemStack kitItem = ItemCreator.itemCreate(Material.CHEST, SkyWarsItemNames.kitItemName);
 
-    //TODO Rewards
-    public static int winReward = 300;
-    public static int playReward = 60;
-    public static int killReward = 100;
-
 }
