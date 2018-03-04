@@ -1,13 +1,12 @@
 package de.biomia.bungee.cmds;
 
-import de.biomia.BungeeBiomia;
-import de.biomia.OfflineBungeeBiomiaPlayer;
-import de.biomia.OfflineBiomiaPlayer;
+import de.biomia.bungee.BungeeBiomia;
+import de.biomia.bungee.OfflineBungeeBiomiaPlayer;
 import de.biomia.bungee.BungeeMain;
 import de.biomia.bungee.events.ChannelListener;
 import de.biomia.bungee.events.Time;
 import de.biomia.bungee.var.Bans;
-import de.biomia.data.MySQL;
+import de.biomia.universal.MySQL;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;

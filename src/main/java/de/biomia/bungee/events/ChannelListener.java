@@ -1,8 +1,7 @@
 package de.biomia.bungee.events;
 
-import de.biomia.BungeeBiomia;
-import de.biomia.OfflineBungeeBiomiaPlayer;
-import de.biomia.OfflineBiomiaPlayer;
+import de.biomia.bungee.BungeeBiomia;
+import de.biomia.bungee.OfflineBungeeBiomiaPlayer;
 import de.biomia.bungee.cmds.Ban;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.chat.ClickEvent;

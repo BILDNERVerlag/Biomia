@@ -1,14 +1,12 @@
 package de.biomia.bungee;
 
-import de.biomia.BungeeBiomia;
-import de.biomia.OfflineBungeeBiomiaPlayer;
 import de.biomia.bungee.cmds.*;
 import de.biomia.bungee.events.ChannelListener;
 import de.biomia.bungee.events.Login;
 import de.biomia.bungee.msg.Broadcasts;
 import de.biomia.bungee.var.Bans;
-import de.biomia.data.MySQL;
-import de.biomia.general.reportsystem.ReportSQL;
+import de.biomia.universal.MySQL;
+import de.biomia.spigot.general.reportsystem.ReportSQL;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;

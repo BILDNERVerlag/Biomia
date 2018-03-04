@@ -2,7 +2,7 @@ package de.biomia.bungee.cmds;
 
 import de.biomia.bungee.BungeeMain;
 import de.biomia.bungee.events.ChannelListener;
-import de.biomia.messages.Messages;
+import de.biomia.spigot.messages.Messages;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;

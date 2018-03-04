@@ -1,7 +1,7 @@
 package de.biomia.bungee.msg;
 
 import de.biomia.bungee.BungeeMain;
-import de.biomia.data.MySQL;
+import de.biomia.universal.MySQL;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class Broadcasts {
 
-    private static int delayInSeconds = 60 * 5;
+    private static final int delayInSeconds = 60 * 5;
 
     public static void startBroadcast() {
 

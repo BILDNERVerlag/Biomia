@@ -1,7 +1,7 @@
 package de.biomia.bungee.cmds;
 
-import de.biomia.data.MySQL;
-import de.biomia.messages.Messages;
+import de.biomia.universal.MySQL;
+import de.biomia.spigot.messages.Messages;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -26,7 +26,7 @@ public class Modus extends Command {
                     String switcher = args[0];
                     if (switcher.toLowerCase().equals("on")) {
                         wm = true;
-                        setModus(false);
+                        setModus(true);
                         for (ProxiedPlayer p : BungeeCord.getInstance().getPlayers())
                             if (!p.hasPermission("biomia.join"))
                                 p.disconnect(new TextComponent("§cDer Server ist jetzt im §6Wartungsmodus§c!"));
@@ -50,7 +50,7 @@ public class Modus extends Command {
         MySQL.executeUpdate("UPDATE Modus SET Wert = " + b, MySQL.Databases.biomia_db);
     }
 
-    public static boolean getModus() {
+    private static boolean getModus() {
         return MySQL.executeQuerygetint("SELECT Wert FROM Modus", "Wert", MySQL.Databases.biomia_db) == 1;
     }
 }

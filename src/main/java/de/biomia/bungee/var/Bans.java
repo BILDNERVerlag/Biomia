@@ -6,8 +6,8 @@ public class Bans {
     private String grund;
     private boolean perm;
     private int bis;
-    private int von;
-    private int timestamp;
+    private final int von;
+    private final int timestamp;
 
     // constructor
     public Bans(boolean perm, int bis, String grund, int biomiaID, int von, int timestamp) {

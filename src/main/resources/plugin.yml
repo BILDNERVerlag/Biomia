@@ -1,4 +1,4 @@
-main: de.biomia.Main
+main: de.biomia.spigot.Main
 name: Biomia
 version: 0.5
 authors: [DerJulsn, DerAaron]

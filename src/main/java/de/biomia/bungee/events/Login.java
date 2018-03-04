@@ -1,14 +1,14 @@
 package de.biomia.bungee.events;
 
 import cloud.timo.TimoCloud.api.TimoCloudAPI;
-import de.biomia.BungeeBiomia;
-import de.biomia.OfflineBungeeBiomiaPlayer;
-import de.biomia.UniversalBiomiaPlayer;
+import de.biomia.bungee.BungeeBiomia;
+import de.biomia.bungee.OfflineBungeeBiomiaPlayer;
+import de.biomia.universal.UniversalBiomiaPlayer;
 import de.biomia.bungee.BungeeMain;
 import de.biomia.bungee.cmds.Modus;
 import de.biomia.bungee.var.Bans;
-import de.biomia.data.MySQL;
-import de.biomia.general.reportsystem.ReportSQL;
+import de.biomia.universal.MySQL;
+import de.biomia.spigot.general.reportsystem.ReportSQL;
 import me.philipsnostrum.bungeepexbridge.BungeePexBridge;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.ChatColor;
