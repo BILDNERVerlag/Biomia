@@ -8,8 +8,6 @@ public class SkyWarsMessages {
     // %t = CountDown
     public static final String restartCountDown = "\u00A7cRestart in \u00A76%t \u00A7cSekunden!";
     public static final String lobbyCountDown = Variables.prefix + "\u00A75Start in \u00A72%t \u00A75Sekunden!";
-    // %mt = Max Teams, %ts = Team Size
-    public static final String mapSize = "\u00A75%mt \u00A77x \u00A72%ts";
     // %k = Kit Name
     public static final String demoInventory = "\u00A7cDemo Inventory: %kit";
     public static final String kitPurchased = "\u00A7aGl\u00fcckwunsch, du hast das Kit %kit erworben!";
@@ -44,14 +42,5 @@ public class SkyWarsMessages {
     public static final String playerDied = "\u00A78Der Spieler %p \u00A78ist gestorben!";
     public static final String chestAddModeON = "\u00A7cDu bist jetzt im \u00A74KISTENHINZUF\u00fcGEMODUS!!!";
     public static final String chestAddModeOFF = "\u00A7cDu bist jetzt nicht mehr im \u00A74KISTENHINZUF\u00fcGEMODUS!!!";
-    public static String kills = "\u00A78Kills:\u00A7a ";
-    public static String deaths = "\u00A78Tode:\u00A7a ";
-    public static String playedGames = "\u00A78Gespielt:\u00A7a ";
-    public static String wunGames = "\u00A78Gewonnen:\u00A7a ";
-    public static String kd = "\u00A78K/D:\u00A7a ";
-    public static String rank = "\u00A75%p \u00A72#%rank";
 
-    public static String addPrefix(String nachricht) {
-        return Variables.prefix + nachricht;
-    }
 }

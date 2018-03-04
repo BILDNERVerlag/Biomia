@@ -22,7 +22,7 @@ public class BedWarsMessages {
     public static final String noFittingTeamParty = "\u00A7cEs konnt kein passendes Team gefunden werden, da die Partygr\u00F6\u00DFe die maximale Teamgr\u00F6\u00DFe \u00fcbersteigt!";
     public static final String noFittingTeamPlayer = "\u00A7cEs konnt kein passendes Team gefunden werden, da kein Team genug Platz hat!";
     public static final String kickedForPremium = "\u00A7cDu wurdest gekickt um einen Premium Spieler Platz zu machen!";
-    public static final String joinedTheGame = "\u00A78ist dem Spiel beigetreten!";
+    public static final String joinedTheGame = " \u00A78ist dem Spiel beigetreten!";
     public static final String playerKilledByPlayer = "\u00A78Der Spieler %p1 \u00A78wurde von %p2 \u00A78get\u00F6tet!";
     public static final String playerDied = "\u00A78Der Spieler %p \u00A78ist gestorben!";
     public static final String playerDiedFinally = "\u00A78Der Spieler %p \u00A78ist endg\u00fcltig gestorben!";

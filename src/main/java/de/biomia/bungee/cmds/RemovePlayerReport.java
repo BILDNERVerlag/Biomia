@@ -1,8 +1,8 @@
 package de.biomia.bungee.cmds;
 
-import de.biomia.Biomia;
-import de.biomia.OfflineBiomiaPlayer;
-import de.biomia.bungee.Main;
+import de.biomia.BungeeBiomia;
+import de.biomia.OfflineBungeeBiomiaPlayer;
+import de.biomia.bungee.BungeeMain;
 import de.biomia.data.MySQL;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -26,7 +26,7 @@ public class RemovePlayerReport extends Command {
                 try {
                     PreparedStatement statement = MySQL.Connect(MySQL.Databases.biomia_db).prepareStatement("SELECT `Reporter` FROM `PlayerReports` where Reporteter = ?");
 
-                    int reporteterID = Biomia.getOfflineBiomiaPlayer(args[0]).getBiomiaPlayerID();
+                    int reporteterID = BungeeBiomia.getOfflineBiomiaPlayer(args[0]).getBiomiaPlayerID();
 
                     statement.setInt(1, reporteterID);
                     ResultSet rs = statement.executeQuery();
@@ -36,10 +36,10 @@ public class RemovePlayerReport extends Command {
                     while (rs.next()) {
                         b = true;
                         int reporter = rs.getInt("Reporter");
-                        OfflineBiomiaPlayer p = Biomia.getOfflineBiomiaPlayer(reporter);
-                        p.addCoins(Main.playerReportRewardMoney, false);
+                        OfflineBungeeBiomiaPlayer p = BungeeBiomia.getOfflineBiomiaPlayer(reporter);
+                        p.addCoins(BungeeMain.playerReportRewardMoney, false);
                         if (p.isOnline()) {
-                            p.getBungeeBiomiaPlayer().getProxiedPlayer().sendMessage(new TextComponent("§cDanke für den Report! Der Spieler wurde gebannt!"));
+                            p.sendMessage("§cDanke für den Report! Der Spieler wurde gebannt!");
                         }
                     }
                     if (b) {

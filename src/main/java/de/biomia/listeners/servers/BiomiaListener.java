@@ -143,7 +143,7 @@ abstract class BiomiaListener implements Listener {
     }
 
     @EventHandler
-    public void onSendMessage(AsyncPlayerChatEvent e) {
+    public static void onSendMessage(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
 
@@ -152,7 +152,6 @@ abstract class BiomiaListener implements Listener {
         if (ReportManager.waitingForBugReason.contains(p)) {
             ReportManager.waitingForBugReason.remove(p);
             e.setCancelled(true);
-
             ReportSQL.addBugReport(p, e.getMessage());
             p.sendMessage("\u00A7cDanke f\u00fcr deinen Bug Report! \u00A7bWir werden den Bug so schnell wie m\u00F6glich beheben!");
         } else if (ReportManager.waitingForName.contains(p)) {

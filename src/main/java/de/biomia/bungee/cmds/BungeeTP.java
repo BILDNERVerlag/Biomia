@@ -1,6 +1,6 @@
 package de.biomia.bungee.cmds;
 
-import de.biomia.bungee.Main;
+import de.biomia.bungee.BungeeMain;
 import de.biomia.bungee.events.ChannelListener;
 import de.biomia.messages.Messages;
 import net.md_5.bungee.BungeeCord;
@@ -41,7 +41,7 @@ public class BungeeTP extends Command {
 
                         });
                         thread.start();
-                        Main.allThreads.add(thread);
+                        BungeeMain.allThreads.add(thread);
                     } else {
                         sender.sendMessage(new TextComponent(Messages.NOT_ONLINE));
                     }

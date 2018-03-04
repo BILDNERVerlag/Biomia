@@ -1,9 +1,11 @@
 package de.biomia.bungee.events;
 
 import cloud.timo.TimoCloud.api.TimoCloudAPI;
-import de.biomia.bungee.Main;
+import de.biomia.BungeeBiomia;
+import de.biomia.OfflineBungeeBiomiaPlayer;
+import de.biomia.UniversalBiomiaPlayer;
+import de.biomia.bungee.BungeeMain;
 import de.biomia.bungee.cmds.Modus;
-import de.biomia.bungee.main.BungeeBiomiaPlayer;
 import de.biomia.bungee.var.Bans;
 import de.biomia.data.MySQL;
 import de.biomia.general.reportsystem.ReportSQL;
@@ -16,27 +18,33 @@ import net.md_5.bungee.api.event.ServerConnectEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 import net.md_5.bungee.event.EventPriority;
-import sun.awt.ModalExclude;
 
 import java.util.ArrayList;
 
 public class Login implements Listener {
 
     private static boolean isLobbyServerOnline;
-
-    private final String wartungsmodus = ChatColor.YELLOW
-            + "Der Server ist im Wartungsmodus. Bitte versuche es in einer Weile erneut!";
+    private final TextComponent wartungsmodus = new TextComponent(ChatColor.AQUA + "Der Server ist im Wartungsmodus.\n" + ChatColor.RED + "Bitte versuche es in einer Weile erneut!");
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(ServerConnectEvent evt) {
 
         ProxiedPlayer pp = evt.getPlayer();
-        BungeeBiomiaPlayer bp = Main.getBungeeBiomiaPlayer(pp);
 
-        if (bp.getCoins() == -1)
+        OfflineBungeeBiomiaPlayer bp;
+
+        if (!UniversalBiomiaPlayer.isPlayerRegistered(pp.getUniqueId())) {
+            MySQL.executeUpdate("INSERT INTO `BiomiaPlayer` (`uuid`, `name`) VALUES ('" + pp.getUniqueId().toString() + "','" + pp.getName() + "')", MySQL.Databases.biomia_db);
+            bp = BungeeBiomia.getOfflineBiomiaPlayer(pp.getUniqueId());
             MySQL.executeUpdate("INSERT INTO `BiomiaCoins` (`ID`, `coins`) VALUES (" + bp.getBiomiaPlayerID() + ", 0)", MySQL.Databases.biomia_db);
+        } else {
+            MySQL.executeUpdate("UPDATE `BiomiaPlayer` SET `name`='" + pp.getName() + "' WHERE uuid = '" + pp.getUniqueId().toString() + "'", MySQL.Databases.biomia_db);
+            bp = BungeeBiomia.getOfflineBiomiaPlayer(pp.getUniqueId());
+        }
 
-        // WinterEvent Start
+        //TODO add to specialEvents
+
+        //        WinterEvent Start
 //		ArrayList<Integer> wintereventwinner = WinterEvent.getPlayerFromWinner(bp.getBiomiaPlayerID());
 //
 //		if (!wintereventwinner.isEmpty()) {
@@ -67,7 +75,6 @@ public class Login implements Listener {
 //			WinterEvent.removePlayerFromWinner(bp.getBiomiaPlayerID());
 //		}
 //		 WinterEvent End
-        MySQL.executeUpdate("UPDATE `BiomiaPlayer` SET `name`='" + pp.getName() + "' WHERE id = " + Main.getBungeeBiomiaPlayer(pp).getBiomiaPlayerID(), MySQL.Databases.biomia_db);
 
         isLobbyServerOnline = false;
 
@@ -95,9 +102,7 @@ public class Login implements Listener {
         }
 
         ArrayList<Bans> unbans = new ArrayList<>();
-
-        Main.activeBans.forEach(eachBan -> {
-
+        BungeeMain.activeBans.forEach(eachBan -> {
             if (bp.getBiomiaPlayerID() == eachBan.getBiomiaID()) {
                 if (eachBan.isPerm()) {
                     pp.disconnect(new TextComponent(
@@ -119,7 +124,7 @@ public class Login implements Listener {
 
         unbans.forEach(ReportSQL::moveToCache);
 
-        if (Main.plugin.getProxy().getOnlineCount() == 520) {
+        if (BungeeMain.plugin.getProxy().getOnlineCount() == 520) {
 
             ArrayList<ProxiedPlayer> lvl0 = new ArrayList<>();
             ArrayList<ProxiedPlayer> lvl1 = new ArrayList<>();
@@ -129,7 +134,7 @@ public class Login implements Listener {
 
                     int lvl = -1;
                     try {
-                        lvl = Main.ranks.get(BungeePexBridge.getPerms().getPlayerGroups(each).get(0));
+                        lvl = BungeeMain.ranks.get(BungeePexBridge.getPerms().getPlayerGroups(each).get(0));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -168,11 +173,8 @@ public class Login implements Listener {
             }
         }
         if (Modus.wm) {
-
             if (!pp.hasPermission("biomia.join")) {
-
                 TextComponent msg = new TextComponent(wartungsmodus);
-
                 pp.disconnect(msg);
                 evt.setCancelled(true);
             }

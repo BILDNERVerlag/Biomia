@@ -1,6 +1,6 @@
 package de.biomia.bungee.cmds;
 
-import de.biomia.bungee.Main;
+import de.biomia.messages.Messages;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -16,7 +16,7 @@ public class Ping extends Command {
     public void execute(CommandSender sender, String[] args) {
         if (sender instanceof ProxiedPlayer) {
             ProxiedPlayer pp = (ProxiedPlayer) sender;
-            sender.sendMessage(new TextComponent(Main.prefix + "§cDein Ping liegt bei: §6" + pp.getPing() + "ms"));
+            sender.sendMessage(new TextComponent(Messages.PREFIX + "§cDein Ping liegt bei: §6" + pp.getPing() + "ms"));
         }
     }
 

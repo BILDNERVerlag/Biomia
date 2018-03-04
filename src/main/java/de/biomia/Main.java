@@ -74,6 +74,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         Bukkit.getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new PlayerToServerConnector());
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BiomiaChannel");

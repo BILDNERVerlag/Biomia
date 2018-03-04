@@ -1,7 +1,8 @@
 package de.biomia.bungee.cmds;
 
-import de.biomia.Biomia;
-import de.biomia.bungee.Main;
+import de.biomia.BungeeBiomia;
+import de.biomia.OfflineBungeeBiomiaPlayer;
+import de.biomia.bungee.BungeeMain;
 import de.biomia.bungee.var.Bans;
 import de.biomia.general.reportsystem.ReportSQL;
 import net.md_5.bungee.api.CommandSender;
@@ -21,7 +22,7 @@ public class Unban extends Command {
 
         List<Bans> ban = new ArrayList<>();
 
-        Main.activeBans.forEach(eachBan -> {
+        BungeeMain.activeBans.forEach(eachBan -> {
             if (eachBan.getBiomiaID() == biomiaID)
                 ban.add(eachBan);
         });
@@ -35,7 +36,7 @@ public class Unban extends Command {
         if (sender.hasPermission("biomia.unban"))
             if (args.length == 1) {
 
-                if (unban(Biomia.getOfflineBiomiaPlayer(args[0]).getBiomiaPlayerID())) {
+                if (unban(BungeeBiomia.getOfflineBiomiaPlayer(args[0]).getBiomiaPlayerID())) {
                     sender.sendMessage(new TextComponent("§c" + args[0] + " wurde erfolgreich entbannt!"));
                 } else
                     sender.sendMessage(new TextComponent("§c" + args[0] + " ist nicht gebannt!"));

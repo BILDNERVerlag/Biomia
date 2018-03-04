@@ -1,8 +1,8 @@
 package de.biomia.bungee.cmds;
 
-import de.biomia.bungee.Main;
 import de.biomia.bungee.events.ChannelListener;
 import de.biomia.data.MySQL;
+import de.biomia.messages.Messages;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -40,12 +40,12 @@ public class Register extends Command {
                 if (code != null && code.equals(args[0])) {
                     MySQL.executeUpdate("UPDATE `ConnectedPlayers` set `wert` = true where uuid = '" + p.getUniqueId().toString() + "'", MySQL.Databases.biomia_db);
                     ChannelListener.rank("RegSpieler", p);
-                    p.sendMessage(new TextComponent(Main.prefix + "§aDu bist jetzt registriert!"));
+                    p.sendMessage(new TextComponent(Messages.PREFIX + "§aDu bist jetzt registriert!"));
                 } else if (code == null) {
                     p.sendMessage(new TextComponent(
-                            Main.prefix + "§cDu musst dich erst auf der Biomia Internetseite registrieren!"));
+                            Messages.PREFIX + "§cDu musst dich erst auf der Biomia Internetseite registrieren!"));
                 } else if (!code.equals(args[0])) {
-                    p.sendMessage(new TextComponent(Main.prefix + "§cFalscher Code!"));
+                    p.sendMessage(new TextComponent(Messages.PREFIX + "§cFalscher Code!"));
                 }
             }
         }

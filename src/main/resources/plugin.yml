@@ -2,7 +2,7 @@ main: de.biomia.Main
 name: Biomia
 version: 0.5
 authors: [DerJulsn, DerAaron]
-depend: [TimoCloud]
+loadbefore: [TimoCloud]
 softdepend: [Citizens]
 
 commands:

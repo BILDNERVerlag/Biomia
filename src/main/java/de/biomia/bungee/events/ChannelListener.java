@@ -1,9 +1,9 @@
 package de.biomia.bungee.events;
 
-import de.biomia.Biomia;
+import de.biomia.BungeeBiomia;
+import de.biomia.OfflineBungeeBiomiaPlayer;
+import de.biomia.OfflineBiomiaPlayer;
 import de.biomia.bungee.cmds.Ban;
-import de.biomia.bungee.main.BungeeBiomiaPlayer;
-import de.biomia.bungee.Main;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ClickEvent.Action;
@@ -36,8 +36,8 @@ public class ChannelListener implements Listener {
                 int reporterID = in.readInt();
                 String grund = in.readUTF();
 
-                String playerName = Biomia.getOfflineBiomiaPlayer(playerID).getName();
-                String reporterName = Biomia.getOfflineBiomiaPlayer(reporterID).getName();
+                String playerName = BungeeBiomia.getOfflineBiomiaPlayer(playerID).getName();
+                String reporterName = BungeeBiomia.getOfflineBiomiaPlayer(reporterID).getName();
 
                 TextComponent comp = new TextComponent("§dDer Spieler §c" + playerName + " §dwurde wegen §c" + Grund.toText(Grund.valueOf(grund)) + " §dvon §a" + reporterName + " §dreportet!");
                 comp.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/gtp " + playerName));
@@ -53,13 +53,13 @@ public class ChannelListener implements Listener {
                 int idToBan = in.readInt();
                 int time = in.readInt();
                 String reason = in.readUTF();
-                String playerName = Biomia.getOfflineBiomiaPlayer(biomiaID).getName();
+                String playerName = BungeeBiomia.getOfflineBiomiaPlayer(biomiaID).getName();
 
 
                 if (time == -1) {
-                    Ban.banPerm(Main.getBungeeBiomiaPlayer(BungeeCord.getInstance().getPlayer(playerName)), idToBan, reason);
+                    Ban.banPerm(BungeeCord.getInstance().getPlayer(playerName), idToBan, reason);
                 } else {
-                    Ban.banTemp(Main.getBungeeBiomiaPlayer(BungeeCord.getInstance().getPlayer(playerName)), idToBan, time, reason);
+                    Ban.banTemp(BungeeCord.getInstance().getPlayer(playerName), idToBan, time, reason);
                 }
 
             }
@@ -97,7 +97,7 @@ public class ChannelListener implements Listener {
         send(stream, player.getServer().getInfo());
     }
 
-    public static void sendBanRequest(BungeeBiomiaPlayer bp, int IDtoBan) {
+    public static void sendBanRequest(OfflineBungeeBiomiaPlayer bp, int IDtoBan) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(stream);
         try {

@@ -1,9 +1,8 @@
 package de.biomia.bungee.cmds;
 
-import de.biomia.Biomia;
-import de.biomia.OfflineBiomiaPlayer;
-import de.biomia.bungee.Main;
-import de.biomia.bungee.main.BungeeBiomiaPlayer;
+import de.biomia.BungeeBiomia;
+import de.biomia.OfflineBungeeBiomiaPlayer;
+import de.biomia.bungee.BungeeMain;
 import de.biomia.bungee.var.Bans;
 import de.biomia.messages.Messages;
 import net.md_5.bungee.api.CommandSender;
@@ -23,8 +22,8 @@ public class WasBanned extends Command {
             if (args.length >= 1) {
                 String name = args[0];
                 int i = 0;
-                int id = Biomia.getOfflineBiomiaPlayer(name).getBiomiaPlayerID();
-                for (Bans ban : Main.cachedBans)
+                int id = BungeeBiomia.getOfflineBiomiaPlayer(name).getBiomiaPlayerID();
+                for (Bans ban : BungeeMain.cachedBans)
                     if (ban.getBiomiaID() == id)
                         i++;
                 if (i > 0)

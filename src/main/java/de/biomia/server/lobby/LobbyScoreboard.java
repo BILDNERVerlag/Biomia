@@ -90,7 +90,7 @@ public class LobbyScoreboard {
         rank = sb.getTeam("rank");
 
         rank.setPrefix("\u00A7b" + getGroupName(p));
-        if (rank.getPrefix().contains("Registriert")) {
+        if (rank.getPrefix().contains("Unreg")) {
             rank.setPrefix("\u00A7bNicht ");
             rank.setSuffix("\u00A7bRegistriert!");
         } else {
@@ -115,8 +115,7 @@ public class LobbyScoreboard {
 
     }
 
-    public static String getGroupName(Player p) {
-
+    private static String getGroupName(Player p) {
         String rankName = RankManager.getRank(p);
         if (rankName.contains("Premium")) {
             rankName = rankName.substring(7);
@@ -151,13 +150,11 @@ public class LobbyScoreboard {
             case "Zehn":
                 rankName = "Premium X";
                 break;
-            case "Reg":
-                rankName = "Spieler";
-                break;
-            case "Unreg":
-                rankName = "Registriert";
-                break;
             }
+        } else if (rankName.startsWith("Reg")) {
+            rankName = "Spieler";
+        } else if (rankName.startsWith("Unreg")) {
+            rankName = "Unreg";
         }
         return rankName;
     }

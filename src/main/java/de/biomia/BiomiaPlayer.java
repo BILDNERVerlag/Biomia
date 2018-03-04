@@ -29,7 +29,7 @@ public class BiomiaPlayer extends OfflineBiomiaPlayer {
 
     // CONSTRUCTOR
     public BiomiaPlayer(Player p) {
-        super(p);
+        super(OfflineBiomiaPlayer.getBiomiaPlayerID(p.getName()), p.getName());
         this.player = p;
         spigotPafpl = PAFPlayerManager.getInstance().getPlayer(getUUID());
     }

@@ -1,7 +1,8 @@
 package de.biomia.bungee.msg;
 
-import de.biomia.bungee.Main;
+import de.biomia.bungee.BungeeMain;
 import de.biomia.data.MySQL;
+import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TextComponent;
 
@@ -22,9 +23,9 @@ public class Broadcasts {
                     ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
                         TextComponent text = new TextComponent(ChatColor.translateAlternateColorCodes('&', rs.getString("message")));
-                        Main.getBiomiaPlayers().forEach(each -> {
-                            if (!each.getProxiedPlayer().hasPermission("biomia.ad")) {
-                                each.getProxiedPlayer().sendMessage(text);
+                        BungeeCord.getInstance().getPlayers().forEach(each -> {
+                            if (!each.hasPermission("biomia.ad")) {
+                                each.sendMessage(text);
                             }
                         });
                         Thread.sleep(delayInSeconds * 1000);
@@ -38,6 +39,6 @@ public class Broadcasts {
             }
         });
         thread.start();
-        Main.allThreads.add(thread);
+        BungeeMain.allThreads.add(thread);
     }
 }

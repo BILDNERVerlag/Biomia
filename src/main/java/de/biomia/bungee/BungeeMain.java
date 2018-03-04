@@ -1,11 +1,10 @@
 package de.biomia.bungee;
 
-import de.biomia.Biomia;
-import de.biomia.OfflineBiomiaPlayer;
+import de.biomia.BungeeBiomia;
+import de.biomia.OfflineBungeeBiomiaPlayer;
 import de.biomia.bungee.cmds.*;
 import de.biomia.bungee.events.ChannelListener;
 import de.biomia.bungee.events.Login;
-import de.biomia.bungee.main.BungeeBiomiaPlayer;
 import de.biomia.bungee.msg.Broadcasts;
 import de.biomia.bungee.var.Bans;
 import de.biomia.data.MySQL;
@@ -13,16 +12,12 @@ import de.biomia.general.reportsystem.ReportSQL;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Plugin;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
-public class Main extends Plugin {
-
-    public static final String prefix = "§7[§5Bio§2mia§7] ";
+public class BungeeMain extends Plugin {
 
     public static final ArrayList<Thread> allThreads = new ArrayList<>();
 
@@ -34,20 +29,6 @@ public class Main extends Plugin {
     public static final HashMap<String, Integer> ranks = new HashMap<>();
     public static ArrayList<Bans> activeBans = new ArrayList<>();
     public static ArrayList<Bans> cachedBans = new ArrayList<>();
-    private static final HashMap<ProxiedPlayer, BungeeBiomiaPlayer> biomiaPlayers = new HashMap<>();
-
-    public static BungeeBiomiaPlayer getBungeeBiomiaPlayer(ProxiedPlayer pp) {
-        if (biomiaPlayers.containsKey(pp))
-            return biomiaPlayers.get(pp);
-
-        BungeeBiomiaPlayer bp = new BungeeBiomiaPlayer(pp);
-        biomiaPlayers.put(pp, bp);
-        return bp;
-    }
-
-    public static Collection<BungeeBiomiaPlayer> getBiomiaPlayers() {
-        return biomiaPlayers.values();
-    }
 
     @Override
     public void onEnable() {
@@ -100,10 +81,10 @@ public class Main extends Plugin {
 //							}
 //						}
                     for (String name : ReportSQL.getAllFinishedBugReports()) {
-                        OfflineBiomiaPlayer obp = Biomia.getOfflineBiomiaPlayer(name);
+                        OfflineBungeeBiomiaPlayer obp = BungeeBiomia.getOfflineBiomiaPlayer(name);
                         obp.addCoins(bugRewardMoney, false);
                         if (obp.isOnline())
-                            obp.getBungeeBiomiaPlayer().getProxiedPlayer().sendMessage(new TextComponent("§5Bug erfolgreich bearbeitet, du erhältst §2" + bugRewardMoney + " §5Coins!"));
+                            obp.getProxiedPlayer().sendMessage(new TextComponent("§5Bug erfolgreich bearbeitet, du erhältst §2" + bugRewardMoney + " §5Coins!"));
                     }
                     ReportSQL.removeAllFinishedBugReports();
                 } catch (InterruptedException e) {

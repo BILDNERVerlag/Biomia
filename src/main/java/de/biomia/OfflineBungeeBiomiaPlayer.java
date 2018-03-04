@@ -1,55 +1,46 @@
 package de.biomia;
 
 import de.biomia.data.MySQL;
-import de.biomia.events.coins.CoinAddEvent;
-import de.biomia.events.coins.CoinTakeEvent;
-import org.bukkit.Bukkit;
+import net.md_5.bungee.BungeeCord;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
-public class OfflineBiomiaPlayer extends UniversalBiomiaPlayer {
+public class OfflineBungeeBiomiaPlayer extends UniversalBiomiaPlayer {
 
-    protected OfflineBiomiaPlayer(int biomiaPlayerID) {
+    OfflineBungeeBiomiaPlayer(int biomiaPlayerID) {
         super(biomiaPlayerID);
     }
 
-    OfflineBiomiaPlayer(int biomiaPlayerID, String name) {
+    OfflineBungeeBiomiaPlayer(int biomiaPlayerID, String name) {
         super(biomiaPlayerID, name);
     }
 
-    OfflineBiomiaPlayer(int biomiaPlayerID, UUID uuid) {
+    OfflineBungeeBiomiaPlayer(int biomiaPlayerID, UUID uuid) {
         super(biomiaPlayerID, uuid);
+    }
+
+    public void sendMessage(TextComponent component) {
+        if (isOnline())
+            getProxiedPlayer().sendMessage(component);
     }
 
     public void sendMessage(String string) {
         if (isOnline())
-            getBiomiaPlayer().getPlayer().sendMessage(string);
-    }
-
-    //RANK METHODS
-    public final boolean isPremium() {
-        return de.biomia.tools.RankManager.isPremium(getName());
-    }
-
-    public final boolean isStaff() {
-        return !isPremium() && !isYouTuber() && !de.biomia.tools.RankManager.getRank(getName()).contains("Player");
-    }
-
-    public final boolean isYouTuber() {
-        String rank = de.biomia.tools.RankManager.getRank(getName());
-        return rank.contains("YouTube");
+            getProxiedPlayer().sendMessage(new TextComponent(string));
     }
 
     // GETTERS AND SETTERS
-    public final BiomiaPlayer getBiomiaPlayer() {
-        return this instanceof BiomiaPlayer ? (BiomiaPlayer) this : Biomia.getBiomiaPlayer(org.bukkit.Bukkit.getPlayer(getName()));
+    public final ProxiedPlayer getProxiedPlayer() {
+        return BungeeCord.getInstance().getPlayer(getName());
     }
 
     public boolean isOnline() {
-        return getBiomiaPlayer() != null;
+        return getProxiedPlayer() != null;
     }
 
     public final void takeCoins(int coins) {
@@ -59,20 +50,18 @@ public class OfflineBiomiaPlayer extends UniversalBiomiaPlayer {
         int actualCoins = getCoins();
 
         if (actualCoins < coins && isOnline()) {
-            getBiomiaPlayer().getPlayer().sendMessage("Du hast nicht genug BC! Dir fehlen noch " + (actualCoins - coins) + " BC!");
+            sendMessage("Du hast nicht genug BC! Dir fehlen noch " + (actualCoins - coins) + " BC!");
             return;
         }
-
-        CoinTakeEvent coinEvent = new CoinTakeEvent(this, coins);
-        Bukkit.getServer().getPluginManager().callEvent(coinEvent);
-        if (coinEvent.isCancelled() && actualCoins < coins)
-            return;
 
         setCoins(actualCoins - coins);
 
     }
 
     public void addCoins(int coins, boolean enableBoost) {
+
+        //TODO add BungeeEvent
+
         int prozent = 100;
         if (enableBoost)
             try {
@@ -95,12 +84,6 @@ public class OfflineBiomiaPlayer extends UniversalBiomiaPlayer {
             double coinsDouble = (double) coins / 100 * prozent;
             coins = (int) coinsDouble;
         }
-
-
-        CoinAddEvent coinEvent = new CoinAddEvent(this, coins);
-        Bukkit.getServer().getPluginManager().callEvent(coinEvent);
-        if (coinEvent.isCancelled())
-            return;
 
         setCoins(getCoins() + coins);
         if (isOnline()) {

@@ -1,7 +1,7 @@
 package de.biomia.general.reportsystem;
 
 import de.biomia.Biomia;
-import de.biomia.bungee.Main;
+import de.biomia.bungee.BungeeMain;
 import de.biomia.bungee.var.Bans;
 import de.biomia.data.MySQL;
 import org.bukkit.Bukkit;
@@ -147,7 +147,7 @@ public class ReportSQL {
             e.printStackTrace();
         }
 
-        Main.activeBans = all;
+        BungeeMain.activeBans = all;
 
     }
 
@@ -172,14 +172,14 @@ public class ReportSQL {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        Main.cachedBans = all;
+        BungeeMain.cachedBans = all;
 
     }
 
     public static void moveToCache(Bans ban) {
 
         MySQL.executeUpdate("DELETE FROM `BanList` WHERE biomiaID = '" + ban.getBiomiaID() + "'", MySQL.Databases.biomia_db);
-        Main.activeBans.remove(ban);
+        BungeeMain.activeBans.remove(ban);
 
         try {
             PreparedStatement sql = MySQL.Connect(MySQL.Databases.biomia_db).prepareStatement(
@@ -196,7 +196,7 @@ public class ReportSQL {
             e.printStackTrace();
         }
 
-        Main.cachedBans.add(ban);
+        BungeeMain.cachedBans.add(ban);
     }
 
     // BugReports Reporter
