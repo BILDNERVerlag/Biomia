@@ -2,7 +2,6 @@ package de.biomia.bungee.var;
 
 import de.biomia.bungee.BungeeMain;
 import de.biomia.bungee.OfflineBungeeBiomiaPlayer;
-import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.universal.MySQL;
 
 import java.sql.PreparedStatement;
