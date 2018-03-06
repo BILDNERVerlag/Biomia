@@ -3,7 +3,7 @@ package de.biomia.spigot.commands.minigames.versus;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.commands.BiomiaCommand;
-import de.biomia.spigot.messages.Messages;
+import de.biomia.universal.Messages;
 import de.biomia.spigot.minigames.versus.VSMain;
 import de.biomia.spigot.minigames.versus.settings.VSRequest;
 import org.bukkit.Bukkit;

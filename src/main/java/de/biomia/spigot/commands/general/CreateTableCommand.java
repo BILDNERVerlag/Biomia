@@ -2,7 +2,7 @@ package de.biomia.spigot.commands.general;
 
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.universal.MySQL;
-import de.biomia.spigot.messages.Messages;
+import de.biomia.universal.Messages;
 import org.bukkit.command.CommandSender;
 
 public class CreateTableCommand extends BiomiaCommand {

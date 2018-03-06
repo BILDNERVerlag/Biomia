@@ -3,7 +3,7 @@ package de.biomia.spigot.minigames.bedwars.gamestates;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.BedWarsMessages;
-import de.biomia.spigot.messages.Messages;
+import de.biomia.universal.Messages;
 import de.biomia.spigot.minigames.bedwars.var.Teleport;
 import de.biomia.spigot.tools.PlayerToServerConnector;
 import org.bukkit.Bukkit;

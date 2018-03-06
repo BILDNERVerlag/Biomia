@@ -2,7 +2,7 @@ package de.biomia.bungee.cmds;
 
 import de.biomia.bungee.events.ChannelListener;
 import de.biomia.universal.MySQL;
-import de.biomia.spigot.messages.Messages;
+import de.biomia.universal.Messages;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ClickEvent;

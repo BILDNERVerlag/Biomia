@@ -1,7 +1,7 @@
 package de.biomia.spigot.minigames.skywars.var;
 
 import de.biomia.spigot.configs.Config;
-import de.biomia.spigot.messages.Messages;
+import de.biomia.universal.Messages;
 import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.minigames.general.teams.Team;
 import de.biomia.spigot.minigames.skywars.kits.Kit;

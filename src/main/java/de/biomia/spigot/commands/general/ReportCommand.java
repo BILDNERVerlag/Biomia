@@ -4,7 +4,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.general.reportsystem.PlayerReport;
 import de.biomia.spigot.general.reportsystem.ReportManager;
-import de.biomia.spigot.messages.Messages;
+import de.biomia.universal.Messages;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

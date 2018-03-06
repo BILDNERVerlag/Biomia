@@ -1,7 +1,7 @@
 package de.biomia.bungee.cmds;
 
 import de.biomia.universal.MySQL;
-import de.biomia.spigot.messages.Messages;
+import de.biomia.universal.Messages;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;

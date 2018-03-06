@@ -6,7 +6,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.general.cosmetics.MysteryChest;
 import de.biomia.spigot.listeners.LobbyInventoryManager;
-import de.biomia.spigot.messages.Messages;
+import de.biomia.universal.Messages;
 import de.biomia.spigot.server.lobby.Lobby;
 import de.biomia.spigot.server.lobby.LobbyScoreboard;
 import de.biomia.spigot.tools.ItemCreator;

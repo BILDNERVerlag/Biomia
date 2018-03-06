@@ -3,7 +3,7 @@ package de.biomia.spigot.commands.general;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.commands.BiomiaCommand;
-import de.biomia.spigot.messages.Messages;
+import de.biomia.universal.Messages;
 import net.minecraft.server.v1_12_R1.EntityPlayer;
 import net.minecraft.server.v1_12_R1.PacketPlayOutExplosion;
 import net.minecraft.server.v1_12_R1.Vec3D;

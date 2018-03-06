@@ -4,7 +4,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.OfflineBiomiaPlayer;
 import de.biomia.spigot.achievements.Stats;
 import de.biomia.spigot.commands.BiomiaCommand;
-import de.biomia.spigot.messages.Messages;
+import de.biomia.universal.Messages;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

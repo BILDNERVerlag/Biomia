@@ -2,7 +2,7 @@ package de.biomia.spigot.commands.quest;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.commands.BiomiaCommand;
-import de.biomia.spigot.messages.Messages;
+import de.biomia.universal.Messages;
 import de.biomia.spigot.messages.QuestMessages;
 import de.biomia.spigot.messages.manager.ActionBar;
 import de.biomia.spigot.server.quests.general.DialogMessage;

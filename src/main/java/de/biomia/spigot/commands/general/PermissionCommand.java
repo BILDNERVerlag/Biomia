@@ -1,7 +1,7 @@
 package de.biomia.spigot.commands.general;
 
 import de.biomia.spigot.commands.BiomiaCommand;
-import de.biomia.spigot.messages.Messages;
+import de.biomia.universal.Messages;
 import org.bukkit.command.CommandSender;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;

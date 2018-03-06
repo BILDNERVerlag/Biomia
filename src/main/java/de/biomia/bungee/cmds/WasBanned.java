@@ -3,7 +3,7 @@ package de.biomia.bungee.cmds;
 import de.biomia.bungee.BungeeBiomia;
 import de.biomia.bungee.BungeeMain;
 import de.biomia.bungee.var.Bans;
-import de.biomia.spigot.messages.Messages;
+import de.biomia.universal.Messages;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Command;

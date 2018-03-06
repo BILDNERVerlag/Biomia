@@ -1,5 +1,7 @@
 package de.biomia.spigot.messages;
 
+import de.biomia.universal.Messages;
+
 public class BedWarsMessages {
 
     public static final String bedwars = "\u00A75Bed\u00A72Wars";

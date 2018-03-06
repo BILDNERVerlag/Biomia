@@ -7,7 +7,7 @@ import de.biomia.spigot.general.cosmetics.items.CosmeticPetItem;
 import de.biomia.spigot.general.reportsystem.PlayerReport;
 import de.biomia.spigot.general.reportsystem.ReportManager;
 import de.biomia.spigot.general.reportsystem.ReportSQL;
-import de.biomia.spigot.messages.Messages;
+import de.biomia.universal.Messages;
 import de.biomia.spigot.messages.manager.HeaderAndFooter;
 import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.PlayerToServerConnector;

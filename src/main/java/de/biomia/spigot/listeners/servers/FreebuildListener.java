@@ -2,8 +2,7 @@ package de.biomia.spigot.listeners.servers;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.messages.Messages;
-import de.biomia.spigot.messages.manager.Scoreboards;
+import de.biomia.universal.Messages;
 import de.biomia.spigot.tools.InventorySave;
 import de.biomia.spigot.tools.PlayerToServerConnector;
 import org.bukkit.Bukkit;
