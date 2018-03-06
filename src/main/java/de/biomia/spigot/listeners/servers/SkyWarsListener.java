@@ -7,17 +7,17 @@ import de.biomia.spigot.configs.SkyWarsConfig;
 import de.biomia.spigot.events.skywars.*;
 import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
-import de.biomia.spigot.server.minigames.general.GameState;
-import de.biomia.spigot.server.minigames.general.teams.Team;
-import de.biomia.spigot.server.minigames.skywars.SkyWars;
-import de.biomia.spigot.server.minigames.skywars.chests.Chests;
-import de.biomia.spigot.server.minigames.skywars.gamestates.InGame;
-import de.biomia.spigot.server.minigames.skywars.ingame.Dead;
-import de.biomia.spigot.server.minigames.skywars.kits.Kit;
-import de.biomia.spigot.server.minigames.skywars.kits.Kits;
-import de.biomia.spigot.server.minigames.skywars.lobby.JoinTeam;
-import de.biomia.spigot.server.minigames.skywars.var.Scoreboards;
-import de.biomia.spigot.server.minigames.skywars.var.Variables;
+import de.biomia.spigot.minigames.GameState;
+import de.biomia.spigot.minigames.general.teams.Team;
+import de.biomia.spigot.minigames.skywars.SkyWars;
+import de.biomia.spigot.minigames.skywars.chests.Chests;
+import de.biomia.spigot.minigames.skywars.gamestates.InGame;
+import de.biomia.spigot.minigames.skywars.ingame.Dead;
+import de.biomia.spigot.minigames.skywars.kits.Kit;
+import de.biomia.spigot.minigames.skywars.kits.Kits;
+import de.biomia.spigot.minigames.skywars.lobby.JoinTeam;
+import de.biomia.spigot.minigames.skywars.var.Scoreboards;
+import de.biomia.spigot.minigames.skywars.var.Variables;
 import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.RankManager;
@@ -154,7 +154,7 @@ public class SkyWarsListener extends BiomiaListener {
                         }
                     });
                 }
-            } else if (SkyWars.gameState.equals(GameState.WAITINGFORSTART)
+            } else if (SkyWars.gameState.equals(GameState.WAITING_FOR_START)
                     || SkyWars.gameState.equals(GameState.INGAME)) {
                 e.allow();
             }
@@ -692,7 +692,7 @@ public class SkyWarsListener extends BiomiaListener {
         if (p.hasPermission("biomia.coloredchat"))
             msg = ChatColor.translateAlternateColorCodes('&', e.getMessage());
 
-        if (SkyWars.gameState.equals(GameState.INGAME) || SkyWars.gameState.equals(GameState.WAITINGFORSTART)) {
+        if (SkyWars.gameState.equals(GameState.INGAME) || SkyWars.gameState.equals(GameState.WAITING_FOR_START)) {
 
             Team t = Biomia.getTeamManager().getTeam(p);
 
@@ -746,7 +746,7 @@ public class SkyWarsListener extends BiomiaListener {
             e.getPlayer().teleport(Variables.warteLobbySpawn);
         }
 
-        if (SkyWars.gameState.equals(GameState.WAITINGFORSTART)) {
+        if (SkyWars.gameState.equals(GameState.WAITING_FOR_START)) {
             e.setCancelled(true);
         }
     }

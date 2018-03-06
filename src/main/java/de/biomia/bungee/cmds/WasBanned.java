@@ -14,6 +14,7 @@ public class WasBanned extends Command {
         super(name);
     }
 
+
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (sender.hasPermission("biomia.*") || sender.hasPermission("biomia.wasbanned")) {

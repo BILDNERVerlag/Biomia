@@ -15,9 +15,8 @@ import java.util.HashMap;
 
 public class ReportManager {
 
-    public static Inventory reportMenu;
+    private static Inventory reportMenu;
     public static final Inventory grund;
-
 
     public static final ArrayList<PlayerReport> plReports = new ArrayList<>();
 

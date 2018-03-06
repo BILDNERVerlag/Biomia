@@ -5,7 +5,7 @@ import de.biomia.spigot.configs.BedWarsVersusConfig;
 import de.biomia.spigot.configs.Config;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
-import de.biomia.spigot.server.minigames.general.ItemType;
+import de.biomia.spigot.minigames.general.ItemType;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -19,7 +19,7 @@ import java.util.Set;
 public class BWCommand extends BiomiaCommand {
 
     public BWCommand() {
-        super("bedwars", "bw");
+        super("bedwars", "bedwars");
     }
 
     @Override
@@ -35,7 +35,7 @@ public class BWCommand extends BiomiaCommand {
                             BedWarsVersusConfig.addLocation(p.getLocation(), Integer.valueOf(args[1]), Integer.valueOf(args[2]));
                             sender.sendMessage("Spawnpoint wurde hinzugef\u00fcgt!");
                         } else
-                            sender.sendMessage("/bw addloc mapID teamID");
+                            sender.sendMessage("/bedwars addloc mapID teamID");
                         break;
                     case "addspawner":
                         if (args.length >= 2) {
@@ -58,7 +58,7 @@ public class BWCommand extends BiomiaCommand {
                             }
                             p.sendMessage("Spawner hinzugef\u00fcgt!");
                         } else
-                            sender.sendMessage("/bw addspawner mapID");
+                            sender.sendMessage("/bedwars addspawner mapID");
                         break;
                     case "villager":
                         p.getInventory().addItem(ItemCreator.itemCreate(Material.MONSTER_EGG, BedWarsItemNames.villagerSpawner));
@@ -74,7 +74,7 @@ public class BWCommand extends BiomiaCommand {
                             } else
                                 p.sendMessage(BedWarsMessages.blocksMustBeBeds);
                         } else
-                            sender.sendMessage("/bw addbed mapID teamID");
+                            sender.sendMessage("/bedwars addbed mapID teamID");
                         break;
                     default:
                         break;
@@ -84,10 +84,10 @@ public class BWCommand extends BiomiaCommand {
                         break;
                     }
                 } else {
-                    sender.sendMessage("\u00A7c/bw addloc (F\u00fcgt einen Spawnpunkt hinzu)");
-                    sender.sendMessage("\u00A7c/bw addbed (F\u00fcgt ein Bett hinzu)");
-                    sender.sendMessage("\u00A7c/bw addspawner (Schau auf einen Spawner)");
-                    sender.sendMessage("\u00A7c/bw villager (Gibt einen Villager Spawner zur\u00fcck)");
+                    sender.sendMessage("\u00A7c/bedwars addloc (F\u00fcgt einen Spawnpunkt hinzu)");
+                    sender.sendMessage("\u00A7c/bedwars addbed (F\u00fcgt ein Bett hinzu)");
+                    sender.sendMessage("\u00A7c/bedwars addspawner (Schau auf einen Spawner)");
+                    sender.sendMessage("\u00A7c/bedwars villager (Gibt einen Villager Spawner zur\u00fcck)");
                 }
             }
         }

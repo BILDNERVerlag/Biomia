@@ -120,12 +120,11 @@ public class ReportListener implements Listener {
 
             Player p = (Player) e.getWhoClicked();
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-
-            if (e.getInventory().equals(ReportManager.reportMenu)) {
+            switch (e.getClickedInventory().getName()) {
+            case "\u00A7eREPORT MEN\u00fc":
                 if (e.getCurrentItem() != null)
                     if (e.getCurrentItem().hasItemMeta())
                         if (e.getCurrentItem().getItemMeta().getDisplayName().equals("\u00A7cBug")) {
-
                             ReportManager.waitingForBugReason.add(p);
                             p.sendMessage(
                                     "\u00A76Du hast einen Bug gefunden? Dann gib einfach ein was das Problem ist! Wenn es ein richtiger Bug ist, bekommst du sogar eine Belohnung!");
@@ -137,22 +136,16 @@ public class ReportListener implements Listener {
                                     "\u00A76Du willst einen Spieler reporten? Dann gib einfach seinen Namen ein!");
                             p.closeInventory();
                         }
-            } else if (e.getClickedInventory() != null) {
-                switch (e.getClickedInventory().getName()) {
+                break;
                 case "\u00A7eGRUND":
                     if (e.getCurrentItem() != null) {
                         e.setCancelled(true);
                         if (waitForBanReason.containsKey(bp)) {
                             PlayerBan ban = waitForBanReason.get(bp);
-                            ban.setReason(Grund.valueOf(e.getCurrentItem().getItemMeta().getDisplayName()
-                                    .substring(2, e.getCurrentItem().getItemMeta().getDisplayName().length()).replace(' ', '_')
-                                    .toUpperCase()).name());
-                            waitForBanReason.remove(bp);
+                            ban.setReason(e.getCurrentItem().getItemMeta().getDisplayName().substring(2).replace(' ', '_').toUpperCase());
                             p.closeInventory();
                         } else {
-                            Grund grund = Grund.valueOf(e.getCurrentItem().getItemMeta().getDisplayName()
-                                    .substring(2, e.getCurrentItem().getItemMeta().getDisplayName().length()).replace(' ', '_')
-                                    .toUpperCase());
+                            Grund grund = Grund.valueOf(e.getCurrentItem().getItemMeta().getDisplayName().substring(2).replace(' ', '_').toUpperCase());
                             for (PlayerReport report : ReportManager.unfinishedReports) {
                                 if (report.getReporterBiomiaPlayer().getBiomiaPlayerID() == (Biomia.getBiomiaPlayer(p).getBiomiaPlayerID())) {
                                     report.finish(grund.name());
@@ -238,4 +231,3 @@ public class ReportListener implements Listener {
             }
         }
     }
-}

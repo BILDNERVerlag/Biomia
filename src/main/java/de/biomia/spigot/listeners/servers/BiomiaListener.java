@@ -9,7 +9,6 @@ import de.biomia.spigot.general.reportsystem.ReportManager;
 import de.biomia.spigot.general.reportsystem.ReportSQL;
 import de.biomia.spigot.messages.Messages;
 import de.biomia.spigot.messages.manager.HeaderAndFooter;
-import de.biomia.spigot.messages.manager.Scoreboards;
 import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.PlayerToServerConnector;
 import de.biomia.spigot.tools.RankManager;
@@ -107,8 +106,6 @@ abstract class BiomiaListener implements Listener {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
 
-        e.setFormat(RankManager.getPrefix(p) + "%s\u00A77: \u00A7f%s");
-
         if (ReportManager.waitingForBugReason.contains(p)) {
             ReportManager.waitingForBugReason.remove(p);
             e.setCancelled(true);
@@ -124,6 +121,8 @@ abstract class BiomiaListener implements Listener {
             ReportManager.waitForCostumReason.get(bp).setReason(e.getMessage());
             ReportManager.waitForCostumReason.remove(bp);
         }
+
+        e.setFormat(RankManager.getPrefix(p) + "%s\u00A77: \u00A7f%s");
 
         if (p.hasPermission("biomia.coloredchat")) {
             e.setMessage(ChatColor.translateAlternateColorCodes('&', e.getMessage()));

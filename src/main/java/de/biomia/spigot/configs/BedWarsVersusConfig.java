@@ -1,6 +1,6 @@
 package de.biomia.spigot.configs;
 
-import de.biomia.spigot.server.minigames.general.ItemType;
+import de.biomia.spigot.minigames.general.ItemType;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;

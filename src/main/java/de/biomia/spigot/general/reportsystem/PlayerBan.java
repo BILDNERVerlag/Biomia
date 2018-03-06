@@ -60,6 +60,7 @@ public class PlayerBan {
 
     public void setReason(String reason) {
         if (reason.equals(Grund.ANDERER_GRUND.name())) {
+            ReportListener.waitForBanReason.remove(bp);
             ReportManager.waitForCostumReason.put(bp, this);
             bp.getPlayer().sendMessage("\u00A7bBitte gib den Grund in den Chat ein!");
         } else {

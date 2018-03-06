@@ -6,8 +6,8 @@ import de.biomia.bungee.BungeeMain;
 import de.biomia.bungee.OfflineBungeeBiomiaPlayer;
 import de.biomia.bungee.cmds.Modus;
 import de.biomia.bungee.specialEvents.WinterEvent;
+import de.biomia.bungee.var.BanManager;
 import de.biomia.bungee.var.Bans;
-import de.biomia.spigot.general.reportsystem.ReportSQL;
 import de.biomia.universal.MySQL;
 import de.biomia.universal.UniversalBiomia;
 import de.biomia.universal.UniversalBiomiaPlayer;
@@ -94,7 +94,7 @@ public class Login implements Listener {
             }
         });
 
-        unbans.forEach(ReportSQL::moveToCache);
+        unbans.forEach(each -> BanManager.moveToCache(each, null));
 
         if (BungeeMain.plugin.getProxy().getOnlineCount() == 520) {
 

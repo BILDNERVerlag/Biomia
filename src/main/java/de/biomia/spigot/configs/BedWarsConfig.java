@@ -1,10 +1,10 @@
 package de.biomia.spigot.configs;
 
 import de.biomia.spigot.Biomia;
-import de.biomia.spigot.server.minigames.bedwars.var.Variables;
-import de.biomia.spigot.server.minigames.general.ItemType;
-import de.biomia.spigot.server.minigames.general.teams.Team;
-import de.biomia.spigot.server.minigames.general.teams.Teams;
+import de.biomia.spigot.minigames.bedwars.var.Variables;
+import de.biomia.spigot.minigames.general.ItemType;
+import de.biomia.spigot.minigames.general.teams.Team;
+import de.biomia.spigot.minigames.general.teams.Teams;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;

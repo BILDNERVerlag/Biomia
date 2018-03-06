@@ -1,6 +1,6 @@
 package de.biomia.spigot;
 
-import de.biomia.spigot.server.minigames.general.teams.TeamManager;
+import de.biomia.spigot.minigames.general.teams.TeamManager;
 import de.biomia.spigot.server.quests.general.QuestManager;
 import de.biomia.spigot.server.quests.general.QuestPlayer;
 import org.bukkit.Bukkit;

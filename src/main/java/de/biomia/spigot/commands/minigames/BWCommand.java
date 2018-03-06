@@ -5,8 +5,8 @@ import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.configs.Config;
 import de.biomia.spigot.messages.BedWarsItemNames;
-import de.biomia.spigot.server.minigames.general.teams.Team;
-import de.biomia.spigot.server.minigames.general.teams.Teams;
+import de.biomia.spigot.minigames.general.teams.Team;
+import de.biomia.spigot.minigames.general.teams.Teams;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
 public class BWCommand extends BiomiaCommand {
     //TODO renew (merge)
     public BWCommand() {
-        super("bedwars", "bw");
+        super("bedwars", "bedwars");
     }
 
     @Override
@@ -83,14 +83,14 @@ public class BWCommand extends BiomiaCommand {
                         break;
                     }
                 } else {
-                    sender.sendMessage("\u00A7c/bw setup (Setup f\u00fcr BedWars-Map)");
-                    sender.sendMessage("\u00A7c/bw addloc (F\u00fcgt einen Spawnpunkt hinzu)");
-                    sender.sendMessage("\u00A7c/bw removelocs (Entfernt alle Spawnpunkte)");
-                    sender.sendMessage("\u00A7c/bw deleteallsigns (Entfernt alle Schilder)");
-                    sender.sendMessage("\u00A7c/bw getTeamjoinersetter (Gibt den Teamjoinersetter zur\u00fcck)");
-                    sender.sendMessage("\u00A7c/bw getbedsetter (Gibt den Bedsetter zur\u00fcck)");
-                    sender.sendMessage("\u00A7c/bw getSpawner (Gibt alle Verf\u00fcgbaren Spawner zur\u00fcck)");
-                    sender.sendMessage("\u00A7c/bw villager (Gibt einen Villager Spawner zur\u00fcck)");
+                    sender.sendMessage("\u00A7c/bedwars setup (Setup f\u00fcr BedWars-Map)");
+                    sender.sendMessage("\u00A7c/bedwars addloc (F\u00fcgt einen Spawnpunkt hinzu)");
+                    sender.sendMessage("\u00A7c/bedwars removelocs (Entfernt alle Spawnpunkte)");
+                    sender.sendMessage("\u00A7c/bedwars deleteallsigns (Entfernt alle Schilder)");
+                    sender.sendMessage("\u00A7c/bedwars getTeamjoinersetter (Gibt den Teamjoinersetter zur\u00fcck)");
+                    sender.sendMessage("\u00A7c/bedwars getbedsetter (Gibt den Bedsetter zur\u00fcck)");
+                    sender.sendMessage("\u00A7c/bedwars getSpawner (Gibt alle Verf\u00fcgbaren Spawner zur\u00fcck)");
+                    sender.sendMessage("\u00A7c/bedwars villager (Gibt einen Villager Spawner zur\u00fcck)");
                 }
             }
         }

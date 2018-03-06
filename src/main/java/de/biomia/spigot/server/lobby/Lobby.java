@@ -45,6 +45,7 @@ public class Lobby {
     public static void init() {
         Bukkit.getServer().createWorld(new WorldCreator("BedwarsSignlobby"));
         Bukkit.getServer().createWorld(new WorldCreator("SkywarsSignlobby"));
+
         for (Player p : Bukkit.getOnlinePlayers()) {
             LobbyScoreboard.sendScoreboard(p);
             p.setAllowFlight(true);
@@ -103,7 +104,6 @@ public class Lobby {
         new BukkitRunnable() {
             @Override
             public void run() {
-
                 ServerObject serverObject = TimoCloudAPI.getBukkitInstance().getThisServer();
 
                 ArrayList<ServerObject> lobbyServer = new ArrayList<>(
@@ -125,6 +125,6 @@ public class Lobby {
                     i++;
                 }
             }
-        }.runTaskTimer(getPlugin(), 100, 200);
+        }.runTaskTimer(getPlugin(), 20 * 5, 20 * 10);
     }
 }

@@ -6,8 +6,8 @@ import de.biomia.bungee.events.Login;
 import de.biomia.bungee.msg.Broadcasts;
 import de.biomia.bungee.specialEvents.Winter;
 import de.biomia.bungee.specialEvents.WinterEvent;
+import de.biomia.bungee.var.BanManager;
 import de.biomia.bungee.var.Bans;
-import de.biomia.spigot.general.reportsystem.ReportSQL;
 import de.biomia.universal.MySQL;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.ProxyServer;
@@ -35,8 +35,8 @@ public class BungeeMain extends Plugin {
 
         BungeeCord.getInstance().registerChannel("BiomiaChannel");
 
-        ReportSQL.getAllBans();
-        ReportSQL.getAllCachedBans();
+        BanManager.getAllBans();
+        BanManager.getAllCachedBans();
 
         registerCommands();
         registerEvents();
@@ -48,13 +48,13 @@ public class BungeeMain extends Plugin {
             while (true) {
                 try {
                     Thread.sleep(900000);
-                    for (String name : ReportSQL.getAllFinishedBugReports()) {
+                    for (String name : BanManager.getAllFinishedBugReports()) {
                         OfflineBungeeBiomiaPlayer obp = BungeeBiomia.getOfflineBiomiaPlayer(name);
                         obp.addCoins(bugRewardMoney, false);
                         if (obp.isOnline())
                             obp.getProxiedPlayer().sendMessage(new TextComponent("§5Bug erfolgreich bearbeitet, du erhältst §2" + bugRewardMoney + " §5Coins!"));
                     }
-                    ReportSQL.removeAllFinishedBugReports();
+                    BanManager.removeAllFinishedBugReports();
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     break;

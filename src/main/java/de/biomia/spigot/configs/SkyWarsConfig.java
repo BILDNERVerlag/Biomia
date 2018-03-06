@@ -1,10 +1,10 @@
 package de.biomia.spigot.configs;
 
 import de.biomia.spigot.Biomia;
-import de.biomia.spigot.server.minigames.general.teams.Team;
-import de.biomia.spigot.server.minigames.general.teams.Teams;
-import de.biomia.spigot.server.minigames.skywars.chests.Chests;
-import de.biomia.spigot.server.minigames.skywars.var.Variables;
+import de.biomia.spigot.minigames.general.teams.Team;
+import de.biomia.spigot.minigames.general.teams.Teams;
+import de.biomia.spigot.minigames.skywars.chests.Chests;
+import de.biomia.spigot.minigames.skywars.var.Variables;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
