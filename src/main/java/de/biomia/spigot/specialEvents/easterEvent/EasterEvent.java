@@ -8,14 +8,12 @@ import de.biomia.spigot.achievements.Stats;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.SkullType;
 import org.bukkit.block.Block;
 import org.bukkit.block.Skull;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -26,12 +24,11 @@ import static de.biomia.spigot.tools.HeadCreator.setSkullUrl;
 public class EasterEvent implements Listener {
 
     private static final int specialEggsAmount = 5;
-    private static final String specialEggName = "ei_rot";
+    private static final String specialEggName = "ei_gold";
     private static final String egg1Name = "ei_blaugruen";
     private static final String egg2Name = "ei_rot";
-    private static final String egg3Name = "ei_gold";
+    private static final String egg3Name = "ei_gepunktet";
     private static final String egg4Name = "ei_gestreift";
-    private static final String egg5Name = "ei_gepunktet";
     private final int randomEggsPerServer;
     private final Location location;
     private final int radius;
@@ -42,7 +39,6 @@ public class EasterEvent implements Listener {
     public EasterEvent() {
         final String world;
         switch (Main.getGroupName()) {
-        //TODO addSpecialLocations
         case "Lobby":
             world = "LobbyBiomia";
             location = new Location(Bukkit.getWorld(world), 532, 112, 300);
@@ -105,9 +101,7 @@ public class EasterEvent implements Listener {
     }
 
     private void spawnSpecialEgg() {
-        specialEggLocation.getBlock().setType(Material.SKULL);
-        SkullMeta meta = (SkullMeta) specialEggLocation.getBlock().getState();
-        meta.setOwner(specialEggName);
+        setSkullUrl(specialEggName, specialEggLocation.getBlock());
     }
 
     private void startSpawningEggs() {
@@ -124,18 +118,15 @@ public class EasterEvent implements Listener {
                     do {
                         loc = location.clone();
                         int r = new Random().nextInt(radius);
-                        int degree = new Random().nextInt(361);
+                        int degree = new Random().nextInt(360);
 
                         loc.add(r * Math.cos(degree), 0, r * Math.sin(degree));
-                        loc = loc.getWorld().getHighestBlockAt(loc).getLocation().add(0, 1, 0);
+                        loc = loc.getWorld().getHighestBlockAt(loc).getLocation();
                     } while (loc.getY() > maxHight && loc.getY() != 1);
 
                     Block b = loc.getBlock();
-                    b.setType(Material.SKULL);
-                    Skull s = (Skull) b.getState();
-                    s.setSkullType(SkullType.PLAYER);
 
-                    switch (new Random().nextInt(5)) {
+                    switch (new Random().nextInt(4)) {
                     case 0:
                         setSkullUrl(egg1Name, b);
                         break;
@@ -148,11 +139,7 @@ public class EasterEvent implements Listener {
                     case 3:
                         setSkullUrl(egg4Name, b);
                         break;
-                    case 4:
-                        setSkullUrl(egg5Name, b);
-                        break;
                     }
-                    s.update(true);
                     blocks.add(b);
                 }
             }
