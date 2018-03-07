@@ -114,7 +114,7 @@ public class QuestCommands extends BiomiaCommand {
             for (int i = 0; i < finishedQuests.size(); i++) {
                 Quest q = finishedQuests.get(i);
                 text = new TextComponent("\u00A72" + finishedQuests.get(i).getDisplayName() + "\n");
-                text.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/qinfo " + q.getQuestName()));
+                text.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/q info " + q.getQuestName()));
                 output.addExtra(text);
 
                 if ((i % 10 == 0 && i != 0) || i == finishedQuests.size() - 1) {
@@ -133,18 +133,18 @@ public class QuestCommands extends BiomiaCommand {
         TextComponent verschiedenesUeberschrift = new TextComponent("\u00A71\u00A7l\u00A7nVerschiedenes\n\n");
 
         TextComponent statsButton = new TextComponent("\u00A79\u00A7l<Statistik>\n\n");
-        statsButton.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/qstats"));
+        statsButton.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/q stats"));
         verschiedenesUeberschrift.addExtra(statsButton);
 
         TextComponent respawnButton = new TextComponent("\u00A79\u00A7l<Respawn>\n\n");
-        respawnButton.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/respawn"));
+        respawnButton.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/q respawn"));
         verschiedenesUeberschrift.addExtra(respawnButton);
 
         TextComponent resetButton = new TextComponent(
                 "\u00A7c\u00A7l<Notfall-Reset>\n\u00A7c\u00A7oKlicke hier nur, falls\n"
                         + "\u00A7c\u00A7odu stecken bleibst,\n" + "\u00A7c\u00A7odich nichtmehr bewe-\n"
                         + "\u00A7c\u00A7ogen kannst, etc.\n\n");
-        resetButton.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/qreset"));
+        resetButton.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/q reset"));
         verschiedenesUeberschrift.addExtra(resetButton);
 
         IChatBaseComponent page = ChatSerializer.a(ComponentSerializer.toString(verschiedenesUeberschrift));

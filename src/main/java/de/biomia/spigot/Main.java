@@ -4,6 +4,7 @@ import de.biomia.spigot.achievements.Achievements;
 import de.biomia.spigot.achievements.StatListener;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.commands.general.*;
+import de.biomia.spigot.commands.warp.WarpCommands;
 import de.biomia.universal.MySQL;
 import de.biomia.spigot.general.cosmetics.Cosmetic;
 import de.biomia.spigot.general.cosmetics.Cosmetic.Group;
@@ -192,6 +193,9 @@ public class Main extends JavaPlugin {
         registerCommand(new TrollCommand("troll"));
         registerCommand(new EventCommands("addeggs"));
         registerCommand(new EventCommands("givereward"));
+        registerCommand(new WarpCommands("setwarp"));
+        registerCommand(new WarpCommands("warp"));
+        registerCommand(new WarpCommands("delwarp"));
     }
 
     @Override

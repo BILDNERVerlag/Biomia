@@ -1,8 +1,7 @@
 package de.biomia.spigot.server.quests;
 
 import de.biomia.spigot.Main;
-import de.biomia.spigot.commands.quest.QuestCommands;
-import de.biomia.spigot.messages.manager.Scoreboards;
+import de.biomia.spigot.commands.quest.QuestCommandsInArbeit;
 import de.biomia.spigot.server.quests.band1.*;
 import de.biomia.spigot.server.quests.general.DialogMessage;
 import de.biomia.spigot.server.quests.general.NPCManager;
@@ -66,25 +65,26 @@ public class Quests {
 
     private static void registerQuestCommands() {
 
+        Main.registerCommand(new QuestCommandsInArbeit());
         //TODO set cmds to args
-        Main.registerCommand(new QuestCommands("q"));
-        Main.registerCommand(new QuestCommands("qr"));
-        Main.registerCommand(new QuestCommands("qlist"));
-        Main.registerCommand(new QuestCommands("tagebuch"));
-        Main.registerCommand(new QuestCommands("qinfo"));
-        Main.registerCommand(new QuestCommands("qalign"));
-        Main.registerCommand(new QuestCommands("qrestore"));
-        Main.registerCommand(new QuestCommands("qhelp"));
-        Main.registerCommand(new QuestCommands("qfilldiary"));
-        Main.registerCommand(new QuestCommands("qstats"));
-        Main.registerCommand(new QuestCommands("respawn"));
-        Main.registerCommand(new QuestCommands("qupdatebook"));
-        Main.registerCommand(new QuestCommands("qlog"));
-        Main.registerCommand(new QuestCommands("qtest"));
-        Main.registerCommand(new QuestCommands("qreset"));
-        Main.registerCommand(new QuestCommands("aion"));
-        Main.registerCommand(new QuestCommands("aioff"));
-        Main.registerCommand(new QuestCommands("aitoggle"));
+//        Main.registerCommand(new QuestCommands("q"));
+//        Main.registerCommand(new QuestCommands("qr"));
+//        Main.registerCommand(new QuestCommands("qlist"));
+//        Main.registerCommand(new QuestCommands("tagebuch"));
+//        Main.registerCommand(new QuestCommands("qinfo"));
+//        Main.registerCommand(new QuestCommands("qalign"));
+//        Main.registerCommand(new QuestCommands("qrestore"));
+//        Main.registerCommand(new QuestCommands("qhelp"));
+//        Main.registerCommand(new QuestCommands("qfilldiary"));
+//        Main.registerCommand(new QuestCommands("qstats"));
+//        Main.registerCommand(new QuestCommands("respawn"));
+//        Main.registerCommand(new QuestCommands("qupdatebook"));
+//        Main.registerCommand(new QuestCommands("qlog"));
+//        Main.registerCommand(new QuestCommands("qtest"));
+//        Main.registerCommand(new QuestCommands("qreset"));
+//        Main.registerCommand(new QuestCommands("aion"));
+//        Main.registerCommand(new QuestCommands("aioff"));
+//        Main.registerCommand(new QuestCommands("aitoggle"));
 
     }
 

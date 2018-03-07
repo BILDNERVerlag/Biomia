@@ -9,6 +9,7 @@ import de.biomia.spigot.events.coins.CoinAddEvent;
 import de.biomia.spigot.events.coins.CoinTakeEvent;
 import de.biomia.spigot.events.skywars.*;
 import de.biomia.spigot.general.cosmetics.items.CosmeticItem;
+import org.apache.commons.lang.ObjectUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -126,12 +127,17 @@ public class StatListener implements Listener {
 
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
 
-        onlineTime.put(bp, new BukkitRunnable() {
-            @Override
-            public void run() {
-                bp.incrementOnlineMinutes();
-            }
-        }).runTaskTimer(Main.getPlugin(), 20 * 60, 20 * 60);
+        try {
+            onlineTime.put(bp, new BukkitRunnable() {
+                @Override
+                public void run() {
+                    bp.incrementOnlineMinutes();
+                }
+            }).runTaskTimer(Main.getPlugin(), 20 * 60, 20 * 60);
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
+            //TODO Fix this nullpointer
+        }
     }
 
     @EventHandler

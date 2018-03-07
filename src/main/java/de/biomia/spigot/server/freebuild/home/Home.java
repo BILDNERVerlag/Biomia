@@ -18,7 +18,6 @@ public class Home {
 	public static final String HOME_SET = ChatColor.YELLOW + "Home gesetzt.";
 	public static final String PLAYER_COMMAND_ONLY = ChatColor.RED + "Nur Spieler k\u00f6nnen dieses Command benutzen.";
 	public static final String TELEPORT_SUCCESS = ChatColor.YELLOW + "Teleportiert.";
-	//TODO: Neu schreiben
 	private HomeFileManager homeFileManager;
 	private HomeManager homeManager;
 
