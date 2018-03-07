@@ -5,27 +5,27 @@ import de.biomia.spigot.achievements.StatListener;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.commands.general.*;
 import de.biomia.spigot.commands.warp.WarpCommands;
-import de.biomia.universal.MySQL;
 import de.biomia.spigot.general.cosmetics.Cosmetic;
 import de.biomia.spigot.general.cosmetics.Cosmetic.Group;
 import de.biomia.spigot.general.cosmetics.CosmeticGroup;
 import de.biomia.spigot.general.cosmetics.gadgets.GadgetIniter;
 import de.biomia.spigot.general.cosmetics.particles.ParticleIniter;
 import de.biomia.spigot.general.reportsystem.ReportSQL;
-import de.biomia.spigot.listeners.ReportListener;
 import de.biomia.spigot.listeners.ChannelListener;
 import de.biomia.spigot.listeners.CosmeticListener;
+import de.biomia.spigot.listeners.ReportListener;
 import de.biomia.spigot.listeners.servers.BauServerListener;
-import de.biomia.spigot.server.demoserver.Weltenlabor;
-import de.biomia.spigot.server.freebuild.Freebuild;
-import de.biomia.spigot.server.lobby.Lobby;
 import de.biomia.spigot.minigames.bedwars.BedWars;
 import de.biomia.spigot.minigames.skywars.SkyWars;
 import de.biomia.spigot.minigames.versus.VSMain;
+import de.biomia.spigot.server.demoserver.Weltenlabor;
+import de.biomia.spigot.server.freebuild.Freebuild;
+import de.biomia.spigot.server.lobby.Lobby;
 import de.biomia.spigot.server.quests.Quests;
 import de.biomia.spigot.specialEvents.easterEvent.EasterEvent;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.PlayerToServerConnector;
+import de.biomia.universal.MySQL;
 import de.biomia.universal.UniversalBiomia;
 import net.minecraft.server.v1_12_R1.DedicatedServer;
 import org.bukkit.Bukkit;
@@ -37,7 +37,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
 
-    private static final EasterEvent event = null;
+    private static final EasterEvent event = new EasterEvent();
     private static Main plugin;
     private static String groupName;
     private static CommandMap commandMap;
@@ -83,9 +83,6 @@ public class Main extends JavaPlugin {
         registerCommands();
 
         ReportSQL.getAllReports();
-
-        //TODO: Osterevent nach Fertigstellung freischalten
-        //event = new EasterEvent();
 
         for (Player p : Bukkit.getOnlinePlayers()) {
             Cosmetic.load(Biomia.getBiomiaPlayer(p));

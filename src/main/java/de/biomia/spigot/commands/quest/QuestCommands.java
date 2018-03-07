@@ -2,13 +2,13 @@ package de.biomia.spigot.commands.quest;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.commands.BiomiaCommand;
-import de.biomia.universal.Messages;
 import de.biomia.spigot.messages.QuestMessages;
 import de.biomia.spigot.messages.manager.ActionBar;
 import de.biomia.spigot.server.quests.general.DialogMessage;
 import de.biomia.spigot.server.quests.general.NPCManager;
 import de.biomia.spigot.server.quests.general.Quest;
 import de.biomia.spigot.server.quests.general.QuestPlayer;
+import de.biomia.universal.Messages;
 import net.citizensnpcs.api.ai.GoalController;
 import net.citizensnpcs.api.ai.goals.WanderGoal;
 import net.citizensnpcs.api.npc.NPC;
@@ -178,7 +178,6 @@ public class QuestCommands extends BiomiaCommand {
     public boolean execute(CommandSender sender, String label, String[] args) {
 
         long startTime = System.currentTimeMillis();
-        //TODO split
         if (sender instanceof Player) {
 
             Player p = (Player) sender;
@@ -187,31 +186,31 @@ public class QuestCommands extends BiomiaCommand {
             // COMMANDS FOR ALL PLAYERS
             switch (getName().toLowerCase()) {
             case "q":
-                qCommand(args, p, qp);
+                qCommand(args, qp);
                 break;
             case "qlist":
-                qlistCommand(sender);
+                qlistCommand(qp);
                 break;
             case "tagebuch":
-                tagebuchCommand(p, qp);
+                tagebuchCommand(qp);
                 break;
             case "qinfo":
-                qinfoCommand(sender, args, p);
+                qinfoCommand(args, p);
                 break;
             case "qhelp":
-                qhelpCommand(sender);
+                qhelpCommand(p);
                 break;
             case "qstats":
-                qstatCommand(sender, qp, args);
+                qstatCommand(qp, args);
                 break;
             case "respawn":
-                respawnCommand(sender, qp);
+                respawnCommand(qp);
                 break;
             case "qupdatebook":
                 qupdatebookCommand(qp);
                 break;
             case "qreset":
-                qresetCommand(p, qp);
+                qresetCommand(qp);
                 break;
             default:
                 break;
@@ -270,29 +269,27 @@ public class QuestCommands extends BiomiaCommand {
         return true;
     }
 
-    private void respawnCommand(CommandSender sender, QuestPlayer qp) {
-        if (sender instanceof Player)
+    private void respawnCommand(QuestPlayer qp) {
             if (qp.getDialog() == null) {
-                Player p = ((Player) sender);
-                p.setHealth(0);
+                qp.getPlayer().setHealth(0);
             }
     }
 
-    private void qresetCommand(Player p, QuestPlayer qp) {
-        p.setWalkSpeed(0.2f);
+    private void qresetCommand(QuestPlayer qp) {
+        qp.getPlayer().setWalkSpeed(0.2f);
         qp.setDialog(null);
-        p.sendMessage("\u00A78------------------\u00A76Notfall-Reset-Info\u00A78------------------");
-        p.sendMessage("\u00A7aAlle deine Biomia-Einstellungen wurden wieder auf ihre "
+        qp.getPlayer().sendMessage("\u00A78------------------\u00A76Notfall-Reset-Info\u00A78------------------");
+        qp.getPlayer().sendMessage("\u00A7aAlle deine Biomia-Einstellungen wurden wieder auf ihre "
                 + "Standardwerte zur\u00fcckgesetzt. Falls du denkst, dass es sich "
                 + "um ein weiterbestehendes Problem handelt, benutze bitte die "
                 + "\u00A76/report\u00A7a-Funktion, damit das Problem behandelt werden kann.");
-        p.sendMessage("\u00A77\u00A7oJede Benutzung des Notfall-Resets wird verzeichnet. Den "
+        qp.getPlayer().sendMessage("\u00A77\u00A7oJede Benutzung des Notfall-Resets wird verzeichnet. Den "
                 + "Notfall-Reset zu missbrauchen - auf welche Art auch immer - "
                 + "stellt einen Regelversto\u00df dar und kann mit einem tempor\u00e4ren "
                 + "oder permanenten Bann bestraft werden.");
     }
 
-    private void qstatCommand(CommandSender sender, QuestPlayer qp, String[] args) {
+    private void qstatCommand(QuestPlayer sender, String[] args) {
         // Array, das speichert, wie viele Quests es pro Band gibt, zB questsProBand[1]
         // waere 17, falls es 17 Quests fuer Band 1 gibt etc
         if (args.length == 0) {
@@ -300,18 +297,18 @@ public class QuestCommands extends BiomiaCommand {
             for (Quest q : Biomia.getQuestManager().getQuests()) {
                 questsProBand[q.getBand()]++;
             }
-            sender.sendMessage("\u00A78----------\u00A76Quest Stats & Info\u00A78----------");
+            sender.getPlayer().sendMessage("\u00A78----------\u00A76Quest Stats & Info\u00A78----------");
             for (int i = 0; i < questsProBand.length; i++) {
                 int playerProgress = 0;
                 if (questsProBand[i] != 0) {
-                    for (Quest q : qp.getFinishedQuests()) {
+                    for (Quest q : sender.getFinishedQuests()) {
                         if (q == null)
                             continue;
                         if (q.getBand() == i) {
                             playerProgress++;
                         }
                     }
-                    sender.sendMessage("\u00A76Band " + i + ": \u00A7aFortschritt: "
+                    sender.getPlayer().sendMessage("\u00A76Band " + i + ": \u00A7aFortschritt: "
                             + Math.round((double) playerProgress / (double) questsProBand[i] * 100) + "%"
                             + "\n   \u00A77" + playerProgress + "/" + questsProBand[i]
                             + " coins erfolgreich abgeschlossen.");
@@ -322,16 +319,16 @@ public class QuestCommands extends BiomiaCommand {
             try {
                 band = Integer.parseInt(args[0]);
             } catch (NumberFormatException e) {
-                sender.sendMessage("\u00A7c" + args[0] + " ist keine erlaubte Zahl.");
+                sender.getPlayer().sendMessage("\u00A7c" + args[0] + " ist keine erlaubte Zahl.");
             }
-            sender.sendMessage("\u00A76Band " + band + ": \u00A7aFortschritt: " + qp.getQuestPercentage(band) + "%");
+            sender.getPlayer().sendMessage("\u00A76Band " + band + ": \u00A7aFortschritt: " + sender.getQuestPercentage(band) + "%");
         }
     }
 
     /**
      * Listet ALLE questserverspezifischen QuestCommands auf.
      */
-    private void qhelpCommand(CommandSender sender) {
+    private void qhelpCommand(Player sender) {
         sender.sendMessage("\u00A78------------\u00A76QuestCommands\u00A78-----------");
         if (sender.hasPermission("biomia.quests")) {
             sender.sendMessage("\u00A76/qalign \u00A7asammelt alle NPCs an einem best. Punkt.");
@@ -438,32 +435,32 @@ public class QuestCommands extends BiomiaCommand {
         sender.sendMessage(QuestMessages.allNPCsAligned.replace("%n", i + ""));
     }
 
-    private void qlistCommand(CommandSender sender) {
+    private void qlistCommand(QuestPlayer sender) {
         // lists all quests, sorted by whether theyre currently active or already
         // finished
 
         StringBuilder temp = new StringBuilder();
-        sender.sendMessage(QuestMessages.activeQuests);
-        for (Quest q : (Biomia.getQuestPlayer((Player) sender)).getActiveQuests()) {
+        sender.getPlayer().sendMessage(QuestMessages.activeQuests);
+        for (Quest q : sender.getActiveQuests()) {
             if (q == null)
                 continue;
             temp.append("\u00A72<\u00A7a").append(q.getDisplayName()).append("\u00A72>, ");
         }
         if (!temp.toString().equals(""))
-            sender.sendMessage("\u00A72{" + temp.substring(0, temp.length() - 2) + "\u00A72}");
+            sender.getPlayer().sendMessage("\u00A72{" + temp.substring(0, temp.length() - 2) + "\u00A72}");
         else
-            sender.sendMessage("\u00A72{ }");
+            sender.getPlayer().sendMessage("\u00A72{ }");
         temp = new StringBuilder();
-        sender.sendMessage(QuestMessages.finishedQuests);
-        for (Quest q : (Biomia.getQuestPlayer((Player) sender)).getFinishedQuests()) {
+        sender.getPlayer().sendMessage(QuestMessages.finishedQuests);
+        for (Quest q : sender.getFinishedQuests()) {
             if (q == null)
                 continue;
             temp.append("\u00A72<\u00A7a").append(q.getDisplayName()).append("\u00A72>, ");
         }
         if (!temp.toString().equals(""))
-            sender.sendMessage("\u00A72{" + temp.substring(0, temp.length() - 2) + "\u00A72}");
+            sender.getPlayer().sendMessage("\u00A72{" + temp.substring(0, temp.length() - 2) + "\u00A72}");
         else
-            sender.sendMessage("\u00A72{ }");
+            sender.getPlayer().sendMessage("\u00A72{ }");
     }
 
     private void qrCommand(CommandSender sender, String[] args, QuestPlayer qp) {
@@ -527,7 +524,7 @@ public class QuestCommands extends BiomiaCommand {
         qp.updateBook();
     }
 
-    private void qCommand(String[] args, Player p, QuestPlayer qp) {
+    private void qCommand(String[] args, QuestPlayer qp) {
         if (args.length == 1) {
             if (qp.getDialog() != null) {
                 if (qp.getDialog() != null && !qp.getDialog().isLast()) {
@@ -540,7 +537,7 @@ public class QuestCommands extends BiomiaCommand {
                     }
                 } else {
                     qp.setDialog(null);
-                    p.setWalkSpeed(0.2F);
+                    qp.getPlayer().setWalkSpeed(0.2F);
                 }
             }
         } else if (args.length > 1 && args[0].equals("next")) {
@@ -550,25 +547,25 @@ public class QuestCommands extends BiomiaCommand {
                     qp.getDialog().execute(qp);
                 } else {
                     qp.setDialog(null);
-                    p.setWalkSpeed(0.2F);
+                    qp.getPlayer().setWalkSpeed(0.2F);
                 }
             }
         }
     }
 
-    private void tagebuchCommand(Player p, QuestPlayer qp) {
+    private void tagebuchCommand(QuestPlayer qp) {
         // gives a diary
-        for (ItemStack is : p.getInventory().getContents()) {
+        for (ItemStack is : qp.getPlayer().getInventory().getContents()) {
             if (is != null && is.getType() == Material.WRITTEN_BOOK
                     && is.getItemMeta().getDisplayName().equals("\u00A7cTagebuch")) {
-                p.sendMessage(QuestMessages.alreadyHaveABook);
+                qp.getPlayer().sendMessage(QuestMessages.alreadyHaveABook);
                 return;
             }
         }
-        p.getInventory().addItem(qp.getBook());
+        qp.getPlayer().getInventory().addItem(qp.getBook());
     }
 
-    private void qinfoCommand(CommandSender sender, String[] args, Player p) {
+    private void qinfoCommand(String[] args, Player sender) {
         // get infop about a specific quest
         if (args.length == 1) {
             // get quest
@@ -598,7 +595,7 @@ public class QuestCommands extends BiomiaCommand {
                 s = new StringBuilder(s.substring(0, s.length() - 2));
             sender.sendMessage(s.toString());
             sender.sendMessage(QuestMessages.dividerLine);
-            if (Biomia.getBiomiaPlayer(p).isStaff()) {
+            if (Biomia.getBiomiaPlayer(sender).isStaff()) {
                 sender.sendMessage("\u00A78ID=" + q.getQuestID() + ", \u00A78Cooldown=" + q.getCooldown()
                         + "s, \u00A78Repeatable=" + q.isRepeatable());
                 sender.sendMessage(QuestMessages.dividerLine);

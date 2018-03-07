@@ -49,44 +49,44 @@ public class EasterEvent implements Listener {
             specialEggLocation = new Location(Bukkit.getWorld(world), 595, 74, 298);
             radius = 80;
             maxHight = 112;
-            randomEggsPerServer = 5;
+            randomEggsPerServer = 20;
             break;
         case "QuestServer":
             world = "Quests";
-            location = new Location(Bukkit.getWorld(world), 0, 0, 0);
-            specialEggLocation = new Location(Bukkit.getWorld(world), 0, 0, 0);
-            radius = 150;
-            maxHight = 75;
+            location = new Location(Bukkit.getWorld(world), 114, 0, -288);
+            specialEggLocation = new Location(Bukkit.getWorld(world), 141, 66, -258);
+            radius = 50;
+            maxHight = 85;
             randomEggsPerServer = 4;
             break;
         case "BauWelt":
             world = "BauWelt";
             location = new Location(Bukkit.getWorld(world), 0, 0, 0);
-            specialEggLocation = new Location(Bukkit.getWorld(world), 0, 0, 0);
-            radius = 2;
-            maxHight = 70;
-            randomEggsPerServer = 1;
+            specialEggLocation = new Location(Bukkit.getWorld(world), 11, 67, 19);
+            radius = 150;
+            maxHight = 77;
+            randomEggsPerServer = 5;
             break;
         case "SkyWars":
             world = "Spawn";
             location = new Location(Bukkit.getWorld(world), 0, 0, 0);
-            specialEggLocation = new Location(Bukkit.getWorld(world), 0, 0, 0);
-            radius = 2;
-            maxHight = 70;
-            randomEggsPerServer = 1;
+            specialEggLocation = new Location(Bukkit.getWorld(world), 0, 71, 51);
+            radius = 50;
+            maxHight = 86;
+            randomEggsPerServer = 3;
             break;
         case "BedWars":
             world = "Spawn";
             location = new Location(Bukkit.getWorld(world), 0, 0, 0);
-            specialEggLocation = new Location(Bukkit.getWorld(world), 0, 0, 0);
-            radius = 2;
-            maxHight = 70;
-            randomEggsPerServer = 1;
+            specialEggLocation = new Location(Bukkit.getWorld(world), 45, 85, 37);
+            radius = 50;
+            maxHight = 86;
+            randomEggsPerServer = 3;
             break;
         case "FreebuildServer":
             world = "world";
             location = new Location(Bukkit.getWorld(world), -261, 64, 350);
-            specialEggLocation = new Location(Bukkit.getWorld(world), 0, 0, 0);
+            specialEggLocation = new Location(Bukkit.getWorld(world), -255, 65, 323);
             radius = 150;
             maxHight = 75;
             randomEggsPerServer = 4;
@@ -128,9 +128,9 @@ public class EasterEvent implements Listener {
 
                         loc.add(r * Math.cos(degree), 0, r * Math.sin(degree));
                         loc = loc.getWorld().getHighestBlockAt(loc).getLocation().add(0, 1, 0);
-                    } while (loc.getY() > maxHight);
+                    } while (loc.getY() > maxHight && loc.getY() != 1);
 
-                    Block b = loc.getWorld().getHighestBlockAt(loc).getLocation().add(0, 1, 0).getBlock();
+                    Block b = loc.getBlock();
                     b.setType(Material.SKULL);
                     Skull s = (Skull) b.getState();
                     s.setSkullType(SkullType.PLAYER);
