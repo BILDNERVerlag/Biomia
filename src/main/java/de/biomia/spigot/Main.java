@@ -37,7 +37,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
 
-    private static final EasterEvent event = new EasterEvent();
+    private static EasterEvent event;
     private static Main plugin;
     private static String groupName;
     private static CommandMap commandMap;
@@ -130,36 +130,38 @@ public class Main extends JavaPlugin {
 
         groupName = groupName.equals("TestServer") ? actualTestGroup : groupName;
         switch (groupName) {
-        case "Lobby":
-            Lobby.init();
-            break;
-        case "QuestServer":
-            Quests.initQuests();
-            break;
-        case "BedWars":
-            BedWars.init();
-            break;
-        case "SkyWars":
-            SkyWars.init();
-            break;
-        case "DuellLobby":
-            VSMain.initVersus();
-            break;
-        case "Weltenlabor#1":
-            Weltenlabor.init();
-            break;
-        case "FreebuildServer":
-            Freebuild.init();
-            break;
-        case "FarmServer":
-            //TODO Farmserver nach Fertigstellung hinzufügen
-            break;
-        case "BauServer":
-            Bukkit.getPluginManager().registerEvents(new BauServerListener(), this);
-            break;
-        default:
-            break;
+            case "Lobby":
+                Lobby.init();
+                break;
+            case "QuestServer":
+                Quests.initQuests();
+                break;
+            case "BedWars":
+                BedWars.init();
+                break;
+            case "SkyWars":
+                SkyWars.init();
+                break;
+            case "DuellLobby":
+                VSMain.initVersus();
+                break;
+            case "Weltenlabor#1":
+                Weltenlabor.init();
+                break;
+            case "FreebuildServer":
+                Freebuild.init();
+                break;
+            case "FarmServer":
+                //TODO Farmserver nach Fertigstellung hinzufügen
+                break;
+            case "BauServer":
+                Bukkit.getPluginManager().registerEvents(new BauServerListener(), this);
+                break;
+            default:
+                break;
         }
+
+        event = new EasterEvent();
     }
 
     private void registerListeners() {
@@ -201,25 +203,25 @@ public class Main extends JavaPlugin {
         this.saveConfig();
         MySQL.closeConnections();
         switch (getGroupName()) {
-        case "Lobby":
-        case "BedWars":
-        case "SkyWars":
-        case "DuellLobby":
-            break;
-        case "QuestServer":
-            Quests.terminateQuests();
-            break;
-        case "FreebuildServer":
-            Freebuild.terminate();
-            break;
-        case "FarmServer":
-            //TODO Farmserver nach Fertigstellung hinzufügen
-            break;
-        case "Weltenlabor#1":
-            Weltenlabor.init();
-            break;
-        default:
-            break;
+            case "Lobby":
+            case "BedWars":
+            case "SkyWars":
+            case "DuellLobby":
+                break;
+            case "QuestServer":
+                Quests.terminateQuests();
+                break;
+            case "FreebuildServer":
+                Freebuild.terminate();
+                break;
+            case "FarmServer":
+                //TODO Farmserver nach Fertigstellung hinzufügen
+                break;
+            case "Weltenlabor#1":
+                Weltenlabor.init();
+                break;
+            default:
+                break;
         }
     }
 }
