@@ -5,7 +5,6 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.OfflineBiomiaPlayer;
 import de.biomia.spigot.achievements.Stats;
-import net.minecraft.server.v1_12_R1.BlockPosition;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -27,7 +26,7 @@ import static de.biomia.spigot.tools.HeadCreator.setSkullUrl;
 public class EasterEvent implements Listener {
 
     private static final int specialEggsAmount = 5;
-    private static final String specialEggName = "";
+    private static final String specialEggName = "ei_rot";
     private static final String egg1Name = "ei_blaugruen";
     private static final String egg2Name = "ei_rot";
     private static final String egg3Name = "ei_gold";
@@ -43,21 +42,61 @@ public class EasterEvent implements Listener {
     public EasterEvent() {
         final String world;
         switch (Main.getGroupName()) {
-        //TODO addServers
+        //TODO addSpecialLocations
         case "Lobby":
-            world = "Spawn";
-            randomEggsPerServer = 1;
+            world = "LobbyBiomia";
+            location = new Location(Bukkit.getWorld(world), 532, 112, 300);
+            specialEggLocation = new Location(Bukkit.getWorld(world), 595, 74, 298);
+            radius = 80;
+            maxHight = 112;
+            randomEggsPerServer = 5;
+            break;
+        case "QuestServer":
+            world = "Quests";
+            location = new Location(Bukkit.getWorld(world), 0, 0, 0);
+            specialEggLocation = new Location(Bukkit.getWorld(world), 0, 0, 0);
+            radius = 150;
+            maxHight = 75;
+            randomEggsPerServer = 4;
+            break;
+        case "BauWelt":
+            world = "BauWelt";
             location = new Location(Bukkit.getWorld(world), 0, 0, 0);
             specialEggLocation = new Location(Bukkit.getWorld(world), 0, 0, 0);
             radius = 2;
             maxHight = 70;
+            randomEggsPerServer = 1;
+            break;
+        case "SkyWars":
+            world = "Spawn";
+            location = new Location(Bukkit.getWorld(world), 0, 0, 0);
+            specialEggLocation = new Location(Bukkit.getWorld(world), 0, 0, 0);
+            radius = 2;
+            maxHight = 70;
+            randomEggsPerServer = 1;
+            break;
+        case "BedWars":
+            world = "Spawn";
+            location = new Location(Bukkit.getWorld(world), 0, 0, 0);
+            specialEggLocation = new Location(Bukkit.getWorld(world), 0, 0, 0);
+            radius = 2;
+            maxHight = 70;
+            randomEggsPerServer = 1;
+            break;
+        case "FreebuildServer":
+            world = "world";
+            location = new Location(Bukkit.getWorld(world), -261, 64, 350);
+            specialEggLocation = new Location(Bukkit.getWorld(world), 0, 0, 0);
+            radius = 150;
+            maxHight = 75;
+            randomEggsPerServer = 4;
             break;
         default:
-            randomEggsPerServer = 0;
             location = null;
             maxHight = 0;
             radius = 0;
             specialEggLocation = null;
+            randomEggsPerServer = 0;
             return;
         }
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
@@ -74,7 +113,6 @@ public class EasterEvent implements Listener {
     private void startSpawningEggs() {
         new BukkitRunnable() {
             public void run() {
-
                 blocks.forEach(each -> {
                     if (each.getType() == Material.SKULL)
                         each.setType(Material.AIR);
@@ -93,7 +131,6 @@ public class EasterEvent implements Listener {
                     } while (loc.getY() > maxHight);
 
                     Block b = loc.getWorld().getHighestBlockAt(loc).getLocation().add(0, 1, 0).getBlock();
-                    BlockPosition pos = new BlockPosition(1, 2, 3);
                     b.setType(Material.SKULL);
                     Skull s = (Skull) b.getState();
                     s.setSkullType(SkullType.PLAYER);
@@ -163,12 +200,10 @@ public class EasterEvent implements Listener {
         Stats.incrementStatBy(Stats.BiomiaStat.EasterEggsFound, bpID, eggs);
     }
 
-    public void giveReward(int bpID) {
+    public void giveReward(OfflineBiomiaPlayer p) {
 
-        OfflineBiomiaPlayer p = Biomia.getOfflineBiomiaPlayer(bpID);
-
-        int eggsFound = Stats.getStat(Stats.BiomiaStat.EasterEggsFound, bpID);
-        int eggsRewardsErhalten = Stats.getStat(Stats.BiomiaStat.EasterRewardsErhalten, bpID);
+        int eggsFound = Stats.getStat(Stats.BiomiaStat.EasterEggsFound, p.getBiomiaPlayerID());
+        int eggsRewardsErhalten = Stats.getStat(Stats.BiomiaStat.EasterRewardsErhalten, p.getBiomiaPlayerID());
 
         boolean b;
         int coinsToAdd = 0;
@@ -195,7 +230,7 @@ public class EasterEvent implements Listener {
                 coinsToAdd += (100 + eggsAbgegeben + eggsRewardsErhalten) * 10;
             }
         } while (b);
-        Stats.incrementStatBy(Stats.BiomiaStat.EasterRewardsErhalten, bpID, eggsAbgegeben);
+        Stats.incrementStatBy(Stats.BiomiaStat.EasterRewardsErhalten, p.getBiomiaPlayerID(), eggsAbgegeben);
         if (p.isOnline())
             p.addCoins(coinsToAdd, false);
     }

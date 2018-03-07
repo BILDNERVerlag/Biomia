@@ -64,7 +64,7 @@ public class EventCommands extends BiomiaCommand {
 
             if (getName().equals("givereward") && p.hasPermission("biomia.listener.givereward")) {
                 if (args.length >= 1) {
-                    Main.getEvent().giveReward(Biomia.getOfflineBiomiaPlayer(args[0]).getBiomiaPlayerID());
+                    Main.getEvent().giveReward(Biomia.getOfflineBiomiaPlayer(args[0]));
                 }
             }
             if (getName().equals("addeggs") && p.hasPermission("biomia.listener.addeggs")) {
