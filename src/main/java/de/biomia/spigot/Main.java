@@ -124,7 +124,7 @@ public class Main extends JavaPlugin {
         /*
          * Change the TestServer here!
          */
-        String actualTestGroup = "QuestServer";
+        String actualTestGroup = "Lobby";
 
         groupName = ((DedicatedServer) ((CraftServer) Bukkit.getServer()).getServer()).propertyManager.properties.getProperty("server-name").split("-")[0];
 

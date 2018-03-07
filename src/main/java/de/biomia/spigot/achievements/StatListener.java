@@ -135,8 +135,7 @@ public class StatListener implements Listener {
                 }
             }).runTaskTimer(Main.getPlugin(), 20 * 60, 20 * 60);
         } catch (NullPointerException ex) {
-            ex.printStackTrace();
-            //TODO Fix this nullpointer
+
         }
     }
 
