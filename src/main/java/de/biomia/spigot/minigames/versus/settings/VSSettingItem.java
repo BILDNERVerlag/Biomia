@@ -1,5 +1,6 @@
 package de.biomia.spigot.minigames.versus.settings;
 
+import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.minigames.versus.VSMain;
 import de.biomia.spigot.tools.ItemCreator;
@@ -31,7 +32,7 @@ public class VSSettingItem {
 
     public void inverse(BiomiaPlayer bp, VSGroupInventory inv) {
         ItemStack switcher;
-        VSSettings settings = VSMain.getManager().getSettings(bp);
+        VSSettings settings = ((VSMain) Biomia.getSeverInstance()).getManager().getSettings(bp);
         settings.invertSetting(this);
         if (settings.getSetting(this))
             switcher = enabled;
@@ -66,7 +67,7 @@ public class VSSettingItem {
 
     public void setToInventory(VSGroupInventory inv) {
         inv.setItem(item, itemSlot);
-        VSSettings settings = VSMain.getManager().getSettings(inv.getBiomiaPlayer());
+        VSSettings settings = ((VSMain) Biomia.getSeverInstance()).getManager().getSettings(inv.getBiomiaPlayer());
         ItemStack switcher;
         if (settings.getSetting(this))
             switcher = enabled;

@@ -82,7 +82,7 @@ public class DemoListener extends BiomiaListener {
                 ie.setCursor(new ItemStack(Material.AIR));
             }
 
-            for (Bauten b : Weltenlabor.bauten) {
+            for (Bauten b : ((Weltenlabor) Biomia.getSeverInstance()).getBauten()) {
                 if (t.equals(b.getMaterial())
                         && ie.getCurrentItem().getItemMeta().getDisplayName().equals(b.getName())) {
                     p.teleport(b.getLoc());
@@ -100,7 +100,7 @@ public class DemoListener extends BiomiaListener {
         if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK))
             if (e.getItem() != null && e.getItem().getItemMeta().getDisplayName().equals("\u00A7dTeleporter")) {
 
-                Weltenlabor.si.computeIfAbsent(Biomia.getBiomiaPlayer(e.getPlayer()), inv -> new ScrollingInventory(e.getPlayer())).openInventorry();
+                ((Weltenlabor) Biomia.getSeverInstance()).getScrollingInv().computeIfAbsent(Biomia.getBiomiaPlayer(e.getPlayer()), inv -> new ScrollingInventory(e.getPlayer())).openInventorry();
                 e.setCancelled(true);
 
             }

@@ -3,8 +3,6 @@ package de.biomia.spigot;
 import de.biomia.spigot.achievements.Achievements;
 import de.biomia.spigot.achievements.StatListener;
 import de.biomia.spigot.commands.BiomiaCommand;
-import de.biomia.spigot.commands.general.*;
-import de.biomia.spigot.commands.warp.WarpCommands;
 import de.biomia.spigot.general.cosmetics.Cosmetic;
 import de.biomia.spigot.general.cosmetics.Cosmetic.Group;
 import de.biomia.spigot.general.cosmetics.CosmeticGroup;
@@ -12,8 +10,6 @@ import de.biomia.spigot.general.cosmetics.gadgets.GadgetIniter;
 import de.biomia.spigot.general.cosmetics.particles.ParticleIniter;
 import de.biomia.spigot.general.reportsystem.ReportSQL;
 import de.biomia.spigot.listeners.ChannelListener;
-import de.biomia.spigot.listeners.CosmeticListener;
-import de.biomia.spigot.listeners.ReportListener;
 import de.biomia.spigot.listeners.servers.BauServerListener;
 import de.biomia.spigot.minigames.bedwars.BedWars;
 import de.biomia.spigot.minigames.skywars.SkyWars;
@@ -46,8 +42,6 @@ public class Main extends JavaPlugin {
     private static Main plugin;
     private static String groupName;
     private static CommandMap commandMap;
-
-    //TODO serverTypesClassInterfacesInstanceForCommandsAndPermissions
 
     public static EasterEvent getEvent() {
         return event;
@@ -83,9 +77,6 @@ public class Main extends JavaPlugin {
         Bukkit.getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new PlayerToServerConnector());
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BiomiaChannel");
         Bukkit.getMessenger().registerIncomingPluginChannel(this, "BiomiaChannel", new ChannelListener());
-
-        registerListeners();
-        registerCommands();
 
         ReportSQL.getAllReports();
 
@@ -131,10 +122,10 @@ public class Main extends JavaPlugin {
         groupName = groupName.equals("TestServer") ? actualTestGroup : groupName;
         switch (groupName) {
             case "Lobby":
-                Lobby.init();
+                new Lobby().start();
                 break;
             case "QuestServer":
-                Quests.initQuests();
+                new Quests().start();
                 break;
             case "BedWars":
                 BedWars.init();
@@ -143,13 +134,13 @@ public class Main extends JavaPlugin {
                 SkyWars.init();
                 break;
             case "DuellLobby":
-                VSMain.initVersus();
+                new VSMain().start();
                 break;
             case "Weltenlabor#1":
-                Weltenlabor.init();
+                new Weltenlabor().start();
                 break;
             case "FreebuildServer":
-                Freebuild.init();
+                new Freebuild().start();
                 break;
             case "FarmServer":
                 //TODO Farmserver nach Fertigstellung hinzufügen
@@ -157,44 +148,9 @@ public class Main extends JavaPlugin {
             case "BauServer":
                 Bukkit.getPluginManager().registerEvents(new BauServerListener(), this);
                 break;
-            default:
-                break;
         }
 
         event = new EasterEvent();
-    }
-
-    private void registerListeners() {
-        Bukkit.getPluginManager().registerEvents(new ReportListener(), this);
-        Bukkit.getPluginManager().registerEvents(new CosmeticListener(), this);
-    }
-
-    private void registerCommands() {
-        registerCommand(new RandomServerGroupCommand());
-        registerCommand(new CosmeticCommand());
-        registerCommand(new BuildCommand());
-        registerCommand(new CoinsCommand());
-        registerCommand(new CreateTableCommand());
-        registerCommand(new EatCommand());
-        registerCommand(new FlyCommand());
-        registerCommand(new GamemodeCommand());
-        registerCommand(new HeadCommand());
-        registerCommand(new HealCommand());
-        registerCommand(new HologramCommand());
-        registerCommand(new PermissionCommand());
-        registerCommand(new RankCommand());
-        registerCommand(new SpeedCommand());
-        registerCommand(new StatCommand());
-        registerCommand(new ReportCommand());
-        registerCommand(new SeeReportsCommand());
-        registerCommand(new StatCommand());
-        registerCommand(new TrollCommand("crash"));
-        registerCommand(new TrollCommand("troll"));
-        registerCommand(new EventCommands("addeggs"));
-        registerCommand(new EventCommands("givereward"));
-        registerCommand(new WarpCommands("setwarp"));
-        registerCommand(new WarpCommands("warp"));
-        registerCommand(new WarpCommands("delwarp"));
     }
 
     @Override
@@ -202,26 +158,6 @@ public class Main extends JavaPlugin {
         super.onDisable();
         this.saveConfig();
         MySQL.closeConnections();
-        switch (getGroupName()) {
-            case "Lobby":
-            case "BedWars":
-            case "SkyWars":
-            case "DuellLobby":
-                break;
-            case "QuestServer":
-                Quests.terminateQuests();
-                break;
-            case "FreebuildServer":
-                Freebuild.terminate();
-                break;
-            case "FarmServer":
-                //TODO Farmserver nach Fertigstellung hinzufügen
-                break;
-            case "Weltenlabor#1":
-                Weltenlabor.init();
-                break;
-            default:
-                break;
-        }
+        Biomia.getSeverInstance().stop();
     }
 }

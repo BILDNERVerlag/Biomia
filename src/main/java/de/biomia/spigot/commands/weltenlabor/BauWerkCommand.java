@@ -1,5 +1,6 @@
 package de.biomia.spigot.commands.weltenlabor;
 
+import de.biomia.spigot.Biomia;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.configs.DemoConfig;
@@ -67,8 +68,8 @@ public class BauWerkCommand extends BiomiaCommand {
             case "reload":
                 Bukkit.broadcastMessage("\u00A7cReloading....");
                 Main.getPlugin().reloadConfig();
-                Weltenlabor.bauten.clear();
-                Weltenlabor.si.clear();
+                ((Weltenlabor) Biomia.getSeverInstance()).getBauten().clear();
+                ((Weltenlabor) Biomia.getSeverInstance()).getScrollingInv().clear();
                 DemoConfig.hookInPlugin();
                 Bukkit.broadcastMessage("\u00A7aReloaded!");
                 break;

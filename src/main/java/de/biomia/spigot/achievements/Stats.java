@@ -211,34 +211,21 @@ public class Stats {
      * Immer, wenn sich der Wert eines Stats aendert, checkt diese Methode, ob ein
      * Achievement unlocked werden soll
      */
-    //TODO check for unlock with comments
     private static void checkForAchievementUnlocks(BiomiaStat stat, int biomiaPlayerID, int value) {
         // Step 1: Checke um welchen Stat es geht
         // Step 2: Checke ob der Stat einen bestimmten Wert erreicht hat
         // Step 3: Wenn ja, versuche Achievement zu unlocken
         final boolean logging = true;
 
-        if (logging) Bukkit.broadcastMessage("§6<checking for unlocks: §b" + stat.name() + "§6>");
-        //TODO: fix stats being empty on comment-achievements
         ArrayList<Achievements> achievements = stats.get(stat);
         if (achievements != null) {
-            if (logging) Bukkit.broadcastMessage("§6<starting loop. achievements has §b" + achievements.size() +" §6elements>");
             achievements.forEach(each -> {
                 if (each.getComment() != null) {
-                    if (logging) Bukkit.broadcastMessage("§6<comments exist.>");
-                    if (Stats.getComments(stat, biomiaPlayerID).get(each.getComment()) >= each.getTargetValue()) {
+                    if (Stats.getComments(stat, biomiaPlayerID).get(each.getComment()) >= each.getTargetValue())
                         unlock(each.getAchievement(), biomiaPlayerID);
-                        if (logging) Bukkit.broadcastMessage("§6<unlocked.>");
-                    }
-                } else if (value >= each.getTargetValue()) {
-                    if (logging) Bukkit.broadcastMessage("§6<no comment.>");
-                    if (logging) Bukkit.broadcastMessage("§6<unlocked.>");
-                    unlock(each.getAchievement(), biomiaPlayerID);
-                }
-                if (logging) Bukkit.broadcastMessage("§6<no comment.>");
-                if (logging) Bukkit.broadcastMessage("§6<locked.>");
+                } else if (value >= each.getTargetValue()) unlock(each.getAchievement(), biomiaPlayerID);
             });
-        } else if (logging) Bukkit.broadcastMessage("§6<no achievements exist for §b" + stat.name()  + "§6>");
+        }
     }
 
     /**

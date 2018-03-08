@@ -1,5 +1,6 @@
 package de.biomia.spigot.server.demoserver.teleporter;
 
+import de.biomia.spigot.Biomia;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.server.demoserver.Weltenlabor;
 import de.biomia.spigot.tools.ItemCreator;
@@ -72,7 +73,7 @@ public class ScrollingInventory implements Listener {
 
     public void openInventorry() {
         clearItems();
-        Weltenlabor.bauten.forEach(each -> items.add(each.getItem()));
+        ((Weltenlabor) Biomia.getSeverInstance()).getBauten().forEach(each -> items.add(each.getItem()));
         displaySide(0);
         player.openInventory(inv);
     }
@@ -88,7 +89,7 @@ public class ScrollingInventory implements Listener {
         if (e.getInventory().equals(inv)) {
             e.setCancelled(true);
             if (e.getCurrentItem() != null && e.getCurrentItem().hasItemMeta()) {
-                for (Bauten b : Weltenlabor.bauten)
+                for (Bauten b : ((Weltenlabor) Biomia.getSeverInstance()).getBauten())
                     if (b.getName().equals(e.getCurrentItem().getItemMeta().getDisplayName())) {
                         e.getWhoClicked().teleport(b.getLoc());
                         return;

@@ -20,7 +20,7 @@ public class WarpCommands extends BiomiaCommand {
 
     public WarpCommands(String command) {
         super(command);
-        allowedGroups = new ArrayList<String>(Arrays.asList("Lobby", "BauServer", "FreebuildServer", "FarmServer", "QuestServer"));
+        allowedGroups = new ArrayList<String>(Arrays.asList("BauServer", "FreebuildServer", "FarmServer", "QuestServer"));
     }
 
     ArrayList<String> allowedGroups;

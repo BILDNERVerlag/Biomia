@@ -2,6 +2,7 @@ package de.biomia.spigot.server.freebuild;
 
 import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.freebuild.RespawnCommand;
+import de.biomia.spigot.general.BiomiaServer;
 import de.biomia.spigot.listeners.servers.FreebuildListener;
 import de.biomia.spigot.server.freebuild.home.Home;
 import de.biomia.spigot.server.freebuild.home.commands.DeleteHomeCommand;
@@ -12,36 +13,29 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.plugin.PluginManager;
 
-public class Freebuild {
+public class Freebuild extends BiomiaServer {
 
-    private static Home home;
-
-    public static void init() {
-        home = new Home();
-        home.onEnable();
-        registerEvents();
-        loadListeners();
+    @Override
+    public void start() {
+        super.start();
         Bukkit.setDefaultGameMode(GameMode.SURVIVAL);
     }
 
-    public static void terminate() {
-        home.terminateHomes();
+    @Override
+    public void stop() {
+        super.stop();
     }
 
-    private static void registerEvents() {
-        // GENERAL
+    @Override
+    protected void initListeners() {
+        super.initListeners();
+        Bukkit.getPluginManager().registerEvents(new FreebuildListener(), Main.getPlugin());
+    }
+
+    @Override
+    protected void initCommands() {
+        super.initCommands();
         Main.registerCommand(new RespawnCommand());
-        // HOME
-        HomeManager homeManager = home.getHomeManager();
-        Main.getPlugin().getCommand("delhome").setExecutor(new DeleteHomeCommand(homeManager));
-        Main.getPlugin().getCommand("home").setExecutor(new HomeCommand(homeManager));
-        Main.getPlugin().getCommand("sethome").setExecutor(new SetHomeCommand(homeManager));
-    }
-
-    private static void loadListeners() {
-        PluginManager pm = Bukkit.getPluginManager();
-        pm.registerEvents(new FreebuildListener(), Main.getPlugin());
-        home.loadHomeListeners();
     }
 
 }

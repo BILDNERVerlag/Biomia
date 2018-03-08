@@ -35,11 +35,13 @@ public class StatListener implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
-        Stats.incrementStat(Stats.BiomiaStat.BlocksDestroyed, e.getPlayer(), Main.getGroupName());
+        if (!e.isCancelled())
+            Stats.incrementStat(Stats.BiomiaStat.BlocksDestroyed, e.getPlayer(), Main.getGroupName());
     }
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
+        if (!e.isCancelled())
         Stats.incrementStat(Stats.BiomiaStat.BlocksPlaced, e.getPlayer(), Main.getGroupName());
     }
 
@@ -104,7 +106,7 @@ public class StatListener implements Listener {
         if (e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
             int change = p.getFoodLevel() - e.getFoodLevel();
-            if (change < 0) {
+            if (change > 0) {
                 change *= -1;
                 Stats.incrementStatBy(Stats.BiomiaStat.HungerLost, (Player) e.getEntity(), change);
             } else {
@@ -304,6 +306,11 @@ public class StatListener implements Listener {
         if (e.getEntity().getType() == EntityType.SHEEP) {
             Stats.incrementStat(Stats.BiomiaStat.SheepsSheared, e.getPlayer());
         }
+    }
+
+    @EventHandler
+    public void onEXPGain(PlayerExpChangeEvent e) {
+        Stats.incrementStat(Stats.BiomiaStat.EXPGained, e.getPlayer());
     }
 
 }

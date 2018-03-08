@@ -1,5 +1,6 @@
 package de.biomia.spigot.minigames.versus.settings;
 
+import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameType;
@@ -144,7 +145,7 @@ public class VSRequest {
     }
 
     private boolean searchForMap() {
-        VSSettings requesterSettings = VSMain.getManager().getSettings(leader);
+        VSSettings requesterSettings = ((VSMain) Biomia.getSeverInstance()).getManager().getSettings(leader);
         ArrayList<Integer> maps = new ArrayList<>();
 
         int id = 100;
@@ -164,8 +165,8 @@ public class VSRequest {
     }
 
     private boolean searchForMapBOTH() {
-        VSSettings requesterSettings = VSMain.getManager().getSettings(leader);
-        VSSettings receiverSettings = VSMain.getManager().getSettings(bp2);
+        VSSettings requesterSettings = ((VSMain) Biomia.getSeverInstance()).getManager().getSettings(leader);
+        VSSettings receiverSettings = ((VSMain) Biomia.getSeverInstance()).getManager().getSettings(bp2);
 
         ArrayList<Integer> maps = new ArrayList<>();
 
@@ -187,7 +188,7 @@ public class VSRequest {
 
     private boolean getRandomGroup() {
 
-        VSSettings requesterSettings = VSMain.getManager().getSettings(leader);
+        VSSettings requesterSettings = ((VSMain) Biomia.getSeverInstance()).getManager().getSettings(leader);
 
         ArrayList<GameType> modes = new ArrayList<>();
 
@@ -205,8 +206,8 @@ public class VSRequest {
 
     private boolean getRandomGroupBOTH() {
 
-        VSSettings requesterSettings = VSMain.getManager().getSettings(leader);
-        VSSettings receiverSettings = VSMain.getManager().getSettings(bp2);
+        VSSettings requesterSettings = ((VSMain) Biomia.getSeverInstance()).getManager().getSettings(leader);
+        VSSettings receiverSettings = ((VSMain) Biomia.getSeverInstance()).getManager().getSettings(bp2);
 
         ArrayList<GameType> modes = new ArrayList<>();
 
@@ -227,7 +228,7 @@ public class VSRequest {
     }
 
     private String getMapName() {
-        return VSMain.getManager().getMapName(getModus(), mapID);
+        return ((VSMain) Biomia.getSeverInstance()).getManager().getMapName(getModus(), mapID);
     }
 
 }

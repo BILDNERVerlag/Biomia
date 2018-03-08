@@ -19,8 +19,8 @@ public class VersusLobbyListener extends BiomiaListener {
     public void onLogin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         if (!p.getWorld().getName().contains("Spawn"))
-            p.teleport(VSMain.getManager().getHome());
-        VSMain.getManager().setInventory(p);
+            p.teleport(((VSMain) Biomia.getSeverInstance()).getManager().getHome());
+        ((VSMain) Biomia.getSeverInstance()).getManager().setInventory(p);
     }
 
     @EventHandler
@@ -33,7 +33,7 @@ public class VersusLobbyListener extends BiomiaListener {
     public void onPlayerMove(PlayerMoveEvent e) {
         if (e.getPlayer().getWorld().getName().contains("Spawn")) {
             if (e.getTo().getBlockY() <= 0) {
-                e.getPlayer().teleport(VSMain.getManager().getHome());
+                e.getPlayer().teleport(((VSMain) Biomia.getSeverInstance()).getManager().getHome());
             }
         }
     }

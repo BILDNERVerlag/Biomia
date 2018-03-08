@@ -1,5 +1,6 @@
 package de.biomia.spigot.minigames;
 
+import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.minigames.versus.VSMain;
 
@@ -48,7 +49,7 @@ public abstract class GameMode {
     }
 
     public void stop() {
-        players.forEach(each -> VSMain.getManager().moveToLobby(each.getPlayer()));
+        players.forEach(each -> ((VSMain) Biomia.getSeverInstance()).getManager().moveToLobby(each.getPlayer()));
         instance.getRequest().finish();
         handler.unregister();
         instance.startDeleting();

@@ -1,5 +1,6 @@
 package de.biomia.spigot.server.demoserver.teleporter;
 
+import de.biomia.spigot.Biomia;
 import de.biomia.spigot.server.demoserver.Weltenlabor;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Location;
@@ -22,7 +23,7 @@ public class Bauten {
         this.seite = seite;
         this.loc = loc;
         this.material = material;
-        Weltenlabor.bauten.add(this);
+        ((Weltenlabor) Biomia.getSeverInstance()).getBauten().add(this);
 
         ItemStack stack = ItemCreator.itemCreate(getMaterial(), getName());
         ItemMeta meta = stack.getItemMeta();

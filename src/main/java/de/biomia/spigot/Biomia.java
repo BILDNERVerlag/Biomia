@@ -1,5 +1,6 @@
 package de.biomia.spigot;
 
+import de.biomia.spigot.general.BiomiaServer;
 import de.biomia.spigot.minigames.general.teams.TeamManager;
 import de.biomia.spigot.server.quests.general.QuestManager;
 import de.biomia.spigot.server.quests.general.QuestPlayer;
@@ -16,6 +17,7 @@ public class Biomia {
     private static final HashMap<Integer, OfflineBiomiaPlayer> offlineBiomiaPlayers = new HashMap<>();
     private static TeamManager teamManager;
     private static QuestManager questManager;
+    private static BiomiaServer severInstance;
 
     // METHODS
     public static void stopWithDelay() {
@@ -76,5 +78,13 @@ public class Biomia {
 
     public static QuestManager getQuestManager() {
         return questManager != null ? questManager : (questManager = new QuestManager());
+    }
+
+    public static void setSeverInstance(BiomiaServer severInstance) {
+        Biomia.severInstance = severInstance;
+    }
+
+    public static BiomiaServer getSeverInstance() {
+        return severInstance;
     }
 }

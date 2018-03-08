@@ -22,7 +22,7 @@ public class Achievements {
         if (!Stats.stats.containsKey(stat)) {
             Stats.stats.put(stat, new ArrayList<>());
         }
-        Stats.stats.get(Stats.BiomiaStat.CoinsAccumulated).add(this);
+        Stats.stats.get(stat).add(this);
     }
 
     private Achievements(BiomiaAchievement achievement, Stats.BiomiaStat stat, int targetValue, String displayName, String comment) {
@@ -34,7 +34,7 @@ public class Achievements {
         if (!Stats.stats.containsKey(stat)) {
             Stats.stats.put(stat, new ArrayList<>());
         }
-        Stats.stats.get(Stats.BiomiaStat.CoinsAccumulated).add(this);
+        Stats.stats.get(stat).add(this);
     }
 
     //METHODS
