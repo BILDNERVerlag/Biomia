@@ -63,12 +63,7 @@ public class FreebuildListener extends BiomiaListener {
         int spawnX = e.getLocation().getBlockX();
         int spawnZ = e.getLocation().getBlockZ();
         if (spawnX > -434 && spawnX < -102 && spawnZ > 80 && spawnZ < 547) {
-            if (type.equals(EntityType.ZOMBIE) || type.equals(EntityType.ZOMBIE_VILLAGER)
-                    || type.equals(EntityType.CREEPER) || type.equals(EntityType.WITCH)
-                    || type.equals(EntityType.SKELETON) || type.equals(EntityType.SPIDER)
-                    || type.equals(EntityType.ENDERMAN)) {
                 e.setCancelled(true);
-            }
         }
     }
 }

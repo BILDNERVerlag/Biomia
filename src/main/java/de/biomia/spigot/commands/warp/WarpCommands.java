@@ -81,8 +81,9 @@ public class WarpCommands extends BiomiaCommand {
                     if (Main.getGroupName().equals(wLoc.groupname) && p.getWorld().getName().equals(wLoc.worldname)) {
                         p.teleport(targetLoc);
                     } else {
-                        p.sendMessage("§cDu musst dich auf dem selben Server befinden, auf dem sich auch dein Warppunkt befindet.");
-                        p.sendMessage("§cDer Warppunkt §b" + args[0] + "§c befindet sich auf §b" + wLoc.groupname);
+                        p.sendMessage("§cDu musst dich auf dem selben Server befinden, auf dem sich auch dein Warppunkt befindet. " +
+                                "(§b" + args[0] + "§c befindet sich auf §b" + wLoc.groupname + "§c)");
+
                     }
                 } else {
                     p.sendMessage("§cDu hast keinen Warppunkt mit dem Namen §b" + args[0] + "§c!");

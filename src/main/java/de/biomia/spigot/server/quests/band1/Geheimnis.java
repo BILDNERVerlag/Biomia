@@ -34,7 +34,7 @@ public class Geheimnis implements Listener {
 
     public Geheimnis() {
         q.setInfoText(
-                "Nana h\u00fctte im Austausch \u00fcber Informationen gerne einen Strohballen. \u00dcber das 'warum' kannst du nur spekulieren.");
+                "Nana h\u00e4tte im Austausch gegen Informationen gerne einen Strohballen. \u00dcber das 'warum' kannst du nur spekulieren.");
         nana = q.createNPC(EntityType.PLAYER, "Nana");
         Location loc = new Location(Bukkit.getWorld("Quests"), 130, 65, -326, 0, 0);
         nana.spawn(loc);

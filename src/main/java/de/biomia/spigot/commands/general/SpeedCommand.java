@@ -25,14 +25,20 @@ public class SpeedCommand extends BiomiaCommand {
         Player p = (Player) sender;
 
         if (args.length >= 1 && args.length < 3) {
-            float speed = 2;
+            float speed = 0.2f;
             try {
                 speed = Float.valueOf(args[0]);
             } catch (NumberFormatException ignore) {
                 // incorrect speed parameter, so default speed is used
             } finally {
-                if (speed == 1)
-                    speed = 2;
+                if (speed < -1 || speed > 1) {
+                    if (speed < -1) {
+                        speed = -1;
+                    } else if (speed > 1) {
+                        speed = 1;
+                    }
+                    sender.sendMessage("§b" + args[0] + "\u00A7cliegt nicht zwischen -1 und 1! §b" + speed + " §c wird verwendet.");
+                }
             }
             if (args.length == 1) {
                 p.setWalkSpeed(speed);
