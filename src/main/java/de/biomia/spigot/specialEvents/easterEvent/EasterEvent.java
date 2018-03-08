@@ -9,7 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.Skull;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -157,7 +156,7 @@ public class EasterEvent implements Listener {
                 e.getClickedBlock().setType(Material.AIR);
                 Stats.incrementStat(Stats.BiomiaStat.EasterEggsFound, bp.getBiomiaPlayerID());
                 bp.getPlayer().sendMessage("\u00A7cDu hast ein Normales Ei gefunden! Schau zum Osterhasen in der Lobby um Belohnungen zu erhalten!");
-            } else if (((Skull) e.getClickedBlock().getState()).getOwningPlayer().getName().equals(specialEggName)) {
+            } else if (e.getClickedBlock().getLocation().distance(specialEggLocation) < 0.5) {
                 int eggsFound = Stats.getStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer(), Main.getGroupName());
                 if (eggsFound == 0) {
                     Stats.incrementStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer(), Main.getGroupName());
@@ -218,7 +217,6 @@ public class EasterEvent implements Listener {
             }
         } while (b);
         Stats.incrementStatBy(Stats.BiomiaStat.EasterRewardsErhalten, p.getBiomiaPlayerID(), eggsAbgegeben);
-        if (p.isOnline())
-            p.addCoins(coinsToAdd, false);
+        p.addCoins(coinsToAdd, false);
     }
 }
