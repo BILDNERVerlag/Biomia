@@ -2,7 +2,7 @@ package de.biomia.spigot.listeners.servers;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.minigames.versus.VSMain;
+import de.biomia.spigot.minigames.versus.Versus;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -19,8 +19,8 @@ public class VersusLobbyListener extends BiomiaListener {
     public void onLogin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         if (!p.getWorld().getName().contains("Spawn"))
-            p.teleport(((VSMain) Biomia.getSeverInstance()).getManager().getHome());
-        ((VSMain) Biomia.getSeverInstance()).getManager().setInventory(p);
+            p.teleport(((Versus) Biomia.getSeverInstance()).getManager().getHome());
+        ((Versus) Biomia.getSeverInstance()).getManager().setInventory(p);
     }
 
     @EventHandler
@@ -33,7 +33,7 @@ public class VersusLobbyListener extends BiomiaListener {
     public void onPlayerMove(PlayerMoveEvent e) {
         if (e.getPlayer().getWorld().getName().contains("Spawn")) {
             if (e.getTo().getBlockY() <= 0) {
-                e.getPlayer().teleport(((VSMain) Biomia.getSeverInstance()).getManager().getHome());
+                e.getPlayer().teleport(((Versus) Biomia.getSeverInstance()).getManager().getHome());
             }
         }
     }

@@ -4,7 +4,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameType;
-import de.biomia.spigot.minigames.versus.VSMain;
+import de.biomia.spigot.minigames.versus.Versus;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -47,9 +47,8 @@ public class VSRequest {
 
     public static VSRequest getRequest(BiomiaPlayer von) {
         for (VSRequest request : openRequests) {
-            if (request.leader.equals(von)) {
+            if (request.leader.equals(von))
                 return request;
-            }
         }
         return null;
     }
@@ -145,7 +144,7 @@ public class VSRequest {
     }
 
     private boolean searchForMap() {
-        VSSettings requesterSettings = ((VSMain) Biomia.getSeverInstance()).getManager().getSettings(leader);
+        VSSettings requesterSettings = ((Versus) Biomia.getSeverInstance()).getManager().getSettings(leader);
         ArrayList<Integer> maps = new ArrayList<>();
 
         int id = 100;
@@ -165,8 +164,8 @@ public class VSRequest {
     }
 
     private boolean searchForMapBOTH() {
-        VSSettings requesterSettings = ((VSMain) Biomia.getSeverInstance()).getManager().getSettings(leader);
-        VSSettings receiverSettings = ((VSMain) Biomia.getSeverInstance()).getManager().getSettings(bp2);
+        VSSettings requesterSettings = ((Versus) Biomia.getSeverInstance()).getManager().getSettings(leader);
+        VSSettings receiverSettings = ((Versus) Biomia.getSeverInstance()).getManager().getSettings(bp2);
 
         ArrayList<Integer> maps = new ArrayList<>();
 
@@ -188,7 +187,7 @@ public class VSRequest {
 
     private boolean getRandomGroup() {
 
-        VSSettings requesterSettings = ((VSMain) Biomia.getSeverInstance()).getManager().getSettings(leader);
+        VSSettings requesterSettings = ((Versus) Biomia.getSeverInstance()).getManager().getSettings(leader);
 
         ArrayList<GameType> modes = new ArrayList<>();
 
@@ -206,8 +205,8 @@ public class VSRequest {
 
     private boolean getRandomGroupBOTH() {
 
-        VSSettings requesterSettings = ((VSMain) Biomia.getSeverInstance()).getManager().getSettings(leader);
-        VSSettings receiverSettings = ((VSMain) Biomia.getSeverInstance()).getManager().getSettings(bp2);
+        VSSettings requesterSettings = ((Versus) Biomia.getSeverInstance()).getManager().getSettings(leader);
+        VSSettings receiverSettings = ((Versus) Biomia.getSeverInstance()).getManager().getSettings(bp2);
 
         ArrayList<GameType> modes = new ArrayList<>();
 
@@ -228,7 +227,7 @@ public class VSRequest {
     }
 
     private String getMapName() {
-        return ((VSMain) Biomia.getSeverInstance()).getManager().getMapName(getModus(), mapID);
+        return ((Versus) Biomia.getSeverInstance()).getManager().getMapName(getModus(), mapID);
     }
 
 }

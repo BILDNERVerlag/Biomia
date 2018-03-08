@@ -14,17 +14,6 @@ public enum TeamColor {
         return i;
     }
 
-    public String getGermanName() {
-        switch (this) {
-            case RED:
-                return "Rot";
-            case BLUE:
-                return "Blau";
-            default:
-                return null;
-        }
-    }
-
     public String getColorcode() {
 
         switch (this) {
@@ -67,6 +56,28 @@ public enum TeamColor {
             return 0;
         case YELLOW:
             return 4;
+        }
+    }
+
+    public String translate() {
+        switch (this) {
+        case BLACK:
+            return "Schwarz";
+        case BLUE:
+            return "Blau";
+        case ORANGE:
+            return "Orange";
+        case GREEN:
+            return "Gr\u00fcn";
+        case PURPLE:
+            return "Lila";
+        case RED:
+            return "Rot";
+        default:
+        case WHITE:
+            return "Wei\u00df";
+        case YELLOW:
+            return "Gelb";
         }
     }
 }

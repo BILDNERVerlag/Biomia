@@ -2,10 +2,9 @@ package de.biomia.spigot.minigames;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.minigames.versus.VSMain;
+import de.biomia.spigot.minigames.versus.Versus;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public abstract class GameMode {
@@ -14,10 +13,25 @@ public abstract class GameMode {
     private final ArrayList<BiomiaPlayer> players;
     protected GameHandler handler;
     private ArrayList<GameTeam> teams = new ArrayList<>();
+    private int teamSize;
 
     protected GameMode(GameInstance instance) {
         this.instance = instance;
         this.players = instance.getPlayers();
+
+    }
+
+    public GameTeam getTeamFromData(short data) {
+        for (GameTeam te : teams) {
+            if (te.getColordata() == data) {
+                return te;
+            }
+        }
+        return null;
+    }
+
+    public int getTeamSize() {
+        return teamSize;
     }
 
     protected static HashMap<Integer, ArrayList<BiomiaPlayer>> splitPlayersInTwoTeams(ArrayList<BiomiaPlayer> players) {
@@ -44,12 +58,11 @@ public abstract class GameMode {
         teams.add(team);
     }
 
-    public void start() {
-
-    }
+    public abstract void start();
 
     public void stop() {
-        players.forEach(each -> ((VSMain) Biomia.getSeverInstance()).getManager().moveToLobby(each.getPlayer()));
+        players.forEach(each -> ((Versus) Biomia.getSeverInstance()).getManager().moveToLobby(each.getPlayer()));
+
         instance.getRequest().finish();
         handler.unregister();
         instance.startDeleting();

@@ -4,7 +4,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.universal.Messages;
-import de.biomia.spigot.minigames.versus.VSMain;
+import de.biomia.spigot.minigames.versus.Versus;
 import de.biomia.spigot.minigames.versus.settings.VSRequest;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -24,7 +24,7 @@ public class VSCommands extends BiomiaCommand {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
 
             if (args.length == 0 && getName().equalsIgnoreCase("spawn")) {
-                ((VSMain) Biomia.getSeverInstance()).getManager().moveToLobby(p);
+                ((Versus) Biomia.getSeverInstance()).getManager().moveToLobby(p);
             } else if (args.length == 1) {
                 String player = args[0];
                 Player parg = Bukkit.getPlayer(player);

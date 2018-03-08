@@ -57,7 +57,7 @@ public abstract class GameTeam {
     }
 
     public String getTeamname() {
-        return color.getGermanName();
+        return color.translate();
     }
 
     public TeamColor getColor() {

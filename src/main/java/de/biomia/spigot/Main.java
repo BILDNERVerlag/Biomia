@@ -13,7 +13,7 @@ import de.biomia.spigot.listeners.ChannelListener;
 import de.biomia.spigot.listeners.servers.BauServerListener;
 import de.biomia.spigot.minigames.bedwars.BedWars;
 import de.biomia.spigot.minigames.skywars.SkyWars;
-import de.biomia.spigot.minigames.versus.VSMain;
+import de.biomia.spigot.minigames.versus.Versus;
 import de.biomia.spigot.server.demoserver.Weltenlabor;
 import de.biomia.spigot.server.freebuild.Freebuild;
 import de.biomia.spigot.server.lobby.Lobby;
@@ -134,7 +134,7 @@ public class Main extends JavaPlugin {
                 SkyWars.init();
                 break;
             case "DuellLobby":
-                new VSMain().start();
+                new Versus().start();
                 break;
             case "Weltenlabor#1":
                 new Weltenlabor().start();

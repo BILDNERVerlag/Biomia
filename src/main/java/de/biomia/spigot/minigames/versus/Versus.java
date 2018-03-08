@@ -10,7 +10,7 @@ import de.biomia.spigot.minigames.versus.games.skywars.kits.KitManager;
 import de.biomia.spigot.commands.minigames.versus.VSCommands;
 import org.bukkit.Bukkit;
 
-public class VSMain extends BiomiaServer {
+public class Versus extends BiomiaServer {
 
     private VSManager manager;
 
