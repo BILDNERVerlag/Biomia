@@ -20,7 +20,7 @@ public class VSRequest {
     private static final ArrayList<BiomiaPlayer> playersInRound = new ArrayList<>();
     private static int lastID = 0;
     private int id;
-    private int mapID;
+    private String  mapName;
     private GameType mode;
     private BiomiaPlayer leader;
     private BiomiaPlayer bp2;
@@ -76,7 +76,7 @@ public class VSRequest {
                 if (canStart()) {
                     Player p = leader.getPlayer();
                     BaseComponent comp = new TextComponent("\u00A7cDer Spieler \u00A7d" + leader.getPlayer().getName() + " \u00A7chat dich Herausgefordert!\n");
-                    comp.addExtra("\u00A75Modus\u00A77/\u00A72Map\u00A78:\u00A75 " + getModus().name() + "\u00A77/\u00A72" + getMapName());
+                    comp.addExtra("\u00A75Modus\u00A77/\u00A72Map\u00A78:\u00A75 " + getModus().getDisplayName() + "\u00A77/\u00A72" + mapName);
                     comp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/accept " + p.getName()));
                     bp2.getPlayer().spigot().sendMessage(comp);
                     p.sendMessage("\u00A7cDu hast den Spieler \u00A7d" + bp2.getPlayer().getName() + " \u00A7cHerausgefordert!");
@@ -132,7 +132,10 @@ public class VSRequest {
         if (isServerRunning)
             return;
         isServerRunning = true;
-        gameInstance = new GameInstance(mode, id, mapID, this);
+        gameInstance = new GameInstance(mode, Versus.getInstance().getManager().copyWorld(mode, id, mapName), mapName);
+        gameInstance.addPlayer(leader);
+        gameInstance.addPlayer(bp2);
+        ((Versus) Biomia.getSeverInstance()).getManager().getRequests().put(gameInstance, this);
     }
 
     public boolean hasSameSettings() {
@@ -145,19 +148,19 @@ public class VSRequest {
 
     private boolean searchForMap() {
         VSSettings requesterSettings = ((Versus) Biomia.getSeverInstance()).getManager().getSettings(leader);
-        ArrayList<Integer> maps = new ArrayList<>();
+        ArrayList<String> maps = new ArrayList<>();
 
         int id = 100;
         VSSettingItem item = VSSettings.getItem(mode, id);
         while (item != null) {
             if (requesterSettings.getSetting(item)) {
-                maps.add(id);
+                maps.add(item.getName());
             }
             id++;
             item = VSSettings.getItem(mode, id);
         }
         if (maps.size() != 0) {
-            mapID = maps.get(new Random().nextInt(maps.size()));
+            mapName = maps.get(new Random().nextInt(maps.size()));
             return true;
         }
         return false;
@@ -167,19 +170,19 @@ public class VSRequest {
         VSSettings requesterSettings = ((Versus) Biomia.getSeverInstance()).getManager().getSettings(leader);
         VSSettings receiverSettings = ((Versus) Biomia.getSeverInstance()).getManager().getSettings(bp2);
 
-        ArrayList<Integer> maps = new ArrayList<>();
+        ArrayList<String> maps = new ArrayList<>();
 
         int id = 100;
         VSSettingItem item = VSSettings.getItem(mode, id);
         while (item != null) {
             if (requesterSettings.getSetting(item) && receiverSettings.getSetting(item)) {
-                maps.add(id);
+                maps.add(item.getName());
             }
             id++;
             item = VSSettings.getItem(mode, id);
         }
         if (maps.size() != 0) {
-            mapID = maps.get(new Random().nextInt(maps.size()));
+            mapName = maps.get(new Random().nextInt(maps.size()));
             return true;
         }
         return false;
@@ -192,10 +195,10 @@ public class VSRequest {
         ArrayList<GameType> modes = new ArrayList<>();
 
         for (GameType mode : GameType.values()) {
-                VSSettingItem item = VSSettings.getItem(mode, 0);
-                if (item != null)
-                    if (requesterSettings.getSetting(item))
-                        modes.add(mode);
+            VSSettingItem item = VSSettings.getItem(mode, 0);
+            if (item != null)
+                if (requesterSettings.getSetting(item))
+                    modes.add(mode);
         }
         if (modes.size() == 0)
             return false;
@@ -211,9 +214,9 @@ public class VSRequest {
         ArrayList<GameType> modes = new ArrayList<>();
 
         for (GameType mode : GameType.values()) {
-                VSSettingItem item = VSSettings.getItem(mode, 0);
-                if (requesterSettings.getSetting(item) && receiverSettings.getSetting(item)) {
-                    modes.add(mode);
+            VSSettingItem item = VSSettings.getItem(mode, 0);
+            if (requesterSettings.getSetting(item) && receiverSettings.getSetting(item)) {
+                modes.add(mode);
             }
         }
         if (modes.size() == 0)
@@ -224,10 +227,6 @@ public class VSRequest {
 
     private GameType getModus() {
         return mode;
-    }
-
-    private String getMapName() {
-        return ((Versus) Biomia.getSeverInstance()).getManager().getMapName(getModus(), mapID);
     }
 
 }

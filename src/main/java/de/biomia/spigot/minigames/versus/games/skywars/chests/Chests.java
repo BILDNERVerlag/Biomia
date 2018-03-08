@@ -19,8 +19,8 @@ public class Chests {
     private HashMap<Location, ItemStack[]> normalFillableChests;
 
     public Chests(SkyWars skyWars) {
-        fillNormalChests(SkyWarsVersusConfig.loadNormalChestsFromConfig(skyWars.getInstance().getMapID(), skyWars.getInstance().getWorld()));
-        fillGoodChests(SkyWarsVersusConfig.loadGoodChestsFromConfig(skyWars.getInstance().getMapID(), skyWars.getInstance().getWorld()));
+        fillNormalChests(SkyWarsVersusConfig.loadNormalChestsFromConfig(skyWars.getInstance().getMapDisplayName(), skyWars.getInstance().getWorld()));
+        fillGoodChests(SkyWarsVersusConfig.loadGoodChestsFromConfig(skyWars.getInstance().getMapDisplayName(), skyWars.getInstance().getWorld()));
     }
 
     public Chest fillChest(Location locations) {

@@ -25,9 +25,9 @@ public class SWCommand extends BiomiaCommand {
                     switch (args[0].toLowerCase()) {
                     case "addloc":
                         if (args.length >= 3) {
-                            int mapID = Integer.valueOf(args[1]);
+                            String mapDisplayName = args[1];
                             int teamID = Integer.valueOf(args[2]);
-                            SkyWarsVersusConfig.addLocation(p.getLocation(), mapID, teamID);
+                            SkyWarsVersusConfig.addLocation(p.getLocation(), mapDisplayName, teamID);
                             sender.sendMessage("Spawnpoint wurde hinzugef\u00fcgt!");
                         } else
                             sender.sendMessage("/sw addloc mapID teamID");
@@ -36,14 +36,14 @@ public class SWCommand extends BiomiaCommand {
                         if (args.length >= 3) {
                             Location l = p.getTargetBlock((Set<Material>) null, 100).getLocation();
                             if (l.getBlock().getType() == Material.CHEST) {
-                                int mapID = Integer.valueOf(args[1]);
+                                String mapDisplayName = args[1];
                                 switch (args[2].toLowerCase()) {
                                 case "good":
-                                    SkyWarsVersusConfig.addGoodChestLocation(l, mapID);
+                                    SkyWarsVersusConfig.addGoodChestLocation(l, mapDisplayName);
                                     sender.sendMessage("Bessere Kiste hinzugef\u00fcgt!");
                                     break;
                                 case "normal":
-                                    SkyWarsVersusConfig.addNormalChestLocation(l, mapID);
+                                    SkyWarsVersusConfig.addNormalChestLocation(l, mapDisplayName);
                                     sender.sendMessage("Normale Kiste hinzugef\u00fcgt!");
                                     break;
                                 default:

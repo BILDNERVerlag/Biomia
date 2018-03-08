@@ -52,7 +52,7 @@ public class BedWarsShopListener implements Listener {
     public void onInventoryClick(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-        if (bedWars.containsPlayer(bp))
+        if (bedWars.getInstance().containsPlayer(bp))
             if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
                 ItemStack iStack = e.getCurrentItem();
                 if (e.getInventory().getName().equals(BedWarsMessages.shopInventory)) {
@@ -158,10 +158,6 @@ public class BedWarsShopListener implements Listener {
                 }
             }
         }
-    }
-
-    @EventHandler
-    public void onEntityMove() {
     }
 
     private void spawnVillager(Location loc) {

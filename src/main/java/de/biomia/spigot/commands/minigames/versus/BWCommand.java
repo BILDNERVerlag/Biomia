@@ -30,58 +30,58 @@ public class BWCommand extends BiomiaCommand {
             if (p.hasPermission("biomia.bedwars")) {
                 if (args.length >= 1) {
                     switch (args[0].toLowerCase()) {
-                    case "addloc":
-                        if (args.length >= 3) {
-                            BedWarsVersusConfig.addLocation(p.getLocation(), Integer.valueOf(args[1]), Integer.valueOf(args[2]));
-                            sender.sendMessage("Spawnpoint wurde hinzugef\u00fcgt!");
-                        } else
-                            sender.sendMessage("/bedwars addloc mapID teamID");
-                        break;
-                    case "addspawner":
-                        if (args.length >= 2) {
-                            int mapID = Integer.valueOf(args[1]);
-                            Location l = p.getTargetBlock((Set<Material>) null, 100).getLocation();
-
-                            switch (l.getBlock().getType()) {
-                            case HARD_CLAY:
-                                BedWarsVersusConfig.addSpawnerLocations(l, ItemType.BRONZE, mapID);
-                                break;
-                            case IRON_BLOCK:
-                                BedWarsVersusConfig.addSpawnerLocations(l, ItemType.IRON, mapID);
-                                break;
-                            case GOLD_BLOCK:
-                                BedWarsVersusConfig.addSpawnerLocations(l, ItemType.GOLD, mapID);
-                                break;
-                            default:
-                                p.sendMessage("Schau auf einen verf\u00fcgbaren Block!");
-                                return true;
-                            }
-                            p.sendMessage("Spawner hinzugef\u00fcgt!");
-                        } else
-                            sender.sendMessage("/bedwars addspawner mapID");
-                        break;
-                    case "villager":
-                        p.getInventory().addItem(ItemCreator.itemCreate(Material.MONSTER_EGG, BedWarsItemNames.villagerSpawner));
-                        break;
-                    case "addbed":
-                        if (args.length >= 3) {
-                            Block blockFoot = p.getLocation().getBlock();
-                            Block blockHead = p.getTargetBlock((Set<Material>) null, 100);
-
-                            if (blockFoot.getType() == Material.BED_BLOCK && blockHead.getType() == Material.BED_BLOCK) {
-                                BedWarsVersusConfig.setBed(Integer.valueOf(args[1]), Integer.valueOf(args[2]), blockHead.getLocation(), blockFoot.getLocation());
-                                Bukkit.broadcastMessage("\u00A7cBett hinzugef\u00fcgt!");
+                        case "addloc":
+                            if (args.length >= 3) {
+                                BedWarsVersusConfig.addLocation(p.getLocation(), args[1], Integer.valueOf(args[2]));
+                                sender.sendMessage("Spawnpoint wurde hinzugef\u00fcgt!");
                             } else
-                                p.sendMessage(BedWarsMessages.blocksMustBeBeds);
-                        } else
-                            sender.sendMessage("/bedwars addbed mapID teamID");
-                        break;
-                    default:
-                        break;
-                    case "yaml":
-                        Bukkit.broadcastMessage(Config.getConfig().getString("BedWars." + 100 + "." + 1 + ".Spawnpoints"));
-                        Bukkit.broadcastMessage(Config.getConfig().getString("BedWars." + 100 + "." + 2 + ".Spawnpoints"));
-                        break;
+                                sender.sendMessage("/bedwars addloc mapDisplayName teamID");
+                            break;
+                        case "addspawner":
+                            if (args.length >= 2) {
+                                String displayName = args[1];
+                                Location l = p.getTargetBlock((Set<Material>) null, 100).getLocation();
+
+                                switch (l.getBlock().getType()) {
+                                    case HARD_CLAY:
+                                        BedWarsVersusConfig.addSpawnerLocations(l, ItemType.BRONZE, displayName);
+                                        break;
+                                    case IRON_BLOCK:
+                                        BedWarsVersusConfig.addSpawnerLocations(l, ItemType.IRON, displayName);
+                                        break;
+                                    case GOLD_BLOCK:
+                                        BedWarsVersusConfig.addSpawnerLocations(l, ItemType.GOLD, displayName);
+                                        break;
+                                    default:
+                                        p.sendMessage("Schau auf einen verf\u00fcgbaren Block!");
+                                        return true;
+                                }
+                                p.sendMessage("Spawner hinzugef\u00fcgt!");
+                            } else
+                                sender.sendMessage("/bedwars addspawner mapDisplayName");
+                            break;
+                        case "villager":
+                            p.getInventory().addItem(ItemCreator.itemCreate(Material.MONSTER_EGG, BedWarsItemNames.villagerSpawner));
+                            break;
+                        case "addbed":
+                            if (args.length >= 3) {
+                                Block blockFoot = p.getLocation().getBlock();
+                                Block blockHead = p.getTargetBlock((Set<Material>) null, 100);
+
+                                if (blockFoot.getType() == Material.BED_BLOCK && blockHead.getType() == Material.BED_BLOCK) {
+                                    BedWarsVersusConfig.setBed(args[1], Integer.valueOf(args[2]), blockHead.getLocation(), blockFoot.getLocation());
+                                    Bukkit.broadcastMessage("\u00A7cBett hinzugef\u00fcgt!");
+                                } else
+                                    p.sendMessage(BedWarsMessages.blocksMustBeBeds);
+                            } else
+                                sender.sendMessage("/bedwars addbed mapDisplayName teamID");
+                            break;
+                        default:
+                            break;
+                        case "yaml":
+                            Bukkit.broadcastMessage(Config.getConfig().getString("BedWars." + 100 + "." + 1 + ".Spawnpoints"));
+                            Bukkit.broadcastMessage(Config.getConfig().getString("BedWars." + 100 + "." + 2 + ".Spawnpoints"));
+                            break;
                     }
                 } else {
                     sender.sendMessage("\u00A7c/bedwars addloc (F\u00fcgt einen Spawnpunkt hinzu)");

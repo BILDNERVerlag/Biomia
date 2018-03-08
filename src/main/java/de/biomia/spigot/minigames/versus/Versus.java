@@ -14,9 +14,16 @@ public class Versus extends BiomiaServer {
 
     private VSManager manager;
 
+    private static Versus instance;
+
+    public static Versus getInstance() {
+        return instance;
+    }
+
     @Override
     public void start() {
         super.start();
+        instance = this;
         manager = new VSManager();
         Items.init();
         KitManager.initKits();

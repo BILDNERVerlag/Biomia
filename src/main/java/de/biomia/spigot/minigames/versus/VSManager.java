@@ -7,6 +7,7 @@ import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
 import de.biomia.spigot.messages.manager.ActionBar;
 import de.biomia.spigot.messages.manager.Scoreboards;
+import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.versus.games.skywars.kits.Kit;
 import de.biomia.spigot.minigames.versus.games.skywars.kits.KitManager;
@@ -16,10 +17,8 @@ import de.biomia.spigot.minigames.versus.settings.VSRequest;
 import de.biomia.spigot.minigames.versus.settings.VSSettingItem;
 import de.biomia.spigot.minigames.versus.settings.VSSettings;
 import de.biomia.spigot.tools.ItemCreator;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import de.biomia.spigot.tools.WorldCopy;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
@@ -37,6 +36,7 @@ public class VSManager implements Listener {
 
     private final HashMap<BiomiaPlayer, VSSettings> settings = new HashMap<>();
     private final HashMap<GameType, HashMap<Integer, String>> mapNames = new HashMap<>();
+    private final HashMap<GameInstance, VSRequest> requests = new HashMap<>();
     private final Location home = new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 40, 0);
     private final ItemStack toChallangeItem = ItemCreator.itemCreate(Material.DIAMOND_SWORD, "\u00A7cHerausforderer");
     private final ItemStack settingItem = ItemCreator.itemCreate(Material.REDSTONE, "\u00A7cEinstellungen");
@@ -69,16 +69,16 @@ public class VSManager implements Listener {
 
         VSGroup bedwars = main.registerNewGroup(GameType.BED_WARS_VS, bedwarsSettingItem, "\u00A7cBedWars", 6, 0, true);
         VSGroup bedwarsMaps = bedwars.registerNewGroup(GameType.BED_WARS_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
-        bedwarsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, bedwarsMaps));
+        bedwarsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, bedwarsMaps, "Map1"));
 
         VSGroup skywars = main.registerNewGroup(GameType.SKY_WARS_VS, skywarsSettingItem, "\u00A7aSkyWars", 4, 0, true);
         VSGroup skywarsMaps = skywars.registerNewGroup(GameType.SKY_WARS_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
-        skywarsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, skywarsMaps));
+        skywarsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, skywarsMaps, "Map1"));
         skywars.registerNewGroup(GameType.SKY_WARS_VS, Variables.kitItem, SkyWarsItemNames.kitItemName, 1);
 
         VSGroup kitpvp = main.registerNewGroup(GameType.KIT_PVP_VS, kitPvPSettingItem, "\u00A7dKitPvP", 2, 0, true);
         VSGroup kitpvpsMaps = kitpvp.registerNewGroup(GameType.KIT_PVP_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
-        kitpvpsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, kitpvpsMaps));
+        kitpvpsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, kitpvpsMaps, "Map1"));
     }
 
     public void moveToLobby(Player p) {
@@ -127,11 +127,11 @@ public class VSManager implements Listener {
         if (is != null && is.getType() != Material.AIR) {
             if (is.hasItemMeta() && is.getItemMeta().hasDisplayName()) {
                 switch (is.getItemMeta().getDisplayName()) {
-                case "\u00A7cEinstellungen":
-                    openMainInventory(bp);
-                    break;
-                default:
-                    break;
+                    case "\u00A7cEinstellungen":
+                        openMainInventory(bp);
+                        break;
+                    default:
+                        break;
                 }
             }
         }
@@ -227,32 +227,32 @@ public class VSManager implements Listener {
                         }
                     }
                     switch (name) {
-                    case SkyWarsItemNames.purchaseKit:
-                        p.closeInventory();
-                        KitManager kitManager = KitManager.getManager(bp);
-                        if (kitManager.buy(kit)) {
-                            kitManager.selectSkyWarsKit(kit);
-                            p.sendMessage(SkyWarsMessages.youChoseKit.replace("%k", kit.getName()));
-                        }
-                        break;
-                    case SkyWarsItemNames.selectKit:
-                        final ArrayList<Kit> kits = KitManager.getManager(bp).getAvailableKits();
-                        if (kits.contains(kit)) {
+                        case SkyWarsItemNames.purchaseKit:
                             p.closeInventory();
-                            if (!KitManager.getManager(bp).selectSkyWarsKit(kit)) {
-                                p.sendMessage(SkyWarsMessages.kitAlreadyChosen);
-                            } else {
+                            KitManager kitManager = KitManager.getManager(bp);
+                            if (kitManager.buy(kit)) {
+                                kitManager.selectSkyWarsKit(kit);
                                 p.sendMessage(SkyWarsMessages.youChoseKit.replace("%k", kit.getName()));
                             }
-                        } else {
-                            p.closeInventory();
-                            p.sendMessage(SkyWarsMessages.kitNotBought);
-                        }
-                        break;
-                    case SkyWarsItemNames.showKit:
-                        KitManager.getManager(bp).showInventory(kit);
-                        p.sendMessage(SkyWarsMessages.nowLookingAtKit.replace("%k", kit.getName()));
-                        break;
+                            break;
+                        case SkyWarsItemNames.selectKit:
+                            final ArrayList<Kit> kits = KitManager.getManager(bp).getAvailableKits();
+                            if (kits.contains(kit)) {
+                                p.closeInventory();
+                                if (!KitManager.getManager(bp).selectSkyWarsKit(kit)) {
+                                    p.sendMessage(SkyWarsMessages.kitAlreadyChosen);
+                                } else {
+                                    p.sendMessage(SkyWarsMessages.youChoseKit.replace("%k", kit.getName()));
+                                }
+                            } else {
+                                p.closeInventory();
+                                p.sendMessage(SkyWarsMessages.kitNotBought);
+                            }
+                            break;
+                        case SkyWarsItemNames.showKit:
+                            KitManager.getManager(bp).showInventory(kit);
+                            p.sendMessage(SkyWarsMessages.nowLookingAtKit.replace("%k", kit.getName()));
+                            break;
                     }
                     e.setCancelled(true);
                 }
@@ -264,4 +264,18 @@ public class VSManager implements Listener {
         return home;
     }
 
+    public HashMap<GameInstance, VSRequest> getRequests() {
+        return requests;
+    }
+
+    public World copyWorld(GameType type, int id, String mapName) {
+
+        String name = type.getDisplayName() + "_" + mapName;
+
+        World w = Bukkit.getWorld(name);
+        if (w == null) {
+            w = new WorldCreator(name).createWorld();
+        }
+        return WorldCopy.copyWorld(w, name.concat("_" + id));
+    }
 }

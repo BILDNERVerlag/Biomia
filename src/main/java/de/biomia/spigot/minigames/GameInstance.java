@@ -4,58 +4,41 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.minigames.versus.games.bedwars.BedWars;
 import de.biomia.spigot.minigames.versus.games.kitpvp.KitPvP;
 import de.biomia.spigot.minigames.versus.games.skywars.SkyWars;
-import de.biomia.spigot.minigames.versus.settings.VSRequest;
-import de.biomia.spigot.tools.WorldCopy;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.WorldCreator;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class GameInstance {
 
-    private final int id;
-    private final int mapID;
     private final GameType mode;
-    private final VSRequest request;
     private final World world;
     private GameMode gameMode;
     private int playedTime = 0;
+    private String mapDisplayName;
+    private final ArrayList<BiomiaPlayer> players = new ArrayList<>();
+    private int teamSize;
 
-    public GameInstance(GameType mode, int id, int mapID, VSRequest request) {
-        this.mapID = mapID;
-        this.id = id;
+    public GameInstance(GameType mode, World world, String mapDisplayName) {
+        Bukkit.broadcastMessage("%%% making a new gameInstance");
         this.mode = mode;
-        this.request = request;
-        this.world = copyWorld();
-
+        this.world = world;
+        this.mapDisplayName = mapDisplayName;
         switch (mode) {
-        case KIT_PVP_VS:
-            gameMode = new KitPvP(this);
-            break;
-        case BED_WARS_VS:
-            gameMode = new BedWars(this);
-            break;
-        case SKY_WARS_VS:
-            gameMode = new SkyWars(this);
-            break;
-        default:
-            break;
+            case KIT_PVP_VS:
+                gameMode = new KitPvP(this);
+                break;
+            case BED_WARS_VS:
+                gameMode = new BedWars(this);
+                break;
+            case SKY_WARS_VS:
+                gameMode = new SkyWars(this);
+                break;
+            default:
+                break;
         }
-    }
-
-    private World copyWorld() {
-
-        String name = mode.name() + "_" + mapID;
-
-        World w = Bukkit.getWorld(name);
-        if (w == null) {
-            w = new WorldCreator(name).createWorld();
-        }
-        return WorldCopy.copyWorld(w, name.concat("_" + id));
     }
 
     public GameMode getGameMode() {
@@ -63,19 +46,11 @@ public class GameInstance {
     }
 
     public ArrayList<BiomiaPlayer> getPlayers() {
-        return new ArrayList<>(Arrays.asList(request.getLeader(), request.getReceiver()));
-    }
-
-    public VSRequest getRequest() {
-        return request;
+        return players;
     }
 
     public World getWorld() {
         return world;
-    }
-
-    public int getMapID() {
-        return mapID;
     }
 
     void startDeleting() {
@@ -92,6 +67,18 @@ public class GameInstance {
 
     public void incPlayTime() {
         playedTime++;
+    }
+
+    public boolean containsPlayer(BiomiaPlayer bp) {
+        return getPlayers().contains(bp);
+    }
+
+    public void addPlayer(BiomiaPlayer bp) {
+        players.add(bp);
+    }
+
+    public String getMapDisplayName() {
+        return mapDisplayName;
     }
 
     public int getPlayedTime() {

@@ -17,7 +17,7 @@ public class BedWarsTeam extends GameTeam {
     BedWarsTeam(BedWars bedWars, TeamColor color, ArrayList<BiomiaPlayer> player, Location home) {
         super(color, player, home, bedWars);
         this.hasBed = true;
-        this.bed = BedWarsVersusConfig.getBed(getBedWars().getInstance().getMapID(), color.getID(), bedWars.getInstance().getWorld());
+        this.bed = BedWarsVersusConfig.getBed(getBedWars().getInstance().getMapDisplayName(), color.getID(), bedWars.getInstance().getWorld());
     }
 
     public void destroyBed() {

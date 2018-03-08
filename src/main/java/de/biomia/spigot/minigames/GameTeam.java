@@ -36,7 +36,7 @@ public abstract class GameTeam {
     }
 
     public void addPlayer(BiomiaPlayer bp) {
-        mode.getPlayers().add(bp);
+        mode.getInstance().getPlayers().add(bp);
         players.put(bp, true);
     }
 

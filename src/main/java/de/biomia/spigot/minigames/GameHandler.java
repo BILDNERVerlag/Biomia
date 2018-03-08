@@ -32,7 +32,7 @@ public abstract class GameHandler implements Listener {
         if (e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getEntity());
             BiomiaPlayer damager = Biomia.getBiomiaPlayer((Player) e.getDamager());
-            if (mode.containsPlayer(bp) && mode.containsPlayer(damager))
+            if (mode.getInstance().containsPlayer(bp) && mode.getInstance().containsPlayer(damager))
                 if (mode.getTeam(bp).equals(mode.getTeam(damager)))
                     e.setCancelled(true);
         }
@@ -45,7 +45,7 @@ public abstract class GameHandler implements Listener {
         GameTeam team = mode.getTeam(bp);
         String msg = e.getMessage();
         String format;
-        if (mode.containsPlayer(bp)) {
+        if (mode.getInstance().containsPlayer(bp)) {
             if (p.hasPermission("biomia.coloredchat"))
                 msg = ChatColor.translateAlternateColorCodes('&', e.getMessage());
             if (e.getMessage().startsWith("@")) {
@@ -73,14 +73,14 @@ public abstract class GameHandler implements Listener {
     public void onWorldChange(PlayerChangedWorldEvent e) {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         if (e.getFrom().equals(mode.getInstance().getWorld()))
-            if (mode.containsPlayer(bp))
+            if (mode.getInstance().containsPlayer(bp))
                 mode.getTeam(bp).leave(bp);
     }
 
     @EventHandler
     public void onDisconnect(PlayerQuitEvent e) {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        if (mode.containsPlayer(bp)) {
+        if (mode.getInstance().containsPlayer(bp)) {
             mode.getTeam(bp).leave(bp);
         }
     }
@@ -88,7 +88,7 @@ public abstract class GameHandler implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        if (mode.containsPlayer(bp)) {
+        if (mode.getInstance().containsPlayer(bp)) {
             if (e.getTo().getBlockY() <= 0) {
                 e.getPlayer().setHealth(0);
                 Dead.respawn(e.getPlayer());
@@ -100,7 +100,7 @@ public abstract class GameHandler implements Listener {
     public void onRespawn(PlayerRespawnEvent e) {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-        if (mode.containsPlayer(bp) && bp.getPlayer().getWorld().equals(mode.getInstance().getWorld())) {
+        if (mode.getInstance().containsPlayer(bp) && bp.getPlayer().getWorld().equals(mode.getInstance().getWorld())) {
             e.setRespawnLocation(mode.getInstance().getWorld().getSpawnLocation().add(0, 100, 0));
         }
     }

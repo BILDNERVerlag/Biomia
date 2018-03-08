@@ -46,7 +46,7 @@ public class VSGroup {
     public VSGroup registerNewGroup(GameType mode, ItemStack item, String title, int slot, int id, boolean standard) {
         VSGroup group = new VSGroup(mode, title, item, slot, true, this);
         settingGroups.add(group);
-        registerSetting(new VSSettingItem(item, id, slot, standard, group));
+        registerSetting(new VSSettingItem(item, id, slot, standard, group, title));
         return group;
     }
 

@@ -1,7 +1,7 @@
 package de.biomia.spigot.server.quests;
 
 import de.biomia.spigot.Main;
-import de.biomia.spigot.commands.quest.QuestCommandsInArbeit;
+import de.biomia.spigot.commands.quest.QuestCommands;
 import de.biomia.spigot.general.BiomiaServer;
 import de.biomia.spigot.server.quests.band1.*;
 import de.biomia.spigot.server.quests.general.DialogMessage;
@@ -43,7 +43,7 @@ public class Quests extends BiomiaServer {
     @Override
     protected void initCommands() {
         super.initCommands();
-        Main.registerCommand(new QuestCommandsInArbeit());
+        Main.registerCommand(new QuestCommands());
     }
 
     private void initQuests(PluginManager pm) {

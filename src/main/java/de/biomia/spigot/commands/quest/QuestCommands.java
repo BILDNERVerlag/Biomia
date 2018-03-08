@@ -29,11 +29,11 @@ import org.bukkit.inventory.meta.BookMeta;
 
 import java.util.*;
 
-public class QuestCommandsInArbeit extends BiomiaCommand {
+public class QuestCommands extends BiomiaCommand {
 
     private static boolean logTime = false;
 
-    public QuestCommandsInArbeit() {
+    public QuestCommands() {
         super("q");
     }
 
@@ -175,7 +175,6 @@ public class QuestCommandsInArbeit extends BiomiaCommand {
     public boolean execute(CommandSender sender, String label, String[] args) {
 
         long startTime = System.currentTimeMillis();
-        //TODO split
         if (sender instanceof Player) {
 
             Player p = (Player) sender;

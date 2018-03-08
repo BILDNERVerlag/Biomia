@@ -18,14 +18,16 @@ public class VSSettingItem {
     private final int id;
     private final boolean standard;
     private final VSGroup group;
+    private final String name;
 
-    public VSSettingItem(ItemStack item, int id, int slot, boolean standard, VSGroup group) {
+    public VSSettingItem(ItemStack item, int id, int slot, boolean standard, VSGroup group, String name) {
         this.id = id;
         this.item = item;
         this.itemSlot = slot;
         this.settingSlot = slot + 9;
         this.standard = standard;
         this.group = group;
+        this.name = name;
 
         VSSettings.putSettingItem(group.getMode(), id, this);
     }
@@ -39,6 +41,10 @@ public class VSSettingItem {
         else
             switcher = disabled;
         inv.setItem(switcher, settingSlot);
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getId() {

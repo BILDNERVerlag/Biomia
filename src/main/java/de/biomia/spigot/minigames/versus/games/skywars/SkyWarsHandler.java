@@ -31,7 +31,7 @@ class SkyWarsHandler extends GameHandler {
 
         Player p = e.getPlayer();
 
-        if (mode.containsPlayer(Biomia.getBiomiaPlayer(p)))
+        if (mode.getInstance().containsPlayer(Biomia.getBiomiaPlayer(p)))
             if (e.getItem() != null) {
                 if (e.getItem().hasItemMeta() && e.getItem().getItemMeta().hasDisplayName()) {
                     switch (e.getItem().getItemMeta().getDisplayName()) {
@@ -95,14 +95,14 @@ class SkyWarsHandler extends GameHandler {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         p.getInventory().clear();
         Player killer = p.getKiller();
-        if (mode.containsPlayer(bp)) {
+        if (mode.getInstance().containsPlayer(bp)) {
             Dead.respawn(p);
             String msg;
             if (killer == null)
                 msg = SkyWarsMessages.playerDied.replaceAll("%p", p.getName());
             else
                 msg = SkyWarsMessages.playerKilledByPlayer.replaceAll("%p1", p.getName()).replaceAll("%p2", killer.getName());
-            for (BiomiaPlayer all : mode.getPlayers())
+            for (BiomiaPlayer all : mode.getInstance().getPlayers())
                 all.getPlayer().sendMessage(msg);
             mode.getTeam(bp).setDead(bp);
         }

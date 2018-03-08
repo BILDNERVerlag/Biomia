@@ -55,7 +55,7 @@ class BedWarsHandler extends GameHandler {
     private void onBlockBreak(BlockBreakEvent e) {
         Block b = e.getBlock();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        if (mode.containsPlayer(bp))
+        if (mode.getInstance().containsPlayer(bp))
             if (b.getType() == Material.BED_BLOCK) {
                 for (GameTeam allTeams : mode.getTeams()) {
                     BedWarsTeam team = (BedWarsTeam) allTeams;
@@ -87,18 +87,18 @@ class BedWarsHandler extends GameHandler {
         Player p = e.getEntity();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         e.setKeepInventory(false);
-        if (mode.containsPlayer(bp)) {
+        if (mode.getInstance().containsPlayer(bp)) {
             Player killer = p.getKiller();
             e.setDeathMessage(null);
             p.getInventory().clear();
             if (!((BedWarsTeam) mode.getTeam(bp)).hasBed()) {
-                for (BiomiaPlayer all : mode.getPlayers())
+                for (BiomiaPlayer all : mode.getInstance().getPlayers())
                     all.getPlayer().sendMessage(BedWarsMessages.playerDiedFinally.replaceAll("%p", p.getName()));
                 Dead.respawn(p);
                 mode.getTeam(bp).setDead(bp);
                 ((BedWars) mode).getBedWarsScoreboard().setScoreboard(bp, true);
             } else
-                for (BiomiaPlayer all : mode.getPlayers())
+                for (BiomiaPlayer all : mode.getInstance().getPlayers())
                     if (killer == null)
                         all.getPlayer().sendMessage(BedWarsMessages.playerDied.replaceAll("%p", p.getName()));
                     else
@@ -111,7 +111,7 @@ class BedWarsHandler extends GameHandler {
     public void onRespawn(PlayerRespawnEvent e) {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-        if (mode.containsPlayer(bp) && bp.getPlayer().getWorld().equals(mode.getInstance().getWorld())) {
+        if (mode.getInstance().containsPlayer(bp) && bp.getPlayer().getWorld().equals(mode.getInstance().getWorld())) {
             BedWarsTeam team = (BedWarsTeam) mode.getTeam(bp);
             if (team.hasBed()) {
                 e.setRespawnLocation(team.getHome());

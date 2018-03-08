@@ -10,15 +10,12 @@ import java.util.HashMap;
 public abstract class GameMode {
 
     private final GameInstance instance;
-    private final ArrayList<BiomiaPlayer> players;
     protected GameHandler handler;
     private ArrayList<GameTeam> teams = new ArrayList<>();
-    private int teamSize;
+
 
     protected GameMode(GameInstance instance) {
         this.instance = instance;
-        this.players = instance.getPlayers();
-
     }
 
     public GameTeam getTeamFromData(short data) {
@@ -28,10 +25,6 @@ public abstract class GameMode {
             }
         }
         return null;
-    }
-
-    public int getTeamSize() {
-        return teamSize;
     }
 
     protected static HashMap<Integer, ArrayList<BiomiaPlayer>> splitPlayersInTwoTeams(ArrayList<BiomiaPlayer> players) {
@@ -61,23 +54,13 @@ public abstract class GameMode {
     public abstract void start();
 
     public void stop() {
-        players.forEach(each -> ((Versus) Biomia.getSeverInstance()).getManager().moveToLobby(each.getPlayer()));
-
-        instance.getRequest().finish();
+        instance.getPlayers().forEach(each -> ((Versus) Biomia.getSeverInstance()).getManager().moveToLobby(each.getPlayer()));
         handler.unregister();
         instance.startDeleting();
     }
 
     public GameInstance getInstance() {
         return instance;
-    }
-
-    public ArrayList<BiomiaPlayer> getPlayers() {
-        return players;
-    }
-
-    public boolean containsPlayer(BiomiaPlayer bp) {
-        return getPlayers().contains(bp);
     }
 
     public boolean canStop() {
