@@ -33,7 +33,7 @@ public class GameInstance {
         this.world = copyWorld();
 
         switch (mode) {
-        case KIT_PVP:
+        case KIT_PVP_VS:
             gameMode = new KitPvP(this);
             break;
         case BED_WARS_VS:

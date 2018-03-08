@@ -1,4 +1,4 @@
-package de.biomia.spigot.minigames.general;
+package de.biomia.spigot.minigames.general.shop;
 
 import org.bukkit.Material;
 

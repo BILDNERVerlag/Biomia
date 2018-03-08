@@ -1,4 +1,4 @@
-package de.biomia.spigot.minigames.bedwars.shop;
+package de.biomia.spigot.minigames.general.shop;
 
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;

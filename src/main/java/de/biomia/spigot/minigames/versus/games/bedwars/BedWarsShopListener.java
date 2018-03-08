@@ -1,15 +1,15 @@
-package de.biomia.spigot.minigames.versus.games.bedwars.shop;
+package de.biomia.spigot.minigames.versus.games.bedwars;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
-import de.biomia.spigot.minigames.bedwars.shop.Shop;
-import de.biomia.spigot.minigames.bedwars.shop.ShopGroup;
-import de.biomia.spigot.minigames.bedwars.shop.ShopItem;
+import de.biomia.spigot.minigames.general.shop.Shop;
+import de.biomia.spigot.minigames.general.shop.ShopGroup;
+import de.biomia.spigot.minigames.general.shop.ShopItem;
 import de.biomia.spigot.minigames.general.ColorType;
-import de.biomia.spigot.minigames.general.ItemType;
+import de.biomia.spigot.minigames.general.shop.ItemType;
 import de.biomia.spigot.minigames.versus.games.bedwars.BedWars;
 import de.biomia.spigot.minigames.versus.games.bedwars.BedWarsTeam;
 import de.biomia.spigot.tools.ItemCreator;
@@ -32,7 +32,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.vehicle.VehicleEntityCollisionEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 

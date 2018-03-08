@@ -1,9 +1,8 @@
-package de.biomia.spigot.minigames.bedwars.shop;
+package de.biomia.spigot.minigames.general.shop;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.events.bedwars.BedWarsBuyItemEvent;
 import de.biomia.spigot.minigames.general.ColorType;
-import de.biomia.spigot.minigames.general.ItemType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

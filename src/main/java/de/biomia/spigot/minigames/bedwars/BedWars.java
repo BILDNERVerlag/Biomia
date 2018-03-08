@@ -9,7 +9,7 @@ import de.biomia.spigot.minigames.bedwars.listeners.BedListener;
 import de.biomia.spigot.listeners.servers.BedWarsListener;
 import de.biomia.spigot.minigames.bedwars.listeners.SpecialItems;
 import de.biomia.spigot.minigames.bedwars.lobby.JoinTeam;
-import de.biomia.spigot.minigames.bedwars.shop.Shop;
+import de.biomia.spigot.minigames.general.shop.Shop;
 import de.biomia.spigot.minigames.bedwars.var.Variables;
 import de.biomia.spigot.minigames.GameState;
 import org.bukkit.Bukkit;

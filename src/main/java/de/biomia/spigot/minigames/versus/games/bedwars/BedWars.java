@@ -5,9 +5,7 @@ import de.biomia.spigot.configs.BedWarsVersusConfig;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.TeamColor;
-import de.biomia.spigot.minigames.versus.games.bedwars.listeners.SpawnItems;
-import de.biomia.spigot.minigames.versus.games.bedwars.shop.BedWarsShopListener;
-import de.biomia.spigot.minigames.versus.games.bedwars.var.BedWarsScoreboard;
+import de.biomia.spigot.minigames.general.SpawnItems;
 import org.bukkit.Location;
 
 import java.util.ArrayList;
@@ -17,7 +15,7 @@ public class BedWars extends GameMode {
 
     private final BedWarsScoreboard bedWarsScoreboard;
     private final BedWarsShopListener shop = new BedWarsShopListener(this);
-    private final SpawnItems spawnItems = new SpawnItems();
+    private final SpawnItems spawnItems = new SpawnItems(getInstance().getWorld());
 
     public BedWars(GameInstance instance) {
         super(instance);
@@ -38,7 +36,7 @@ public class BedWars extends GameMode {
 
     @Override
     public void start() {
-        spawnItems.startSpawning(this);
+        spawnItems.startSpawning();
         for (BiomiaPlayer bp : getPlayers()) {
             bp.setGetDamage(true);
             bp.setDamageEntitys(true);

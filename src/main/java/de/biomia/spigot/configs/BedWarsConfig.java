@@ -2,7 +2,7 @@ package de.biomia.spigot.configs;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.minigames.bedwars.var.Variables;
-import de.biomia.spigot.minigames.general.ItemType;
+import de.biomia.spigot.minigames.general.shop.ItemType;
 import de.biomia.spigot.minigames.general.teams.Team;
 import de.biomia.spigot.minigames.general.teams.Teams;
 import org.bukkit.Bukkit;

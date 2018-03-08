@@ -1,4 +1,4 @@
-package de.biomia.spigot.minigames.versus.games.bedwars.var;
+package de.biomia.spigot.minigames.versus.games.bedwars;
 
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.minigames.TeamColor;

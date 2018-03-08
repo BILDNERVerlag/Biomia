@@ -20,7 +20,6 @@ class End {
             Biomia.getBiomiaPlayer(p).setGetDamage(false);
         }
 
-//		Leaderboard.updateThisStats();
         Teleport.teleportAllToWarteLobby(Variables.warteLobbySpawn);
 
         new BukkitRunnable() {
@@ -39,7 +38,6 @@ class End {
                         for (Player p : Bukkit.getOnlinePlayers()) {
                             PlayerToServerConnector.connectToRandom(p, "Lobby");
                         }
-//						Leaderboard.updateAllRanks();
                         Bukkit.shutdown();
                         return;
                     }

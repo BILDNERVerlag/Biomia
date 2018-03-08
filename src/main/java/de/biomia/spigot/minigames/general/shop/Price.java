@@ -1,6 +1,5 @@
-package de.biomia.spigot.minigames.bedwars.shop;
+package de.biomia.spigot.minigames.general.shop;
 
-import de.biomia.spigot.minigames.general.ItemType;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

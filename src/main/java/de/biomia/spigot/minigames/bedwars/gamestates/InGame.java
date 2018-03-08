@@ -7,7 +7,7 @@ import de.biomia.spigot.Main;
 import de.biomia.spigot.events.bedwars.BedWarsEndEvent;
 import de.biomia.spigot.events.bedwars.BedWarsStartEvent;
 import de.biomia.spigot.minigames.bedwars.BedWars;
-import de.biomia.spigot.minigames.bedwars.listeners.SpawnItems;
+import de.biomia.spigot.minigames.general.SpawnItems;
 import de.biomia.spigot.minigames.bedwars.var.Scoreboards;
 import de.biomia.spigot.minigames.bedwars.var.Teleport;
 import de.biomia.spigot.minigames.bedwars.var.Variables;
@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InGame {
+
+    private static SpawnItems itemManager;
 
 
     private static int duration;
@@ -66,7 +68,8 @@ public class InGame {
 
         Scoreboards.initSpectatorSB();
         Teleport.teleportPlayerToMap(Variables.teamSpawns);
-        SpawnItems.startSpawning();
+        itemManager = new SpawnItems(Bukkit.getWorld(Variables.name));
+        itemManager.startSpawning();
     }
 
     public static void end() {
@@ -75,7 +78,7 @@ public class InGame {
         ArrayList<BiomiaPlayer> biomiaPlayersWinner = new ArrayList<>();
 
         BedWars.gameState = GameState.END;
-        SpawnItems.stopSpawning();
+        itemManager.stopSpawning();
         for (Player p : Variables.livingPlayer) {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
             biomiaPlayersWinner.add(bp);

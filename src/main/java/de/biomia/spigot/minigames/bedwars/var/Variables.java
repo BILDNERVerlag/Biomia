@@ -4,7 +4,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.configs.Config;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.minigames.bedwars.listeners.CountDown;
-import de.biomia.spigot.minigames.general.ItemType;
+import de.biomia.spigot.minigames.general.shop.ItemType;
 import de.biomia.spigot.minigames.general.teams.Team;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
@@ -42,9 +42,6 @@ public class Variables {
     public static final ArrayList<Team> teamsWithBeds = new ArrayList<>();
     // Spawner
     public static final HashMap<ItemType, ArrayList<Location>> spawner = new HashMap<>();
-    public static final int bronzeSpawnDelay = 1;
-    public static final int ironSpawnDelay = 10;
-    public static final int goldSpawnDelay = 30;
     public static final HashMap<UUID, ArrayList<Player>> handlerMap = new HashMap<>();
     // Joiner
     public static final HashMap<Team, UUID> joiner = new HashMap<>();

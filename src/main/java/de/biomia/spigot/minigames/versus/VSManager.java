@@ -59,7 +59,7 @@ public class VSManager implements Listener {
 
         mapNames.put(GameType.BED_WARS_VS, bwMaps);
         mapNames.put(GameType.SKY_WARS_VS, swMaps);
-        mapNames.put(GameType.KIT_PVP, vsMaps);
+        mapNames.put(GameType.KIT_PVP_VS, vsMaps);
 
         main = new VSGroup(null, "\u00A7cEinstellungen", null, 0, false, null);
 
@@ -76,8 +76,8 @@ public class VSManager implements Listener {
         skywarsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, skywarsMaps));
         skywars.registerNewGroup(GameType.SKY_WARS_VS, Variables.kitItem, SkyWarsItemNames.kitItemName, 1);
 
-        VSGroup kitpvp = main.registerNewGroup(GameType.KIT_PVP, kitPvPSettingItem, "\u00A7dKitPvP", 2, 0, true);
-        VSGroup kitpvpsMaps = kitpvp.registerNewGroup(GameType.KIT_PVP, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
+        VSGroup kitpvp = main.registerNewGroup(GameType.KIT_PVP_VS, kitPvPSettingItem, "\u00A7dKitPvP", 2, 0, true);
+        VSGroup kitpvpsMaps = kitpvp.registerNewGroup(GameType.KIT_PVP_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
         kitpvpsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, kitpvpsMaps));
     }
 
