@@ -37,6 +37,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
 
+    /**
+     * Change the TestServer here!
+     */
+    private final String actualTestGroup = "QuestServer";
+
     private static EasterEvent event;
     private static Main plugin;
     private static String groupName;
@@ -120,11 +125,6 @@ public class Main extends JavaPlugin {
         UniversalBiomia.RANK_NAMES_PREFIXES.put("PremiumEins", "\u00A7eI | ");
         UniversalBiomia.RANK_NAMES_PREFIXES.put("RegSpieler", "\u00A77");
         UniversalBiomia.RANK_NAMES_PREFIXES.put("UnregSpieler", "\u00A78");
-
-        /*
-         * Change the TestServer here!
-         */
-        String actualTestGroup = "Lobby";
 
         groupName = ((DedicatedServer) ((CraftServer) Bukkit.getServer()).getServer()).propertyManager.properties.getProperty("server-name").split("-")[0];
 

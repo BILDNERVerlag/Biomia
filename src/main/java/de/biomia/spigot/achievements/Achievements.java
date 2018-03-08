@@ -7,16 +7,29 @@ public class Achievements {
     //ATTRIBUTES
 
     private final BiomiaAchievement achievement;
-    private final int value;
+    private final int targetValue;
     private final String displayName;
     private String description = "Leider ist keine Beschreibung vorhanden. Beschwer dich am besten bei den Admins.";
+    private String comment = null;
 
-    //CONSTRUCTOR
+    //CONSTRUCTORS
 
-    private Achievements(BiomiaAchievement achievement, Stats.BiomiaStat stat, int value, String displayName) {
+    private Achievements(BiomiaAchievement achievement, Stats.BiomiaStat stat, int targetValue, String displayName) {
         this.achievement = achievement;
-        this.value = value;
+        this.targetValue = targetValue;
         this.displayName = displayName;
+
+        if (!Stats.stats.containsKey(stat)) {
+            Stats.stats.put(stat, new ArrayList<>());
+        }
+        Stats.stats.get(Stats.BiomiaStat.CoinsAccumulated).add(this);
+    }
+
+    private Achievements(BiomiaAchievement achievement, Stats.BiomiaStat stat, int targetValue, String displayName, String comment) {
+        this.achievement = achievement;
+        this.targetValue = targetValue;
+        this.displayName = displayName;
+        this.comment = comment;
 
         if (!Stats.stats.containsKey(stat)) {
             Stats.stats.put(stat, new ArrayList<>());
@@ -31,6 +44,8 @@ public class Achievements {
                 .setDescription("Verdiene insgesamt mindestens 5000 BC.");
         new Achievements(BiomiaAchievement.OeffneZehnTruhen, Stats.BiomiaStat.ChestsOpened, 10, "Truhenöffner")
                 .setDescription("Öffne zehn Truhen.");
+        new Achievements(BiomiaAchievement.Nimm20Fallschaden, Stats.BiomiaStat.HealthLost, 20, "Aua Aua", "FALL")
+                .setDescription("Nimm 20 Fallschaden.");
     }
 
     //SETTER AND GETTER
@@ -51,8 +66,16 @@ public class Achievements {
         return displayName;
     }
 
-    public int getMindestWert() {
-        return value;
+    public int getTargetValue() {
+        return targetValue;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getComment() {
+        return comment;
     }
 }
 

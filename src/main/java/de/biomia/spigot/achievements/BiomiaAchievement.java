@@ -1,5 +1,5 @@
 package de.biomia.spigot.achievements;
 
 public enum BiomiaAchievement {
-    VerdieneFuenftausendCoins, OeffneZehnTruhen
+    VerdieneFuenftausendCoins, Nimm20Fallschaden, OeffneZehnTruhen
 }

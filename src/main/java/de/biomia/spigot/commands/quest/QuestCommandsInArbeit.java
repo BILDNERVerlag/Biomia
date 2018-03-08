@@ -187,10 +187,10 @@ public class QuestCommandsInArbeit extends BiomiaCommand {
                     qlistCommand(sender);
                     break;
                 case "tagebuch":
-                    tagebuchCommand(p, qp);
+                    qTagebuchCommand(p, qp);
                     break;
                 case "info":
-                    qinfoCommand(sender, args, p);
+                    qInfoCommand(sender, args, p);
                     break;
                 case "help":
                     qhelpCommand(sender);
@@ -309,7 +309,7 @@ public class QuestCommandsInArbeit extends BiomiaCommand {
                     sender.sendMessage("\u00A76Band " + i + ": \u00A7aFortschritt: "
                             + Math.round((double) playerProgress / (double) questsProBand[i] * 100) + "%"
                             + "\n   \u00A77" + playerProgress + "/" + questsProBand[i]
-                            + " coins erfolgreich abgeschlossen.");
+                            + " Quests erfolgreich abgeschlossen.");
                 }
             }
         } else {
@@ -555,7 +555,7 @@ public class QuestCommandsInArbeit extends BiomiaCommand {
         }
     }
 
-    private void tagebuchCommand(Player p, QuestPlayer qp) {
+    private void qTagebuchCommand(Player p, QuestPlayer qp) {
         // gives a diary
         for (ItemStack is : p.getInventory().getContents()) {
             if (is != null && is.getType() == Material.WRITTEN_BOOK
@@ -567,9 +567,9 @@ public class QuestCommandsInArbeit extends BiomiaCommand {
         p.getInventory().addItem(qp.getBook());
     }
 
-    private void qinfoCommand(CommandSender sender, String[] args, Player p) {
-        // get infop about a specific quest
-        if (args.length == 1) {
+    private void qInfoCommand(CommandSender sender, String[] args, Player p) {
+        // get info about a specific quest
+        if (args.length == 2) {
             // get quest
             Quest q = Biomia.getQuestManager().getQuest(args[1]);
             if (q == null) {

@@ -2,9 +2,9 @@ package de.biomia.spigot.server.quests.general;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.commands.quest.QuestCommands;
-import de.biomia.universal.MySQL;
+import de.biomia.spigot.commands.quest.QuestCommandsInArbeit;
 import de.biomia.spigot.tools.ItemCreator;
+import de.biomia.universal.MySQL;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -48,7 +48,7 @@ public class QuestPlayer {
 
     // METHODS
     public void updateBook() {
-        QuestCommands.qupdatebookCommand(this);
+        QuestCommandsInArbeit.qupdatebookCommand(this);
     }
 
     public void addToQuest(Quest quest) {

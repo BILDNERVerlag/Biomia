@@ -94,7 +94,8 @@ public class StatListener implements Listener {
     @EventHandler
     public void onRegain(EntityRegainHealthEvent e) {
         if (e.getEntity() instanceof Player) {
-            Stats.incrementStatBy(Stats.BiomiaStat.HealthRegenerated, (Player) e.getEntity(), (int) e.getAmount());
+            if (e.getAmount() > 0)
+                Stats.incrementStatBy(Stats.BiomiaStat.HealthRegenerated, (Player) e.getEntity(), (int) e.getAmount());
         }
     }
 
@@ -279,21 +280,21 @@ public class StatListener implements Listener {
         Stats.BiomiaStat stat = null;
         CosmeticItem eventItem = e.getItem();
         switch (eventItem.getGroup()) {
-        case HEADS:
-            stat = Stats.BiomiaStat.HeadsUsed;
-            break;
-        case SUITS:
-            stat = Stats.BiomiaStat.SuitsUsed;
-            break;
-        case GADGETS:
-            stat = Stats.BiomiaStat.GadgetsUsed;
-            break;
-        case PETS:
-            stat = Stats.BiomiaStat.PetsUsed;
-            break;
-        case PARTICLES:
-            stat = Stats.BiomiaStat.ParticlesUsed;
-            break;
+            case HEADS:
+                stat = Stats.BiomiaStat.HeadsUsed;
+                break;
+            case SUITS:
+                stat = Stats.BiomiaStat.SuitsUsed;
+                break;
+            case GADGETS:
+                stat = Stats.BiomiaStat.GadgetsUsed;
+                break;
+            case PETS:
+                stat = Stats.BiomiaStat.PetsUsed;
+                break;
+            case PARTICLES:
+                stat = Stats.BiomiaStat.ParticlesUsed;
+                break;
         }
         Stats.incrementStat(stat, e.getBiomiaPlayer().getBiomiaPlayerID(), eventItem.getName());
     }
