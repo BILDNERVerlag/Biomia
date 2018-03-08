@@ -284,7 +284,7 @@ public class KitManager {
         // Add Standard Kit
         availableKits.add(standardKit);
 
-        for (int i : SkyWarsKitManager.getAvailableKit(bp)) {
+        for (int i : SkyWarsKitManager.getAvailableKits(bp)) {
             Kit k = allKits.get(i);
             if (k != null)
                 availableKits.add(k);

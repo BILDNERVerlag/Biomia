@@ -5,6 +5,9 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
+import de.biomia.spigot.minigames.bedwars.shop.Shop;
+import de.biomia.spigot.minigames.bedwars.shop.ShopGroup;
+import de.biomia.spigot.minigames.bedwars.shop.ShopItem;
 import de.biomia.spigot.minigames.general.ColorType;
 import de.biomia.spigot.minigames.general.ItemType;
 import de.biomia.spigot.minigames.versus.games.bedwars.BedWars;
@@ -25,11 +28,11 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.vehicle.VehicleEntityCollisionEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
@@ -46,7 +49,6 @@ public class BedWarsShopListener implements Listener {
         HandlerList.unregisterAll(this);
     }
 
-    @SuppressWarnings("deprecation")
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
@@ -71,7 +73,6 @@ public class BedWarsShopListener implements Listener {
                                 return;
                             } else {
                                 ShopItem shopItem = group.getShopItem(iStack);
-                                Price price = shopItem.getPrice();
 
                                 ItemStack returnItem = iStack.clone();
 
@@ -94,30 +95,25 @@ public class BedWarsShopListener implements Listener {
                                         returnItem.setDurability(team.getColordata());
                                     }
                                 }
-                                if (e.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
-
+                                if (e.getClick().isShiftClick()) {
                                     int i = iStack.getMaxStackSize() / iStack.getAmount();
                                     boolean first = true;
-
                                     for (int j = 0; j < i; j++) {
-                                        if (price.take(p)) {
+                                        if (shopItem.take(p)) {
                                             p.getInventory().addItem(returnItem);
                                             first = false;
                                         } else if (first) {
-                                            String name = ItemType.getName(price.getItemType());
-                                            assert name != null;
+                                            String name = ItemType.getName(shopItem.getItemType());
                                             p.sendMessage(BedWarsMessages.notEnoughItemsToPay.replace("%n", name));
                                             return;
                                         } else {
                                             return;
                                         }
                                     }
-
-                                } else if (price.take(p)) {
+                                } else if (shopItem.take(p)) {
                                     p.getInventory().addItem(returnItem);
                                 } else {
-                                    String name = ItemType.getName(price.getItemType());
-                                    assert name != null;
+                                    String name = ItemType.getName(shopItem.getItemType());
                                     p.sendMessage(BedWarsMessages.notEnoughItemsToPay.replace("%n", name));
                                     return;
 
@@ -141,7 +137,6 @@ public class BedWarsShopListener implements Listener {
     @EventHandler
     public void Interact(PlayerInteractEntityEvent e) {
         Player p = e.getPlayer();
-
         if (e.getRightClicked() instanceof Villager && e.getRightClicked().getCustomName().equals("Shop")) {
             e.setCancelled(true);
             p.openInventory(Shop.getInventory());
@@ -150,7 +145,8 @@ public class BedWarsShopListener implements Listener {
 
     @EventHandler
     public void craftItem(PrepareItemCraftEvent e) {
-        e.getInventory().setResult(ItemCreator.itemCreate(Material.AIR));
+        if (!e.isRepair())
+            e.getInventory().setResult(ItemCreator.itemCreate(Material.AIR));
     }
 
     @EventHandler
@@ -163,6 +159,10 @@ public class BedWarsShopListener implements Listener {
                 }
             }
         }
+    }
+
+    @EventHandler
+    public void onEntityMove() {
     }
 
     private void spawnVillager(Location loc) {

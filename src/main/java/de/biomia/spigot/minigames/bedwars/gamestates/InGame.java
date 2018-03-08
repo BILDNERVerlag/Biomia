@@ -65,7 +65,7 @@ public class InGame {
         }
 
         Scoreboards.initSpectatorSB();
-        Teleport.teleportTeamsToMap();
+        Teleport.teleportPlayerToMap(Variables.teamSpawns);
         SpawnItems.startSpawning();
     }
 

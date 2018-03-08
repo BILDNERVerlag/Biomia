@@ -2,12 +2,12 @@ package de.biomia.spigot.minigames.versus.games.bedwars;
 
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.configs.BedWarsVersusConfig;
-import de.biomia.spigot.minigames.versus.games.bedwars.listeners.SpawnItems;
-import de.biomia.spigot.minigames.versus.games.bedwars.shop.BedWarsShopListener;
-import de.biomia.spigot.minigames.versus.games.bedwars.var.BedWarsScoreboard;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.TeamColor;
+import de.biomia.spigot.minigames.versus.games.bedwars.listeners.SpawnItems;
+import de.biomia.spigot.minigames.versus.games.bedwars.shop.BedWarsShopListener;
+import de.biomia.spigot.minigames.versus.games.bedwars.var.BedWarsScoreboard;
 import org.bukkit.Location;
 
 import java.util.ArrayList;
@@ -45,6 +45,7 @@ public class BedWars extends GameMode {
             bp.setBuild(true);
             bp.getPlayer().getInventory().clear();
             bedWarsScoreboard.setScoreboard(bp, false);
+            bp.getPlayer().setCollidable(false);
             bp.getPlayer().teleport(getTeam(bp).getHome());
         }
     }

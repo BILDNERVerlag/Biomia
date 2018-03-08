@@ -35,6 +35,15 @@ public abstract class GameTeam {
             mode.stop();
     }
 
+    public void addPlayer(BiomiaPlayer bp) {
+        mode.getPlayers().add(bp);
+        players.put(bp, true);
+    }
+
+    public void removePlayer(BiomiaPlayer bp) {
+
+    }
+
     public boolean containsPlayer(BiomiaPlayer bp) {
         return players.containsKey(bp);
     }

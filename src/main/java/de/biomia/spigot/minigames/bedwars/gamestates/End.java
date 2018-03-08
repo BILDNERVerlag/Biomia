@@ -3,9 +3,10 @@ package de.biomia.spigot.minigames.bedwars.gamestates;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.BedWarsMessages;
-import de.biomia.universal.Messages;
 import de.biomia.spigot.minigames.bedwars.var.Teleport;
+import de.biomia.spigot.minigames.bedwars.var.Variables;
 import de.biomia.spigot.tools.PlayerToServerConnector;
+import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -20,7 +21,7 @@ class End {
         }
 
 //		Leaderboard.updateThisStats();
-        Teleport.teleportAllToWarteLobby();
+        Teleport.teleportAllToWarteLobby(Variables.warteLobbySpawn);
 
         new BukkitRunnable() {
             int i = 15;

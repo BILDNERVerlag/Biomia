@@ -29,7 +29,7 @@ public class SkyWarsKitManager {
                 + " and kitID = " + kitID, MySQL.Databases.biomia_db);
     }
 
-    public static ArrayList<Integer> getAvailableKit(BiomiaPlayer biomiaPlayer) {
+    public static ArrayList<Integer> getAvailableKits(BiomiaPlayer biomiaPlayer) {
         ArrayList<Integer> availableKits = new ArrayList<>();
         Connection con = MySQL.Connect(MySQL.Databases.biomia_db);
         try {
@@ -49,7 +49,6 @@ public class SkyWarsKitManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return availableKits;
     }
 }

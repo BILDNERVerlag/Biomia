@@ -4,7 +4,6 @@ import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.BedWarsVersusConfig;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.minigames.general.ItemType;
-import de.biomia.spigot.minigames.versus.games.bedwars.var.Variables;
 import de.biomia.spigot.minigames.versus.games.bedwars.BedWars;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Location;
@@ -18,6 +17,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SpawnItems {
+
+    private final int bronzeSpawnDelay = 1;
+    private final int ironSpawnDelay = 10;
+    private final int goldSpawnDelay = 30;
 
     private BukkitTask items = null;
 
@@ -36,15 +39,15 @@ public class SpawnItems {
 
             @Override
             public void run() {
-                if (i % Variables.bronzeSpawnDelay == 0) {
+                if (i % bronzeSpawnDelay == 0) {
                     spawner.get(ItemType.BRONZE).forEach(each -> world.dropItem(each, bronze));
                 }
 
-                if (i % Variables.ironSpawnDelay == 0) {
+                if (i % ironSpawnDelay == 0) {
                     spawner.get(ItemType.IRON).forEach(each -> world.dropItem(each, iron));
                 }
 
-                if (i % Variables.goldSpawnDelay == 0) {
+                if (i % goldSpawnDelay == 0) {
                     spawner.get(ItemType.GOLD).forEach(each -> world.dropItem(each, gold));
                 }
                 i++;

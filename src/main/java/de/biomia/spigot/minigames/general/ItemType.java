@@ -22,14 +22,13 @@ public enum ItemType {
 
     public static String getName(ItemType type) {
         switch (type) {
+        default:
             case BRONZE:
                 return "\u00A7cBronze";
             case IRON:
                 return "\u00A77Eisen";
             case GOLD:
                 return "\u00A76Gold";
-            default:
-                return null;
         }
     }
 

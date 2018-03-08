@@ -2,6 +2,7 @@ package de.biomia.spigot.minigames.bedwars.var;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.Main;
+import de.biomia.spigot.minigames.general.teams.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -14,7 +15,7 @@ public class Teleport {
 
     private static final HashMap<Player, Location> starts = new HashMap<>();
 
-    public static void teleportAllToWarteLobby() {
+    public static void teleportAllToWarteLobby(Location warteLobbySpawn) {
 
         Iterator<? extends Player> players = Bukkit.getOnlinePlayers().iterator();
 
@@ -22,9 +23,8 @@ public class Teleport {
 
             @Override
             public void run() {
-
                 if (players.hasNext()) {
-                    players.next().teleport(Variables.warteLobbySpawn);
+                    players.next().teleport(warteLobbySpawn);
                 } else {
                     cancel();
                 }
@@ -32,15 +32,9 @@ public class Teleport {
         }.runTaskTimer(Main.getPlugin(), 0, 1);
     }
 
-    public static void teleportTeamsToMap() {
+    public static void teleportPlayerToMap(HashMap<Team, Location> spawns) {
 
         Iterator<? extends Player> players = Bukkit.getOnlinePlayers().iterator();
-
-        if (Variables.teamSpawns.size() < Variables.teams) {
-            Bukkit.broadcastMessage("\u00A7cZu wenig Spawn Locations!");
-            Biomia.stopWithDelay();
-            return;
-        }
 
         new BukkitRunnable() {
             @Override
@@ -48,7 +42,7 @@ public class Teleport {
                 if (players.hasNext()) {
                     Player p = players.next();
                     p.setFallDistance(0);
-                    p.teleport(Variables.teamSpawns.get(Biomia.getTeamManager().getTeam(p)));
+                    p.teleport(spawns.get(Biomia.getTeamManager().getTeam(p)));
                 } else {
                     cancel();
                 }

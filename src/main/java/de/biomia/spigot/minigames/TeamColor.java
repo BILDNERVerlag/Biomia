@@ -2,7 +2,7 @@ package de.biomia.spigot.minigames;
 
 public enum TeamColor {
 
-    BLUE(1), RED(2);
+    BLUE(1), RED(2), YELLOW(3), GREEN(4), ORANGE(5), PURPLE(6), WHITE(7), BLACK(8);
 
     private final int i;
 

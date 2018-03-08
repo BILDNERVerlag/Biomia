@@ -29,7 +29,7 @@ public class Kits {
     public static void loadKits(Player p) {
 
         ArrayList<Kit> availableKits = new ArrayList<>();
-        for (int i : SkyWarsKitManager.getAvailableKit(Biomia.getBiomiaPlayer(p)))
+        for (int i : SkyWarsKitManager.getAvailableKits(Biomia.getBiomiaPlayer(p)))
             availableKits.add(Variables.kits.get(i));
 
         // Add Standard Kit
