@@ -9,4 +9,7 @@ public class KitPvP extends GameMode {
         super(instance);
     }
 
+    @Override
+    public void start() {
+    }
 }
