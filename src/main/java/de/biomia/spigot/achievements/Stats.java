@@ -224,20 +224,20 @@ public class Stats {
             for (Achievements each : achievements) {
                 if (each.getComment() != null) {
                     if (Stats.getComments(stat, biomiaPlayerID).get(each.getComment()) >= each.getTargetValue()) {
-                        unlock(each.getAchievement(), biomiaPlayerID);
-                        out += ("§7-§cComment is §7'§b" + each.getComment() + "§7' (§c" + Stats.getComments(stat, biomiaPlayerID).get(each.getComment()) + "§7>=§c" + each.getTargetValue() + "§7),\n");
-                        out += ("§7-§cUnlocked §b" + each.getAchievement().name() + "§7>");
+                        if (unlock(each.getAchievement(), biomiaPlayerID)) {
+                            out += ("§7-§cComment is §7'§b" + each.getComment() + "§7' (§c" + Stats.getComments(stat, biomiaPlayerID).get(each.getComment()) + "§7>=§c" + each.getTargetValue() + "§7),\n");
+                            out += ("§7-§cUnlocked §b" + each.getAchievement().name() + "§7>");
+                        } else out += ("§7-§cNo new unlocks (already unlocked).§7>");
                     } else {
                         out += ("§7-§cComment is §7'§b" + each.getComment() + "§7' (§c" + Stats.getComments(stat, biomiaPlayerID).get(each.getComment()) + "§7<=§c" + each.getTargetValue() + "§7),\n");
-                        out += ("§7-§cNo unlocks.§7>");
+                        out += ("§7-§cNo new unlocks.§7>");
                     }
                 } else if (value >= each.getTargetValue()) {
-                    unlock(each.getAchievement(), biomiaPlayerID);
-
-                    out += ("§7-§cNo comment. §b" + value + "§7>=§b" + each.getTargetValue() + "§7,\n");
-                    out += ("§7-§cUnlocked §b" + each.getAchievement().name() + "§7>");
-
-                } else out += ("§7-§cNo unlocks.§7>");
+                    if (unlock(each.getAchievement(), biomiaPlayerID)) {
+                        out += ("§7-§cNo comment. §b" + value + "§7>=§b" + each.getTargetValue() + "§7,\n");
+                        out += ("§7-§cUnlocked §b" + each.getAchievement().name() + "§7>");
+                    } else out += ("§7-§cNo new unlocks. (already unlocked)§7>");
+                } else out += ("§7-§cNo new unlocks.§7>");
             }
         } else out += ("§7-§cNo achievements.§7>");
         if (log) Bukkit.broadcastMessage(out);
@@ -248,8 +248,8 @@ public class Stats {
      * bricht ab, falls der Spieler das Achievement bereits hat. Gibt true zurueck,
      * falls ein Achievement unlocked wird (ansonsten false).
      */
-    private static void unlock(BiomiaAchievement bA, int biomiaPlayerID) {
-        MySQL.executeUpdate("INSERT IGNORE INTO `" + bA.toString() + "` (`ID`) VALUES (" + biomiaPlayerID + ")", MySQL.Databases.achiev_db);
+    private static boolean unlock(BiomiaAchievement bA, int biomiaPlayerID) {
+        return MySQL.executeUpdate("INSERT IGNORE INTO `" + bA.toString() + "` (`ID`) VALUES (" + biomiaPlayerID + ")", MySQL.Databases.achiev_db);
     }
 
     //SELECT `inc`,`wert` FROM `TestTabelle` WHERE `time` >= TIMESTAMPADD(DAY,-3,NOW());
