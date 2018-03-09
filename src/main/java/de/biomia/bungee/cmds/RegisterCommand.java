@@ -22,7 +22,7 @@ public class RegisterCommand extends Command {
             ProxiedPlayer p = (ProxiedPlayer) sender;
 
             if (MySQL.executeQuerygetint("SELECT * FROM `ConnectedPlayers` where uuid = '" + p.getUniqueId().toString() + "'", "wert", MySQL.Databases.biomia_db) == 1) {
-                p.sendMessage(new TextComponent("§aDu bist bereits registriert! ?"));
+                p.sendMessage(new TextComponent("\u00A7aDu bist bereits registriert! ?"));
                 return;
             }
 
@@ -32,7 +32,7 @@ public class RegisterCommand extends Command {
                         + ChatColor.DARK_PURPLE + "bio" + ChatColor.DARK_GREEN + "mia" + ChatColor.GRAY + ".de");
                 register.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://biomia.de"));
                 p.sendMessage(register);
-                TextComponent klicker = new TextComponent("§7Klick mich^^");
+                TextComponent klicker = new TextComponent("\u00A77Klick mich^^");
                 klicker.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://biomia.de"));
                 p.sendMessage(klicker);
             } else if (args.length == 1) {
@@ -40,12 +40,12 @@ public class RegisterCommand extends Command {
                 if (code != null && code.equals(args[0])) {
                     MySQL.executeUpdate("UPDATE `ConnectedPlayers` set `wert` = true where uuid = '" + p.getUniqueId().toString() + "'", MySQL.Databases.biomia_db);
                     ChannelListener.rank("RegSpieler", p);
-                    p.sendMessage(new TextComponent(Messages.PREFIX + "§aDu bist jetzt registriert!"));
+                    p.sendMessage(new TextComponent(Messages.PREFIX + "\u00A7aDu bist jetzt registriert!"));
                 } else if (code == null) {
                     p.sendMessage(new TextComponent(
-                            Messages.PREFIX + "§cDu musst dich erst auf der Biomia Internetseite registrieren!"));
+                            Messages.PREFIX + "\u00A7cDu musst dich erst auf der Biomia Internetseite registrieren!"));
                 } else if (!code.equals(args[0])) {
-                    p.sendMessage(new TextComponent(Messages.PREFIX + "§cFalscher Code!"));
+                    p.sendMessage(new TextComponent(Messages.PREFIX + "\u00A7cFalscher Code!"));
                 }
             }
         }

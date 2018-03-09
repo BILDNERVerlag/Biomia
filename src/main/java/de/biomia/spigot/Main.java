@@ -142,7 +142,7 @@ public class Main extends JavaPlugin {
                 new Freebuild().start();
                 break;
             case "FarmServer":
-                //TODO Farmserver nach Fertigstellung hinzufügen
+                //TODO Farmserver nach Fertigstellung hinzuf\u00fcgen
                 break;
             case "BauServer":
                 Bukkit.getPluginManager().registerEvents(new BauServerListener(), this);

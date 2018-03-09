@@ -30,7 +30,7 @@ public class BiomiaCommand extends Command {
                 ChatColor.RED + "auf unserem " + ChatColor.AQUA + "TeamSpeak" + ChatColor.RED + "!");
         TS.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "ts.biomia.de"));
 
-        sender.sendMessage(new TextComponent("§7§m------------§r§7[§cBiomia§bHilfe§7]§m-------------"));
+        sender.sendMessage(new TextComponent("\u00A77\u00A7m------------\u00A7r\u00A77[\u00A7cBiomia\u00A7bHilfe\u00A77]\u00A7m-------------"));
         sender.sendMessage(new TextComponent(""));
         sender.sendMessage(new TextComponent(ChatColor.RED + "Besucht uns auf"));
         sender.sendMessage(Facebook);
@@ -38,7 +38,7 @@ public class BiomiaCommand extends Command {
         sender.sendMessage(Internetseite);
         sender.sendMessage(TS);
         sender.sendMessage(new TextComponent(""));
-        sender.sendMessage(new TextComponent("§7§m-----------------------------------"));
+        sender.sendMessage(new TextComponent("\u00A77\u00A7m-----------------------------------"));
     }
 
 }

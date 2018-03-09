@@ -39,19 +39,19 @@ public class RemoveReportCommand extends Command {
                         OfflineBungeeBiomiaPlayer p = BungeeBiomia.getOfflineBiomiaPlayer(reporter);
                         p.addCoins(BungeeMain.playerReportRewardMoney, false);
                         if (p.isOnline()) {
-                            p.sendMessage("§cDanke für den Report! Der Spieler wurde §bgebannt§c!");
+                            p.sendMessage("\u00A7cDanke f\u00fcr den Report! Der Spieler wurde \u00A7bgebannt\u00A7c!");
                         }
                     }
                     if (b) {
-                        sender.sendMessage(new TextComponent("§cDer Spieler wurde nicht reportet!"));
+                        sender.sendMessage(new TextComponent("\u00A7cDer Spieler wurde nicht reportet!"));
                     } else {
-                        sender.sendMessage(new TextComponent("§cDer Report wurde entfernt und die Reporter belohnt!"));
+                        sender.sendMessage(new TextComponent("\u00A7cDer Report wurde entfernt und die Reporter belohnt!"));
                         MySQL.executeUpdate("DELETE FROM `PlayerReports` WHERE `Reporteter` = " + reporteterID, MySQL.Databases.biomia_db);
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-            } else sender.sendMessage(new TextComponent("§cBitte nutze §7/§bremovereport §7<§bSpieler§7>"));
+            } else sender.sendMessage(new TextComponent("\u00A7cBitte nutze \u00A77/\u00A7bremovereport \u00A77<\u00A7bSpieler\u00A77>"));
         }
     }
 }

@@ -38,7 +38,7 @@ public class ChannelListener implements Listener {
                 String playerName = BungeeBiomia.getOfflineBiomiaPlayer(playerID).getName();
                 String reporterName = BungeeBiomia.getOfflineBiomiaPlayer(reporterID).getName();
 
-                TextComponent comp = new TextComponent("§dDer Spieler §c" + playerName + " §dwurde wegen §c" + Grund.toText(Grund.valueOf(grund)) + " §dvon §a" + reporterName + " §dreportet!");
+                TextComponent comp = new TextComponent("\u00A7dDer Spieler \u00A7c" + playerName + " \u00A7dwurde wegen \u00A7c" + Grund.toText(Grund.valueOf(grund)) + " \u00A7dvon \u00A7a" + reporterName + " \u00A7dreportet!");
                 comp.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/gtp " + playerName));
 
                 BungeeCord.getInstance().getPlayers().forEach(each -> {

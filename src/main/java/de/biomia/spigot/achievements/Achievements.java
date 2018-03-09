@@ -42,8 +42,8 @@ public class Achievements {
     public static void init() {
         new Achievements(BiomiaAchievement.VerdieneFuenftausendCoins, Stats.BiomiaStat.CoinsAccumulated, 5000, "Sparfuchs")
                 .setDescription("Verdiene insgesamt mindestens 5000 BC.");
-        new Achievements(BiomiaAchievement.OeffneZehnTruhen, Stats.BiomiaStat.ChestsOpened, 10, "Truhenöffner")
-                .setDescription("Öffne zehn Truhen.");
+        new Achievements(BiomiaAchievement.OeffneZehnTruhen, Stats.BiomiaStat.ChestsOpened, 10, "Truhen\u00f6ffner")
+                .setDescription("\u00d6ffne zehn Truhen.");
         new Achievements(BiomiaAchievement.Nimm20Fallschaden, Stats.BiomiaStat.HealthLost, 20, "Aua Aua", "FALL")
                 .setDescription("Nimm 20 Fallschaden.");
     }

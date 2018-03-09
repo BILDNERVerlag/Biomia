@@ -255,47 +255,47 @@ public class LobbyListener extends BiomiaListener {
                 String itemName = ie.getCurrentItem().getItemMeta().getDisplayName();
                 if (ie.getClickedInventory().equals(((Lobby) Biomia.getSeverInstance()).getNavigator())) {
                     switch (itemName) {
-                        case "§6Bau Welt":
+                        case "\u00A76Bau Welt":
                             pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 551.5, 80, 285.5, -90, 0));
                             pl.closeInventory();
                             break;
-                        case "§eDemo Welt":
+                        case "\u00A7eDemo Welt":
                             pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 512, 80, 354, -50, 8));
                             pl.closeInventory();
                             break;
-                        case "§cSpawn":
+                        case "\u00A7cSpawn":
                             pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 534.5, 67, 193.5));
                             pl.closeInventory();
                             break;
-                        case "§5Quests":
+                        case "\u00A75Quests":
                             pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 473.5, 123, 359.5, -90, 0));
                             pl.closeInventory();
                             break;
-                        case "§bSkyWars":
+                        case "\u00A7bSkyWars":
                             pl.teleport(new Location(Bukkit.getWorld("SkywarsSignlobby"), 370.5, 82, 264.5, 70, 0));
                             pl.closeInventory();
                             break;
-                        case "§4BedWars":
+                        case "\u00A74BedWars":
                             pl.teleport(new Location(Bukkit.getWorld("BedwarsSignlobby"), 370.5, 82, 264.5, 70, 0));
                             pl.closeInventory();
                             break;
-                        case "§5Mysteriöse Box":
+                        case "\u00A75Mysteri\u00f6se Box":
                             pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 605.5, 68, 358, 0, 0));
                             pl.closeInventory();
                             break;
-                        case "§6Freebuild Welt":
+                        case "\u00A76Freebuild Welt":
                             pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 560, 96, 290, 80, 0));
                             pl.closeInventory();
                             break;
                     }
-                } else if (ie.getClickedInventory().getName().equals("§dLobby Switcher"))
+                } else if (ie.getClickedInventory().getName().equals("\u00A7dLobby Switcher"))
                     for (ServerObject so : TimoCloudAPI.getUniversalInstance().getServerGroup("Lobby")
                             .getServers())
                         if (itemName.contains(so.getName()))
                             if (!so.getName().equals(TimoCloudAPI.getBukkitInstance().getThisServer().getName()))
                                 PlayerToServerConnector.connect(pl, so.getName());
                             else
-                                pl.sendMessage("§cDu bist schon auf dieser Lobby!");
+                                pl.sendMessage("\u00A7cDu bist schon auf dieser Lobby!");
             }
     }
 

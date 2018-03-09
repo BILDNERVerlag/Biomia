@@ -23,7 +23,7 @@ public enum Time {
             int vielfaches = i / t.getSekunden();
 
             if (vielfaches == 1) {
-                output.append("§51 §2").append(t.name().substring(0, t.name().length() - 1)).append("§7, §r");
+                output.append("\u00A751 \u00A72").append(t.name().substring(0, t.name().length() - 1)).append("\u00A77, \u00A7r");
 
                 i -= t.getSekunden();
 
@@ -31,7 +31,7 @@ public enum Time {
                     output = new StringBuilder(output.substring(0, output.length() - 4));
 
             } else if (vielfaches > 1) {
-                output.append("§5").append(vielfaches).append(" §2").append(t.name()).append("§7, §r");
+                output.append("\u00A75").append(vielfaches).append(" \u00A72").append(t.name()).append("\u00A77, \u00A7r");
 
                 i -= vielfaches * t.getSekunden();
 

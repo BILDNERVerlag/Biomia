@@ -35,7 +35,7 @@ public class CoinsCommand extends BiomiaCommand {
                     try {
                         coins = Integer.valueOf(args[1]);
                     } catch (Exception e) {
-                        sender.sendMessage("§cBitte gib eine §bZahl §cein§7!");
+                        sender.sendMessage("\u00A7cBitte gib eine \u00A7bZahl \u00A7cein\u00A77!");
                         return true;
                     }
 

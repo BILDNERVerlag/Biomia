@@ -69,12 +69,12 @@ public class QuestCommands extends BiomiaCommand {
 
         // Seite(n) mit aktiven Quests befuellen
         if (activeQuests.isEmpty()) {
-            TextComponent output = new TextComponent("\u00A71\u00A7l\u00A7nAktive coins:\n\n\n\u00A74(Noch keine!)");
+            TextComponent output = new TextComponent("\u00A71\u00A7l\u00A7nAktive Quests:\n\n\n\u00A74(Noch keine!)");
             IChatBaseComponent page = ChatSerializer.a(ComponentSerializer.toString(output));
             pages.add(page);
         } else {
             // Alle coins nacheinander auflisten, pro Quest je eine neue Zeile
-            TextComponent output = new TextComponent("\u00A71\u00A7l\u00A7nAktive coins:\n\n\n");
+            TextComponent output = new TextComponent("\u00A71\u00A7l\u00A7nAktive Quests:\n\n\n");
 
             TextComponent text;
 

@@ -35,10 +35,10 @@ public class UnbanCommand extends Command {
         if (sender.hasPermission("biomia.unban"))
             if (args.length == 1) {
                 if (unban(BungeeBiomia.getOfflineBiomiaPlayer(sender.getName()), BungeeBiomia.getOfflineBiomiaPlayer(args[0]).getBiomiaPlayerID())) {
-                    sender.sendMessage(new TextComponent("§c" + args[0] + " wurde erfolgreich entbannt!"));
+                    sender.sendMessage(new TextComponent("\u00A7c" + args[0] + " wurde erfolgreich entbannt!"));
                 } else
-                    sender.sendMessage(new TextComponent("§c" + args[0] + " ist nicht gebannt!"));
+                    sender.sendMessage(new TextComponent("\u00A7c" + args[0] + " ist nicht gebannt!"));
             } else
-                sender.sendMessage(new TextComponent("§cBitte nutze §7/§bunban §7<§cSpieler§7>"));
+                sender.sendMessage(new TextComponent("\u00A7cBitte nutze \u00A77/\u00A7bunban \u00A77<\u00A7cSpieler\u00A77>"));
     }
 }

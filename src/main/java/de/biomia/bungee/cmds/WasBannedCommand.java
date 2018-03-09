@@ -27,11 +27,11 @@ public class WasBannedCommand extends Command {
                     if (ban.getBiomiaID() == id)
                         i++;
                 if (i > 0)
-                    sender.sendMessage(new TextComponent("§bDer Spieler §c" + name + " wurde bereits §c" + i + "x §bgebannt!"));
+                    sender.sendMessage(new TextComponent("\u00A7bDer Spieler \u00A7c" + name + " wurde bereits \u00A7c" + i + "x \u00A7bgebannt!"));
                 else
-                    sender.sendMessage(new TextComponent("§bDer Spieler §c" + name + " §bwurde noch §cnie §bgebannt!"));
+                    sender.sendMessage(new TextComponent("\u00A7bDer Spieler \u00A7c" + name + " \u00A7bwurde noch \u00A7cnie \u00A7bgebannt!"));
             } else
-                sender.sendMessage(new TextComponent("§cBitte nutze §b/wasbanned <Spieler>"));
+                sender.sendMessage(new TextComponent("\u00A7cBitte nutze \u00A7b/wasbanned <Spieler>"));
         } else
             sender.sendMessage(new TextComponent(Messages.NO_PERM));
     }

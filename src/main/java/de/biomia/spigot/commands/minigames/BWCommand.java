@@ -37,7 +37,7 @@ public class BWCommand extends BiomiaCommand {
                                 spielerProTeam = Integer.parseInt(args[1]);
                                 teams = Integer.parseInt(args[2]);
                             } catch (NumberFormatException e) {
-                                sender.sendMessage("\u00A77/§bsw setup §7<§bSpielerProTeam§7> <§bTeams§7> <§bMapName§7>");
+                                sender.sendMessage("\u00A77/\u00A7bsw setup \u00A77<\u00A7bSpielerProTeam\u00A77> <\u00A7bTeams\u00A77> <\u00A7bMapName\u00A77>");
                                 return true;
                             }
                             String name = args[3];
@@ -46,7 +46,7 @@ public class BWCommand extends BiomiaCommand {
                             Config.getConfig().set("NumberOfTeams", teams);
                             Config.saveConfig();
                         } else
-                            sender.sendMessage("\u00A77/§bsw setup §7<§bSpielerProTeam§7> <§bTeams§7> <§bMapName§7>");
+                            sender.sendMessage("\u00A77/\u00A7bsw setup \u00A77<\u00A7bSpielerProTeam\u00A77> <\u00A7bTeams\u00A77> <\u00A7bMapName\u00A77>");
                         break;
                     case "addloc":
                         if (args.length >= 2) {

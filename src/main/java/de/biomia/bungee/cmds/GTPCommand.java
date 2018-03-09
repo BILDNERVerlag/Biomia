@@ -63,7 +63,7 @@ public class GTPCommand extends Command {
                     break;
                 }
                 default:
-                    sender.sendMessage(new TextComponent("§cBitte nutze §b/gtp <Spieler> [Spieler]"));
+                    sender.sendMessage(new TextComponent("\u00A7cBitte nutze \u00A7b/gtp <Spieler> [Spieler]"));
                     break;
                 }
 
@@ -85,7 +85,7 @@ public class GTPCommand extends Command {
                 }
 
             } else {
-                sender.sendMessage(new TextComponent("§cBitte nutze §b/gtp <Spieler> [Spieler]"));
+                sender.sendMessage(new TextComponent("\u00A7cBitte nutze \u00A7b/gtp <Spieler> [Spieler]"));
             }
         }
     }
