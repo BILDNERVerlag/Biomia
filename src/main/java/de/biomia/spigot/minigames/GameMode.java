@@ -10,11 +10,11 @@ import java.util.HashMap;
 public abstract class GameMode {
 
     private final GameInstance instance;
+    private final ArrayList<GameTeam> teams = new ArrayList<>();
+
     protected GameHandler handler;
-    private ArrayList<GameTeam> teams = new ArrayList<>();
-
-
     protected GameMode(GameInstance instance) {
+
         this.instance = instance;
     }
 

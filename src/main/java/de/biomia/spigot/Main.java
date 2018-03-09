@@ -36,7 +36,7 @@ public class Main extends JavaPlugin {
     /**
      * Change the TestServer here!
      */
-    private final String actualTestGroup = "QuestServer";
+    private final static String actualTestGroup = "QuestServer";
 
     private static EasterEvent event;
     private static Main plugin;

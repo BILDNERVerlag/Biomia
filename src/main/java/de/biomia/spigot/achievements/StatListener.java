@@ -4,17 +4,13 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.events.bedwars.*;
-import de.biomia.spigot.events.cosmetics.CosmeticUsedEvent;
 import de.biomia.spigot.events.coins.CoinAddEvent;
 import de.biomia.spigot.events.coins.CoinTakeEvent;
+import de.biomia.spigot.events.cosmetics.CosmeticUsedEvent;
 import de.biomia.spigot.events.skywars.*;
 import de.biomia.spigot.general.cosmetics.items.CosmeticItem;
-import org.apache.commons.lang.ObjectUtils;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -42,7 +38,7 @@ public class StatListener implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
         if (!e.isCancelled())
-        Stats.incrementStat(Stats.BiomiaStat.BlocksPlaced, e.getPlayer(), Main.getGroupName());
+            Stats.incrementStat(Stats.BiomiaStat.BlocksPlaced, e.getPlayer(), Main.getGroupName());
     }
 
     @EventHandler
@@ -71,16 +67,22 @@ public class StatListener implements Listener {
             if (e.getFinalDamage() >= p.getHealth()) {
                 if (e.getDamager() instanceof Player) {
                     Stats.incrementStat(Stats.BiomiaStat.KilledByPlayer, p, Biomia.getBiomiaPlayer((Player) e.getDamager()).getBiomiaPlayerID() + "");
+                    Stats.incrementStat(Stats.BiomiaStat.PlayersKilled, (Player) e.getDamager(), Biomia.getBiomiaPlayer(p).getBiomiaPlayerID() + "");
                 } else {
-
                     Entity ent;
-
                     if (e.getDamager() instanceof ProjectileSource) {
                         ent = (Entity) ((Projectile) e.getDamager()).getShooter();
                     } else
                         ent = e.getDamager();
-
                     Stats.incrementStat(Stats.BiomiaStat.KilledByMonster, p, ent.getType().name());
+                }
+            }
+        } else {
+            if (e.getEntity() instanceof Monster && e.getDamager() instanceof Player) {
+                Monster monster = (Monster) e.getEntity();
+                Player p = (Player) e.getDamager();
+                if (e.getFinalDamage() >= monster.getHealth()) {
+                    Stats.incrementStat(Stats.BiomiaStat.MonstersKilled, p, monster.getType().toString());
                 }
             }
         }
@@ -137,18 +139,21 @@ public class StatListener implements Listener {
                     bp.incrementOnlineMinutes();
                 }
             }).runTaskTimer(Main.getPlugin(), 20 * 60, 20 * 60);
-        } catch (NullPointerException ex) {
-
-        }
+        } catch (NullPointerException ignored) {/*do nothing*/}
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        onlineTime.get(bp).cancel();
-        onlineTime.remove(bp);
-        // TODO add table with inc by and comments
-        Stats.incrementStatBy(Stats.BiomiaStat.MinutesPlayed, bp.getBiomiaPlayerID(), bp.getActualOnlineMinutes());
+        try {
+            onlineTime.get(bp).cancel();
+        } catch (IllegalStateException ignored) {
+        } finally {
+            onlineTime.remove(bp);
+        }
+        int minutes = bp.getActualOnlineMinutes();
+        if (minutes > 0)
+            Stats.incrementStatBy(Stats.BiomiaStat.MinutesPlayed, bp.getBiomiaPlayerID(), minutes);
     }
 
     @EventHandler

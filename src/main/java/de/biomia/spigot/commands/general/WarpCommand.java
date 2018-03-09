@@ -18,12 +18,12 @@ import java.util.*;
 
 public class WarpCommand extends BiomiaCommand {
 
+    private final ArrayList<String> allowedGroups;
+
     public WarpCommand(String command) {
         super(command);
-        allowedGroups = new ArrayList<String>(Arrays.asList("BauServer", "FreebuildServer", "FarmServer", "QuestServer"));
+        allowedGroups = new ArrayList<>(Arrays.asList("BauServer", "FreebuildServer", "FarmServer", "QuestServer"));
     }
-
-    ArrayList<String> allowedGroups;
 
     public boolean execute(CommandSender sender, String label, String[] args) {
         if (!(sender instanceof Player)) return true;
@@ -63,7 +63,8 @@ public class WarpCommand extends BiomiaCommand {
                 int verbleibendeWarps = RankManager.getPremiumLevel((p.getName())) + 3 - map.size();
                 if (verbleibendeWarps <= 0)
                     p.sendMessage("\u00A77Dies war dein letzter verbleibender Warppunkt.");
-                else p.sendMessage("\u00A77Verbleibende Warppunkte: " + verbleibendeWarps + " \u00A77(vom Rang abh\u00e4ngig)");
+                else
+                    p.sendMessage("\u00A77Verbleibende Warppunkte: " + verbleibendeWarps + " \u00A77(vom Rang abh\u00e4ngig)");
                 break;
             case "warp":
                 if (args.length < 1) {
@@ -76,7 +77,7 @@ public class WarpCommand extends BiomiaCommand {
                     return true;
                 }
                 if (map.containsKey(args[0])) {
-                    WarpLocation wLoc = (WarpLocation) map.get(args[0]);
+                    WarpLocation wLoc = map.get(args[0]);
                     Location targetLoc = wLoc.getLocation();
                     if (Main.getGroupName().equals(wLoc.groupname) && p.getWorld().getName().equals(wLoc.worldname)) {
                         p.teleport(targetLoc);
@@ -115,14 +116,14 @@ public class WarpCommand extends BiomiaCommand {
         Iterator it = map.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
-            p.sendMessage("\u00A77-\u00A7b" + pair.getKey() + " " + ((WarpLocation) pair.getValue()).toString());
+            p.sendMessage("\u00A77-\u00A7b" + pair.getKey() + " " + (pair.getValue()).toString());
             it.remove();
         }
     }
 
     private HashMap<String, WarpLocation> getAllLocations(Player p) {
         Connection con = MySQL.Connect(MySQL.Databases.biomia_db);
-        WarpLocation wloc = null;
+        WarpLocation wloc;
         HashMap<String, WarpLocation> locations = new HashMap<>();
         try {
             PreparedStatement ps = con.prepareStatement(
@@ -154,9 +155,9 @@ public class WarpCommand extends BiomiaCommand {
 }
 
 class WarpLocation {
-    public double x, y, z;
-    public float yaw, pitch;
-    public String groupname, worldname, name;
+    public final double x, y, z;
+    public final float yaw, pitch;
+    public final String groupname, worldname, name;
 
     public WarpLocation(double x0, double y0, double z0, float yaw0, float pitch0, String groupname0, String worldname0, String name0) {
         x = x0;

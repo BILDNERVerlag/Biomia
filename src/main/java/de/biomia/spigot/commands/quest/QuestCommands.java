@@ -159,7 +159,7 @@ public class QuestCommands extends BiomiaCommand {
                 if (is.getType() == Material.WRITTEN_BOOK
                         && is.getItemMeta().getDisplayName().equals("\u00A7cTagebuch")) {
                     p.getInventory().setItem(i, qp.getBook());
-                    // Spieler \u00fcber Tagebuch-Update informieren
+                    // Spieler ueber Tagebuch-Update informieren
                     ActionBar.sendActionBar("\u00A76Tagebuch wurde aktualisiert!", p);
                     return;
                 }

@@ -17,7 +17,7 @@ public class GameInstance {
     private final World world;
     private GameMode gameMode;
     private int playedTime = 0;
-    private String mapDisplayName;
+    private final String mapDisplayName;
     private final ArrayList<BiomiaPlayer> players = new ArrayList<>();
     private int teamSize;
 

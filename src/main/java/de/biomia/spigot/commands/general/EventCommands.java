@@ -15,7 +15,6 @@ public class EventCommands extends BiomiaCommand {
         super(string);
     }
 
-    //TODO move WinterEvent to special Events
 
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
@@ -25,6 +24,8 @@ public class EventCommands extends BiomiaCommand {
 
 
             // WINTER
+            //TODO move WinterEvent to specialEvents
+            //TODO if (false)? Evtl in konstante rausziehen
             if (false) {
                 if (getName().equalsIgnoreCase("calendar")) {
                     if (args.length >= 1) {
@@ -35,26 +36,26 @@ public class EventCommands extends BiomiaCommand {
                             return true;
                         }
                         switch (args[0].toLowerCase()) {
-                        case "add":
-                            if (args.length == 2) {
+                            case "add":
+                                if (args.length == 2) {
 //                                WinterTag.bindCalendarDayToEntity(Integer.valueOf(args[1]), entity.getUniqueId());
-                                sender.sendMessage("Entity mit der uuid " + entity.getUniqueId().toString()
-                                        + " wurde hinzugef\u00fcgt zu Tag " + args[1] + "!");
-                            } else
-                                sender.sendMessage("/calendar add <Tag>");
+                                    sender.sendMessage("Entity mit der uuid " + entity.getUniqueId().toString()
+                                            + " wurde hinzugef\u00fcgt zu Tag " + args[1] + "!");
+                                } else
+                                    sender.sendMessage("/calendar add <Tag>");
 
-                            break;
-                        case "remove":
-                            if (args.length == 2) {
-                                Config.getConfig().set("Calendar." + args[1], null);
-                                saveConfig();
-                                sender.sendMessage("Entities f\u00fcr den Tag " + args[1] + " wurden gel\u00F6scht!");
-                            } else
-                                sender.sendMessage("/calendar remove <Tag>");
+                                break;
+                            case "remove":
+                                if (args.length == 2) {
+                                    Config.getConfig().set("Calendar." + args[1], null);
+                                    saveConfig();
+                                    sender.sendMessage("Entities f\u00fcr den Tag " + args[1] + " wurden gel\u00F6scht!");
+                                } else
+                                    sender.sendMessage("/calendar remove <Tag>");
 
-                            break;
-                        default:
-                            break;
+                                break;
+                            default:
+                                break;
                         }
                     } else {
                         sender.sendMessage("/calendar (add | remove)");

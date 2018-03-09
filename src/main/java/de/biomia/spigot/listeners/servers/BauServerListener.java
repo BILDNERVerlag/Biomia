@@ -1,7 +1,6 @@
 package de.biomia.spigot.listeners.servers;
 
 import de.biomia.spigot.Biomia;
-import de.biomia.spigot.messages.manager.Scoreboards;
 import de.biomia.spigot.tools.BackToLobby;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;

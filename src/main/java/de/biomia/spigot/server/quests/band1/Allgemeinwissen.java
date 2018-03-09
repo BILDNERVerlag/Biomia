@@ -1,7 +1,6 @@
 package de.biomia.spigot.server.quests.band1;
 
 import de.biomia.spigot.Biomia;
-import de.biomia.spigot.Main;
 import de.biomia.spigot.server.quests.QuestEvents.AddCoinEvent;
 import de.biomia.spigot.server.quests.QuestEvents.Event;
 import de.biomia.spigot.server.quests.QuestEvents.GiveItemIfNotInInventoryEvent;

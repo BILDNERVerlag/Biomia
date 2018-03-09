@@ -16,6 +16,8 @@ public class Stats {
 
     static final HashMap<BiomiaStat, ArrayList<Achievements>> stats = new HashMap<>();
 
+    private final static boolean log = true;
+
     public enum BiomiaStat {
 
         EasterRewardsErhalten,
@@ -212,20 +214,33 @@ public class Stats {
      * Achievement unlocked werden soll
      */
     private static void checkForAchievementUnlocks(BiomiaStat stat, int biomiaPlayerID, int value) {
-        // Step 1: Checke um welchen Stat es geht
-        // Step 2: Checke ob der Stat einen bestimmten Wert erreicht hat
-        // Step 3: Wenn ja, versuche Achievement zu unlocken
-        final boolean logging = true;
-
         ArrayList<Achievements> achievements = stats.get(stat);
+
+        String out = "";
+
+        out += ("§7<§cChecking §b" + stat + "§7,\n");
         if (achievements != null) {
-            achievements.forEach(each -> {
+            out += ("§7-§c# of Achievements: §b" + achievements.size() + "§7,\n");
+            for (Achievements each : achievements) {
                 if (each.getComment() != null) {
-                    if (Stats.getComments(stat, biomiaPlayerID).get(each.getComment()) >= each.getTargetValue())
+                    if (Stats.getComments(stat, biomiaPlayerID).get(each.getComment()) >= each.getTargetValue()) {
                         unlock(each.getAchievement(), biomiaPlayerID);
-                } else if (value >= each.getTargetValue()) unlock(each.getAchievement(), biomiaPlayerID);
-            });
-        }
+                        out += ("§7-§cComment is §7'§b" + each.getComment() + "§7' (§c" + Stats.getComments(stat, biomiaPlayerID).get(each.getComment()) + "§7>=§c" + each.getTargetValue() + "§7),\n");
+                        out += ("§7-§cUnlocked §b" + each.getAchievement().name() + "§7>");
+                    } else {
+                        out += ("§7-§cComment is §7'§b" + each.getComment() + "§7' (§c" + Stats.getComments(stat, biomiaPlayerID).get(each.getComment()) + "§7<=§c" + each.getTargetValue() + "§7),\n");
+                        out += ("§7-§cNo unlocks.§7>");
+                    }
+                } else if (value >= each.getTargetValue()) {
+                    unlock(each.getAchievement(), biomiaPlayerID);
+
+                    out += ("§7-§cNo comment. §b" + value + "§7>=§b" + each.getTargetValue() + "§7,\n");
+                    out += ("§7-§cUnlocked §b" + each.getAchievement().name() + "§7>");
+
+                } else out += ("§7-§cNo unlocks.§7>");
+            }
+        } else out += ("§7-§cNo achievements.§7>");
+        if (log) Bukkit.broadcastMessage(out);
     }
 
     /**

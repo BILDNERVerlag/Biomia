@@ -1,8 +1,6 @@
 package de.biomia.spigot.general.reportsystem;
 
 import de.biomia.spigot.Biomia;
-import de.biomia.bungee.BungeeMain;
-import de.biomia.bungee.var.Bans;
 import de.biomia.universal.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

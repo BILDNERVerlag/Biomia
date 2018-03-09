@@ -23,7 +23,7 @@ public class SpawnItems {
 
     private BukkitTask items = null;
 
-    private World world;
+    private final World world;
 
     public SpawnItems(World world) {
         this.world = world;

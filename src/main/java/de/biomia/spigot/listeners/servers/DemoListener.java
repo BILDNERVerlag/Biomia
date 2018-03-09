@@ -2,14 +2,13 @@ package de.biomia.spigot.listeners.servers;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.universal.MySQL;
 import de.biomia.spigot.configs.DemoConfig;
-import de.biomia.spigot.messages.manager.Scoreboards;
 import de.biomia.spigot.server.demoserver.Weltenlabor;
 import de.biomia.spigot.server.demoserver.teleporter.Bauten;
 import de.biomia.spigot.server.demoserver.teleporter.ScrollingInventory;
 import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.ItemCreator;
+import de.biomia.universal.MySQL;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

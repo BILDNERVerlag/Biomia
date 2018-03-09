@@ -26,6 +26,7 @@ public class WinterEvent {
             while (true) {
                 try {
                     Thread.sleep(900000);
+                    //noinspection MagicConstant
                     if (c.get(Calendar.MONTH) == Calendar.DECEMBER) {
                         if (lastday != 0 && lastday < c.get(Calendar.DAY_OF_MONTH)) {
                             switch (lastday) {

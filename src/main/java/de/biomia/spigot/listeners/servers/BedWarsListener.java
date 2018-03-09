@@ -306,32 +306,32 @@ public class BedWarsListener extends BiomiaListener {
                                         if (shopItem.getType() == ColorType.LEATHER) {
                                             LeatherArmorMeta meta = (LeatherArmorMeta) returnItem.getItemMeta();
                                             switch (team.getTeamname()) {
-                                            case "BLACK":
-                                                meta.setColor(Color.BLACK);
-                                                break;
-                                            case "RED":
-                                                meta.setColor(Color.RED);
-                                                break;
-                                            case "BLUE":
-                                                meta.setColor(Color.BLUE);
-                                                break;
-                                            case "GOLD":
-                                                meta.setColor(Color.ORANGE);
-                                                break;
-                                            case "GREEN":
-                                                meta.setColor(Color.GREEN);
-                                                break;
-                                            case "WHITE":
-                                                meta.setColor(Color.WHITE);
-                                                break;
-                                            case "PURPLE":
-                                                meta.setColor(Color.PURPLE);
-                                                break;
-                                            case "YELLOW":
-                                                meta.setColor(Color.YELLOW);
-                                                break;
-                                            default:
-                                                break;
+                                                case "BLACK":
+                                                    meta.setColor(Color.BLACK);
+                                                    break;
+                                                case "RED":
+                                                    meta.setColor(Color.RED);
+                                                    break;
+                                                case "BLUE":
+                                                    meta.setColor(Color.BLUE);
+                                                    break;
+                                                case "GOLD":
+                                                    meta.setColor(Color.ORANGE);
+                                                    break;
+                                                case "GREEN":
+                                                    meta.setColor(Color.GREEN);
+                                                    break;
+                                                case "WHITE":
+                                                    meta.setColor(Color.WHITE);
+                                                    break;
+                                                case "PURPLE":
+                                                    meta.setColor(Color.PURPLE);
+                                                    break;
+                                                case "YELLOW":
+                                                    meta.setColor(Color.YELLOW);
+                                                    break;
+                                                default:
+                                                    break;
                                             }
                                             returnItem.setItemMeta(meta);
                                         } else {
@@ -349,9 +349,7 @@ public class BedWarsListener extends BiomiaListener {
                                                 first = false;
                                             } else if (first) {
                                                 String name = ItemType.getName(shopItem.getItemType());
-                                                if (name != null) {
-                                                    p.sendMessage(BedWarsMessages.notEnoughItemsToPay.replace("%n", name));
-                                                }
+                                                p.sendMessage(BedWarsMessages.notEnoughItemsToPay.replace("%n", name));
                                                 return;
                                             } else {
                                                 return;
@@ -362,9 +360,7 @@ public class BedWarsListener extends BiomiaListener {
                                         p.getInventory().addItem(returnItem);
                                     } else {
                                         String name = ItemType.getName(shopItem.getItemType());
-                                        if (name != null) {
-                                            p.sendMessage(BedWarsMessages.notEnoughItemsToPay.replace("%n", name));
-                                        }
+                                        p.sendMessage(BedWarsMessages.notEnoughItemsToPay.replace("%n", name));
                                         return;
                                     }
                                 }
@@ -468,6 +464,8 @@ public class BedWarsListener extends BiomiaListener {
                 } catch (Exception ex) {
                     e.getPlayer().sendMessage(BedWarsMessages.fillSecondLine);
                 }
+
+                //TODO: was ist damit? neu schreiben? löschen?
 
 //				Stats stat = Leaderboard.getStat(i);
 //
