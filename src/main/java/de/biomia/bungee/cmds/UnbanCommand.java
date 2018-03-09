@@ -12,9 +12,9 @@ import net.md_5.bungee.api.plugin.Command;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Unban extends Command {
+public class UnbanCommand extends Command {
 
-    public Unban(String name) {
+    public UnbanCommand(String name) {
         super(name);
     }
 
@@ -39,6 +39,6 @@ public class Unban extends Command {
                 } else
                     sender.sendMessage(new TextComponent("§c" + args[0] + " ist nicht gebannt!"));
             } else
-                sender.sendMessage(new TextComponent("§cBitte nutze /unban <Spieler>"));
+                sender.sendMessage(new TextComponent("§cBitte nutze §7/§bunban §7<§cSpieler§7>"));
     }
 }

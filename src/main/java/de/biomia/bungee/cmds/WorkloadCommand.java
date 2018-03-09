@@ -6,9 +6,9 @@ import net.md_5.bungee.api.plugin.Command;
 
 import java.text.NumberFormat;
 
-public class Workload extends Command {
+public class WorkloadCommand extends Command {
 
-    public Workload(String name) {
+    public WorkloadCommand(String name) {
         super(name);
     }
 
@@ -27,10 +27,9 @@ public class Workload extends Command {
             long freeMemory = runtime.freeMemory();
 
 
-            sb.append("aktuell freie memory: ").append(format.format(freeMemory)).append("mb\n");
-            sb.append("aktuell zugewiesene memory: ").append(format.format(allocatedMemory)).append("mb\n");
-            sb.append("max. memory: ").append(format.format(maxMemory)).append("mb\n");
-            sb.append("insgesammt freier memory: ").append(format.format((freeMemory + (maxMemory - allocatedMemory)))).append("mb");
+            sb.append("§cfree memory: §b").append(format.format(freeMemory)).append("mb\n");
+            sb.append("§callocated memory: §b").append(format.format(allocatedMemory)).append("mb\n");
+            sb.append("§cmax memory: §b").append(format.format(maxMemory)).append("mb\n");
             sender.sendMessage(new TextComponent(sb.toString()));
         }
     }

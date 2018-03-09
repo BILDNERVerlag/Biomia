@@ -8,11 +8,11 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
-public class Modus extends Command {
+public class ModusCommand extends Command {
 
     public static boolean wm = getModus();
 
-    public Modus(String name) {
+    public ModusCommand(String name) {
         super(name);
     }
 
@@ -29,15 +29,15 @@ public class Modus extends Command {
                         setModus(true);
                         for (ProxiedPlayer p : BungeeCord.getInstance().getPlayers())
                             if (!p.hasPermission("biomia.join"))
-                                p.disconnect(new TextComponent("§cDer Server ist jetzt im §6Wartungsmodus§c!"));
-                        BungeeCord.getInstance().broadcast(new TextComponent("§cDer Server ist jetzt im §6Wartungsmodus§c!"));
+                                p.disconnect(new TextComponent("§cDer Server ist jetzt im §bWartungsmodus§c!"));
+                        BungeeCord.getInstance().broadcast(new TextComponent("§cDer Server ist jetzt im §bWartungsmodus§c!"));
                     } else if (switcher.toLowerCase().equals("off")) {
                         wm = false;
                         setModus(false);
-                        BungeeCord.getInstance().broadcast(new TextComponent("§cDer Server ist nicht länger im §6Wartungsmodus§c!"));
+                        BungeeCord.getInstance().broadcast(new TextComponent("§cDer Server ist nicht länger im §bWartungsmodus§c!"));
                     }
                 } else
-                    pp.sendMessage(new TextComponent("§c/mode <on | off>"));
+                    pp.sendMessage(new TextComponent("§c/modus <on | off>"));
             } else {
                 pp.sendMessage(new TextComponent(Messages.NO_PERM));
             }

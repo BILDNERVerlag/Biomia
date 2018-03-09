@@ -37,7 +37,7 @@ public class BWCommand extends BiomiaCommand {
                                 spielerProTeam = Integer.parseInt(args[1]);
                                 teams = Integer.parseInt(args[2]);
                             } catch (NumberFormatException e) {
-                                Bukkit.broadcastMessage("\u00A7c/sw setup <SpielerProTeam> <Teams> <MapName>");
+                                sender.sendMessage("\u00A77/§bsw setup §7<§bSpielerProTeam§7> <§bTeams§7> <§bMapName§7>");
                                 return true;
                             }
                             String name = args[3];
@@ -46,7 +46,7 @@ public class BWCommand extends BiomiaCommand {
                             Config.getConfig().set("NumberOfTeams", teams);
                             Config.saveConfig();
                         } else
-                            sender.sendMessage("\u00A7c/sw setup <SpielerProTeam> <Teams> <MapName>");
+                            sender.sendMessage("\u00A77/§bsw setup §7<§bSpielerProTeam§7> <§bTeams§7> <§bMapName§7>");
                         break;
                     case "addloc":
                         if (args.length >= 2) {

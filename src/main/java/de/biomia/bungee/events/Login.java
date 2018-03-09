@@ -4,7 +4,7 @@ import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import de.biomia.bungee.BungeeBiomia;
 import de.biomia.bungee.BungeeMain;
 import de.biomia.bungee.OfflineBungeeBiomiaPlayer;
-import de.biomia.bungee.cmds.Modus;
+import de.biomia.bungee.cmds.ModusCommand;
 import de.biomia.bungee.specialEvents.WinterEvent;
 import de.biomia.bungee.var.BanManager;
 import de.biomia.bungee.var.Bans;
@@ -144,7 +144,7 @@ public class Login implements Listener {
                 }
             }
         }
-        if (Modus.wm) {
+        if (ModusCommand.wm) {
             if (!pp.hasPermission("biomia.join")) {
                 TextComponent msg = new TextComponent(wartungsmodus);
                 pp.disconnect(msg);

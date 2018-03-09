@@ -8,9 +8,9 @@ import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Command;
 
-public class WasBanned extends Command {
+public class WasBannedCommand extends Command {
 
-    public WasBanned(String name) {
+    public WasBannedCommand(String name) {
         super(name);
     }
 

@@ -9,9 +9,9 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
-public class BungeeTP extends Command {
+public class GTPCommand extends Command {
 
-    public BungeeTP(String name) {
+    public GTPCommand(String name) {
         super(name);
     }
 

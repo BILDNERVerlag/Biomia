@@ -72,7 +72,6 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         Bukkit.getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new PlayerToServerConnector());
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BiomiaChannel");
@@ -95,7 +94,7 @@ public class Main extends JavaPlugin {
         Cosmetic.initGroup(new CosmeticGroup(Group.PARTICLES, ItemCreator.itemCreate(Material.BLAZE_POWDER, "\u00A73Particles")));
         Cosmetic.initGroup(new CosmeticGroup(Group.SUITS, ItemCreator.itemCreate(Material.GOLD_CHESTPLATE, "\u00A75Suits")));
 
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("Owner", "\u00A74Owner | ");
+        UniversalBiomia.RANK_NAMES_PREFIXES.put("Owner", "\u00A7cOwner | ");
         UniversalBiomia.RANK_NAMES_PREFIXES.put("Admin", "\u00A75Admin | ");
         UniversalBiomia.RANK_NAMES_PREFIXES.put("SrBuilder", "\u00A72SrBuilder | ");
         UniversalBiomia.RANK_NAMES_PREFIXES.put("JrBuilder", "\u00A7aJrBuilder | ");

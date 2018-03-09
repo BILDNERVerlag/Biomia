@@ -1,4 +1,4 @@
-package de.biomia.spigot.commands.warp;
+package de.biomia.spigot.commands.general;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.Main;
@@ -16,9 +16,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class WarpCommands extends BiomiaCommand {
+public class WarpCommand extends BiomiaCommand {
 
-    public WarpCommands(String command) {
+    public WarpCommand(String command) {
         super(command);
         allowedGroups = new ArrayList<String>(Arrays.asList("BauServer", "FreebuildServer", "FarmServer", "QuestServer"));
     }
@@ -43,7 +43,7 @@ public class WarpCommands extends BiomiaCommand {
                     return true;
                 }
                 if (!allowedGroups.contains(Main.getGroupName())) {
-                    p.sendMessage("§cWarps sind auf diesem Server nicht erlaubt. Sorry!");
+                    p.sendMessage("§cWarps sind auf diesem Server (§b" + Main.getGroupName() + "§c) nicht erlaubt. Sorry!");
                     return true;
                 }
 
@@ -106,7 +106,7 @@ public class WarpCommands extends BiomiaCommand {
     }
 
     private void sendWarpInstructions(Player p) {
-        p.sendMessage("§7/§cwarp §7<§cZiel§7> §bum dich zu warpen");
+        p.sendMessage("§7/§cwarp §7<§cZiel§7> §bum zu warpen");
         p.sendMessage("§7/§csetwarp §7<§cName§7> §bum Warps zu speichern");
         p.sendMessage("§7/§cdelwarp §7<§cName§7> §bum Warps zu löschen");
     }

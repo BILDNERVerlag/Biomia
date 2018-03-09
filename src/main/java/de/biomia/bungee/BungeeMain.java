@@ -72,18 +72,18 @@ public class BungeeMain extends Plugin {
     }
 
     private void registerCommands() {
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new Modus("modus"));
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new Register("register"));
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new BungeeTP("gtp"));
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new Ban("ban"));
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new Unban("unban"));
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new WasBanned("wasbanned"));
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new RemovePlayerReport("removereport"));
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new Ping("ping"));
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new Help("help"));
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new ModusCommand("modus"));
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new RegisterCommand("register"));
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new GTPCommand("gtp"));
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new BanCommand("ban"));
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new UnbanCommand("unban"));
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new WasBannedCommand("wasbanned"));
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new RemoveReportCommand("removereport"));
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new PingCommand("ping"));
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new HelpCommand("help"));
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new BiomiaCommand("biomia"));
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new Workload("workload"));
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new Broadcast("broadcast"));
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new WorkloadCommand("workload"));
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new BroadcastCommand("broadcast"));
 
         if (WinterEvent.isEnabled)
             ProxyServer.getInstance().getPluginManager().registerCommand(this, new Winter("winterwinner"));

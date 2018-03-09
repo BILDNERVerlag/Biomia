@@ -6,9 +6,9 @@ import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Command;
 
-public class Broadcast extends Command {
+public class BroadcastCommand extends Command {
 
-    public Broadcast(String name) {
+    public BroadcastCommand(String name) {
         super(name);
     }
 
@@ -19,7 +19,7 @@ public class Broadcast extends Command {
 
             String s = String.join(" ", args);
             s = ChatColor.translateAlternateColorCodes('&', s);
-            BungeeCord.getInstance().broadcast(new TextComponent("§8[§5Broadcast§8]§r " + s));
+            BungeeCord.getInstance().broadcast(new TextComponent("§7[§bBroadcast§7]§r " + s));
         }
     }
 

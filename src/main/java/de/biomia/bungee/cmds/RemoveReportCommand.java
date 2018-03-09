@@ -12,9 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RemovePlayerReport extends Command {
+public class RemoveReportCommand extends Command {
 
-    public RemovePlayerReport(String name) {
+    public RemoveReportCommand(String name) {
         super(name);
     }
 
@@ -39,11 +39,11 @@ public class RemovePlayerReport extends Command {
                         OfflineBungeeBiomiaPlayer p = BungeeBiomia.getOfflineBiomiaPlayer(reporter);
                         p.addCoins(BungeeMain.playerReportRewardMoney, false);
                         if (p.isOnline()) {
-                            p.sendMessage("§cDanke für den Report! Der Spieler wurde gebannt!");
+                            p.sendMessage("§cDanke für den Report! Der Spieler wurde §bgebannt§c!");
                         }
                     }
                     if (b) {
-                        sender.sendMessage(new TextComponent("§cDer Spieler wurde nicht Reportet!"));
+                        sender.sendMessage(new TextComponent("§cDer Spieler wurde nicht reportet!"));
                     } else {
                         sender.sendMessage(new TextComponent("§cDer Report wurde entfernt und die Reporter belohnt!"));
                         MySQL.executeUpdate("DELETE FROM `PlayerReports` WHERE `Reporteter` = " + reporteterID, MySQL.Databases.biomia_db);
@@ -51,7 +51,7 @@ public class RemovePlayerReport extends Command {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-            } else sender.sendMessage(new TextComponent("§cBitte nutze §b/removereport <Spieler>"));
+            } else sender.sendMessage(new TextComponent("§cBitte nutze §7/§bremovereport §7<§bSpieler§7>"));
         }
     }
 }

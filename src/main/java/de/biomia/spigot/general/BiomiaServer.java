@@ -3,7 +3,7 @@ package de.biomia.spigot.general;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.general.*;
-import de.biomia.spigot.commands.warp.WarpCommands;
+import de.biomia.spigot.commands.general.WarpCommand;
 import de.biomia.spigot.listeners.CosmeticListener;
 import de.biomia.spigot.listeners.ReportListener;
 import org.bukkit.Bukkit;
@@ -51,9 +51,9 @@ public abstract class BiomiaServer {
         registerCommand(new TrollCommand("troll"));
         registerCommand(new EventCommands("addeggs"));
         registerCommand(new EventCommands("givereward"));
-        registerCommand(new WarpCommands("setwarp"));
-        registerCommand(new WarpCommands("warp"));
-        registerCommand(new WarpCommands("delwarp"));
+        registerCommand(new WarpCommand("setwarp"));
+        registerCommand(new WarpCommand("warp"));
+        registerCommand(new WarpCommand("delwarp"));
     }
 
 

@@ -2,7 +2,7 @@ package de.biomia.bungee.events;
 
 import de.biomia.bungee.BungeeBiomia;
 import de.biomia.bungee.OfflineBungeeBiomiaPlayer;
-import de.biomia.bungee.cmds.Ban;
+import de.biomia.bungee.cmds.BanCommand;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ClickEvent.Action;
@@ -56,9 +56,9 @@ public class ChannelListener implements Listener {
 
 
                 if (time == -1) {
-                    Ban.banPerm(BungeeCord.getInstance().getPlayer(playerName), idToBan, reason);
+                    BanCommand.banPerm(BungeeCord.getInstance().getPlayer(playerName), idToBan, reason);
                 } else {
-                    Ban.banTemp(BungeeCord.getInstance().getPlayer(playerName), idToBan, time, reason);
+                    BanCommand.banTemp(BungeeCord.getInstance().getPlayer(playerName), idToBan, time, reason);
                 }
 
             }
