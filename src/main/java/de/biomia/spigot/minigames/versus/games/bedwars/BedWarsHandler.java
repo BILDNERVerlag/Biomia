@@ -5,9 +5,9 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
-import de.biomia.spigot.minigames.general.Dead;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameTeam;
+import de.biomia.spigot.minigames.general.Dead;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -30,8 +30,8 @@ class BedWarsHandler extends GameHandler {
 
     private final ArrayList<Block> destroyableBlocks = new ArrayList<>();
 
-    BedWarsHandler(BedWars bedWars) {
-        super(bedWars);
+    BedWarsHandler(VersusBedWars versusBedWars) {
+        super(versusBedWars);
     }
 
     @EventHandler
@@ -58,7 +58,7 @@ class BedWarsHandler extends GameHandler {
         if (mode.getInstance().containsPlayer(bp))
             if (b.getType() == Material.BED_BLOCK) {
                 for (GameTeam allTeams : mode.getTeams()) {
-                    BedWarsTeam team = (BedWarsTeam) allTeams;
+                    VersusBedWarsTeam team = (VersusBedWarsTeam) allTeams;
                     for (Block b1 : team.getBed())
                         if (b1.equals(b)) {
                             if (team.containsPlayer(bp)) {
@@ -91,18 +91,18 @@ class BedWarsHandler extends GameHandler {
             Player killer = p.getKiller();
             e.setDeathMessage(null);
             p.getInventory().clear();
-            if (!((BedWarsTeam) mode.getTeam(bp)).hasBed()) {
+            if (!((VersusBedWarsTeam) mode.getTeam(bp)).hasBed()) {
                 for (BiomiaPlayer all : mode.getInstance().getPlayers())
                     all.getPlayer().sendMessage(BedWarsMessages.playerDiedFinally.replaceAll("%p", p.getName()));
                 Dead.respawn(p);
                 mode.getTeam(bp).setDead(bp);
-                ((BedWars) mode).getBedWarsScoreboard().setScoreboard(bp, true);
+                ((VersusBedWars) mode).getBedWarsScoreboard().setScoreboard(bp, true);
             } else
                 for (BiomiaPlayer all : mode.getInstance().getPlayers())
                     if (killer == null)
                         all.getPlayer().sendMessage(BedWarsMessages.playerDied.replaceAll("%p", p.getName()));
                     else
-                        all.getPlayer().sendMessage(BedWarsMessages.playerKilledByPlayer.replaceAll("%p1", p.getName()).replaceAll("%p2", killer.getName()));
+                        all.getPlayer().sendMessage(String.format(BedWarsMessages.playerKilledByPlayer, p.getName(), killer.getName()));
         }
     }
 
@@ -112,7 +112,7 @@ class BedWarsHandler extends GameHandler {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         if (mode.getInstance().containsPlayer(bp) && bp.getPlayer().getWorld().equals(mode.getInstance().getWorld())) {
-            BedWarsTeam team = (BedWarsTeam) mode.getTeam(bp);
+            VersusBedWarsTeam team = (VersusBedWarsTeam) mode.getTeam(bp);
             if (team.hasBed()) {
                 e.setRespawnLocation(team.getHome());
             } else {

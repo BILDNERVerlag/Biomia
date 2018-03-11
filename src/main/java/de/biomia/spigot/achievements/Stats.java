@@ -67,13 +67,17 @@ public class Stats {
     public static void incrementStatBy(BiomiaStat stat, int biomiaPlayerID, int increment) {
         int value = getStat(stat, biomiaPlayerID) + increment;
         MySQL.executeUpdate("INSERT INTO `" + stat.toString() + "`(ID, value, inc) VALUES (" + biomiaPlayerID + ", " + value + ", " + increment + ")", MySQL.Databases.stats_db);
-        checkForAchievementUnlocks(stat, biomiaPlayerID, value);
+
+        //TODO fix NullPointer
+        //checkForAchievementUnlocks(stat, biomiaPlayerID, value);
     }
 
     public static void incrementStat(BiomiaStat stat, int biomiaPlayerID, String comment) {
         int value = getStat(stat, biomiaPlayerID) + 1;
         MySQL.executeUpdate("INSERT INTO `" + stat.toString() + "`(ID, value, comment) VALUES (" + biomiaPlayerID + ", " + value + ", '" + comment + "')", MySQL.Databases.stats_db);
-        checkForAchievementUnlocks(stat, biomiaPlayerID, value);
+
+        //TODO fix NullPointer
+        //checkForAchievementUnlocks(stat, biomiaPlayerID, value);
     }
 
     public static void incrementStat(BiomiaStat stat, Player player, String comment) {

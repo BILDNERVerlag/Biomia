@@ -44,6 +44,11 @@ public class OfflineBiomiaPlayer extends UniversalBiomiaPlayer {
         return rank.contains("YouTube");
     }
 
+    public final boolean isOwner() {
+        String rank = de.biomia.spigot.tools.RankManager.getRank(getName());
+        return rank.contains("Owner");
+    }
+
     // GETTERS AND SETTERS
     public final BiomiaPlayer getBiomiaPlayer() {
         return this instanceof BiomiaPlayer ? (BiomiaPlayer) this : Biomia.getBiomiaPlayer(org.bukkit.Bukkit.getPlayer(getName()));

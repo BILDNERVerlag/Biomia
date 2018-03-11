@@ -1,5 +1,6 @@
 package de.biomia.spigot.configs;
 
+import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.general.shop.ItemType;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -84,16 +85,16 @@ public class BedWarsVersusConfig extends Config {
         saveConfig();
     }
 
-    public static HashMap<ItemType, ArrayList<Location>> getSpawner(String mapDisplayName, World w) {
+    public static HashMap<ItemType, ArrayList<Location>> getSpawner(GameInstance instance) {
         HashMap<ItemType, ArrayList<Location>> map = new HashMap<>();
         for (ItemType types : ItemType.values()) {
             ArrayList<Location> locations = new ArrayList<>();
-            int i = getConfig().getInt("BedWars." + mapDisplayName + "." + types.name() + ".lastID");
+            int i = getConfig().getInt("BedWars." + instance.getMapDisplayName() + "." + types.name() + ".lastID");
             for (int j = 1; j <= i; j++) {
-                int x = getConfig().getInt("BedWars." + mapDisplayName + "." + types.name() + "." + j + ".X");
-                int y = getConfig().getInt("BedWars." + mapDisplayName + "." + types.name() + "." + j + ".Y");
-                int z = getConfig().getInt("BedWars." + mapDisplayName + "." + types.name() + "." + j + ".Z");
-                locations.add(new Location(w, x, y, z));
+                int x = getConfig().getInt("BedWars." + instance.getMapDisplayName() + "." + types.name() + "." + j + ".X");
+                int y = getConfig().getInt("BedWars." + instance.getMapDisplayName() + "." + types.name() + "." + j + ".Y");
+                int z = getConfig().getInt("BedWars." + instance.getMapDisplayName() + "." + types.name() + "." + j + ".Z");
+                locations.add(new Location(instance.getWorld(), x, y, z));
             }
             map.put(types, locations);
         }

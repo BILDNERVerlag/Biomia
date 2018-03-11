@@ -2,7 +2,7 @@ package de.biomia.spigot.server.quests;
 
 import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.quest.QuestCommands;
-import de.biomia.spigot.general.BiomiaServer;
+import de.biomia.spigot.BiomiaServer;
 import de.biomia.spigot.server.quests.band1.*;
 import de.biomia.spigot.server.quests.general.DialogMessage;
 import de.biomia.spigot.server.quests.general.NPCManager;
@@ -11,6 +11,7 @@ import de.biomia.spigot.server.quests.general.QuestPlayer;
 import de.biomia.spigot.listeners.servers.QuestListener;
 import de.biomia.spigot.tools.LastPositionListener;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.plugin.PluginManager;
 
 import static de.biomia.spigot.Main.getPlugin;

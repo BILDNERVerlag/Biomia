@@ -2,6 +2,8 @@ package de.biomia.spigot.minigames.skywars.var;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.messages.SkyWarsMessages;
+import de.biomia.spigot.minigames.GameTeam;
+import de.biomia.spigot.minigames.skywars.SkyWars;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -40,10 +42,10 @@ public class Scoreboards {
         map.setPrefix("\u00A72" + Variables.name);
         teams.setPrefix("\u00A75" + Variables.teams + " \u00A77x " + "\u00A72" + Variables.playerPerTeam);
 
-        for (de.biomia.spigot.minigames.general.teams.Team t : Biomia.getTeamManager().getTeams()) {
+        for (GameTeam t : SkyWars.getSkyWars().getTeams()) {
             lobbySB.registerNewTeam("0" + t.getTeamname()).setPrefix(t.getColorcode());
         }
-        lobbySB.registerNewTeam("noteam").setPrefix("\u00A77");
+        lobbySB.registerNewTeam("xnoteam").setPrefix("\u00A77");
 
     }
 
@@ -74,14 +76,14 @@ public class Scoreboards {
         kit.addEntry("\u00A7c");
         team.addEntry("\u00A7f");
 
-        String name = Biomia.getTeamManager().translate(Biomia.getTeamManager().getTeam(p).getTeamname());
+        GameTeam gameTeam = SkyWars.getSkyWars().getTeam(Biomia.getBiomiaPlayer(p));
 
-        for (de.biomia.spigot.minigames.general.teams.Team t : Biomia.getTeamManager().getTeams()) {
+        for (GameTeam t : SkyWars.getSkyWars().getTeams()) {
             sb.registerNewTeam(t.getTeamname()).setPrefix(t.getColorcode());
         }
 
         for (Player pl : Bukkit.getOnlinePlayers()) {
-            sb.getTeam(Biomia.getTeamManager().getTeam(pl).getTeamname()).addEntry(pl.getName());
+            sb.getTeam(SkyWars.getSkyWars().getTeam(Biomia.getBiomiaPlayer(pl)).getTeamname()).addEntry(pl.getName());
         }
 
         if (Variables.selectedKit.get(p) != null)
@@ -89,23 +91,22 @@ public class Scoreboards {
         else
             kit.setPrefix("\u00A7cKein Kit");
 
-        team.setPrefix(Biomia.getTeamManager().getTeam(p).getColorcode() + name);
+        team.setPrefix(gameTeam.getColorcode() + gameTeam.getColor().translate());
 
         p.setScoreboard(sb);
     }
 
     public static void initSpectatorSB() {
 
-        for (de.biomia.spigot.minigames.general.teams.Team t : Biomia.getTeamManager().getTeams()) {
+        for (GameTeam t : SkyWars.getSkyWars().getTeams()) {
             spectatorSB.registerNewTeam(t.getTeamname()).setPrefix(t.getColorcode());
         }
 
         spectatorSB.registerNewTeam("spectator").setPrefix("\u00A77\u00A7o");
 
         for (Player pl : Bukkit.getOnlinePlayers()) {
-
-            if (Variables.livingPlayer.contains(pl)) {
-                spectatorSB.getTeam(Biomia.getTeamManager().getTeam(pl).getTeamname()).addEntry(pl.getName());
+            if (SkyWars.getSkyWars().getInstance().containsPlayer(Biomia.getBiomiaPlayer(pl))) {
+                spectatorSB.getTeam(SkyWars.getSkyWars().getTeam(Biomia.getBiomiaPlayer(pl)).getTeamname()).addEntry(pl.getName());
             } else {
                 spectatorSB.getTeam("spectator").addEntry(pl.getName());
             }

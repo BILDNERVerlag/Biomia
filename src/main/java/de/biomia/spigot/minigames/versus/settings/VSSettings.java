@@ -1,8 +1,9 @@
 package de.biomia.spigot.minigames.versus.settings;
 
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.universal.MySQL;
 import de.biomia.spigot.minigames.GameType;
+import de.biomia.universal.MySQL;
+import org.bukkit.Bukkit;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,13 +18,14 @@ public class VSSettings {
 
     private static final HashMap<GameType, HashMap<Integer, VSSettingItem>> settingItems = new HashMap<>();
 
+    private final HashMap<GameType, HashMap<Integer, Boolean>> settings = new HashMap<>();
+
+    private final BiomiaPlayer bp;
+
     static {
         for (GameType mode : GameType.values())
             settingItems.put(mode, new HashMap<>());
     }
-
-    private final BiomiaPlayer bp;
-    private final HashMap<GameType, HashMap<Integer, Boolean>> settings = new HashMap<>();
 
     public VSSettings(BiomiaPlayer bp) {
         this.bp = bp;
@@ -32,12 +34,31 @@ public class VSSettings {
         load();
     }
 
-    public static void putSettingItem(GameType mode, int id, VSSettingItem item) {
-        settingItems.get(mode).put(id, item);
+    private void load() {
+        Connection con = MySQL.Connect(MySQL.Databases.biomia_db);
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT id, wert, VSGroup FROM VSSettings WHERE BiomiaPlayer = ?");
+            ps.setInt(1, bp.getBiomiaPlayerID());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+                settings.get(GameType.valueOf(rs.getString("VSGroup"))).put(rs.getInt("id"), rs.getBoolean("wert"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static VSSettingItem getItem(GameType mode, int id) {
-        return settingItems.get(mode).get(id);
+    public boolean getSetting(VSSettingItem item) {
+
+        if (item == null) {
+            Bukkit.broadcastMessage("item == null!");
+        }
+
+        HashMap<Integer, Boolean> hm = settings.get(item.getGroup().getMode());
+
+        if (hm.containsKey(item.getID()))
+            return hm.get(item.getID());
+        else
+            return item.getStandard();
     }
 
     private void setSetting(GameType group, int id, boolean wert) {
@@ -68,34 +89,18 @@ public class VSSettings {
         }
     }
 
-    public boolean getSetting(VSSettingItem item) {
-
-        HashMap<Integer, Boolean> hm = settings.get(item.getGroup().getMode());
-
-        if (hm.containsKey(item.getId()))
-            return hm.get(item.getId());
-        else
-            return item.getStandard();
-    }
-
     public void invertSetting(VSSettingItem item) {
         GameType mode = item.getGroup().getMode();
-        int id = item.getId();
+        int id = item.getID();
         boolean b = !getSetting(item);
         setSetting(mode, id, b);
     }
 
-    private void load() {
-        Connection con = MySQL.Connect(MySQL.Databases.biomia_db);
-        try {
-            PreparedStatement ps = con
-                    .prepareStatement("SELECT id, wert, VSGroup FROM VSSettings WHERE BiomiaPlayer = ?");
-            ps.setInt(1, bp.getBiomiaPlayerID());
-            ResultSet rs = ps.executeQuery();
-            while (rs.next())
-                settings.get(GameType.valueOf(rs.getString("VSGroup"))).put(rs.getInt("id"), rs.getBoolean("wert"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public static void putSettingItem(GameType mode, int id, VSSettingItem item) {
+        settingItems.get(mode).put(id, item);
+    }
+
+    public static VSSettingItem getItem(GameType mode, int id) {
+        return settingItems.get(mode).get(id);
     }
 }

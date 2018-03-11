@@ -86,7 +86,7 @@ public class LobbyInventoryManager implements Listener {
         // 7 Verstecke Spieler
         addServerSwitcher(pl);
 
-        if (RankManager.getRank(pl).equals("Owner")) {
+        if (biomiaPlayer.isOwner()) {
             addBow(pl);
             addSilentItem(pl);
             addElytra(pl);

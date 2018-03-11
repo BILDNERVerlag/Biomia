@@ -15,13 +15,13 @@ public class VSSettingItem {
     private final int itemSlot;
     private final int settingSlot;
     private final ItemStack item;
-    private final int id;
+    private final int ID;
     private final boolean standard;
     private final VSGroup group;
     private final String name;
 
-    public VSSettingItem(ItemStack item, int id, int slot, boolean standard, VSGroup group, String name) {
-        this.id = id;
+    public VSSettingItem(ItemStack item, int ID, int slot, boolean standard, VSGroup group, String name) {
+        this.ID = ID;
         this.item = item;
         this.itemSlot = slot;
         this.settingSlot = slot + 9;
@@ -29,7 +29,7 @@ public class VSSettingItem {
         this.group = group;
         this.name = name;
 
-        VSSettings.putSettingItem(group.getMode(), id, this);
+        VSSettings.putSettingItem(group.getMode(), ID, this);
     }
 
     public void inverse(BiomiaPlayer bp, VSGroupInventory inv) {
@@ -47,8 +47,8 @@ public class VSSettingItem {
         return name;
     }
 
-    public int getId() {
-        return id;
+    public int getID() {
+        return ID;
     }
 
     public ItemStack getItem() {

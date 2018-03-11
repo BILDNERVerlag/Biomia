@@ -1,13 +1,13 @@
 package de.biomia.spigot.minigames.versus;
 
+import de.biomia.spigot.BiomiaServer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.minigames.versus.BWCommand;
-import de.biomia.spigot.general.BiomiaServer;
-import de.biomia.spigot.listeners.servers.VersusLobbyListener;
-import de.biomia.spigot.minigames.versus.games.skywars.chests.Items;
 import de.biomia.spigot.commands.minigames.versus.SWCommand;
-import de.biomia.spigot.minigames.versus.games.skywars.kits.KitManager;
 import de.biomia.spigot.commands.minigames.versus.VSCommands;
+import de.biomia.spigot.listeners.servers.VersusLobbyListener;
+import de.biomia.spigot.minigames.general.kits.KitManager;
+import de.biomia.spigot.minigames.versus.games.skywars.chests.Items;
 import org.bukkit.Bukkit;
 
 public class Versus extends BiomiaServer {

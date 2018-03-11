@@ -9,8 +9,8 @@ import de.biomia.spigot.messages.manager.ActionBar;
 import de.biomia.spigot.messages.manager.Scoreboards;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameType;
-import de.biomia.spigot.minigames.versus.games.skywars.kits.Kit;
-import de.biomia.spigot.minigames.versus.games.skywars.kits.KitManager;
+import de.biomia.spigot.minigames.general.kits.Kit;
+import de.biomia.spigot.minigames.general.kits.KitManager;
 import de.biomia.spigot.minigames.versus.games.skywars.var.Variables;
 import de.biomia.spigot.minigames.versus.settings.VSGroup;
 import de.biomia.spigot.minigames.versus.settings.VSRequest;
@@ -35,31 +35,18 @@ import java.util.HashMap;
 public class VSManager implements Listener {
 
     private final HashMap<BiomiaPlayer, VSSettings> settings = new HashMap<>();
-    private final HashMap<GameType, HashMap<Integer, String>> mapNames = new HashMap<>();
     private final HashMap<GameInstance, VSRequest> requests = new HashMap<>();
     private final Location home = new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 40, 0);
     private final ItemStack toChallangeItem = ItemCreator.itemCreate(Material.DIAMOND_SWORD, "\u00A7cHerausforderer");
     private final ItemStack settingItem = ItemCreator.itemCreate(Material.REDSTONE, "\u00A7cEinstellungen");
     private VSGroup main;
 
-    public VSManager() {
+    VSManager() {
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
         init();
     }
 
     private void init() {
-
-        HashMap<Integer, String> swMaps = new HashMap<>();
-        HashMap<Integer, String> bwMaps = new HashMap<>();
-        HashMap<Integer, String> vsMaps = new HashMap<>();
-
-        bwMaps.put(100, "Village");
-        swMaps.put(100, "Village");
-        vsMaps.put(100, "Village");
-
-        mapNames.put(GameType.BED_WARS_VS, bwMaps);
-        mapNames.put(GameType.SKY_WARS_VS, swMaps);
-        mapNames.put(GameType.KIT_PVP_VS, vsMaps);
 
         main = new VSGroup(null, "\u00A7cEinstellungen", null, 0, false, null);
 
@@ -67,17 +54,17 @@ public class VSManager implements Listener {
         ItemStack skywarsSettingItem = ItemCreator.itemCreate(Material.GRASS, "\u00A7aSkyWars");
         ItemStack kitPvPSettingItem = ItemCreator.itemCreate(Material.IRON_SWORD, "\u00A7dKitPvP");
 
-        VSGroup bedwars = main.registerNewGroup(GameType.BED_WARS_VS, bedwarsSettingItem, "\u00A7cBedWars", 6, 0, true);
-        VSGroup bedwarsMaps = bedwars.registerNewGroup(GameType.BED_WARS_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
+        VSGroup bedwars = main.registerDeaktivatableGroup(GameType.BED_WARS_VS, bedwarsSettingItem, "\u00A7cBedWars", 6, 0, true);
+        VSGroup bedwarsMaps = bedwars.registerGroup(GameType.BED_WARS_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
         bedwarsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, bedwarsMaps, "Map1"));
 
-        VSGroup skywars = main.registerNewGroup(GameType.SKY_WARS_VS, skywarsSettingItem, "\u00A7aSkyWars", 4, 0, true);
-        VSGroup skywarsMaps = skywars.registerNewGroup(GameType.SKY_WARS_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
+        VSGroup skywars = main.registerDeaktivatableGroup(GameType.SKY_WARS_VS, skywarsSettingItem, "\u00A7aSkyWars", 4, 0, true);
+        VSGroup skywarsMaps = skywars.registerGroup(GameType.SKY_WARS_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
         skywarsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, skywarsMaps, "Map1"));
-        skywars.registerNewGroup(GameType.SKY_WARS_VS, Variables.kitItem, SkyWarsItemNames.kitItemName, 1);
+        skywars.registerGroup(GameType.SKY_WARS_VS, Variables.kitItem, SkyWarsItemNames.kitItemName, 1);
 
-        VSGroup kitpvp = main.registerNewGroup(GameType.KIT_PVP_VS, kitPvPSettingItem, "\u00A7dKitPvP", 2, 0, true);
-        VSGroup kitpvpsMaps = kitpvp.registerNewGroup(GameType.KIT_PVP_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
+        VSGroup kitpvp = main.registerDeaktivatableGroup(GameType.KIT_PVP_VS, kitPvPSettingItem, "\u00A7dKitPvP", 2, 0, true);
+        VSGroup kitpvpsMaps = kitpvp.registerGroup(GameType.KIT_PVP_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
         kitpvpsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, kitpvpsMaps, "Map1"));
     }
 
@@ -88,10 +75,6 @@ public class VSManager implements Listener {
         p.setHealth(20);
         p.setFoodLevel(20);
         Scoreboards.setTabList(p);
-    }
-
-    public String getMapName(GameType mode, int mapID) {
-        return mapNames.get(mode).get(mapID);
     }
 
     public void setInventory(Player p) {

@@ -11,8 +11,8 @@ import de.biomia.spigot.general.cosmetics.particles.ParticleIniter;
 import de.biomia.spigot.general.reportsystem.ReportSQL;
 import de.biomia.spigot.listeners.ChannelListener;
 import de.biomia.spigot.listeners.servers.BauServerListener;
-import de.biomia.spigot.minigames.bedwars.BedWars;
-import de.biomia.spigot.minigames.skywars.SkyWars;
+import de.biomia.spigot.minigames.GameInstance;
+import de.biomia.spigot.minigames.bedwars.var.Variables;
 import de.biomia.spigot.minigames.versus.Versus;
 import de.biomia.spigot.server.demoserver.Weltenlabor;
 import de.biomia.spigot.server.freebuild.Freebuild;
@@ -22,21 +22,25 @@ import de.biomia.spigot.specialEvents.easterEvent.EasterEvent;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.PlayerToServerConnector;
 import de.biomia.universal.MySQL;
-import de.biomia.universal.UniversalBiomia;
 import net.minecraft.server.v1_12_R1.DedicatedServer;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.WorldCreator;
 import org.bukkit.command.CommandMap;
 import org.bukkit.craftbukkit.v1_12_R1.CraftServer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import static de.biomia.spigot.minigames.GameType.BED_WARS;
+import static de.biomia.spigot.minigames.GameType.SKY_WARS;
 
 public class Main extends JavaPlugin {
 
     /**
      * Change the TestServer here!
      */
-    private final static String actualTestGroup = "QuestServer";
+    private static final String actualTestGroup = "QuestServer";
 
     private static EasterEvent event;
     private static Main plugin;
@@ -94,28 +98,6 @@ public class Main extends JavaPlugin {
         Cosmetic.initGroup(new CosmeticGroup(Group.PARTICLES, ItemCreator.itemCreate(Material.BLAZE_POWDER, "\u00A73Particles")));
         Cosmetic.initGroup(new CosmeticGroup(Group.SUITS, ItemCreator.itemCreate(Material.GOLD_CHESTPLATE, "\u00A75Suits")));
 
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("Owner", "\u00A7cOwner | ");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("Admin", "\u00A75Admin | ");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("SrBuilder", "\u00A72SrBuilder | ");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("JrBuilder", "\u00A7aJrBuilder | ");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("SrModerator", "\u00A79SrMod | ");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("Moderator", "\u00A73Mod | ");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("Supporter", "\u00A7bSup | ");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("Builder", "\u00A72Builder | ");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("YouTube", "\u00A74[\u00A70Y\u00A7fT\u00A74] | ");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("PremiumZehn", "\u00A76X | ");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("PremiumNeun", "\u00A76IX | ");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("PremiumAcht", "\u00A7eVIII | ");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("PremiumSieben", "\u00A7eVII | ");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("PremiumSechs", "\u00A7eVI | ");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("PremiumFuenf", "\u00A7eV | ");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("PremiumVier", "\u00A7eIV | ");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("PremiumDrei", "\u00A7eIII | ");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("PremiumZwei", "\u00A7eII | ");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("PremiumEins", "\u00A7eI | ");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("RegSpieler", "\u00A77");
-        UniversalBiomia.RANK_NAMES_PREFIXES.put("UnregSpieler", "\u00A78");
-
         groupName = ((DedicatedServer) ((CraftServer) Bukkit.getServer()).getServer()).propertyManager.properties.getProperty("server-name").split("-")[0];
 
         groupName = groupName.equals("TestServer") ? actualTestGroup : groupName;
@@ -127,10 +109,10 @@ public class Main extends JavaPlugin {
                 new Quests().start();
                 break;
             case "BedWars":
-                BedWars.init();
+                new GameInstance(BED_WARS, new WorldCreator(Variables.name).createWorld(), Variables.name).getGameMode().start();
                 break;
             case "SkyWars":
-                SkyWars.init();
+                new GameInstance(SKY_WARS, new WorldCreator(Variables.name).createWorld(), Variables.name).getGameMode().start();
                 break;
             case "DuellLobby":
                 new Versus().start();

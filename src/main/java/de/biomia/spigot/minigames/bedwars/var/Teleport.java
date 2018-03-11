@@ -1,8 +1,9 @@
 package de.biomia.spigot.minigames.bedwars.var;
 
-import de.biomia.spigot.Biomia;
+import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
-import de.biomia.spigot.minigames.general.teams.Team;
+import de.biomia.spigot.minigames.GameTeam;
+import de.biomia.spigot.minigames.bedwars.BedWars;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -13,7 +14,7 @@ import java.util.Iterator;
 
 public class Teleport {
 
-    private static final HashMap<Player, Location> starts = new HashMap<>();
+    private static final HashMap<BiomiaPlayer, Location> starts = new HashMap<>();
 
     public static void teleportAllToWarteLobby(Location warteLobbySpawn) {
 
@@ -32,17 +33,15 @@ public class Teleport {
         }.runTaskTimer(Main.getPlugin(), 0, 1);
     }
 
-    public static void teleportPlayerToMap(HashMap<Team, Location> spawns) {
-
-        Iterator<? extends Player> players = Bukkit.getOnlinePlayers().iterator();
-
+    public static void teleportPlayerToMap(HashMap<GameTeam, Location> spawns) {
+        Iterator<BiomiaPlayer> players = BedWars.getBedWars().getInstance().getPlayers().iterator();
         new BukkitRunnable() {
             @Override
             public void run() {
                 if (players.hasNext()) {
-                    Player p = players.next();
-                    p.setFallDistance(0);
-                    p.teleport(spawns.get(Biomia.getTeamManager().getTeam(p)));
+                    BiomiaPlayer bp = players.next();
+                    bp.getPlayer().setFallDistance(0);
+                    bp.getPlayer().teleport(spawns.get(BedWars.getBedWars().getTeam(bp)));
                 } else {
                     cancel();
                 }
@@ -50,15 +49,15 @@ public class Teleport {
         }.runTaskTimer(Main.getPlugin(), 0, 1);
     }
 
-    public static void teleportBackHome(Player p) {
-        starts.put(p, p.getLocation());
+    public static void teleportBackHome(BiomiaPlayer bp) {
+        starts.put(bp, bp.getPlayer().getLocation());
     }
 
-    public static Location getStartLocation(Player p) {
-        return starts.get(p);
+    public static Location getStartLocation(BiomiaPlayer bp) {
+        return starts.get(bp);
     }
 
-    public static void removeFromStartLocs(Player p) {
-        starts.remove(p);
+    public static void removeFromStartLocs(BiomiaPlayer bp) {
+        starts.remove(bp);
     }
 }

@@ -3,6 +3,8 @@ package de.biomia.spigot.listeners.servers;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.minigames.versus.Versus;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -12,6 +14,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 public class VersusLobbyListener extends BiomiaListener {
 
@@ -67,5 +70,10 @@ public class VersusLobbyListener extends BiomiaListener {
             e.setCancelled(true);
             e.setFoodLevel(20);
         }
+    }
+
+    @EventHandler
+    public static void onSpawn(PlayerSpawnLocationEvent e) {
+        e.setSpawnLocation(new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 40, 0));
     }
 }

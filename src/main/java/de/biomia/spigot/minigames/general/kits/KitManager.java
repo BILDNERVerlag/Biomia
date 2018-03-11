@@ -1,18 +1,15 @@
-package de.biomia.spigot.minigames.skywars.kits;
+package de.biomia.spigot.minigames.general.kits;
 
-import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.universal.MySQL;
-import de.biomia.spigot.events.skywars.KitChangeEvent;
 import de.biomia.spigot.messages.SkyWarsItemNames;
-import de.biomia.spigot.minigames.skywars.var.Variables;
+import de.biomia.spigot.messages.SkyWarsMessages;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.SkyWarsKitManager;
+import de.biomia.universal.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -23,93 +20,23 @@ import org.bukkit.potion.PotionType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
-public class Kits {
+public class KitManager {
 
-    public static void loadKits(Player p) {
+    public static final HashMap<Integer, Kit> allKits = new HashMap<>();
+    private static final HashMap<BiomiaPlayer, KitManager> playerKits = new HashMap<>();
+    public static Kit standardKit;
+    private final ArrayList<Kit> availableKits = new ArrayList<>();
+    private final Inventory inv;
+    private final BiomiaPlayer bp;
+    private Kit selectedKit = standardKit;
 
-        ArrayList<Kit> availableKits = new ArrayList<>();
-        for (int i : SkyWarsKitManager.getAvailableKits(Biomia.getBiomiaPlayer(p)))
-            availableKits.add(Variables.kits.get(i));
-
-        // Add Standard Kit
-        availableKits.add(Variables.kits.get(0));
-
-        // Add Kits with Permission
-        for (int entry : Variables.kits.keySet()) {
-            Kit k = Variables.kits.get(entry);
-            if (!availableKits.contains(k)
-                    && (p.hasPermission("biomia.sw.kit." + k.getName()) || p.hasPermission("biomia.sw.kit.*")))
-                availableKits.add(k);
-        }
-
-        Variables.availableKits.put(p, availableKits);
-
-        int kitID = MySQL.executeQuerygetint("SELECT kitID FROM `LSSkyWarsKit` WHERE biomiaID = " + Biomia.getBiomiaPlayer(p).getBiomiaPlayerID(), "kitID", MySQL.Databases.biomia_db);
-
-        availableKits.forEach(each -> {
-            if (each.getID() == kitID) {
-                Variables.selectedKit.put(p, each);
-                p.getInventory().setItem(7, ItemCreator.itemCreate(each.getIcon().getType(), "\u00A75" + each.getName()));
-            }
-        });
-
-        if (getSelectedKit(p) == null) {
-            Variables.selectedKit.put(p, Variables.standardKit);
-            p.getInventory().setItem(7, ItemCreator.itemCreate(Variables.standardKit.getIcon().getType(), "\u00A75" + Variables.standardKit.getName()));
-        }
-    }
-
-    public static Kit getSelectedKit(Player p) {
-        return Variables.selectedKit.get(p);
-
-    }
-
-    public static Inventory getKitMenu(Player p) {
-        Inventory kit_menu = Bukkit.createInventory(null, 27, "Kits");
-        int i = 0;
-        for (int entry : Variables.kits.keySet()) {
-            Kit eachKit = Variables.kits.get(entry);
-            if (!eachKit.isShowable()) {
-                if (Variables.availableKits.get(p).contains(eachKit)) {
-                    kit_menu.setItem(i, eachKit.getIcon());
-                    i++;
-                }
-            } else {
-                kit_menu.setItem(i, eachKit.getIcon());
-                i++;
-            }
-        }
-        return kit_menu;
-    }
-
-    public static void setKitInventory(Player p) {
-        if (Variables.selectedKit.get(p) != null) {
-            Variables.selectedKit.get(p).copy(p.getInventory(), p);
-        }
-    }
-
-    public static boolean selectSkyWarsKit(Player p, Kit k) {
-
-        BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-
-        if (Variables.selectedKit.get(p) != null && Variables.selectedKit.get(p).equals(k)) {
-            return false;
-        }
-
-        Bukkit.getPluginManager().callEvent(new KitChangeEvent(bp, k.getID()));
-
-        Variables.selectedKit.put(p, k);
-        p.getInventory().setItem(7, ItemCreator.itemCreate(k.getIcon().getType(), "\u00A75" + k.getName()));
-
-        if (MySQL.executeQuerygetint("SELECT kitID FROM `LSSkyWarsKit` WHERE biomiaID = " + bp.getBiomiaPlayerID(), "kitID", MySQL.Databases.biomia_db) != 0) {
-            MySQL.executeUpdate(
-                    "UPDATE LSSkyWarsKit SET `kitID` = " + k.getID() + " WHERE biomiaID = " + bp.getBiomiaPlayerID(), MySQL.Databases.biomia_db);
-        } else {
-            MySQL.executeUpdate(
-                    "INSERT INTO `LSSkyWarsKit` (biomiaID,kitID) Values(" + bp.getBiomiaPlayerID() + ", " + k.getID() + ")", MySQL.Databases.biomia_db);
-        }
-        return true;
+    private KitManager(BiomiaPlayer bp) {
+        this.bp = bp;
+        this.inv = Bukkit.createInventory(null, 36, "Kits");
+        playerKits.put(bp, this);
+        loadKits();
     }
 
     public static void initKits() {
@@ -119,8 +46,8 @@ public class Kits {
         standartKit.addItem(0, ItemCreator.itemCreate(Material.IRON_SWORD));
         standartKit.addItem(1, ItemCreator.itemCreate(Material.IRON_PICKAXE));
         standartKit.addItem(2, ItemCreator.itemCreate(Material.IRON_AXE));
-        Variables.standardKit = standartKit;
         standartKit.setDescription(Arrays.asList("Die gute alte", "Standardausr\u00fcstung"));
+        standardKit = standartKit;
 
         // Bauarbeiter
         ItemStack yellow_hat = new ItemStack(Material.LEATHER_HELMET, 1);
@@ -344,5 +271,86 @@ public class Kits {
         meta.setBasePotionData(new PotionData(type, false, higherLevel));
         potion.setItemMeta(meta);
         return potion;
+    }
+
+    public static KitManager getManager(BiomiaPlayer bp) {
+        return playerKits.computeIfAbsent(bp, kits -> new KitManager(bp));
+    }
+
+    private void loadKits() {
+
+        int kitID = MySQL.executeQuerygetint("SELECT kitID FROM `LSSkyWarsKit` WHERE biomiaID = " + bp.getBiomiaPlayerID(), "kitID", MySQL.Databases.biomia_db);
+
+        // Add Standard Kit
+        availableKits.add(standardKit);
+
+        for (int i : SkyWarsKitManager.getAvailableKits(bp)) {
+            Kit k = allKits.get(i);
+            if (k != null)
+                availableKits.add(k);
+        }
+
+        // Add Kits with Permission
+        for (Kit allKits : allKits.values()) {
+            if (!availableKits.contains(allKits) && (bp.getPlayer().hasPermission("biomia.sw.kit." + allKits.getName()) || bp.getPlayer().hasPermission("biomia.sw.kit.*")))
+                availableKits.add(allKits);
+            if (allKits.getID() == kitID && availableKits.contains(allKits))
+                selectedKit = allKits;
+        }
+    }
+
+    public void showInventory(Kit kit) {
+        bp.getPlayer().openInventory(kit.getDemoInv());
+    }
+
+    public void openKitMenu() {
+
+        inv.clear();
+        for (Kit allKits : allKits.values()) {
+            if (allKits.isShowable() || availableKits.contains(allKits))
+                inv.addItem(allKits.getIcon());
+        }
+        inv.setItem(inv.getSize() - 5, selectedKit.getIcon());
+        bp.getPlayer().openInventory(inv);
+    }
+
+    public boolean buy(Kit k) {
+
+        if (!availableKits.contains(k)) {
+            if (bp.getCoins() >= k.getPrice()) {
+                boolean b = SkyWarsKitManager.addKit(bp, k.getID());
+                if (b) {
+                    bp.takeCoins(k.getPrice());
+                    bp.getPlayer().sendMessage(SkyWarsMessages.kitPurchased.replaceAll("%k", k.getName()));
+                    availableKits.add(k);
+                    selectSkyWarsKit(k);
+                } else
+                    bp.getPlayer().sendMessage(SkyWarsMessages.errorWhilePurchasing.replaceAll("%k", k.getName()));
+                return b;
+            } else {
+                bp.getPlayer().sendMessage(SkyWarsMessages.notEnoughCoins.replaceAll("%k", k.getName()));
+                bp.getPlayer().sendMessage(
+                        SkyWarsMessages.missingCoins.replaceAll("%k", k.getName()).replaceAll("%c", k.getPrice() - bp.getCoins() + ""));
+            }
+        } else {
+            bp.getPlayer().sendMessage(SkyWarsMessages.alreadyPurchased.replaceAll("%k", k.getName()));
+        }
+        return false;
+    }
+
+    public void setKitInventory() {
+        selectedKit.copy(bp.getPlayer());
+    }
+
+    public boolean selectSkyWarsKit(Kit k) {
+        if (selectedKit.equals(k))
+            return false;
+        selectedKit = k;
+        SkyWarsKitManager.setLastSelectedKit(bp, k.getID());
+        return true;
+    }
+
+    public ArrayList<Kit> getAvailableKits() {
+        return availableKits;
     }
 }

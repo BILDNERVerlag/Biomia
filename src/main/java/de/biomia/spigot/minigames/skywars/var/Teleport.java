@@ -3,7 +3,7 @@ package de.biomia.spigot.minigames.skywars.var;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.manager.ActionBar;
-import de.biomia.spigot.minigames.GameState;
+import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.skywars.SkyWars;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -41,7 +41,7 @@ public class Teleport {
             public void run() {
                 if (players.hasNext()) {
                     Player p = players.next();
-                    p.teleport(Variables.teamSpawns.get(Biomia.getTeamManager().getTeam(p)));
+                    p.teleport(Variables.teamSpawns.get(SkyWars.getSkyWars().getTeam(Biomia.getBiomiaPlayer(p))));
                 } else {
                     cancel();
                 }
@@ -61,7 +61,7 @@ public class Teleport {
                         Biomia.getBiomiaPlayer(p).setBuild(true);
                         Biomia.getBiomiaPlayer(p).setDamageEntitys(true);
                         Biomia.getBiomiaPlayer(p).setGetDamage(true);
-                        SkyWars.gameState = GameState.INGAME;
+                        SkyWars.getSkyWars().getStateManager().setActualGameState(GameStateManager.GameState.INGAME);
                         cancel();
                     } else {
                         ActionBar.sendActionBar("\u00A78" + waitForStartCountdown, p);

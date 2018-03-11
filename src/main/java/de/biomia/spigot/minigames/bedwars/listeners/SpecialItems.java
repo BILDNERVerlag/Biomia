@@ -1,17 +1,19 @@
 package de.biomia.spigot.minigames.bedwars.listeners;
 
 import de.biomia.spigot.Biomia;
+import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.messages.manager.ActionBar;
+import de.biomia.spigot.minigames.GameStateManager;
+import de.biomia.spigot.minigames.GameTeam;
+import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.spigot.minigames.bedwars.BedWars;
 import de.biomia.spigot.minigames.bedwars.var.Teleport;
 import de.biomia.spigot.minigames.bedwars.var.Variables;
-import de.biomia.spigot.minigames.GameState;
 import de.biomia.spigot.minigames.general.shop.ItemType;
-import de.biomia.spigot.minigames.general.teams.Team;
 import de.biomia.spigot.tools.Particles;
 import net.minecraft.server.v1_12_R1.AttributeInstance;
 import net.minecraft.server.v1_12_R1.EnumParticle;
@@ -37,14 +39,13 @@ public class SpecialItems implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
-
         Player p = e.getPlayer();
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (e.getClickedBlock() != null && e.getClickedBlock().getType() == Material.ENDER_CHEST) {
-                Team t = Variables.getTeamByTeamChests(e.getClickedBlock());
+                GameTeam t = Variables.getTeamByTeamChests(e.getClickedBlock());
                 if (t != null) {
-                    Inventory inv = Variables.teamChests.computeIfAbsent(t, t1 -> Bukkit.createInventory(null, 27,
-                            "\u00A78Team Kiste: " + t1.getColorcode() + Biomia.getTeamManager().translate(t1.getTeamname())));
+                    Inventory inv = Variables.teamChests.computeIfAbsent(t, t1 -> Bukkit.createInventory(null, 27, "\u00A78Team Kiste: " + t1.getColorcode() + t1.getColor().translate()));
                     e.setCancelled(true);
                     p.openInventory(inv);
                 }
@@ -54,25 +55,24 @@ public class SpecialItems implements Listener {
             String displayname = e.getItem().getItemMeta().getDisplayName();
 
             if (displayname.equals(BedWarsItemNames.teamWaehlerItem))
-                p.openInventory(Variables.teamJoiner);
+                p.openInventory(BedWars.getBedWars().getTeamSwitcher());
             else if (displayname.equals(BedWarsItemNames.startItem)) {
-                if (Variables.countDown.getCountdown() > 5)
-                    Variables.countDown.setCountdown(5);
+                if (BedWars.getBedWars().getStateManager().getLobbyState().getCountDown() > 5)
+                    BedWars.getBedWars().getStateManager().getLobbyState().setCountDown(5);
             } else if (displayname.equals(BedWarsItemNames.bedSetter)) {
                 Block blockFoot = p.getLocation().getBlock();
                 Block blockHead = p.getTargetBlock((Set<Material>) null, 100);
 
                 if (blockFoot.getType() == Material.BED_BLOCK && blockHead.getType() == Material.BED_BLOCK) {
-                    BedWarsConfig.addBedsLocations(blockFoot.getLocation(), blockHead.getLocation(),
-                            Biomia.getTeamManager().getTeamFromData(e.getItem().getData().getData()));
+                    BedWarsConfig.addBedsLocations(blockFoot.getLocation(), blockHead.getLocation(), TeamColor.getColorFromData(e.getItem().getData().getData()));
                     Bukkit.broadcastMessage("Bett hinzugef\u00fcgt!");
                 } else {
                     p.sendMessage(BedWarsMessages.blocksMustBeBeds);
                 }
 
             } else if (displayname.equals(BedWarsItemNames.warper)) {
-                if (Teleport.getStartLocation(p) == null) {
-                    warpHome(p, e.getItem());
+                if (Teleport.getStartLocation(bp) == null) {
+                    warpHome(bp, e.getItem());
                 }
             } else if (displayname.equals(BedWarsItemNames.wand)) {
                 e.setCancelled(true);
@@ -111,14 +111,14 @@ public class SpecialItems implements Listener {
                 }
             } else if (e.getItem().getType() == Material.MONSTER_EGG) {
                 if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                    summonTNTSheep(p, e.getItem());
+                    summonTNTSheep(bp, e.getItem());
                     e.setCancelled(true);
                 }
             }
         }
 
-        if (!Biomia.getBiomiaPlayer(p).canBuild()) {
-            if (!Variables.livingPlayer.contains(p) || BedWars.gameState != GameState.INGAME)
+        if (!bp.canBuild()) {
+            if (!BedWars.getBedWars().getInstance().containsPlayer(bp) || BedWars.getBedWars().getStateManager().getActualGameState() != GameStateManager.GameState.INGAME)
                 e.setCancelled(true);
         }
     }
@@ -216,26 +216,25 @@ public class SpecialItems implements Listener {
         BedWarsConfig.addSpawnerLocations(l, itemType);
     }
 
-    private void warpHome(Player p, ItemStack is) {
+    private void warpHome(BiomiaPlayer bp, ItemStack is) {
 
-        if (Biomia.getTeamManager().isPlayerInAnyTeam(p)) {
-            Team team = Biomia.getTeamManager().getTeam(p);
-            Teleport.teleportBackHome(p);
-
+        GameTeam team = BedWars.getBedWars().getTeam(bp);
+        if (team != null) {
+            Teleport.teleportBackHome(bp);
             new BukkitRunnable() {
                 final Location loc = Variables.teamSpawns.get(team).clone();
-                final Location location = p.getLocation();
+                final Location location = bp.getPlayer().getLocation();
                 int i = 50;
 
                 @Override
                 public void run() {
-                    if (Teleport.getStartLocation(p) != null) {
+                    if (Teleport.getStartLocation(bp) != null) {
                         if (i == 0) {
-                            p.teleport(Variables.teamSpawns.get(team));
+                            bp.getPlayer().teleport(Variables.teamSpawns.get(team));
                             is.setAmount(is.getAmount() - 1);
                         } else if (i <= 50) {
                             if (i % 10 == 0) {
-                                ActionBar.sendActionBarTime("\u00A76" + i / 10 + " Sekunden", p, 0, 10, 0);
+                                ActionBar.sendActionBarTime("\u00A76" + i / 10 + " Sekunden", bp.getPlayer(), 0, 10, 0);
                                 for (Player allPlayer : Bukkit.getOnlinePlayers())
                                     allPlayer.playSound(allPlayer.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
                             }
@@ -267,7 +266,7 @@ public class SpecialItems implements Listener {
             }.runTaskTimer(Main.getPlugin(), 0, 2);
 
         } else {
-            p.sendMessage("\u00A7cDu bist in keinem Team!");
+            bp.sendMessage("\u00A7cDu bist in keinem Team!");
         }
     }
 
@@ -329,9 +328,10 @@ public class SpecialItems implements Listener {
         }.runTaskLater(Main.getPlugin(), 20 * 15);
     }
 
-    private void summonTNTSheep(Player p, ItemStack is) {
+    private void summonTNTSheep(BiomiaPlayer bp, ItemStack is) {
 
-        Team t = Biomia.getTeamManager().getTeam(p);
+        Player p = bp.getPlayer();
+        GameTeam t = BedWars.getBedWars().getTeam(bp);
         if (t != null) {
             is.setAmount(is.getAmount() - 1);
             Sheep sheep = (Sheep) p.getWorld().spawnEntity(p.getLocation().add(0, 1, 0), EntityType.SHEEP);
@@ -340,11 +340,11 @@ public class SpecialItems implements Listener {
             for (Entity entity : entities) {
                 if (entities instanceof Player) {
                     Player target = (Player) entity;
-                    if (Biomia.getTeamManager().getTeam(p) != null && !Biomia.getTeamManager().getTeam(p).equals(t)) {
+                    GameTeam tempTeam = BedWars.getBedWars().getTeam(Biomia.getBiomiaPlayer(target));
+                    if (tempTeam != null && !tempTeam.equals(t)) {
                         sheep.setTarget(target);
                         new BukkitRunnable() {
                             int i = 0;
-
                             @Override
                             public void run() {
                                 if (entity.getLocation().distance(target.getLocation()) <= 4 || i == 15) {

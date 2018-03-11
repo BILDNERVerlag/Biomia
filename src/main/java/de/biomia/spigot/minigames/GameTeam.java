@@ -1,8 +1,14 @@
 package de.biomia.spigot.minigames;
 
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.messages.BedWarsItemNames;
+import de.biomia.spigot.messages.BedWarsMessages;
+import de.biomia.spigot.messages.manager.ActionBar;
+import de.biomia.spigot.minigames.bedwars.lobby.TeamSwitcher;
 import de.biomia.spigot.minigames.general.Dead;
+import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Location;
+import org.bukkit.Material;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,10 +20,8 @@ public abstract class GameTeam {
     private final TeamColor color;
     private final Location home;
 
-    protected GameTeam(TeamColor color, ArrayList<BiomiaPlayer> player, Location loc, GameMode mode) {
+    protected GameTeam(TeamColor color, Location loc, GameMode mode) {
         this.players = new HashMap<>();
-        for (BiomiaPlayer bp : player)
-            players.put(bp, true);
         this.color = color;
         this.home = loc;
         this.mode = mode;
@@ -31,17 +35,40 @@ public abstract class GameTeam {
     public void setDead(BiomiaPlayer bp) {
         players.put(bp, false);
         Dead.setDead(bp);
-        if (mode.canStop())
+        if (mode.canStop()) {
             mode.stop();
+        }
     }
 
-    public void addPlayer(BiomiaPlayer bp) {
-        mode.getInstance().getPlayers().add(bp);
+    public void join(BiomiaPlayer bp) {
+        if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.LOBBY) {
+            bp.sendMessage("\u00A7cDas Spiel hat bereits begonnen!");
+            return;
+        }
+
+        if (isFull()) {
+            bp.sendMessage(getColorcode() + BedWarsMessages.teamFull);
+            return;
+        }
+
+        GameTeam team = mode.getTeam(bp);
+        if (team != null) {
+            if (team.equals(this)) {
+                bp.sendMessage(BedWarsMessages.alreadyInTeam);
+                return;
+            }
+            team.leave(bp);
+        }
+
+        for (BiomiaPlayer pl : getPlayers()) {
+            ActionBar.sendActionBar(BedWarsMessages.joinedTeam.replace("%p", getColorcode() + bp.getName()), pl.getPlayer());
+        }
+
+        bp.getPlayer().getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, BedWarsItemNames.teamWaehlerItem, getColordata()));
+
         players.put(bp, true);
-    }
 
-    public void removePlayer(BiomiaPlayer bp) {
-
+        TeamSwitcher.getTeamSwitcher(mode);
     }
 
     public boolean containsPlayer(BiomiaPlayer bp) {
@@ -60,12 +87,16 @@ public abstract class GameTeam {
         return color.translate();
     }
 
+    public boolean isFull() {
+        return players.size() == mode.getInstance().getTeamSize();
+    }
+
     public TeamColor getColor() {
         return color;
     }
 
     public void leave(BiomiaPlayer bp) {
-        setDead(bp);
+        players.remove(bp);
     }
 
     public Location getHome() {

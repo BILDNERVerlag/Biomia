@@ -19,13 +19,13 @@ public class VSRequest {
     private static final ArrayList<VSRequest> openRequests = new ArrayList<>();
     private static final ArrayList<BiomiaPlayer> playersInRound = new ArrayList<>();
     private static int lastID = 0;
+
     private int id;
-    private String  mapName;
+    private String mapName;
     private GameType mode;
     private BiomiaPlayer leader;
     private BiomiaPlayer bp2;
     private GameInstance gameInstance;
-    private boolean isServerRunning = false;
     private boolean badStart = false;
 
     public VSRequest(BiomiaPlayer leader, BiomiaPlayer bp2) {
@@ -34,10 +34,9 @@ public class VSRequest {
             badStart = true;
             return;
         }
-        id = lastID;
+        id = lastID++;
         this.leader = leader;
         this.bp2 = bp2;
-        lastID++;
         openRequests.add(this);
     }
 
@@ -62,26 +61,20 @@ public class VSRequest {
         return false;
     }
 
-    public BiomiaPlayer getLeader() {
-        return leader;
-    }
-
-    public BiomiaPlayer getReceiver() {
-        return bp2;
-    }
-
     public void sendRequest() {
         if (!badStart)
             if (!isInRunningRound())
                 if (canStart()) {
                     Player p = leader.getPlayer();
-                    BaseComponent comp = new TextComponent("\u00A7cDer Spieler \u00A7d" + leader.getPlayer().getName() + " \u00A7chat dich Herausgefordert!\n");
+                    BaseComponent comp = new TextComponent("\u00A7cDer Spieler \u00A7d" + leader.getName() + " \u00A7chat dich Herausgefordert!\n");
                     comp.addExtra("\u00A75Modus\u00A77/\u00A72Map\u00A78:\u00A75 " + getModus().getDisplayName() + "\u00A77/\u00A72" + mapName);
                     comp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/accept " + p.getName()));
                     bp2.getPlayer().spigot().sendMessage(comp);
-                    p.sendMessage("\u00A7cDu hast den Spieler \u00A7d" + bp2.getPlayer().getName() + " \u00A7cHerausgefordert!");
-                } else
+                    p.sendMessage("\u00A7cDu hast den Spieler \u00A7d" + bp2.getName() + " \u00A7cHerausgefordert!");
+                } else {
                     leader.getPlayer().sendMessage("\u00A7cDeine Einstellungen sind zu genau!");
+                    openRequests.remove(this);
+                }
     }
 
     private boolean isInRunningRound() {
@@ -93,14 +86,6 @@ public class VSRequest {
             return true;
         }
         return false;
-    }
-
-    private int getID() {
-        return id;
-    }
-
-    public boolean isServerRunning() {
-        return isServerRunning;
     }
 
     public void accept() {
@@ -129,12 +114,9 @@ public class VSRequest {
     }
 
     public void startServer() {
-        if (isServerRunning)
-            return;
-        isServerRunning = true;
         gameInstance = new GameInstance(mode, Versus.getInstance().getManager().copyWorld(mode, id, mapName), mapName);
-        gameInstance.addPlayer(leader);
-        gameInstance.addPlayer(bp2);
+        gameInstance.registerPlayer(leader);
+        gameInstance.registerPlayer(bp2);
         ((Versus) Biomia.getSeverInstance()).getManager().getRequests().put(gameInstance, this);
     }
 
@@ -152,14 +134,14 @@ public class VSRequest {
 
         int id = 100;
         VSSettingItem item = VSSettings.getItem(mode, id);
+
         while (item != null) {
-            if (requesterSettings.getSetting(item)) {
+            if (requesterSettings.getSetting(item))
                 maps.add(item.getName());
-            }
             id++;
             item = VSSettings.getItem(mode, id);
         }
-        if (maps.size() != 0) {
+        if (!maps.isEmpty()) {
             mapName = maps.get(new Random().nextInt(maps.size()));
             return true;
         }

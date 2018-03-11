@@ -80,4 +80,13 @@ public enum TeamColor {
             return "Gelb";
         }
     }
+
+    public static TeamColor getColorFromData(short data) {
+        for (TeamColor color : values()) {
+            if (color.getData() == data) {
+                return color;
+            }
+        }
+        return BLACK;
+    }
 }

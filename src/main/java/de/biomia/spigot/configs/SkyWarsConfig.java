@@ -1,8 +1,8 @@
 package de.biomia.spigot.configs;
 
-import de.biomia.spigot.Biomia;
-import de.biomia.spigot.minigames.general.teams.Team;
-import de.biomia.spigot.minigames.general.teams.Teams;
+import de.biomia.spigot.minigames.TeamColor;
+import de.biomia.spigot.minigames.bedwars.BedWars;
+import de.biomia.spigot.minigames.skywars.SkyWars;
 import de.biomia.spigot.minigames.skywars.chests.Chests;
 import de.biomia.spigot.minigames.skywars.var.Variables;
 import org.bukkit.Bukkit;
@@ -10,6 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
+import org.bukkit.entity.Entity;
 
 import java.util.UUID;
 
@@ -31,7 +32,7 @@ public class SkyWarsConfig extends Config {
         getConfig().set("Spawnpoints." + (lastID + 1) + ".World", wo);
 
         getConfig().set("lastID", lastID + 1);
-        Variables.teamSpawns.put(Biomia.getTeamManager().getTeams().get(lastID), loc);
+        Variables.teamSpawns.put(SkyWars.getSkyWars().getTeams().get(lastID), loc);
         saveConfig();
     }
 
@@ -111,7 +112,7 @@ public class SkyWarsConfig extends Config {
                 World wo = Bukkit.getWorld(getConfig().getString("Spawnpoints." + i + ".World"));
 
                 Location loc = new Location(wo, x, y, z, ya, 0);
-                Variables.teamSpawns.put(Biomia.getTeamManager().getTeams().get(i - 1), loc);
+                Variables.teamSpawns.put(SkyWars.getSkyWars().getTeams().get(i - 1), loc);
             }
         }
     }
@@ -224,44 +225,25 @@ public class SkyWarsConfig extends Config {
         }
     }
 
-    public static void addTeamJoiner(UUID uuid, Team t) {
-        getConfig().set("Joiner." + t.getTeamname(), uuid.toString());
-        Variables.joiner.put(t, uuid);
+    public static void addTeamJoiner(Entity entity, TeamColor t) {
+        getConfig().set("Joiner." + t.name(), entity.toString());
+        Variables.joiner.put(t, entity);
         saveConfig();
     }
 
     public static void loadTeamJoiner() {
 
-        if (Biomia.getTeamManager().getTeams().size() == 4) {
-            for (Teams t : Teams.values()) {
-                if (t.name().equalsIgnoreCase("Black") || t.name().equalsIgnoreCase("White")
-                        || t.name().equalsIgnoreCase("Orange") || t.name().equalsIgnoreCase("Purple")) {
-                    Bukkit.getEntity(UUID.fromString(getConfig().getString("Joiner." + t.name()))).remove();
-                }
-            }
-        }
-
-        for (Team team : Biomia.getTeamManager().getTeams()) {
-            String stringuuid = getConfig().getString("Joiner." + team.getTeamname());
-
-            if (stringuuid != null) {
-                Variables.joiner.put(team, UUID.fromString(stringuuid));
+        int remFromID = BedWars.getBedWars().getTeams().size();
+        for (TeamColor t : TeamColor.values()) {
+            Entity entity = Bukkit.getEntity(UUID.fromString(getConfig().getString("Joiner." + t.name())));
+            if (t.getID() > remFromID) {
+                entity.remove();
             } else {
-                continue;
+                Variables.joiner.put(t, entity);
+                entity.setCustomName(t.getColorcode() + t.translate());
+                entity.setCustomNameVisible(true);
             }
-
-            Bukkit.getEntity(UUID.fromString(stringuuid))
-                    .setCustomName(team.getColorcode() + Biomia.getTeamManager().translate(team.getTeamname()));
         }
 
     }
-
-    public static void removeTeamJoiner(Team t) {
-        getConfig().set("Joiner." + t.getTeamname(), null);
-        saveConfig();
-
-        if (Variables.joiner.containsKey(t))
-            Variables.joiner.remove(t);
-    }
-
 }

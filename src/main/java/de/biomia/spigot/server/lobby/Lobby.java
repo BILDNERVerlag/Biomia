@@ -4,7 +4,7 @@ import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.general.RandomServerGroupCommand;
-import de.biomia.spigot.general.BiomiaServer;
+import de.biomia.spigot.BiomiaServer;
 import de.biomia.spigot.listeners.LobbyInventoryManager;
 import de.biomia.spigot.listeners.servers.LobbyListener;
 import de.biomia.spigot.tools.ItemCreator;

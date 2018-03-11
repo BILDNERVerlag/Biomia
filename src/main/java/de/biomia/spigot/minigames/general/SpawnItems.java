@@ -2,14 +2,17 @@ package de.biomia.spigot.minigames.general;
 
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.BedWarsItemNames;
-import de.biomia.spigot.minigames.bedwars.var.Variables;
 import de.biomia.spigot.minigames.general.shop.ItemType;
 import de.biomia.spigot.tools.ItemCreator;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SpawnItems {
 
@@ -25,7 +28,10 @@ public class SpawnItems {
 
     private final World world;
 
-    public SpawnItems(World world) {
+    private HashMap<ItemType, ArrayList<Location>> locations;
+
+    public SpawnItems(HashMap<ItemType, ArrayList<Location>> locations, World world) {
+        this.locations = locations;
         this.world = world;
     }
 
@@ -36,11 +42,11 @@ public class SpawnItems {
             @Override
             public void run() {
                 if (i % bronzeSpawnDelay == 0)
-                    Variables.spawner.get(ItemType.BRONZE).forEach(each -> world.dropItem(each, bronze));
+                    locations.get(ItemType.BRONZE).forEach(each -> world.dropItem(each, bronze));
                 if (i % ironSpawnDelay == 0)
-                    Variables.spawner.get(ItemType.IRON).forEach(each -> world.dropItem(each, iron));
+                    locations.get(ItemType.IRON).forEach(each -> world.dropItem(each, iron));
                 if (i % goldSpawnDelay == 0)
-                    Variables.spawner.get(ItemType.GOLD).forEach(each -> world.dropItem(each, gold));
+                    locations.get(ItemType.GOLD).forEach(each -> world.dropItem(each, gold));
                 i++;
             }
         }.runTaskTimer(Main.getPlugin(), 0, 20);

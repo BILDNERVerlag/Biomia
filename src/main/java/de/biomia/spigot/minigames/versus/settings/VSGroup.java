@@ -26,7 +26,6 @@ public class VSGroup {
         this.icon = is;
         this.deaktivateable = deaktivateable;
         this.mainGroup = mainGroup;
-//           groups.put(is, this);
     }
 
     public VSGroup getMainGroup() {
@@ -37,13 +36,13 @@ public class VSGroup {
         return inventory.computeIfAbsent(bp, b -> new VSGroupInventory(bp, this));
     }
 
-    public VSGroup registerNewGroup(GameType mode, ItemStack item, String title, int slot) {
+    public VSGroup registerGroup(GameType mode, ItemStack item, String title, int slot) {
         VSGroup group = new VSGroup(mode, title, item, slot, false, this);
         settingGroups.add(group);
         return group;
     }
 
-    public VSGroup registerNewGroup(GameType mode, ItemStack item, String title, int slot, int id, boolean standard) {
+    public VSGroup registerDeaktivatableGroup(GameType mode, ItemStack item, String title, int slot, int id, boolean standard) {
         VSGroup group = new VSGroup(mode, title, item, slot, true, this);
         settingGroups.add(group);
         registerSetting(new VSSettingItem(item, id, slot, standard, group, title));

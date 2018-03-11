@@ -17,7 +17,6 @@ public class BedWarsMessages {
     public static final String chatMessageTeam = "\u00A78[\u00A77Team\u00A78] %p\u00A77: \u00A7f%msg";
     public static final String chatMessageDead = "\u00A78[\u00A77Tot\u00A78] \u00A77\u00A7o%p\u00A7r\u00A77: \u00A7f%msg";
     public static final String chatMessageLobby = "%p\u00A77: \u00A7f%msg";
-    public static final String teamInventoryName = "\u00A75Team \u00A72w\u00fchlen";
     // %t = TeamName
     public static final String teamJoinerSet = "\u00A7aTeam Joiner f\u00fcr %t erfolgreich gesetzt!";
     public static final String joinedTeam = "%p ist dem Team beigetreten!";
@@ -25,7 +24,7 @@ public class BedWarsMessages {
     public static final String noFittingTeamPlayer = "\u00A7cEs konnt kein passendes Team gefunden werden, da kein Team genug Platz hat!";
     public static final String kickedForPremium = "\u00A7cDu wurdest gekickt um einen Premium Spieler Platz zu machen!";
     public static final String joinedTheGame = " \u00A78ist dem Spiel beigetreten!";
-    public static final String playerKilledByPlayer = "\u00A78Der Spieler %p1 \u00A78wurde von %p2 \u00A78get\u00F6tet!";
+    public static final String playerKilledByPlayer = "\u00A78Der Spieler %s \u00A78wurde von %s \u00A78get\u00F6tet!";
     public static final String playerDied = "\u00A78Der Spieler %p \u00A78ist gestorben!";
     public static final String playerDiedFinally = "\u00A78Der Spieler %p \u00A78ist endg\u00fcltig gestorben!";
     public static final String blocksMustBeBeds = "\u00A7cDu musst auf dem Fu\u00DF eines Bettes stehen und auf den Kopf schauen!";

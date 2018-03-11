@@ -7,11 +7,11 @@ import de.biomia.spigot.general.cosmetics.items.CosmeticPetItem;
 import de.biomia.spigot.general.reportsystem.PlayerReport;
 import de.biomia.spigot.general.reportsystem.ReportManager;
 import de.biomia.spigot.general.reportsystem.ReportSQL;
-import de.biomia.universal.Messages;
 import de.biomia.spigot.messages.manager.HeaderAndFooter;
 import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.PlayerToServerConnector;
 import de.biomia.spigot.tools.RankManager;
+import de.biomia.universal.Messages;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -27,6 +27,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
+import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 /**
  * The Listener of the actual Server have to extend this class
@@ -131,7 +132,6 @@ abstract class BiomiaListener implements Listener {
 
     @EventHandler
     public final void onCommand(PlayerCommandPreprocessEvent pe) {
-
         String cmd = pe.getMessage().split(" ")[0];
 
         if (cmd.equalsIgnoreCase("/rl") || cmd.equalsIgnoreCase("/reload")) {

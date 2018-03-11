@@ -1,11 +1,12 @@
 package de.biomia.spigot.minigames.bedwars.var;
 
-import de.biomia.spigot.Biomia;
 import de.biomia.spigot.configs.Config;
 import de.biomia.spigot.messages.BedWarsItemNames;
+import de.biomia.spigot.minigames.GameTeam;
+import de.biomia.spigot.minigames.TeamColor;
+import de.biomia.spigot.minigames.bedwars.BedWars;
 import de.biomia.spigot.minigames.bedwars.listeners.CountDown;
 import de.biomia.spigot.minigames.general.shop.ItemType;
-import de.biomia.spigot.minigames.general.teams.Team;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -13,6 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -30,30 +32,24 @@ public class Variables {
     public static final int playerPerTeam = Config.getConfig().getInt("TeamSize");
     public static final int maxPlayers = playerPerTeam * teams;
     public static final int minPlayers = playerPerTeam + 1;
-    // Player
-    public static final ArrayList<Player> spectator = new ArrayList<>();
-    public static final ArrayList<Player> livingPlayer = new ArrayList<>();
     // Locs
     public static final Location warteLobbySpawn = new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 45, 0);
     public static final HashMap<Sign, Integer> signLocations = new HashMap<>();
-    public static final HashMap<Team, Location> teamSpawns = new HashMap<>();
+    public static final HashMap<GameTeam, Location> teamSpawns = new HashMap<>();
     // Beds
-    public static final HashMap<Team, ArrayList<Location>> beds = new HashMap<>();
-    public static final ArrayList<Team> teamsWithBeds = new ArrayList<>();
+    public static final HashMap<GameTeam, ArrayList<Location>> beds = new HashMap<>();
+    public static final ArrayList<GameTeam> teamsWithBeds = new ArrayList<>();
     // Spawner
     public static final HashMap<ItemType, ArrayList<Location>> spawner = new HashMap<>();
     public static final HashMap<UUID, ArrayList<Player>> handlerMap = new HashMap<>();
     // Joiner
-    public static final HashMap<Team, UUID> joiner = new HashMap<>();
+    public static final HashMap<TeamColor, Entity> joiner = new HashMap<>();
     public static final ItemStack teamChest = ItemCreator.itemCreate(Material.ENDER_CHEST, BedWarsItemNames.teamChest);
-    public static final HashMap<Team, Inventory> teamChests = new HashMap<>();
-    public static final HashMap<Team, ArrayList<Block>> teamChestsLocs = new HashMap<>();
-    public static CountDown countDown;
-    // Inventorys
-    public static Inventory teamJoiner;
+    public static final HashMap<GameTeam, Inventory> teamChests = new HashMap<>();
+    public static final HashMap<GameTeam, ArrayList<Block>> teamChestsLocs = new HashMap<>();
 
-    public static Team getTeamByTeamChests(Block block) {
-        for (Team team : Biomia.getTeamManager().getTeams()) {
+    public static GameTeam getTeamByTeamChests(Block block) {
+        for (GameTeam team : BedWars.getBedWars().getTeams()) {
             if (teamChestsLocs.containsKey(team)) {
                 for (Block b : teamChestsLocs.get(team)) {
                     if (block.equals(b)) {

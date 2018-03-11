@@ -4,7 +4,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.SkyWarsItemNames;
-import de.biomia.spigot.minigames.versus.games.skywars.kits.KitManager;
+import de.biomia.spigot.minigames.general.kits.KitManager;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

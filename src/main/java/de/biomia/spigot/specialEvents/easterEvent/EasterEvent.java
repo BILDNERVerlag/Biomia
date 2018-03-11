@@ -5,6 +5,7 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.OfflineBiomiaPlayer;
 import de.biomia.spigot.achievements.Stats;
+import de.biomia.spigot.tools.HeadCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -17,8 +18,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-import static de.biomia.spigot.tools.HeadCreator.setSkullUrl;
 
 public class EasterEvent implements Listener {
 
@@ -100,7 +99,7 @@ public class EasterEvent implements Listener {
     }
 
     private void spawnSpecialEgg() {
-        setSkullUrl(specialEggName, specialEggLocation.getBlock());
+        HeadCreator.setSkullUrl(specialEggName, specialEggLocation.getBlock());
     }
 
     private void startSpawningEggs() {
@@ -127,16 +126,16 @@ public class EasterEvent implements Listener {
 
                     switch (new Random().nextInt(4)) {
                     case 0:
-                        setSkullUrl(egg1Name, b);
+                        HeadCreator.setSkullUrl(egg1Name, b);
                         break;
                     case 1:
-                        setSkullUrl(egg2Name, b);
+                        HeadCreator.setSkullUrl(egg2Name, b);
                         break;
                     case 2:
-                        setSkullUrl(egg3Name, b);
+                        HeadCreator.setSkullUrl(egg3Name, b);
                         break;
                     case 3:
-                        setSkullUrl(egg4Name, b);
+                        HeadCreator.setSkullUrl(egg4Name, b);
                         break;
                     }
                     blocks.add(b);

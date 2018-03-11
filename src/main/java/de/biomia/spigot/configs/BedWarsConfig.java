@@ -1,22 +1,27 @@
 package de.biomia.spigot.configs;
 
-import de.biomia.spigot.Biomia;
+import de.biomia.spigot.minigames.GameInstance;
+import de.biomia.spigot.minigames.GameTeam;
+import de.biomia.spigot.minigames.TeamColor;
+import de.biomia.spigot.minigames.bedwars.BedWars;
 import de.biomia.spigot.minigames.bedwars.var.Variables;
 import de.biomia.spigot.minigames.general.shop.ItemType;
-import de.biomia.spigot.minigames.general.teams.Team;
-import de.biomia.spigot.minigames.general.teams.Teams;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
+import org.bukkit.entity.Entity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class BedWarsConfig extends Config {
 
-    public static void addLocation(Location loc, Teams team) {
+    public static void addLocation(Location loc, TeamColor team) {
         double x = loc.getBlockX();
         double y = loc.getBlockY();
         double z = loc.getBlockZ();
@@ -28,11 +33,6 @@ public class BedWarsConfig extends Config {
         getConfig().set("Spawnpoints." + team.name() + ".Z", z + 0.5);
         getConfig().set("Spawnpoints." + team.name() + ".Yaw", ya);
         getConfig().set("Spawnpoints." + team.name() + ".World", wo);
-
-        Team t = Biomia.getTeamManager().getTeam(team.name());
-        if (t != null) {
-            Variables.teamSpawns.put(t, loc);
-        }
         saveConfig();
     }
 
@@ -43,8 +43,7 @@ public class BedWarsConfig extends Config {
     }
 
     public static void loadLocsFromConfig() {
-        for (Team t : Biomia.getTeamManager().getTeams()) {
-
+        for (GameTeam t : BedWars.getBedWars().getTeams()) {
             if (getConfig().getString("Spawnpoints." + t.getTeamname() + ".World") != null) {
                 double x = getConfig().getDouble("Spawnpoints." + t.getTeamname() + ".X");
                 double y = getConfig().getDouble("Spawnpoints." + t.getTeamname() + ".Y");
@@ -58,8 +57,7 @@ public class BedWarsConfig extends Config {
         }
     }
 
-    @SuppressWarnings("deprecation")
-    public static void loadSignsFromConfig() {
+    public static void loadSignsFromConfig(GameInstance instance) {
         for (int i = 1; i <= 10; i++) {
             if (getConfig().getString("Signs." + i + ".World") != null) {
 
@@ -67,9 +65,8 @@ public class BedWarsConfig extends Config {
                 double y = getConfig().getDouble("Signs." + i + ".Y");
                 double z = getConfig().getDouble("Signs." + i + ".Z");
                 BlockFace blockFace = BlockFace.valueOf(getConfig().getString("Signs." + i + ".Facing"));
-                World wo = Bukkit.getWorld(getConfig().getString("Signs." + i + ".World"));
 
-                Location loc = new Location(wo, x, y, z);
+                Location loc = new Location(instance.getWorld(), x, y, z);
 
                 org.bukkit.material.Sign signData = (org.bukkit.material.Sign) loc.getBlock().getState().getData();
                 signData.setFacingDirection(blockFace);
@@ -93,7 +90,7 @@ public class BedWarsConfig extends Config {
 //					sign.setLine(2, "?8K/D:?7 " + n.format(kd));
 //					sign.setLine(3, "?8Gespielt:?7 " + stat.played_games);
 //
-//					sign.update();
+//					sign.update(true);
 //
 //					Block b = sign.getBlock().getLocation().add(0, 1, 0).getBlock();
 //
@@ -119,92 +116,70 @@ public class BedWarsConfig extends Config {
         double x = loc.getBlockX();
         double y = loc.getBlockY();
         double z = loc.getBlockZ();
-        String wo = loc.getWorld().getName();
 
         getConfig().set("Signs." + (id) + ".X", x);
         getConfig().set("Signs." + (id) + ".Y", y);
         getConfig().set("Signs." + (id) + ".Z", z);
         getConfig().set("Signs." + (id) + ".Facing", signData.getFacing().name());
-        getConfig().set("Signs." + (id) + ".World", wo);
 
         Variables.signLocations.put(sign, id);
         saveConfig();
     }
 
-    public static void addBedsLocations(Location foot, Location head, Team team) {
+    public static void addBedsLocations(Location foot, Location head, TeamColor team) {
 
-        String color = team.getTeamname();
+        String color = team.name();
 
         double fx = foot.getBlockX();
         double fy = foot.getBlockY();
         double fz = foot.getBlockZ();
-        String fwo = foot.getWorld().getName();
 
         double hx = head.getBlockX();
         double hy = head.getBlockY();
         double hz = head.getBlockZ();
-        String hwo = head.getWorld().getName();
 
         getConfig().set("Beds." + color + ".Foot.X", fx);
         getConfig().set("Beds." + color + ".Foot.Y", fy);
         getConfig().set("Beds." + color + ".Foot.Z", fz);
-        getConfig().set("Beds." + color + ".Foot.World", fwo);
 
         getConfig().set("Beds." + color + ".Head.X", hx);
         getConfig().set("Beds." + color + ".Head.Y", hy);
         getConfig().set("Beds." + color + ".Head.Z", hz);
-        getConfig().set("Beds." + color + ".Head.World", hwo);
 
-        ArrayList<Location> ar = new ArrayList<>();
-        ar.add(head);
-        ar.add(foot);
-
-        Variables.beds.put(team, ar);
-        Variables.teamsWithBeds.add(team);
         saveConfig();
     }
 
-    public static void loadBeds() {
-        for (Team t : Biomia.getTeamManager().getTeams()) {
-            String fwo = getConfig().getString("Beds." + t.getTeamname() + ".Foot.World");
-            if (fwo != null) {
-                double fx = getConfig().getDouble("Beds." + t.getTeamname() + ".Foot.X");
-                double fy = getConfig().getDouble("Beds." + t.getTeamname() + ".Foot.Y");
-                double fz = getConfig().getDouble("Beds." + t.getTeamname() + ".Foot.Z");
+    public static ArrayList<Block> loadBeds(GameInstance instance, GameTeam t) {
 
-                String hwo = getConfig().getString("Beds." + t.getTeamname() + ".Head.World");
-                double hx = getConfig().getDouble("Beds." + t.getTeamname() + ".Head.X");
-                double hy = getConfig().getDouble("Beds." + t.getTeamname() + ".Head.Y");
-                double hz = getConfig().getDouble("Beds." + t.getTeamname() + ".Head.Z");
+        double fx = getConfig().getDouble("Beds." + t.getTeamname() + ".Foot.X");
+        double fy = getConfig().getDouble("Beds." + t.getTeamname() + ".Foot.Y");
+        double fz = getConfig().getDouble("Beds." + t.getTeamname() + ".Foot.Z");
 
-                Location head = new Location(Bukkit.getWorld(hwo), hx, hy, hz);
-                Location foot = new Location(Bukkit.getWorld(fwo), fx, fy, fz);
+        double hx = getConfig().getDouble("Beds." + t.getTeamname() + ".Head.X");
+        double hy = getConfig().getDouble("Beds." + t.getTeamname() + ".Head.Y");
+        double hz = getConfig().getDouble("Beds." + t.getTeamname() + ".Head.Z");
 
-                ArrayList<Location> ar = new ArrayList<>();
-                ar.add(head);
-                ar.add(foot);
-                Variables.beds.put(t, ar);
-                Variables.teamsWithBeds.add(t);
-            }
-        }
+        Location l1 = new Location(instance.getWorld(), fx, fy, fz);
+        Location l2 = new Location(instance.getWorld(), hx, hy, hz);
+
+        return new ArrayList<>(Arrays.asList(l1.getBlock(), l2.getBlock()));
     }
 
-    public static void loadSpawner() {
-        for (ItemType spawner : ItemType.values()) {
-            for (int i = 1; i <= getConfig().getInt("lastID." + spawner.name()); i++) {
-                String wo = getConfig().getString("Spawner." + spawner.name() + "." + i + ".World");
-                double x = getConfig().getDouble("Spawner." + spawner.name() + "." + i + ".X");
-                double y = getConfig().getDouble("Spawner." + spawner.name() + "." + i + ".Y");
-                double z = getConfig().getDouble("Spawner." + spawner.name() + "." + i + ".Z");
+    public static HashMap<ItemType, ArrayList<Location>> loadSpawner(GameInstance instance) {
 
-                Location spawnerLoc = new Location(Bukkit.getWorld(wo), x, y, z);
+        HashMap<ItemType, ArrayList<Location>> spawner = new HashMap<>();
 
-                if (!Variables.spawner.containsKey(spawner))
-                    Variables.spawner.put(spawner, new ArrayList<>());
-
-                Variables.spawner.get(spawner).add(spawnerLoc);
+        for (ItemType itemType : ItemType.values()) {
+            for (int i = 1; i <= getConfig().getInt("lastID." + itemType.name()); i++) {
+                double x = getConfig().getDouble("Spawner." + itemType.name() + "." + i + ".X");
+                double y = getConfig().getDouble("Spawner." + itemType.name() + "." + i + ".Y");
+                double z = getConfig().getDouble("Spawner." + itemType.name() + "." + i + ".Z");
+                Location spawnerLoc = new Location(instance.getWorld(), x, y, z);
+                spawner.computeIfAbsent(itemType, list -> new ArrayList<>()).add(spawnerLoc);
             }
         }
+
+        return spawner;
     }
 
     public static void addSpawnerLocations(Location loc, ItemType spawner) {
@@ -221,7 +196,6 @@ public class BedWarsConfig extends Config {
         getConfig().set("Spawner." + spawner.name() + "." + i + ".X", x);
         getConfig().set("Spawner." + spawner.name() + "." + i + ".Y", y);
         getConfig().set("Spawner." + spawner.name() + "." + i + ".Z", z);
-        getConfig().set("Spawner." + spawner.name() + "." + i + ".World", wo);
 
         if (!Variables.spawner.containsKey(spawner)) {
             Variables.spawner.put(spawner, new ArrayList<>());
@@ -230,53 +204,30 @@ public class BedWarsConfig extends Config {
         saveConfig();
     }
 
-    public static void removeAllBeds() {
-        getConfig().set("Beds", null);
-        saveConfig();
-    }
-
     public static void removeAllSigns() {
         getConfig().set("Signs", null);
         saveConfig();
     }
 
-    public static void addTeamJoiner(UUID uuid, Team t) {
-        getConfig().set("Joiner." + t.getTeamname(), uuid.toString());
-        Variables.joiner.put(t, uuid);
+    public static void addTeamJoiner(Entity entity, TeamColor t) {
+        getConfig().set("Joiner." + t.name(), entity.getUniqueId().toString());
+        Variables.joiner.put(t, entity);
         saveConfig();
     }
 
     public static void loadTeamJoiner() {
 
-        if (Biomia.getTeamManager().getTeams().size() == 4) {
-            for (Teams t : Teams.values()) {
-                if (t.name().equalsIgnoreCase("Black") || t.name().equalsIgnoreCase("White")
-                        || t.name().equalsIgnoreCase("Orange") || t.name().equalsIgnoreCase("Purple")) {
-                    Bukkit.getEntity(UUID.fromString(getConfig().getString("Joiner." + t.name()))).remove();
-                }
+        int remFromID = BedWars.getBedWars().getTeams().size();
+        for (TeamColor t : TeamColor.values()) {
+            Entity entity = Bukkit.getEntity(UUID.fromString(getConfig().getString("Joiner." + t.name())));
+            if (t.getID() > remFromID) {
+                entity.remove();
+            } else {
+                Variables.joiner.put(t, entity);
+                entity.setCustomName(t.getColorcode() + t.translate());
+                entity.setCustomNameVisible(true);
             }
         }
 
-        for (Team team : Biomia.getTeamManager().getTeams()) {
-            String stringuuid = getConfig().getString("Joiner." + team.getTeamname());
-
-            if (stringuuid != null) {
-                UUID uuid = UUID.fromString(stringuuid);
-                Variables.joiner.put(team, uuid);
-                Bukkit.getEntity(uuid).setCustomNameVisible(true);
-                Bukkit.getEntity(uuid)
-                        .setCustomName(team.getColorcode() + Biomia.getTeamManager().translate(team.getTeamname()));
-            }
-
-        }
-
     }
-
-    public static void removeTeamJoiner(Team t) {
-        getConfig().set("Joiner." + t.getTeamname(), null);
-        saveConfig();
-        if (Variables.joiner.containsKey(t))
-            Variables.joiner.remove(t);
-    }
-
 }

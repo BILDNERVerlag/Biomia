@@ -51,4 +51,17 @@ public class SkyWarsKitManager {
         }
         return availableKits;
     }
+
+    public static int getLastSelectedKit(BiomiaPlayer bp) {
+        return MySQL.executeQuerygetint("SELECT kitID FROM `LSSkyWarsKit` WHERE biomiaID = " + bp.getBiomiaPlayerID(), "kitID", MySQL.Databases.biomia_db);
+    }
+
+    public static void setLastSelectedKit(BiomiaPlayer bp, int kitID) {
+        if (MySQL.executeQuery("SELECT * FROM `LSSkyWarsKit` WHERE biomiaID = " + bp.getBiomiaPlayerID(), "kitID", MySQL.Databases.biomia_db) != null)
+            MySQL.executeUpdate("UPDATE LSSkyWarsKit SET `kitID` = " + kitID + " WHERE biomiaID = " + bp.getBiomiaPlayerID(), MySQL.Databases.biomia_db);
+        else
+            MySQL.executeUpdate("INSERT INTO `LSSkyWarsKit` (biomiaID,kitID) Values(" + bp.getBiomiaPlayerID() + ", " + kitID + ")", MySQL.Databases.biomia_db);
+    }
+
+
 }

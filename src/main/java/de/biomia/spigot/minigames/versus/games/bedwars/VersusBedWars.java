@@ -10,25 +10,19 @@ import de.biomia.spigot.minigames.general.SpawnItems;
 import de.biomia.spigot.minigames.versus.Versus;
 import org.bukkit.Location;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-public class BedWars extends GameMode {
+public class VersusBedWars extends GameMode {
 
     private final BedWarsScoreboard bedWarsScoreboard;
     private final BedWarsShopListener shop = new BedWarsShopListener(this);
-    private final SpawnItems spawnItems = new SpawnItems(getInstance().getWorld());
+    private final SpawnItems spawnItems = new SpawnItems(BedWarsVersusConfig.getSpawner(getInstance()), getInstance().getWorld());
 
-    public BedWars(GameInstance instance) {
+    public VersusBedWars(GameInstance instance) {
         super(instance);
-
+        Location locOne = BedWarsVersusConfig.getLocation(getInstance().getMapDisplayName(), 1, getInstance().getWorld());
+        Location locTwo = BedWarsVersusConfig.getLocation(getInstance().getMapDisplayName(), 2, getInstance().getWorld());
+        new VersusBedWarsTeam(this, TeamColor.BLUE, locOne);
+        new VersusBedWarsTeam(this, TeamColor.RED, locTwo);
         bedWarsScoreboard = new BedWarsScoreboard(this);
-
-        HashMap<Integer, ArrayList<BiomiaPlayer>> teamPlayers = splitPlayersInTwoTeams(instance.getPlayers());
-        Location loc1 = BedWarsVersusConfig.getLocation(getInstance().getMapDisplayName(), 1, getInstance().getWorld());
-        Location loc2 = BedWarsVersusConfig.getLocation(getInstance().getMapDisplayName(), 2, getInstance().getWorld());
-        new BedWarsTeam(this, TeamColor.BLUE, teamPlayers.get(1), loc1);
-        new BedWarsTeam(this, TeamColor.RED, teamPlayers.get(2), loc2);
         handler = new BedWarsHandler(this);
     }
 
@@ -38,6 +32,7 @@ public class BedWars extends GameMode {
 
     @Override
     public void start() {
+        splitPlayersInTwoTeams();
         spawnItems.startSpawning();
         for (BiomiaPlayer bp : getInstance().getPlayers()) {
             bp.setGetDamage(true);

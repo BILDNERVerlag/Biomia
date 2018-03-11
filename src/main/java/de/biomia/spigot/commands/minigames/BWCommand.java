@@ -1,12 +1,12 @@
 package de.biomia.spigot.commands.minigames;
 
-import de.biomia.spigot.Biomia;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.configs.Config;
 import de.biomia.spigot.messages.BedWarsItemNames;
-import de.biomia.spigot.minigames.general.teams.Team;
-import de.biomia.spigot.minigames.general.teams.Teams;
+import de.biomia.spigot.minigames.GameTeam;
+import de.biomia.spigot.minigames.TeamColor;
+import de.biomia.spigot.minigames.bedwars.BedWars;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -49,7 +49,7 @@ public class BWCommand extends BiomiaCommand {
                         break;
                     case "addloc":
                         if (args.length >= 2) {
-                            BedWarsConfig.addLocation(p.getLocation(), Teams.valueOf(args[1]));
+                            BedWarsConfig.addLocation(p.getLocation(), TeamColor.valueOf(args[1]));
                             sender.sendMessage("Spawnpoint wurde hinzugef\u00fcgt!");
                         } else {
                             sender.sendMessage("Bitte gib ein Team an!");
@@ -60,13 +60,13 @@ public class BWCommand extends BiomiaCommand {
                         sender.sendMessage("Alle Spawnlocations entfernt!");
                         break;
                     case "getTeamjoinersetter":
-                        for (Team t : Biomia.getTeamManager().getTeams()) {
+                        for (GameTeam t : BedWars.getBedWars().getTeams()) {
                             p.getInventory().addItem(ItemCreator.itemCreate(Material.WOOL, BedWarsItemNames.teamJoinerSetter,
                                     t.getColordata()));
                         }
                         break;
                     case "getbedsetter":
-                        for (Team t : Biomia.getTeamManager().getTeams()) {
+                        for (GameTeam t : BedWars.getBedWars().getTeams()) {
                             p.getInventory().addItem(
                                     ItemCreator.itemCreate(Material.WOOL, BedWarsItemNames.bedSetter, t.getColordata()));
                         }

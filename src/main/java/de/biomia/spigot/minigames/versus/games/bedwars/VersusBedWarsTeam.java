@@ -1,6 +1,5 @@
 package de.biomia.spigot.minigames.versus.games.bedwars;
 
-import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.configs.BedWarsVersusConfig;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.TeamColor;
@@ -9,15 +8,15 @@ import org.bukkit.block.Block;
 
 import java.util.ArrayList;
 
-public class BedWarsTeam extends GameTeam {
+public class VersusBedWarsTeam extends GameTeam {
 
     private final ArrayList<Block> bed;
     private boolean hasBed;
 
-    BedWarsTeam(BedWars bedWars, TeamColor color, ArrayList<BiomiaPlayer> player, Location home) {
-        super(color, player, home, bedWars);
+    VersusBedWarsTeam(VersusBedWars versusBedWars, TeamColor color, Location home) {
+        super(color, home, versusBedWars);
         this.hasBed = true;
-        this.bed = BedWarsVersusConfig.getBed(getBedWars().getInstance().getMapDisplayName(), color.getID(), bedWars.getInstance().getWorld());
+        this.bed = BedWarsVersusConfig.getBed(getBedWars().getInstance().getMapDisplayName(), color.getID(), versusBedWars.getInstance().getWorld());
     }
 
     public void destroyBed() {
@@ -32,7 +31,7 @@ public class BedWarsTeam extends GameTeam {
         return bed;
     }
 
-    private BedWars getBedWars() {
-        return (BedWars) mode;
+    private VersusBedWars getBedWars() {
+        return (VersusBedWars) mode;
     }
 }

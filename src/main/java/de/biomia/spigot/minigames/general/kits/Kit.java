@@ -1,12 +1,9 @@
-package de.biomia.spigot.minigames.skywars.kits;
+package de.biomia.spigot.minigames.general.kits;
 
-import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.events.skywars.KitBuyEvent;
+import de.biomia.spigot.Biomia;
 import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
-import de.biomia.spigot.minigames.skywars.var.Variables;
 import de.biomia.spigot.tools.ItemCreator;
-import de.biomia.spigot.tools.SkyWarsKitManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -34,6 +31,7 @@ public class Kit {
     private ItemStack boots;
     private int ID = -1;
     private ItemStack offHand;
+    private Inventory demoInv;
 
     Kit(String name, int id, int preis, ItemStack icon, boolean showable) {
         for (int i = 0; i < 26; i++)
@@ -43,7 +41,7 @@ public class Kit {
         this.icon = icon;
         this.setShowable(showable);
         this.setId(id);
-        Variables.kits.put(id, this);
+        KitManager.allKits.put(id, this);
         ItemMeta meta = getIcon().getItemMeta();
         meta.setDisplayName("\u00A7a" + getName());
         getIcon().setItemMeta(meta);
@@ -82,73 +80,40 @@ public class Kit {
         }
     }
 
-    public void copy(PlayerInventory inv, Player p) {
-
-        if (getName().equals("Assassin")) {
-            p.setHealthScale(10);
-        }
-
+    public void copy(Player p) {
+        PlayerInventory inv = p.getInventory();
         inv.clear();
 
-        for (int i = 0; i < 26; i++) {
+        if (getName().equals("Assassin"))
+            p.setHealthScale(10);
+
+        for (int i = 0; i < 26; i++)
             inv.setItem(i, contents.get(i));
-        }
 
-        if (chestplate != null)
-            inv.setChestplate(chestplate);
-        if (boots != null)
-            inv.setBoots(boots);
-        if (helmet != null)
-            inv.setHelmet(helmet);
-        if (leggings != null)
-            inv.setLeggings(leggings);
-        if (offHand != null)
-            inv.setItemInOffHand(offHand);
-
-        if (p != null)
-            p.updateInventory();
+        inv.setChestplate(chestplate);
+        inv.setBoots(boots);
+        inv.setHelmet(helmet);
+        inv.setLeggings(leggings);
+        inv.setItemInOffHand(offHand);
     }
 
     public Inventory getDemoInv() {
 
-        Inventory inv = Bukkit.createInventory(null, 36, SkyWarsMessages.demoInventory.replaceAll("%k", getName()));
+        if (demoInv == null) {
+            demoInv = Bukkit.createInventory(null, 36, SkyWarsMessages.demoInventory.replaceAll("%k", getName()));
 
-        for (int i = 0; i < 26; i++) {
-            inv.setItem(35 - i, contents.get(i));
+            for (int i = 0; i < 26; i++)
+                demoInv.setItem(35 - i, contents.get(i));
+
+            demoInv.setItem(0, helmet);
+            demoInv.setItem(1, chestplate);
+            demoInv.setItem(2, leggings);
+            demoInv.setItem(3, boots);
+            demoInv.setItem(8, offHand);
         }
 
-        inv.setItem(0, helmet);
-        inv.setItem(1, chestplate);
-        inv.setItem(2, leggings);
-        inv.setItem(3, boots);
-        inv.setItem(8, offHand);
+        return demoInv;
 
-        return inv;
-
-    }
-
-    public boolean buy(BiomiaPlayer bp) {
-
-        if (!Variables.availableKits.get(bp.getPlayer()).contains(this)) {
-            if (bp.getCoins() >= price) {
-                boolean b = SkyWarsKitManager.addKit(bp, getID());
-                if (b) {
-                    Bukkit.getPluginManager().callEvent(new KitBuyEvent(bp, getID()));
-                    bp.takeCoins(price);
-                    bp.getPlayer().sendMessage(SkyWarsMessages.kitPurchased.replaceAll("%k", getName()));
-                    Variables.availableKits.get(bp.getPlayer()).add(this);
-                } else
-                    bp.getPlayer().sendMessage(SkyWarsMessages.errorWhilePurchasing.replaceAll("%k", getName()));
-                return b;
-            } else {
-                bp.getPlayer().sendMessage(SkyWarsMessages.notEnoughCoins.replaceAll("%k", getName()));
-                bp.getPlayer().sendMessage(
-                        SkyWarsMessages.missingCoins.replaceAll("%k", getName()).replaceAll("%c", price - bp.getCoins() + ""));
-            }
-        } else {
-            bp.getPlayer().sendMessage(SkyWarsMessages.alreadyPurchased.replaceAll("%k", getName()));
-        }
-        return false;
     }
 
     public Inventory getSetupInv(Player p) {
@@ -164,24 +129,21 @@ public class Kit {
 
         ItemMeta meta = pay.getItemMeta();
 
-        if (Variables.availableKits.get(p) != null)
-            if (Variables.availableKits.get(p).contains(this)) {
-                int i = 0;
-                ArrayList<String> list = new ArrayList<>(SkyWarsItemNames.purchasedKitLore);
-                for (String s : list) {
-                    list.set(i, s.replaceAll("%c", price + ""));
-                    i++;
-                }
-                meta.setLore(list);
+        ArrayList<Kit> playerAvailableKits = KitManager.getManager(Biomia.getBiomiaPlayer(p)).getAvailableKits();
+        ArrayList<String> list = new ArrayList<>();
+        if (playerAvailableKits != null) {
+            if (playerAvailableKits.contains(this)) {
+                list.addAll(SkyWarsItemNames.purchasedKitLore);
             } else {
-                int i = 0;
-                ArrayList<String> list = new ArrayList<>(SkyWarsItemNames.notPurchasedKitLore);
-                for (String s : list) {
-                    list.set(i, s.replaceAll("%c", price + ""));
-                    i++;
-                }
-                meta.setLore(list);
+                list.addAll(SkyWarsItemNames.notPurchasedKitLore);
             }
+            int i = 0;
+            for (String s : list) {
+                list.set(i, s.replaceAll("%c", price + ""));
+                i++;
+            }
+            meta.setLore(list);
+        }
 
         pay.setItemMeta(meta);
 
@@ -202,6 +164,10 @@ public class Kit {
         return this.name;
     }
 
+    public String getDisplayName() {
+        return "\u00A7a" + getName();
+    }
+
     public boolean isShowable() {
         return isShowable;
     }
@@ -218,4 +184,7 @@ public class Kit {
         this.ID = id;
     }
 
+    public int getPrice() {
+        return price;
+    }
 }

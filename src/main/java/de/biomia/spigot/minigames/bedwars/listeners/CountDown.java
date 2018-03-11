@@ -2,7 +2,7 @@ package de.biomia.spigot.minigames.bedwars.listeners;
 
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.BedWarsMessages;
-import de.biomia.spigot.minigames.bedwars.gamestates.InLobby;
+import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.bedwars.var.Variables;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -14,13 +14,13 @@ public class CountDown {
 
     private int countdown = 60;
     private BukkitTask bukkitTask;
+    private final GameMode mode;
 
-    public CountDown() {
-        startCountDown();
+    public CountDown(GameMode mode) {
+        this.mode = mode;
     }
 
-    private void startCountDown() {
-
+    public void startCountDown() {
         bukkitTask = new BukkitRunnable() {
             int zuWenig = 0;
 
@@ -41,9 +41,8 @@ public class CountDown {
                             for (Player p : Bukkit.getOnlinePlayers()) {
                                 p.setLevel(0);
                             }
-
                             setCountdown(-1);
-                            InLobby.end();
+                            mode.getStateManager().getLobbyState().stop();
                             return;
                         }
 
@@ -81,8 +80,8 @@ public class CountDown {
         this.countdown = countdown;
     }
 
-    public BukkitTask getBukkitTask() {
-        return bukkitTask;
+    public void cancel() {
+        bukkitTask.cancel();
     }
 
 }

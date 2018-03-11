@@ -1,19 +1,14 @@
-package de.biomia.spigot.general;
+package de.biomia.spigot;
 
-import de.biomia.spigot.Biomia;
-import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.general.*;
 import de.biomia.spigot.listeners.CosmeticListener;
 import de.biomia.spigot.listeners.ReportListener;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 
 import static de.biomia.spigot.Main.registerCommand;
 
 public abstract class BiomiaServer {
-
-    public BiomiaServer() {
-        Biomia.setSeverInstance(this);
-    }
 
     public void start() {
         initListeners();
@@ -54,6 +49,4 @@ public abstract class BiomiaServer {
         registerCommand(new WarpCommand("warp"));
         registerCommand(new WarpCommand("delwarp"));
     }
-
-
 }

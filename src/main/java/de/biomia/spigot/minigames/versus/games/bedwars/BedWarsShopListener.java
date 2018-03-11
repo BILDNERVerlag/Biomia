@@ -10,8 +10,6 @@ import de.biomia.spigot.minigames.general.shop.ShopGroup;
 import de.biomia.spigot.minigames.general.shop.ShopItem;
 import de.biomia.spigot.minigames.general.ColorType;
 import de.biomia.spigot.minigames.general.shop.ItemType;
-import de.biomia.spigot.minigames.versus.games.bedwars.BedWars;
-import de.biomia.spigot.minigames.versus.games.bedwars.BedWarsTeam;
 import de.biomia.spigot.tools.ItemCreator;
 import net.minecraft.server.v1_12_R1.AttributeInstance;
 import net.minecraft.server.v1_12_R1.GenericAttributes;
@@ -37,10 +35,10 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 public class BedWarsShopListener implements Listener {
 
-    private final BedWars bedWars;
+    private final VersusBedWars versusBedWars;
 
-    public BedWarsShopListener(BedWars bedWars) {
-        this.bedWars = bedWars;
+    public BedWarsShopListener(VersusBedWars versusBedWars) {
+        this.versusBedWars = versusBedWars;
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
     }
 
@@ -52,7 +50,7 @@ public class BedWarsShopListener implements Listener {
     public void onInventoryClick(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-        if (bedWars.getInstance().containsPlayer(bp))
+        if (versusBedWars.getInstance().containsPlayer(bp))
             if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
                 ItemStack iStack = e.getCurrentItem();
                 if (e.getInventory().getName().equals(BedWarsMessages.shopInventory)) {
@@ -76,7 +74,7 @@ public class BedWarsShopListener implements Listener {
                                 ItemStack returnItem = iStack.clone();
 
                                 if (shopItem.isColorble()) {
-                                    BedWarsTeam team = (BedWarsTeam) bedWars.getTeam(bp);
+                                    VersusBedWarsTeam team = (VersusBedWarsTeam) versusBedWars.getTeam(bp);
                                     if (shopItem.getType() == ColorType.LEATHER) {
                                         LeatherArmorMeta meta = (LeatherArmorMeta) returnItem.getItemMeta();
                                         switch (team.getColor()) {

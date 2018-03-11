@@ -4,8 +4,10 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
-import de.biomia.spigot.minigames.general.Dead;
 import de.biomia.spigot.minigames.GameHandler;
+import de.biomia.spigot.minigames.GameTeam;
+import de.biomia.spigot.minigames.general.Dead;
+import de.biomia.spigot.minigames.skywars.SkyWars;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
@@ -21,8 +23,8 @@ class SkyWarsHandler extends GameHandler {
 
     private final ArrayList<Location> opendChests = new ArrayList<>();
 
-    SkyWarsHandler(SkyWars skyWars) {
-        super(skyWars);
+    SkyWarsHandler(VersusSkyWars versusSkyWars) {
+        super(versusSkyWars);
     }
 
 
@@ -30,7 +32,7 @@ class SkyWarsHandler extends GameHandler {
     public void onPlayerInteract(PlayerInteractEvent e) {
 
         Player p = e.getPlayer();
-
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         if (mode.getInstance().containsPlayer(Biomia.getBiomiaPlayer(p)))
             if (e.getItem() != null) {
                 if (e.getItem().hasItemMeta() && e.getItem().getItemMeta().hasDisplayName()) {
@@ -40,7 +42,9 @@ class SkyWarsHandler extends GameHandler {
                             for (Entity entity : p.getNearbyEntities(500, 500, 500)) {
                                 if (entity instanceof Player) {
                                     Player nearest = (Player) entity;
-                                    if (!Biomia.getTeamManager().isPlayerAlive(nearest) && Biomia.getTeamManager().getTeam(p) != null && !Biomia.getTeamManager().getTeam(p).playerInThisTeam(nearest)) {
+                                    BiomiaPlayer nearestbp = Biomia.getBiomiaPlayer(nearest);
+                                    GameTeam nearestPlayerTeam = SkyWars.getSkyWars().getTeam(nearestbp);
+                                    if (nearestPlayerTeam != null && nearestPlayerTeam.lives(nearestbp) && SkyWars.getSkyWars().getTeam(bp) != null && !SkyWars.getSkyWars().getTeam(bp).containsPlayer(nearestbp)) {
                                         p.setCompassTarget(nearest.getLocation());
                                         p.sendMessage(SkyWarsMessages.compassMessages.replace("%p", nearest.getName()).replace("%d", (int) p.getLocation().distance(nearest.getLocation()) + ""));
                                         return;
@@ -78,7 +82,7 @@ class SkyWarsHandler extends GameHandler {
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK)
             if (e.getClickedBlock().getType() == Material.CHEST)
                 if (!opendChests.contains(e.getClickedBlock().getLocation())) {
-                    Chest c = ((SkyWars) mode).getChests().fillChest(e.getClickedBlock().getLocation());
+                    Chest c = ((VersusSkyWars) mode).getChests().fillChest(e.getClickedBlock().getLocation());
                     if (c != null) {
                         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                             e.setCancelled(true);

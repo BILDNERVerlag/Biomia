@@ -2,17 +2,16 @@ package de.biomia.spigot.minigames.versus.games.bedwars;
 
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.minigames.TeamColor;
-import de.biomia.spigot.minigames.versus.games.bedwars.BedWars;
 import org.bukkit.Bukkit;
 import org.bukkit.scoreboard.Scoreboard;
 
 public class BedWarsScoreboard {
 
-    private final BedWars bedWars;
+    private final VersusBedWars versusBedWars;
     private final Scoreboard sb;
 
-    public BedWarsScoreboard(BedWars bedWars) {
-        this.bedWars = bedWars;
+    BedWarsScoreboard(VersusBedWars versusBedWars) {
+        this.versusBedWars = versusBedWars;
         sb = Bukkit.getScoreboardManager().getNewScoreboard();
         initScoreboard();
     }
@@ -22,7 +21,7 @@ public class BedWarsScoreboard {
         if (spectator)
             team = "spectator";
         else
-            team = bedWars.getTeam(bp).getColor().name();
+            team = versusBedWars.getTeam(bp).getColor().name();
         sb.getTeam(team).addEntry(bp.getPlayer().getName());
     }
 
