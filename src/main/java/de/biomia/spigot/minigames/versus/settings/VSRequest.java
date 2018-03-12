@@ -114,7 +114,7 @@ public class VSRequest {
     }
 
     public void startServer() {
-        gameInstance = new GameInstance(mode, Versus.getInstance().getManager().copyWorld(mode, id, mapName), mapName);
+        gameInstance = new GameInstance(mode, Versus.getInstance().getManager().copyWorld(mode, id, mapName), mapName, 2, 1);
         gameInstance.registerPlayer(leader);
         gameInstance.registerPlayer(bp2);
         ((Versus) Biomia.getSeverInstance()).getManager().getRequests().put(gameInstance, this);

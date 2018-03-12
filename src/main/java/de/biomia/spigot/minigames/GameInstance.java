@@ -23,11 +23,13 @@ public class GameInstance {
     private int playedTime = 0;
     private final String mapDisplayName;
     private final ArrayList<BiomiaPlayer> players = new ArrayList<>();
-    private int teamSize = 1;
-    private int teamAmount = 2;
+    private final int teamSize;
+    private final int teamAmount;
 
-    public GameInstance(GameType type, World world, String mapDisplayName) {
+    public GameInstance(GameType type, World world, String mapDisplayName, int teamAmount, int teamSize) {
         Bukkit.broadcastMessage("%%% making a new gameInstance");
+        this.teamAmount = teamAmount;
+        this.teamSize = teamSize;
         this.type = type;
         this.world = world;
         this.mapDisplayName = mapDisplayName;
@@ -45,6 +47,8 @@ public class GameInstance {
             gameMode = new BedWars(this);
             break;
         }
+
+        gameMode.initTeams();
 
         new BukkitRunnable() {
             @Override
@@ -100,5 +104,9 @@ public class GameInstance {
 
     public int getPlayedTime() {
         return playedTime;
+    }
+
+    public int getTeamAmount() {
+        return teamAmount;
     }
 }

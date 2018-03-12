@@ -36,10 +36,6 @@ public class BedWars extends GameMode {
 
         Main.getPlugin().getServer().createWorld(new WorldCreator(Variables.name));
 
-        //TODO init Teams
-        //Biomia.getTeamManager().initTeams(Variables.playerPerTeam, Variables.teams);
-
-        BedWarsConfig.loadLocsFromConfig();
         BedWarsConfig.loadTeamJoiner();
         BedWarsConfig.loadSignsFromConfig(getInstance());
         BedWarsConfig.loadSpawner(getInstance());

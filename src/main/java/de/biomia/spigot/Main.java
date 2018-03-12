@@ -109,10 +109,12 @@ public class Main extends JavaPlugin {
                 new Quests().start();
                 break;
             case "BedWars":
-                new GameInstance(BED_WARS, new WorldCreator(Variables.name).createWorld(), Variables.name).getGameMode().start();
+                //TODO read from Config
+                new GameInstance(BED_WARS, new WorldCreator(Variables.name).createWorld(), Variables.name, 4, 4).getGameMode().start();
                 break;
             case "SkyWars":
-                new GameInstance(SKY_WARS, new WorldCreator(Variables.name).createWorld(), Variables.name).getGameMode().start();
+                //TODO read from Config
+                new GameInstance(SKY_WARS, new WorldCreator(Variables.name).createWorld(), Variables.name, 4, 4).getGameMode().start();
                 break;
             case "DuellLobby":
                 new Versus().start();

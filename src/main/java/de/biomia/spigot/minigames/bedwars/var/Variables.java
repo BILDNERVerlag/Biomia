@@ -35,7 +35,6 @@ public class Variables {
     // Locs
     public static final Location warteLobbySpawn = new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 45, 0);
     public static final HashMap<Sign, Integer> signLocations = new HashMap<>();
-    public static final HashMap<GameTeam, Location> teamSpawns = new HashMap<>();
     // Beds
     public static final HashMap<GameTeam, ArrayList<Location>> beds = new HashMap<>();
     public static final ArrayList<GameTeam> teamsWithBeds = new ArrayList<>();

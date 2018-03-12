@@ -13,7 +13,7 @@ import org.bukkit.Material;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class GameTeam {
+public class GameTeam {
 
     protected final GameMode mode;
     private final HashMap<BiomiaPlayer, Boolean> players;

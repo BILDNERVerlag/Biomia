@@ -18,7 +18,7 @@ public class BedWarsTeam extends GameTeam {
 
     private final ArrayList<Block> bed;
 
-    BedWarsTeam(TeamColor color, Location loc, GameMode mode) {
+    public BedWarsTeam(TeamColor color, Location loc, GameMode mode) {
         super(color, loc, mode);
         bed = BedWarsConfig.loadBeds(mode.getInstance(), this);
     }

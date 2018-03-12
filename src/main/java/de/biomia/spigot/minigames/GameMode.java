@@ -3,8 +3,11 @@ package de.biomia.spigot.minigames;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
+import de.biomia.spigot.configs.BedWarsConfig;
+import de.biomia.spigot.configs.SkyWarsConfig;
 import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.minigames.bedwars.BedWars;
+import de.biomia.spigot.minigames.bedwars.BedWarsTeam;
 import de.biomia.spigot.minigames.bedwars.lobby.TeamSwitcher;
 import de.biomia.spigot.minigames.versus.Versus;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayer;
@@ -159,4 +162,27 @@ public abstract class GameMode {
     public Inventory getTeamSwitcher() {
         return teamSwitcher;
     }
+
+    public void initTeams() {
+
+        for (TeamColor colors : TeamColor.values()) {
+            if (colors.getID() > getInstance().getTeamAmount())
+                continue;
+
+            switch (getInstance().getType()) {
+            case BED_WARS:
+                new BedWarsTeam(colors, BedWarsConfig.loadLocsFromConfig(colors), this);
+                break;
+            case SKY_WARS:
+                new GameTeam(colors, SkyWarsConfig.loadLocsFromConfig(colors), this);
+                break;
+            default:
+                new GameTeam(colors, SkyWarsConfig.loadLocsFromConfig(colors), this);
+                break;
+            }
+
+
+        }
+    }
+
 }

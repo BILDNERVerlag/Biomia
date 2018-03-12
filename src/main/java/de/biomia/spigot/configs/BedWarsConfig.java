@@ -38,23 +38,20 @@ public class BedWarsConfig extends Config {
 
     public static void removeAllLocations() {
         getConfig().set("Spawnpoints", null);
-        Variables.teamSpawns.clear();
         saveConfig();
     }
 
-    public static void loadLocsFromConfig() {
-        for (GameTeam t : BedWars.getBedWars().getTeams()) {
-            if (getConfig().getString("Spawnpoints." + t.getTeamname() + ".World") != null) {
-                double x = getConfig().getDouble("Spawnpoints." + t.getTeamname() + ".X");
-                double y = getConfig().getDouble("Spawnpoints." + t.getTeamname() + ".Y");
-                double z = getConfig().getDouble("Spawnpoints." + t.getTeamname() + ".Z");
-                float ya = getConfig().getInt("Spawnpoints." + t.getTeamname() + ".Yaw");
-                World wo = Bukkit.getWorld(getConfig().getString("Spawnpoints." + t.getTeamname() + ".World"));
+    public static Location loadLocsFromConfig(TeamColor color) {
+        if (getConfig().getString("Spawnpoints." + color.name() + ".World") != null) {
+            double x = getConfig().getDouble("Spawnpoints." + color.name() + ".X");
+            double y = getConfig().getDouble("Spawnpoints." + color.name() + ".Y");
+            double z = getConfig().getDouble("Spawnpoints." + color.name() + ".Z");
+            float ya = getConfig().getInt("Spawnpoints." + color.name() + ".Yaw");
+            World wo = Bukkit.getWorld(getConfig().getString("Spawnpoints." + color.name() + ".World"));
 
-                Location loc = new Location(wo, x, y, z, ya, 0);
-                Variables.teamSpawns.put(t, loc);
-            }
+            return new Location(wo, x, y, z, ya, 0);
         }
+        return null;
     }
 
     public static void loadSignsFromConfig(GameInstance instance) {

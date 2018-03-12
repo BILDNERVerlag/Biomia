@@ -102,19 +102,17 @@ public class SkyWarsConfig extends Config {
 
     }
 
-    public static void loadLocsFromConfig() {
-        for (int i = 0; i <= getConfig().getInt("lastID"); i++) {
-            if (getConfig().getString("Spawnpoints." + i + ".World") != null) {
-                double x = getConfig().getDouble("Spawnpoints." + i + ".X");
-                double y = getConfig().getDouble("Spawnpoints." + i + ".Y");
-                double z = getConfig().getDouble("Spawnpoints." + i + ".Z");
-                float ya = getConfig().getInt("Spawnpoints." + i + ".Yaw");
-                World wo = Bukkit.getWorld(getConfig().getString("Spawnpoints." + i + ".World"));
+    public static Location loadLocsFromConfig(TeamColor color) {
+        if (getConfig().getString("Spawnpoints." + color.name() + ".World") != null) {
+            double x = getConfig().getDouble("Spawnpoints." + color.name() + ".X");
+            double y = getConfig().getDouble("Spawnpoints." + color.name() + ".Y");
+            double z = getConfig().getDouble("Spawnpoints." + color.name() + ".Z");
+            float ya = getConfig().getInt("Spawnpoints." + color.name() + ".Yaw");
+            World wo = Bukkit.getWorld(getConfig().getString("Spawnpoints." + color.name() + ".World"));
 
-                Location loc = new Location(wo, x, y, z, ya, 0);
-                Variables.teamSpawns.put(SkyWars.getSkyWars().getTeams().get(i - 1), loc);
-            }
+            return new Location(wo, x, y, z, ya, 0);
         }
+        return null;
     }
 
     @SuppressWarnings("deprecation")
