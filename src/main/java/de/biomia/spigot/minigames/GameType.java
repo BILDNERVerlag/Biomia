@@ -17,4 +17,14 @@ public enum GameType {
             return "";
         }
     }
+
+    public boolean isVersus() {
+        switch (this) {
+        case BED_WARS_VS:
+        case SKY_WARS_VS:
+            return true;
+        default:
+            return false;
+        }
+    }
 }

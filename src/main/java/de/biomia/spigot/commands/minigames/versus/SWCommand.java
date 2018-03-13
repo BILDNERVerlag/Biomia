@@ -1,7 +1,9 @@
 package de.biomia.spigot.commands.minigames.versus;
 
 import de.biomia.spigot.commands.BiomiaCommand;
-import de.biomia.spigot.configs.SkyWarsVersusConfig;
+import de.biomia.spigot.configs.SkyWarsConfig;
+import de.biomia.spigot.events.skywars.SkyWarsOpenChestEvent;
+import de.biomia.spigot.minigames.TeamColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -25,9 +27,8 @@ public class SWCommand extends BiomiaCommand {
                     switch (args[0].toLowerCase()) {
                     case "addloc":
                         if (args.length >= 3) {
-                            String mapDisplayName = args[1];
-                            int teamID = Integer.valueOf(args[2]);
-                            SkyWarsVersusConfig.addLocation(p.getLocation(), mapDisplayName, teamID);
+                            TeamColor team = TeamColor.valueOf(args[2].toUpperCase());
+                            new SkyWarsConfig().addSpawnLocation(p.getLocation(), team);
                             sender.sendMessage("Spawnpoint wurde hinzugef\u00fcgt!");
                         } else
                             sender.sendMessage("/sw addloc mapID teamID");
@@ -39,11 +40,11 @@ public class SWCommand extends BiomiaCommand {
                                 String mapDisplayName = args[1];
                                 switch (args[2].toLowerCase()) {
                                 case "good":
-                                    SkyWarsVersusConfig.addGoodChestLocation(l, mapDisplayName);
+                                    new SkyWarsConfig().addChestLocation(l, SkyWarsOpenChestEvent.ChestType.GoodChest);
                                     sender.sendMessage("Bessere Kiste hinzugef\u00fcgt!");
                                     break;
                                 case "normal":
-                                    SkyWarsVersusConfig.addNormalChestLocation(l, mapDisplayName);
+                                    new SkyWarsConfig().addChestLocation(l, SkyWarsOpenChestEvent.ChestType.NormalChest);
                                     sender.sendMessage("Normale Kiste hinzugef\u00fcgt!");
                                     break;
                                 default:

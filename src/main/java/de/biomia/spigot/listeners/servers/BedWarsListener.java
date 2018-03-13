@@ -2,7 +2,6 @@ package de.biomia.spigot.listeners.servers;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.events.bedwars.BedWarsDeathEvent;
 import de.biomia.spigot.events.bedwars.BedWarsKillEvent;
 import de.biomia.spigot.events.bedwars.BedWarsLeaveEvent;
@@ -11,8 +10,8 @@ import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.GameTeam;
-import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.spigot.minigames.bedwars.BedWars;
+import de.biomia.spigot.minigames.bedwars.BedWarsTeam;
 import de.biomia.spigot.minigames.bedwars.var.Scoreboards;
 import de.biomia.spigot.minigames.bedwars.var.Teleport;
 import de.biomia.spigot.minigames.bedwars.var.Variables;
@@ -231,7 +230,7 @@ public class BedWarsListener extends BiomiaListener {
             GameTeam t = BedWars.getBedWars().getTeam(Biomia.getBiomiaPlayer(p));
             if (t != null) {
                 if (!BedWars.getBedWars().getInstance().containsPlayer(bp) || !BedWars.getBedWars().getTeam(bp).lives(bp)) {
-                    e.setRespawnLocation(Variables.teamSpawns.get(t));
+                    e.setRespawnLocation(t.getHome());
                 } else
                     e.setRespawnLocation(new Location(Bukkit.getWorld(Variables.name), 0, 100, 0));
                 return;
@@ -404,7 +403,7 @@ public class BedWarsListener extends BiomiaListener {
                 if (team != null && teamkiller != null) {
                     if (team.equals(teamkiller)) {
                         e.setCancelled(true);
-                    } else if (e.getFinalDamage() > p.getHealth() && !Variables.teamsWithBeds.contains(BedWars.getBedWars().getTeam(Biomia.getBiomiaPlayer(killer)))) {
+                    } else if (e.getFinalDamage() > p.getHealth() && !((BedWarsTeam) BedWars.getBedWars().getTeam(Biomia.getBiomiaPlayer(killer))).hasBed()) {
                         e.setCancelled(true);
                         Bukkit.getPluginManager().callEvent(new BedWarsDeathEvent(bp, bpKiller, true));
                         Bukkit.getPluginManager().callEvent(new BedWarsKillEvent(bp, bpKiller, false));
@@ -517,23 +516,23 @@ public class BedWarsListener extends BiomiaListener {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         if (e.getRightClicked() instanceof ArmorStand) {
 
-            ItemStack is = p.getInventory().getItemInMainHand();
-
-            if (is != null) {
-                if (is.hasItemMeta()) {
-                    if (is.getItemMeta().getDisplayName().equals(BedWarsItemNames.teamJoinerSetter)) {
-                        if (is.getType().equals(Material.WOOL)) {
-                            @SuppressWarnings("deprecation")
-                            TeamColor team = TeamColor.getColorFromData(is.getData().getData());
-                            Entity armorstand = e.getRightClicked();
-                            BedWarsConfig.addTeamJoiner(armorstand, team);
-                            armorstand.setCustomName(team.getColorcode() + team.translate());
-                            armorstand.setCustomNameVisible(true);
-                            p.sendMessage(BedWarsMessages.teamJoinerSet.replace("%t", team.name()));
-                        }
-                    }
-                }
-            }
+//            ItemStack is = p.getInventory().getItemInMainHand();
+//
+//            if (is != null) {
+//                if (is.hasItemMeta()) {
+//                    if (is.getItemMeta().getDisplayName().equals(BedWarsItemNames.teamJoinerSetter)) {
+//                        if (is.getType().equals(Material.WOOL)) {
+//                            @SuppressWarnings("deprecation")
+//                            TeamColor team = TeamColor.getColorFromData(is.getData().getData());
+//                            Entity armorstand = e.getRightClicked();
+//                            BedWarsConfig.addTeamJoiner(armorstand, team);
+//                            armorstand.setCustomName(team.getColorcode() + team.translate());
+//                            armorstand.setCustomNameVisible(true);
+//                            p.sendMessage(BedWarsMessages.teamJoinerSet.replace("%t", team.name()));
+//                        }
+//                    }
+//                }
+//            }
             for (GameTeam allteams : BedWars.getBedWars().getTeams()) {
                 Entity entity = Variables.joiner.get(allteams.getColor());
                 if (entity != null && !entity.isDead()) {

@@ -5,8 +5,6 @@ import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.spigot.minigames.bedwars.BedWars;
-import de.biomia.spigot.minigames.bedwars.listeners.CountDown;
-import de.biomia.spigot.minigames.general.shop.ItemType;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -35,11 +33,7 @@ public class Variables {
     // Locs
     public static final Location warteLobbySpawn = new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 45, 0);
     public static final HashMap<Sign, Integer> signLocations = new HashMap<>();
-    // Beds
-    public static final HashMap<GameTeam, ArrayList<Location>> beds = new HashMap<>();
-    public static final ArrayList<GameTeam> teamsWithBeds = new ArrayList<>();
     // Spawner
-    public static final HashMap<ItemType, ArrayList<Location>> spawner = new HashMap<>();
     public static final HashMap<UUID, ArrayList<Player>> handlerMap = new HashMap<>();
     // Joiner
     public static final HashMap<TeamColor, Entity> joiner = new HashMap<>();

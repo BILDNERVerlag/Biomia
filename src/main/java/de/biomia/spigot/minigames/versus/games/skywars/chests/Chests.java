@@ -1,6 +1,7 @@
 package de.biomia.spigot.minigames.versus.games.skywars.chests;
 
-import de.biomia.spigot.configs.SkyWarsVersusConfig;
+import de.biomia.spigot.configs.SkyWarsConfig;
+import de.biomia.spigot.events.skywars.SkyWarsOpenChestEvent;
 import de.biomia.spigot.minigames.versus.games.skywars.VersusSkyWars;
 import de.biomia.spigot.minigames.versus.games.skywars.var.Variables;
 import org.bukkit.Location;
@@ -19,8 +20,11 @@ public class Chests {
     private HashMap<Location, ItemStack[]> normalFillableChests;
 
     public Chests(VersusSkyWars versusSkyWars) {
-        fillNormalChests(SkyWarsVersusConfig.loadNormalChestsFromConfig(versusSkyWars.getInstance().getMapDisplayName(), versusSkyWars.getInstance().getWorld()));
-        fillGoodChests(SkyWarsVersusConfig.loadGoodChestsFromConfig(versusSkyWars.getInstance().getMapDisplayName(), versusSkyWars.getInstance().getWorld()));
+
+        HashMap<SkyWarsOpenChestEvent.ChestType, ArrayList<Location>> chestsFromConfig = ((SkyWarsConfig) versusSkyWars.getConfig()).loadChestsFromConfig(versusSkyWars.getInstance());
+
+        fillNormalChests(chestsFromConfig.get(SkyWarsOpenChestEvent.ChestType.NormalChest));
+        fillGoodChests(chestsFromConfig.get(SkyWarsOpenChestEvent.ChestType.GoodChest));
     }
 
     public Chest fillChest(Location locations) {

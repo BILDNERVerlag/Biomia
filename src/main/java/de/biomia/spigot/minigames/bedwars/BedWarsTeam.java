@@ -8,7 +8,6 @@ import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.spigot.minigames.bedwars.var.Scoreboards;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
@@ -18,9 +17,9 @@ public class BedWarsTeam extends GameTeam {
 
     private final ArrayList<Block> bed;
 
-    public BedWarsTeam(TeamColor color, Location loc, GameMode mode) {
-        super(color, loc, mode);
-        bed = BedWarsConfig.loadBeds(mode.getInstance(), this);
+    public BedWarsTeam(TeamColor color, GameMode mode) {
+        super(color, mode);
+        bed = ((BedWarsConfig) mode.getConfig()).loadBeds(mode.getInstance(), this);
     }
 
     private boolean hasBed;

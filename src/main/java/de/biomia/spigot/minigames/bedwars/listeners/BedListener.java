@@ -7,11 +7,12 @@ import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.bedwars.BedWars;
+import de.biomia.spigot.minigames.bedwars.BedWarsTeam;
 import de.biomia.spigot.minigames.bedwars.var.Variables;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -24,28 +25,25 @@ public class BedListener implements Listener {
     public void onBlockBreak(BlockBreakEvent e) {
 
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
+        GameTeam bpTeam = BedWars.getBedWars().getTeam(bp);
 
-        if (e.getBlock().getType() == Material.BED_BLOCK) {
-            for (GameTeam t : BedWars.getBedWars().getTeams()) {
-                for (Location l : Variables.beds.get(t.getColor())) {
-                    if (l != null && l.getBlock().getType() == Material.BED_BLOCK
-                            && l.equals(e.getBlock().getLocation())) {
-                        GameTeam targetTeam = BedWars.getBedWars().getTeam(bp);
-                        if (targetTeam != null) {
-                            if (t.equals(targetTeam)) {
-                                e.setCancelled(true);
-                                e.getPlayer().sendMessage(BedWarsMessages.cantDestroyYourOwnBed);
-                                return;
-                            }
-                            Bukkit.getPluginManager().callEvent(new BedWarsDestroyBedEvent(Biomia.getBiomiaPlayer(e.getPlayer()), Variables.beds.get(t.getColor()).get(0), Variables.beds.get(t.getColor()).get(1), t.getTeamname()));
-                            Variables.teamsWithBeds.remove(t);
-                            Bukkit.broadcastMessage("\u00A7cDas Bett von Team " + t.getColorcode() + t.getColor().translate() + " \u00A7cwurde zerst\u00F6rt!");
-                            e.setDropItems(false);
-                            for (Player p : Bukkit.getOnlinePlayers()) {
-                                p.playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_FIREBALL_EXPLODE, 1, 1);
-                            }
+        if (e.getBlock().getType() == Material.BED_BLOCK && bpTeam != null) {
+            for (GameTeam team : BedWars.getBedWars().getTeams()) {
+                for (Block l : ((BedWarsTeam) team).getBed()) {
+                    if (l.equals(e.getBlock())) {
+                        if (team.equals(bpTeam)) {
+                            e.setCancelled(true);
+                            e.getPlayer().sendMessage(BedWarsMessages.cantDestroyYourOwnBed);
                             return;
                         }
+                        Bukkit.getPluginManager().callEvent(new BedWarsDestroyBedEvent(Biomia.getBiomiaPlayer(e.getPlayer()), team.getTeamname()));
+                        ((BedWarsTeam) team).destroyBed();
+                        Bukkit.broadcastMessage("\u00A7cDas Bett von Team " + team.getColorcode() + team.getColor().translate() + " \u00A7cwurde zerst\u00F6rt!");
+                        e.setDropItems(false);
+                        for (Player p : Bukkit.getOnlinePlayers()) {
+                            p.playSound(p.getLocation(), Sound.ENTITY_ENDERDRAGON_FIREBALL_EXPLODE, 1, 1);
+                        }
+                        return;
                     }
                 }
             }

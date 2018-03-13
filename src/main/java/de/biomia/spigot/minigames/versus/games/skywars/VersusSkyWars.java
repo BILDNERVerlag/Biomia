@@ -2,13 +2,14 @@ package de.biomia.spigot.minigames.versus.games.skywars;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.configs.SkyWarsVersusConfig;
+import de.biomia.spigot.configs.MinigamesConfig;
+import de.biomia.spigot.configs.SkyWarsConfig;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.TeamColor;
+import de.biomia.spigot.minigames.general.kits.KitManager;
 import de.biomia.spigot.minigames.versus.Versus;
 import de.biomia.spigot.minigames.versus.games.skywars.chests.Chests;
-import de.biomia.spigot.minigames.general.kits.KitManager;
 import org.bukkit.Bukkit;
 
 public class VersusSkyWars extends GameMode {
@@ -18,8 +19,6 @@ public class VersusSkyWars extends GameMode {
     public VersusSkyWars(GameInstance instance) {
         super(instance);
         Bukkit.broadcastMessage("%%% starting SkyWarsInstance");
-        new SkyWarsTeam(this, TeamColor.BLUE, SkyWarsVersusConfig.loadLocsFromConfig(instance.getMapDisplayName(), TeamColor.BLUE.getID(), instance.getWorld()));
-        new SkyWarsTeam(this, TeamColor.RED, SkyWarsVersusConfig.loadLocsFromConfig(instance.getMapDisplayName(), TeamColor.RED.getID(), instance.getWorld()));
         handler = new SkyWarsHandler(this);
         Bukkit.broadcastMessage("%%% SkyWars constructor ends");
     }
@@ -46,5 +45,10 @@ public class VersusSkyWars extends GameMode {
     public void stop() {
         super.stop();
         ((Versus) Biomia.getSeverInstance()).getManager().getRequests().get(getInstance()).finish();
+    }
+
+    @Override
+    protected MinigamesConfig initConfig() {
+        return new SkyWarsConfig();
     }
 }

@@ -20,10 +20,10 @@ public class GameTeam {
     private final TeamColor color;
     private final Location home;
 
-    protected GameTeam(TeamColor color, Location loc, GameMode mode) {
+    protected GameTeam(TeamColor color, GameMode mode) {
         this.players = new HashMap<>();
         this.color = color;
-        this.home = loc;
+        this.home = mode.getConfig().getSpawnLocation(color, mode.getInstance());
         this.mode = mode;
         mode.registerTeam(this);
     }

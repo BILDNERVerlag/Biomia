@@ -33,6 +33,6 @@ public class SkyWarsOpenChestEvent extends SkyWarsEvent {
     }
 
     public enum ChestType {
-        GOOD_Chest, NORMAL_Chest
+        GoodChest, NormalChest
     }
 }

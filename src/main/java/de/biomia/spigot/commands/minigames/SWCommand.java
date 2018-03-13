@@ -2,10 +2,12 @@ package de.biomia.spigot.commands.minigames;
 
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.configs.Config;
+import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.configs.SkyWarsConfig;
 import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
 import de.biomia.spigot.minigames.GameTeam;
+import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.spigot.minigames.skywars.SkyWars;
 import de.biomia.spigot.minigames.skywars.var.Variables;
 import de.biomia.spigot.tools.ItemCreator;
@@ -42,19 +44,17 @@ public class SWCommand extends BiomiaCommand {
                         String name = args[3];
 
                         Config.getConfig().set("Name", name);
+                        MinigamesConfig.mapName = name;
                         Config.getConfig().set("TeamSize", spielerProTeam);
                         Config.getConfig().set("NumberOfTeams", teams);
 
                         saveConfig();
                     } else if (args[0].equalsIgnoreCase("setup")) {
                         sender.sendMessage("\u00A7c/sw setup <SpielerProTeam> <Teams> <MapName>");
-                    } else if (args[0].equalsIgnoreCase("addloc")) {
-                        SkyWarsConfig.addLocation(p.getLocation());
+                    } else if (args[0].equalsIgnoreCase("addloc") && args.length >= 2) {
+                        new SkyWarsConfig().addSpawnLocation(p.getLocation(), TeamColor.valueOf(args[1]));
                         sender.sendMessage("Spawnpoint wurde hinzugef\u00fcgt!");
                         return true;
-                    } else if (args[0].equalsIgnoreCase("removelocs")) {
-                        SkyWarsConfig.removeAllLocations();
-                        sender.sendMessage("Alle Spawnlocations entfernt!");
                     } else if (args[0].equalsIgnoreCase("chestaddmode")) {
                         Variables.chestAddMode = !Variables.chestAddMode;
 
@@ -63,12 +63,6 @@ public class SWCommand extends BiomiaCommand {
                         } else {
                             sender.sendMessage(SkyWarsMessages.chestAddModeOFF);
                         }
-                    } else if (args[0].equalsIgnoreCase("deleteallchests")) {
-                        SkyWarsConfig.removeAllChests();
-                        sender.sendMessage("\u00A7cAlle Kisten entfernt.");
-                    } else if (args[0].equalsIgnoreCase("deleteallsigns")) {
-                        SkyWarsConfig.removeAllSigns();
-                        sender.sendMessage("\u00A7cAlle Signs entfernt.");
                     } else if (args[0].equalsIgnoreCase("getTeamjoinersetter")) {
                         for (GameTeam t : SkyWars.getSkyWars().getTeams()) {
                             p.getInventory().addItem(ItemCreator.itemCreate(Material.WOOL, SkyWarsItemNames.teamJoinerSetter,

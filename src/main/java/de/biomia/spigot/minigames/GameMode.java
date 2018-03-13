@@ -3,8 +3,7 @@ package de.biomia.spigot.minigames;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
-import de.biomia.spigot.configs.BedWarsConfig;
-import de.biomia.spigot.configs.SkyWarsConfig;
+import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.minigames.bedwars.BedWars;
 import de.biomia.spigot.minigames.bedwars.BedWarsTeam;
@@ -21,6 +20,7 @@ import java.util.Iterator;
 
 public abstract class GameMode {
 
+    private MinigamesConfig config;
     protected Inventory teamSwitcher;
     private final GameInstance instance;
     private final ArrayList<GameTeam> teams = new ArrayList<>();
@@ -58,6 +58,8 @@ public abstract class GameMode {
     public void start() {
         stateManager.getLobbyState().start();
         TeamSwitcher.getTeamSwitcher(this);
+        config = initConfig();
+        config.loadTeamJoiner();
     }
 
     public void start(GameStateManager.LobbyState state) {
@@ -171,13 +173,13 @@ public abstract class GameMode {
 
             switch (getInstance().getType()) {
             case BED_WARS:
-                new BedWarsTeam(colors, BedWarsConfig.loadLocsFromConfig(colors), this);
+                new BedWarsTeam(colors, this);
                 break;
             case SKY_WARS:
-                new GameTeam(colors, SkyWarsConfig.loadLocsFromConfig(colors), this);
+                new GameTeam(colors, this);
                 break;
             default:
-                new GameTeam(colors, SkyWarsConfig.loadLocsFromConfig(colors), this);
+                new GameTeam(colors, this);
                 break;
             }
 
@@ -185,4 +187,9 @@ public abstract class GameMode {
         }
     }
 
+    protected abstract MinigamesConfig initConfig();
+
+    public MinigamesConfig getConfig() {
+        return config;
+    }
 }

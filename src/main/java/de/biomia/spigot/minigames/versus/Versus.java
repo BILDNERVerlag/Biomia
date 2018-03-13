@@ -2,7 +2,6 @@ package de.biomia.spigot.minigames.versus;
 
 import de.biomia.spigot.BiomiaServer;
 import de.biomia.spigot.Main;
-import de.biomia.spigot.commands.minigames.versus.BWCommand;
 import de.biomia.spigot.commands.minigames.versus.SWCommand;
 import de.biomia.spigot.commands.minigames.versus.VSCommands;
 import de.biomia.spigot.listeners.servers.VersusLobbyListener;
@@ -43,7 +42,6 @@ public class Versus extends BiomiaServer {
         Main.registerCommand(new VSCommands("request"));
         Main.registerCommand(new VSCommands("spawn"));
 
-        Main.registerCommand(new BWCommand());
         Main.registerCommand(new SWCommand());
     }
 

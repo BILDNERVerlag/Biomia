@@ -3,6 +3,7 @@ package de.biomia.spigot.minigames.bedwars;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.minigames.BWCommand;
 import de.biomia.spigot.configs.BedWarsConfig;
+import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.listeners.servers.BedWarsListener;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
@@ -35,11 +36,6 @@ public class BedWars extends GameMode {
         saveConfig();
 
         Main.getPlugin().getServer().createWorld(new WorldCreator(Variables.name));
-
-        BedWarsConfig.loadTeamJoiner();
-        BedWarsConfig.loadSignsFromConfig(getInstance());
-        BedWarsConfig.loadSpawner(getInstance());
-
         Shop.init();
 
         Bukkit.getPluginManager().registerEvents(new BedWarsListener(), Main.getPlugin());
@@ -66,8 +62,13 @@ public class BedWars extends GameMode {
         @Override
         public void start() {
             super.start();
-            itemManager = new SpawnItems(BedWarsConfig.loadSpawner(getInstance()), Bukkit.getWorld(Variables.name));
+            itemManager = new SpawnItems(((BedWarsConfig) getConfig()).loadSpawner(getInstance()), getInstance().getWorld());
             itemManager.startSpawning();
         }
+    }
+
+    @Override
+    protected MinigamesConfig initConfig() {
+        return new BedWarsConfig();
     }
 }

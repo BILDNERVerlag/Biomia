@@ -2,11 +2,11 @@ package de.biomia.spigot.minigames.skywars;
 
 import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.minigames.SWCommand;
+import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.configs.SkyWarsConfig;
 import de.biomia.spigot.listeners.servers.SkyWarsListener;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
-import de.biomia.spigot.minigames.bedwars.lobby.TeamSwitcher;
 import de.biomia.spigot.minigames.general.kits.KitManager;
 import de.biomia.spigot.minigames.skywars.chests.Chests;
 import de.biomia.spigot.minigames.skywars.chests.Items;
@@ -40,13 +40,6 @@ public class SkyWars extends GameMode {
 
         Main.getPlugin().getServer().createWorld(new WorldCreator(Variables.name));
 
-        //TODO init Teams
-        //Biomia.getTeamManager().initTeams(Variables.playerPerTeam, Variables.teams);
-
-        SkyWarsConfig.loadChestsFromConfig();
-        SkyWarsConfig.loadLocsFromConfig();
-        SkyWarsConfig.loadTeamJoiner();
-        SkyWarsConfig.loadSignsFromConfig();
         Items.init();
         Variables.normalChestsFill = Chests.fillNormalChests();
         Variables.goodChestsFill = Chests.fillGoodChests();
@@ -56,5 +49,10 @@ public class SkyWars extends GameMode {
 
         KitManager.initKits();
         getStateManager().setInGameState(new SkyWarsInGameState(this));
+    }
+
+    @Override
+    protected MinigamesConfig initConfig() {
+        return new SkyWarsConfig();
     }
 }

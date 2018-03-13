@@ -165,7 +165,7 @@ public class GameStateManager {
             }
 
             Scoreboards.initSpectatorSB();
-            Teleport.teleportPlayerToMap(Variables.teamSpawns);
+            Teleport.teleportPlayerToMap(getMode());
         }
 
         public void stop() {

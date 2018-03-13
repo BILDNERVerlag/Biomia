@@ -2,7 +2,7 @@ package de.biomia.spigot.minigames.bedwars.var;
 
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
-import de.biomia.spigot.minigames.GameTeam;
+import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.bedwars.BedWars;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -33,7 +33,7 @@ public class Teleport {
         }.runTaskTimer(Main.getPlugin(), 0, 1);
     }
 
-    public static void teleportPlayerToMap(HashMap<GameTeam, Location> spawns) {
+    public static void teleportPlayerToMap(GameMode mode) {
         Iterator<BiomiaPlayer> players = BedWars.getBedWars().getInstance().getPlayers().iterator();
         new BukkitRunnable() {
             @Override
@@ -41,7 +41,7 @@ public class Teleport {
                 if (players.hasNext()) {
                     BiomiaPlayer bp = players.next();
                     bp.getPlayer().setFallDistance(0);
-                    bp.getPlayer().teleport(spawns.get(BedWars.getBedWars().getTeam(bp)));
+                    bp.getPlayer().teleport(mode.getTeam(bp).getHome());
                 } else {
                     cancel();
                 }

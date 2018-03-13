@@ -400,18 +400,18 @@ public class SkyWarsListener extends BiomiaListener {
             if (e.getClickedBlock().getType() == Material.CHEST) {
                 Chest chest = (Chest) e.getClickedBlock().getState();
                 boolean firstOpen = false;
-                SkyWarsOpenChestEvent.ChestType chestType = SkyWarsOpenChestEvent.ChestType.NORMAL_Chest;
+                SkyWarsOpenChestEvent.ChestType chestType = SkyWarsOpenChestEvent.ChestType.NormalChest;
                 if (!Variables.opendChests.contains(chest.getLocation()) && SkyWars.getSkyWars().getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
                     if (Variables.normalChestsFill.containsKey(chest)) {
                         chest.getInventory().setContents(Variables.normalChestsFill.get(chest));
                         Variables.opendChests.add(chest.getLocation());
                         firstOpen = true;
-                        chestType = SkyWarsOpenChestEvent.ChestType.NORMAL_Chest;
+                        chestType = SkyWarsOpenChestEvent.ChestType.NormalChest;
                     } else if (Variables.goodChestsFill.containsKey(chest)) {
                         chest.getInventory().setContents(Variables.goodChestsFill.get(chest));
                         Variables.opendChests.add(chest.getLocation());
                         firstOpen = true;
-                        chestType = SkyWarsOpenChestEvent.ChestType.GOOD_Chest;
+                        chestType = SkyWarsOpenChestEvent.ChestType.GoodChest;
                     }
                 }
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
@@ -441,7 +441,7 @@ public class SkyWarsListener extends BiomiaListener {
                 e.setCancelled(true);
 
                 if (!Variables.normalChests.contains(c)) {
-                    SkyWarsConfig.addNormalChestLocation(loc);
+                    new SkyWarsConfig().addChestLocation(loc, SkyWarsOpenChestEvent.ChestType.NormalChest);
                     p.sendMessage(SkyWarsItemNames.normaleTruheHinzu);
                 } else {
                     p.sendMessage(SkyWarsItemNames.truheBereitsHinzu);
@@ -455,7 +455,7 @@ public class SkyWarsListener extends BiomiaListener {
                 e.setCancelled(true);
 
                 if (!Variables.goodChests.contains(c)) {
-                    SkyWarsConfig.addGoodChestLocation(loc);
+                    new SkyWarsConfig().addChestLocation(loc, SkyWarsOpenChestEvent.ChestType.GoodChest);
                     p.sendMessage(SkyWarsItemNames.bessereTruheHinzu);
                 } else {
                     p.sendMessage(SkyWarsItemNames.truheBereitsHinzu);
@@ -607,27 +607,26 @@ public class SkyWarsListener extends BiomiaListener {
 
         if (e.getRightClicked() instanceof ArmorStand) {
 
-            ItemStack is = p.getInventory().getItemInMainHand();
-
-            if (is != null) {
-                if (is.hasItemMeta()) {
-                    if (is.getItemMeta().getDisplayName().equals(SkyWarsItemNames.teamJoinerSetter)) {
-
-                        if (is.getType().equals(Material.WOOL)) {
-
-                            GameTeam team = SkyWars.getSkyWars().getTeamFromData(is.getData().getData());
-
-                            if (team != null) {
-                                Entity armorstand = e.getRightClicked();
-                                SkyWarsConfig.addTeamJoiner(armorstand, team.getColor());
-                                armorstand.setCustomName(team.getColorcode() + team.getColor().translate());
-                                armorstand.setCustomNameVisible(true);
-                                p.sendMessage(SkyWarsMessages.teamJoinerSet.replace("%t", team.getTeamname()));
-                            }
-                        }
-                    }
-                }
-            }
+//            ItemStack is = p.getInventory().getItemInMainHand();
+//            if (is != null) {
+//                if (is.hasItemMeta()) {
+//                    if (is.getItemMeta().getDisplayName().equals(SkyWarsItemNames.teamJoinerSetter)) {
+//
+//                        if (is.getType().equals(Material.WOOL)) {
+//
+//                            GameTeam team = SkyWars.getSkyWars().getTeamFromData(is.getData().getData());
+//
+//                            if (team != null) {
+//                                Entity armorstand = e.getRightClicked();
+//                                SkyWarsConfig.addTeamJoiner(armorstand, team.getColor());
+//                                armorstand.setCustomName(team.getColorcode() + team.getColor().translate());
+//                                armorstand.setCustomNameVisible(true);
+//                                p.sendMessage(SkyWarsMessages.teamJoinerSet.replace("%t", team.getTeamname()));
+//                            }
+//                        }
+//                    }
+//                }
+//            }
             for (GameTeam allteams : SkyWars.getSkyWars().getTeams()) {
 
                 Entity entity = Variables.joiner.get(allteams.getColor());

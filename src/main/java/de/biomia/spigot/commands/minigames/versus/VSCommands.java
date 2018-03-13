@@ -3,9 +3,9 @@ package de.biomia.spigot.commands.minigames.versus;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.commands.BiomiaCommand;
-import de.biomia.universal.Messages;
 import de.biomia.spigot.minigames.versus.Versus;
 import de.biomia.spigot.minigames.versus.settings.VSRequest;
+import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -32,13 +32,13 @@ public class VSCommands extends BiomiaCommand {
                     BiomiaPlayer bparg = Biomia.getBiomiaPlayer(parg);
                     if (VSRequest.hasRequestSended(bparg, bp)) {
                         VSRequest request = VSRequest.getRequest(bparg);
+                        if (request == null)
+                            return true;
                         switch (getName()) {
                         case "accept":
-                            assert request != null;
                             request.accept();
                             break;
                         case "decline":
-                            assert request != null;
                             request.decline();
                             break;
                         default:

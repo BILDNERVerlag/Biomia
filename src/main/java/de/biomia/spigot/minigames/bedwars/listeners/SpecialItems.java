@@ -64,7 +64,7 @@ public class SpecialItems implements Listener {
                 Block blockHead = p.getTargetBlock((Set<Material>) null, 100);
 
                 if (blockFoot.getType() == Material.BED_BLOCK && blockHead.getType() == Material.BED_BLOCK) {
-                    BedWarsConfig.addBedsLocations(blockFoot.getLocation(), blockHead.getLocation(), TeamColor.getColorFromData(e.getItem().getData().getData()));
+                    new BedWarsConfig().addBedsLocations(blockFoot.getLocation(), blockHead.getLocation(), TeamColor.getColorFromData(e.getItem().getData().getData()));
                     Bukkit.broadcastMessage("Bett hinzugef\u00fcgt!");
                 } else {
                     p.sendMessage(BedWarsMessages.blocksMustBeBeds);
@@ -213,7 +213,7 @@ public class SpecialItems implements Listener {
             return;
         }
 
-        BedWarsConfig.addSpawnerLocations(l, itemType);
+        new BedWarsConfig().addSpawnerLocations(l, itemType);
     }
 
     private void warpHome(BiomiaPlayer bp, ItemStack is) {
@@ -222,7 +222,7 @@ public class SpecialItems implements Listener {
         if (team != null) {
             Teleport.teleportBackHome(bp);
             new BukkitRunnable() {
-                final Location loc = Variables.teamSpawns.get(team).clone();
+                final Location loc = team.getHome().clone();
                 final Location location = bp.getPlayer().getLocation();
                 int i = 50;
 
@@ -230,7 +230,7 @@ public class SpecialItems implements Listener {
                 public void run() {
                     if (Teleport.getStartLocation(bp) != null) {
                         if (i == 0) {
-                            bp.getPlayer().teleport(Variables.teamSpawns.get(team));
+                            bp.getPlayer().teleport(team.getHome());
                             is.setAmount(is.getAmount() - 1);
                         } else if (i <= 50) {
                             if (i % 10 == 0) {
