@@ -10,9 +10,9 @@ import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.bedwars.listeners.BedListener;
 import de.biomia.spigot.minigames.bedwars.listeners.SpecialItems;
-import de.biomia.spigot.minigames.bedwars.lobby.TeamSwitcher;
 import de.biomia.spigot.minigames.bedwars.var.Variables;
 import de.biomia.spigot.minigames.general.SpawnItems;
+import de.biomia.spigot.minigames.general.TeamSwitcher;
 import de.biomia.spigot.minigames.general.shop.Shop;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
@@ -30,7 +30,16 @@ public class BedWars extends GameMode {
 
     @Override
     public void start() {
-        super.start(new BedWarsLobbyState(this));
+        super.start(new GameStateManager.LobbyState(this) {
+            private SpawnItems itemManager;
+
+            @Override
+            public void start() {
+                super.start();
+                itemManager = new SpawnItems(((BedWarsConfig) getConfig()).loadSpawner(getInstance()), getInstance().getWorld());
+                itemManager.startSpawning();
+            }
+        });
 
         Main.getPlugin().saveDefaultConfig();
         saveConfig();
@@ -49,22 +58,6 @@ public class BedWars extends GameMode {
 
     public static BedWars getBedWars() {
         return instance;
-    }
-
-    public class BedWarsLobbyState extends GameStateManager.LobbyState {
-
-        private BedWarsLobbyState(GameMode mode) {
-            super(mode);
-        }
-
-        private SpawnItems itemManager;
-
-        @Override
-        public void start() {
-            super.start();
-            itemManager = new SpawnItems(((BedWarsConfig) getConfig()).loadSpawner(getInstance()), getInstance().getWorld());
-            itemManager.startSpawning();
-        }
     }
 
     @Override

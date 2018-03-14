@@ -7,7 +7,7 @@ import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.minigames.bedwars.BedWars;
 import de.biomia.spigot.minigames.bedwars.BedWarsTeam;
-import de.biomia.spigot.minigames.bedwars.lobby.TeamSwitcher;
+import de.biomia.spigot.minigames.general.TeamSwitcher;
 import de.biomia.spigot.minigames.versus.Versus;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayer;
 import org.bukkit.Bukkit;

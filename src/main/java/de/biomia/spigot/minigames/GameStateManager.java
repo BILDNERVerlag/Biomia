@@ -8,7 +8,7 @@ import de.biomia.spigot.events.bedwars.BedWarsEndEvent;
 import de.biomia.spigot.events.bedwars.BedWarsStartEvent;
 import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.minigames.bedwars.BedWars;
-import de.biomia.spigot.minigames.bedwars.listeners.CountDown;
+import de.biomia.spigot.minigames.general.CountDown;
 import de.biomia.spigot.minigames.bedwars.var.Scoreboards;
 import de.biomia.spigot.minigames.bedwars.var.Teleport;
 import de.biomia.spigot.minigames.bedwars.var.Variables;

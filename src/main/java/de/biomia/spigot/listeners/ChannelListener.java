@@ -7,8 +7,6 @@ import de.biomia.spigot.OfflineBiomiaPlayer;
 import de.biomia.spigot.general.reportsystem.PlayerBan;
 import de.biomia.spigot.general.reportsystem.PlayerReport;
 import de.biomia.spigot.general.reportsystem.ReportManager;
-import de.biomia.spigot.tools.RankManager;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
@@ -27,14 +25,6 @@ public class ChannelListener implements PluginMessageListener {
 
             PlayerReport report = new PlayerReport(Biomia.getOfflineBiomiaPlayer(reporter), Biomia.getOfflineBiomiaPlayer(reporteter), grund);
             ReportManager.plReports.add(report);
-        }
-
-        if (subchannel.equals("RankUp")) {
-            String pl = in.readUTF();
-            String rank = in.readUTF();
-
-            Player p = Bukkit.getPlayer(pl);
-            RankManager.setRank(p, rank);
         }
 
         if (subchannel.equals("BanReason")) {

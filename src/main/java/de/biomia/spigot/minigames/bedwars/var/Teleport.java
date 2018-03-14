@@ -2,8 +2,11 @@ package de.biomia.spigot.minigames.bedwars.var;
 
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
+import de.biomia.spigot.messages.manager.ActionBar;
 import de.biomia.spigot.minigames.GameMode;
+import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.bedwars.BedWars;
+import de.biomia.spigot.minigames.skywars.SkyWars;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -59,5 +62,28 @@ public class Teleport {
 
     public static void removeFromStartLocs(BiomiaPlayer bp) {
         starts.remove(bp);
+    }
+
+    public static void sendCountDown(GameMode mode) {
+        new BukkitRunnable() {
+            int waitForStartCountdown = 5;
+
+            @Override
+            public void run() {
+                for (BiomiaPlayer p : mode.getInstance().getPlayers()) {
+                    if (waitForStartCountdown == 0) {
+                        ActionBar.sendActionBar("\u00A78Los!", p.getPlayer());
+                        p.setBuild(true);
+                        p.setDamageEntitys(true);
+                        p.setGetDamage(true);
+                        SkyWars.getSkyWars().getStateManager().setActualGameState(GameStateManager.GameState.INGAME);
+                        cancel();
+                    } else {
+                        ActionBar.sendActionBar("\u00A78" + waitForStartCountdown, p.getPlayer());
+                    }
+                }
+                waitForStartCountdown--;
+            }
+        }.runTaskTimer(Main.getPlugin(), 0, 20);
     }
 }

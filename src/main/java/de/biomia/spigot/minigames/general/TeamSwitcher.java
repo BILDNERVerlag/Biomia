@@ -1,4 +1,4 @@
-package de.biomia.spigot.minigames.bedwars.lobby;
+package de.biomia.spigot.minigames.general;
 
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameTeam;

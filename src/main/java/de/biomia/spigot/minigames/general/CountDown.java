@@ -1,4 +1,4 @@
-package de.biomia.spigot.minigames.bedwars.listeners;
+package de.biomia.spigot.minigames.general;
 
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.BedWarsMessages;
