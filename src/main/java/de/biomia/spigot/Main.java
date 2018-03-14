@@ -39,7 +39,7 @@ public class Main extends JavaPlugin {
     /**
      * Change the TestServer here!
      */
-    private static final String actualTestGroup = "DuellLobby";
+    private static final String actualTestGroup = "BedWars";
 
     private static EasterEvent event;
     private static Main plugin;
@@ -101,21 +101,27 @@ public class Main extends JavaPlugin {
 
         groupName = groupName.equals("TestServer") ? actualTestGroup : groupName;
         switch (groupName) {
+            case "TestLobby":
             case "Lobby":
                 Biomia.setServerInstance(new Lobby());
                 Biomia.getServerInstance().start();
                 break;
+            case "TestQuest":
+            case "Quest":
             case "QuestServer":
                 Biomia.setServerInstance(new Quests());
                 Biomia.getServerInstance().start();
                 break;
+            case "TestBedWars":
             case "BedWars":
                 //TODO BedWars und SkyWars aus Config auslesen
                 new GameInstance(BED_WARS, new WorldCreator(Variables.name).createWorld(), Variables.name, 4, 4).getGameMode().start();
                 break;
+            case "TestSkyWars":
             case "SkyWars":
                 new GameInstance(SKY_WARS, new WorldCreator(Variables.name).createWorld(), Variables.name, 4, 4).getGameMode().start();
                 break;
+            case "TestDuellLobby":
             case "DuellLobby":
                 Biomia.setServerInstance(new Versus());
                 Biomia.getServerInstance().start();
@@ -124,16 +130,20 @@ public class Main extends JavaPlugin {
                 Biomia.setServerInstance(new Weltenlabor());
                 Biomia.getServerInstance().start();
                 break;
+            case "TestFreebuild":
+            case "Freebuild":
             case "FreebuildServer":
                 Biomia.setServerInstance(new Freebuild());
                 Biomia.getServerInstance().start();
                 break;
+            case "Freebuild-Farm":
             case "FarmServer":
                 //TODO Farmserver nach Fertigstellung hinzufuegen
                 break;
             case "BauServer":
                 Bukkit.getPluginManager().registerEvents(new BauServerListener(), this);
                 break;
+                //TODO: Group Names ändern
         }
 
         event = new EasterEvent();

@@ -2,6 +2,7 @@ package de.biomia.spigot.achievements;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import de.biomia.spigot.Biomia;
+import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.universal.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -17,7 +18,8 @@ public class Stats {
 
     static final HashMap<BiomiaStat, ArrayList<Achievements>> stats = new HashMap<>();
 
-    private final static boolean log = true;
+    //TODO: ueber commands
+    private final static boolean log = false;
 
     public enum BiomiaStat {
 
@@ -219,7 +221,7 @@ public class Stats {
 
         String out = "";
 
-        out += ("\n§7<§cChecking §7" + stat + "§7,\n");
+        out += ("\n§7<§cChecking §7" + stat + " §cfor §b" + BiomiaPlayer.getName(biomiaPlayerID) + "§7,\n");
         if (achievements != null) {
             out += ("§7-§c# of Achievements: §b" + achievements.size() + "§7,\n");
             for (Achievements each : achievements) {

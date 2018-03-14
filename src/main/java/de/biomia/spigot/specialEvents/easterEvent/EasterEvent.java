@@ -34,6 +34,8 @@ public class EasterEvent implements Listener {
     private final ArrayList<Block> blocks = new ArrayList<>();
     private final Location specialEggLocation;
 
+    //TODO: deaktivieren, dass eier auf wasser und auf baumkronen spawnen können
+
     public EasterEvent() {
         final String world;
         switch (Main.getGroupName()) {

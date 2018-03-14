@@ -87,7 +87,7 @@ public class WarpCommand extends BiomiaCommand {
                     if (playerWarpLocations.isEmpty()) {
                         sendWarpInstructions(p);
                     } else {
-                        p.sendMessage(Messages.PREFIX + "\u00A7cGib einen deiner Warps an!\n\u00A7b\u00A7lDeine Warps:");
+                        p.sendMessage(Messages.PREFIX + "\u00A7cGib einen deiner Warps an!");
                         sendWarpList(p, playerWarpLocations, publicWarpLocations);
                     }
                     return true;
@@ -131,18 +131,21 @@ public class WarpCommand extends BiomiaCommand {
     }
 
     private void sendWarpList(Player p, HashMap<String, WarpLocation> playerWarpLocations0, HashMap<String, WarpLocation> publicWarpLocations0) {
-        Iterator it = playerWarpLocations0.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            p.sendMessage("\u00A77-\u00A7b" + pair.getKey() + " " + (pair.getValue()).toString());
-            it.remove();
+        if (!playerWarpLocations0.isEmpty()) {
+            p.sendMessage("\u00A7c Deine Warps:");
+            Iterator it = playerWarpLocations0.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry) it.next();
+                p.sendMessage("\u00A77-\u00A7b" + pair.getKey() + " " + (pair.getValue()).toString());
+                it.remove();
+            }
         }
         if (!publicWarpLocations0.isEmpty()) {
-            p.sendMessage("\u00A76\u00A7l÷ffentliche Warps:");
+            p.sendMessage("\u00A7c ÷ffentliche Warps:");
             Iterator it2 = publicWarpLocations0.entrySet().iterator();
             while (it2.hasNext()) {
                 Map.Entry pair = (Map.Entry) it2.next();
-                p.sendMessage("\u00A77-\u00A76" + pair.getKey() + " " + (pair.getValue()).toString());
+                p.sendMessage("\u00A77-\u00A7b" + pair.getKey() + " " + (pair.getValue()).toString());
                 it2.remove();
             }
         }
