@@ -79,7 +79,7 @@ public class LobbyListener extends BiomiaListener {
         LobbyInventoryManager.setInventory(p);
         LobbyScoreboard.sendScoreboard(p);
 
-        for (Player pl : ((Lobby) Biomia.getSeverInstance()).getSilentLobby()) {
+        for (Player pl : ((Lobby) Biomia.getServerInstance()).getSilentLobby()) {
             p.hidePlayer(pl);
             pl.hidePlayer(p);
         }
@@ -128,23 +128,23 @@ public class LobbyListener extends BiomiaListener {
         Player p = e.getPlayer();
         if (p.getGameMode() != GameMode.CREATIVE) {
             e.setCancelled(true);
-            if (!((Lobby) Biomia.getSeverInstance()).getInAir().contains(p)) {
+            if (!((Lobby) Biomia.getServerInstance()).getInAir().contains(p)) {
                 p.setFlying(false);
                 p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_LARGE_BLAST, 1, 0);
                 Vector jump = p.getLocation().getDirection().multiply(2.6D).setY(1.2);
                 p.setVelocity(p.getVelocity().add(jump));
                 p.setAllowFlight(false);
-                ((Lobby) Biomia.getSeverInstance()).getInAir().add(p);
+                ((Lobby) Biomia.getServerInstance()).getInAir().add(p);
             }
         }
     }
 
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
-        if (((Lobby) Biomia.getSeverInstance()).getInAir().contains(e.getPlayer())) {
+        if (((Lobby) Biomia.getServerInstance()).getInAir().contains(e.getPlayer())) {
             if (e.getPlayer().isOnGround()) {
                 e.getPlayer().setAllowFlight(true);
-                ((Lobby) Biomia.getSeverInstance()).getInAir().remove(e.getPlayer());
+                ((Lobby) Biomia.getServerInstance()).getInAir().remove(e.getPlayer());
             }
         }
     }
@@ -157,10 +157,10 @@ public class LobbyListener extends BiomiaListener {
             if (itemstack.hasItemMeta()) {
                 if ((itemstack.getType().equals(Material.COMPASS)
                         && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7cNavigator"))) {
-                    pl.openInventory(((Lobby) Biomia.getSeverInstance()).getNavigator());
+                    pl.openInventory(((Lobby) Biomia.getServerInstance()).getNavigator());
                 } else if ((itemstack.getType().equals(Material.NETHER_STAR)
                         && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7dLobby Switcher"))) {
-                    pl.openInventory(((Lobby) Biomia.getSeverInstance()).getLobbySwitcher());
+                    pl.openInventory(((Lobby) Biomia.getServerInstance()).getLobbySwitcher());
                 } else if ((itemstack.getType().equals(Material.FIREBALL)
                         && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7cSilent Lobby:\u00A78 Off"))) {
                     pl.getInventory().setItem(6,
@@ -170,18 +170,18 @@ public class LobbyListener extends BiomiaListener {
                         p.hidePlayer(pl);
                         pl.hidePlayer(p);
                     }
-                    ((Lobby) Biomia.getSeverInstance()).getSilentLobby().add(pl);
+                    ((Lobby) Biomia.getServerInstance()).getSilentLobby().add(pl);
 
                 } else if ((itemstack.getType().equals(Material.FIREWORK_CHARGE)
                         && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7aSilent Lobby:\u00A78 On"))) {
                     pl.getInventory().setItem(6, ItemCreator.itemCreate(Material.FIREBALL, "\u00A7cSilent Lobby:\u00A78 Off"));
                     for (Player p : Bukkit.getOnlinePlayers()) {
-                        if (!((Lobby) Biomia.getSeverInstance()).getSilentLobby().contains(p)) {
+                        if (!((Lobby) Biomia.getServerInstance()).getSilentLobby().contains(p)) {
                             p.showPlayer(pl);
                             pl.showPlayer(p);
                         }
                     }
-                    ((Lobby) Biomia.getSeverInstance()).getSilentLobby().remove(pl);
+                    ((Lobby) Biomia.getServerInstance()).getSilentLobby().remove(pl);
                 } else if ((itemstack.getType().equals(Material.CHEST)
                         && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7eCosmetics"))) {
                     de.biomia.spigot.general.cosmetics.Cosmetic.openMainInventory(Biomia.getBiomiaPlayer(pl));
@@ -253,7 +253,7 @@ public class LobbyListener extends BiomiaListener {
         if (ie.getClick().isLeftClick())
             if (ie.getCurrentItem() != null && ie.getCurrentItem().hasItemMeta()) {
                 String itemName = ie.getCurrentItem().getItemMeta().getDisplayName();
-                if (ie.getClickedInventory().equals(((Lobby) Biomia.getSeverInstance()).getNavigator())) {
+                if (ie.getClickedInventory().equals(((Lobby) Biomia.getServerInstance()).getNavigator())) {
                     switch (itemName) {
                         case "\u00A76Bau Welt":
                             pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 551.5, 80, 285.5, -90, 0));

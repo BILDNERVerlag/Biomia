@@ -435,7 +435,7 @@ public class BedWarsListener extends BiomiaListener {
 //                    return;
 //                }
 //
-//                TODO: was ist damit? -!-neu schreiben?-!- löschen?
+//                TODO: renew
 //
 //				Stats stat = Leaderboard.getStat(i);
 //

@@ -1,5 +1,7 @@
 package de.biomia.universal;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+
 import java.sql.*;
 import java.util.HashMap;
 
@@ -118,7 +120,7 @@ public abstract class MySQL {
         return i;
     }
 
-    public static boolean executeUpdate(String cmd, Databases db) {
+    public static boolean executeUpdate (String cmd, Databases db) {
         Connection con = Connect(db);
 
         if (con != null) {
@@ -127,6 +129,8 @@ public abstract class MySQL {
                 ps = con.prepareStatement(cmd);
                 ps.executeUpdate();
                 return true;
+            } catch (com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException e) {
+                //no stack trace in this case
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {

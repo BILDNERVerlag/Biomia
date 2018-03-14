@@ -3,6 +3,7 @@ package de.biomia.spigot.server.quests.band1;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
 import de.biomia.spigot.server.quests.QuestEvents.AddCoinEvent;
+import de.biomia.spigot.server.quests.QuestEvents.Event;
 import de.biomia.spigot.server.quests.QuestEvents.GiveItemEvent;
 import de.biomia.spigot.server.quests.QuestEvents.TakeItemEvent;
 import de.biomia.spigot.server.quests.Quests;
@@ -47,14 +48,14 @@ public class Wasserholen implements Listener {
                 States state = qp.getState(q);
                 if (state != null) {
                     switch (state) {
-                    case STATUS1:
-                        if (ItemConditions.hasItemInInventory(qp, Material.WATER_BUCKET, 3))
-                            qp.setDialog(withWater);
-                        else
-                            qp.setDialog(withoutWater);
-                        break;
-                    default:
-                        break;
+                        case STATUS1:
+                            if (ItemConditions.hasItemInInventory(qp, Material.WATER_BUCKET, 3))
+                                qp.setDialog(withWater);
+                            else
+                                qp.setDialog(withoutWater);
+                            break;
+                        default:
+                            break;
                     }
                 } else {
                     Quests.restartQuestIfTimeOver(qp, q, dialog_Start, nachQuest);
@@ -67,15 +68,17 @@ public class Wasserholen implements Listener {
     }
 
     private void initDialog() {
+        Event wasserErlaubt = qp -> qp.getMineableBlocks().remove(Material.WATER_BUCKET);
+        Event wasserVerbot = qp -> qp.getMineableBlocks().remove(Material.WATER_BUCKET);
+
         // start dl
         dialog_Start = new DialogMessage(q, elsa).setInhalt("Brian und Falto sind schon wieder verschwunden."
                 + " Ich muss diese Unruhestifter finden und hab keine Zeit um Wasser zu holen."
                 + " Du wirst das f\u00fcr mich erledigen."
                 + " Hier hast du ein paar Eimer. Die m\u00fcssen alle bis zum Rand voll werden!");
-
         dialog_Start.addPlayerToQuest();
         dialog_Start.updatePlayerState(States.STATUS1);
-        dialog_Start.addEvent(new GiveItemEvent(Material.BUCKET, 3));
+        dialog_Start.addEvent(new GiveItemEvent(Material.BUCKET, 3)).addEvent(wasserErlaubt);
 
         // wo water
         withoutWater = new DialogMessage(q, elsa).setInhalt("Bitte hole mir Wasser, ich brauche es dringend!");
@@ -84,7 +87,7 @@ public class Wasserholen implements Listener {
         withWater = new DialogMessage(q, elsa).setInhalt(
                 "Die beiden Jungs sind noch immer verschwunden. Na warte, wenn sie nach Hause kommen, werde ich ihnen dieses Wasser \u00fcber den Kopf sch\u00fctten! Danke f\u00fcr deine M\u00fche, als Belohnung darfst du einen der Eimer behalten.");
         withWater.addEvent(new TakeItemEvent(Material.WATER_BUCKET, 3)).addEvent(new GiveItemEvent(Material.BUCKET, 1))
-                .addEvent(new AddCoinEvent(150)).finish();
+                .addEvent(new AddCoinEvent(150)).addEvent(wasserVerbot).finish();
 
         // nach quest
         nachQuest = new DialogMessage(q, elsa).setInhalt(

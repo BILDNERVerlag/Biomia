@@ -20,7 +20,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.*;
-import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
@@ -50,7 +49,7 @@ public class StatListener implements Listener {
     @EventHandler
     public void onDeath(EntityDamageEvent e) {
 
-        if (e.getEntity() instanceof Player) {
+        if (e.getEntity() instanceof Player && !e.getEntity().hasMetadata("NPC")) {
             Player p = (Player) e.getEntity();
             Stats.incrementStat(Stats.BiomiaStat.HealthLost, p, e.getCause().name());
             if (e.getFinalDamage() >= p.getHealth()) {
@@ -70,7 +69,7 @@ public class StatListener implements Listener {
                     Stats.incrementStat(Stats.BiomiaStat.PlayersKilled, (Player) e.getDamager(), Biomia.getBiomiaPlayer(p).getBiomiaPlayerID() + "");
                 } else {
                     Entity ent;
-                    if (e.getDamager() instanceof ProjectileSource) {
+                    if (e.getDamager() instanceof Projectile) {
                         ent = (Entity) ((Projectile) e.getDamager()).getShooter();
                     } else
                         ent = e.getDamager();
@@ -230,7 +229,6 @@ public class StatListener implements Listener {
     @EventHandler
     public void onSkyWarsKill(SkyWarsKillEvent e) {
         Stats.incrementStat(Stats.BiomiaStat.SW_Kills, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKilledPlayer().getBiomiaPlayerID() + "");
-
     }
 
     @EventHandler

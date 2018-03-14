@@ -20,7 +20,7 @@ public class CoinsCommand extends BiomiaCommand {
         BiomiaPlayer p = Biomia.getBiomiaPlayer((Player) sender);
 
         if (args.length == 0)
-            sender.sendMessage(Messages.PREFIX + "\u00A7aDu besitzt \u00A7b" + p.getCoins() + " \u00A7aBC's!");
+            sender.sendMessage(Messages.PREFIX + "\u00A77Du besitzt \u00A7b" + p.getCoins() + " \u00A77BC's!");
 
         if (p.getPlayer().hasPermission("biomia.coins")) {
             if (args.length >= 1) {
@@ -42,11 +42,11 @@ public class CoinsCommand extends BiomiaCommand {
                     switch (arg1) {
                     case "take":
                         if (target.getCoins() < coins) {
-                            sender.sendMessage(Messages.PREFIX + "\u00A7aDer Spieler " + target.getName() + " kann keinen negativen Betrag besitzen!");
+                            sender.sendMessage(Messages.PREFIX + "\u00A7cDer Spieler " + target.getName() + " kann keinen negativen Betrag besitzen!");
                             return true;
                         } else {
                             target.takeCoins(coins);
-                            sender.sendMessage(Messages.PREFIX + "\u00A7aDem Spieler" + target.getName() + " wurden \u00A7b" + coins + " \u00A7aBC's genommen!");
+                            sender.sendMessage(Messages.PREFIX + "\u00A77Dem Spieler" + target.getName() + " wurden \u00A7b" + coins + " \u00A77BC genommen!");
                         }
                         break;
                     case "set":
@@ -54,14 +54,14 @@ public class CoinsCommand extends BiomiaCommand {
                         break;
                     case "add":
                         target.addCoins(coins, false);
-                        sender.sendMessage(Messages.PREFIX + "\u00A7a" + target.getName() + " wurden \u00A7b" + coins + " \u00A7aBC's hinzugf\u00fcgt!");
+                        sender.sendMessage(Messages.PREFIX + "\u00A77" + target.getName() + " wurden \u00A7b" + coins + " \u00A77BC hinzugf\u00fcgt!");
                         break;
                     case "get":
-                        sender.sendMessage(Messages.PREFIX + "\u00A7aDer Spieler " + target.getName() + " besitzt \u00A7b" + target.getCoins() + " \u00A7aBC's!");
+                        sender.sendMessage(Messages.PREFIX + "\u00A77Der Spieler " + target.getName() + " besitzt \u00A7b" + target.getCoins() + " \u00A77BC's!");
                     default:
                         return true;
                     }
-                    sender.sendMessage(Messages.PREFIX + "\u00A7aDer Spieler " + target.getName() + " besitzt jetzt \u00A7b" + target.getCoins() + " \u00A7aBC's!");
+                    sender.sendMessage(Messages.PREFIX + "\u00A77Der Spieler " + target.getName() + " besitzt jetzt \u00A7b" + target.getCoins() + " \u00A77BC's!");
                 }
             }
         }

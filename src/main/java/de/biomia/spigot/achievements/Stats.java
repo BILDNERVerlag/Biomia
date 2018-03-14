@@ -1,5 +1,6 @@
 package de.biomia.spigot.achievements;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import de.biomia.spigot.Biomia;
 import de.biomia.universal.MySQL;
 import org.bukkit.Bukkit;
@@ -67,17 +68,13 @@ public class Stats {
     public static void incrementStatBy(BiomiaStat stat, int biomiaPlayerID, int increment) {
         int value = getStat(stat, biomiaPlayerID) + increment;
         MySQL.executeUpdate("INSERT INTO `" + stat.toString() + "`(ID, value, inc) VALUES (" + biomiaPlayerID + ", " + value + ", " + increment + ")", MySQL.Databases.stats_db);
-
-        //TODO fix NullPointer
-        //checkForAchievementUnlocks(stat, biomiaPlayerID, value);
+        checkForAchievementUnlocks(stat, biomiaPlayerID, value);
     }
 
     public static void incrementStat(BiomiaStat stat, int biomiaPlayerID, String comment) {
         int value = getStat(stat, biomiaPlayerID) + 1;
         MySQL.executeUpdate("INSERT INTO `" + stat.toString() + "`(ID, value, comment) VALUES (" + biomiaPlayerID + ", " + value + ", '" + comment + "')", MySQL.Databases.stats_db);
-
-        //TODO fix NullPointer
-        //checkForAchievementUnlocks(stat, biomiaPlayerID, value);
+        checkForAchievementUnlocks(stat, biomiaPlayerID, value);
     }
 
     public static void incrementStat(BiomiaStat stat, Player player, String comment) {
@@ -222,7 +219,7 @@ public class Stats {
 
         String out = "";
 
-        out += ("§7<§cChecking §b" + stat + "§7,\n");
+        out += ("\n§7<§cChecking §7" + stat + "§7,\n");
         if (achievements != null) {
             out += ("§7-§c# of Achievements: §b" + achievements.size() + "§7,\n");
             for (Achievements each : achievements) {
@@ -240,7 +237,7 @@ public class Stats {
                     if (unlock(each.getAchievement(), biomiaPlayerID)) {
                         out += ("§7-§cNo comment. §b" + value + "§7>=§b" + each.getTargetValue() + "§7,\n");
                         out += ("§7-§cUnlocked §b" + each.getAchievement().name() + "§7>");
-                    } else out += ("§7-§cNo new unlocks. (already unlocked)§7>");
+                    } else out += ("§7-§cNo new unlocks. (already unlocked " + each.getAchievement().name() + ")§7>");
                 } else out += ("§7-§cNo new unlocks.§7>");
             }
         } else out += ("§7-§cNo achievements.§7>");
@@ -253,7 +250,7 @@ public class Stats {
      * falls ein Achievement unlocked wird (ansonsten false).
      */
     private static boolean unlock(BiomiaAchievement bA, int biomiaPlayerID) {
-        return MySQL.executeUpdate("INSERT IGNORE INTO `" + bA.toString() + "` (`ID`) VALUES (" + biomiaPlayerID + ")", MySQL.Databases.achiev_db);
+        return MySQL.executeUpdate("INSERT INTO `" + bA.toString() + "` (`ID`) VALUES (" + biomiaPlayerID + ")", MySQL.Databases.achiev_db);
     }
 
     //SELECT `inc`,`wert` FROM `TestTabelle` WHERE `time` >= TIMESTAMPADD(DAY,-3,NOW());

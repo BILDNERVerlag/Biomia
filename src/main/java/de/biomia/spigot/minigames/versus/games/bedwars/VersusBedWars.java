@@ -48,7 +48,7 @@ public class VersusBedWars extends GameMode {
         super.stop();
         spawnItems.stopSpawning();
         shop.unregister();
-        ((Versus) Biomia.getSeverInstance()).getManager().getRequests().get(getInstance()).finish();
+        ((Versus) Biomia.getServerInstance()).getManager().getRequests().get(getInstance()).finish();
     }
 
     @Override

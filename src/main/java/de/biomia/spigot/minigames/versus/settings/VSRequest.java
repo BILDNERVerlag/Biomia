@@ -117,7 +117,7 @@ public class VSRequest {
         gameInstance = new GameInstance(mode, Versus.getInstance().getManager().copyWorld(mode, id, mapName), mapName, 2, 1);
         gameInstance.registerPlayer(leader);
         gameInstance.registerPlayer(bp2);
-        ((Versus) Biomia.getSeverInstance()).getManager().getRequests().put(gameInstance, this);
+        ((Versus) Biomia.getServerInstance()).getManager().getRequests().put(gameInstance, this);
     }
 
     public boolean hasSameSettings() {
@@ -129,7 +129,7 @@ public class VSRequest {
     }
 
     private boolean searchForMap() {
-        VSSettings requesterSettings = ((Versus) Biomia.getSeverInstance()).getManager().getSettings(leader);
+        VSSettings requesterSettings = ((Versus) Biomia.getServerInstance()).getManager().getSettings(leader);
         ArrayList<String> maps = new ArrayList<>();
 
         int id = 100;
@@ -149,8 +149,8 @@ public class VSRequest {
     }
 
     private boolean searchForMapBOTH() {
-        VSSettings requesterSettings = ((Versus) Biomia.getSeverInstance()).getManager().getSettings(leader);
-        VSSettings receiverSettings = ((Versus) Biomia.getSeverInstance()).getManager().getSettings(bp2);
+        VSSettings requesterSettings = ((Versus) Biomia.getServerInstance()).getManager().getSettings(leader);
+        VSSettings receiverSettings = ((Versus) Biomia.getServerInstance()).getManager().getSettings(bp2);
 
         ArrayList<String> maps = new ArrayList<>();
 
@@ -172,7 +172,7 @@ public class VSRequest {
 
     private boolean getRandomGroup() {
 
-        VSSettings requesterSettings = ((Versus) Biomia.getSeverInstance()).getManager().getSettings(leader);
+        VSSettings requesterSettings = ((Versus) Biomia.getServerInstance()).getManager().getSettings(leader);
 
         ArrayList<GameType> modes = new ArrayList<>();
 
@@ -190,8 +190,8 @@ public class VSRequest {
 
     private boolean getRandomGroupBOTH() {
 
-        VSSettings requesterSettings = ((Versus) Biomia.getSeverInstance()).getManager().getSettings(leader);
-        VSSettings receiverSettings = ((Versus) Biomia.getSeverInstance()).getManager().getSettings(bp2);
+        VSSettings requesterSettings = ((Versus) Biomia.getServerInstance()).getManager().getSettings(leader);
+        VSSettings receiverSettings = ((Versus) Biomia.getServerInstance()).getManager().getSettings(bp2);
 
         ArrayList<GameType> modes = new ArrayList<>();
 

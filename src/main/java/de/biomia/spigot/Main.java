@@ -24,7 +24,6 @@ import de.biomia.spigot.tools.PlayerToServerConnector;
 import de.biomia.universal.MySQL;
 import net.minecraft.server.v1_12_R1.DedicatedServer;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.WorldCreator;
 import org.bukkit.command.CommandMap;
@@ -40,7 +39,7 @@ public class Main extends JavaPlugin {
     /**
      * Change the TestServer here!
      */
-    private static final String actualTestGroup = "QuestServer";
+    private static final String actualTestGroup = "DuellLobby";
 
     private static EasterEvent event;
     private static Main plugin;
@@ -103,30 +102,34 @@ public class Main extends JavaPlugin {
         groupName = groupName.equals("TestServer") ? actualTestGroup : groupName;
         switch (groupName) {
             case "Lobby":
-                new Lobby().start();
+                Biomia.setServerInstance(new Lobby());
+                Biomia.getServerInstance().start();
                 break;
             case "QuestServer":
-                new Quests().start();
+                Biomia.setServerInstance(new Quests());
+                Biomia.getServerInstance().start();
                 break;
             case "BedWars":
-                //TODO read from Config
+                //TODO BedWars und SkyWars aus Config auslesen
                 new GameInstance(BED_WARS, new WorldCreator(Variables.name).createWorld(), Variables.name, 4, 4).getGameMode().start();
                 break;
             case "SkyWars":
-                //TODO read from Config
                 new GameInstance(SKY_WARS, new WorldCreator(Variables.name).createWorld(), Variables.name, 4, 4).getGameMode().start();
                 break;
             case "DuellLobby":
-                new Versus().start();
+                Biomia.setServerInstance(new Versus());
+                Biomia.getServerInstance().start();
                 break;
             case "Weltenlabor#1":
-                new Weltenlabor().start();
+                Biomia.setServerInstance(new Weltenlabor());
+                Biomia.getServerInstance().start();
                 break;
             case "FreebuildServer":
-                new Freebuild().start();
+                Biomia.setServerInstance(new Freebuild());
+                Biomia.getServerInstance().start();
                 break;
             case "FarmServer":
-                //TODO Farmserver nach Fertigstellung hinzuf\u00fcgen
+                //TODO Farmserver nach Fertigstellung hinzufuegen
                 break;
             case "BauServer":
                 Bukkit.getPluginManager().registerEvents(new BauServerListener(), this);
@@ -138,9 +141,8 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        super.onDisable();
         this.saveConfig();
+        Biomia.getServerInstance().stop();
         MySQL.closeConnections();
-        Biomia.getSeverInstance().stop();
     }
 }

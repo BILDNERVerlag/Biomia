@@ -3,10 +3,20 @@ package de.biomia.spigot.commands.general;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.BiomiaCommand;
+import de.biomia.spigot.listeners.servers.BauServerListener;
+import de.biomia.spigot.minigames.GameInstance;
+import de.biomia.spigot.minigames.bedwars.var.Variables;
+import de.biomia.spigot.minigames.versus.Versus;
+import de.biomia.spigot.server.demoserver.Weltenlabor;
+import de.biomia.spigot.server.freebuild.Freebuild;
+import de.biomia.spigot.server.lobby.Lobby;
+import de.biomia.spigot.server.quests.Quests;
 import de.biomia.spigot.tools.RankManager;
+import de.biomia.universal.Messages;
 import de.biomia.universal.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.WorldCreator;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -15,6 +25,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+
+import static de.biomia.spigot.minigames.GameType.BED_WARS;
+import static de.biomia.spigot.minigames.GameType.SKY_WARS;
 
 public class WarpCommand extends BiomiaCommand {
 
@@ -30,20 +43,23 @@ public class WarpCommand extends BiomiaCommand {
 
         Player p = (Player) sender;
         Location ploc = p.getLocation();
-        HashMap<String, WarpLocation> map = getAllLocations(p);
+
+        HashMap<String, WarpLocation> playerWarpLocations = getAllLocations(p);
+        HashMap<String, WarpLocation> publicWarpLocations = initPublicWarps(p);
+
         switch (getName().toLowerCase()) {
             case "setwarp":
                 if (args.length < 1) {
                     sendWarpInstructions(p);
                     return true;
                 }
-                if (map.size() >= RankManager.getPremiumLevel(p.getName()) + 3) {
+                if (playerWarpLocations.size() >= RankManager.getPremiumLevel(p.getName()) + 3) {
                     p.sendMessage("\u00A7cDu hast bereits die \u00A7bmaximale \u00A7cAnzahl Warps erreicht.");
                     p.sendMessage("\u00A7cBenutze \u00A77/\u00A7cdelwarp \u00A77<\u00A7cName\u00A77> \u00A7bum Warps zu l\u00f6schen.");
                     return true;
                 }
                 if (!allowedGroups.contains(Main.getGroupName())) {
-                    p.sendMessage("\u00A7cWarps sind auf diesem Server (\u00A7b" + Main.getGroupName() + "\u00A7c) nicht erlaubt. Sorry!");
+                    p.sendMessage("\u00A7cEigene Warps sind auf diesem Server (\u00A7b" + Main.getGroupName() + "\u00A7c) nicht erlaubt. Sorry!");
                     return true;
                 }
 
@@ -59,8 +75,8 @@ public class WarpCommand extends BiomiaCommand {
                         Biomia.getBiomiaPlayer(p).getBiomiaPlayerID() +
                         ")", MySQL.Databases.biomia_db);
                 p.sendMessage("\u00A7cDu hast den Warp \u00A7b" + args[0] + "\u00A7c erfolgreich erstellt!");
-                map = getAllLocations(p);
-                int verbleibendeWarps = RankManager.getPremiumLevel((p.getName())) + 3 - map.size();
+                playerWarpLocations = getAllLocations(p);
+                int verbleibendeWarps = RankManager.getPremiumLevel((p.getName())) + 3 - playerWarpLocations.size();
                 if (verbleibendeWarps <= 0)
                     p.sendMessage("\u00A77Dies war dein letzter verbleibender Warppunkt.");
                 else
@@ -68,22 +84,23 @@ public class WarpCommand extends BiomiaCommand {
                 break;
             case "warp":
                 if (args.length < 1) {
-                    if (map.isEmpty()) {
+                    if (playerWarpLocations.isEmpty()) {
                         sendWarpInstructions(p);
                     } else {
-                        p.sendMessage("\u00A7cGib einen deiner Warps an! \u00A7bDu hast folgende:");
-                        sendWarpList(p, map);
+                        p.sendMessage(Messages.PREFIX + "\u00A7cGib einen deiner Warps an!\n\u00A7b\u00A7lDeine Warps:");
+                        sendWarpList(p, playerWarpLocations, publicWarpLocations);
                     }
                     return true;
                 }
-                if (map.containsKey(args[0])) {
-                    WarpLocation wLoc = map.get(args[0]);
+                if (playerWarpLocations.containsKey(args[0]) || publicWarpLocations.containsKey(args[0])) {
+                    WarpLocation wLoc = playerWarpLocations.get(args[0]);
+                    if (wLoc == null) wLoc = publicWarpLocations.get(args[0]);
                     Location targetLoc = wLoc.getLocation();
-                    if (Main.getGroupName().equals(wLoc.groupname) && p.getWorld().getName().equals(wLoc.worldname)) {
+                    if (Main.getGroupName().equals(wLoc.getGroupname()) && p.getWorld().getName().equals(wLoc.getWorldname())) {
                         p.teleport(targetLoc);
                     } else {
                         p.sendMessage("\u00A7cDu musst dich auf dem selben Server befinden, auf dem sich auch dein Warppunkt befindet. " +
-                                "(\u00A7b" + args[0] + "\u00A7c befindet sich auf \u00A7b" + wLoc.groupname + "\u00A7c)");
+                                "(\u00A7b" + args[0] + "\u00A7c befindet sich auf \u00A7b" + wLoc.getGroupname() + "\u00A7c)");
 
                     }
                 } else {
@@ -92,10 +109,11 @@ public class WarpCommand extends BiomiaCommand {
                 break;
             case "delwarp":
                 if (args.length < 1) {
-                    //sendInstructions
+                    p.sendMessage("\u00A77/\u00A7cdelwarp \u00A77<\u00A7cName\u00A77> \u00A7bum Warps zu l\u00f6schen");
                     return true;
                 }
-                if (MySQL.executeUpdate("DELETE FROM `Warps` WHERE biomiaPlayerID = " + Biomia.getBiomiaPlayer(p).getBiomiaPlayerID() + " AND name = '" + args[0] + "'", MySQL.Databases.biomia_db)) {
+                if (playerWarpLocations.containsKey(args[0])) {
+                    MySQL.executeUpdate("DELETE FROM `Warps` WHERE biomiaPlayerID = " + Biomia.getBiomiaPlayer(p).getBiomiaPlayerID() + " AND name = '" + args[0] + "'", MySQL.Databases.biomia_db);
                     p.sendMessage("\u00A7cWarp \u00A7b" + args[0] + " \u00A7cwurde gel\u00f6scht.");
                 } else {
                     p.sendMessage("\u00A7cWarp \u00A7b" + args[0] + " \u00A7cwurde nicht gel\u00f6scht, denn er wurde nicht gefunden.");
@@ -107,18 +125,52 @@ public class WarpCommand extends BiomiaCommand {
     }
 
     private void sendWarpInstructions(Player p) {
-        p.sendMessage("\u00A77/\u00A7cwarp \u00A77<\u00A7cZiel\u00A77> \u00A7bum zu warpen");
+        p.sendMessage("\u00A77/\u00A7cwarp \u00A77<\u00A7cZiel\u00A77> \u00A7bum zu warpen / Warps anzuzeigen");
         p.sendMessage("\u00A77/\u00A7csetwarp \u00A77<\u00A7cName\u00A77> \u00A7bum Warps zu speichern");
         p.sendMessage("\u00A77/\u00A7cdelwarp \u00A77<\u00A7cName\u00A77> \u00A7bum Warps zu l\u00f6schen");
     }
 
-    private void sendWarpList(Player p, HashMap<String, WarpLocation> map) {
-        Iterator it = map.entrySet().iterator();
+    private void sendWarpList(Player p, HashMap<String, WarpLocation> playerWarpLocations0, HashMap<String, WarpLocation> publicWarpLocations0) {
+        Iterator it = playerWarpLocations0.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
             p.sendMessage("\u00A77-\u00A7b" + pair.getKey() + " " + (pair.getValue()).toString());
             it.remove();
         }
+        if (!publicWarpLocations0.isEmpty()) {
+            p.sendMessage("\u00A76\u00A7l÷ffentliche Warps:");
+            Iterator it2 = publicWarpLocations0.entrySet().iterator();
+            while (it2.hasNext()) {
+                Map.Entry pair = (Map.Entry) it2.next();
+                p.sendMessage("\u00A77-\u00A76" + pair.getKey() + " " + (pair.getValue()).toString());
+                it2.remove();
+            }
+        }
+    }
+
+    private HashMap<String, WarpLocation> initPublicWarps(Player p) {
+        HashMap<String, WarpLocation> locations = new HashMap<>();
+        switch (Main.getGroupName()) {
+            case "QuestServer":
+                locations.put("Baum", new WarpLocation(new Location(Bukkit.getWorld("Quests"), -159, 74, -267), Main.getGroupName(), "Spawn"));
+                break;
+            case "FreebuildServer":
+                break;
+            case "FarmServer":
+                break;
+            case "BauServer":
+                break;
+            case "DuellLobby":
+                break;
+            case "Weltenlabor#1":
+                break;
+            case "Lobby":
+                break;
+            default:
+                return locations;
+        }
+        locations.put("Spawn", new WarpLocation(p.getWorld().getSpawnLocation(), Main.getGroupName(), "Spawn"));
+        return locations;
     }
 
     private HashMap<String, WarpLocation> getAllLocations(Player p) {
@@ -155,11 +207,12 @@ public class WarpCommand extends BiomiaCommand {
 }
 
 class WarpLocation {
-    public final double x, y, z;
-    public final float yaw, pitch;
-    public final String groupname, worldname, name;
+    private double x, y, z;
+    private float yaw, pitch;
+    private String groupname, worldname, name;
+    private Location loc;
 
-    public WarpLocation(double x0, double y0, double z0, float yaw0, float pitch0, String groupname0, String worldname0, String name0) {
+    public WarpLocation(double x0, double y0, double z0, float yaw0, float pitch0, String groupname0, String worldname0, String nameOfWarp) {
         x = x0;
         y = y0;
         z = z0;
@@ -167,14 +220,30 @@ class WarpLocation {
         pitch = pitch0;
         groupname = groupname0;
         worldname = worldname0;
-        name = name0;
+        name = nameOfWarp;
+    }
+
+    public WarpLocation(Location loc0, String groupname0, String nameOfWarp) {
+        loc = loc0;
+        groupname = groupname0;
+        name = nameOfWarp;
     }
 
     public Location getLocation() {
-        return new Location(Bukkit.getWorld(worldname), x, y, z, yaw, pitch);
+        return (loc != null) ? loc : new Location(Bukkit.getWorld(worldname), x, y, z, yaw, pitch);
     }
 
     public String toString() {
-        return "\u00A77[x=\u00A7c" + x + "\u00A77, y=\u00A7c" + y + "\u00A77, z=\u00A7c" + z + "\u00A77 : \u00A7c" + groupname + "\u00A77]";
+        return (loc != null) ? "\u00A77[x=\u00A7c" + loc.getX() + "\u00A77, y=\u00A7c" + loc.getY() + "\u00A77, z=\u00A7c" + loc.getZ() + "\u00A77 : \u00A7c" + groupname + "\u00A77]"
+                : "\u00A77[x=\u00A7c" + x + "\u00A77, y=\u00A7c" + y + "\u00A77, z=\u00A7c" + z + "\u00A77 : \u00A7c" + groupname + "\u00A77]";
+
+    }
+
+    public String getWorldname() {
+        return worldname;
+    }
+
+    public String getGroupname() {
+        return groupname;
     }
 }

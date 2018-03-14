@@ -68,7 +68,7 @@ public abstract class GameMode {
     }
 
     public void stop() {
-        instance.getPlayers().forEach(each -> ((Versus) Biomia.getSeverInstance()).getManager().moveToLobby(each.getPlayer()));
+        instance.getPlayers().forEach(each -> ((Versus) Biomia.getServerInstance()).getManager().moveToLobby(each.getPlayer()));
         handler.unregister();
         instance.startDeleting();
 

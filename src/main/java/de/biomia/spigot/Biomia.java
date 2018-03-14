@@ -14,7 +14,7 @@ public class Biomia {
     private static final HashMap<Player, BiomiaPlayer> biomiaPlayers = new HashMap<>();
     private static final HashMap<Integer, OfflineBiomiaPlayer> offlineBiomiaPlayers = new HashMap<>();
     private static QuestManager questManager;
-    private static BiomiaServer severInstance;
+    private static BiomiaServer serverInstance;
 
     // METHODS
     public static void stopWithDelay() {
@@ -73,11 +73,11 @@ public class Biomia {
         return questManager != null ? questManager : (questManager = new QuestManager());
     }
 
-    public static void setSeverInstance(BiomiaServer severInstance) {
-        Biomia.severInstance = severInstance;
+    public static void setServerInstance(BiomiaServer serverInstance) {
+        Biomia.serverInstance = serverInstance;
     }
 
-    public static BiomiaServer getSeverInstance() {
-        return severInstance;
+    public static BiomiaServer getServerInstance() {
+        return serverInstance;
     }
 }

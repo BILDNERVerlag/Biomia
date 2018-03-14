@@ -23,7 +23,7 @@ public class Bauten {
         this.seite = seite;
         this.loc = loc;
         this.material = material;
-        ((Weltenlabor) Biomia.getSeverInstance()).getBauten().add(this);
+        ((Weltenlabor) Biomia.getServerInstance()).getBauten().add(this);
 
         ItemStack stack = ItemCreator.itemCreate(getMaterial(), getName());
         ItemMeta meta = stack.getItemMeta();

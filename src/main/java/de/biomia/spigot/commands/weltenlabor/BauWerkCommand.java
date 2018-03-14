@@ -68,8 +68,8 @@ public class BauWerkCommand extends BiomiaCommand {
             case "reload":
                 Bukkit.broadcastMessage("\u00A7cReloading....");
                 Main.getPlugin().reloadConfig();
-                ((Weltenlabor) Biomia.getSeverInstance()).getBauten().clear();
-                ((Weltenlabor) Biomia.getSeverInstance()).getScrollingInv().clear();
+                ((Weltenlabor) Biomia.getServerInstance()).getBauten().clear();
+                ((Weltenlabor) Biomia.getServerInstance()).getScrollingInv().clear();
                 DemoConfig.hookInPlugin();
                 Bukkit.broadcastMessage("\u00A7aReloaded!");
                 break;

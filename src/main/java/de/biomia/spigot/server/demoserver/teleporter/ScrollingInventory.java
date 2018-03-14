@@ -73,7 +73,7 @@ public class ScrollingInventory implements Listener {
 
     public void openInventorry() {
         clearItems();
-        ((Weltenlabor) Biomia.getSeverInstance()).getBauten().forEach(each -> items.add(each.getItem()));
+        ((Weltenlabor) Biomia.getServerInstance()).getBauten().forEach(each -> items.add(each.getItem()));
         displaySide(0);
         player.openInventory(inv);
     }
@@ -89,7 +89,7 @@ public class ScrollingInventory implements Listener {
         if (e.getInventory().equals(inv)) {
             e.setCancelled(true);
             if (e.getCurrentItem() != null && e.getCurrentItem().hasItemMeta()) {
-                for (Bauten b : ((Weltenlabor) Biomia.getSeverInstance()).getBauten())
+                for (Bauten b : ((Weltenlabor) Biomia.getServerInstance()).getBauten())
                     if (b.getName().equals(e.getCurrentItem().getItemMeta().getDisplayName())) {
                         e.getWhoClicked().teleport(b.getLoc());
                         return;
