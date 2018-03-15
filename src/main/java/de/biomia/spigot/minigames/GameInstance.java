@@ -10,6 +10,7 @@ import de.biomia.spigot.minigames.versus.games.skywars.VersusSkyWars;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.IOException;
@@ -26,12 +27,12 @@ public class GameInstance {
     private final int teamSize;
     private final int teamAmount;
 
-    public GameInstance(GameType type, World world, String mapDisplayName, int teamAmount, int teamSize) {
+    public GameInstance(GameType type, String mapDisplayName, int teamAmount, int teamSize) {
         Bukkit.broadcastMessage("%%% making a new gameInstance");
         this.teamAmount = teamAmount;
         this.teamSize = teamSize;
         this.type = type;
-        this.world = world;
+        this.world = new WorldCreator(mapDisplayName).createWorld();
         this.mapDisplayName = mapDisplayName;
         switch (type) {
         case KIT_PVP_VS:

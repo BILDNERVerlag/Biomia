@@ -30,6 +30,9 @@ public class BedWars extends GameMode {
 
     @Override
     public void start() {
+
+        Main.registerCommand(new BWCommand());
+
         super.start(new GameStateManager.LobbyState(this) {
             private SpawnItems itemManager;
 
@@ -41,17 +44,11 @@ public class BedWars extends GameMode {
             }
         });
 
-        Main.getPlugin().saveDefaultConfig();
-        saveConfig();
-
-        Main.getPlugin().getServer().createWorld(new WorldCreator(Variables.name));
         Shop.init();
 
         Bukkit.getPluginManager().registerEvents(new BedWarsListener(), Main.getPlugin());
         Bukkit.getPluginManager().registerEvents(new BedListener(), Main.getPlugin());
         Bukkit.getPluginManager().registerEvents(new SpecialItems(), Main.getPlugin());
-
-        Main.registerCommand(new BWCommand());
 
         teamSwitcher = TeamSwitcher.getTeamSwitcher(this);
     }

@@ -1,6 +1,5 @@
 package de.biomia.spigot.tools;
 
-import com.chaseoes.voidworld.VoidWorld;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.generator.BlockPopulator;
@@ -28,7 +27,7 @@ public class VoidWorldGenerator {
 
         //TODO: evtl ändern? eigentlich stand da ?
         public byte[] generate(World world, Random rand, int chunkx, int chunkz) {
-            return new byte['0'];
+            return new byte[0];
         }
 
         public Location getFixedSpawnLocation(World world, Random random) {

@@ -25,7 +25,6 @@ import de.biomia.universal.MySQL;
 import net.minecraft.server.v1_12_R1.DedicatedServer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.WorldCreator;
 import org.bukkit.command.CommandMap;
 import org.bukkit.craftbukkit.v1_12_R1.CraftServer;
 import org.bukkit.entity.Player;
@@ -115,11 +114,11 @@ public class Main extends JavaPlugin {
             case "TestBedWars":
             case "BedWars":
                 //TODO BedWars und SkyWars aus Config auslesen
-                new GameInstance(BED_WARS, new WorldCreator(Variables.name).createWorld(), Variables.name, 4, 4).getGameMode().start();
+                new GameInstance(BED_WARS, Variables.name, Variables.teams, Variables.playerPerTeam).getGameMode().start();
                 break;
             case "TestSkyWars":
             case "SkyWars":
-                new GameInstance(SKY_WARS, new WorldCreator(Variables.name).createWorld(), Variables.name, 4, 4).getGameMode().start();
+                new GameInstance(SKY_WARS, Variables.name, Variables.teams, Variables.playerPerTeam).getGameMode().start();
                 break;
             case "TestDuellLobby":
             case "DuellLobby":
