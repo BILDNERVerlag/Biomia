@@ -74,7 +74,7 @@ public class Scoreboards {
         GameTeam gameTeam = Biomia.getBiomiaPlayer(p).getTeam();
 
         for (TeamColor color : TeamColor.values()) {
-            sb.registerNewTeam(color.name()).setPrefix(color.name());
+            sb.registerNewTeam(color.name()).setPrefix(color.getColorcode());
         }
 
         for (Player pl : Bukkit.getOnlinePlayers()) {

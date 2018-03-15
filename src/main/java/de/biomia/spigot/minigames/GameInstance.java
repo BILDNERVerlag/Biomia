@@ -4,6 +4,7 @@ import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
+import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.minigames.bedwars.BedWars;
 import de.biomia.spigot.minigames.versus.games.bedwars.VersusBedWars;
 import de.biomia.spigot.minigames.versus.games.kitpvp.KitPvP;
@@ -26,7 +27,6 @@ public class GameInstance implements Listener {
     private World world;
     private GameMode gameMode;
     private int playedTime = 0;
-    private final String mapDisplayName;
     private final ArrayList<BiomiaPlayer> players = new ArrayList<>();
     private final int teamSize;
     private final int teamAmount;
@@ -38,7 +38,7 @@ public class GameInstance implements Listener {
         this.teamSize = teamSize;
         this.type = type;
         this.world = new WorldCreator(mapDisplayName).createWorld();
-        this.mapDisplayName = mapDisplayName;
+        MinigamesConfig.mapName = world.getName();
         switch (type) {
         case KIT_PVP_VS:
             gameMode = new KitPvP(this);
@@ -107,10 +107,6 @@ public class GameInstance implements Listener {
 
     public boolean containsPlayer(BiomiaPlayer bp) {
         return getPlayers().contains(bp);
-    }
-
-    public String getMapDisplayName() {
-        return mapDisplayName;
     }
 
     public int getPlayedTime() {

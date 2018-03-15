@@ -141,12 +141,7 @@ public class GameStateManager {
             }.runTaskTimer(Main.getPlugin(), 0, 20);
 
             TimoCloudAPI.getBukkitInstance().getThisServer().setState(GameState.INGAME.name());
-
-            HashMap<BiomiaPlayer, TeamColor> biomiaPlayerTeams = new HashMap<>();
-
             for (BiomiaPlayer bp : getMode().getInstance().getPlayers()) {
-
-                biomiaPlayerTeams.put(bp, bp.getTeam().getColor());
 
                 for (BiomiaPlayer p2 : getMode().getInstance().getPlayers()) {
                     bp.getPlayer().showPlayer(p2.getPlayer());

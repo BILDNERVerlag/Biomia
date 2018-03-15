@@ -156,10 +156,8 @@ public abstract class GameMode {
             case BED_WARS:
                 new BedWarsTeam(colors, this);
                 break;
-            case SKY_WARS:
-                new GameTeam(colors, this);
-                break;
             default:
+            case SKY_WARS:
                 new GameTeam(colors, this);
                 break;
             }

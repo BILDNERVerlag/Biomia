@@ -68,7 +68,6 @@ public class SkyWars extends GameMode {
                     biomiaPlayerKits.put(bp, SkyWarsKitManager.getLastSelectedKit(bp));
                 }
                 Bukkit.getPluginManager().callEvent(new SkyWarsStartEvent(biomiaPlayerKits));
-                Teleport.teleportPlayerToMap(getMode());
                 Teleport.sendCountDown(getMode());
             }
         });
