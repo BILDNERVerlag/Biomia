@@ -14,7 +14,6 @@ import de.biomia.spigot.tools.PlayerToServerConnector;
 import de.biomia.spigot.tools.RankManager;
 import de.biomia.universal.Messages;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,7 +27,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
-import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 /**
  * The Listener of the actual Server have to extend this class
@@ -134,15 +132,9 @@ abstract class BiomiaListener implements Listener {
     @EventHandler
     public final void onCommand(PlayerCommandPreprocessEvent pe) {
         String cmd = pe.getMessage().split(" ")[0];
-
-        if (cmd.equalsIgnoreCase("/rl") || cmd.equalsIgnoreCase("/reload")) {
+        if (cmd.equalsIgnoreCase("/rl") || cmd.equalsIgnoreCase("/reload") || cmd.equalsIgnoreCase("/restart") || cmd.equalsIgnoreCase("/stop")) {
             pe.setCancelled(true);
-            if (pe.getPlayer().hasPermission("biomia.reload")) {
-                Bukkit.broadcastMessage(Messages.PREFIX + "\u00A77Alle Serverdateien \u00A7cwerden \u00A77von \u00A7b" + pe.getPlayer().getDisplayName() + " \u00A77neu geladen!");
-                Bukkit.reload();
-                Bukkit.broadcastMessage(Messages.PREFIX + "\u00A77Alle Serverdateien \u00A7cwurden \u00A77erfolgreich von \u00A7b" + pe.getPlayer().getDisplayName() + " \u00A77neu geladen!");
-            } else
-                pe.getPlayer().sendMessage(Messages.NO_PERM);
+            pe.getPlayer().sendMessage(Messages.NO_PERM);
         } else if (cmd.equalsIgnoreCase("/gamemode")) {
             pe.setCancelled(true);
             pe.getPlayer().sendMessage("/gm <GameMode> [Spieler]");
