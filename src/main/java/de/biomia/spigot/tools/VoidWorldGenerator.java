@@ -6,6 +6,7 @@ import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -18,7 +19,7 @@ public class VoidWorldGenerator {
     class Generator extends ChunkGenerator {
 
         public List<BlockPopulator> getDefaultPopulators(World world) {
-            return Arrays.asList();
+            return Collections.emptyList();
         }
 
         public boolean canSpawn(World world, int x, int z) {
