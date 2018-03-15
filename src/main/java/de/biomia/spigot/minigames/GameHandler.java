@@ -107,7 +107,9 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-        if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY)
+        if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
             mode.getInstance().registerPlayer(Biomia.getBiomiaPlayer(e.getPlayer()));
+            Bukkit.broadcastMessage("register player");
+        }
     }
 }
