@@ -32,7 +32,6 @@ public class GameInstance implements Listener {
     private final int teamAmount;
 
     public GameInstance(GameType type, String mapDisplayName, int teamAmount, int teamSize) {
-        Bukkit.broadcastMessage("%%% making a new gameInstance");
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
         this.teamAmount = teamAmount;
         this.teamSize = teamSize;

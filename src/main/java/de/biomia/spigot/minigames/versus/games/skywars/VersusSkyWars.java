@@ -17,9 +17,7 @@ public class VersusSkyWars extends GameMode {
 
     public VersusSkyWars(GameInstance instance) {
         super(instance);
-        Bukkit.broadcastMessage("%%% starting SkyWarsInstance");
         handler = new SkyWarsHandler(this);
-        Bukkit.broadcastMessage("%%% SkyWars constructor ends");
     }
 
     public Chests getChests() {
@@ -29,7 +27,6 @@ public class VersusSkyWars extends GameMode {
     @Override
     public void start() {
         splitPlayersInTwoTeams();
-        Bukkit.broadcastMessage("%%% SkyWars.start()");
         for (BiomiaPlayer bp : getInstance().getPlayers()) {
             bp.setGetDamage(true);
             bp.setDamageEntitys(true);

@@ -104,7 +104,7 @@ public class GameTeam {
     }
 
     public Location getHome() {
-        Bukkit.broadcastMessage("%%%home: " + home.toString());
+        System.out.println("%%%home: " + home.toString());
         return home;
     }
 

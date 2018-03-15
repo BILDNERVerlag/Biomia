@@ -37,7 +37,6 @@ public abstract class MinigamesConfig extends Config {
     }
 
     public Location getSpawnLocation(TeamColor team, GameInstance instance) {
-        Bukkit.broadcastMessage("%%%getting spawnloc");
         return getLocation(team, instance, "Spawnpoint");
     }
 
@@ -77,15 +76,12 @@ public abstract class MinigamesConfig extends Config {
 
     public Location getLocation(TeamColor color, GameInstance instance, String settingName) {
 
-        Bukkit.broadcastMessage("%%%getting loc");
         String savePath = getSaveTeamPath(settingName, color);
-        Bukkit.broadcastMessage("%%%savePath= " + savePath);
 
         double x = getConfig().getDouble(savePath + "X");
         double y = getConfig().getDouble(savePath + "Y");
         double z = getConfig().getDouble(savePath + "Z");
         float ya = getConfig().getInt(savePath + "Yaw");
-        Bukkit.broadcastMessage("%%%location = " + x + "," + y + "," + z + "," + ya);
 
         return new Location(instance.getWorld(), x, y, z, ya, 0);
     }
