@@ -8,6 +8,8 @@ import de.biomia.spigot.events.bedwars.BedWarsLeaveEvent;
 import de.biomia.spigot.events.bedwars.BedWarsUseShopEvent;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
+import de.biomia.spigot.minigames.GameHandler;
+import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.bedwars.BedWars;
@@ -50,7 +52,11 @@ import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 import java.util.ArrayList;
 
-public class BedWarsListener extends BiomiaListener {
+public class BedWarsListener extends GameHandler {
+
+    public BedWarsListener(GameMode mode) {
+        super(mode);
+    }
 
     @EventHandler
     public void onJoin_(PlayerJoinEvent e) {
@@ -378,7 +384,7 @@ public class BedWarsListener extends BiomiaListener {
                 }
             }
         } else if (BedWars.getBedWars().getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
-            super.onLeave(e);
+            super.onDisconnect(e);
         }
     }
 
@@ -551,7 +557,7 @@ public class BedWarsListener extends BiomiaListener {
     }
 
     @EventHandler
-    public void onChat(AsyncPlayerChatEvent e) {
+    public void onChat_(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         GameTeam t = bp.getTeam();

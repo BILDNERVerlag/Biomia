@@ -52,7 +52,8 @@ public class GameInstance implements Listener {
             gameMode = new BedWars(this);
             break;
         }
-        gameMode.setConfig(gameMode.initConfig());
+        gameMode.setConfig();
+        gameMode.setHandler();
         gameMode.initTeams();
 
         new BukkitRunnable() {

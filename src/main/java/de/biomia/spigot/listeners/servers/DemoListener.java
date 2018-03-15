@@ -23,8 +23,6 @@ import java.util.HashMap;
 
 public class DemoListener extends BiomiaListener {
 
-    public static HashMap<Player, ScrollingInventory> invs = new HashMap<>();
-
     @EventHandler
     public void onJoin_(PlayerJoinEvent e) {
 

@@ -6,6 +6,7 @@ import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.minigames.GameHandler;
+import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.general.Dead;
 import org.bukkit.Bukkit;
@@ -30,7 +31,7 @@ class BedWarsHandler extends GameHandler {
 
     private final ArrayList<Block> destroyableBlocks = new ArrayList<>();
 
-    BedWarsHandler(VersusBedWars versusBedWars) {
+    BedWarsHandler(GameMode versusBedWars) {
         super(versusBedWars);
     }
 
@@ -40,7 +41,7 @@ class BedWarsHandler extends GameHandler {
     }
 
     @EventHandler
-    private void onInteract(PlayerInteractEvent e) {
+    public void onInteract_(PlayerInteractEvent e) {
         if (e.hasItem() && e.getItem().hasItemMeta() && e.getItem().getItemMeta().hasDisplayName()) {
             if (e.getItem().getItemMeta().getDisplayName().equals(BedWarsItemNames.rettungsPlattform)) {
                 if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
@@ -52,7 +53,7 @@ class BedWarsHandler extends GameHandler {
     }
 
     @EventHandler
-    private void onBlockBreak(BlockBreakEvent e) {
+    public void onBlockBreak_(BlockBreakEvent e) {
         Block b = e.getBlock();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         if (mode.getInstance().containsPlayer(bp))
@@ -83,7 +84,7 @@ class BedWarsHandler extends GameHandler {
     }
 
     @EventHandler
-    private void onDeath(PlayerDeathEvent e) {
+    public void onDeath_(PlayerDeathEvent e) {
         Player p = e.getEntity();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         e.setKeepInventory(false);

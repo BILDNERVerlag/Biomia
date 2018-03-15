@@ -3,6 +3,7 @@ package de.biomia.spigot.minigames;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
+import de.biomia.spigot.listeners.servers.BiomiaListener;
 import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.minigames.general.Dead;
 import net.md_5.bungee.api.ChatColor;
@@ -39,7 +40,7 @@ public abstract class GameHandler implements Listener {
     }
 
     @EventHandler
-    public void onChat(AsyncPlayerChatEvent e) {
+    public final void onChat(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         GameTeam team = bp.getTeam();

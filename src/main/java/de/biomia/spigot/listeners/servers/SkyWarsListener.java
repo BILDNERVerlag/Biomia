@@ -6,6 +6,7 @@ import de.biomia.spigot.configs.SkyWarsConfig;
 import de.biomia.spigot.events.skywars.*;
 import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
+import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.general.chests.Chests;
@@ -19,7 +20,6 @@ import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.RankManager;
 import de.biomia.spigot.tools.SkyWarsKitManager;
 import de.biomia.universal.UniversalBiomia;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.*;
@@ -36,7 +36,11 @@ import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class SkyWarsListener extends BiomiaListener {
+public class SkyWarsListener extends GameHandler {
+
+    public SkyWarsListener(de.biomia.spigot.minigames.GameMode mode) {
+        super(mode);
+    }
 
     @EventHandler
     public void onJoin_(PlayerJoinEvent e) {
@@ -633,54 +637,6 @@ public class SkyWarsListener extends BiomiaListener {
                     return;
                 }
             }
-        }
-    }
-
-    @EventHandler
-    public void onChat(AsyncPlayerChatEvent e) {
-        Player p = e.getPlayer();
-        BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-
-        String msg = e.getMessage();
-        String format;
-        if (p.hasPermission("biomia.coloredchat"))
-            msg = ChatColor.translateAlternateColorCodes('&', e.getMessage());
-        GameTeam t = bp.getTeam();
-
-        if (SkyWars.getSkyWars().getStateManager().getActualGameState() == GameStateManager.GameState.INGAME || SkyWars.getSkyWars().getStateManager().getActualGameState() == GameStateManager.GameState.WAITING_FOR_START) {
-            if (t != null) {
-                if (bp.getTeam().lives(bp)) {
-                    if (e.getMessage().substring(0, 1).contains("@")) {
-
-                        msg = msg.replace("@all ", "");
-                        msg = msg.replace("@all", "");
-                        msg = msg.replace("@a ", "");
-                        msg = msg.replace("@a", "");
-                        msg = msg.replace("@ ", "");
-                        msg = msg.replace("@", "");
-
-                        e.setFormat(SkyWarsMessages.chatMessageAll.replaceAll("%p", t.getColorcode() + p.getDisplayName())
-                                .replaceAll("%msg", msg));
-                    } else {
-                        e.setCancelled(true);
-                        format = SkyWarsMessages.chatMessageTeam.replaceAll("%p", t.getColorcode() + p.getDisplayName())
-                                .replaceAll("%msg", msg);
-                        for (BiomiaPlayer teamPlayer : t.getPlayers()) {
-                            teamPlayer.sendMessage(format);
-                        }
-                    }
-                }
-            } else {
-                format = SkyWarsMessages.chatMessageDead.replaceAll("%p", p.getDisplayName()).replaceAll("%msg", msg);
-                for (Player spec : Bukkit.getOnlinePlayers()) {
-                    if (!SkyWars.getSkyWars().getInstance().containsPlayer(Biomia.getBiomiaPlayer(spec)) || !bp.getTeam().lives(bp))
-                        spec.sendMessage(format);
-                }
-            }
-        } else {
-            format = SkyWarsMessages.chatMessageLobby.replaceAll("%p", t.getColorcode() + p.getDisplayName())
-                    .replaceAll("%msg", msg);
-            e.setFormat(format);
         }
     }
 

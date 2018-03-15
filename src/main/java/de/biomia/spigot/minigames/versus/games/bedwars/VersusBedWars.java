@@ -4,6 +4,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.configs.MinigamesConfig;
+import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.TeamColor;
@@ -11,6 +12,11 @@ import de.biomia.spigot.minigames.general.SpawnItems;
 import de.biomia.spigot.minigames.versus.Versus;
 
 public class VersusBedWars extends GameMode {
+
+    @Override
+    protected GameHandler initHandler() {
+        return new BedWarsHandler(this);
+    }
 
     private final BedWarsScoreboard bedWarsScoreboard;
     private final BedWarsShopListener shop = new BedWarsShopListener(this);
@@ -21,7 +27,6 @@ public class VersusBedWars extends GameMode {
         new VersusBedWarsTeam(this, TeamColor.BLUE);
         new VersusBedWarsTeam(this, TeamColor.RED);
         bedWarsScoreboard = new BedWarsScoreboard(this);
-        handler = new BedWarsHandler(this);
     }
 
     public BedWarsScoreboard getBedWarsScoreboard() {
@@ -55,5 +60,6 @@ public class VersusBedWars extends GameMode {
     protected MinigamesConfig initConfig() {
         return new BedWarsConfig();
     }
+
 
 }

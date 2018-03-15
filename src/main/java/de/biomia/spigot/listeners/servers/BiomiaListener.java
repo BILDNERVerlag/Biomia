@@ -3,6 +3,7 @@ package de.biomia.spigot.listeners.servers;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.BiomiaServerType;
+import de.biomia.spigot.Main;
 import de.biomia.spigot.general.cosmetics.Cosmetic;
 import de.biomia.spigot.general.cosmetics.items.CosmeticPetItem;
 import de.biomia.spigot.general.reportsystem.PlayerReport;
@@ -14,6 +15,7 @@ import de.biomia.spigot.tools.PlayerToServerConnector;
 import de.biomia.spigot.tools.RankManager;
 import de.biomia.universal.Messages;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -32,7 +34,7 @@ import org.bukkit.event.player.*;
  * The Listener of the actual Server have to extend this class
  * a few listeners can be overridden
  */
-abstract class BiomiaListener implements Listener {
+public abstract class BiomiaListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public final void onJoin(PlayerJoinEvent e) {
@@ -55,12 +57,12 @@ abstract class BiomiaListener implements Listener {
         Biomia.removeBiomiaPlayer(e.getPlayer());
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public final void onDeath(PlayerDeathEvent e) {
         e.setDeathMessage(null);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public final void onInteract(PlayerInteractEvent e) {
         if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             if (e.getItem() != null) {
@@ -73,14 +75,14 @@ abstract class BiomiaListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public final void onInteractEntity(PlayerInteractAtEntityEvent e) {
         if (CosmeticPetItem.isOwner(Biomia.getBiomiaPlayer(e.getPlayer()), e.getRightClicked())) {
             e.getRightClicked().addPassenger(e.getPlayer());
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public final void onClick(InventoryClickEvent e) {
         if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
             if (Cosmetic.getMainInventory().equals(e.getClickedInventory()) && Cosmetic.openGroupInventory(Biomia.getBiomiaPlayer((Player) e.getWhoClicked()), e.getCurrentItem().getItemMeta().getDisplayName())) {
@@ -89,19 +91,19 @@ abstract class BiomiaListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public final void onBlockBreak(BlockBreakEvent e) {
         if (!Biomia.getBiomiaPlayer(e.getPlayer()).canBuild())
             e.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public final void onBlockSet(BlockPlaceEvent e) {
         if (!Biomia.getBiomiaPlayer(e.getPlayer()).canBuild())
             e.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public final void onSendMessage(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
@@ -129,7 +131,7 @@ abstract class BiomiaListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public final void onCommand(PlayerCommandPreprocessEvent pe) {
         String cmd = pe.getMessage().split(" ")[0];
         if (cmd.equalsIgnoreCase("/rl") || cmd.equalsIgnoreCase("/reload") || cmd.equalsIgnoreCase("/restart") || cmd.equalsIgnoreCase("/stop")) {
@@ -141,7 +143,7 @@ abstract class BiomiaListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public final void damageToPlayer(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player) {
             if (!Biomia.getBiomiaPlayer((Player) e.getEntity()).canGetDamage()) {
@@ -152,11 +154,10 @@ abstract class BiomiaListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public final void damageByPlayer(EntityDamageByEntityEvent e) {
         if (e.getDamager() instanceof Player) {
             Player p = (Player) e.getDamager();
-
             if (!Biomia.getBiomiaPlayer(p).canDamageEntitys()) {
                 e.setCancelled(true);
             }

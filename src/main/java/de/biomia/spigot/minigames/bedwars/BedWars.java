@@ -4,6 +4,7 @@ import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.listeners.servers.BedWarsListener;
+import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
@@ -15,6 +16,11 @@ import de.biomia.spigot.minigames.general.shop.Shop;
 import org.bukkit.Bukkit;
 
 public class BedWars extends GameMode {
+
+    @Override
+    protected GameHandler initHandler() {
+        return new BedWarsListener(this);
+    }
 
     private static BedWars instance;
 
@@ -38,7 +44,6 @@ public class BedWars extends GameMode {
         super.start();
         Shop.init();
 
-        Bukkit.getPluginManager().registerEvents(new BedWarsListener(), Main.getPlugin());
         Bukkit.getPluginManager().registerEvents(new BedListener(), Main.getPlugin());
         Bukkit.getPluginManager().registerEvents(new SpecialItems(), Main.getPlugin());
 
