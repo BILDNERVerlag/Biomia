@@ -2,6 +2,7 @@ package de.biomia.spigot.listeners.servers;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.general.cosmetics.Cosmetic;
 import de.biomia.spigot.general.cosmetics.items.CosmeticPetItem;
 import de.biomia.spigot.general.reportsystem.PlayerReport;
@@ -66,7 +67,7 @@ abstract class BiomiaListener implements Listener {
         if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             if (e.getItem() != null) {
                 if (e.getItem().isSimilar(BackToLobby.getBackToLobbyItem()))
-                    PlayerToServerConnector.connectToRandom(e.getPlayer(), "Lobby");
+                    PlayerToServerConnector.connectToRandom(e.getPlayer(), BiomiaServerType.Lobby);
             }
         }
         if (e.getAction().equals(Action.PHYSICAL) && e.getClickedBlock().getType() == Material.SOIL) {

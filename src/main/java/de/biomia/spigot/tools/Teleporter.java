@@ -1,5 +1,6 @@
 package de.biomia.spigot.tools;
 
+import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -22,14 +23,14 @@ public class Teleporter {
     private final Location backTeleport;
     private final Destination dest;
     private boolean inverted;
-    private final String serverGroup;
+    private final BiomiaServerType serverType;
     private final Location location;
 
-    public Teleporter(Location from, Location to, Location backTeleport, String serverGroup) {
+    public Teleporter(Location from, Location to, Location backTeleport, BiomiaServerType serverType) {
         this.from = from;
         this.to = to;
         dest = Destination.SERVER_GROUP;
-        this.serverGroup = serverGroup;
+        this.serverType = serverType;
         this.backTeleport = backTeleport;
         listener.addTeleporter(this);
         this.location = null;
@@ -42,7 +43,7 @@ public class Teleporter {
         this.location = destinationLocation;
         listener.addTeleporter(this);
         this.backTeleport = null;
-        this.serverGroup = null;
+        this.serverType = null;
     }
 
     public void setInverted() {
@@ -69,8 +70,8 @@ public class Teleporter {
         return dest;
     }
 
-    public String getServerGroup() {
-        return serverGroup;
+    public BiomiaServerType getServerType() {
+        return serverType;
     }
 
     public Location getLocation() {
@@ -113,7 +114,7 @@ class TeleportListener implements Listener {
 
                 if (eachTeleporter.getDestination() == Teleporter.Destination.SERVER_GROUP) {
                     e.getPlayer().teleport(eachTeleporter.getBackTeleport());
-                    PlayerToServerConnector.connectToRandom(e.getPlayer(), eachTeleporter.getServerGroup());
+                    PlayerToServerConnector.connectToRandom(e.getPlayer(), eachTeleporter.getServerType());
                 } else {
                     e.getPlayer().teleport(eachTeleporter.getLocation());
                 }

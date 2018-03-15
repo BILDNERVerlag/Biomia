@@ -4,6 +4,7 @@ import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import cloud.timo.TimoCloud.api.objects.ServerObject;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
+import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
 import de.biomia.universal.MySQL;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -40,13 +41,13 @@ public class PlayerToServerConnector implements PluginMessageListener {
         p.sendPluginMessage(Main.getPlugin(), "BungeeCord", b.toByteArray());
     }
 
-    public static void connectToRandom(Player p, String group) {
+    public static void connectToRandom(Player p, BiomiaServerType type) {
 
-        if (group.contains("Weltenlabor")) {
+        if (type.name().contains("Weltenlabor")) {
             ArrayList<String> list = executeQuery(
                     "Select code from CodesFuerRaenge where rangEingeloestFuerPlayeruuid = '" + p.getUniqueId() + "'");
             if (list != null)
-                if (group.contains("#1")) {
+                if (type.name().contains("1")) {
                     if (!list.contains("krs522tpr8a")) {
                         p.sendMessage(
                                 "\u00A7cNur Spieler die das entsprechende Buch besitzen k\u00A7nnen der jeweiligen Welt beitreten");
@@ -58,7 +59,7 @@ public class PlayerToServerConnector implements PluginMessageListener {
                 }
         }
 
-        List<ServerObject> servers = TimoCloudAPI.getUniversalInstance().getServerGroup(group).getServers();
+        List<ServerObject> servers = TimoCloudAPI.getUniversalInstance().getServerGroup(type.name()).getServers();
 
         if (servers.size() > 1) {
             ServerObject random = servers.get(new Random().nextInt(servers.size() - 1));

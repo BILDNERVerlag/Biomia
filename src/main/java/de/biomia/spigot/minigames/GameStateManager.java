@@ -3,15 +3,16 @@ package de.biomia.spigot.minigames;
 import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.events.bedwars.BedWarsEndEvent;
 import de.biomia.spigot.events.bedwars.BedWarsStartEvent;
 import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.minigames.bedwars.BedWars;
-import de.biomia.spigot.minigames.general.CountDown;
 import de.biomia.spigot.minigames.bedwars.var.Scoreboards;
 import de.biomia.spigot.minigames.bedwars.var.Teleport;
 import de.biomia.spigot.minigames.bedwars.var.Variables;
+import de.biomia.spigot.minigames.general.CountDown;
 import de.biomia.spigot.tools.PlayerToServerConnector;
 import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
@@ -141,27 +142,25 @@ public class GameStateManager {
 
             TimoCloudAPI.getBukkitInstance().getThisServer().setState(GameState.INGAME.name());
 
-            HashMap<BiomiaPlayer, String> biomiaPlayerTeams = new HashMap<>();
+            HashMap<BiomiaPlayer, TeamColor> biomiaPlayerTeams = new HashMap<>();
 
-            for (Player p : Bukkit.getOnlinePlayers()) {
+            for (BiomiaPlayer bp : getMode().getInstance().getPlayers()) {
 
-                BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-
-                biomiaPlayerTeams.put(bp, bp.getTeam().getTeamname());
+                biomiaPlayerTeams.put(bp, bp.getTeam().getColor());
                 Bukkit.getPluginManager().callEvent(new BedWarsStartEvent(biomiaPlayerTeams));
 
-                for (Player p2 : Bukkit.getOnlinePlayers()) {
-                    p.showPlayer(p2);
+                for (BiomiaPlayer p2 : getMode().getInstance().getPlayers()) {
+                    bp.getPlayer().showPlayer(p2.getPlayer());
                 }
 
                 bp.setBuild(true);
                 bp.setDamageEntitys(true);
                 bp.setGetDamage(true);
-                p.setGameMode(org.bukkit.GameMode.SURVIVAL);
-                Scoreboards.setInGameScoreboard(p);
-                p.getInventory().clear();
-                p.setFlying(false);
-                p.setAllowFlight(false);
+                bp.getPlayer().setGameMode(org.bukkit.GameMode.SURVIVAL);
+                Scoreboards.setInGameScoreboard(bp.getPlayer());
+                bp.getPlayer().getInventory().clear();
+                bp.getPlayer().setFlying(false);
+                bp.getPlayer().setAllowFlight(false);
             }
 
             Scoreboards.initSpectatorSB(getMode());
@@ -234,7 +233,7 @@ public class GameStateManager {
         @Override
         void stop() {
             for (Player p : Bukkit.getOnlinePlayers()) {
-                PlayerToServerConnector.connectToRandom(p, "Lobby");
+                PlayerToServerConnector.connectToRandom(p, BiomiaServerType.Lobby);
             }
             Bukkit.shutdown();
         }

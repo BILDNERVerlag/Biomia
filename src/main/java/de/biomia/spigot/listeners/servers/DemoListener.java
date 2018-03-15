@@ -2,13 +2,11 @@ package de.biomia.spigot.listeners.servers;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.configs.DemoConfig;
 import de.biomia.spigot.server.demoserver.Weltenlabor;
 import de.biomia.spigot.server.demoserver.teleporter.Bauten;
 import de.biomia.spigot.server.demoserver.teleporter.ScrollingInventory;
 import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.ItemCreator;
-import de.biomia.universal.MySQL;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -19,7 +17,6 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
@@ -40,25 +37,6 @@ public class DemoListener extends BiomiaListener {
         BackToLobby.getLobbyItem(p, 8);
         p.getInventory().setItem(0, ItemCreator.itemCreate(Material.CHEST, "\u00A7dTeleporter"));
 
-    }
-
-    @EventHandler
-    public void onLogin(PlayerLoginEvent e) {
-        e.allow();
-        String code = DemoConfig.config.getString("Code");
-
-        if (code == null)
-            code = "krs522tpr8a";
-
-        if (MySQL.executeQuery(
-                "SELECT `code`, `rangEingeloestFuerPlayeruuid` FROM `CodesFuerRaenge` WHERE `code` = '" + code
-                        + "' AND `rangEingeloestFuerPlayeruuid` = '" + e.getPlayer().getUniqueId() + "'",
-                "rangEingeloestFuerPlayeruuid", MySQL.Databases.biomia_db) == null && !e.getPlayer().hasPermission("biomia.demoserver.free")) {
-
-            e.getPlayer().sendMessage(
-                    "\u00A7cDu hast den Code f\u00fcr den Zugang zu dieser Welt nicht auf unserer Website eingeben!");
-            e.getPlayer().kickPlayer("");
-        }
     }
 
     @EventHandler

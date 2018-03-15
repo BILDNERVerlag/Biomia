@@ -216,7 +216,7 @@ public class StatListener implements Listener {
     @EventHandler
     public void onBedWarsStart(BedWarsStartEvent e) {
         e.getPlayers().keySet().forEach(each -> {
-            String teamName = e.getPlayers().get(each);
+            String teamName = e.getPlayers().get(each).name();
             Stats.incrementStat(Stats.BiomiaStat.BW_GamesPlayed, each.getBiomiaPlayerID(), teamName);
         });
     }

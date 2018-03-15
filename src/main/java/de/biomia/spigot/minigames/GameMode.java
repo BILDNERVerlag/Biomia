@@ -5,7 +5,6 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.messages.BedWarsMessages;
-import de.biomia.spigot.minigames.bedwars.BedWars;
 import de.biomia.spigot.minigames.bedwars.BedWarsTeam;
 import de.biomia.spigot.minigames.general.TeamSwitcher;
 import de.biomia.spigot.minigames.versus.Versus;
@@ -96,7 +95,6 @@ public abstract class GameMode {
 
     public void setAllToTeams() {
         Iterator<BiomiaPlayer> l = getInstance().getPlayers().iterator();
-        getallteams:
         for (GameTeam team : getTeams()) {
             while (!team.isFull()) {
                 if (l.hasNext()) {
@@ -104,7 +102,7 @@ public abstract class GameMode {
                     if (bp.getTeam() == null)
                         team.join(bp);
                 } else {
-                    break getallteams;
+                    return;
                 }
             }
         }

@@ -2,9 +2,10 @@ package de.biomia.spigot.listeners.servers;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.universal.Messages;
+import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.tools.InventorySave;
 import de.biomia.spigot.tools.PlayerToServerConnector;
+import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
@@ -45,14 +46,14 @@ public class FreebuildListener extends BiomiaListener {
                 // ZUM FARMSERVER
                 p.teleport(new Location(Bukkit.getWorld("world"), -198, 64, 385, 90, 0));
                 if (Biomia.getBiomiaPlayer(p).isStaff()) {
-                    PlayerToServerConnector.connectToRandom(p, "FarmServer");
+                    PlayerToServerConnector.connectToRandom(p, BiomiaServerType.FarmServer);
                 } else
                     p.sendMessage(
                             "\u00A7cDas Portal zur Farmwelt ist offenbar noch nicht richtig ausgerichtet! Probier es am besten in ein paar Tagen erneut!");
             } else if ((390 <= z) && (z <= 393)) {
                 // ZUR LOBBY
                 p.teleport(new Location(Bukkit.getWorld("world"), -198, 64, 391, 120, 0));
-                PlayerToServerConnector.connectToRandom(p, "Lobby");
+                PlayerToServerConnector.connectToRandom(p, BiomiaServerType.Lobby);
             }
         }
     }
