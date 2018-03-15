@@ -127,7 +127,6 @@ public class GameInstance implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         if (getGameMode().getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
             getGameMode().getInstance().registerPlayer(Biomia.getBiomiaPlayer(e.getPlayer()));
-            Bukkit.broadcastMessage("register player");
         }
     }
 }

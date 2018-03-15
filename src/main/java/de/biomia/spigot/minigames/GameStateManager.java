@@ -163,7 +163,6 @@ public class GameStateManager {
             }
 
             Bukkit.getPluginManager().callEvent(new BedWarsStartEvent(getMode()));
-
             Scoreboards.initSpectatorSB(getMode());
             Teleport.teleportPlayerToMap(getMode());
         }

@@ -8,6 +8,7 @@ import de.biomia.spigot.minigames.bedwars.var.Scoreboards;
 import de.biomia.spigot.minigames.general.Dead;
 import de.biomia.spigot.minigames.general.TeamSwitcher;
 import de.biomia.spigot.tools.ItemCreator;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 
@@ -103,6 +104,7 @@ public class GameTeam {
     }
 
     public Location getHome() {
+        Bukkit.broadcastMessage("%%%home: " + home.toString());
         return home;
     }
 
