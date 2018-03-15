@@ -89,7 +89,7 @@ public class Scoreboards {
     public static void initSpectatorSB(GameMode mode) {
 
         for (GameTeam t : mode.getTeams()) {
-            spectatorSB.registerNewTeam(t.getTeamname()).setPrefix(t.getColorcode());
+            spectatorSB.registerNewTeam(t.getColor().name()).setPrefix(t.getColorcode());
         }
         spectatorSB.registerNewTeam("spectator").setPrefix("\u00A77\u00A7o");
 

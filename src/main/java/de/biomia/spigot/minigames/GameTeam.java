@@ -47,7 +47,7 @@ public class GameTeam {
             return;
         }
 
-        if (isFull()) {
+        if (isFull() && !bp.getTeam().equals(this)) {
             bp.sendMessage(getColorcode() + BedWarsMessages.teamFull);
             return;
         }

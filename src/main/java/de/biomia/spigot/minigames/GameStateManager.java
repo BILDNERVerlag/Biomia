@@ -147,7 +147,6 @@ public class GameStateManager {
             for (BiomiaPlayer bp : getMode().getInstance().getPlayers()) {
 
                 biomiaPlayerTeams.put(bp, bp.getTeam().getColor());
-                Bukkit.getPluginManager().callEvent(new BedWarsStartEvent(biomiaPlayerTeams));
 
                 for (BiomiaPlayer p2 : getMode().getInstance().getPlayers()) {
                     bp.getPlayer().showPlayer(p2.getPlayer());
@@ -162,6 +161,8 @@ public class GameStateManager {
                 bp.getPlayer().setFlying(false);
                 bp.getPlayer().setAllowFlight(false);
             }
+
+            Bukkit.getPluginManager().callEvent(new BedWarsStartEvent(getMode()));
 
             Scoreboards.initSpectatorSB(getMode());
             Teleport.teleportPlayerToMap(getMode());
