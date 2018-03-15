@@ -2,6 +2,7 @@ package de.biomia.spigot;
 
 import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import cloud.timo.TimoCloud.api.objects.PlayerObject;
+import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.server.quests.general.QuestPlayer;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayer;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayerManager;
@@ -26,6 +27,7 @@ public class BiomiaPlayer extends OfflineBiomiaPlayer {
     private boolean damageEntitys = true;
     private QuestPlayer questPlayer;
     private final Player player;
+    private GameTeam team;
 
     // CONSTRUCTOR
     public BiomiaPlayer(Player p) {
@@ -105,5 +107,13 @@ public class BiomiaPlayer extends OfflineBiomiaPlayer {
 
     public int getActualOnlineMinutes() {
         return actualOnlineMinutes;
+    }
+
+    public GameTeam getTeam() {
+        return team;
+    }
+
+    public void setTeam(GameTeam team) {
+        this.team = team;
     }
 }

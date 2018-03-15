@@ -27,7 +27,7 @@ class InformationInventory {
     private final int biomiaID;
     private final BiomiaPlayer bp;
 
-    //TODO add Command
+    //TODO add Command to show better
     InformationInventory(BiomiaPlayer bp, int biomiaPlayerID) {
         String name = Biomia.getOfflineBiomiaPlayer(biomiaPlayerID).getName();
         this.bp = bp;

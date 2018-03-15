@@ -76,14 +76,14 @@ public class Scoreboards {
         kit.addEntry("\u00A7c");
         team.addEntry("\u00A7f");
 
-        GameTeam gameTeam = SkyWars.getSkyWars().getTeam(Biomia.getBiomiaPlayer(p));
+        GameTeam gameTeam = Biomia.getBiomiaPlayer(p).getTeam();
 
         for (GameTeam t : SkyWars.getSkyWars().getTeams()) {
             sb.registerNewTeam(t.getTeamname()).setPrefix(t.getColorcode());
         }
 
         for (Player pl : Bukkit.getOnlinePlayers()) {
-            sb.getTeam(SkyWars.getSkyWars().getTeam(Biomia.getBiomiaPlayer(pl)).getTeamname()).addEntry(pl.getName());
+            sb.getTeam(Biomia.getBiomiaPlayer(pl).getTeam().getTeamname()).addEntry(pl.getName());
         }
 
         if (Variables.selectedKit.get(p) != null)
@@ -106,7 +106,7 @@ public class Scoreboards {
 
         for (Player pl : Bukkit.getOnlinePlayers()) {
             if (SkyWars.getSkyWars().getInstance().containsPlayer(Biomia.getBiomiaPlayer(pl))) {
-                spectatorSB.getTeam(SkyWars.getSkyWars().getTeam(Biomia.getBiomiaPlayer(pl)).getTeamname()).addEntry(pl.getName());
+                spectatorSB.getTeam(Biomia.getBiomiaPlayer(pl).getTeam().getTeamname()).addEntry(pl.getName());
             } else {
                 spectatorSB.getTeam("spectator").addEntry(pl.getName());
             }

@@ -94,16 +94,6 @@ public abstract class GameMode {
         return teams;
     }
 
-    public GameTeam getTeam(BiomiaPlayer bp) {
-
-        for (GameTeam team : getTeams()) {
-            if (team.containsPlayer(bp)) {
-                return team;
-            }
-        }
-        return null;
-    }
-
     public void setAllToTeams() {
         Iterator<BiomiaPlayer> l = getInstance().getPlayers().iterator();
         getallteams:
@@ -111,7 +101,7 @@ public abstract class GameMode {
             while (!team.isFull()) {
                 if (l.hasNext()) {
                     BiomiaPlayer bp = l.next();
-                    if (BedWars.getBedWars().getTeam(bp) == null)
+                    if (bp.getTeam() == null)
                         team.join(bp);
                 } else {
                     break getallteams;

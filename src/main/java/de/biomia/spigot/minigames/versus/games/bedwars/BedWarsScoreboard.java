@@ -21,7 +21,7 @@ public class BedWarsScoreboard {
         if (spectator)
             team = "spectator";
         else
-            team = versusBedWars.getTeam(bp).getColor().name();
+            team = bp.getTeam().getColor().name();
         sb.getTeam(team).addEntry(bp.getPlayer().getName());
     }
 

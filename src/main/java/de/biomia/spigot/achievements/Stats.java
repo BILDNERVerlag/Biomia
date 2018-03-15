@@ -18,7 +18,7 @@ public class Stats {
 
     static final HashMap<BiomiaStat, ArrayList<Achievements>> stats = new HashMap<>();
 
-    //TODO: ueber commands
+    //TODO: ueber commands umstellen
     private final static boolean log = false;
 
     public enum BiomiaStat {

@@ -7,7 +7,6 @@ import de.biomia.spigot.messages.SkyWarsMessages;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.general.Dead;
-import de.biomia.spigot.minigames.skywars.SkyWars;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
@@ -37,44 +36,44 @@ class SkyWarsHandler extends GameHandler {
             if (e.getItem() != null) {
                 if (e.getItem().hasItemMeta() && e.getItem().getItemMeta().hasDisplayName()) {
                     switch (e.getItem().getItemMeta().getDisplayName()) {
-                    case SkyWarsItemNames.playerTracker:
-                        if (e.getItem().getType() == Material.COMPASS) {
-                            for (Entity entity : p.getNearbyEntities(500, 500, 500)) {
-                                if (entity instanceof Player) {
-                                    Player nearest = (Player) entity;
-                                    BiomiaPlayer nearestbp = Biomia.getBiomiaPlayer(nearest);
-                                    GameTeam nearestPlayerTeam = SkyWars.getSkyWars().getTeam(nearestbp);
-                                    if (nearestPlayerTeam != null && nearestPlayerTeam.lives(nearestbp) && SkyWars.getSkyWars().getTeam(bp) != null && !SkyWars.getSkyWars().getTeam(bp).containsPlayer(nearestbp)) {
-                                        p.setCompassTarget(nearest.getLocation());
-                                        p.sendMessage(SkyWarsMessages.compassMessages.replace("%p", nearest.getName()).replace("%d", (int) p.getLocation().distance(nearest.getLocation()) + ""));
-                                        return;
+                        case SkyWarsItemNames.playerTracker:
+                            if (e.getItem().getType() == Material.COMPASS) {
+                                for (Entity entity : p.getNearbyEntities(500, 500, 500)) {
+                                    if (entity instanceof Player) {
+                                        Player nearest = (Player) entity;
+                                        BiomiaPlayer nearestbp = Biomia.getBiomiaPlayer(nearest);
+                                        GameTeam nearestPlayerTeam = nearestbp.getTeam();
+                                        if (nearestPlayerTeam != null && nearestPlayerTeam.lives(nearestbp) && bp.getTeam() != null && !bp.getTeam().containsPlayer(nearestbp)) {
+                                            p.setCompassTarget(nearest.getLocation());
+                                            p.sendMessage(SkyWarsMessages.compassMessages.replace("%p", nearest.getName()).replace("%d", (int) p.getLocation().distance(nearest.getLocation()) + ""));
+                                            return;
+                                        }
                                     }
                                 }
                             }
-                        }
-                        break;
-                    case SkyWarsItemNames.oneHitSnowball:
-                        if (e.getItem().getType() == Material.SNOW_BALL) {
-                            if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                            break;
+                        case SkyWarsItemNames.oneHitSnowball:
+                            if (e.getItem().getType() == Material.SNOW_BALL) {
+                                if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                                    e.setCancelled(true);
+                                    Projectile ball = p.launchProjectile(Snowball.class);
+                                    ball.setCustomName(SkyWarsItemNames.oneHitSnowball);
+                                    ball.setShooter(p);
+                                    p.getInventory().remove(e.getItem());
+                                }
+                            }
+                            break;
+                        case SkyWarsItemNames.gummibogen:
+                            if (e.getItem().getType() == Material.BOW) {
                                 e.setCancelled(true);
-                                Projectile ball = p.launchProjectile(Snowball.class);
-                                ball.setCustomName(SkyWarsItemNames.oneHitSnowball);
-                                ball.setShooter(p);
+                                Projectile arrow = p.launchProjectile(Arrow.class);
+                                arrow.setCustomName(SkyWarsItemNames.gummipfeil);
+                                arrow.setShooter(p);
                                 p.getInventory().remove(e.getItem());
                             }
-                        }
-                        break;
-                    case SkyWarsItemNames.gummibogen:
-                        if (e.getItem().getType() == Material.BOW) {
-                            e.setCancelled(true);
-                            Projectile arrow = p.launchProjectile(Arrow.class);
-                            arrow.setCustomName(SkyWarsItemNames.gummipfeil);
-                            arrow.setShooter(p);
-                            p.getInventory().remove(e.getItem());
-                        }
-                        break;
-                    default:
-                        break;
+                            break;
+                        default:
+                            break;
                     }
                 }
             }
@@ -108,7 +107,7 @@ class SkyWarsHandler extends GameHandler {
                 msg = SkyWarsMessages.playerKilledByPlayer.replaceAll("%p1", p.getName()).replaceAll("%p2", killer.getName());
             for (BiomiaPlayer all : mode.getInstance().getPlayers())
                 all.getPlayer().sendMessage(msg);
-            mode.getTeam(bp).setDead(bp);
+            bp.getTeam().setDead(bp);
         }
     }
 }

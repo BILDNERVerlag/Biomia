@@ -33,7 +33,7 @@ public abstract class GameHandler implements Listener {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getEntity());
             BiomiaPlayer damager = Biomia.getBiomiaPlayer((Player) e.getDamager());
             if (mode.getInstance().containsPlayer(bp) && mode.getInstance().containsPlayer(damager))
-                if (mode.getTeam(bp).equals(mode.getTeam(damager)))
+                if (bp.getTeam().equals(damager.getTeam()))
                     e.setCancelled(true);
         }
     }
@@ -42,7 +42,7 @@ public abstract class GameHandler implements Listener {
     public void onChat(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-        GameTeam team = mode.getTeam(bp);
+        GameTeam team = bp.getTeam();
         String msg = e.getMessage();
         String format;
         if (mode.getInstance().containsPlayer(bp)) {
@@ -74,14 +74,14 @@ public abstract class GameHandler implements Listener {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         if (e.getFrom().equals(mode.getInstance().getWorld()))
             if (mode.getInstance().containsPlayer(bp))
-                mode.getTeam(bp).leave(bp);
+                bp.getTeam().leave(bp);
     }
 
     @EventHandler
     public void onDisconnect(PlayerQuitEvent e) {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         if (mode.getInstance().containsPlayer(bp)) {
-            mode.getTeam(bp).leave(bp);
+            bp.getTeam().leave(bp);
         }
     }
 

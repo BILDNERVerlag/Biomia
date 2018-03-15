@@ -25,7 +25,7 @@ public class BedListener implements Listener {
     public void onBlockBreak(BlockBreakEvent e) {
 
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        GameTeam bpTeam = BedWars.getBedWars().getTeam(bp);
+        GameTeam bpTeam = bp.getTeam();
 
         if (e.getBlock().getType() == Material.BED_BLOCK && bpTeam != null) {
             for (GameTeam team : BedWars.getBedWars().getTeams()) {

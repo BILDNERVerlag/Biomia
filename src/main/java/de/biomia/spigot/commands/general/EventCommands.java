@@ -4,6 +4,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.configs.Config;
+import de.biomia.spigot.specialEvents.winterEvent.WinterTag;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -11,10 +12,13 @@ import org.bukkit.entity.Player;
 import static de.biomia.spigot.configs.Config.saveConfig;
 
 public class EventCommands extends BiomiaCommand {
+
+    private final static boolean winterEventOn = false;
+    private final static boolean easterEventOn = false;
+
     public EventCommands(String string) {
         super(string);
     }
-
 
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
@@ -22,11 +26,8 @@ public class EventCommands extends BiomiaCommand {
         if (sender instanceof Player) {
             Player p = (Player) sender;
 
-
             // WINTER
-            //TODO move WinterEvent to specialEvents
-            //TODO if (false)? Evtl in konstante rausziehen
-            if (false) {
+            if (winterEventOn) {
                 if (getName().equalsIgnoreCase("calendar")) {
                     if (args.length >= 1) {
 
@@ -38,7 +39,7 @@ public class EventCommands extends BiomiaCommand {
                         switch (args[0].toLowerCase()) {
                             case "add":
                                 if (args.length == 2) {
-//                                WinterTag.bindCalendarDayToEntity(Integer.valueOf(args[1]), entity.getUniqueId());
+                                    WinterTag.bindCalendarDayToEntity(Integer.valueOf(args[1]), entity.getUniqueId());
                                     sender.sendMessage("Entity mit der uuid " + entity.getUniqueId().toString()
                                             + " wurde hinzugef\u00fcgt zu Tag " + args[1] + "!");
                                 } else
@@ -63,14 +64,17 @@ public class EventCommands extends BiomiaCommand {
                 }
             }
 
-            if (getName().equals("givereward") && p.hasPermission("biomia.listener.givereward")) {
-                if (args.length >= 1) {
-                    Main.getEvent().giveReward(Biomia.getOfflineBiomiaPlayer(args[0]));
+            //Ostern
+            if (easterEventOn) {
+                if (getName().equals("givereward") && p.hasPermission("biomia.listener.givereward")) {
+                    if (args.length >= 1) {
+                        Main.getEvent().giveReward(Biomia.getOfflineBiomiaPlayer(args[0]));
+                    }
                 }
-            }
-            if (getName().equals("addeggs") && p.hasPermission("biomia.listener.addeggs")) {
-                if (args.length >= 2) {
-                    Main.getEvent().addEggs(Biomia.getOfflineBiomiaPlayer(args[0]).getBiomiaPlayerID(), Integer.valueOf(args[1]));
+                if (getName().equals("addeggs") && p.hasPermission("biomia.listener.addeggs")) {
+                    if (args.length >= 2) {
+                        Main.getEvent().addEggs(Biomia.getOfflineBiomiaPlayer(args[0]).getBiomiaPlayerID(), Integer.valueOf(args[1]));
+                    }
                 }
             }
         }

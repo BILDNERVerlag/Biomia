@@ -95,7 +95,7 @@ public class GameStateManager {
         }
 
         public void start() {
-            Scoreboards.initLobbySB();
+            Scoreboards.initLobbySB(getMode());
             countDown.startCountDown();
             new BukkitRunnable() {
                 @Override
@@ -147,7 +147,7 @@ public class GameStateManager {
 
                 BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
 
-                biomiaPlayerTeams.put(bp, BedWars.getBedWars().getTeam(bp).getTeamname());
+                biomiaPlayerTeams.put(bp, bp.getTeam().getTeamname());
                 Bukkit.getPluginManager().callEvent(new BedWarsStartEvent(biomiaPlayerTeams));
 
                 for (Player p2 : Bukkit.getOnlinePlayers()) {

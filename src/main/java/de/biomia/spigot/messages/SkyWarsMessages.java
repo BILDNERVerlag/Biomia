@@ -32,8 +32,8 @@ public class SkyWarsMessages {
     public static final String joinedTeam = "%p ist dem Team beigetreten!";
     public static final String noFittingTeamParty = "\u00A7cEs konnt kein passendes Team gefunden werden, da die Partygr\u00F6\u00DFe die maximale Teamgr\u00F6\u00DFe \u00fcbersteigt!";
     public static final String noFittingTeamPlayer = "\u00A7cEs konnt kein passendes Team gefunden werden, da kein Team genug Platz hat!";
-    public static final String youChoseKit = "\u00A75Du hast das Kit \u00A72%k \u00A75ausgew\u00fchlt!";
-    public static final String kitAlreadyChosen = "\u00A7cDu hast das Kit bereits ausgew\u00fchlt!";
+    public static final String youChoseKit = "\u00A75Du hast das Kit \u00A72%k \u00A75ausgew\u00e4hlt!";
+    public static final String kitAlreadyChosen = "\u00A7cDu hast das Kit bereits ausgew\u00e4hlt!";
     public static final String kitNotBought = "\u00A75Du hast das Kit \u00A72nicht \u00A75gekauft!";
     public static final String kickedForPremium = "\u00A7cDu wurdest gekickt um einen Premium Spieler Platz zu machen!";
     public static final String joinedTheGame = " \u00A78ist dem Spiel beigetreten!";

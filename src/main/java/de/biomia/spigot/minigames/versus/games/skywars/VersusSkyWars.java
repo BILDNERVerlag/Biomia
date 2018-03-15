@@ -35,7 +35,7 @@ public class VersusSkyWars extends GameMode {
             bp.setDamageEntitys(true);
             bp.setBuild(true);
             bp.getPlayer().getInventory().clear();
-            bp.getPlayer().teleport(getTeam(bp).getHome());
+            bp.getPlayer().teleport(bp.getTeam().getHome());
             KitManager.getManager(bp).setKitInventory();
         }
     }

@@ -39,7 +39,7 @@ public class VersusBedWars extends GameMode {
             bp.getPlayer().getInventory().clear();
             bedWarsScoreboard.setScoreboard(bp, false);
             bp.getPlayer().setCollidable(false);
-            bp.getPlayer().teleport(getTeam(bp).getHome());
+            bp.getPlayer().teleport(bp.getTeam().getHome());
         }
     }
 

@@ -13,8 +13,6 @@ public class HelpCommand extends Command {
         super(name);
     }
 
-    //TODO: move from bungee to spigot?
-
     @Override
     public void execute(CommandSender sender, String[] arg1) {
 

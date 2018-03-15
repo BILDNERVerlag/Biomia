@@ -4,8 +4,9 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.messages.manager.ActionBar;
-import de.biomia.spigot.minigames.general.TeamSwitcher;
+import de.biomia.spigot.minigames.bedwars.var.Scoreboards;
 import de.biomia.spigot.minigames.general.Dead;
+import de.biomia.spigot.minigames.general.TeamSwitcher;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -51,7 +52,7 @@ public class GameTeam {
             return;
         }
 
-        GameTeam team = mode.getTeam(bp);
+        GameTeam team = bp.getTeam();
         if (team != null) {
             if (team.equals(this)) {
                 bp.sendMessage(BedWarsMessages.alreadyInTeam);
@@ -65,8 +66,9 @@ public class GameTeam {
         }
 
         bp.getPlayer().getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, BedWarsItemNames.teamWaehlerItem, getColordata()));
-
+        bp.setTeam(this);
         players.put(bp, true);
+        Scoreboards.lobbySB.getTeam(color.name()).addEntry(bp.getName());
 
         TeamSwitcher.getTeamSwitcher(mode);
     }
@@ -96,6 +98,7 @@ public class GameTeam {
     }
 
     public void leave(BiomiaPlayer bp) {
+        bp.setTeam(null);
         players.remove(bp);
     }
 

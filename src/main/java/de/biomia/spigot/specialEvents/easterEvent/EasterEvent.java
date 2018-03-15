@@ -34,66 +34,64 @@ public class EasterEvent implements Listener {
     private final ArrayList<Block> blocks = new ArrayList<>();
     private final Location specialEggLocation;
 
-    //TODO: deaktivieren, dass eier auf wasser und auf baumkronen spawnen können
-
     public EasterEvent() {
         final String world;
         switch (Main.getGroupName()) {
-        case "Lobby":
-            world = "LobbyBiomia";
-            location = new Location(Bukkit.getWorld(world), 532, 112, 300);
-            specialEggLocation = new Location(Bukkit.getWorld(world), 595, 74, 298);
-            radius = 80;
-            maxHight = 112;
-            randomEggsPerServer = 20;
-            break;
-        case "QuestServer":
-            world = "Quests";
-            location = new Location(Bukkit.getWorld(world), 114, 0, -288);
-            specialEggLocation = new Location(Bukkit.getWorld(world), 141, 66, -258);
-            radius = 50;
-            maxHight = 85;
-            randomEggsPerServer = 4;
-            break;
-        case "BauWelt":
-            world = "BauWelt";
-            location = new Location(Bukkit.getWorld(world), 0, 0, 0);
-            specialEggLocation = new Location(Bukkit.getWorld(world), 11, 67, 19);
-            radius = 150;
-            maxHight = 77;
-            randomEggsPerServer = 5;
-            break;
-        case "SkyWars":
-            world = "Spawn";
-            location = new Location(Bukkit.getWorld(world), 0, 0, 0);
-            specialEggLocation = new Location(Bukkit.getWorld(world), 0, 71, 51);
-            radius = 50;
-            maxHight = 86;
-            randomEggsPerServer = 3;
-            break;
-        case "BedWars":
-            world = "Spawn";
-            location = new Location(Bukkit.getWorld(world), 0, 0, 0);
-            specialEggLocation = new Location(Bukkit.getWorld(world), 45, 85, 37);
-            radius = 50;
-            maxHight = 86;
-            randomEggsPerServer = 3;
-            break;
-        case "FreebuildServer":
-            world = "world";
-            location = new Location(Bukkit.getWorld(world), -261, 64, 350);
-            specialEggLocation = new Location(Bukkit.getWorld(world), -255, 65, 323);
-            radius = 150;
-            maxHight = 75;
-            randomEggsPerServer = 4;
-            break;
-        default:
-            location = null;
-            maxHight = 0;
-            radius = 0;
-            specialEggLocation = null;
-            randomEggsPerServer = 0;
-            return;
+            case "Lobby":
+                world = "LobbyBiomia";
+                location = new Location(Bukkit.getWorld(world), 532, 112, 300);
+                specialEggLocation = new Location(Bukkit.getWorld(world), 595, 74, 298);
+                radius = 80;
+                maxHight = 112;
+                randomEggsPerServer = 20;
+                break;
+            case "QuestServer":
+                world = "Quests";
+                location = new Location(Bukkit.getWorld(world), 114, 0, -288);
+                specialEggLocation = new Location(Bukkit.getWorld(world), 141, 66, -258);
+                radius = 50;
+                maxHight = 85;
+                randomEggsPerServer = 4;
+                break;
+            case "BauWelt":
+                world = "BauWelt";
+                location = new Location(Bukkit.getWorld(world), 0, 0, 0);
+                specialEggLocation = new Location(Bukkit.getWorld(world), 11, 67, 19);
+                radius = 150;
+                maxHight = 77;
+                randomEggsPerServer = 5;
+                break;
+            case "SkyWars":
+                world = "Spawn";
+                location = new Location(Bukkit.getWorld(world), 0, 0, 0);
+                specialEggLocation = new Location(Bukkit.getWorld(world), 0, 71, 51);
+                radius = 50;
+                maxHight = 86;
+                randomEggsPerServer = 3;
+                break;
+            case "BedWars":
+                world = "Spawn";
+                location = new Location(Bukkit.getWorld(world), 0, 0, 0);
+                specialEggLocation = new Location(Bukkit.getWorld(world), 45, 85, 37);
+                radius = 50;
+                maxHight = 86;
+                randomEggsPerServer = 3;
+                break;
+            case "FreebuildServer":
+                world = "world";
+                location = new Location(Bukkit.getWorld(world), -261, 64, 350);
+                specialEggLocation = new Location(Bukkit.getWorld(world), -255, 65, 323);
+                radius = 150;
+                maxHight = 75;
+                randomEggsPerServer = 4;
+                break;
+            default:
+                location = null;
+                maxHight = 0;
+                radius = 0;
+                specialEggLocation = null;
+                randomEggsPerServer = 0;
+                return;
         }
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
         startSpawningEggs();
@@ -121,24 +119,29 @@ public class EasterEvent implements Listener {
                         int degree = new Random().nextInt(360);
 
                         loc.add(r * Math.cos(degree), 0, r * Math.sin(degree));
+                        Material highestBlockType = loc.getWorld().getHighestBlockAt(loc).getLocation().subtract(0, 1, 0).getBlock().getType();
+
+                        if (highestBlockType != Material.LEAVES && highestBlockType != Material.LEAVES_2 && highestBlockType != Material.WATER)
+                            continue;
+
                         loc = loc.getWorld().getHighestBlockAt(loc).getLocation();
                     } while (loc.getY() > maxHight && loc.getY() != 1);
 
                     Block b = loc.getBlock();
 
                     switch (new Random().nextInt(4)) {
-                    case 0:
-                        HeadCreator.setSkullUrl(egg1Name, b);
-                        break;
-                    case 1:
-                        HeadCreator.setSkullUrl(egg2Name, b);
-                        break;
-                    case 2:
-                        HeadCreator.setSkullUrl(egg3Name, b);
-                        break;
-                    case 3:
-                        HeadCreator.setSkullUrl(egg4Name, b);
-                        break;
+                        case 0:
+                            HeadCreator.setSkullUrl(egg1Name, b);
+                            break;
+                        case 1:
+                            HeadCreator.setSkullUrl(egg2Name, b);
+                            break;
+                        case 2:
+                            HeadCreator.setSkullUrl(egg3Name, b);
+                            break;
+                        case 3:
+                            HeadCreator.setSkullUrl(egg4Name, b);
+                            break;
                     }
                     blocks.add(b);
                 }
@@ -163,7 +166,7 @@ public class EasterEvent implements Listener {
                     Stats.incrementStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer(), Main.getGroupName());
                     if (Stats.getStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer()) == specialEggsAmount) {
                         e.getPlayer().sendMessage("\u00A7cDu hast alle besonderen Eier gefunden! Daf\u00fcr erh\u00fcltst du:");
-                        // TODO setWinns ( + nachrichten)
+                        // TODO rewards überlegen + nachrichten
                     } else {
                         e.getPlayer().sendMessage("\u00A7cDu hast ein besonderes Ei gefunden! Als Belohnung erh\u00fcltst du XXXX Coins!");
                         int temp = specialEggsAmount - eggsFound;
@@ -173,7 +176,7 @@ public class EasterEvent implements Listener {
                         } else {
                             e.getPlayer().sendMessage("\u00A7cDer Osterhase hat noch \u00A7d" + temp + " \u00A7cweite, besondere Eier versteckt! Findest du sie?");
                         }
-                        // TODO setWinns
+                        // TODO rewards überlegen
                     }
                 } else {
                     e.getPlayer().sendMessage("\u00A7cDu hast das Besondere Ei in dieser Welt schon Gefunden! Suche in einer anderen weiter!");

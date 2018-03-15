@@ -218,7 +218,7 @@ public class SpecialItems implements Listener {
 
     private void warpHome(BiomiaPlayer bp, ItemStack is) {
 
-        GameTeam team = BedWars.getBedWars().getTeam(bp);
+        GameTeam team = bp.getTeam();
         if (team != null) {
             Teleport.teleportBackHome(bp);
             new BukkitRunnable() {
@@ -331,7 +331,7 @@ public class SpecialItems implements Listener {
     private void summonTNTSheep(BiomiaPlayer bp, ItemStack is) {
 
         Player p = bp.getPlayer();
-        GameTeam t = BedWars.getBedWars().getTeam(bp);
+        GameTeam t = bp.getTeam();
         if (t != null) {
             is.setAmount(is.getAmount() - 1);
             Sheep sheep = (Sheep) p.getWorld().spawnEntity(p.getLocation().add(0, 1, 0), EntityType.SHEEP);
@@ -340,7 +340,7 @@ public class SpecialItems implements Listener {
             for (Entity entity : entities) {
                 if (entities instanceof Player) {
                     Player target = (Player) entity;
-                    GameTeam tempTeam = BedWars.getBedWars().getTeam(Biomia.getBiomiaPlayer(target));
+                    GameTeam tempTeam = (Biomia.getBiomiaPlayer(target).getTeam());
                     if (tempTeam != null && !tempTeam.equals(t)) {
                         sheep.setTarget(target);
                         new BukkitRunnable() {

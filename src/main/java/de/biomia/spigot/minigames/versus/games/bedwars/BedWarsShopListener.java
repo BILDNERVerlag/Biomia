@@ -74,7 +74,7 @@ public class BedWarsShopListener implements Listener {
                                 ItemStack returnItem = iStack.clone();
 
                                 if (shopItem.isColorble()) {
-                                    VersusBedWarsTeam team = (VersusBedWarsTeam) versusBedWars.getTeam(bp);
+                                    VersusBedWarsTeam team = (VersusBedWarsTeam) bp.getTeam();
                                     if (shopItem.getType() == ColorType.LEATHER) {
                                         LeatherArmorMeta meta = (LeatherArmorMeta) returnItem.getItemMeta();
                                         switch (team.getColor()) {

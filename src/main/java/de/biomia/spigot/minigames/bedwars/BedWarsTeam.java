@@ -28,12 +28,12 @@ public class BedWarsTeam extends GameTeam {
     public void setDead(BiomiaPlayer bp) {
         super.setDead(bp);
 
-        BedWars.getBedWars().getTeam(bp).setDead(bp);
+        bp.getTeam().setDead(bp);
 
         // Hide
         for (Player all : Bukkit.getOnlinePlayers()) {
             BiomiaPlayer temp = Biomia.getBiomiaPlayer(all);
-            if (BedWars.getBedWars().getTeam(temp).lives(temp))
+            if (temp.getTeam().lives(temp))
                 all.hidePlayer(bp.getPlayer());
             else
                 bp.getPlayer().showPlayer(all);

@@ -46,7 +46,7 @@ public class OfflineBungeeBiomiaPlayer extends UniversalBiomiaPlayer {
 
     public final void takeCoins(int coins) {
 
-        //TODO add BungeeEvent
+        //TODO add BungeeEvent for Stats
 
         int actualCoins = getCoins();
 
@@ -61,7 +61,7 @@ public class OfflineBungeeBiomiaPlayer extends UniversalBiomiaPlayer {
 
     public void addCoins(int coins, boolean enableBoost) {
 
-        //TODO add BungeeEvent
+        //TODO add BungeeEvent for Stats
 
         int prozent = 100;
         if (enableBoost)

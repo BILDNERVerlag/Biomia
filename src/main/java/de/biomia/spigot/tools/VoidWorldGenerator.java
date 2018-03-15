@@ -25,8 +25,7 @@ public class VoidWorldGenerator {
         public boolean canSpawn(World world, int x, int z) {
             return true;
         }
-
-        //TODO: evtl ändern? eigentlich stand da ?
+        
         public byte[] generate(World world, Random rand, int chunkx, int chunkz) {
             return new byte[0];
         }

@@ -91,11 +91,11 @@ class BedWarsHandler extends GameHandler {
             Player killer = p.getKiller();
             e.setDeathMessage(null);
             p.getInventory().clear();
-            if (!((VersusBedWarsTeam) mode.getTeam(bp)).hasBed()) {
+            if (!((VersusBedWarsTeam) bp.getTeam()).hasBed()) {
                 for (BiomiaPlayer all : mode.getInstance().getPlayers())
                     all.getPlayer().sendMessage(BedWarsMessages.playerDiedFinally.replaceAll("%p", p.getName()));
                 Dead.respawn(p);
-                mode.getTeam(bp).setDead(bp);
+                bp.getTeam().setDead(bp);
                 ((VersusBedWars) mode).getBedWarsScoreboard().setScoreboard(bp, true);
             } else
                 for (BiomiaPlayer all : mode.getInstance().getPlayers())
@@ -112,7 +112,7 @@ class BedWarsHandler extends GameHandler {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         if (mode.getInstance().containsPlayer(bp) && bp.getPlayer().getWorld().equals(mode.getInstance().getWorld())) {
-            VersusBedWarsTeam team = (VersusBedWarsTeam) mode.getTeam(bp);
+            VersusBedWarsTeam team = (VersusBedWarsTeam) bp.getTeam();
             if (team.hasBed()) {
                 e.setRespawnLocation(team.getHome());
             } else {

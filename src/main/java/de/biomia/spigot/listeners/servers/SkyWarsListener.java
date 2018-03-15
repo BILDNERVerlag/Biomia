@@ -8,10 +8,10 @@ import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
 import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.GameTeam;
+import de.biomia.spigot.minigames.general.chests.Chests;
 import de.biomia.spigot.minigames.general.kits.Kit;
 import de.biomia.spigot.minigames.general.kits.KitManager;
 import de.biomia.spigot.minigames.skywars.SkyWars;
-import de.biomia.spigot.minigames.general.chests.Chests;
 import de.biomia.spigot.minigames.skywars.var.Scoreboards;
 import de.biomia.spigot.minigames.skywars.var.Variables;
 import de.biomia.spigot.tools.BackToLobby;
@@ -51,10 +51,8 @@ public class SkyWarsListener extends BiomiaListener {
 
             // Hide
             for (Player all : Bukkit.getOnlinePlayers()) {
-
                 BiomiaPlayer allbp = Biomia.getBiomiaPlayer(all);
-                GameTeam team = SkyWars.getSkyWars().getTeam(allbp);
-
+                GameTeam team = allbp.getTeam();
                 if (team != null && team.lives(allbp)) {
                     all.hidePlayer(p);
                 } else {
@@ -152,7 +150,7 @@ public class SkyWarsListener extends BiomiaListener {
             if (SkyWars.getSkyWars().getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
                 p.setFoodLevel(20);
                 e.setCancelled(true);
-            } else if (!SkyWars.getSkyWars().getInstance().containsPlayer(bp) || !SkyWars.getSkyWars().getTeam(bp).lives(bp)) {
+            } else if (!SkyWars.getSkyWars().getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
                 p.setFoodLevel(20);
                 e.setCancelled(true);
             }
@@ -164,7 +162,7 @@ public class SkyWarsListener extends BiomiaListener {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         if (SkyWars.getSkyWars().getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
             e.setCancelled(true);
-        } else if (!SkyWars.getSkyWars().getInstance().containsPlayer(bp) || !SkyWars.getSkyWars().getTeam(bp).lives(bp)) {
+        } else if (!SkyWars.getSkyWars().getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
             e.setCancelled(true);
         }
     }
@@ -176,7 +174,7 @@ public class SkyWarsListener extends BiomiaListener {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getEntity());
             if (SkyWars.getSkyWars().getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
                 e.setCancelled(true);
-            } else if (!SkyWars.getSkyWars().getInstance().containsPlayer(bp) || !SkyWars.getSkyWars().getTeam(bp).lives(bp)) {
+            } else if (!SkyWars.getSkyWars().getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
                 e.setCancelled(true);
             }
         }
@@ -187,7 +185,7 @@ public class SkyWarsListener extends BiomiaListener {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         if (SkyWars.getSkyWars().getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
             e.setCancelled(true);
-        } else if (!SkyWars.getSkyWars().getInstance().containsPlayer(bp) || !SkyWars.getSkyWars().getTeam(bp).lives(bp)) {
+        } else if (!SkyWars.getSkyWars().getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
             e.setCancelled(true);
         }
     }
@@ -199,18 +197,18 @@ public class SkyWarsListener extends BiomiaListener {
         Player killer = p.getKiller();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
 
-        if (SkyWars.getSkyWars().getInstance().containsPlayer(bp) || !SkyWars.getSkyWars().getTeam(bp).lives(bp)) {
+        if (SkyWars.getSkyWars().getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
             BiomiaPlayer bpKiller;
             if (killer != null) {
                 bpKiller = Biomia.getBiomiaPlayer(killer);
                 Bukkit.getPluginManager().callEvent(new SkyWarsKillEvent(bpKiller, bp));
-                e.setDeathMessage(SkyWarsMessages.playerKilledByPlayer.replace("%p1", SkyWars.getSkyWars().getTeam(bp).getColorcode() + p.getName()).replace("%p2", SkyWars.getSkyWars().getTeam(bpKiller).getColorcode() + killer.getName()));
+                e.setDeathMessage(SkyWarsMessages.playerKilledByPlayer.replace("%p1", bp.getTeam().getColorcode() + p.getName()).replace("%p2", bpKiller.getTeam().getColorcode() + killer.getName()));
             } else {
                 bpKiller = null;
                 e.setDeathMessage(SkyWarsMessages.playerDied.replace("%p",
-                        SkyWars.getSkyWars().getTeam(bp).getColorcode() + p.getName()));
+                        bp.getTeam().getColorcode() + p.getName()));
             }
-            SkyWars.getSkyWars().getTeam(bp).setDead(bp);
+            bp.getTeam().setDead(bp);
             Bukkit.getPluginManager().callEvent(new SkyWarsDeathEvent(bp, bpKiller));
         }
 
@@ -345,53 +343,53 @@ public class SkyWarsListener extends BiomiaListener {
 
                 String displayname = e.getItem().getItemMeta().getDisplayName();
                 switch (displayname) {
-                case SkyWarsItemNames.playerTracker:
-                    if (e.getItem().getType() == Material.COMPASS) {
+                    case SkyWarsItemNames.playerTracker:
+                        if (e.getItem().getType() == Material.COMPASS) {
 
-                        for (Entity entity : p.getNearbyEntities(500, 500, 500)) {
-                            if (entity instanceof Player) {
-                                Player nearest = (Player) entity;
-                                if (!SkyWars.getSkyWars().getInstance().containsPlayer(bp) || !SkyWars.getSkyWars().getTeam(bp).lives(bp) && SkyWars.getSkyWars().getTeam(bp).containsPlayer(Biomia.getBiomiaPlayer(nearest))) {
-                                    p.setCompassTarget(nearest.getLocation());
-                                    p.sendMessage(SkyWarsMessages.compassMessages.replace("%p", nearest.getName())
-                                            .replace("%d", (int) p.getLocation().distance(nearest.getLocation()) + ""));
-                                    return;
+                            for (Entity entity : p.getNearbyEntities(500, 500, 500)) {
+                                if (entity instanceof Player) {
+                                    Player nearest = (Player) entity;
+                                    if (!SkyWars.getSkyWars().getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp) && bp.getTeam().containsPlayer(Biomia.getBiomiaPlayer(nearest))) {
+                                        p.setCompassTarget(nearest.getLocation());
+                                        p.sendMessage(SkyWarsMessages.compassMessages.replace("%p", nearest.getName())
+                                                .replace("%d", (int) p.getLocation().distance(nearest.getLocation()) + ""));
+                                        return;
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    break;
-                case SkyWarsItemNames.oneHitSnowball:
-                    if (e.getItem().getType() == Material.SNOW_BALL) {
-                        if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                        break;
+                    case SkyWarsItemNames.oneHitSnowball:
+                        if (e.getItem().getType() == Material.SNOW_BALL) {
+                            if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                                e.setCancelled(true);
+                                Projectile ball = p.launchProjectile(Snowball.class);
+                                ball.setCustomName(SkyWarsItemNames.oneHitSnowball);
+                                ball.setShooter(p);
+                                p.getInventory().remove(e.getItem());
+                            }
+                        }
+                        break;
+                    case SkyWarsItemNames.gummibogen:
+                        if (e.getItem().getType() == Material.BOW) {
                             e.setCancelled(true);
-                            Projectile ball = p.launchProjectile(Snowball.class);
-                            ball.setCustomName(SkyWarsItemNames.oneHitSnowball);
-                            ball.setShooter(p);
+                            Projectile arrow = p.launchProjectile(Arrow.class);
+                            arrow.setCustomName(SkyWarsItemNames.gummipfeil);
+                            arrow.setShooter(p);
                             p.getInventory().remove(e.getItem());
                         }
-                    }
-                    break;
-                case SkyWarsItemNames.gummibogen:
-                    if (e.getItem().getType() == Material.BOW) {
-                        e.setCancelled(true);
-                        Projectile arrow = p.launchProjectile(Arrow.class);
-                        arrow.setCustomName(SkyWarsItemNames.gummipfeil);
-                        arrow.setShooter(p);
-                        p.getInventory().remove(e.getItem());
-                    }
-                    break;
-                case SkyWarsItemNames.kitItemName:
-                    KitManager.getManager(bp).openKitMenu();
-                    break;
-                case SkyWarsItemNames.teamWaehlerItem:
-                    p.openInventory(SkyWars.getSkyWars().getTeamSwitcher());
-                    break;
-                case SkyWarsItemNames.startItem:
-                    if (SkyWars.getSkyWars().getStateManager().getLobbyState().getCountDown() > 5)
-                        SkyWars.getSkyWars().getStateManager().getLobbyState().setCountDown(5);
-                    break;
+                        break;
+                    case SkyWarsItemNames.kitItemName:
+                        KitManager.getManager(bp).openKitMenu();
+                        break;
+                    case SkyWarsItemNames.teamWaehlerItem:
+                        p.openInventory(SkyWars.getSkyWars().getTeamSwitcher());
+                        break;
+                    case SkyWarsItemNames.startItem:
+                        if (SkyWars.getSkyWars().getStateManager().getLobbyState().getCountDown() > 5)
+                            SkyWars.getSkyWars().getStateManager().getLobbyState().setCountDown(5);
+                        break;
                 }
             }
         }
@@ -423,7 +421,7 @@ public class SkyWarsListener extends BiomiaListener {
         }
 
 
-        if (!(Biomia.getBiomiaPlayer(p).canBuild()) && !SkyWars.getSkyWars().getInstance().containsPlayer(bp) && !SkyWars.getSkyWars().getTeam(bp).lives(bp)) {
+        if (!(Biomia.getBiomiaPlayer(p).canBuild()) && !SkyWars.getSkyWars().getInstance().containsPlayer(bp) && !bp.getTeam().lives(bp)) {
             e.setCancelled(true);
         }
         if (!(Biomia.getBiomiaPlayer(p).canBuild()) && SkyWars.getSkyWars().getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
@@ -473,15 +471,15 @@ public class SkyWarsListener extends BiomiaListener {
         if (SkyWars.getSkyWars().getStateManager().getActualGameState() == (GameStateManager.GameState.INGAME)) {
             // Check if Player is instatnce of the act round
             if (SkyWars.getSkyWars().getInstance().containsPlayer(bp)) {
-                SkyWars.getSkyWars().getTeam(bp).setDead(bp);
+                bp.getTeam().setDead(bp);
                 Bukkit.getPluginManager().callEvent(new SkyWarsLeaveEvent(bp));
             }
         } else if (SkyWars.getSkyWars().getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
             // Remove Player from Team
             if (SkyWars.getSkyWars().getInstance().containsPlayer(bp)) {
-                Scoreboards.lobbySB.getTeam("0" + SkyWars.getSkyWars().getTeam(bp).getTeamname())
+                Scoreboards.lobbySB.getTeam("0" + bp.getTeam().getTeamname())
                         .removeEntry(p.getName());
-                SkyWars.getSkyWars().getTeam(bp).leave(bp);
+                bp.getTeam().leave(bp);
             }
         }
     }
@@ -500,7 +498,7 @@ public class SkyWarsListener extends BiomiaListener {
 
                 // Check if the Entity in the same team like the damager
                 if (SkyWars.getSkyWars().getInstance().containsPlayer(killerbp) && SkyWars.getSkyWars().getInstance().containsPlayer(Biomia.getBiomiaPlayer(p))) {
-                    if (SkyWars.getSkyWars().getTeam(killerbp).containsPlayer(bp)) {
+                    if (killerbp.getTeam().containsPlayer(bp)) {
                         e.setCancelled(true);
                     }
                 } else {
@@ -517,8 +515,8 @@ public class SkyWarsListener extends BiomiaListener {
                         Bukkit.getPluginManager().callEvent(new SkyWarsKillEvent(killerbp, bp));
 
                         Bukkit.broadcastMessage(SkyWarsMessages.killedBy
-                                .replace("%t", SkyWars.getSkyWars().getTeam(bp).getColorcode() + p.getName())
-                                .replace("%k", SkyWars.getSkyWars().getTeam(killerbp).getColorcode() + killer.getName()));
+                                .replace("%t", bp.getTeam().getColorcode() + p.getName())
+                                .replace("%k", killerbp.getTeam().getColorcode() + killer.getName()));
 
                         Location loc = p.getLocation().add(0, 1, 0);
 
@@ -585,7 +583,7 @@ public class SkyWarsListener extends BiomiaListener {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) ie.getWhoClicked());
         if (SkyWars.getSkyWars().getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
             if (ie.getCurrentItem() != null) {
-                if (!SkyWars.getSkyWars().getInstance().containsPlayer(bp) || !SkyWars.getSkyWars().getTeam(bp).lives(bp)) {
+                if (!SkyWars.getSkyWars().getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
                     if (!bp.canBuild()) {
                         ie.setCancelled(true);
                         ie.setCursor(new ItemStack(Material.AIR));
@@ -632,7 +630,7 @@ public class SkyWarsListener extends BiomiaListener {
                 Entity entity = Variables.joiner.get(allteams.getColor());
                 if (e.getRightClicked().equals(entity)) {
                     allteams.join(bp);
-                        return;
+                    return;
                 }
             }
         }
@@ -647,11 +645,11 @@ public class SkyWarsListener extends BiomiaListener {
         String format;
         if (p.hasPermission("biomia.coloredchat"))
             msg = ChatColor.translateAlternateColorCodes('&', e.getMessage());
-        GameTeam t = SkyWars.getSkyWars().getTeam(bp);
+        GameTeam t = bp.getTeam();
 
         if (SkyWars.getSkyWars().getStateManager().getActualGameState() == GameStateManager.GameState.INGAME || SkyWars.getSkyWars().getStateManager().getActualGameState() == GameStateManager.GameState.WAITING_FOR_START) {
             if (t != null) {
-                if (SkyWars.getSkyWars().getTeam(bp).lives(bp)) {
+                if (bp.getTeam().lives(bp)) {
                     if (e.getMessage().substring(0, 1).contains("@")) {
 
                         msg = msg.replace("@all ", "");
@@ -675,7 +673,7 @@ public class SkyWarsListener extends BiomiaListener {
             } else {
                 format = SkyWarsMessages.chatMessageDead.replaceAll("%p", p.getDisplayName()).replaceAll("%msg", msg);
                 for (Player spec : Bukkit.getOnlinePlayers()) {
-                    if (!SkyWars.getSkyWars().getInstance().containsPlayer(Biomia.getBiomiaPlayer(spec)) || !SkyWars.getSkyWars().getTeam(bp).lives(bp))
+                    if (!SkyWars.getSkyWars().getInstance().containsPlayer(Biomia.getBiomiaPlayer(spec)) || !bp.getTeam().lives(bp))
                         spec.sendMessage(format);
                 }
             }

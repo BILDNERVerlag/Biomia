@@ -44,7 +44,7 @@ public class Teleport {
                 if (players.hasNext()) {
                     BiomiaPlayer bp = players.next();
                     bp.getPlayer().setFallDistance(0);
-                    bp.getPlayer().teleport(mode.getTeam(bp).getHome());
+                    bp.getPlayer().teleport(bp.getTeam().getHome());
                 } else {
                     cancel();
                 }
