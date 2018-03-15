@@ -14,9 +14,9 @@ import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.bedwars.BedWars;
 import de.biomia.spigot.minigames.bedwars.BedWarsTeam;
-import de.biomia.spigot.minigames.bedwars.var.Scoreboards;
-import de.biomia.spigot.minigames.bedwars.var.Teleport;
-import de.biomia.spigot.minigames.bedwars.var.Variables;
+import de.biomia.spigot.minigames.general.Scoreboards;
+import de.biomia.spigot.minigames.general.Teleport;
+import de.biomia.spigot.minigames.bedwars.Variables;
 import de.biomia.spigot.minigames.general.ColorType;
 import de.biomia.spigot.minigames.general.Dead;
 import de.biomia.spigot.minigames.general.shop.ItemType;
@@ -102,9 +102,7 @@ public class BedWarsListener extends GameHandler {
             p.teleport(Variables.warteLobbySpawn);
 
             if (p.hasPermission("biomia.sw.start")) {
-
                 p.getInventory().setItem(0, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, BedWarsItemNames.startItem));
-
             }
 
             p.getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, BedWarsItemNames.teamWaehlerItem));

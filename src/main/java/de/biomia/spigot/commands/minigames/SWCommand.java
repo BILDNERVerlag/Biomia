@@ -9,7 +9,7 @@ import de.biomia.spigot.messages.SkyWarsMessages;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.spigot.minigames.skywars.SkyWars;
-import de.biomia.spigot.minigames.skywars.var.Variables;
+import de.biomia.spigot.minigames.skywars.Variables;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

@@ -1,4 +1,4 @@
-package de.biomia.spigot.minigames.bedwars.var;
+package de.biomia.spigot.minigames.general;
 
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;

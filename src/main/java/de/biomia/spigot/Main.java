@@ -14,7 +14,7 @@ import de.biomia.spigot.general.reportsystem.ReportSQL;
 import de.biomia.spigot.listeners.ChannelListener;
 import de.biomia.spigot.listeners.servers.BauServerListener;
 import de.biomia.spigot.minigames.GameInstance;
-import de.biomia.spigot.minigames.bedwars.var.Variables;
+import de.biomia.spigot.minigames.bedwars.Variables;
 import de.biomia.spigot.minigames.versus.Versus;
 import de.biomia.spigot.server.demoserver.Weltenlabor;
 import de.biomia.spigot.server.freebuild.Freebuild;

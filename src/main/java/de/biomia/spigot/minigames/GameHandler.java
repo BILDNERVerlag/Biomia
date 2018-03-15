@@ -3,11 +3,18 @@ package de.biomia.spigot.minigames;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
-import de.biomia.spigot.listeners.servers.BiomiaListener;
+import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
+import de.biomia.spigot.minigames.bedwars.BedWars;
+import de.biomia.spigot.minigames.general.Scoreboards;
+import de.biomia.spigot.minigames.bedwars.Variables;
 import de.biomia.spigot.minigames.general.Dead;
+import de.biomia.spigot.tools.BackToLobby;
+import de.biomia.spigot.tools.ItemCreator;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -26,6 +33,68 @@ public abstract class GameHandler implements Listener {
 
     void unregister() {
         HandlerList.unregisterAll(this);
+    }
+
+    @EventHandler
+    public void onJoin_(PlayerJoinEvent e) {
+
+        Player p = e.getPlayer();
+        BackToLobby.getLobbyItem(p, 8);
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
+        bp.setDamageEntitys(false);
+        bp.setGetDamage(false);
+
+        if (BedWars.getBedWars().getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
+
+            // Hide
+            for (Player all : Bukkit.getOnlinePlayers()) {
+
+                GameTeam team = bp.getTeam();
+
+                if (team != null && team.lives(bp)) {
+                    all.hidePlayer(p);
+                } else {
+                    all.showPlayer(all);
+                }
+            }
+
+            // Disable Damage / Build
+            bp.setGetDamage(false);
+            bp.setDamageEntitys(false);
+            bp.setBuild(false);
+            p.setGameMode(org.bukkit.GameMode.ADVENTURE);
+
+            // Fly settings
+            p.setAllowFlight(true);
+            p.setFlying(true);
+            p.setFlySpeed(0.5F);
+
+            Scoreboards.setSpectatorSB(p);
+            Scoreboards.spectatorSB.getTeam("spectator").addEntry(p.getName());
+
+            p.teleport(new Location(Bukkit.getWorld(Variables.name), 0, 100, 0));
+
+        } else if (BedWars.getBedWars().getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
+
+            p.teleport(Variables.warteLobbySpawn);
+
+            if (p.hasPermission("biomia.sw.start")) {
+                p.getInventory().setItem(0, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, BedWarsItemNames.startItem));
+            }
+
+            p.getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, BedWarsItemNames.teamWaehlerItem));
+
+            bp.getPlayer().setLevel(BedWars.getBedWars().getStateManager().getLobbyState().getCountDown());
+
+            if (bp.isPremium()) {
+                Bukkit.broadcastMessage("\u00A76" + p.getName() + BedWarsMessages.joinedTheGame);
+            } else {
+                Bukkit.broadcastMessage("\u00A77" + p.getName() + BedWarsMessages.joinedTheGame);
+            }
+
+            Scoreboards.setLobbyScoreboard(p);
+            Scoreboards.lobbySB.getTeam("xnoteam").addEntry(p.getName());
+        }
     }
 
     @EventHandler

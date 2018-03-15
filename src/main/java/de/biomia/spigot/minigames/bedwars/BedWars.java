@@ -8,8 +8,6 @@ import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
-import de.biomia.spigot.minigames.bedwars.listeners.BedListener;
-import de.biomia.spigot.minigames.bedwars.listeners.SpecialItems;
 import de.biomia.spigot.minigames.general.SpawnItems;
 import de.biomia.spigot.minigames.general.TeamSwitcher;
 import de.biomia.spigot.minigames.general.shop.Shop;

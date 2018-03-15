@@ -1,4 +1,4 @@
-package de.biomia.spigot.minigames.bedwars.listeners;
+package de.biomia.spigot.minigames.bedwars;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
@@ -11,8 +11,8 @@ import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.spigot.minigames.bedwars.BedWars;
-import de.biomia.spigot.minigames.bedwars.var.Teleport;
-import de.biomia.spigot.minigames.bedwars.var.Variables;
+import de.biomia.spigot.minigames.general.Teleport;
+import de.biomia.spigot.minigames.bedwars.Variables;
 import de.biomia.spigot.minigames.general.shop.ItemType;
 import de.biomia.spigot.tools.Particles;
 import net.minecraft.server.v1_12_R1.AttributeInstance;
@@ -345,6 +345,7 @@ public class SpecialItems implements Listener {
                         sheep.setTarget(target);
                         new BukkitRunnable() {
                             int i = 0;
+
                             @Override
                             public void run() {
                                 if (entity.getLocation().distance(target.getLocation()) <= 4 || i == 15) {

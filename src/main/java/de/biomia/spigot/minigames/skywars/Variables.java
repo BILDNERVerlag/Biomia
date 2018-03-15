@@ -1,4 +1,4 @@
-package de.biomia.spigot.minigames.skywars.var;
+package de.biomia.spigot.minigames.skywars;
 
 import de.biomia.spigot.configs.Config;
 import de.biomia.spigot.messages.SkyWarsItemNames;
