@@ -1,6 +1,7 @@
 package de.biomia.spigot.minigames;
 
 import cloud.timo.TimoCloud.api.TimoCloudAPI;
+import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.minigames.bedwars.BedWars;
@@ -11,12 +12,15 @@ import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class GameInstance {
+public class GameInstance implements Listener {
 
     private final GameType type;
     private World world;
@@ -29,6 +33,7 @@ public class GameInstance {
 
     public GameInstance(GameType type, String mapDisplayName, int teamAmount, int teamSize) {
         Bukkit.broadcastMessage("%%% making a new gameInstance");
+        Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
         this.teamAmount = teamAmount;
         this.teamSize = teamSize;
         this.type = type;
@@ -114,5 +119,15 @@ public class GameInstance {
 
     public int getTeamAmount() {
         return teamAmount;
+    }
+
+    //LISTENER
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent e) {
+        if (getGameMode().getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
+            getGameMode().getInstance().registerPlayer(Biomia.getBiomiaPlayer(e.getPlayer()));
+            Bukkit.broadcastMessage("register player");
+        }
     }
 }

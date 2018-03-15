@@ -104,12 +104,4 @@ public abstract class GameHandler implements Listener {
             e.setRespawnLocation(mode.getInstance().getWorld().getSpawnLocation().add(0, 100, 0));
         }
     }
-
-    @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
-        if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
-            mode.getInstance().registerPlayer(Biomia.getBiomiaPlayer(e.getPlayer()));
-            Bukkit.broadcastMessage("register player");
-        }
-    }
 }
