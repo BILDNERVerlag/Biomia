@@ -37,7 +37,7 @@ public class Teleport {
     }
 
     public static void teleportPlayerToMap(GameMode mode) {
-        Iterator<BiomiaPlayer> players = BedWars.getBedWars().getInstance().getPlayers().iterator();
+        Iterator<BiomiaPlayer> players = mode.getInstance().getPlayers().iterator();
         new BukkitRunnable() {
             @Override
             public void run() {
