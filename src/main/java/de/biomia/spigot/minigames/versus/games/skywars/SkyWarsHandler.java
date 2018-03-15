@@ -93,7 +93,7 @@ class SkyWarsHandler extends GameHandler {
     }
 
     @EventHandler
-    private void onDeath(PlayerDeathEvent e) {
+    public void onDeath_(PlayerDeathEvent e) {
         Player p = e.getEntity();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         p.getInventory().clear();

@@ -172,7 +172,14 @@ public abstract class GameMode {
         return config;
     }
 
-    public void setConfig(MinigamesConfig config) {
-        this.config = config;
+    public void setConfig() {
+        this.config = initConfig();
+    }
+
+    protected abstract GameHandler initHandler();
+
+    public void setHandler() {
+        this.handler = initHandler();
+        Bukkit.getPluginManager().registerEvents(handler, Main.getPlugin());
     }
 }

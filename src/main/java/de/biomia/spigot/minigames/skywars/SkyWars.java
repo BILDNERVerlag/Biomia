@@ -8,6 +8,7 @@ import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.configs.SkyWarsConfig;
 import de.biomia.spigot.events.skywars.SkyWarsStartEvent;
 import de.biomia.spigot.listeners.servers.SkyWarsListener;
+import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
@@ -26,6 +27,11 @@ import java.util.HashMap;
 import static de.biomia.spigot.configs.Config.saveConfig;
 
 public class SkyWars extends GameMode {
+
+    @Override
+    protected GameHandler initHandler() {
+        return new SkyWarsListener(this);
+    }
 
     protected SkyWars(GameInstance instance) {
         super(instance);
@@ -51,8 +57,6 @@ public class SkyWars extends GameMode {
         Items.init();
         Variables.normalChestsFill = Chests.fillNormalChests();
         Variables.goodChestsFill = Chests.fillGoodChests();
-
-        Bukkit.getPluginManager().registerEvents(new SkyWarsListener(), Main.getPlugin());
 
         KitManager.initKits();
         getStateManager().setInGameState(new GameStateManager.InGameState(this) {

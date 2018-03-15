@@ -21,7 +21,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class GameStateManager {
 
@@ -128,7 +127,6 @@ public class GameStateManager {
             super(mode);
         }
 
-        private int duration;
         private BukkitTask clock;
 
         public void start() {
@@ -136,7 +134,7 @@ public class GameStateManager {
             clock = new BukkitRunnable() {
                 @Override
                 public void run() {
-                    duration++;
+                    getMode().getInstance().incPlayTime();
                 }
             }.runTaskTimer(Main.getPlugin(), 0, 20);
 
@@ -180,7 +178,7 @@ public class GameStateManager {
                 }
             }
 
-            Bukkit.getPluginManager().callEvent(new BedWarsEndEvent(biomiaPlayersWinner, duration, winnerTeam));
+            Bukkit.getPluginManager().callEvent(new BedWarsEndEvent(biomiaPlayersWinner, getMode().getInstance().getPlayedTime(), winnerTeam));
             getMode().getStateManager().setActualGameState(GameState.END);
         }
     }

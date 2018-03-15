@@ -4,6 +4,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.configs.SkyWarsConfig;
+import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.general.kits.KitManager;
@@ -13,12 +14,16 @@ import org.bukkit.Bukkit;
 
 public class VersusSkyWars extends GameMode {
 
+    @Override
+    protected GameHandler initHandler() {
+        return new SkyWarsHandler(this);
+    }
+
     private final Chests chests = new Chests(this);
 
     public VersusSkyWars(GameInstance instance) {
         super(instance);
         Bukkit.broadcastMessage("%%% starting SkyWarsInstance");
-        handler = new SkyWarsHandler(this);
         Bukkit.broadcastMessage("%%% SkyWars constructor ends");
     }
 
