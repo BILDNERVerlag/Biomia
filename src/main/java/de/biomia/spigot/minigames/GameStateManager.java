@@ -164,7 +164,7 @@ public class GameStateManager {
                 p.setAllowFlight(false);
             }
 
-            Scoreboards.initSpectatorSB();
+            Scoreboards.initSpectatorSB(getMode());
             Teleport.teleportPlayerToMap(getMode());
         }
 
