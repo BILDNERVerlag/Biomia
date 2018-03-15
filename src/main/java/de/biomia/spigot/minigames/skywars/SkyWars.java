@@ -13,8 +13,8 @@ import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.bedwars.var.Teleport;
 import de.biomia.spigot.minigames.general.kits.KitManager;
-import de.biomia.spigot.minigames.skywars.chests.Chests;
-import de.biomia.spigot.minigames.skywars.chests.Items;
+import de.biomia.spigot.minigames.general.chests.Chests;
+import de.biomia.spigot.minigames.general.chests.Items;
 import de.biomia.spigot.minigames.skywars.var.Variables;
 import de.biomia.spigot.tools.SkyWarsKitManager;
 import org.bukkit.Bukkit;
@@ -53,7 +53,6 @@ public class SkyWars extends GameMode {
         Variables.goodChestsFill = Chests.fillGoodChests();
 
         Bukkit.getPluginManager().registerEvents(new SkyWarsListener(), Main.getPlugin());
-        Main.registerCommand(new SWCommand());
 
         KitManager.initKits();
         getStateManager().setInGameState(new GameStateManager.InGameState(this) {

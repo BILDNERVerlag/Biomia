@@ -44,7 +44,6 @@ public class BWCommand extends BiomiaCommand {
                             sender.sendMessage("/bedwars addloc team");
                         break;
                     case "addspawner":
-                        if (args.length >= 2) {
                             Location l = p.getTargetBlock((Set<Material>) null, 100).getLocation();
 
                             switch (l.getBlock().getType()) {
@@ -62,8 +61,6 @@ public class BWCommand extends BiomiaCommand {
                                 return true;
                             }
                             p.sendMessage("Spawner hinzugef\u00fcgt!");
-                        } else
-                            sender.sendMessage("/bedwars addspawner");
                         break;
                     case "villager":
                         p.getInventory().addItem(ItemCreator.itemCreate(Material.MONSTER_EGG, BedWarsItemNames.villagerSpawner));

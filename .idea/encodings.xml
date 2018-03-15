@@ -4,5 +4,6 @@
     <file url="file://$PROJECT_DIR$/src/main/java/de/biomia/spigot/Biomia.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/src/main/java/de/biomia/spigot/general/cosmetics/CosmeticInventory.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/src/main/java/de/biomia/spigot/server/quests/general/DialogMessage.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/de/biomia/spigot/tools/VoidWorldGenerator.java" charset="ISO-8859-1" />
   </component>
 </project>

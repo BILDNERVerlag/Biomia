@@ -11,7 +11,7 @@ import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.general.kits.Kit;
 import de.biomia.spigot.minigames.general.kits.KitManager;
 import de.biomia.spigot.minigames.skywars.SkyWars;
-import de.biomia.spigot.minigames.skywars.chests.Chests;
+import de.biomia.spigot.minigames.general.chests.Chests;
 import de.biomia.spigot.minigames.skywars.var.Scoreboards;
 import de.biomia.spigot.minigames.skywars.var.Variables;
 import de.biomia.spigot.tools.BackToLobby;

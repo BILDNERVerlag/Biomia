@@ -58,13 +58,7 @@ public abstract class GameMode {
     public void start() {
         stateManager.getLobbyState().start();
         TeamSwitcher.getTeamSwitcher(this);
-        config = initConfig();
         config.loadTeamJoiner();
-    }
-
-    public void start(GameStateManager.LobbyState state) {
-        stateManager.setLobbyState(state);
-        this.start();
     }
 
     public void stop() {
@@ -191,5 +185,9 @@ public abstract class GameMode {
 
     public MinigamesConfig getConfig() {
         return config;
+    }
+
+    public void setConfig(MinigamesConfig config) {
+        this.config = config;
     }
 }

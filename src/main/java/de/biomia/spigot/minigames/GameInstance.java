@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class GameInstance {
 
     private final GameType type;
-    private final World world;
+    private World world;
     private GameMode gameMode;
     private int playedTime = 0;
     private final String mapDisplayName;
@@ -48,7 +48,7 @@ public class GameInstance {
             gameMode = new BedWars(this);
             break;
         }
-
+        gameMode.setConfig(gameMode.initConfig());
         gameMode.initTeams();
 
         new BukkitRunnable() {
@@ -57,6 +57,11 @@ public class GameInstance {
                 TimoCloudAPI.getBukkitInstance().getThisServer().setExtra(String.format("§b%d §7x §c%d", teamAmount, teamSize));
             }
         }.runTaskLater(Main.getPlugin(), 15);
+    }
+
+    public GameInstance(GameType type, World world, String mapDisplayName, int teamAmount, int teamSize) {
+        this(type, mapDisplayName, teamAmount, teamSize);
+        this.world = world;
     }
 
     public void registerPlayer(BiomiaPlayer bp) {

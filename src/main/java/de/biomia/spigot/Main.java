@@ -3,6 +3,8 @@ package de.biomia.spigot;
 import de.biomia.spigot.achievements.Achievements;
 import de.biomia.spigot.achievements.StatListener;
 import de.biomia.spigot.commands.BiomiaCommand;
+import de.biomia.spigot.commands.minigames.BWCommand;
+import de.biomia.spigot.commands.minigames.SWCommand;
 import de.biomia.spigot.general.cosmetics.Cosmetic;
 import de.biomia.spigot.general.cosmetics.Cosmetic.Group;
 import de.biomia.spigot.general.cosmetics.CosmeticGroup;
@@ -103,37 +105,45 @@ public class Main extends JavaPlugin {
             case "TestLobby":
             case "Lobby":
                 Biomia.setServerInstance(new Lobby());
-                Biomia.getServerInstance().start();
                 break;
             case "TestQuest":
             case "Quest":
             case "QuestServer":
                 Biomia.setServerInstance(new Quests());
-                Biomia.getServerInstance().start();
                 break;
             case "TestBedWars":
             case "BedWars":
-                //TODO BedWars und SkyWars aus Config auslesen
+                Biomia.setServerInstance(new BiomiaServer() {
+                    @Override
+                    public void start() {
+                        super.start();
+                        registerCommand(new BWCommand());
+                    }
+                });
                 new GameInstance(BED_WARS, Variables.name, Variables.teams, Variables.playerPerTeam).getGameMode().start();
                 break;
             case "TestSkyWars":
             case "SkyWars":
+                Biomia.setServerInstance(new BiomiaServer() {
+                    @Override
+                    public void start() {
+                        super.start();
+                        registerCommand(new SWCommand());
+                    }
+                });
                 new GameInstance(SKY_WARS, Variables.name, Variables.teams, Variables.playerPerTeam).getGameMode().start();
                 break;
             case "TestDuellLobby":
             case "DuellLobby":
                 Biomia.setServerInstance(new Versus());
-                Biomia.getServerInstance().start();
                 break;
             case "Weltenlabor#1":
                 Biomia.setServerInstance(new Weltenlabor());
-                Biomia.getServerInstance().start();
                 break;
             case "TestFreebuild":
             case "Freebuild":
             case "FreebuildServer":
                 Biomia.setServerInstance(new Freebuild());
-                Biomia.getServerInstance().start();
                 break;
             case "Freebuild-Farm":
             case "FarmServer":
@@ -144,6 +154,8 @@ public class Main extends JavaPlugin {
                 break;
                 //TODO: Group Names ändern
         }
+
+        Biomia.getServerInstance().start();
 
         event = new EasterEvent();
     }

@@ -1,4 +1,4 @@
-package de.biomia.spigot.minigames.skywars.chests;
+package de.biomia.spigot.minigames.general.chests;
 
 import de.biomia.spigot.minigames.skywars.var.Variables;
 import org.bukkit.Location;
