@@ -376,7 +376,6 @@ public class BedWarsListener extends GameHandler {
                 e.setQuitMessage(e.getPlayer().getName() + " hat das Spiel verlassen");
                 Bukkit.getPluginManager().callEvent(new BedWarsLeaveEvent(bp));
                 if (BedWars.getBedWars().canStop()) {
-                    BedWars.getBedWars().getStateManager().getEndState().start();
                     BedWars.getBedWars().stop();
                 }
             }

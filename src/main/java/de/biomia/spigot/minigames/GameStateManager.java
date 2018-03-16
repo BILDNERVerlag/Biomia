@@ -9,10 +9,10 @@ import de.biomia.spigot.events.bedwars.BedWarsEndEvent;
 import de.biomia.spigot.events.bedwars.BedWarsStartEvent;
 import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.minigames.bedwars.BedWars;
-import de.biomia.spigot.minigames.general.Scoreboards;
-import de.biomia.spigot.minigames.general.Teleport;
 import de.biomia.spigot.minigames.bedwars.Variables;
 import de.biomia.spigot.minigames.general.CountDown;
+import de.biomia.spigot.minigames.general.Scoreboards;
+import de.biomia.spigot.minigames.general.Teleport;
 import de.biomia.spigot.tools.PlayerToServerConnector;
 import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
@@ -165,9 +165,6 @@ public class GameStateManager {
 
             clock.cancel();
             ArrayList<BiomiaPlayer> biomiaPlayersWinner = new ArrayList<>();
-
-            getMode().getStateManager().setActualGameState(GameState.END);
-
             String winnerTeam = null;
 
             for (GameTeam teams : BedWars.getBedWars().getTeams()) {
@@ -181,6 +178,7 @@ public class GameStateManager {
 
             Bukkit.getPluginManager().callEvent(new BedWarsEndEvent(biomiaPlayersWinner, getMode().getInstance().getPlayedTime(), winnerTeam));
             getMode().getStateManager().setActualGameState(GameState.END);
+            getMode().getStateManager().getEndState().start();
         }
     }
 

@@ -20,7 +20,6 @@ public class Chests {
     private HashMap<Location, ItemStack[]> normalFillableChests;
 
     public Chests(VersusSkyWars versusSkyWars) {
-        //FIXME: NullPointer in line 23 (wahrscheinlich wegen fehlender/leerer config)
         HashMap<SkyWarsOpenChestEvent.ChestType, ArrayList<Location>> chestsFromConfig = ((SkyWarsConfig) versusSkyWars.getConfig()).loadChestsFromConfig(versusSkyWars.getInstance());
 
         fillNormalChests(chestsFromConfig.get(SkyWarsOpenChestEvent.ChestType.NormalChest));

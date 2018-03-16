@@ -28,8 +28,6 @@ public class BedWarsTeam extends GameTeam {
     public void setDead(BiomiaPlayer bp) {
         super.setDead(bp);
 
-        bp.getTeam().setDead(bp);
-
         // Hide
         for (Player all : Bukkit.getOnlinePlayers()) {
             BiomiaPlayer temp = Biomia.getBiomiaPlayer(all);
@@ -56,13 +54,6 @@ public class BedWarsTeam extends GameTeam {
         // Scoreboard
         Scoreboards.spectatorSB.getTeam("spectator").addEntry(bp.getName());
         Scoreboards.setSpectatorSB(bp.getPlayer());
-
-        // Check if only one or less Team(s) left
-        if (BedWars.getBedWars().canStop()) {
-            //TODO renew
-            //InGame.end();
-            BedWars.getBedWars().stop();
-        }
 
 
     }
