@@ -3,7 +3,7 @@ package de.biomia.spigot.minigames.general;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.minigames.GameMode;
-import de.biomia.spigot.minigames.bedwars.var.Variables;
+import de.biomia.spigot.minigames.bedwars.Variables;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;

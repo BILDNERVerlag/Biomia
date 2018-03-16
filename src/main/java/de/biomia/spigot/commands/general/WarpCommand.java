@@ -4,23 +4,13 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.BiomiaCommand;
-import de.biomia.spigot.listeners.servers.BauServerListener;
-import de.biomia.spigot.minigames.GameInstance;
-import de.biomia.spigot.minigames.bedwars.var.Variables;
-import de.biomia.spigot.minigames.versus.Versus;
-import de.biomia.spigot.server.demoserver.Weltenlabor;
-import de.biomia.spigot.server.freebuild.Freebuild;
-import de.biomia.spigot.server.lobby.Lobby;
-import de.biomia.spigot.server.quests.Quests;
 import de.biomia.spigot.tools.RankManager;
 import de.biomia.universal.Messages;
 import de.biomia.universal.MySQL;
 import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.WorldCreator;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -29,9 +19,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
-
-import static de.biomia.spigot.minigames.GameType.BED_WARS;
-import static de.biomia.spigot.minigames.GameType.SKY_WARS;
 
 public class WarpCommand extends BiomiaCommand {
 

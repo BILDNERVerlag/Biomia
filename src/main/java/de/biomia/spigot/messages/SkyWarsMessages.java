@@ -1,6 +1,6 @@
 package de.biomia.spigot.messages;
 
-import de.biomia.spigot.minigames.skywars.var.Variables;
+import de.biomia.spigot.minigames.skywars.Variables;
 
 public class SkyWarsMessages {
 

@@ -1,4 +1,4 @@
-package de.biomia.spigot.minigames.bedwars.var;
+package de.biomia.spigot.minigames.bedwars;
 
 import de.biomia.spigot.configs.Config;
 import de.biomia.spigot.messages.BedWarsItemNames;

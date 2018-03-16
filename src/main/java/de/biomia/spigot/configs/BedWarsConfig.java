@@ -4,7 +4,7 @@ import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.TeamColor;
-import de.biomia.spigot.minigames.bedwars.var.Variables;
+import de.biomia.spigot.minigames.bedwars.Variables;
 import de.biomia.spigot.minigames.general.shop.ItemType;
 import org.bukkit.Location;
 import org.bukkit.block.Block;

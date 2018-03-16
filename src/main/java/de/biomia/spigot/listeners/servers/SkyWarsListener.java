@@ -14,7 +14,7 @@ import de.biomia.spigot.minigames.general.kits.Kit;
 import de.biomia.spigot.minigames.general.kits.KitManager;
 import de.biomia.spigot.minigames.skywars.SkyWars;
 import de.biomia.spigot.minigames.skywars.var.Scoreboards;
-import de.biomia.spigot.minigames.skywars.var.Variables;
+import de.biomia.spigot.minigames.skywars.Variables;
 import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.RankManager;
