@@ -52,24 +52,24 @@ class CrazyCat implements GadgetListener {
     private void weird(Entity creature) {
         Location location = creature.getLocation();
         switch (new Random().nextInt(6)) {
-        case 0:
-            location.add(30, 1, 30);
-            break;
-        case 1:
-            location.add(0, 1, 30);
-            break;
-        case 2:
-            location.add(30, 1, 0);
-            break;
-        case 3:
-            location.subtract(30, 1, 30);
-            break;
-        case 4:
-            location.subtract(0, 1, 30);
-            break;
-        case 5:
-            location.subtract(30, 1, 0);
-            break;
+            case 0:
+                location.add(30, 1, 30);
+                break;
+            case 1:
+                location.add(0, 1, 30);
+                break;
+            case 2:
+                location.add(30, 1, 0);
+                break;
+            case 3:
+                location.subtract(30, 1, 30);
+                break;
+            case 4:
+                location.subtract(0, 1, 30);
+                break;
+            case 5:
+                location.subtract(30, 1, 0);
+                break;
 
         }
         net.minecraft.server.v1_12_R1.Entity ocelot = ((CraftEntity) creature).getHandle();

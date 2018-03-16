@@ -78,14 +78,14 @@ public class BedWarsShopListener implements Listener {
                                     if (shopItem.getType() == ColorType.LEATHER) {
                                         LeatherArmorMeta meta = (LeatherArmorMeta) returnItem.getItemMeta();
                                         switch (team.getColor()) {
-                                        case RED:
-                                            meta.setColor(Color.RED);
-                                            break;
-                                        case BLUE:
-                                            meta.setColor(Color.BLUE);
-                                            break;
-                                        default:
-                                            break;
+                                            case RED:
+                                                meta.setColor(Color.RED);
+                                                break;
+                                            case BLUE:
+                                                meta.setColor(Color.BLUE);
+                                                break;
+                                            default:
+                                                break;
                                         }
                                         returnItem.setItemMeta(meta);
                                     } else {

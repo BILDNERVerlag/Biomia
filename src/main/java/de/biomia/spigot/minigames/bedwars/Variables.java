@@ -4,7 +4,6 @@ import de.biomia.spigot.configs.Config;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.TeamColor;
-import de.biomia.spigot.minigames.bedwars.BedWars;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

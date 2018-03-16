@@ -25,6 +25,7 @@ public abstract class GameMode {
     private final ArrayList<GameTeam> teams = new ArrayList<>();
     private GameStateManager stateManager = new GameStateManager(this);
     protected GameHandler handler;
+
     protected GameMode(GameInstance instance) {
 
         this.instance = instance;
@@ -153,13 +154,13 @@ public abstract class GameMode {
                 continue;
 
             switch (getInstance().getType()) {
-            case BED_WARS:
-                new BedWarsTeam(colors, this);
-                break;
-            default:
-            case SKY_WARS:
-                new GameTeam(colors, this);
-                break;
+                case BED_WARS:
+                    new BedWarsTeam(colors, this);
+                    break;
+                default:
+                case SKY_WARS:
+                    new GameTeam(colors, this);
+                    break;
             }
 
 

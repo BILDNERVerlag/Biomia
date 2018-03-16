@@ -10,9 +10,11 @@ public class SkyWarsLeaveEvent extends SkyWarsEvent {
     public SkyWarsLeaveEvent(BiomiaPlayer biomiaPlayer) {
         super(biomiaPlayer);
     }
+
     public static HandlerList getHandlerList() {
         return list;
     }
+
     @Override
     public HandlerList getHandlers() {
         return list;

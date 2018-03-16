@@ -12,7 +12,7 @@ public class ReloadCommand extends BiomiaCommand {
 
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
-		Main.getPlugin().reloadConfig();
-		return true;
-	}
+        Main.getPlugin().reloadConfig();
+        return true;
+    }
 }

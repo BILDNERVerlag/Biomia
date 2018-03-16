@@ -67,18 +67,18 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
         int limit = Cosmetic.getLimit(bp, getID());
 
         switch (limit) {
-        case -1:
-            // 'Infinity'
-            break;
-        case 0:
-            Cosmetic.setLimit(bp, getID(), 0);
-            remove(bp);
-            break;
-        default:
-            Cosmetic.setLimit(bp, getID(), --limit);
-            if (removeItem)
-                removeItemFromInventory(bp);
-            break;
+            case -1:
+                // 'Infinity'
+                break;
+            case 0:
+                Cosmetic.setLimit(bp, getID(), 0);
+                remove(bp);
+                break;
+            default:
+                Cosmetic.setLimit(bp, getID(), --limit);
+                if (removeItem)
+                    removeItemFromInventory(bp);
+                break;
         }
     }
 

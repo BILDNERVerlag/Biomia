@@ -1,6 +1,5 @@
 package de.biomia.spigot.achievements;
 
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.universal.MySQL;
@@ -18,8 +17,7 @@ public class Stats {
 
     static final HashMap<BiomiaStat, ArrayList<Achievements>> stats = new HashMap<>();
 
-    //TODO: ueber commands umstellen
-    private final static boolean log = false;
+    private static boolean log = false;
 
     public enum BiomiaStat {
 
@@ -239,7 +237,8 @@ public class Stats {
                     if (unlock(each.getAchievement(), biomiaPlayerID)) {
                         out.append("§7-§cNo comment. §b").append(value).append("§7>=§b").append(each.getTargetValue()).append("§7,\n");
                         out.append("§7-§cUnlocked §b").append(each.getAchievement().name()).append("§7>");
-                    } else out.append("§7-§cNo new unlocks. (already unlocked ").append(each.getAchievement().name()).append(")§7>");
+                    } else
+                        out.append("§7-§cNo new unlocks. (already unlocked ").append(each.getAchievement().name()).append(")§7>");
                 } else out.append("§7-§cNo new unlocks.§7>");
             }
         } else out.append("§7-§cNo achievements.§7>");
@@ -256,4 +255,12 @@ public class Stats {
     }
 
     //SELECT `inc`,`wert` FROM `TestTabelle` WHERE `time` >= TIMESTAMPADD(DAY,-3,NOW());
+
+    public static void logSwitch() {
+        log = !log;
+    }
+
+    public static boolean isLogging() {
+        return log;
+    }
 }

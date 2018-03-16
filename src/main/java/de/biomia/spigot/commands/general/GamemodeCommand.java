@@ -24,28 +24,28 @@ public class GamemodeCommand extends BiomiaCommand {
                     GameMode gameMode = null;
 
                     switch (args[0]) {
-                    case "0":
-                    case "s":
-                    case "survival":
-                        gameMode = GameMode.SURVIVAL;
-                        break;
-                    case "1":
-                    case "c":
-                    case "creative":
-                        gameMode = GameMode.CREATIVE;
-                        break;
-                    case "2":
-                    case "a":
-                    case "adventure":
-                        gameMode = GameMode.ADVENTURE;
-                        break;
-                    case "3":
-                    case "sp":
-                    case "spectator":
-                        gameMode = GameMode.SPECTATOR;
-                        break;
-                    default:
-                        break;
+                        case "0":
+                        case "s":
+                        case "survival":
+                            gameMode = GameMode.SURVIVAL;
+                            break;
+                        case "1":
+                        case "c":
+                        case "creative":
+                            gameMode = GameMode.CREATIVE;
+                            break;
+                        case "2":
+                        case "a":
+                        case "adventure":
+                            gameMode = GameMode.ADVENTURE;
+                            break;
+                        case "3":
+                        case "sp":
+                        case "spectator":
+                            gameMode = GameMode.SPECTATOR;
+                            break;
+                        default:
+                            break;
                     }
                     if (gameMode != null) {
                         if (args.length >= 2) {

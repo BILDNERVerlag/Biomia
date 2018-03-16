@@ -30,20 +30,20 @@ public class WinterEvent {
                     if (c.get(Calendar.MONTH) == Calendar.DECEMBER) {
                         if (lastday != 0 && lastday < c.get(Calendar.DAY_OF_MONTH)) {
                             switch (lastday) {
-                            case 3: // 1. Advent
-                                randomWin(lastday);
-                                break;
-                            case 10: // 2. Advent
-                                randomWin(lastday);
-                                break;
-                            case 17: // 3. Advent
-                                randomWin(lastday);
-                                break;
-                            case 24: // 4. Advent
-                                randomWin(lastday);
-                                break;
-                            default:
-                                break;
+                                case 3: // 1. Advent
+                                    randomWin(lastday);
+                                    break;
+                                case 10: // 2. Advent
+                                    randomWin(lastday);
+                                    break;
+                                case 17: // 3. Advent
+                                    randomWin(lastday);
+                                    break;
+                                case 24: // 4. Advent
+                                    randomWin(lastday);
+                                    break;
+                                default:
+                                    break;
                             }
                         }
                         lastday = c.get(Calendar.DAY_OF_MONTH);
@@ -74,20 +74,20 @@ public class WinterEvent {
                         "\u00A77Wir haben etwas f\u00fcr dich! Schicke eine e-mail an \u00A7cbusiness@biomia.de \u00A77mit folgendem Code:"));
                 String code = "";
                 switch (days) {
-                case 3:
-                    code = "ADV3NT";
-                    break;
-                case 10:
-                    code = "A10NT";
-                    break;
-                case 17:
-                    code = "D17ENT";
-                    break;
-                case 24:
-                    code = "XMAS24";
-                    break;
-                default:
-                    break;
+                    case 3:
+                        code = "ADV3NT";
+                        break;
+                    case 10:
+                        code = "A10NT";
+                        break;
+                    case 17:
+                        code = "D17ENT";
+                        break;
+                    case 24:
+                        code = "XMAS24";
+                        break;
+                    default:
+                        break;
                 }
                 pp.sendMessage(new TextComponent("\u00A74" + code));
             }

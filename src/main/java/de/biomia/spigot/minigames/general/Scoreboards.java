@@ -70,41 +70,41 @@ public class Scoreboards {
         Team team;
 
         switch (type) {
-        default:
-        case BED_WARS:
-        case BED_WARS_VS:
-            o.getScore(" ").setScore(3);
-            o.getScore("\u00A75Team:").setScore(2);
-            o.getScore("\u00A7c").setScore(1);
+            default:
+            case BED_WARS:
+            case BED_WARS_VS:
+                o.getScore(" ").setScore(3);
+                o.getScore("\u00A75Team:").setScore(2);
+                o.getScore("\u00A7c").setScore(1);
 
-            team = sb.registerNewTeam("team");
-            team.addEntry("\u00A7c");
-            team.setPrefix(gameTeam.getColorcode() + gameTeam.getColor().translate());
-            break;
-        case SKY_WARS:
-        case SKY_WARS_VS:
+                team = sb.registerNewTeam("team");
+                team.addEntry("\u00A7c");
+                team.setPrefix(gameTeam.getColorcode() + gameTeam.getColor().translate());
+                break;
+            case SKY_WARS:
+            case SKY_WARS_VS:
 
-            o.getScore(" ").setScore(7);
-            o.getScore("\u00A75Kit:").setScore(6);
-            o.getScore("\u00A7c").setScore(5);
-            o.getScore("\u00A7a").setScore(4);
-            o.getScore("\u00A75Team:").setScore(3);
-            o.getScore("\u00A7f").setScore(2);
-            o.getScore("\u00A71").setScore(1);
+                o.getScore(" ").setScore(7);
+                o.getScore("\u00A75Kit:").setScore(6);
+                o.getScore("\u00A7c").setScore(5);
+                o.getScore("\u00A7a").setScore(4);
+                o.getScore("\u00A75Team:").setScore(3);
+                o.getScore("\u00A7f").setScore(2);
+                o.getScore("\u00A71").setScore(1);
 
-            Team kit = sb.registerNewTeam("kitname");
-            team = sb.registerNewTeam("team");
+                Team kit = sb.registerNewTeam("kitname");
+                team = sb.registerNewTeam("team");
 
-            kit.addEntry("\u00A7c");
-            team.addEntry("\u00A7f");
+                kit.addEntry("\u00A7c");
+                team.addEntry("\u00A7f");
 
-            if (de.biomia.spigot.minigames.skywars.Variables.selectedKit.get(p) != null) {
-                kit.setPrefix("\u00A7c" + de.biomia.spigot.minigames.skywars.Variables.selectedKit.get(p).getName());
-            } else {
-                kit.setPrefix("\u00A7cKein Kit");
-            }
-            team.setPrefix(gameTeam.getColorcode() + gameTeam.getColor().translate());
-            break;
+                if (de.biomia.spigot.minigames.skywars.Variables.selectedKit.get(p) != null) {
+                    kit.setPrefix("\u00A7c" + de.biomia.spigot.minigames.skywars.Variables.selectedKit.get(p).getName());
+                } else {
+                    kit.setPrefix("\u00A7cKein Kit");
+                }
+                team.setPrefix(gameTeam.getColorcode() + gameTeam.getColor().translate());
+                break;
         }
 
         for (TeamColor color : TeamColor.values()) {

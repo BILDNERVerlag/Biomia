@@ -60,43 +60,43 @@ public class MysteryChest {
         int menge = -1;
         if (item instanceof CosmeticGadgetItem)
             switch (new Random().nextInt(6)) {
-            case 0:
-            case 1:
-                menge = 10;
-                break;
-            case 2:
-                menge = 15;
-                break;
-            case 3:
-                menge = 20;
-                break;
-            case 4:
-                menge = 25;
-                break;
-            case 5:
-                menge = 30;
-                break;
+                case 0:
+                case 1:
+                    menge = 10;
+                    break;
+                case 2:
+                    menge = 15;
+                    break;
+                case 3:
+                    menge = 20;
+                    break;
+                case 4:
+                    menge = 25;
+                    break;
+                case 5:
+                    menge = 30;
+                    break;
             }
         else if (item instanceof CosmeticParticleItem)
             switch (new Random().nextInt(6)) {
-            case 0:
-                menge = 60;
-                break;
-            case 1:
-                menge = 100;
-                break;
-            case 2:
-                menge = 150;
-                break;
-            case 3:
-                menge = 180;
-                break;
-            case 4:
-                menge = 200;
-                break;
-            case 5:
-                menge = 240;
-                break;
+                case 0:
+                    menge = 60;
+                    break;
+                case 1:
+                    menge = 100;
+                    break;
+                case 2:
+                    menge = 150;
+                    break;
+                case 3:
+                    menge = 180;
+                    break;
+                case 4:
+                    menge = 200;
+                    break;
+                case 5:
+                    menge = 240;
+                    break;
             }
         Cosmetic.setLimit(bp, item.getID(), menge);
         if (menge != -1)
@@ -119,15 +119,15 @@ public class MysteryChest {
             public void run() {
 
                 switch (counter) {
-                case 13:
-                    inv.setItem(counter, itemStack);
-                    break;
-                case 27:
-                    cancel();
-                    return;
-                default:
-                    inv.setItem(counter, null);
-                    break;
+                    case 13:
+                        inv.setItem(counter, itemStack);
+                        break;
+                    case 27:
+                        cancel();
+                        return;
+                    default:
+                        inv.setItem(counter, null);
+                        break;
                 }
                 counter++;
             }

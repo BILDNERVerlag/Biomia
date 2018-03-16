@@ -60,23 +60,23 @@ public class Kit {
     public void addItem(EquipmentSlot slot, ItemStack itemStack) {
 
         switch (slot) {
-        case HEAD:
-            helmet = itemStack;
-            break;
-        case CHEST:
-            chestplate = itemStack;
-            break;
-        case LEGS:
-            leggings = itemStack;
-            break;
-        case FEET:
-            boots = itemStack;
-            break;
-        case OFF_HAND:
-            offHand = itemStack;
-            break;
-        default:
-            break;
+            case HEAD:
+                helmet = itemStack;
+                break;
+            case CHEST:
+                chestplate = itemStack;
+                break;
+            case LEGS:
+                leggings = itemStack;
+                break;
+            case FEET:
+                boots = itemStack;
+                break;
+            case OFF_HAND:
+                offHand = itemStack;
+                break;
+            default:
+                break;
         }
     }
 

@@ -29,50 +29,50 @@ public class BauWerkCommand extends BiomiaCommand {
             }
 
             switch (args[0].toLowerCase()) {
-            case "add":
-                if (args.length == 4) {
-                    if (sender instanceof Player) {
-                        Player p = (Player) sender;
-                        int seite;
-                        String name = args[2];
-                        Material m;
+                case "add":
+                    if (args.length == 4) {
+                        if (sender instanceof Player) {
+                            Player p = (Player) sender;
+                            int seite;
+                            String name = args[2];
+                            Material m;
 
-                        try {
-                            m = Material.valueOf(args[3]);
-                        } catch (Exception e) {
-                            p.sendMessage("\u00A7cBitte gib ein verf\u00fcgbares Material ein!");
-                            return true;
+                            try {
+                                m = Material.valueOf(args[3]);
+                            } catch (Exception e) {
+                                p.sendMessage("\u00A7cBitte gib ein verf\u00fcgbares Material ein!");
+                                return true;
+                            }
+
+                            try {
+                                seite = Integer.valueOf(args[1]);
+                            } catch (NumberFormatException e) {
+                                p.sendMessage("\u00A7cBitte gib eine Zahl als Seite ein!");
+                                return true;
+                            }
+
+                            DemoConfig.addObjekt(seite, name, p.getLocation(), m);
+
+                        } else {
+                            sender.sendMessage("\u00A7cDu musst ein Spieler sein!");
                         }
-
-                        try {
-                            seite = Integer.valueOf(args[1]);
-                        } catch (NumberFormatException e) {
-                            p.sendMessage("\u00A7cBitte gib eine Zahl als Seite ein!");
-                            return true;
-                        }
-
-                        DemoConfig.addObjekt(seite, name, p.getLocation(), m);
-
-                    } else {
-                        sender.sendMessage("\u00A7cDu musst ein Spieler sein!");
-                    }
-                } else
-                    sender.sendMessage("\u00A7c/bauwerk add <Seite> <Name> <Material>");
-                break;
-            case "remove":
-                if (args.length == 2)
-                    DemoConfig.removeObjekt(args[1]);
-                else
-                    sender.sendMessage("\u00A7c/bauwerk remove <Name>");
-                break;
-            case "reload":
-                Bukkit.broadcastMessage("\u00A7cReloading....");
-                Main.getPlugin().reloadConfig();
-                ((Weltenlabor) Biomia.getServerInstance()).getBauten().clear();
-                ((Weltenlabor) Biomia.getServerInstance()).getScrollingInv().clear();
-                DemoConfig.hookInPlugin();
-                Bukkit.broadcastMessage("\u00A7aReloaded!");
-                break;
+                    } else
+                        sender.sendMessage("\u00A7c/bauwerk add <Seite> <Name> <Material>");
+                    break;
+                case "remove":
+                    if (args.length == 2)
+                        DemoConfig.removeObjekt(args[1]);
+                    else
+                        sender.sendMessage("\u00A7c/bauwerk remove <Name>");
+                    break;
+                case "reload":
+                    Bukkit.broadcastMessage("\u00A7cReloading....");
+                    Main.getPlugin().reloadConfig();
+                    ((Weltenlabor) Biomia.getServerInstance()).getBauten().clear();
+                    ((Weltenlabor) Biomia.getServerInstance()).getScrollingInv().clear();
+                    DemoConfig.hookInPlugin();
+                    Bukkit.broadcastMessage("\u00A7aReloaded!");
+                    break;
             }
         }
         return true;

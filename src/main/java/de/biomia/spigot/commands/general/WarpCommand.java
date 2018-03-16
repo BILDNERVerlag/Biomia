@@ -46,8 +46,12 @@ public class WarpCommand extends BiomiaCommand {
                     return true;
                 }
                 int verbleibendeWarps = RankManager.getPremiumLevel((p.getName())) + 3 - playerWarpLocations.size();
-                if (bp.isStaff()) verbleibendeWarps += 2;
-                if (bp.isOwner()) verbleibendeWarps += 6;
+                if (bp.isStaff()) {
+                    verbleibendeWarps += 2;
+                }
+                if (bp.isOwner()) {
+                    verbleibendeWarps += 6;
+                }
                 if (playerWarpLocations.size() >= RankManager.getPremiumLevel(p.getName()) + 3) {
                     p.sendMessage("\u00A7cDu hast bereits die \u00A7bmaximale \u00A7cAnzahl Warps erreicht.");
                     p.sendMessage("\u00A7cBenutze \u00A77/\u00A7cdelwarp \u00A77<\u00A7cName\u00A77> \u00A7bum Warps zu l\u00f6schen \u00A7coder hol dir einen unserer Premiumränge und unterstütze damit den Server.");

@@ -138,6 +138,7 @@ public class GameStateManager {
                 }
             }.runTaskTimer(Main.getPlugin(), 0, 20);
 
+            BedWars.getBedWars().getStateManager().setActualGameState(GameState.INGAME);
             TimoCloudAPI.getBukkitInstance().getThisServer().setState(GameState.INGAME.name());
             for (BiomiaPlayer bp : getMode().getInstance().getPlayers()) {
 
@@ -149,7 +150,7 @@ public class GameStateManager {
                 bp.setDamageEntitys(true);
                 bp.setGetDamage(true);
                 bp.getPlayer().setGameMode(org.bukkit.GameMode.SURVIVAL);
-                Scoreboards.setInGameScoreboard(bp.getPlayer());
+                Scoreboards.setInGameScoreboard(bp.getPlayer(), GameType.BED_WARS);
                 bp.getPlayer().getInventory().clear();
                 bp.getPlayer().setFlying(false);
                 bp.getPlayer().setAllowFlight(false);

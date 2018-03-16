@@ -24,20 +24,20 @@ public class Price {
         Material m = null;
         String name = null;
         switch (getItemType()) {
-        case BRONZE:
-            m = Material.CLAY_BRICK;
-            name = "\u00A7c" + getPrice() + " Bronze";
-            break;
-        case IRON:
-            m = Material.IRON_INGOT;
-            name = "\u00A77" + getPrice() + " Eisen";
-            break;
-        case GOLD:
-            m = Material.GOLD_INGOT;
-            name = "\u00A76" + getPrice() + " Gold";
-            break;
-        default:
-            break;
+            case BRONZE:
+                m = Material.CLAY_BRICK;
+                name = "\u00A7c" + getPrice() + " Bronze";
+                break;
+            case IRON:
+                m = Material.IRON_INGOT;
+                name = "\u00A77" + getPrice() + " Eisen";
+                break;
+            case GOLD:
+                m = Material.GOLD_INGOT;
+                name = "\u00A76" + getPrice() + " Gold";
+                break;
+            default:
+                break;
         }
 
         return ItemCreator.setAmount(ItemCreator.itemCreate(m, name), price);

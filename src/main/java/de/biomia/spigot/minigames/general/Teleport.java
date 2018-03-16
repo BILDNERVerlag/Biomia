@@ -5,7 +5,6 @@ import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.manager.ActionBar;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
-import de.biomia.spigot.minigames.bedwars.BedWars;
 import de.biomia.spigot.minigames.skywars.SkyWars;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

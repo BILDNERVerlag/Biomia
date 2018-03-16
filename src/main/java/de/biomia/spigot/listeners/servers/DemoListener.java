@@ -19,8 +19,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
-
 public class DemoListener extends BiomiaListener {
 
     @EventHandler

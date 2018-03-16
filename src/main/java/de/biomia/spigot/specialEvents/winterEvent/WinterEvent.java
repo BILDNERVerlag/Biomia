@@ -54,59 +54,60 @@ public class WinterEvent implements Listener {
 
     private Reward IDToReward(int id) {
         switch (id) {
-        case 1:
-            return new Reward(rewardType.Coins_Boost, (byte) 0, id);
-        case 2:
-            return new Reward(rewardType.Coins_Boost, (byte) 0, id);
-        case 3:
-            return new Reward(rewardType.Coins_Boost, (byte) 0, id);
-        case 4:
-            return new Reward(rewardType.SkyWars_Kit, (byte) 0, id);
-        case 5:
-            return new Reward(rewardType.SkyWars_Kit, (byte) 1, id);
-        case 6:
-            return new Reward(rewardType.Shop_Gutschein, (byte) 0, id);
-        case 7:
-            return new Reward(rewardType.Shop_Gutschein, (byte) 1, id);
-        case 8:
-            return new Reward(rewardType.Shop_Gutschein, (byte) 2, id);
-        case 9:
-            return new Reward(rewardType.QuestWelt_Items, (byte) 0, id);
-        case 10:
-            return new Reward(rewardType.QuestWelt_Items, (byte) 1, id);
-        case 11:
-            return new Reward(rewardType.QuestWelt_Items, (byte) 2, id);
-        case 12:
-            return new Reward(rewardType.QuestWelt_Items, (byte) 3, id);
-        case 13:
-            return new Reward(rewardType.QuestWelt_Items, (byte) 4, id);
-        case 14:
-            return new Reward(rewardType.QuestWelt_Items, (byte) 5, id);
-        case 15:
-            return new Reward(rewardType.QuestWelt_Items, (byte) 6, id);
-        case 16:
-            return new Reward(rewardType.Ingame_Coins, (byte) 0, id);
-        case 17:
-            return new Reward(rewardType.Ingame_Coins, (byte) 0, id);
-        case 18:
-            return new Reward(rewardType.Ingame_Coins, (byte) 0, id);
-        case 19:
-            return new Reward(rewardType.Ingame_Coins, (byte) 0, id);
-        case 20:
-            return new Reward(rewardType.Ingame_Coins, (byte) 0, id);
-        case 21:
-            return new Reward(rewardType.Ingame_Coins, (byte) 0, id);
-        case 22:
-            return new Reward(rewardType.Ingame_Coins, (byte) 0, id);
-        case 23:
-            return new Reward(rewardType.Ingame_Coins, (byte) 0, id);
-        default:
-            return null;
+            case 1:
+                return new Reward(rewardType.Coins_Boost, (byte) 0, id);
+            case 2:
+                return new Reward(rewardType.Coins_Boost, (byte) 0, id);
+            case 3:
+                return new Reward(rewardType.Coins_Boost, (byte) 0, id);
+            case 4:
+                return new Reward(rewardType.SkyWars_Kit, (byte) 0, id);
+            case 5:
+                return new Reward(rewardType.SkyWars_Kit, (byte) 1, id);
+            case 6:
+                return new Reward(rewardType.Shop_Gutschein, (byte) 0, id);
+            case 7:
+                return new Reward(rewardType.Shop_Gutschein, (byte) 1, id);
+            case 8:
+                return new Reward(rewardType.Shop_Gutschein, (byte) 2, id);
+            case 9:
+                return new Reward(rewardType.QuestWelt_Items, (byte) 0, id);
+            case 10:
+                return new Reward(rewardType.QuestWelt_Items, (byte) 1, id);
+            case 11:
+                return new Reward(rewardType.QuestWelt_Items, (byte) 2, id);
+            case 12:
+                return new Reward(rewardType.QuestWelt_Items, (byte) 3, id);
+            case 13:
+                return new Reward(rewardType.QuestWelt_Items, (byte) 4, id);
+            case 14:
+                return new Reward(rewardType.QuestWelt_Items, (byte) 5, id);
+            case 15:
+                return new Reward(rewardType.QuestWelt_Items, (byte) 6, id);
+            case 16:
+                return new Reward(rewardType.Ingame_Coins, (byte) 0, id);
+            case 17:
+                return new Reward(rewardType.Ingame_Coins, (byte) 0, id);
+            case 18:
+                return new Reward(rewardType.Ingame_Coins, (byte) 0, id);
+            case 19:
+                return new Reward(rewardType.Ingame_Coins, (byte) 0, id);
+            case 20:
+                return new Reward(rewardType.Ingame_Coins, (byte) 0, id);
+            case 21:
+                return new Reward(rewardType.Ingame_Coins, (byte) 0, id);
+            case 22:
+                return new Reward(rewardType.Ingame_Coins, (byte) 0, id);
+            case 23:
+                return new Reward(rewardType.Ingame_Coins, (byte) 0, id);
+            default:
+                return null;
         }
     }
 
+    //somehow intelliJ thinks you should compare months to week days
+    @SuppressWarnings("MagicConstant")
     private static int getDay() {
-
         Calendar cal = Calendar.getInstance();
         if (cal.get(Calendar.MONTH) == Calendar.DECEMBER) {
             return cal.get(Calendar.DAY_OF_MONTH);

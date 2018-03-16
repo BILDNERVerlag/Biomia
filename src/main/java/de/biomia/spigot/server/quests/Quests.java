@@ -11,7 +11,6 @@ import de.biomia.spigot.server.quests.general.QuestPlayer;
 import de.biomia.spigot.listeners.servers.QuestListener;
 import de.biomia.spigot.tools.LastPositionListener;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.plugin.PluginManager;
 
 import static de.biomia.spigot.Main.getPlugin;

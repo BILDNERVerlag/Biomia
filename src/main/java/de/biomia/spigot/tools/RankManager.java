@@ -40,28 +40,28 @@ public class RankManager {
         String s = RankManager.getRank(name).replace("Premium", "");
 
         switch (s) {
-        case "Eins":
-            return 1;
-        case "Zwei":
-            return 2;
-        case "Drei":
-            return 3;
-        case "Vier":
-            return 4;
-        case "Fuenf":
-            return 5;
-        case "Sechs":
-            return 6;
-        case "Sieben":
-            return 7;
-        case "Acht":
-            return 8;
-        case "Neun":
-            return 9;
-        case "Zehn":
-            return 10;
-        default:
-            return -1;
+            case "Eins":
+                return 1;
+            case "Zwei":
+                return 2;
+            case "Drei":
+                return 3;
+            case "Vier":
+                return 4;
+            case "Fuenf":
+                return 5;
+            case "Sechs":
+                return 6;
+            case "Sieben":
+                return 7;
+            case "Acht":
+                return 8;
+            case "Neun":
+                return 9;
+            case "Zehn":
+                return 10;
+            default:
+                return -1;
         }
     }
 

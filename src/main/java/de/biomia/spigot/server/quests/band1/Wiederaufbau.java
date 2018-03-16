@@ -51,15 +51,15 @@ public class Wiederaufbau implements Listener {
                 States state = qp.getState(q);
                 if (state != null) {
                     switch (state) {
-                    case STATUS1:
-                        int itemMenge = 32;
-                        if (ItemConditions.hasItemInInventory(qp, itemZuBesorgen, itemMenge))
-                            qp.setDialog(comeBackWithItem);
-                        else
-                            qp.setDialog(comeBackWithoutItem);
-                        break;
-                    default:
-                        break;
+                        case STATUS1:
+                            int itemMenge = 32;
+                            if (ItemConditions.hasItemInInventory(qp, itemZuBesorgen, itemMenge))
+                                qp.setDialog(comeBackWithItem);
+                            else
+                                qp.setDialog(comeBackWithoutItem);
+                            break;
+                        default:
+                            break;
                     }
                 } else if (qp.hasFinished(q)) {
                     qp.setDialog(nachQuest);

@@ -121,36 +121,36 @@ public class LobbyScoreboard {
         if (rankName.contains("Premium")) {
             rankName = rankName.substring(7);
             switch (rankName) {
-            case "Eins":
-                rankName = "Premium I";
-                break;
-            case "Zwei":
-                rankName = "Premium II";
-                break;
-            case "Drei":
-                rankName = "Premium III";
-                break;
-            case "Vier":
-                rankName = "Premium IV";
-                break;
-            case "Fuenf":
-                rankName = "Premium V";
-                break;
-            case "Sechs":
-                rankName = "Premium VI";
-                break;
-            case "Sieben":
-                rankName = "Premium VII";
-                break;
-            case "Acht":
-                rankName = "Premium VIII";
-                break;
-            case "Neun":
-                rankName = "Premium IX";
-                break;
-            case "Zehn":
-                rankName = "Premium X";
-                break;
+                case "Eins":
+                    rankName = "Premium I";
+                    break;
+                case "Zwei":
+                    rankName = "Premium II";
+                    break;
+                case "Drei":
+                    rankName = "Premium III";
+                    break;
+                case "Vier":
+                    rankName = "Premium IV";
+                    break;
+                case "Fuenf":
+                    rankName = "Premium V";
+                    break;
+                case "Sechs":
+                    rankName = "Premium VI";
+                    break;
+                case "Sieben":
+                    rankName = "Premium VII";
+                    break;
+                case "Acht":
+                    rankName = "Premium VIII";
+                    break;
+                case "Neun":
+                    rankName = "Premium IX";
+                    break;
+                case "Zehn":
+                    rankName = "Premium X";
+                    break;
             }
         } else if (rankName.startsWith("Reg")) {
             rankName = "Spieler";

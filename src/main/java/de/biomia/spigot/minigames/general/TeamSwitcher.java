@@ -20,49 +20,49 @@ public class TeamSwitcher {
         int i = 0;
 
         switch (mode.getTeams().size()) {
-        case (2):
-            for (GameTeam team : mode.getTeams()) {
-                ItemStack itemstack = ItemCreator.itemCreate(Material.WOOL, team.getColorcode() + team.getColor().translate(), team.getColordata());
+            case (2):
+                for (GameTeam team : mode.getTeams()) {
+                    ItemStack itemstack = ItemCreator.itemCreate(Material.WOOL, team.getColorcode() + team.getColor().translate(), team.getColordata());
 
-                if (team.getPlayers().size() > 1) {
-                    itemstack.setAmount(team.getPlayers().size());
+                    if (team.getPlayers().size() > 1) {
+                        itemstack.setAmount(team.getPlayers().size());
+                    }
+
+                    if (i == 0)
+                        i += 2;
+                    else if (i == 2)
+                        i += 3;
+
+                    inv.setItem(i, itemstack);
                 }
+                break;
+            case (4):
+                for (GameTeam team : mode.getTeams()) {
+                    ItemStack itemstack = ItemCreator.itemCreate(Material.WOOL, team.getColorcode() + team.getColor().translate(), team.getColordata());
 
-                if (i == 0)
-                    i += 2;
-                else if (i == 2)
-                    i += 3;
+                    if (team.getPlayers().size() > 1)
+                        itemstack.setAmount(team.getPlayers().size());
 
-                inv.setItem(i, itemstack);
-            }
-            break;
-        case (4):
-            for (GameTeam team : mode.getTeams()) {
-                ItemStack itemstack = ItemCreator.itemCreate(Material.WOOL, team.getColorcode() + team.getColor().translate(), team.getColordata());
-
-                if (team.getPlayers().size() > 1)
-                    itemstack.setAmount(team.getPlayers().size());
-
-                i++;
-                inv.setItem(i, itemstack);
-                i++;
-            }
-            break;
-        case (8):
-            for (GameTeam team : mode.getTeams()) {
-                ItemStack itemstack = ItemCreator.itemCreate(Material.WOOL, team.getColorcode() + team.getColor().translate(), team.getColordata());
-
-                if (team.getPlayers().size() > 1) {
-                    itemstack.setAmount(team.getPlayers().size());
-                }
-
-                inv.setItem(i, itemstack);
-
-                i++;
-                if (i == 4)
                     i++;
-            }
-            break;
+                    inv.setItem(i, itemstack);
+                    i++;
+                }
+                break;
+            case (8):
+                for (GameTeam team : mode.getTeams()) {
+                    ItemStack itemstack = ItemCreator.itemCreate(Material.WOOL, team.getColorcode() + team.getColor().translate(), team.getColordata());
+
+                    if (team.getPlayers().size() > 1) {
+                        itemstack.setAmount(team.getPlayers().size());
+                    }
+
+                    inv.setItem(i, itemstack);
+
+                    i++;
+                    if (i == 4)
+                        i++;
+                }
+                break;
         }
         return inv;
 

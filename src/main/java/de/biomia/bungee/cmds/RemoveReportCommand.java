@@ -51,7 +51,8 @@ public class RemoveReportCommand extends Command {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-            } else sender.sendMessage(new TextComponent("\u00A7cBitte nutze \u00A77/\u00A7bremovereport \u00A77<\u00A7bSpieler\u00A77>"));
+            } else
+                sender.sendMessage(new TextComponent("\u00A7cBitte nutze \u00A77/\u00A7bremovereport \u00A77<\u00A7bSpieler\u00A77>"));
         }
     }
 }

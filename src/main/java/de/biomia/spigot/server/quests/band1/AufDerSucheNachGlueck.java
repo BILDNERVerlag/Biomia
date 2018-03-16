@@ -50,20 +50,20 @@ public class AufDerSucheNachGlueck implements Listener {
                 States state = qp.getState(q);
                 if (state != null) {
                     switch (state) {
-                    case STATUS1:
-                        if (ItemConditions.hasItemInInventory(qp, Material.RABBIT_FOOT, 1))
-                            qp.setDialog(withRabbitFoot);
-                        else
-                            qp.setDialog(withoutRabbitFoot);
-                        break;
-                    case START:
-                        qp.setDialog(vorQuest);
-                        break;
-                    case ENDE:
-                        qp.setDialog(nachQuest);
-                        break;
-                    default:
-                        break;
+                        case STATUS1:
+                            if (ItemConditions.hasItemInInventory(qp, Material.RABBIT_FOOT, 1))
+                                qp.setDialog(withRabbitFoot);
+                            else
+                                qp.setDialog(withoutRabbitFoot);
+                            break;
+                        case START:
+                            qp.setDialog(vorQuest);
+                            break;
+                        case ENDE:
+                            qp.setDialog(nachQuest);
+                            break;
+                        default:
+                            break;
                     }
                 } else
                     qp.setDialog(startDialog);

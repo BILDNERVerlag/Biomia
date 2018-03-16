@@ -68,7 +68,6 @@ public class BedWarsListener extends GameHandler {
         bp.setGetDamage(false);
 
         if (BedWars.getBedWars().getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
-
             // Hide
             for (Player all : Bukkit.getOnlinePlayers()) {
 
@@ -424,9 +423,9 @@ public class BedWarsListener extends GameHandler {
         }
     }
 
-    @SuppressWarnings("deprecation")
-    @EventHandler
-    public void onSignChange(SignChangeEvent e) {
+//    @SuppressWarnings("deprecation")
+//    @EventHandler
+//    public void onSignChange(SignChangeEvent e) {
 //        if (e.getPlayer().hasPermission("biomia.leaderboard") && BedWars.gameState != GameState.INGAME) {
 //            if (e.getLine(0).equalsIgnoreCase("leaderboard")) {
 //                String second = e.getLine(1);
@@ -479,7 +478,7 @@ public class BedWarsListener extends GameHandler {
 //				BedWarsVersusConfig.addSignsLocation(e.getBlock().getLocation(), i);
 //            }
 //        }
-    }
+//    }
 
     @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -556,6 +555,7 @@ public class BedWarsListener extends GameHandler {
 
     @EventHandler
     public void onChat_(AsyncPlayerChatEvent e) {
+        Bukkit.broadcastMessage("%%%bwlistener.onchat");
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         GameTeam t = bp.getTeam();

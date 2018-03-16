@@ -9,7 +9,6 @@ import de.biomia.spigot.listeners.servers.DemoListener;
 import de.biomia.spigot.server.demoserver.teleporter.Bauten;
 import de.biomia.spigot.server.demoserver.teleporter.ScrollingInventory;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 
 import java.util.ArrayList;
 import java.util.HashMap;

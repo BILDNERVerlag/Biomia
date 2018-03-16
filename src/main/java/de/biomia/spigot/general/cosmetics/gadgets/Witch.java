@@ -49,24 +49,24 @@ class Witch implements GadgetListener {
     private void followPlayer(Entity creature, Player player) {
         Location location = player.getLocation();
         switch (new Random().nextInt(6)) {
-        case 0:
-            location.add(1.5, 3, 1.5);
-            break;
-        case 1:
-            location.add(0, 3, 1.5);
-            break;
-        case 2:
-            location.add(1.5, 3, 0);
-            break;
-        case 3:
-            location.subtract(1.5, -3, 1.5);
-            break;
-        case 4:
-            location.subtract(0, -3, 1.5);
-            break;
-        case 5:
-            location.subtract(1.5, -3, 0);
-            break;
+            case 0:
+                location.add(1.5, 3, 1.5);
+                break;
+            case 1:
+                location.add(0, 3, 1.5);
+                break;
+            case 2:
+                location.add(1.5, 3, 0);
+                break;
+            case 3:
+                location.subtract(1.5, -3, 1.5);
+                break;
+            case 4:
+                location.subtract(0, -3, 1.5);
+                break;
+            case 5:
+                location.subtract(1.5, -3, 0);
+                break;
         }
         if (!location.getWorld().equals(creature.getWorld()) || location.distanceSquared(creature.getLocation()) > 80) {
             creature.teleport(location);

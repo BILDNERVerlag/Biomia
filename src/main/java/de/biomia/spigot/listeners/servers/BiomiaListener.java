@@ -3,7 +3,6 @@ package de.biomia.spigot.listeners.servers;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.BiomiaServerType;
-import de.biomia.spigot.Main;
 import de.biomia.spigot.general.cosmetics.Cosmetic;
 import de.biomia.spigot.general.cosmetics.items.CosmeticPetItem;
 import de.biomia.spigot.general.reportsystem.PlayerReport;
@@ -105,6 +104,7 @@ public abstract class BiomiaListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public final void onSendMessage(AsyncPlayerChatEvent e) {
+        Bukkit.broadcastMessage("%%%biolistener.onchat");
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
 

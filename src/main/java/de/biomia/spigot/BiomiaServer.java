@@ -4,7 +4,6 @@ import de.biomia.spigot.commands.general.*;
 import de.biomia.spigot.listeners.CosmeticListener;
 import de.biomia.spigot.listeners.ReportListener;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 
 import static de.biomia.spigot.Main.registerCommand;
 
@@ -15,7 +14,8 @@ public abstract class BiomiaServer {
         initCommands();
     }
 
-    public void stop() {}
+    public void stop() {
+    }
 
     protected void initListeners() {
         Bukkit.getPluginManager().registerEvents(new ReportListener(), Main.getPlugin());
@@ -41,6 +41,7 @@ public abstract class BiomiaServer {
         registerCommand(new ReportCommand());
         registerCommand(new SeeReportsCommand());
         registerCommand(new StatCommand());
+        registerCommand(new LogCommand());
         registerCommand(new TrollCommand("crash"));
         registerCommand(new TrollCommand("troll"));
         registerCommand(new EventCommands("addeggs"));

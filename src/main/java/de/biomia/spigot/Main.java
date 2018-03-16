@@ -152,7 +152,7 @@ public class Main extends JavaPlugin {
             case "BauServer":
                 Bukkit.getPluginManager().registerEvents(new BauServerListener(), this);
                 break;
-                //TODO: Group Names ändern
+            //TODO: Group Names ändern
         }
 
         Biomia.getServerInstance().start();

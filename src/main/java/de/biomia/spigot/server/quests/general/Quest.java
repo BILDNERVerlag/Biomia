@@ -157,18 +157,18 @@ public class Quest {
 
     public void setCooldown(int cooldown, TIME t) {
         switch (t) {
-        case SEKUNDEN:
-            this.cooldown = cooldown;
-            break;
-        case MINUTEN:
-            this.cooldown = cooldown * 60;
-            break;
-        case STUNDEN:
-            this.cooldown = cooldown * 60 * 60;
-            break;
-        case TAGE:
-            this.cooldown = cooldown * 60 * 60 * 24;
-            break;
+            case SEKUNDEN:
+                this.cooldown = cooldown;
+                break;
+            case MINUTEN:
+                this.cooldown = cooldown * 60;
+                break;
+            case STUNDEN:
+                this.cooldown = cooldown * 60 * 60;
+                break;
+            case TAGE:
+                this.cooldown = cooldown * 60 * 60 * 24;
+                break;
         }
     }
 

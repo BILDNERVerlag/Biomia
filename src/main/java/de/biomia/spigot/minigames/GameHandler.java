@@ -110,6 +110,7 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public final void onChat(AsyncPlayerChatEvent e) {
+        Bukkit.broadcastMessage("%%%gamehandler.onchat");
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         GameTeam team = bp.getTeam();
@@ -129,8 +130,9 @@ public abstract class GameHandler implements Listener {
             } else if (team != null) {
                 e.setCancelled(true);
                 format = BedWarsMessages.chatMessageTeam.replaceAll("%p", team.getColorcode() + p.getDisplayName()).replaceAll("%msg", msg);
-                for (BiomiaPlayer teamPlayer : team.getPlayers())
+                for (BiomiaPlayer teamPlayer : team.getPlayers()) {
                     teamPlayer.getPlayer().sendMessage(format);
+                }
                 return;
             } else {
                 format = BedWarsMessages.chatMessageDead.replaceAll("%p", p.getDisplayName()).replaceAll("%msg", msg);
@@ -144,14 +146,16 @@ public abstract class GameHandler implements Listener {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         if (e.getFrom().equals(mode.getInstance().getWorld()))
             if (mode.getInstance().containsPlayer(bp))
-                bp.getTeam().leave(bp);
+                if (bp.getTeam() != null)
+                    bp.getTeam().leave(bp);
     }
 
     @EventHandler
     public void onDisconnect(PlayerQuitEvent e) {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         if (mode.getInstance().containsPlayer(bp)) {
-            bp.getTeam().leave(bp);
+            if (bp.getTeam() != null)
+                bp.getTeam().leave(bp);
         }
     }
 

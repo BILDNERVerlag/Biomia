@@ -114,25 +114,25 @@ public class ReiteDasSchwein implements Listener {
             @Override
             public void run() {
                 switch (countdown) {
-                case 3:
-                    Title.sendTitel("3..", qp.getPlayer());
-                    countdown--;
-                    return;
-                case 2:
-                    Title.sendTitel("2..", qp.getPlayer());
-                    countdown--;
-                    return;
-                case 1:
-                    Title.sendTitel("1..", qp.getPlayer());
-                    countdown--;
-                    return;
-                case 0:
-                    Title.sendTitel("GO!", qp.getPlayer());
-                    setPigSpeed((Pig) pig, 0.2);
-                    countdown--;
-                    return;
-                default:
-                    break;
+                    case 3:
+                        Title.sendTitel("3..", qp.getPlayer());
+                        countdown--;
+                        return;
+                    case 2:
+                        Title.sendTitel("2..", qp.getPlayer());
+                        countdown--;
+                        return;
+                    case 1:
+                        Title.sendTitel("1..", qp.getPlayer());
+                        countdown--;
+                        return;
+                    case 0:
+                        Title.sendTitel("GO!", qp.getPlayer());
+                        setPigSpeed((Pig) pig, 0.2);
+                        countdown--;
+                        return;
+                    default:
+                        break;
                 }
 
                 if (onEndLoc.get(qp) != null) {

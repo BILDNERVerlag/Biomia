@@ -49,14 +49,14 @@ public class Forsthilfe implements Listener {
                 States state = qp.getState(q);
                 if (state != null) {
                     switch (state) {
-                    case STATUS1:
-                        if (ItemConditions.hasItemInInventory(qp, itemZuBesorgen, 10))
-                            qp.setDialog(comeBackWithItem);
-                        else
-                            qp.setDialog(comeBackWithoutItem);
-                        break;
-                    default:
-                        break;
+                        case STATUS1:
+                            if (ItemConditions.hasItemInInventory(qp, itemZuBesorgen, 10))
+                                qp.setDialog(comeBackWithItem);
+                            else
+                                qp.setDialog(comeBackWithoutItem);
+                            break;
+                        default:
+                            break;
                     }
                 } else
                     Quests.restartQuestIfTimeOver(qp, q, startDialog, nachQuest);

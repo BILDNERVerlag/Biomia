@@ -35,28 +35,28 @@ public class VSCommands extends BiomiaCommand {
                         if (request == null)
                             return true;
                         switch (getName()) {
-                        case "accept":
-                            request.accept();
-                            break;
-                        case "decline":
-                            request.decline();
-                            break;
-                        default:
-                            break;
+                            case "accept":
+                                request.accept();
+                                break;
+                            case "decline":
+                                request.decline();
+                                break;
+                            default:
+                                break;
                         }
                     } else {
                         switch (getName()) {
-                        case "accept":
-                            p.sendMessage("Dieser Spieler hat dich nicht herausgefordert!");
-                            break;
-                        case "decline":
-                            p.sendMessage("Dieser Spieler hat dich nicht herausgefordert!");
-                            break;
-                        case "request":
-                            new VSRequest(bp, bparg).sendRequest();
-                            break;
-                        default:
-                            break;
+                            case "accept":
+                                p.sendMessage("Dieser Spieler hat dich nicht herausgefordert!");
+                                break;
+                            case "decline":
+                                p.sendMessage("Dieser Spieler hat dich nicht herausgefordert!");
+                                break;
+                            case "request":
+                                new VSRequest(bp, bparg).sendRequest();
+                                break;
+                            default:
+                                break;
                         }
                     }
                 } else

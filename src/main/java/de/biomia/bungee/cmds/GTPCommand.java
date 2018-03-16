@@ -22,49 +22,49 @@ public class GTPCommand extends Command {
             if (pp.hasPermission("biomia.bungeeteleport") || pp.hasPermission("biomia.*")) {
 
                 switch (args.length) {
-                case 1: {
+                    case 1: {
 
-                    ProxiedPlayer to = BungeeCord.getInstance().getPlayer(args[0]);
+                        ProxiedPlayer to = BungeeCord.getInstance().getPlayer(args[0]);
 
-                    if (to != null) {
+                        if (to != null) {
 
-                        if (!pp.getServer().getInfo().equals(to.getServer().getInfo()))
-                            pp.connect(to.getServer().getInfo());
+                            if (!pp.getServer().getInfo().equals(to.getServer().getInfo()))
+                                pp.connect(to.getServer().getInfo());
 
-                        Thread thread = new Thread(() -> {
+                            Thread thread = new Thread(() -> {
 
-                            try {
-                                Thread.sleep(1500);
-                            } catch (InterruptedException ignored) {
-                            }
-                            ChannelListener.teleport(pp.getName(), to.getName(), to.getServer().getInfo());
+                                try {
+                                    Thread.sleep(1500);
+                                } catch (InterruptedException ignored) {
+                                }
+                                ChannelListener.teleport(pp.getName(), to.getName(), to.getServer().getInfo());
 
-                        });
-                        thread.start();
-                        BungeeMain.allThreads.add(thread);
-                    } else {
-                        sender.sendMessage(new TextComponent(Messages.NOT_ONLINE));
+                            });
+                            thread.start();
+                            BungeeMain.allThreads.add(thread);
+                        } else {
+                            sender.sendMessage(new TextComponent(Messages.NOT_ONLINE));
+                        }
+
+                        break;
                     }
+                    case 2: {
 
-                    break;
-                }
-                case 2: {
+                        ProxiedPlayer from = BungeeCord.getInstance().getPlayer(args[0]);
+                        ProxiedPlayer to = BungeeCord.getInstance().getPlayer(args[1]);
 
-                    ProxiedPlayer from = BungeeCord.getInstance().getPlayer(args[0]);
-                    ProxiedPlayer to = BungeeCord.getInstance().getPlayer(args[1]);
-
-                    if (from != null && to != null) {
-                        if (!from.getServer().getInfo().equals(to.getServer().getInfo()))
-                            from.connect(to.getServer().getInfo());
-                        ChannelListener.teleport(from.getName(), to.getName(), to.getServer().getInfo());
-                    } else {
-                        sender.sendMessage(new TextComponent(Messages.NOT_ONLINE));
+                        if (from != null && to != null) {
+                            if (!from.getServer().getInfo().equals(to.getServer().getInfo()))
+                                from.connect(to.getServer().getInfo());
+                            ChannelListener.teleport(from.getName(), to.getName(), to.getServer().getInfo());
+                        } else {
+                            sender.sendMessage(new TextComponent(Messages.NOT_ONLINE));
+                        }
+                        break;
                     }
-                    break;
-                }
-                default:
-                    sender.sendMessage(new TextComponent("\u00A7cBitte nutze \u00A7b/gtp <Spieler> [Spieler]"));
-                    break;
+                    default:
+                        sender.sendMessage(new TextComponent("\u00A7cBitte nutze \u00A7b/gtp <Spieler> [Spieler]"));
+                        break;
                 }
 
             } else {

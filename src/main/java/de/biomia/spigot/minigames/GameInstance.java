@@ -39,18 +39,18 @@ public class GameInstance implements Listener {
         this.world = new WorldCreator(mapDisplayName).createWorld();
         MinigamesConfig.mapName = world.getName();
         switch (type) {
-        case KIT_PVP_VS:
-            gameMode = new KitPvP(this);
-            break;
-        case BED_WARS_VS:
-            gameMode = new VersusBedWars(this);
-            break;
-        case SKY_WARS_VS:
-            gameMode = new VersusSkyWars(this);
-            break;
-        case BED_WARS:
-            gameMode = new BedWars(this);
-            break;
+            case KIT_PVP_VS:
+                gameMode = new KitPvP(this);
+                break;
+            case BED_WARS_VS:
+                gameMode = new VersusBedWars(this);
+                break;
+            case SKY_WARS_VS:
+                gameMode = new VersusSkyWars(this);
+                break;
+            case BED_WARS:
+                gameMode = new BedWars(this);
+                break;
         }
         gameMode.setConfig();
         gameMode.setHandler();

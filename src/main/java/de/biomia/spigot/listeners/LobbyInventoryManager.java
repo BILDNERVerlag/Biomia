@@ -3,7 +3,6 @@ package de.biomia.spigot.listeners;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.tools.ItemCreator;
-import de.biomia.spigot.tools.RankManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;

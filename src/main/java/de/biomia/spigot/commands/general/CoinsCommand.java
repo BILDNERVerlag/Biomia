@@ -40,26 +40,26 @@ public class CoinsCommand extends BiomiaCommand {
                     }
 
                     switch (arg1) {
-                    case "take":
-                        if (target.getCoins() < coins) {
-                            sender.sendMessage(Messages.PREFIX + "\u00A7cDer Spieler " + target.getName() + " kann keinen negativen Betrag besitzen!");
+                        case "take":
+                            if (target.getCoins() < coins) {
+                                sender.sendMessage(Messages.PREFIX + "\u00A7cDer Spieler " + target.getName() + " kann keinen negativen Betrag besitzen!");
+                                return true;
+                            } else {
+                                target.takeCoins(coins);
+                                sender.sendMessage(Messages.PREFIX + "\u00A77Dem Spieler" + target.getName() + " wurden \u00A7b" + coins + " \u00A77BC genommen!");
+                            }
+                            break;
+                        case "set":
+                            target.setCoins(coins);
+                            break;
+                        case "add":
+                            target.addCoins(coins, false);
+                            sender.sendMessage(Messages.PREFIX + "\u00A77" + target.getName() + " wurden \u00A7b" + coins + " \u00A77BC hinzugf\u00fcgt!");
+                            break;
+                        case "get":
+                            sender.sendMessage(Messages.PREFIX + "\u00A77Der Spieler " + target.getName() + " besitzt \u00A7b" + target.getCoins() + " \u00A77BC's!");
+                        default:
                             return true;
-                        } else {
-                            target.takeCoins(coins);
-                            sender.sendMessage(Messages.PREFIX + "\u00A77Dem Spieler" + target.getName() + " wurden \u00A7b" + coins + " \u00A77BC genommen!");
-                        }
-                        break;
-                    case "set":
-                        target.setCoins(coins);
-                        break;
-                    case "add":
-                        target.addCoins(coins, false);
-                        sender.sendMessage(Messages.PREFIX + "\u00A77" + target.getName() + " wurden \u00A7b" + coins + " \u00A77BC hinzugf\u00fcgt!");
-                        break;
-                    case "get":
-                        sender.sendMessage(Messages.PREFIX + "\u00A77Der Spieler " + target.getName() + " besitzt \u00A7b" + target.getCoins() + " \u00A77BC's!");
-                    default:
-                        return true;
                     }
                     sender.sendMessage(Messages.PREFIX + "\u00A77Der Spieler " + target.getName() + " besitzt jetzt \u00A7b" + target.getCoins() + " \u00A77BC's!");
                 }

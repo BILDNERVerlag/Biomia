@@ -6,24 +6,24 @@ import org.bukkit.inventory.ItemStack;
 
 public class GiveItemIfNotInInventoryEvent implements Event {
 
-	private QuestPlayer qp;
+    private QuestPlayer qp;
 
-	private final ItemStack stack;
+    private final ItemStack stack;
 
-	public GiveItemIfNotInInventoryEvent(ItemStack stack) {
-		this.stack = stack;
-	}
+    public GiveItemIfNotInInventoryEvent(ItemStack stack) {
+        this.stack = stack;
+    }
 
-	@Override
-	public void executeEvent(QuestPlayer qp) {
-		this.qp = qp;
-		giveItem();
-	}
+    @Override
+    public void executeEvent(QuestPlayer qp) {
+        this.qp = qp;
+        giveItem();
+    }
 
-	private void giveItem() {
-		if (!ItemConditions.hasItemInInventory(qp, stack.getType(), stack.getAmount(), stack.getItemMeta().getDisplayName())) {
-			qp.getPlayer().getInventory().addItem(stack);
-		}
-	}
+    private void giveItem() {
+        if (!ItemConditions.hasItemInInventory(qp, stack.getType(), stack.getAmount(), stack.getItemMeta().getDisplayName())) {
+            qp.getPlayer().getInventory().addItem(stack);
+        }
+    }
 
 }

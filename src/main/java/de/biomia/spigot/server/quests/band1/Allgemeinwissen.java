@@ -79,21 +79,21 @@ public class Allgemeinwissen implements Listener {
                 States state = qp.getState(q);
                 if (state != null) {
                     switch (state) {
-                    case STATUS1:
-                        qp.setDialog(inQuest);
-                        break;
-                    case STATUS2:
-                        qp.setDialog(status2);
-                        break;
-                    case STATUS3:
-                        qp.setDialog(status3);
-                        break;
-                    case STATUS4:
-                        qp.setDialog(status4);
-                        break;
-                    default:
-                        qp.setDialog(status4);
-                        break;
+                        case STATUS1:
+                            qp.setDialog(inQuest);
+                            break;
+                        case STATUS2:
+                            qp.setDialog(status2);
+                            break;
+                        case STATUS3:
+                            qp.setDialog(status3);
+                            break;
+                        case STATUS4:
+                            qp.setDialog(status4);
+                            break;
+                        default:
+                            qp.setDialog(status4);
+                            break;
                     }
                 } else if (qp.hasFinished(q)) {
                     qp.setDialog(nachQuest);
@@ -111,15 +111,15 @@ public class Allgemeinwissen implements Listener {
                 States state = qp.getState(q);
                 if (state != null) {
                     switch (state) {
-                    case STATUS1:
-                        break;
-                    case STATUS2:
-                        qp.setDialog(afterGhost);
-                        break;
-                    case STATUS3:
-                        break;
-                    default:
-                        break;
+                        case STATUS1:
+                            break;
+                        case STATUS2:
+                            qp.setDialog(afterGhost);
+                            break;
+                        case STATUS3:
+                            break;
+                        default:
+                            break;
                     }
                 }
                 qp.getDialog().execute(qp);

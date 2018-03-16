@@ -10,34 +10,34 @@ import org.bukkit.entity.Player;
 
 public class Title {
 
-	public static void sendTitel(String nachricht, Player p) {
+    public static void sendTitel(String nachricht, Player p) {
 
-		String s = ChatColor.translateAlternateColorCodes('&', nachricht);
-		IChatBaseComponent icbc = ChatSerializer.a("{\"text\": \"" + s + "\"}");
-		PacketPlayOutTitle titel = new PacketPlayOutTitle(EnumTitleAction.TITLE, icbc, 0, 20, 0);
-		((CraftPlayer) p).getHandle().playerConnection.sendPacket(titel);
-	}
+        String s = ChatColor.translateAlternateColorCodes('&', nachricht);
+        IChatBaseComponent icbc = ChatSerializer.a("{\"text\": \"" + s + "\"}");
+        PacketPlayOutTitle titel = new PacketPlayOutTitle(EnumTitleAction.TITLE, icbc, 0, 20, 0);
+        ((CraftPlayer) p).getHandle().playerConnection.sendPacket(titel);
+    }
 
-	public static void sendSubTitel(String nachricht, Player p) {
+    public static void sendSubTitel(String nachricht, Player p) {
 
-		String s = ChatColor.translateAlternateColorCodes('&', nachricht);
-		IChatBaseComponent icbc = ChatSerializer.a("{\"text\": \"" + s + "\"}");
-		PacketPlayOutTitle titel = new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, icbc, 0, 20, 0);
-		((CraftPlayer) p).getHandle().playerConnection.sendPacket(titel);
-	}
+        String s = ChatColor.translateAlternateColorCodes('&', nachricht);
+        IChatBaseComponent icbc = ChatSerializer.a("{\"text\": \"" + s + "\"}");
+        PacketPlayOutTitle titel = new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, icbc, 0, 20, 0);
+        ((CraftPlayer) p).getHandle().playerConnection.sendPacket(titel);
+    }
 
-	public static void sendTitelTime(String nachricht, Player p, int a, int b, int c) {
+    public static void sendTitelTime(String nachricht, Player p, int a, int b, int c) {
 
-		String s = ChatColor.translateAlternateColorCodes('&', nachricht);
-		IChatBaseComponent icbc = ChatSerializer.a("{\"text\": \"" + s + "\"}");
-		PacketPlayOutTitle titel = new PacketPlayOutTitle(EnumTitleAction.TITLE, icbc, a, b, c);
-		((CraftPlayer) p).getHandle().playerConnection.sendPacket(titel);
-	}
+        String s = ChatColor.translateAlternateColorCodes('&', nachricht);
+        IChatBaseComponent icbc = ChatSerializer.a("{\"text\": \"" + s + "\"}");
+        PacketPlayOutTitle titel = new PacketPlayOutTitle(EnumTitleAction.TITLE, icbc, a, b, c);
+        ((CraftPlayer) p).getHandle().playerConnection.sendPacket(titel);
+    }
 
-	public static void sendSubTitelTime(String nachricht, Player p, int a, int b, int c) {
-		String s = ChatColor.translateAlternateColorCodes('&', nachricht);
-		IChatBaseComponent icbc = ChatSerializer.a("{\"text\": \"" + s + "\"}");
-		PacketPlayOutTitle titel = new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, icbc, a, b, c);
-		((CraftPlayer) p).getHandle().playerConnection.sendPacket(titel);
-	}
+    public static void sendSubTitelTime(String nachricht, Player p, int a, int b, int c) {
+        String s = ChatColor.translateAlternateColorCodes('&', nachricht);
+        IChatBaseComponent icbc = ChatSerializer.a("{\"text\": \"" + s + "\"}");
+        PacketPlayOutTitle titel = new PacketPlayOutTitle(EnumTitleAction.SUBTITLE, icbc, a, b, c);
+        ((CraftPlayer) p).getHandle().playerConnection.sendPacket(titel);
+    }
 }

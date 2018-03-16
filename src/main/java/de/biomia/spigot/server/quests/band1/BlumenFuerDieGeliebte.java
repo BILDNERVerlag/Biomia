@@ -61,25 +61,25 @@ public class BlumenFuerDieGeliebte implements Listener {
                 States state = qp.getState(q);
                 if (state != null) {
                     switch (state) {
-                    case STATUS1:
-                        if (ItemConditions.hasItemInInventory(qp, Material.RED_ROSE, 1)) {
-                            qp.setDialog(comeBackWRose);
-                            qp.updateState(q, States.STATUS2);
-                        } else
-                            qp.setDialog(comeBackWORose);
-                        break;
+                        case STATUS1:
+                            if (ItemConditions.hasItemInInventory(qp, Material.RED_ROSE, 1)) {
+                                qp.setDialog(comeBackWRose);
+                                qp.updateState(q, States.STATUS2);
+                            } else
+                                qp.setDialog(comeBackWORose);
+                            break;
 
-                    case STATUS2:
-                        qp.setDialog(schonGebracht);
-                        break;
-                    case STATUS3:
-                        if (ItemConditions.hasItemInInventory(qp, Material.RED_ROSE, 1)) {
-                            qp.setDialog(nachJulchenMitRose);
-                        } else
-                            qp.setDialog(nachJulchenKeineRose);
-                        break;
-                    default:
-                        break;
+                        case STATUS2:
+                            qp.setDialog(schonGebracht);
+                            break;
+                        case STATUS3:
+                            if (ItemConditions.hasItemInInventory(qp, Material.RED_ROSE, 1)) {
+                                qp.setDialog(nachJulchenMitRose);
+                            } else
+                                qp.setDialog(nachJulchenKeineRose);
+                            break;
+                        default:
+                            break;
                     }
                 } else if (!qp.hasFinished(q)) {
                     qp.setDialog(startDialogRoman);
@@ -94,21 +94,21 @@ public class BlumenFuerDieGeliebte implements Listener {
                 States state = qp.getState(q);
                 if (state != null) {
                     switch (state) {
-                    case STATUS1:
-                        qp.setDialog(mehrAufmerksamkeit);
-                        break;
-                    case STATUS2:
-                        if (ItemConditions.hasItemInInventory(qp, Material.RED_ROSE, 1)) {
-                            qp.setDialog(julchenRose);
-                            qp.updateState(q, States.STATUS3);
-                        } else
+                        case STATUS1:
                             qp.setDialog(mehrAufmerksamkeit);
-                        break;
-                    case STATUS3:
-                        qp.setDialog(platzhalter);
-                        break;
-                    default:
-                        break;
+                            break;
+                        case STATUS2:
+                            if (ItemConditions.hasItemInInventory(qp, Material.RED_ROSE, 1)) {
+                                qp.setDialog(julchenRose);
+                                qp.updateState(q, States.STATUS3);
+                            } else
+                                qp.setDialog(mehrAufmerksamkeit);
+                            break;
+                        case STATUS3:
+                            qp.setDialog(platzhalter);
+                            break;
+                        default:
+                            break;
                     }
                 } else if (qp.hasFinished(q)) {
                     qp.setDialog(nachQuestJulchen);

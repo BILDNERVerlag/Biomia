@@ -207,7 +207,7 @@ public class QuestCommands extends BiomiaCommand {
                     qresetCommand(p, qp);
                     break;
                 default:
-                    qCommand(args,p,qp);
+                    qCommand(args, p, qp);
                     break;
             }
 
@@ -528,7 +528,8 @@ public class QuestCommands extends BiomiaCommand {
                     int argInt = 1;
                     try {
                         argInt = Integer.valueOf(args[0]);
-                    } catch (NumberFormatException ignored) {}
+                    } catch (NumberFormatException ignored) {
+                    }
                     qp.setDialog(DialogMessage.questMessages.get(argInt));
                     DialogMessage.questMessages.remove(argInt);
                     try {

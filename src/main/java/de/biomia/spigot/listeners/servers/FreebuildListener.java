@@ -64,7 +64,7 @@ public class FreebuildListener extends BiomiaListener {
         int spawnX = e.getLocation().getBlockX();
         int spawnZ = e.getLocation().getBlockZ();
         if (spawnX > -434 && spawnX < -102 && spawnZ > 80 && spawnZ < 547) {
-                e.setCancelled(true);
+            e.setCancelled(true);
         }
     }
 }

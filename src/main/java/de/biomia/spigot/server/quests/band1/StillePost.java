@@ -102,21 +102,21 @@ public class StillePost implements Listener {
                 States state = qp.getState(q);
                 if (state != null) {
                     switch (state) {
-                    case STATUS1:
-                        if (!ItemConditions.hasItemInInventory(qp, Material.COMPASS, 1, compassName)) {
-                            qp.setDialog(inQuestFranky);
-                            qp.updateState(q, States.STATUS2);
-                        } else
+                        case STATUS1:
+                            if (!ItemConditions.hasItemInInventory(qp, Material.COMPASS, 1, compassName)) {
+                                qp.setDialog(inQuestFranky);
+                                qp.updateState(q, States.STATUS2);
+                            } else
+                                qp.setDialog(startDialogFranky);
+                            break;
+                        case STATUS2:
                             qp.setDialog(startDialogFranky);
-                        break;
-                    case STATUS2:
-                        qp.setDialog(startDialogFranky);
-                        break;
-                    case STATUS3:
-                        qp.setDialog(startDialogFranky);
-                        break;
-                    default:
-                        break;
+                            break;
+                        case STATUS3:
+                            qp.setDialog(startDialogFranky);
+                            break;
+                        default:
+                            break;
                     }
                 } else if (qp.hasFinished(q)) {
                     qp.setDialog(nachQuestFranky);
@@ -134,18 +134,18 @@ public class StillePost implements Listener {
                 States state = qp.getState(q);
                 if (state != null) {
                     switch (state) {
-                    case STATUS1:
-                        qp.setDialog(startDialogElisabeth);
-                        break;
-                    case STATUS2:
-                        qp.setDialog(inQuestElisabeth);
-                        qp.updateState(q, States.STATUS3);
-                        break;
-                    case STATUS3:
-                        qp.setDialog(startDialogElisabeth);
-                        break;
-                    default:
-                        break;
+                        case STATUS1:
+                            qp.setDialog(startDialogElisabeth);
+                            break;
+                        case STATUS2:
+                            qp.setDialog(inQuestElisabeth);
+                            qp.updateState(q, States.STATUS3);
+                            break;
+                        case STATUS3:
+                            qp.setDialog(startDialogElisabeth);
+                            break;
+                        default:
+                            break;
                     }
                 } else if (qp.hasFinished(q)) {
                     qp.setDialog(nachQuestElisabeth);
@@ -165,18 +165,18 @@ public class StillePost implements Listener {
                 States state = qp.getState(q);
                 if (state != null) {
                     switch (state) {
-                    case STATUS1:
-                        qp.setDialog(startDialogMario);
-                        break;
-                    case STATUS2:
-                        qp.setDialog(startDialogMario);
-                        break;
-                    case STATUS3:
-                        qp.setDialog(inQuestMario);
-                        qp.updateState(q, States.STATUS1);
-                        break;
-                    default:
-                        break;
+                        case STATUS1:
+                            qp.setDialog(startDialogMario);
+                            break;
+                        case STATUS2:
+                            qp.setDialog(startDialogMario);
+                            break;
+                        case STATUS3:
+                            qp.setDialog(inQuestMario);
+                            qp.updateState(q, States.STATUS1);
+                            break;
+                        default:
+                            break;
                     }
                 } else if (qp.hasFinished(q)) {
                     qp.setDialog(nachQuestMario);

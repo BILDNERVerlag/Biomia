@@ -14,11 +14,11 @@ public class RespawnCommand extends BiomiaCommand {
 
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
-		if (sender instanceof Player) {
-			Player player = (Player) sender;
-			player.teleport(new Location(Bukkit.getWorld("world"), -230, 68, 350.5, 16, 0));
-		}
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
+            player.teleport(new Location(Bukkit.getWorld("world"), -230, 68, 350.5, 16, 0));
+        }
         return true;
-	}
+    }
 
 }

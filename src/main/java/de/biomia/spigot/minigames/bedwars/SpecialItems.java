@@ -10,9 +10,7 @@ import de.biomia.spigot.messages.manager.ActionBar;
 import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.TeamColor;
-import de.biomia.spigot.minigames.bedwars.BedWars;
 import de.biomia.spigot.minigames.general.Teleport;
-import de.biomia.spigot.minigames.bedwars.Variables;
 import de.biomia.spigot.minigames.general.shop.ItemType;
 import de.biomia.spigot.tools.Particles;
 import net.minecraft.server.v1_12_R1.AttributeInstance;
@@ -140,21 +138,21 @@ public class SpecialItems implements Listener {
         ItemStack is = p.getInventory().getItemInMainHand();
         is.setAmount(is.getAmount() - 1);
         switch (face) {
-        case EAST:
-            l = l.add(1, 0, -2);
-            break;
-        case NORTH:
-            l = l.add(-2, 0, -1);
-            break;
-        case SOUTH:
-            l = l.add(2, 0, 1);
-            break;
-        case WEST:
-            l = l.add(-1, 0, 2);
-            break;
-        default:
-            p.sendMessage(BedWarsMessages.invailedSide);
-            return;
+            case EAST:
+                l = l.add(1, 0, -2);
+                break;
+            case NORTH:
+                l = l.add(-2, 0, -1);
+                break;
+            case SOUTH:
+                l = l.add(2, 0, 1);
+                break;
+            case WEST:
+                l = l.add(-1, 0, 2);
+                break;
+            default:
+                p.sendMessage(BedWarsMessages.invailedSide);
+                return;
         }
         Block start = l.getBlock();
 
@@ -162,21 +160,21 @@ public class SpecialItems implements Listener {
             l = l.add(0, i, 0);
             for (int j = 0; j < 3; j++) {
                 switch (face) {
-                case EAST:
-                    l = l.add(0, 0, 1);
-                    break;
-                case NORTH:
-                    l = l.add(1, 0, 0);
-                    break;
-                case SOUTH:
-                    l = l.add(-1, 0, 0);
-                    break;
-                case WEST:
-                    l = l.add(0, 0, -1);
-                    break;
-                default:
-                    p.sendMessage(BedWarsMessages.invailedSide);
-                    return;
+                    case EAST:
+                        l = l.add(0, 0, 1);
+                        break;
+                    case NORTH:
+                        l = l.add(1, 0, 0);
+                        break;
+                    case SOUTH:
+                        l = l.add(-1, 0, 0);
+                        break;
+                    case WEST:
+                        l = l.add(0, 0, -1);
+                        break;
+                    default:
+                        p.sendMessage(BedWarsMessages.invailedSide);
+                        return;
                 }
                 if (l.getBlock().getType() == Material.AIR) {
                     l.getBlock().setType(Material.BRICK);
@@ -190,27 +188,27 @@ public class SpecialItems implements Listener {
     private void addSpawner(Location l, BlockFace blockFace, Player p, ItemType itemType) {
 
         switch (blockFace) {
-        case UP:
-            l = l.add(0, 1, 0);
-            break;
-        case DOWN:
-            l = l.add(0, -1, 0);
-            break;
-        case EAST:
-            l = l.add(1, 0, 0);
-            break;
-        case NORTH:
-            l = l.add(0, 0, -1);
-            break;
-        case SOUTH:
-            l = l.add(0, 0, 1);
-            break;
-        case WEST:
-            l = l.add(-1, 0, 0);
-            break;
-        default:
-            p.sendMessage(BedWarsMessages.invailedSide);
-            return;
+            case UP:
+                l = l.add(0, 1, 0);
+                break;
+            case DOWN:
+                l = l.add(0, -1, 0);
+                break;
+            case EAST:
+                l = l.add(1, 0, 0);
+                break;
+            case NORTH:
+                l = l.add(0, 0, -1);
+                break;
+            case SOUTH:
+                l = l.add(0, 0, 1);
+                break;
+            case WEST:
+                l = l.add(-1, 0, 0);
+                break;
+            default:
+                p.sendMessage(BedWarsMessages.invailedSide);
+                return;
         }
 
         new BedWarsConfig().addSpawnerLocations(l, itemType);

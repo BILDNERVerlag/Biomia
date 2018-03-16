@@ -5,26 +5,26 @@ public enum GameType {
 
     public String getDisplayName() {
         switch (this) {
-        case BED_WARS:
-        case BED_WARS_VS:
-            return "BedWars";
-        case SKY_WARS:
-        case SKY_WARS_VS:
-            return "SkyWars";
-        case KIT_PVP_VS:
-            return "KitPVP";
-        default:
-            return "";
+            case BED_WARS:
+            case BED_WARS_VS:
+                return "BedWars";
+            case SKY_WARS:
+            case SKY_WARS_VS:
+                return "SkyWars";
+            case KIT_PVP_VS:
+                return "KitPVP";
+            default:
+                return "";
         }
     }
 
     public boolean isVersus() {
         switch (this) {
-        case BED_WARS_VS:
-        case SKY_WARS_VS:
-            return true;
-        default:
-            return false;
+            case BED_WARS_VS:
+            case SKY_WARS_VS:
+                return true;
+            default:
+                return false;
         }
     }
 }

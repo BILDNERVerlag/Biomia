@@ -53,15 +53,15 @@ public class GehAngeln implements Listener {
                 States state = qp.getState(q);
                 if (state != null) {
                     switch (state) {
-                    case STATUS1:
-                        if (ItemConditions.hasItemInInventory(qp, Material.RAW_FISH, 10)) {
-                            qp.setDialog(afterQuesting);
-                        } else {
-                            qp.setDialog(whileQuesting);
-                        }
-                        break;
-                    default:
-                        break;
+                        case STATUS1:
+                            if (ItemConditions.hasItemInInventory(qp, Material.RAW_FISH, 10)) {
+                                qp.setDialog(afterQuesting);
+                            } else {
+                                qp.setDialog(whileQuesting);
+                            }
+                            break;
+                        default:
+                            break;
                     }
                 } else if (qp.hasFinished(q)) {
                     qp.setDialog(nachQuest);
