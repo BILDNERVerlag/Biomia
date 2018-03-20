@@ -14,7 +14,7 @@ public class Items {
 
     public static void init() {
 
-        HashMap<ItemStack, Integer> n = Variables.normalItems;
+        HashMap<ItemStack, Integer> n = Chests.normalItems;
 
         ItemStack stack = ItemCreator.itemCreate(Material.DIAMOND_CHESTPLATE);
         stack.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
@@ -129,7 +129,7 @@ public class Items {
         n.put(ItemCreator.setAmount(ItemCreator.itemCreate(Material.WOOD), 32), 4);
         n.put(ItemCreator.setAmount(ItemCreator.itemCreate(Material.STONE), 32), 10);
 
-        HashMap<ItemStack, Integer> g = Variables.goodItems;
+        HashMap<ItemStack, Integer> g = Chests.goodItems;
 
         g.put(ItemCreator.setAmount(ItemCreator.itemCreate(Material.TNT), random(6, 8)), 4);
         g.put(ItemCreator.setAmount(ItemCreator.itemCreate(Material.WOOD), 32), 4);
@@ -170,7 +170,7 @@ public class Items {
         g.put(ItemCreator.setAmount(ItemCreator.itemCreate(Material.ARROW), random(2, 3)), 1);
     }
 
-    private static int random(int arg1, int arg2) {
+    public static int random(int arg1, int arg2) {
 
         int randomZahl = 0;
 

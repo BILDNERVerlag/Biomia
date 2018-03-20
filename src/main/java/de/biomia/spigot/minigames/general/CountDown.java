@@ -1,7 +1,7 @@
 package de.biomia.spigot.minigames.general;
 
 import de.biomia.spigot.Main;
-import de.biomia.spigot.messages.BedWarsMessages;
+import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.bedwars.Variables;
 import org.bukkit.Bukkit;
@@ -34,7 +34,7 @@ public class CountDown {
                     if (onlinePlayer >= Variables.minPlayers) {
 
                         if (getCountdown() > 20)
-                            if (onlinePlayer == Variables.maxPlayers)
+                            if (onlinePlayer == Variables.playerPerTeam * Variables.teams)
                                 setCountdown(20);
 
                         if (getCountdown() == 0) {
@@ -48,7 +48,7 @@ public class CountDown {
 
                         if (getCountdown() == 45 || getCountdown() == 30 || getCountdown() == 20 || getCountdown() == 15
                                 || getCountdown() == 10 || (getCountdown() <= 5 && getCountdown() > 0)) {
-                            Bukkit.broadcastMessage(BedWarsMessages.lobbyCountDown.replaceAll("%t", getCountdown() + ""));
+                            Bukkit.broadcastMessage(MinigamesMessages.lobbyCountDown.replaceAll("%t", getCountdown() + ""));
                             for (Player p : Bukkit.getOnlinePlayers()) {
                                 p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10, 2);
                             }
@@ -61,7 +61,7 @@ public class CountDown {
 
                     } else if (onlinePlayer > 0)
                         if (zuWenig == 30) {
-                            Bukkit.broadcastMessage(BedWarsMessages.notEnoughPlayerToStart);
+                            Bukkit.broadcastMessage(MinigamesMessages.notEnoughPlayerToStart);
                             zuWenig = 0;
                         } else
                             zuWenig++;

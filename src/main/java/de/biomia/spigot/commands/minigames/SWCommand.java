@@ -4,15 +4,9 @@ import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.configs.Config;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.configs.SkyWarsConfig;
-import de.biomia.spigot.messages.SkyWarsItemNames;
-import de.biomia.spigot.messages.SkyWarsMessages;
-import de.biomia.spigot.minigames.GameTeam;
+import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.TeamColor;
-import de.biomia.spigot.minigames.skywars.SkyWars;
-import de.biomia.spigot.minigames.skywars.Variables;
-import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -52,31 +46,13 @@ public class SWCommand extends BiomiaCommand {
                     } else if (args[0].equalsIgnoreCase("setup")) {
                         sender.sendMessage("\u00A7c/sw setup <SpielerProTeam> <Teams> <MapName>");
                     } else if (args[0].equalsIgnoreCase("addloc") && args.length >= 2) {
-                        new SkyWarsConfig().addSpawnLocation(p.getLocation(), TeamColor.valueOf(args[1]));
+                        SkyWarsConfig.addSpawnLocation(p.getLocation(), TeamColor.valueOf(args[1]), GameType.SKY_WARS);
                         sender.sendMessage("Spawnpoint wurde hinzugef\u00fcgt!");
                         return true;
-                    } else if (args[0].equalsIgnoreCase("chestaddmode")) {
-                        Variables.chestAddMode = !Variables.chestAddMode;
-
-                        if (Variables.chestAddMode) {
-                            sender.sendMessage(SkyWarsMessages.chestAddModeON);
-                        } else {
-                            sender.sendMessage(SkyWarsMessages.chestAddModeOFF);
-                        }
-                    } else if (args[0].equalsIgnoreCase("getTeamjoinersetter")) {
-                        for (GameTeam t : SkyWars.getSkyWars().getTeams()) {
-                            p.getInventory().addItem(ItemCreator.itemCreate(Material.WOOL, SkyWarsItemNames.teamJoinerSetter,
-                                    t.getColordata()));
-                        }
                     }
                 } else {
                     sender.sendMessage("\u00A7c/sw setup (Setup f\u00fcr SkyWars-Map)");
                     sender.sendMessage("\u00A7c/sw addloc (F\u00fcgt einen Spawnpunkt hinzu)");
-                    sender.sendMessage("\u00A7c/sw chestaddmode (Versetzt dich in den \u00A74KISTENHINZUF\u00fcGEMODUS\u00A7c)");
-                    sender.sendMessage("\u00A7c/sw removelocs (Entfernt alle Spawnpunkte)");
-                    sender.sendMessage("\u00A7c/sw deleteallchests (Entfernt alle Kisten aus der Liste)");
-                    sender.sendMessage("\u00A7c/sw deleteallsigns (Entfernt alle Schilder aus der Liste)");
-                    sender.sendMessage("\u00A7c/sw getTeamjoinersetter (Gibt den Teamjoinersetter zur\u00fcck)");
                 }
             }
         }

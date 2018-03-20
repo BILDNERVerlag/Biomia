@@ -13,6 +13,7 @@ import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -20,6 +21,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GameInstance implements Listener {
 
@@ -37,7 +39,7 @@ public class GameInstance implements Listener {
         this.teamSize = teamSize;
         this.type = type;
         this.world = new WorldCreator(mapDisplayName).createWorld();
-        MinigamesConfig.mapName = world.getName();
+        MinigamesConfig.mapName = mapDisplayName;
         switch (type) {
             case KIT_PVP_VS:
                 gameMode = new KitPvP(this);

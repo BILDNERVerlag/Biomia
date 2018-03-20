@@ -3,6 +3,7 @@ package de.biomia.spigot.commands.minigames.versus;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.configs.SkyWarsConfig;
 import de.biomia.spigot.events.skywars.SkyWarsOpenChestEvent;
+import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.TeamColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -28,7 +29,7 @@ public class SWCommand extends BiomiaCommand {
                         case "addloc":
                             if (args.length >= 3) {
                                 TeamColor team = TeamColor.valueOf(args[2].toUpperCase());
-                                new SkyWarsConfig().addSpawnLocation(p.getLocation(), team);
+                                SkyWarsConfig.addSpawnLocation(p.getLocation(), team, GameType.SKY_WARS);
                                 sender.sendMessage("Spawnpoint wurde hinzugef\u00fcgt!");
                             } else
                                 sender.sendMessage("/sw addloc mapID teamID");
@@ -40,11 +41,11 @@ public class SWCommand extends BiomiaCommand {
                                     String mapDisplayName = args[1];
                                     switch (args[2].toLowerCase()) {
                                         case "good":
-                                            new SkyWarsConfig().addChestLocation(l, SkyWarsOpenChestEvent.ChestType.GoodChest);
+                                            SkyWarsConfig.addChestLocation(l, SkyWarsOpenChestEvent.ChestType.GoodChest);
                                             sender.sendMessage("Bessere Kiste hinzugef\u00fcgt!");
                                             break;
                                         case "normal":
-                                            new SkyWarsConfig().addChestLocation(l, SkyWarsOpenChestEvent.ChestType.NormalChest);
+                                            SkyWarsConfig.addChestLocation(l, SkyWarsOpenChestEvent.ChestType.NormalChest);
                                             sender.sendMessage("Normale Kiste hinzugef\u00fcgt!");
                                             break;
                                         default:

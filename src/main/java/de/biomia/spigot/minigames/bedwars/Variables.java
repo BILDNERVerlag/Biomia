@@ -3,7 +3,6 @@ package de.biomia.spigot.minigames.bedwars;
 import de.biomia.spigot.configs.Config;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.minigames.GameTeam;
-import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -11,7 +10,6 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -27,7 +25,6 @@ public class Variables {
     public static final String name = Config.getConfig().getString("Name");
     public static final int teams = Config.getConfig().getInt("NumberOfTeams");
     public static final int playerPerTeam = Config.getConfig().getInt("TeamSize");
-    public static final int maxPlayers = playerPerTeam * teams;
     public static final int minPlayers = playerPerTeam + 1;
     // Locs
     public static final Location warteLobbySpawn = new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 45, 0);
@@ -35,7 +32,6 @@ public class Variables {
     // Spawner
     public static final HashMap<UUID, ArrayList<Player>> handlerMap = new HashMap<>();
     // Joiner
-    public static final HashMap<TeamColor, Entity> joiner = new HashMap<>();
     public static final ItemStack teamChest = ItemCreator.itemCreate(Material.ENDER_CHEST, BedWarsItemNames.teamChest);
     public static final HashMap<GameTeam, Inventory> teamChests = new HashMap<>();
     public static final HashMap<GameTeam, ArrayList<Block>> teamChestsLocs = new HashMap<>();
@@ -67,6 +63,6 @@ public class Variables {
         } else if (yaw < 315) {
             return BlockFace.EAST;
         }
-        return BlockFace.NORTH;
+        return null;
     }
 }

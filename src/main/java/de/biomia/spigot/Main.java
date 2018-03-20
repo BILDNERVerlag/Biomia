@@ -37,11 +37,6 @@ import static de.biomia.spigot.minigames.GameType.SKY_WARS;
 
 public class Main extends JavaPlugin {
 
-    /**
-     * Change the TestServer here!
-     */
-    private static final String actualTestGroup = "BedWars";
-
     private static EasterEvent event;
     private static Main plugin;
     private static String groupName;
@@ -99,8 +94,6 @@ public class Main extends JavaPlugin {
         Cosmetic.initGroup(new CosmeticGroup(Group.SUITS, ItemCreator.itemCreate(Material.GOLD_CHESTPLATE, "\u00A75Suits")));
 
         groupName = ((DedicatedServer) ((CraftServer) Bukkit.getServer()).getServer()).propertyManager.properties.getProperty("server-name").split("-")[0];
-
-        groupName = groupName.equals("TestServer") ? actualTestGroup : groupName;
         switch (groupName) {
             case "TestLobby":
             case "Lobby":

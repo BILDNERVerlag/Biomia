@@ -1,4 +1,4 @@
-package de.biomia.spigot.listeners.servers;
+package de.biomia.spigot.minigames.bedwars;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
@@ -8,17 +8,15 @@ import de.biomia.spigot.events.bedwars.BedWarsLeaveEvent;
 import de.biomia.spigot.events.bedwars.BedWarsUseShopEvent;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
+import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.GameTeam;
-import de.biomia.spigot.minigames.bedwars.BedWars;
-import de.biomia.spigot.minigames.bedwars.BedWarsTeam;
-import de.biomia.spigot.minigames.general.Scoreboards;
-import de.biomia.spigot.minigames.general.Teleport;
-import de.biomia.spigot.minigames.bedwars.Variables;
 import de.biomia.spigot.minigames.general.ColorType;
 import de.biomia.spigot.minigames.general.Dead;
+import de.biomia.spigot.minigames.general.Scoreboards;
+import de.biomia.spigot.minigames.general.Teleport;
 import de.biomia.spigot.minigames.general.shop.ItemType;
 import de.biomia.spigot.minigames.general.shop.Shop;
 import de.biomia.spigot.minigames.general.shop.ShopGroup;
@@ -27,19 +25,16 @@ import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.RankManager;
 import de.biomia.universal.UniversalBiomia;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -59,7 +54,7 @@ public class BedWarsListener extends GameHandler {
     }
 
     @EventHandler
-    public void onJoin_(PlayerJoinEvent e) {
+    public void onJoin(PlayerJoinEvent e) {
 
         Player p = e.getPlayer();
         BackToLobby.getLobbyItem(p, 8);
@@ -67,7 +62,7 @@ public class BedWarsListener extends GameHandler {
         bp.setDamageEntitys(false);
         bp.setGetDamage(false);
 
-        if (BedWars.getBedWars().getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
+        if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
             // Hide
             for (Player all : Bukkit.getOnlinePlayers()) {
 
@@ -96,7 +91,7 @@ public class BedWarsListener extends GameHandler {
 
             p.teleport(new Location(Bukkit.getWorld(Variables.name), 0, 100, 0));
 
-        } else if (BedWars.getBedWars().getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
+        } else if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
 
             p.teleport(Variables.warteLobbySpawn);
 
@@ -106,14 +101,12 @@ public class BedWarsListener extends GameHandler {
 
             p.getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, BedWarsItemNames.teamWaehlerItem));
 
-            bp.getPlayer().setLevel(BedWars.getBedWars().getStateManager().getLobbyState().getCountDown());
+            bp.getPlayer().setLevel(mode.getStateManager().getLobbyState().getCountDown());
 
-            if (bp.isPremium()) {
-                Bukkit.broadcastMessage("\u00A76" + p.getName() + BedWarsMessages.joinedTheGame);
-            } else {
-                Bukkit.broadcastMessage("\u00A77" + p.getName() + BedWarsMessages.joinedTheGame);
-            }
-            BedWars.getBedWars().partyJoin(bp);
+
+            Bukkit.broadcastMessage(bp.isPremium() ? "\u00A76" : "\u00A77" + p.getName() + MinigamesMessages.joinedTheGame);
+
+            mode.partyJoin(bp);
             Scoreboards.setLobbyScoreboard(p);
             Scoreboards.lobbySB.getTeam("xnoteam").addEntry(p.getName());
 
@@ -124,7 +117,7 @@ public class BedWarsListener extends GameHandler {
     @EventHandler
     public void onLogin(PlayerLoginEvent e) {
         if (e.getResult().equals(PlayerLoginEvent.Result.KICK_FULL)) {
-            if (BedWars.getBedWars().getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
+            if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
                 String rank = RankManager.getRank(e.getPlayer());
                 int i = Integer.valueOf(UniversalBiomia.getRankLevel(rank));
 
@@ -135,7 +128,7 @@ public class BedWarsListener extends GameHandler {
                         if (Integer.valueOf(UniversalBiomia.getRankLevel(RankManager.getRank(eachPlayer))) > i) {
 
                             e.allow();
-                            eachPlayer.sendMessage(BedWarsMessages.kickedForPremium);
+                            eachPlayer.sendMessage(MinigamesMessages.kickedForPremium);
                             eachPlayer.kickPlayer("");
                         }
                     });
@@ -150,10 +143,10 @@ public class BedWarsListener extends GameHandler {
         if (e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-            if (BedWars.getBedWars().getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
+            if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
                 p.setFoodLevel(30);
                 e.setCancelled(true);
-            } else if (!BedWars.getBedWars().getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
+            } else if (!mode.getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
                 p.setFoodLevel(30);
                 e.setCancelled(true);
             }
@@ -164,9 +157,9 @@ public class BedWarsListener extends GameHandler {
     public void onDrop(PlayerDropItemEvent e) {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-        if (BedWars.getBedWars().getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
+        if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
             e.setCancelled(true);
-        } else if (!BedWars.getBedWars().getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
+        } else if (!mode.getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
             e.setCancelled(true);
         }
     }
@@ -176,9 +169,9 @@ public class BedWarsListener extends GameHandler {
         if (e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-            if (BedWars.getBedWars().getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
+            if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
                 e.setCancelled(true);
-            } else if (!BedWars.getBedWars().getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
+            } else if (!mode.getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
                 e.setCancelled(true);
             }
         }
@@ -187,9 +180,9 @@ public class BedWarsListener extends GameHandler {
     @EventHandler
     public void onPlayerSwap(PlayerSwapHandItemsEvent e) {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        if (BedWars.getBedWars().getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
+        if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
             e.setCancelled(true);
-        } else if (!BedWars.getBedWars().getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
+        } else if (!mode.getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
             e.setCancelled(true);
         }
     }
@@ -205,16 +198,16 @@ public class BedWarsListener extends GameHandler {
         e.setKeepInventory(true);
         p.getInventory().clear();
 
-        if (!BedWars.getBedWars().getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
-            e.setDeathMessage(BedWarsMessages.playerDiedFinally.replace("%p",
+        if (!mode.getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
+            e.setDeathMessage(MinigamesMessages.playerDiedFinally.replace("%p",
                     team.getColorcode() + p.getName()));
             team.setDead(bp);
         } else {
             if (killer == null) {
-                e.setDeathMessage(BedWarsMessages.playerDied.replace("%p", team.getColorcode() + p.getName()));
+                e.setDeathMessage(MinigamesMessages.playerDied.replace("%p", team.getColorcode() + p.getName()));
             } else {
                 BiomiaPlayer bpKiller = Biomia.getBiomiaPlayer(killer);
-                e.setDeathMessage(String.format(BedWarsMessages.playerKilledByPlayer, team.getColorcode() + p.getName(), bpKiller.getTeam().getColorcode() + killer.getName()));
+                e.setDeathMessage(String.format(MinigamesMessages.playerKilledByPlayer, team.getColorcode() + p.getName(), bpKiller.getTeam().getColorcode() + killer.getName()));
                 Bukkit.getPluginManager().callEvent(new BedWarsKillEvent(bp, bpKiller, false));
             }
         }
@@ -228,11 +221,11 @@ public class BedWarsListener extends GameHandler {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
 
-        if (BedWars.getBedWars().getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
+        if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
 
             GameTeam t = Biomia.getBiomiaPlayer(p).getTeam();
             if (t != null) {
-                if (!BedWars.getBedWars().getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
+                if (!mode.getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
                     e.setRespawnLocation(t.getHome());
                 } else
                     e.setRespawnLocation(new Location(Bukkit.getWorld(Variables.name), 0, 100, 0));
@@ -245,7 +238,7 @@ public class BedWarsListener extends GameHandler {
     @EventHandler
     public void onProjectileThrow(ProjectileLaunchEvent event) {
 
-        if (BedWars.getBedWars().getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
+        if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
             event.setCancelled(true);
         }
     }
@@ -275,8 +268,8 @@ public class BedWarsListener extends GameHandler {
                             return;
                         }
                     }
-                } else if (e.getClickedInventory().getName().equals(BedWars.getBedWars().getTeamSwitcher().getName())) {
-                    BedWars.getBedWars().getTeamFromData(e.getCurrentItem().getData().getData()).join(bp);
+                } else if (e.getClickedInventory().getName().equals(mode.getTeamSwitcher().getName())) {
+                    mode.getTeamFromData(e.getCurrentItem().getData().getData()).join(bp);
                     e.setCancelled(true);
                     p.closeInventory();
                 } else {
@@ -365,21 +358,20 @@ public class BedWarsListener extends GameHandler {
     }
 
     @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent e) {
-
+    public void onDisconnect(PlayerQuitEvent e) {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
 
-        if (BedWars.getBedWars().getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
+        if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
             // Check if Player is instatnce of the act round
-            if (BedWars.getBedWars().getInstance().containsPlayer(bp)) {
+            if (mode.getInstance().containsPlayer(bp)) {
                 e.setQuitMessage(e.getPlayer().getName() + " hat das Spiel verlassen");
                 Bukkit.getPluginManager().callEvent(new BedWarsLeaveEvent(bp));
-                if (BedWars.getBedWars().canStop()) {
-                    BedWars.getBedWars().stop();
+                if (mode.canStop()) {
+                    mode.stop();
                 }
             }
-        } else if (BedWars.getBedWars().getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
+        } else if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
             super.onDisconnect(e);
         }
     }
@@ -390,7 +382,7 @@ public class BedWarsListener extends GameHandler {
             Player p = (Player) e.getEntity();
             if (e.getDamager() instanceof Player) {
                 Player killer = (Player) e.getDamager();
-                if (BedWars.getBedWars().getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
+                if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
                     e.setCancelled(true);
                     return;
                 }
@@ -483,9 +475,9 @@ public class BedWarsListener extends GameHandler {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void cancelInvClick(InventoryClickEvent e) {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getWhoClicked());
-        if (BedWars.getBedWars().getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
+        if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
             if (e.getCurrentItem() != null) {
-                if (!BedWars.getBedWars().getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
+                if (!mode.getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
                     if (!bp.canBuild()) {
                         e.setCancelled(true);
                         e.setCursor(new ItemStack(Material.AIR));
@@ -513,115 +505,8 @@ public class BedWarsListener extends GameHandler {
     }
 
     @EventHandler
-    public void Interact(PlayerInteractAtEntityEvent e) {
-        Player p = e.getPlayer();
-        BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        if (e.getRightClicked() instanceof ArmorStand) {
-
-//            ItemStack is = p.getInventory().getItemInMainHand();
-//
-//            if (is != null) {
-//                if (is.hasItemMeta()) {
-//                    if (is.getItemMeta().getDisplayName().equals(BedWarsItemNames.teamJoinerSetter)) {
-//                        if (is.getType().equals(Material.WOOL)) {
-//                            @SuppressWarnings("deprecation")
-//                            TeamColor team = TeamColor.getColorFromData(is.getData().getData());
-//                            Entity armorstand = e.getRightClicked();
-//                            BedWarsConfig.addTeamJoiner(armorstand, team);
-//                            armorstand.setCustomName(team.getColorcode() + team.translate());
-//                            armorstand.setCustomNameVisible(true);
-//                            p.sendMessage(BedWarsMessages.teamJoinerSet.replace("%t", team.name()));
-//                        }
-//                    }
-//                }
-//            }
-            for (GameTeam allteams : BedWars.getBedWars().getTeams()) {
-                Entity entity = Variables.joiner.get(allteams.getColor());
-                if (entity != null && !entity.isDead()) {
-                    if (e.getRightClicked().equals(entity)) {
-                        allteams.join(bp);
-                        return;
-                    }
-                }
-            }
-        }
-    }
-
-    @EventHandler
-    public void craftItem(PrepareItemCraftEvent e) {
+    public void onCraftItem(PrepareItemCraftEvent e) {
         e.getInventory().setResult(ItemCreator.itemCreate(Material.AIR));
-    }
-
-    @EventHandler
-    public void onChat_(AsyncPlayerChatEvent e) {
-        Bukkit.broadcastMessage("%%%bwlistener.onchat");
-        Player p = e.getPlayer();
-        BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        GameTeam t = bp.getTeam();
-        String msg = e.getMessage();
-        String format;
-        if (p.hasPermission("biomia.coloredchat"))
-            msg = ChatColor.translateAlternateColorCodes('&', e.getMessage());
-
-        if (BedWars.getBedWars().getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
-
-            if (t != null) {
-                if (e.getMessage().startsWith("@")) {
-
-                    msg = msg.replaceAll("@all ", "");
-                    msg = msg.replaceAll("@all", "");
-                    msg = msg.replaceAll("@a ", "");
-                    msg = msg.replaceAll("@a", "");
-                    msg = msg.replaceAll("@ ", "");
-                    msg = msg.replaceAll("@", "");
-
-                    e.setFormat(BedWarsMessages.chatMessageAll.replaceAll("%p", t.getColorcode() + p.getDisplayName())
-                            .replaceAll("%msg", msg));
-                } else {
-                    e.setCancelled(true);
-                    format = BedWarsMessages.chatMessageTeam.replaceAll("%p", t.getColorcode() + p.getDisplayName())
-                            .replaceAll("%msg", msg);
-                    for (BiomiaPlayer teamPlayer : t.getPlayers()) {
-                        teamPlayer.sendMessage(format);
-                    }
-                }
-            } else {
-                format = BedWarsMessages.chatMessageDead.replaceAll("%p", p.getDisplayName()).replaceAll("%msg", msg);
-                for (Player spec : Bukkit.getOnlinePlayers()) {
-
-                    BiomiaPlayer specbp = Biomia.getBiomiaPlayer(spec);
-                    if (!BedWars.getBedWars().getInstance().containsPlayer(specbp) || !specbp.getTeam().lives(bp)) {
-                        spec.sendMessage(format);
-                    }
-                }
-
-            }
-        } else if (t != null) {
-            format = BedWarsMessages.chatMessageLobby.replaceAll("%p", t.getColorcode() + p.getDisplayName())
-                    .replaceAll("%msg", msg);
-            e.setFormat(format);
-        } else {
-            format = BedWarsMessages.chatMessageLobby.replaceAll("%p", p.getDisplayName()).replaceAll("%msg", msg);
-            e.setFormat(format);
-        }
-    }
-
-    @EventHandler
-    public void onPlayerMove(PlayerMoveEvent e) {
-
-        if (BedWars.getBedWars().getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
-            if (e.getTo().getBlockY() <= 0) {
-                e.getPlayer().setHealth(0);
-                return;
-            }
-            BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-            Location loc = Teleport.getStartLocation(bp);
-            if (loc != null && loc.distance(e.getTo()) > .5) {
-                Teleport.removeFromStartLocs(bp);
-            }
-        } else if (e.getTo().getBlockY() <= 20) {
-            e.getPlayer().teleport(Variables.warteLobbySpawn);
-        }
     }
 
     @EventHandler
@@ -637,10 +522,5 @@ public class BedWarsListener extends GameHandler {
                 Variables.teamChestsLocs.get(team).add(e.getBlock());
             }
         }
-    }
-
-    @EventHandler
-    public static void onSpawn(PlayerSpawnLocationEvent e) {
-        e.setSpawnLocation(new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 40, 0));
     }
 }

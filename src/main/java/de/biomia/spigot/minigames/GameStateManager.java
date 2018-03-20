@@ -5,10 +5,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
-import de.biomia.spigot.events.bedwars.BedWarsEndEvent;
-import de.biomia.spigot.events.bedwars.BedWarsStartEvent;
-import de.biomia.spigot.messages.BedWarsMessages;
-import de.biomia.spigot.minigames.bedwars.BedWars;
+import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.bedwars.Variables;
 import de.biomia.spigot.minigames.general.CountDown;
 import de.biomia.spigot.minigames.general.Scoreboards;
@@ -19,8 +16,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
-
-import java.util.ArrayList;
 
 public class GameStateManager {
 
@@ -100,7 +95,7 @@ public class GameStateManager {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    TimoCloudAPI.getBukkitInstance().getThisServer().setExtra(String.format(BedWarsMessages.mapSize, Variables.teams + "", Variables.playerPerTeam + ""));
+                    TimoCloudAPI.getBukkitInstance().getThisServer().setExtra(String.format(MinigamesMessages.mapSize, Variables.teams + "", Variables.playerPerTeam + ""));
                 }
             }.runTaskLater(Main.getPlugin(), 20);
 
@@ -138,7 +133,7 @@ public class GameStateManager {
                 }
             }.runTaskTimer(Main.getPlugin(), 0, 20);
 
-            BedWars.getBedWars().getStateManager().setActualGameState(GameState.INGAME);
+            getMode().getStateManager().setActualGameState(GameState.INGAME);
             TimoCloudAPI.getBukkitInstance().getThisServer().setState(GameState.INGAME.name());
             for (BiomiaPlayer bp : getMode().getInstance().getPlayers()) {
 
@@ -156,7 +151,6 @@ public class GameStateManager {
                 bp.getPlayer().setAllowFlight(false);
             }
 
-            Bukkit.getPluginManager().callEvent(new BedWarsStartEvent(getMode()));
             Scoreboards.initSpectatorSB(getMode());
             Teleport.teleportPlayerToMap(getMode());
         }
@@ -164,19 +158,6 @@ public class GameStateManager {
         public void stop() {
 
             clock.cancel();
-            ArrayList<BiomiaPlayer> biomiaPlayersWinner = new ArrayList<>();
-            String winnerTeam = null;
-
-            for (GameTeam teams : BedWars.getBedWars().getTeams()) {
-                for (BiomiaPlayer bp : teams.getPlayers()) {
-                    if (teams.lives(bp)) {
-                        biomiaPlayersWinner.add(bp);
-                        winnerTeam = teams.getTeamname();
-                    }
-                }
-            }
-
-            Bukkit.getPluginManager().callEvent(new BedWarsEndEvent(biomiaPlayersWinner, getMode().getInstance().getPlayedTime(), winnerTeam));
             getMode().getStateManager().setActualGameState(GameState.END);
             getMode().getStateManager().getEndState().start();
         }
@@ -206,11 +187,11 @@ public class GameStateManager {
                 public void run() {
                     while (i >= 0) {
                         if (i == 15) {
-                            Bukkit.broadcastMessage(Messages.PREFIX + BedWarsMessages.restartCountDown.replaceAll("%t", i + ""));
+                            Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("%t", i + ""));
                         } else if (i == 10) {
-                            Bukkit.broadcastMessage(Messages.PREFIX + BedWarsMessages.restartCountDown.replaceAll("%t", i + ""));
+                            Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("%t", i + ""));
                         } else if (i <= 5 && i != 0) {
-                            Bukkit.broadcastMessage(Messages.PREFIX + BedWarsMessages.restartCountDown.replaceAll("%t", i + ""));
+                            Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("%t", i + ""));
                         } else if (i == 0) {
                             stop();
                             return;

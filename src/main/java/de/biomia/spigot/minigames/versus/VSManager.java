@@ -11,7 +11,6 @@ import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.general.kits.Kit;
 import de.biomia.spigot.minigames.general.kits.KitManager;
-import de.biomia.spigot.minigames.versus.games.skywars.var.Variables;
 import de.biomia.spigot.minigames.versus.settings.VSGroup;
 import de.biomia.spigot.minigames.versus.settings.VSRequest;
 import de.biomia.spigot.minigames.versus.settings.VSSettingItem;
@@ -61,7 +60,7 @@ public class VSManager implements Listener {
         VSGroup skywars = main.registerDeaktivatableGroup(GameType.SKY_WARS_VS, skywarsSettingItem, "\u00A7aSkyWars", 4, 0, true);
         VSGroup skywarsMaps = skywars.registerGroup(GameType.SKY_WARS_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
         skywarsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, skywarsMaps, "Map1"));
-        skywars.registerGroup(GameType.SKY_WARS_VS, Variables.kitItem, SkyWarsItemNames.kitItemName, 1);
+        skywars.registerGroup(GameType.SKY_WARS_VS, SkyWarsItemNames.kitItem, SkyWarsItemNames.kitItemName, 1);
 
         VSGroup kitpvp = main.registerDeaktivatableGroup(GameType.KIT_PVP_VS, kitPvPSettingItem, "\u00A7dKitPvP", 2, 0, true);
         VSGroup kitpvpsMaps = kitpvp.registerGroup(GameType.KIT_PVP_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
@@ -195,7 +194,7 @@ public class VSManager implements Listener {
                 if (e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().hasDisplayName()) {
                     String name = e.getCurrentItem().getItemMeta().getDisplayName();
 
-                    Kit kit = KitManager.standardKit;
+                    Kit kit = KitManager.getStandardKit();
                     String invName = e.getInventory().getName();
                     for (Kit allKits : KitManager.allKits.values()) {
                         if (invName.equals("Kits")) {

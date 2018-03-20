@@ -8,6 +8,7 @@ import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.spigot.minigames.bedwars.Variables;
+import de.biomia.spigot.minigames.general.kits.KitManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -98,11 +99,7 @@ public class Scoreboards {
                 kit.addEntry("\u00A7c");
                 team.addEntry("\u00A7f");
 
-                if (de.biomia.spigot.minigames.skywars.Variables.selectedKit.get(p) != null) {
-                    kit.setPrefix("\u00A7c" + de.biomia.spigot.minigames.skywars.Variables.selectedKit.get(p).getName());
-                } else {
-                    kit.setPrefix("\u00A7cKein Kit");
-                }
+                kit.setPrefix("\u00A7c" + KitManager.getManager(Biomia.getBiomiaPlayer(p)).getSelectedKit().getName());
                 team.setPrefix(gameTeam.getColorcode() + gameTeam.getColor().translate());
                 break;
         }

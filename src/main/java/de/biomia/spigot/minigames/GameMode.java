@@ -4,17 +4,19 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.MinigamesConfig;
-import de.biomia.spigot.messages.BedWarsMessages;
+import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.bedwars.BedWarsTeam;
 import de.biomia.spigot.minigames.general.TeamSwitcher;
 import de.biomia.spigot.minigames.versus.Versus;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayer;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 public abstract class GameMode {
@@ -24,7 +26,8 @@ public abstract class GameMode {
     private final GameInstance instance;
     private final ArrayList<GameTeam> teams = new ArrayList<>();
     private GameStateManager stateManager = new GameStateManager(this);
-    protected GameHandler handler;
+    private GameHandler handler;
+    private final HashMap<TeamColor, Entity> joiner = new HashMap<>();
 
     protected GameMode(GameInstance instance) {
 
@@ -123,7 +126,7 @@ public abstract class GameMode {
                     }
                     if (onlineParty.size() > getInstance().getTeamSize()) {
                         for (BiomiaPlayer p : onlineParty) {
-                            p.sendMessage(BedWarsMessages.noFittingTeamParty);
+                            p.sendMessage(MinigamesMessages.noFittingTeamParty);
                             cancel();
                         }
                     } else {
@@ -135,7 +138,7 @@ public abstract class GameMode {
                             }
                         }
                         for (BiomiaPlayer p : onlineParty) {
-                            p.sendMessage(BedWarsMessages.noFittingTeamPlayer);
+                            p.sendMessage(MinigamesMessages.noFittingTeamPlayer);
                         }
                     }
                 }
@@ -182,5 +185,9 @@ public abstract class GameMode {
     public void setHandler() {
         this.handler = initHandler();
         Bukkit.getPluginManager().registerEvents(handler, Main.getPlugin());
+    }
+
+    public HashMap<TeamColor, Entity> getJoiner() {
+        return joiner;
     }
 }

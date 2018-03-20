@@ -5,6 +5,7 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
+import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameTeam;
@@ -41,7 +42,7 @@ class BedWarsHandler extends GameHandler {
     }
 
     @EventHandler
-    public void onInteract_(PlayerInteractEvent e) {
+    public void onInteract(PlayerInteractEvent e) {
         if (e.hasItem() && e.getItem().hasItemMeta() && e.getItem().getItemMeta().hasDisplayName()) {
             if (e.getItem().getItemMeta().getDisplayName().equals(BedWarsItemNames.rettungsPlattform)) {
                 if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
@@ -53,7 +54,7 @@ class BedWarsHandler extends GameHandler {
     }
 
     @EventHandler
-    public void onBlockBreak_(BlockBreakEvent e) {
+    public void onBlockBreak(BlockBreakEvent e) {
         Block b = e.getBlock();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         if (mode.getInstance().containsPlayer(bp))
@@ -84,7 +85,7 @@ class BedWarsHandler extends GameHandler {
     }
 
     @EventHandler
-    public void onDeath_(PlayerDeathEvent e) {
+    public void onDeath(PlayerDeathEvent e) {
         Player p = e.getEntity();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         e.setKeepInventory(false);
@@ -94,20 +95,19 @@ class BedWarsHandler extends GameHandler {
             p.getInventory().clear();
             if (!((VersusBedWarsTeam) bp.getTeam()).hasBed()) {
                 for (BiomiaPlayer all : mode.getInstance().getPlayers())
-                    all.getPlayer().sendMessage(BedWarsMessages.playerDiedFinally.replaceAll("%p", p.getName()));
+                    all.getPlayer().sendMessage(MinigamesMessages.playerDiedFinally.replaceAll("%p", p.getName()));
                 Dead.respawn(p);
                 bp.getTeam().setDead(bp);
                 ((VersusBedWars) mode).getBedWarsScoreboard().setScoreboard(bp, true);
             } else
                 for (BiomiaPlayer all : mode.getInstance().getPlayers())
                     if (killer == null)
-                        all.getPlayer().sendMessage(BedWarsMessages.playerDied.replaceAll("%p", p.getName()));
+                        all.getPlayer().sendMessage(MinigamesMessages.playerDied.replaceAll("%p", p.getName()));
                     else
-                        all.getPlayer().sendMessage(String.format(BedWarsMessages.playerKilledByPlayer, p.getName(), killer.getName()));
+                        all.getPlayer().sendMessage(String.format(MinigamesMessages.playerKilledByPlayer, p.getName(), killer.getName()));
         }
     }
 
-    @Override
     @EventHandler
     public void onRespawn(PlayerRespawnEvent e) {
         Player p = e.getPlayer();

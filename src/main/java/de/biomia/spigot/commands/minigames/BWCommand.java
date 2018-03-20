@@ -6,7 +6,7 @@ import de.biomia.spigot.configs.Config;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
-import de.biomia.spigot.minigames.GameTeam;
+import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.spigot.minigames.bedwars.BedWars;
 import de.biomia.spigot.minigames.general.shop.ItemType;
@@ -38,7 +38,7 @@ public class BWCommand extends BiomiaCommand {
                     switch (args[0]) {
                         case "addloc":
                             if (args.length >= 2) {
-                                new BedWarsConfig().addSpawnLocation(p.getLocation(), TeamColor.valueOf(args[1]));
+                                BedWarsConfig.addSpawnLocation(p.getLocation(), TeamColor.valueOf(args[1]), GameType.BED_WARS);
                                 sender.sendMessage("Spawnpoint wurde hinzugef\u00fcgt!");
                             } else
                                 sender.sendMessage("/bedwars addloc team");
@@ -48,13 +48,13 @@ public class BWCommand extends BiomiaCommand {
 
                             switch (l.getBlock().getType()) {
                                 case HARD_CLAY:
-                                    new BedWarsConfig().addSpawnerLocations(l, ItemType.BRONZE);
+                                    BedWarsConfig.addSpawnerLocations(l, ItemType.BRONZE);
                                     break;
                                 case IRON_BLOCK:
-                                    new BedWarsConfig().addSpawnerLocations(l, ItemType.IRON);
+                                    BedWarsConfig.addSpawnerLocations(l, ItemType.IRON);
                                     break;
                                 case GOLD_BLOCK:
-                                    new BedWarsConfig().addSpawnerLocations(l, ItemType.GOLD);
+                                    BedWarsConfig.addSpawnerLocations(l, ItemType.GOLD);
                                     break;
                                 default:
                                     p.sendMessage("Schau auf einen verf\u00fcgbaren Block!");
@@ -71,7 +71,7 @@ public class BWCommand extends BiomiaCommand {
                                 Block blockHead = p.getTargetBlock((Set<Material>) null, 100);
 
                                 if (blockFoot.getType() == Material.BED_BLOCK && blockHead.getType() == Material.BED_BLOCK) {
-                                    new BedWarsConfig().addBedsLocations(blockHead.getLocation(), blockFoot.getLocation(), TeamColor.valueOf(args[1]));
+                                    BedWarsConfig.addBedsLocations(blockHead.getLocation(), blockFoot.getLocation(), TeamColor.valueOf(args[1]));
                                     Bukkit.broadcastMessage("\u00A7cBett hinzugef\u00fcgt!");
                                 } else
                                     p.sendMessage(BedWarsMessages.blocksMustBeBeds);
@@ -98,23 +98,6 @@ public class BWCommand extends BiomiaCommand {
                                 Config.saveConfig();
                             } else
                                 sender.sendMessage("\u00A77/\u00A7bsw setup \u00A77<\u00A7bSpielerProTeam\u00A77> <\u00A7bTeams\u00A77> <\u00A7bMapName\u00A77>");
-                            break;
-                        case "getteamjoinersetter":
-                            for (GameTeam t : BedWars.getBedWars().getTeams()) {
-                                p.getInventory().addItem(ItemCreator.itemCreate(Material.WOOL, BedWarsItemNames.teamJoinerSetter,
-                                        t.getColordata()));
-                            }
-                            break;
-                        case "getbedsetter":
-                            for (GameTeam t : BedWars.getBedWars().getTeams()) {
-                                p.getInventory().addItem(
-                                        ItemCreator.itemCreate(Material.WOOL, BedWarsItemNames.bedSetter, t.getColordata()));
-                            }
-                            break;
-                        case "getspawner":
-                            p.getInventory().addItem(ItemCreator.itemCreate(Material.HARD_CLAY, BedWarsItemNames.bronzeSetter));
-                            p.getInventory().addItem(ItemCreator.itemCreate(Material.IRON_BLOCK, BedWarsItemNames.ironSetter));
-                            p.getInventory().addItem(ItemCreator.itemCreate(Material.GOLD_BLOCK, BedWarsItemNames.goldSetter));
                             break;
                     }
                 } else {

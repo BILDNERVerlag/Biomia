@@ -1,17 +1,18 @@
 package de.biomia.spigot.minigames.bedwars;
 
+import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.configs.MinigamesConfig;
-import de.biomia.spigot.listeners.servers.BedWarsListener;
-import de.biomia.spigot.minigames.GameHandler;
-import de.biomia.spigot.minigames.GameInstance;
-import de.biomia.spigot.minigames.GameMode;
-import de.biomia.spigot.minigames.GameStateManager;
+import de.biomia.spigot.events.bedwars.BedWarsEndEvent;
+import de.biomia.spigot.events.bedwars.BedWarsStartEvent;
+import de.biomia.spigot.minigames.*;
 import de.biomia.spigot.minigames.general.SpawnItems;
 import de.biomia.spigot.minigames.general.TeamSwitcher;
 import de.biomia.spigot.minigames.general.shop.Shop;
 import org.bukkit.Bukkit;
+
+import java.util.ArrayList;
 
 public class BedWars extends GameMode {
 
@@ -46,9 +47,35 @@ public class BedWars extends GameMode {
                 itemManager.startSpawning();
             }
         });
+
+        getStateManager().setInGameState(new GameStateManager.InGameState(this) {
+            @Override
+            public void start() {
+                super.start();
+                Bukkit.getPluginManager().callEvent(new BedWarsStartEvent(getMode()));
+            }
+
+            @Override
+            public void stop() {
+                ArrayList<BiomiaPlayer> biomiaPlayersWinner = new ArrayList<>();
+                String winnerTeam = null;
+
+                for (GameTeam teams : getMode().getTeams()) {
+                    for (BiomiaPlayer bp : teams.getPlayers()) {
+                        if (teams.lives(bp)) {
+                            biomiaPlayersWinner.add(bp);
+                            winnerTeam = teams.getTeamname();
+                        }
+                    }
+                }
+
+                Bukkit.getPluginManager().callEvent(new BedWarsEndEvent(biomiaPlayersWinner, getMode().getInstance().getPlayedTime(), winnerTeam));
+                super.stop();
+            }
+        });
+
         super.start();
         Shop.init();
-        Bukkit.getPluginManager().registerEvents(new BedListener(), Main.getPlugin());
         Bukkit.getPluginManager().registerEvents(new SpecialItems(), Main.getPlugin());
 
         teamSwitcher = TeamSwitcher.getTeamSwitcher(this);
@@ -60,6 +87,6 @@ public class BedWars extends GameMode {
 
     @Override
     protected MinigamesConfig initConfig() {
-        return new BedWarsConfig();
+        return new BedWarsConfig(this);
     }
 }

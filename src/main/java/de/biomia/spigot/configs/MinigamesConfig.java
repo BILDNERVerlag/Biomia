@@ -1,10 +1,10 @@
 package de.biomia.spigot.configs;
 
 import de.biomia.spigot.minigames.GameInstance;
+import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.spigot.minigames.bedwars.BedWars;
-import de.biomia.spigot.minigames.bedwars.Variables;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -16,24 +16,32 @@ public abstract class MinigamesConfig extends Config {
 
     public static String mapName = null;
 
-    private final GameType type;
+    private final GameMode mode;
 
-    MinigamesConfig(GameType type) {
-        this.type = type;
+    MinigamesConfig(GameMode mode) {
+        this.mode = mode;
     }
 
     private String getSaveTeamPath(String settingName, TeamColor team) {
-        return String.format("%s.%s.%s.%s.", type.getDisplayName(), mapName == null ? "" : mapName, team.name(), settingName);
+        return String.format("%s.%s.%s.%s.", mode.getInstance().getType().getDisplayName(), mapName, team.name(), settingName);
+
+    }
+
+    private static String getSaveTeamPath(String settingName, TeamColor team, GameType type) {
+        return String.format("%s.%s.%s.%s.", type.getDisplayName(), mapName, team.name(), settingName);
 
     }
 
     String getSavePath(String settingName) {
-        return String.format("%s.%s.%s.", type.getDisplayName(), mapName == null ? "" : mapName, settingName);
-
+        return String.format("%s.%s.%s.", mode.getInstance().getType().getDisplayName(), mapName, settingName);
     }
 
-    public void addSpawnLocation(Location loc, TeamColor team) {
-        addLocation(loc, team, "Spawnpoint");
+    static String getSavePath(String settingName, GameType type) {
+        return String.format("%s.%s.%s.", type.getDisplayName(), mapName, settingName);
+    }
+
+    public static void addSpawnLocation(Location loc, TeamColor team, GameType type) {
+        addLocation(loc, team, "Spawnpoint", type);
     }
 
     public Location getSpawnLocation(TeamColor team, GameInstance instance) {
@@ -41,7 +49,7 @@ public abstract class MinigamesConfig extends Config {
     }
 
 
-    private void addLoc(Location loc, String savePath) {
+    private static void addLoc(Location loc, String savePath) {
         double x = loc.getBlockX();
         double y = loc.getBlockY();
         double z = loc.getBlockZ();
@@ -53,12 +61,12 @@ public abstract class MinigamesConfig extends Config {
         saveConfig();
     }
 
-    void addLocation(Location loc, TeamColor team, String settingName) {
-        addLoc(loc, getSaveTeamPath(settingName, team));
+    static void addLocation(Location loc, TeamColor team, String settingName, GameType type) {
+        addLoc(loc, getSaveTeamPath(settingName, team, type));
     }
 
-    void addLocation(Location loc, String settingName) {
-        addLoc(loc, getSavePath(settingName));
+    static void addLocation(Location loc, String settingName, GameType type) {
+        addLoc(loc, getSavePath(settingName, type));
         saveConfig();
     }
 
@@ -104,7 +112,7 @@ public abstract class MinigamesConfig extends Config {
             if (t.getID() > remFromID) {
                 entity.remove();
             } else {
-                Variables.joiner.put(t, entity);
+                mode.getJoiner().put(t, entity);
                 entity.setCustomName(t.getColorcode() + t.translate());
                 entity.setCustomNameVisible(true);
             }

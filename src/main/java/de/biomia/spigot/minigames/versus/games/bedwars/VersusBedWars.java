@@ -58,7 +58,7 @@ public class VersusBedWars extends GameMode {
 
     @Override
     protected MinigamesConfig initConfig() {
-        return new BedWarsConfig();
+        return new BedWarsConfig(this);
     }
 
 

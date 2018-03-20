@@ -2,12 +2,17 @@ package de.biomia.spigot.minigames.versus.games.skywars;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.events.skywars.SkyWarsOpenChestEvent;
+import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
 import de.biomia.spigot.minigames.GameHandler;
+import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.general.Dead;
-import org.bukkit.Location;
+import de.biomia.spigot.minigames.general.chests.Chests;
+import de.biomia.spigot.minigames.skywars.SkyWars;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.*;
@@ -16,16 +21,11 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import java.util.ArrayList;
-
 class SkyWarsHandler extends GameHandler {
-
-    private final ArrayList<Location> opendChests = new ArrayList<>();
 
     SkyWarsHandler(VersusSkyWars versusSkyWars) {
         super(versusSkyWars);
     }
-
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
@@ -78,22 +78,42 @@ class SkyWarsHandler extends GameHandler {
                 }
             }
 
-        if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK)
-            if (e.getClickedBlock().getType() == Material.CHEST)
-                if (!opendChests.contains(e.getClickedBlock().getLocation())) {
-                    Chest c = ((VersusSkyWars) mode).getChests().fillChest(e.getClickedBlock().getLocation());
-                    if (c != null) {
-                        if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                            e.setCancelled(true);
-                            p.openInventory(c.getInventory());
-                        }
-                        opendChests.add(e.getClickedBlock().getLocation());
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK) {
+            if (e.getClickedBlock().getType() == Material.CHEST) {
+                Chest chest = (Chest) e.getClickedBlock().getState();
+                boolean firstOpen = false;
+                SkyWarsOpenChestEvent.ChestType chestType = SkyWarsOpenChestEvent.ChestType.NormalChest;
+
+                Chests chests;
+
+                if (mode instanceof SkyWars) {
+                    chests = ((SkyWars) mode).getChests();
+                } else {
+                    chests = ((VersusSkyWars) mode).getChests();
+                }
+
+                if (SkyWars.getSkyWars().getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
+
+                    if (chests.fillChest(chest.getLocation()))
+                        firstOpen = true;
+                    if (chests.isNormalChest(chest.getLocation())) {
+                        chestType = SkyWarsOpenChestEvent.ChestType.NormalChest;
+                    } else {
+                        chestType = SkyWarsOpenChestEvent.ChestType.GoodChest;
                     }
                 }
+
+                if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                    Bukkit.getPluginManager().callEvent(new SkyWarsOpenChestEvent(Biomia.getBiomiaPlayer(p), firstOpen, chestType));
+                    e.setCancelled(true);
+                    p.openInventory(chest.getInventory());
+                }
+            }
+        }
     }
 
     @EventHandler
-    public void onDeath_(PlayerDeathEvent e) {
+    public void onDeath(PlayerDeathEvent e) {
         Player p = e.getEntity();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         p.getInventory().clear();
@@ -102,9 +122,9 @@ class SkyWarsHandler extends GameHandler {
             Dead.respawn(p);
             String msg;
             if (killer == null)
-                msg = SkyWarsMessages.playerDied.replaceAll("%p", p.getName());
+                msg = MinigamesMessages.playerDied.replaceAll("%p", p.getName());
             else
-                msg = SkyWarsMessages.playerKilledByPlayer.replaceAll("%p1", p.getName()).replaceAll("%p2", killer.getName());
+                msg = MinigamesMessages.playerKilledByPlayer.replaceAll("%p1", p.getName()).replaceAll("%p2", killer.getName());
             for (BiomiaPlayer all : mode.getInstance().getPlayers())
                 all.getPlayer().sendMessage(msg);
             bp.getTeam().setDead(bp);

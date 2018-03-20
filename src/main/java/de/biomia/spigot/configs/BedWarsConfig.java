@@ -1,9 +1,6 @@
 package de.biomia.spigot.configs;
 
-import de.biomia.spigot.minigames.GameInstance;
-import de.biomia.spigot.minigames.GameTeam;
-import de.biomia.spigot.minigames.GameType;
-import de.biomia.spigot.minigames.TeamColor;
+import de.biomia.spigot.minigames.*;
 import de.biomia.spigot.minigames.bedwars.Variables;
 import de.biomia.spigot.minigames.general.shop.ItemType;
 import org.bukkit.Location;
@@ -17,8 +14,8 @@ import java.util.HashMap;
 
 public class BedWarsConfig extends MinigamesConfig {
 
-    public BedWarsConfig() {
-        super(GameType.BED_WARS);
+    public BedWarsConfig(GameMode mode) {
+        super(mode);
     }
 
     public void addSignsLocation(Location loc, int id) {
@@ -26,25 +23,25 @@ public class BedWarsConfig extends MinigamesConfig {
         Sign sign = (Sign) loc.getBlock().getState();
         org.bukkit.material.Sign signData = (org.bukkit.material.Sign) sign.getData();
 
-        addLocation(loc, "Signs." + id);
+        addLocation(loc, "Signs." + id, GameType.SKY_WARS);
         getConfig().set(getSavePath("Signs." + (id) + ".Facing"), signData.getFacing().name());
 
         Variables.signLocations.put(sign, id);
         saveConfig();
     }
 
-    public void addSpawnerLocations(Location loc, ItemType spawner) {
+    public static void addSpawnerLocations(Location loc, ItemType spawner) {
 
         int i = getConfig().getInt("lastID." + spawner.name());
-        addLocation(loc, "Spawner." + spawner.name() + "." + ++i);
+        addLocation(loc, "Spawner." + spawner.name() + "." + ++i, GameType.SKY_WARS);
         getConfig().set("lastID." + spawner.name(), i);
         saveConfig();
     }
 
-    public void addBedsLocations(Location foot, Location head, TeamColor team) {
+    public static void addBedsLocations(Location foot, Location head, TeamColor team) {
 
-        addLocation(head, team, "Beds.Head");
-        addLocation(foot, team, "Beds.Foot");
+        addLocation(head, team, "Beds.Head", GameType.BED_WARS);
+        addLocation(foot, team, "Beds.Foot", GameType.BED_WARS);
     }
 
     public ArrayList<Block> loadBeds(GameInstance instance, GameTeam t) {

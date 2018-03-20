@@ -5,7 +5,6 @@ import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.SkyWarsKitManager;
-import de.biomia.universal.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -26,7 +25,7 @@ public class KitManager {
 
     public static final HashMap<Integer, Kit> allKits = new HashMap<>();
     private static final HashMap<BiomiaPlayer, KitManager> playerKits = new HashMap<>();
-    public static Kit standardKit;
+    private static Kit standardKit;
     private final ArrayList<Kit> availableKits = new ArrayList<>();
     private final Inventory inv;
     private final BiomiaPlayer bp;
@@ -279,7 +278,7 @@ public class KitManager {
 
     private void loadKits() {
 
-        int kitID = MySQL.executeQuerygetint("SELECT kitID FROM `LSSkyWarsKit` WHERE biomiaID = " + bp.getBiomiaPlayerID(), "kitID", MySQL.Databases.biomia_db);
+        int kitID = SkyWarsKitManager.getLastSelectedKit(bp);
 
         // Add Standard Kit
         availableKits.add(standardKit);
@@ -350,7 +349,15 @@ public class KitManager {
         return true;
     }
 
+    public Kit getSelectedKit() {
+        return selectedKit;
+    }
+
     public ArrayList<Kit> getAvailableKits() {
         return availableKits;
+    }
+
+    public static Kit getStandardKit() {
+        return standardKit;
     }
 }

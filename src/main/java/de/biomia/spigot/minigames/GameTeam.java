@@ -2,7 +2,7 @@ package de.biomia.spigot.minigames;
 
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.messages.BedWarsItemNames;
-import de.biomia.spigot.messages.BedWarsMessages;
+import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.messages.manager.ActionBar;
 import de.biomia.spigot.minigames.general.Scoreboards;
 import de.biomia.spigot.minigames.general.Dead;
@@ -48,21 +48,21 @@ public class GameTeam {
         }
 
         if (isFull() && !bp.getTeam().equals(this)) {
-            bp.sendMessage(getColorcode() + BedWarsMessages.teamFull);
+            bp.sendMessage(getColorcode() + MinigamesMessages.teamFull);
             return;
         }
 
         GameTeam team = bp.getTeam();
         if (team != null) {
             if (team.equals(this)) {
-                bp.sendMessage(BedWarsMessages.alreadyInTeam);
+                bp.sendMessage(MinigamesMessages.alreadyInTeam);
                 return;
             }
             team.leave(bp);
         }
 
         for (BiomiaPlayer pl : getPlayers()) {
-            ActionBar.sendActionBar(BedWarsMessages.joinedTeam.replace("%p", getColorcode() + bp.getName()), pl.getPlayer());
+            ActionBar.sendActionBar(MinigamesMessages.joinedTeam.replace("%p", getColorcode() + bp.getName()), pl.getPlayer());
         }
 
         bp.getPlayer().getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, BedWarsItemNames.teamWaehlerItem, getColordata()));

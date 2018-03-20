@@ -6,15 +6,14 @@ import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.configs.SkyWarsConfig;
 import de.biomia.spigot.events.skywars.SkyWarsStartEvent;
-import de.biomia.spigot.listeners.servers.SkyWarsListener;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.general.Teleport;
-import de.biomia.spigot.minigames.general.kits.KitManager;
 import de.biomia.spigot.minigames.general.chests.Chests;
 import de.biomia.spigot.minigames.general.chests.Items;
+import de.biomia.spigot.minigames.general.kits.KitManager;
 import de.biomia.spigot.tools.SkyWarsKitManager;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
@@ -25,6 +24,8 @@ import java.util.HashMap;
 import static de.biomia.spigot.configs.Config.saveConfig;
 
 public class SkyWars extends GameMode {
+
+    private final Chests chests = new Chests(this);
 
     @Override
     protected GameHandler initHandler() {
@@ -51,11 +52,7 @@ public class SkyWars extends GameMode {
         saveConfig();
 
         Main.getPlugin().getServer().createWorld(new WorldCreator(Variables.name));
-
         Items.init();
-        Variables.normalChestsFill = Chests.fillNormalChests();
-        Variables.goodChestsFill = Chests.fillGoodChests();
-
         KitManager.initKits();
         getStateManager().setInGameState(new GameStateManager.InGameState(this) {
             @Override
@@ -75,9 +72,13 @@ public class SkyWars extends GameMode {
         });
     }
 
+    public Chests getChests() {
+        return chests;
+    }
+
     @Override
     protected MinigamesConfig initConfig() {
-        return new SkyWarsConfig();
+        return new SkyWarsConfig(this);
     }
 
 }

@@ -7,10 +7,9 @@ import de.biomia.spigot.configs.SkyWarsConfig;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
+import de.biomia.spigot.minigames.general.chests.Chests;
 import de.biomia.spigot.minigames.general.kits.KitManager;
 import de.biomia.spigot.minigames.versus.Versus;
-import de.biomia.spigot.minigames.versus.games.skywars.chests.Chests;
-import org.bukkit.Bukkit;
 
 public class VersusSkyWars extends GameMode {
 
@@ -23,8 +22,6 @@ public class VersusSkyWars extends GameMode {
 
     public VersusSkyWars(GameInstance instance) {
         super(instance);
-        Bukkit.broadcastMessage("%%% starting SkyWarsInstance");
-        Bukkit.broadcastMessage("%%% SkyWars constructor ends");
     }
 
     public Chests getChests() {
@@ -34,7 +31,6 @@ public class VersusSkyWars extends GameMode {
     @Override
     public void start() {
         splitPlayersInTwoTeams();
-        Bukkit.broadcastMessage("%%% SkyWars.start()");
         for (BiomiaPlayer bp : getInstance().getPlayers()) {
             bp.setGetDamage(true);
             bp.setDamageEntitys(true);
@@ -53,6 +49,6 @@ public class VersusSkyWars extends GameMode {
 
     @Override
     protected MinigamesConfig initConfig() {
-        return new SkyWarsConfig();
+        return new SkyWarsConfig(this);
     }
 }
