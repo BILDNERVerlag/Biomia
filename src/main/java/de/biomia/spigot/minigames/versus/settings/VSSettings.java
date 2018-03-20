@@ -3,7 +3,6 @@ package de.biomia.spigot.minigames.versus.settings;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.minigames.GameType;
 import de.biomia.universal.MySQL;
-import org.bukkit.Bukkit;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -48,10 +47,6 @@ public class VSSettings {
     }
 
     public boolean getSetting(VSSettingItem item) {
-
-        if (item == null) {
-            Bukkit.broadcastMessage("item == null!");
-        }
 
         HashMap<Integer, Boolean> hm = settings.get(item.getGroup().getMode());
 

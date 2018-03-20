@@ -20,13 +20,13 @@ public class BedWarsConfig extends MinigamesConfig {
 
     public void addSignsLocation(Location loc, int id) {
 
-        Sign sign = (Sign) loc.getBlock().getState();
-        org.bukkit.material.Sign signData = (org.bukkit.material.Sign) sign.getData();
-
-        addLocation(loc, "Signs." + id, GameType.SKY_WARS);
-        getConfig().set(getSavePath("Signs." + (id) + ".Facing"), signData.getFacing().name());
-
-        Variables.signLocations.put(sign, id);
+//        Sign sign = (Sign) loc.getBlock().getState();
+//        org.bukkit.material.Sign signData = (org.bukkit.material.Sign) sign.getData();
+//
+//        addLocation(loc, "Signs." + id, GameType.SKY_WARS);
+//        getConfig().set(getSavePath("Signs." + (id) + ".Facing"), signData.getFacing().name());
+//
+//        Variables.signLocations.put(sign, id);
         saveConfig();
     }
 
@@ -94,7 +94,7 @@ public class BedWarsConfig extends MinigamesConfig {
 //					s.update();
 //				}
 
-                Variables.signLocations.put(sign, i);
+//                Variables.signLocations.put(sign, i);
             }
         }
     }

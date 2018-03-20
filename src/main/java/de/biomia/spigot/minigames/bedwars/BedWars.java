@@ -11,8 +11,12 @@ import de.biomia.spigot.minigames.general.SpawnItems;
 import de.biomia.spigot.minigames.general.TeamSwitcher;
 import de.biomia.spigot.minigames.general.shop.Shop;
 import org.bukkit.Bukkit;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class BedWars extends GameMode {
 
@@ -29,6 +33,9 @@ public class BedWars extends GameMode {
     }
 
     private static BedWars instance;
+
+    public final HashMap<GameTeam, ArrayList<Block>> teamChestsLocs = new HashMap<>();
+    public final HashMap<UUID, ArrayList<Player>> handlerMap = new HashMap<>();
 
     public BedWars(GameInstance instance) {
         super(instance);
@@ -76,14 +83,24 @@ public class BedWars extends GameMode {
 
         super.start();
         Shop.init();
-        Bukkit.getPluginManager().registerEvents(new SpecialItems(), Main.getPlugin());
+        Bukkit.getPluginManager().registerEvents(new SpecialItems(this), Main.getPlugin());
 
         teamSwitcher = TeamSwitcher.getTeamSwitcher(this);
     }
 
-    public static BedWars getBedWars() {
-        return instance;
+    public GameTeam getTeamByTeamChests(Block block) {
+        for (GameTeam team : getTeams()) {
+            if (teamChestsLocs.containsKey(team)) {
+                for (Block b : teamChestsLocs.get(team)) {
+                    if (block.equals(b)) {
+                        return team;
+                    }
+                }
+            }
+        }
+        return null;
     }
+
 
     @Override
     protected MinigamesConfig initConfig() {

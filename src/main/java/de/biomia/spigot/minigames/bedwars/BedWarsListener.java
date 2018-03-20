@@ -2,6 +2,7 @@ package de.biomia.spigot.minigames.bedwars;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.events.bedwars.BedWarsDeathEvent;
 import de.biomia.spigot.events.bedwars.BedWarsKillEvent;
 import de.biomia.spigot.events.bedwars.BedWarsLeaveEvent;
@@ -16,7 +17,6 @@ import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.general.ColorType;
 import de.biomia.spigot.minigames.general.Dead;
 import de.biomia.spigot.minigames.general.Scoreboards;
-import de.biomia.spigot.minigames.general.Teleport;
 import de.biomia.spigot.minigames.general.shop.ItemType;
 import de.biomia.spigot.minigames.general.shop.Shop;
 import de.biomia.spigot.minigames.general.shop.ShopGroup;
@@ -29,11 +29,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.InventoryAction;
@@ -43,13 +45,14 @@ import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
-import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 import java.util.ArrayList;
 
 public class BedWarsListener extends GameHandler {
 
-    public BedWarsListener(GameMode mode) {
+    public final ArrayList<Block> destroyableBlocks = new ArrayList<>();
+
+    BedWarsListener(GameMode mode) {
         super(mode);
     }
 
@@ -89,11 +92,11 @@ public class BedWarsListener extends GameHandler {
             Scoreboards.setSpectatorSB(p);
             Scoreboards.spectatorSB.getTeam("spectator").addEntry(p.getName());
 
-            p.teleport(new Location(Bukkit.getWorld(Variables.name), 0, 100, 0));
+            p.teleport(new Location(Bukkit.getWorld(MinigamesConfig.getMapName()), 0, 100, 0));
 
         } else if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
 
-            p.teleport(Variables.warteLobbySpawn);
+            p.teleport(GameMode.getSpawn());
 
             if (p.hasPermission("biomia.sw.start")) {
                 p.getInventory().setItem(0, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, BedWarsItemNames.startItem));
@@ -228,11 +231,11 @@ public class BedWarsListener extends GameHandler {
                 if (!mode.getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
                     e.setRespawnLocation(t.getHome());
                 } else
-                    e.setRespawnLocation(new Location(Bukkit.getWorld(Variables.name), 0, 100, 0));
+                    e.setRespawnLocation(new Location(Bukkit.getWorld(MinigamesConfig.getMapName()), 0, 100, 0));
                 return;
             }
         }
-        e.setRespawnLocation(Variables.warteLobbySpawn);
+        e.setRespawnLocation(GameMode.getSpawn());
     }
 
     @EventHandler
@@ -245,7 +248,7 @@ public class BedWarsListener extends GameHandler {
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent e) {
-        for (ArrayList uuid : Variables.handlerMap.values()) {
+        for (ArrayList uuid : ((BedWars) mode).handlerMap.values()) {
             uuid.remove(e.getPlayer());
         }
     }
@@ -499,7 +502,7 @@ public class BedWarsListener extends GameHandler {
             } else if (e.getRightClicked().getCustomName().contains("Sekunden")) {
                 e.setCancelled(true);
                 p.openInventory(Shop.getInventory());
-                Variables.handlerMap.get(e.getRightClicked().getUniqueId()).add(p);
+                ((BedWars) mode).handlerMap.get(e.getRightClicked().getUniqueId()).add(p);
             }
         }
     }
@@ -511,16 +514,26 @@ public class BedWarsListener extends GameHandler {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
-        Variables.destroyableBlocks.add(e.getBlock());
+        destroyableBlocks.add(e.getBlock());
         if (e.getBlock().getType() == Material.ENDER_CHEST) {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
             GameTeam team = bp.getTeam();
             if (team != null) {
-                if (!Variables.teamChestsLocs.containsKey(team)) {
-                    Variables.teamChestsLocs.put(team, new ArrayList<>());
+                if (!((BedWars) mode).teamChestsLocs.containsKey(team)) {
+                    ((BedWars) mode).teamChestsLocs.put(team, new ArrayList<>());
                 }
-                Variables.teamChestsLocs.get(team).add(e.getBlock());
+                ((BedWars) mode).teamChestsLocs.get(team).add(e.getBlock());
             }
+        }
+    }
+
+    @EventHandler
+    public void onBlockBreak(BlockBreakEvent e) {
+        if (destroyableBlocks.contains(e.getBlock())) {
+            destroyableBlocks.remove(e.getBlock());
+        } else {
+            e.setCancelled(true);
+            e.getPlayer().sendMessage(BedWarsMessages.cantDestroyThisBlock);
         }
     }
 }

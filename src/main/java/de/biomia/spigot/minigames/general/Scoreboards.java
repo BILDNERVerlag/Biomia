@@ -7,7 +7,6 @@ import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.TeamColor;
-import de.biomia.spigot.minigames.bedwars.Variables;
 import de.biomia.spigot.minigames.general.kits.KitManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -44,8 +43,8 @@ public class Scoreboards {
         map.addEntry("\u00A7c");
         teams.addEntry("\u00A7f");
 
-        map.setPrefix("\u00A72" + Variables.name);
-        teams.setPrefix("\u00A75" + Variables.teams + " \u00A77x " + "\u00A72" + Variables.playerPerTeam);
+        map.setPrefix("\u00A72" + mode.getInstance().getWorld().getName());
+        teams.setPrefix("\u00A75" + mode.getInstance().getTeamAmount() + " \u00A77x " + "\u00A72" + mode.getInstance().getTeamSize());
 
         for (GameTeam t : mode.getTeams()) {
             lobbySB.registerNewTeam(t.getColor().name()).setPrefix(t.getColorcode());

@@ -5,6 +5,7 @@ import de.biomia.spigot.achievements.StatListener;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.commands.minigames.BWCommand;
 import de.biomia.spigot.commands.minigames.SWCommand;
+import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.general.cosmetics.Cosmetic;
 import de.biomia.spigot.general.cosmetics.Cosmetic.Group;
 import de.biomia.spigot.general.cosmetics.CosmeticGroup;
@@ -14,7 +15,6 @@ import de.biomia.spigot.general.reportsystem.ReportSQL;
 import de.biomia.spigot.listeners.ChannelListener;
 import de.biomia.spigot.listeners.servers.BauServerListener;
 import de.biomia.spigot.minigames.GameInstance;
-import de.biomia.spigot.minigames.bedwars.Variables;
 import de.biomia.spigot.minigames.versus.Versus;
 import de.biomia.spigot.server.demoserver.Weltenlabor;
 import de.biomia.spigot.server.freebuild.Freebuild;
@@ -113,7 +113,7 @@ public class Main extends JavaPlugin {
                         registerCommand(new BWCommand());
                     }
                 });
-                new GameInstance(BED_WARS, Variables.name, Variables.teams, Variables.playerPerTeam).getGameMode().start();
+                new GameInstance(BED_WARS, MinigamesConfig.getMapName(), MinigamesConfig.getTeamAmount(), MinigamesConfig.getTeamSize()).getGameMode().start();
                 break;
             case "TestSkyWars":
             case "SkyWars":
@@ -124,7 +124,7 @@ public class Main extends JavaPlugin {
                         registerCommand(new SWCommand());
                     }
                 });
-                new GameInstance(SKY_WARS, Variables.name, Variables.teams, Variables.playerPerTeam).getGameMode().start();
+                new GameInstance(SKY_WARS, MinigamesConfig.getMapName(), MinigamesConfig.getTeamAmount(), MinigamesConfig.getTeamSize()).getGameMode().start();
                 break;
             case "TestDuellLobby":
             case "DuellLobby":

@@ -7,6 +7,7 @@ import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.messages.manager.ActionBar;
+import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.TeamColor;
@@ -31,19 +32,28 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 public class SpecialItems implements Listener {
 
+    private final GameMode mode;
+    private final HashMap<GameTeam, Inventory> teamChests = new HashMap<>();
+
+    SpecialItems(GameMode mode) {
+        this.mode = mode;
+    }
+
+    @SuppressWarnings("deprecation")
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (e.getClickedBlock() != null && e.getClickedBlock().getType() == Material.ENDER_CHEST) {
-                GameTeam t = Variables.getTeamByTeamChests(e.getClickedBlock());
+                GameTeam t = ((BedWars) mode).getTeamByTeamChests(e.getClickedBlock());
                 if (t != null) {
-                    Inventory inv = Variables.teamChests.computeIfAbsent(t, t1 -> Bukkit.createInventory(null, 27, "\u00A78Team Kiste: " + t1.getColorcode() + t1.getColor().translate()));
+                    Inventory inv = teamChests.computeIfAbsent(t, t1 -> Bukkit.createInventory(null, 27, "\u00A78Team Kiste: " + t1.getColorcode() + t1.getColor().translate()));
                     e.setCancelled(true);
                     p.openInventory(inv);
                 }
@@ -53,10 +63,10 @@ public class SpecialItems implements Listener {
             String displayname = e.getItem().getItemMeta().getDisplayName();
 
             if (displayname.equals(BedWarsItemNames.teamWaehlerItem))
-                p.openInventory(BedWars.getBedWars().getTeamSwitcher());
+                p.openInventory(mode.getTeamSwitcher());
             else if (displayname.equals(BedWarsItemNames.startItem)) {
-                if (BedWars.getBedWars().getStateManager().getLobbyState().getCountDown() > 5)
-                    BedWars.getBedWars().getStateManager().getLobbyState().setCountDown(5);
+                if (mode.getStateManager().getLobbyState().getCountDown() > 5)
+                    mode.getStateManager().getLobbyState().setCountDown(5);
             } else if (displayname.equals(BedWarsItemNames.bedSetter)) {
                 Block blockFoot = p.getLocation().getBlock();
                 Block blockHead = p.getTargetBlock((Set<Material>) null, 100);
@@ -116,7 +126,7 @@ public class SpecialItems implements Listener {
         }
 
         if (!bp.canBuild()) {
-            if (!BedWars.getBedWars().getInstance().containsPlayer(bp) || BedWars.getBedWars().getStateManager().getActualGameState() != GameStateManager.GameState.INGAME)
+            if (!mode.getInstance().containsPlayer(bp) || mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME)
                 e.setCancelled(true);
         }
     }
@@ -131,10 +141,27 @@ public class SpecialItems implements Listener {
         attributes.setValue(0);
     }
 
+    private static BlockFace getDirection(Player p) {
+        float yaw = p.getLocation().getYaw();
+        if (yaw < 0) {
+            yaw += 360;
+        }
+        if (yaw >= 315 || yaw < 45) {
+            return BlockFace.SOUTH;
+        } else if (yaw < 135) {
+            return BlockFace.WEST;
+        } else if (yaw < 225) {
+            return BlockFace.NORTH;
+        } else if (yaw < 315) {
+            return BlockFace.EAST;
+        }
+        return BlockFace.NORTH;
+    }
+
     private void buildProtectionWall(Player p) {
 
         Location l = p.getLocation();
-        BlockFace face = Variables.getDirection(p);
+        BlockFace face = getDirection(p);
         ItemStack is = p.getInventory().getItemInMainHand();
         is.setAmount(is.getAmount() - 1);
         switch (face) {
@@ -178,7 +205,7 @@ public class SpecialItems implements Listener {
                 }
                 if (l.getBlock().getType() == Material.AIR) {
                     l.getBlock().setType(Material.BRICK);
-                    Variables.destroyableBlocks.add(l.getBlock());
+                    ((BedWarsListener) mode.getHandler()).destroyableBlocks.add(l.getBlock());
                 }
             }
             l = start.getLocation();
@@ -271,7 +298,7 @@ public class SpecialItems implements Listener {
     private void spawn30secShop(Location l, ItemStack is) {
         ArmorStand as = (ArmorStand) l.getWorld().spawnEntity(l, EntityType.ARMOR_STAND);
         as.setCustomNameVisible(true);
-        Variables.handlerMap.put(as.getUniqueId(), new ArrayList<>());
+        ((BedWars) mode).handlerMap.put(as.getUniqueId(), new ArrayList<>());
         is.setAmount(is.getAmount() - 1);
         new BukkitRunnable() {
             int i = 30;
@@ -279,7 +306,7 @@ public class SpecialItems implements Listener {
             @Override
             public void run() {
                 if (i == 0) {
-                    Variables.handlerMap.get(as.getUniqueId()).forEach(HumanEntity::closeInventory);
+                    ((BedWars) mode).handlerMap.get(as.getUniqueId()).forEach(HumanEntity::closeInventory);
                     as.remove();
                     cancel();
                 }
@@ -302,7 +329,7 @@ public class SpecialItems implements Listener {
                 if (loc.getBlock().getType() == Material.AIR) {
                     loc.getBlock().setType(Material.STAINED_GLASS);
                     loc.getBlock().setData((byte) 4);
-                    Variables.destroyableBlocks.add(loc.getBlock());
+                    ((BedWarsListener) mode.getHandler()).destroyableBlocks.add(loc.getBlock());
                 }
             }
             loc.subtract(0, 0, 3);

@@ -3,7 +3,6 @@ package de.biomia.spigot.minigames.general;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.GameMode;
-import de.biomia.spigot.minigames.bedwars.Variables;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -31,10 +30,10 @@ public class CountDown {
 
                 if (getCountdown() >= 0) {
 
-                    if (onlinePlayer >= Variables.minPlayers) {
+                    if (onlinePlayer > mode.getInstance().getTeamSize()) {
 
                         if (getCountdown() > 20)
-                            if (onlinePlayer == Variables.playerPerTeam * Variables.teams)
+                            if (onlinePlayer == mode.getInstance().getTeamSize() * mode.getInstance().getTeamAmount())
                                 setCountdown(20);
 
                         if (getCountdown() == 0) {

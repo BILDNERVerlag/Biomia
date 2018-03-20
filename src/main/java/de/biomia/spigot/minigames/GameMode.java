@@ -10,6 +10,7 @@ import de.biomia.spigot.minigames.general.TeamSwitcher;
 import de.biomia.spigot.minigames.versus.Versus;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayer;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -21,6 +22,7 @@ import java.util.Iterator;
 
 public abstract class GameMode {
 
+    private static Location spawn = new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 45, 0);
     private MinigamesConfig config;
     protected Inventory teamSwitcher;
     private final GameInstance instance;
@@ -189,5 +191,13 @@ public abstract class GameMode {
 
     public HashMap<TeamColor, Entity> getJoiner() {
         return joiner;
+    }
+
+    public static Location getSpawn() {
+        return spawn;
+    }
+
+    public GameHandler getHandler() {
+        return handler;
     }
 }

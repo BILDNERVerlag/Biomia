@@ -51,7 +51,7 @@ public class SkyWars extends GameMode {
         Main.getPlugin().saveDefaultConfig();
         saveConfig();
 
-        Main.getPlugin().getServer().createWorld(new WorldCreator(Variables.name));
+        Main.getPlugin().getServer().createWorld(new WorldCreator(MinigamesConfig.getMapName()));
         Items.init();
         KitManager.initKits();
         getStateManager().setInGameState(new GameStateManager.InGameState(this) {

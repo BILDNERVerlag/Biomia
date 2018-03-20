@@ -2,6 +2,7 @@ package de.biomia.spigot.minigames.skywars;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.events.skywars.SkyWarsDeathEvent;
 import de.biomia.spigot.events.skywars.SkyWarsKillEvent;
 import de.biomia.spigot.events.skywars.SkyWarsLeaveEvent;
@@ -167,7 +168,7 @@ public class SkyWarsListener extends GameHandler {
             if (e.getPlayer().getKiller() != null) {
                 e.setRespawnLocation(e.getPlayer().getKiller().getLocation().add(0, 2, 0));
             } else {
-                e.setRespawnLocation(new Location(Bukkit.getWorld(Variables.name), 0, 100, 0));
+                e.setRespawnLocation(new Location(Bukkit.getWorld(MinigamesConfig.getMapName()), 0, 100, 0));
             }
         } else {
             e.setRespawnLocation(new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 45, 0));

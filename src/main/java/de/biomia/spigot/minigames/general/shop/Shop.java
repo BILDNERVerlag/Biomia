@@ -249,7 +249,7 @@ public class Shop {
         ItemStack chest = ItemCreator.itemCreate(Material.CHEST);
         special.addItem(new ShopItem(ItemType.IRON, 3, chest));
 
-        special.addItem(new ShopItem(ItemType.GOLD, 1, Variables.teamChest));
+        special.addItem(new ShopItem(ItemType.GOLD, 1, ItemCreator.itemCreate(Material.ENDER_CHEST, BedWarsItemNames.teamChest)));
     }
 
     private static ItemStack getPotionItemStack(Material potionType, PotionType type, boolean higherLevel) {

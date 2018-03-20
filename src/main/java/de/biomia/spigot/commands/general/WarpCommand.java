@@ -40,6 +40,7 @@ public class WarpCommand extends BiomiaCommand {
         HashMap<String, WarpLocation> publicWarpLocations = initPublicWarps(p);
 
         switch (getName().toLowerCase()) {
+        //TODO remove duplicated code
             case "setwarp":
                 if (args.length < 1) {
                     sendWarpInstructions(p);

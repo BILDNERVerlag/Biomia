@@ -3,9 +3,9 @@ package de.biomia.spigot.minigames;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
+import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.MinigamesMessages;
-import de.biomia.spigot.minigames.bedwars.Variables;
 import de.biomia.spigot.minigames.general.Dead;
 import de.biomia.spigot.minigames.general.Scoreboards;
 import de.biomia.spigot.minigames.general.Teleport;
@@ -76,11 +76,11 @@ public abstract class GameHandler implements Listener {
             Scoreboards.setSpectatorSB(p);
             Scoreboards.spectatorSB.getTeam("spectator").addEntry(p.getName());
 
-            p.teleport(new Location(Bukkit.getWorld(Variables.name), 0, 100, 0));
+            p.teleport(new Location(Bukkit.getWorld(MinigamesConfig.getMapName()), 0, 100, 0));
 
         } else if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
 
-            p.teleport(Variables.warteLobbySpawn);
+            p.teleport(GameMode.getSpawn());
 
             if (p.hasPermission("biomia.sw.start")) {
                 p.getInventory().setItem(0, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, BedWarsItemNames.startItem));
@@ -194,7 +194,7 @@ public abstract class GameHandler implements Listener {
                 Teleport.removeFromStartLocs(bp);
             }
         } else if (e.getTo().getBlockY() <= 20) {
-            e.getPlayer().teleport(Variables.warteLobbySpawn);
+            e.getPlayer().teleport(GameMode.getSpawn());
         }
     }
 

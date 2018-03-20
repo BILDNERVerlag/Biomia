@@ -1,7 +1,6 @@
 package de.biomia.spigot.minigames.general.chests;
 
 import de.biomia.spigot.messages.SkyWarsItemNames;
-import de.biomia.spigot.minigames.skywars.Variables;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

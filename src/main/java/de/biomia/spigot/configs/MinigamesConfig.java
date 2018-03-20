@@ -4,7 +4,6 @@ import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.TeamColor;
-import de.biomia.spigot.minigames.bedwars.BedWars;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -24,7 +23,6 @@ public abstract class MinigamesConfig extends Config {
 
     private String getSaveTeamPath(String settingName, TeamColor team) {
         return String.format("%s.%s.%s.%s.", mode.getInstance().getType().getDisplayName(), mapName, team.name(), settingName);
-
     }
 
     private static String getSaveTeamPath(String settingName, TeamColor team, GameType type) {
@@ -36,8 +34,20 @@ public abstract class MinigamesConfig extends Config {
         return String.format("%s.%s.%s.", mode.getInstance().getType().getDisplayName(), mapName, settingName);
     }
 
-    static String getSavePath(String settingName, GameType type) {
+    private static String getSavePath(String settingName, GameType type) {
         return String.format("%s.%s.%s.", type.getDisplayName(), mapName, settingName);
+    }
+
+    public static String getMapName() {
+        return getConfig().getString("Name");
+    }
+
+    public static int getTeamSize() {
+        return getConfig().getInt("TeamSize");
+    }
+
+    public static int getTeamAmount() {
+        return getConfig().getInt("NumberOfTeams");
     }
 
     public static void addSpawnLocation(Location loc, TeamColor team, GameType type) {
@@ -106,7 +116,7 @@ public abstract class MinigamesConfig extends Config {
         teamJoiner.put(TeamColor.WHITE, UUID.fromString("23126ec9-9288-4d9e-96ea-9a9d93e1e96c"));
         teamJoiner.put(TeamColor.PURPLE, UUID.fromString("7d4309d7-344c-410e-80ef-2db2724a814b"));
 
-        int remFromID = BedWars.getBedWars().getTeams().size();
+        int remFromID = mode.getTeams().size();
         for (TeamColor t : TeamColor.values()) {
             Entity entity = Bukkit.getEntity(teamJoiner.get(t));
             if (t.getID() > remFromID) {

@@ -5,8 +5,8 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
+import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.messages.MinigamesMessages;
-import de.biomia.spigot.minigames.bedwars.Variables;
 import de.biomia.spigot.minigames.general.CountDown;
 import de.biomia.spigot.minigames.general.Scoreboards;
 import de.biomia.spigot.minigames.general.Teleport;
@@ -95,7 +95,7 @@ public class GameStateManager {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    TimoCloudAPI.getBukkitInstance().getThisServer().setExtra(String.format(MinigamesMessages.mapSize, Variables.teams + "", Variables.playerPerTeam + ""));
+                    TimoCloudAPI.getBukkitInstance().getThisServer().setExtra(String.format(MinigamesMessages.mapSize, MinigamesConfig.getTeamAmount() + "", MinigamesConfig.getTeamSize() + ""));
                 }
             }.runTaskLater(Main.getPlugin(), 20);
 
@@ -178,7 +178,7 @@ public class GameStateManager {
                 Biomia.getBiomiaPlayer(p).setGetDamage(false);
             }
 
-            Teleport.teleportAllToWarteLobby(Variables.warteLobbySpawn);
+            Teleport.teleportAllToWarteLobby(GameMode.getSpawn());
 
             new BukkitRunnable() {
                 int i = 15;
