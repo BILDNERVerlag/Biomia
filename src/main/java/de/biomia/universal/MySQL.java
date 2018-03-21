@@ -56,7 +56,7 @@ public abstract class MySQL {
             return null;
         });
         try {
-            if (connection.isClosed()) {
+            if (connection == null || connection.isClosed()) {
                 connection = newConnection(db);
                 connections.put(db, connection);
             }

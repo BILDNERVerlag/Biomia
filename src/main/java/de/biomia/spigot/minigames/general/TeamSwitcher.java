@@ -15,7 +15,7 @@ public class TeamSwitcher {
         Inventory inv = mode.getTeamSwitcher();
 
         if (inv == null)
-            inv = Bukkit.createInventory(null, 9, "\u00A7cTeam \u00A7bw\u00fchlen");
+            inv = Bukkit.createInventory(null, 9, "\u00A7cTeam \u00A7bw\u00e4hlen");
 
         int i = 0;
 

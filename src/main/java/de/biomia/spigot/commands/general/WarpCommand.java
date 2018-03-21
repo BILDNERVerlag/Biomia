@@ -40,19 +40,15 @@ public class WarpCommand extends BiomiaCommand {
         HashMap<String, WarpLocation> publicWarpLocations = initPublicWarps(p);
 
         switch (getName().toLowerCase()) {
-        //TODO remove duplicated code
             case "setwarp":
                 if (args.length < 1) {
                     sendWarpInstructions(p);
                     return true;
                 }
                 int verbleibendeWarps = RankManager.getPremiumLevel((p.getName())) + 3 - playerWarpLocations.size();
-                if (bp.isStaff()) {
-                    verbleibendeWarps += 2;
-                }
-                if (bp.isOwner()) {
-                    verbleibendeWarps += 6;
-                }
+                if (bp.isStaff()) verbleibendeWarps += 2;
+                if (bp.isOwner()) verbleibendeWarps += 6;
+
                 if (playerWarpLocations.size() >= RankManager.getPremiumLevel(p.getName()) + 3) {
                     p.sendMessage("\u00A7cDu hast bereits die \u00A7bmaximale \u00A7cAnzahl Warps erreicht.");
                     p.sendMessage("\u00A7cBenutze \u00A77/\u00A7cdelwarp \u00A77<\u00A7cName\u00A77> \u00A7bum Warps zu l\u00f6schen \u00A7coder hol dir einen unserer Premiumränge und unterstütze damit den Server.");
@@ -62,7 +58,6 @@ public class WarpCommand extends BiomiaCommand {
                     p.sendMessage("\u00A7cEigene Warps sind auf diesem Server (\u00A7b" + Main.getGroupName() + "\u00A7c) nicht erlaubt. Sorry!");
                     return true;
                 }
-
 
                 MySQL.executeUpdate("INSERT INTO Warps (`x`, `y`, `z`, `yaw`, `pitch`, `groupname`, `worldname`, `name`, `biomiaPlayerID`) VALUES (" +
                         ploc.getBlockX() + "," +
@@ -77,9 +72,7 @@ public class WarpCommand extends BiomiaCommand {
                         ")", MySQL.Databases.biomia_db);
                 p.sendMessage("\u00A7cDu hast den Warp \u00A7b" + args[0] + "\u00A7c erfolgreich erstellt!");
                 playerWarpLocations = getAllLocations(p);
-                verbleibendeWarps = RankManager.getPremiumLevel((p.getName())) + 3 - playerWarpLocations.size();
-                if (bp.isStaff()) verbleibendeWarps += 2;
-                if (bp.isOwner()) verbleibendeWarps += 6;
+                verbleibendeWarps--;
                 if (verbleibendeWarps <= 0)
                     p.sendMessage("\u00A77Dies war dein letzter verbleibender Warppunkt.");
                 else

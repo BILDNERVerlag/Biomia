@@ -1,7 +1,6 @@
 package de.biomia.spigot.configs;
 
 import de.biomia.spigot.minigames.*;
-import de.biomia.spigot.minigames.bedwars.Variables;
 import de.biomia.spigot.minigames.general.shop.ItemType;
 import org.bukkit.Location;
 import org.bukkit.block.Block;

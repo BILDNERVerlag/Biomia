@@ -26,5 +26,5 @@ public class SkyWarsItemNames {
 
     public static final String kitItemName = "\u00A7cKits";
     public static final String startItem = "\u00A7bStart";
-    public static final String teamWaehlerItem = "\u00A7cTeam W\u00fchler";
+    public static final String teamWaehlerItem = "\u00A7cTeam W\u00e4hler";
 }

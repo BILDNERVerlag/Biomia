@@ -2,7 +2,6 @@ package de.biomia.spigot.minigames.general.shop;
 
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
-import de.biomia.spigot.minigames.bedwars.Variables;
 import de.biomia.spigot.minigames.general.ColorType;
 import de.biomia.spigot.tools.ItemCreator;
 import net.md_5.bungee.api.ChatColor;

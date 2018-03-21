@@ -250,7 +250,7 @@ public class StillePost implements Listener {
 
         // nach quest
         nachQuestLorena = new DialogMessage(q, lorena).setInhalt(
-                "Vielen, vielen Dank nochmal f\u00fcr die Hilfe mit dem Kompass! Ich w\u00fcsste nicht, was ich ohne dich getan h\u00fctte!");
+                "Vielen, vielen Dank nochmal f\u00fcr die Hilfe mit dem Kompass! Ich w\u00fcsste nicht, was ich ohne dich getan h\u00e4tte!");
         nachQuestFranky = startDialogFranky;
         nachQuestElisabeth = startDialogElisabeth;
         nachQuestMario = startDialogMario;

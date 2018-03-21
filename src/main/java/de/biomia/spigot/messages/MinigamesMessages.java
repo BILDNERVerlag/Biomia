@@ -8,8 +8,8 @@ public class MinigamesMessages {
     public static final String lobbyCountDown = Messages.PREFIX + "\u00A75Start in \u00A72%t \u00A75Sekunden!";
     public static final String mapSize = "\u00A7b%s \u00A77x \u00A7c%s";
     public static final String notEnoughPlayerToStart = Messages.PREFIX + "\u00A7cZu wenig Spieler! Warte auf weitere...";
-    public static final String teamFull = "Das Team ist voll!";
-    public static final String alreadyInTeam = "Du bist bereits in diesem Team!";
+    public static final String teamFull = Messages.PREFIX + "\u00A7cDas Team ist voll!";
+    public static final String alreadyInTeam = Messages.PREFIX + "\u00A7cDu bist bereits in diesem Team!";
     public static final String chatMessageAll = "\u00A78[\u00A77@all\u00A78] %p\u00A77: \u00A7f%msg";
     public static final String chatMessageTeam = "\u00A78[\u00A77Team\u00A78] %p\u00A77: \u00A7f%msg";
     public static final String chatMessageDead = "\u00A78[\u00A77Tot\u00A78] \u00A77\u00A7o%p\u00A7r\u00A77: \u00A7f%msg";

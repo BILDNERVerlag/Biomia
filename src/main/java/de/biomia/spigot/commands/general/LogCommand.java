@@ -15,8 +15,8 @@ public class LogCommand extends BiomiaCommand {
         if (sender.hasPermission("biomia.log")) {
             Stats.logSwitch();
             if (Stats.isLogging())
-                sender.sendMessage("§7§kxxx§r§cLogging §baktiviert§c!§7§kxxx");
-            else sender.sendMessage("§7§kxxx§r§cLogging §bdeaktiviert§c!§7§kxxx");
+                sender.sendMessage("\u00A77\u00A7kxxx\u00A7r\u00A7cLogging \u00A7baktiviert\u00A7c!\u00A77\u00A7kxxx");
+            else sender.sendMessage("\u00A77\u00A7kxxx\u00A7r\u00A7cLogging \u00A7bdeaktiviert\u00A7c!\u00A77\u00A7kxxx");
         }
         return true;
     }

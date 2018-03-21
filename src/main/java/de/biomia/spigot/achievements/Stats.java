@@ -123,12 +123,12 @@ public class Stats {
     }
 
     public static int getStat(BiomiaStat stat, Player player, String comment) {
-        int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + stat.toString() + "` where ID = " + Biomia.getBiomiaPlayer(player).getBiomiaPlayerID() + " AND WHERE comment = '" + comment + "'", "value", MySQL.Databases.stats_db);
+        int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + stat.toString() + "` where ID = " + Biomia.getBiomiaPlayer(player).getBiomiaPlayerID() + " AND comment = '" + comment + "'", "value", MySQL.Databases.stats_db);
         return out == -1 ? 0 : out;
     }
 
     public static int getStat(BiomiaStat stat, int biomiaPlayerID, String comment) {
-        int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + stat.toString() + "` where ID = " + biomiaPlayerID + " AND WHERE comment = '" + comment + "'", "value", MySQL.Databases.stats_db);
+        int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + stat.toString() + "` where ID = " + biomiaPlayerID + " AND comment = '" + comment + "'", "value", MySQL.Databases.stats_db);
         return out == -1 ? 0 : out;
     }
 
@@ -219,29 +219,29 @@ public class Stats {
 
         StringBuilder out = new StringBuilder();
 
-        out.append("\n§7<§cChecking §7").append(stat).append(" §cfor §b").append(BiomiaPlayer.getName(biomiaPlayerID)).append("§7,\n");
+        out.append("\n\u00A77<\u00A7cChecking \u00A77").append(stat).append(" \u00A7cfor \u00A7b").append(BiomiaPlayer.getName(biomiaPlayerID)).append("\u00A77,\n");
         if (achievements != null) {
-            out.append("§7-§c# of Achievements: §b").append(achievements.size()).append("§7,\n");
+            out.append("\u00A77-\u00A7c# of Achievements: \u00A7b").append(achievements.size()).append("\u00A77,\n");
             for (Achievements each : achievements) {
                 if (each.getComment() != null) {
                     if (Stats.getComments(stat, biomiaPlayerID).get(each.getComment()) >= each.getTargetValue()) {
                         if (unlock(each.getAchievement(), biomiaPlayerID)) {
-                            out.append("§7-§cComment is §7'§b").append(each.getComment()).append("§7' (§c").append(Stats.getComments(stat, biomiaPlayerID).get(each.getComment())).append("§7>=§c").append(each.getTargetValue()).append("§7),\n");
-                            out.append("§7-§cUnlocked §b").append(each.getAchievement().name()).append("§7>");
-                        } else out.append("§7-§cNo new unlocks (already unlocked).§7>");
+                            out.append("\u00A77-\u00A7cComment is \u00A77'\u00A7b").append(each.getComment()).append("\u00A77' (\u00A7c").append(Stats.getComments(stat, biomiaPlayerID).get(each.getComment())).append("\u00A77>=\u00A7c").append(each.getTargetValue()).append("\u00A77),\n");
+                            out.append("\u00A77-\u00A7cUnlocked \u00A7b").append(each.getAchievement().name()).append("\u00A77>");
+                        } else out.append("\u00A77-\u00A7cNo new unlocks (already unlocked).\u00A77>");
                     } else {
-                        out.append("§7-§cComment is §7'§b").append(each.getComment()).append("§7' (§c").append(Stats.getComments(stat, biomiaPlayerID).get(each.getComment())).append("§7<=§c").append(each.getTargetValue()).append("§7),\n");
-                        out.append("§7-§cNo new unlocks.§7>");
+                        out.append("\u00A77-\u00A7cComment is \u00A77'\u00A7b").append(each.getComment()).append("\u00A77' (\u00A7c").append(Stats.getComments(stat, biomiaPlayerID).get(each.getComment())).append("\u00A77<=\u00A7c").append(each.getTargetValue()).append("\u00A77),\n");
+                        out.append("\u00A77-\u00A7cNo new unlocks.\u00A77>");
                     }
                 } else if (value >= each.getTargetValue()) {
                     if (unlock(each.getAchievement(), biomiaPlayerID)) {
-                        out.append("§7-§cNo comment. §b").append(value).append("§7>=§b").append(each.getTargetValue()).append("§7,\n");
-                        out.append("§7-§cUnlocked §b").append(each.getAchievement().name()).append("§7>");
+                        out.append("\u00A77-\u00A7cNo comment. \u00A7b").append(value).append("\u00A77>=\u00A7b").append(each.getTargetValue()).append("\u00A77,\n");
+                        out.append("\u00A77-\u00A7cUnlocked \u00A7b").append(each.getAchievement().name()).append("\u00A77>");
                     } else
-                        out.append("§7-§cNo new unlocks. (already unlocked ").append(each.getAchievement().name()).append(")§7>");
-                } else out.append("§7-§cNo new unlocks.§7>");
+                        out.append("\u00A77-\u00A7cNo new unlocks. (already unlocked ").append(each.getAchievement().name()).append(")\u00A77>");
+                } else out.append("\u00A77-\u00A7cNo new unlocks.\u00A77>");
             }
-        } else out.append("§7-§cNo achievements.§7>");
+        } else out.append("\u00A77-\u00A7cNo achievements.\u00A77>");
         if (log) Bukkit.broadcastMessage(out.toString());
     }
 

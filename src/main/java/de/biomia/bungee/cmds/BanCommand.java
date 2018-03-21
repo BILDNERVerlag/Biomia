@@ -22,7 +22,7 @@ public class BanCommand extends Command {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-
+        //che
         if (sender.hasPermission("biomia.ban"))
             if (sender instanceof ProxiedPlayer) {
                 ProxiedPlayer pp = (ProxiedPlayer) sender;
@@ -37,7 +37,6 @@ public class BanCommand extends Command {
                     ChannelListener.sendBanRequest(BungeeBiomia.getOfflineBiomiaPlayer(pp.getName()), BungeeBiomia.getOfflineBiomiaPlayer(args[0]).getBiomiaPlayerID());
                 }
             }
-
     }
 
     public static void banPerm(ProxiedPlayer sender, int biomiaID, String grund) {
