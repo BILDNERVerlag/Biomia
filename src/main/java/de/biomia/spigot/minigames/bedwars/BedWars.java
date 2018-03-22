@@ -40,21 +40,13 @@ public class BedWars extends GameMode {
 
     @Override
     public void start() {
-        getStateManager().setLobbyState(new GameStateManager.LobbyState(this) {
-            private SpawnItems itemManager;
-
-            @Override
-            public void start() {
-                super.start();
-                itemManager = new SpawnItems(((BedWarsConfig) getConfig()).loadSpawner(getInstance()), getInstance().getWorld());
-                itemManager.startSpawning();
-            }
-        });
 
         getStateManager().setInGameState(new GameStateManager.InGameState(this) {
+
             @Override
             public void start() {
                 super.start();
+                new SpawnItems(((BedWarsConfig) getConfig()).loadSpawner(getInstance()), getInstance().getWorld()).startSpawning();
                 Bukkit.getPluginManager().callEvent(new BedWarsStartEvent(getMode()));
             }
 

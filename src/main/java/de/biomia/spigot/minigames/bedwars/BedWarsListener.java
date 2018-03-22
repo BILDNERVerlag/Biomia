@@ -201,9 +201,8 @@ public class BedWarsListener extends GameHandler {
         e.setKeepInventory(true);
         p.getInventory().clear();
 
-        if (!mode.getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
-            e.setDeathMessage(MinigamesMessages.playerDiedFinally.replace("%p",
-                    team.getColorcode() + p.getName()));
+        if (mode.getInstance().containsPlayer(bp) && !bp.getTeam().lives(bp)) {
+            e.setDeathMessage(MinigamesMessages.playerDiedFinally.replace("%p", team.getColorcode() + p.getName()));
             team.setDead(bp);
         } else {
             if (killer == null) {
@@ -374,9 +373,7 @@ public class BedWarsListener extends GameHandler {
             if (mode.getInstance().containsPlayer(bp)) {
                 e.setQuitMessage(MinigamesMessages.leftTheGame.replaceAll("%p", e.getPlayer().getName()));
                 Bukkit.getPluginManager().callEvent(new BedWarsLeaveEvent(bp));
-                if (mode.canStop()) {
-                    mode.stop();
-                }
+                bp.getTeam().leave(bp);
             }
         } else if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
             super.onDisconnect(e);

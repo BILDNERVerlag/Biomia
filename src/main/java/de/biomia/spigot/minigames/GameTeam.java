@@ -4,8 +4,8 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.messages.manager.ActionBar;
-import de.biomia.spigot.minigames.general.Scoreboards;
 import de.biomia.spigot.minigames.general.Dead;
+import de.biomia.spigot.minigames.general.Scoreboards;
 import de.biomia.spigot.minigames.general.TeamSwitcher;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Location;
@@ -100,6 +100,7 @@ public class GameTeam {
     public void leave(BiomiaPlayer bp) {
         bp.setTeam(null);
         players.remove(bp);
+        mode.getInstance().getPlayers().remove(bp);
     }
 
     public Location getHome() {
