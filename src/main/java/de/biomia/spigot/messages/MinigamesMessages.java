@@ -5,7 +5,7 @@ import de.biomia.universal.Messages;
 public class MinigamesMessages {
     // %t = CountDown
     public static final String restartCountDown = "\u00A7cRestart in \u00A76%t \u00A7cSekunden!";
-    public static final String lobbyCountDown = Messages.PREFIX + "\u00A75Start in \u00A72%t \u00A75Sekunden!";
+    public static final String lobbyCountDown = Messages.PREFIX + "\u00A77Start in \u00A7b%t \u00A77Sekunden!";
     public static final String mapSize = "\u00A7b%s \u00A77x \u00A7c%s";
     public static final String notEnoughPlayerToStart = Messages.PREFIX + "\u00A7cZu wenig Spieler! Warte auf weitere...";
     public static final String teamFull = Messages.PREFIX + "\u00A7cDas Team ist voll!";
@@ -19,7 +19,9 @@ public class MinigamesMessages {
     public static final String noFittingTeamParty = "\u00A7cEs konnt kein passendes Team gefunden werden, da die Partygr\u00F6\u00DFe die maximale Teamgr\u00F6\u00DFe \u00fcbersteigt!";
     public static final String noFittingTeamPlayer = "\u00A7cEs konnt kein passendes Team gefunden werden, da kein Team genug Platz hat!";
     public static final String kickedForPremium = "\u00A7cDu wurdest gekickt um einen Premium Spieler Platz zu machen!";
-    public static final String joinedTheGame = " \u00A78ist dem Spiel beigetreten!";
+    public static final String joinedTheGame = "\u00A77Der Spieler %p \u00A77ist dem Spiel beigetreten.";
+    public static final String explainMessages = "\u00A77Nur Teammitglieder können deine Chatnachrichten sehen.\n" +
+            "\u00A77Tippe \u00A7b@a \u00A77oder \u00A7b@all \u00A77vor eine Nachricht, um an alle zu senden.";
     public static final String playerKilledByPlayer = "\u00A78Der Spieler %s \u00A78wurde von %s \u00A78get\u00F6tet!";
     public static final String playerDied = "\u00A78Der Spieler %p \u00A78ist gestorben!";
     public static final String playerDiedFinally = "\u00A78Der Spieler %p \u00A78ist endg\u00fcltig gestorben!";

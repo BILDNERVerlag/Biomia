@@ -2,14 +2,18 @@ package de.biomia.spigot.minigames.general;
 
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
+import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.messages.manager.ActionBar;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
+import de.biomia.spigot.minigames.GameTeam;
+import de.biomia.spigot.minigames.bedwars.BedWarsTeam;
 import de.biomia.spigot.minigames.skywars.SkyWars;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -44,6 +48,8 @@ public class Teleport {
                     BiomiaPlayer bp = players.next();
                     bp.getPlayer().setFallDistance(0);
                     bp.getPlayer().teleport(bp.getTeam().getHome());
+                    bp.sendMessage(MinigamesMessages.explainMessages);
+                    //TODO: set spawn
                 } else {
                     cancel();
                 }

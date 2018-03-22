@@ -26,6 +26,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.*;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
+import java.util.logging.Level;
+
 public abstract class GameHandler implements Listener {
 
     protected final GameMode mode;
@@ -41,7 +43,6 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-
         Player p = e.getPlayer();
         BackToLobby.getLobbyItem(p, 8);
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
@@ -110,7 +111,6 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {
-        Bukkit.broadcastMessage("%%%gamehandler.onchat");
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         GameTeam team = bp.getTeam();
@@ -143,6 +143,7 @@ public abstract class GameHandler implements Listener {
                 }
             } else {
                 format = MinigamesMessages.chatMessageDead.replaceAll("%p", p.getDisplayName()).replaceAll("%msg", msg);
+                e.setCancelled(true);
                 for (Player spec : Bukkit.getOnlinePlayers()) {
 
                     BiomiaPlayer specbp = Biomia.getBiomiaPlayer(spec);
@@ -157,7 +158,7 @@ public abstract class GameHandler implements Listener {
                     .replaceAll("%msg", msg);
             e.setFormat(format);
         } else {
-            format = MinigamesMessages.chatMessageLobby.replaceAll("%p", p.getDisplayName()).replaceAll("%msg", msg);
+            format = MinigamesMessages.chatMessageLobby.replaceAll("%p", "\u00A77" + p.getDisplayName()).replaceAll("%msg", msg);
             e.setFormat(format);
         }
     }

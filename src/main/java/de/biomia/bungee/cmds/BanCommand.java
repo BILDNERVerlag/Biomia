@@ -22,7 +22,6 @@ public class BanCommand extends Command {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        //che
         if (sender.hasPermission("biomia.ban"))
             if (sender instanceof ProxiedPlayer) {
                 ProxiedPlayer pp = (ProxiedPlayer) sender;
@@ -40,7 +39,6 @@ public class BanCommand extends Command {
     }
 
     public static void banPerm(ProxiedPlayer sender, int biomiaID, String grund) {
-
         OfflineBungeeBiomiaPlayer bp = BungeeBiomia.getOfflineBiomiaPlayer(sender.getName());
 
         if (sender.hasPermission("biomia.ban.perm")) {
@@ -53,7 +51,6 @@ public class BanCommand extends Command {
             sender.sendMessage(new TextComponent(Messages.NO_PERM));
         }
 
-
         if (bp.isOnline())
             bp.getProxiedPlayer().disconnect(new TextComponent("\u00A7cDu wurdest wegen \u00A7b" + grund + " \u00A7cpermanent gebannt."));
 
@@ -62,8 +59,6 @@ public class BanCommand extends Command {
     }
 
     public static void banTemp(ProxiedPlayer sender, int biomiaID, int sec, String grund) {
-
-
         OfflineBungeeBiomiaPlayer bp = BungeeBiomia.getOfflineBiomiaPlayer(sender.getName());
         String name = bp.getName();
 

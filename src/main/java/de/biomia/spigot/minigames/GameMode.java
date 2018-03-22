@@ -186,7 +186,6 @@ public abstract class GameMode {
 
     public void setHandler() {
         this.handler = initHandler();
-        Bukkit.getPluginManager().registerEvents(handler, Main.getPlugin());
     }
 
     public HashMap<TeamColor, Entity> getJoiner() {

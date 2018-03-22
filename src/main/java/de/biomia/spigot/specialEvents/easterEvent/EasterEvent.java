@@ -210,7 +210,7 @@ public class EasterEvent implements Listener {
                             BESONDERE EIER:
                                 je Ei:
                                     500 BC
-                                für alle Eier:
+                                wenn alle Eier:
                                     1500 BC
                                     exklusives SkyWars-Kit (Eierwerfer-Kit)
 

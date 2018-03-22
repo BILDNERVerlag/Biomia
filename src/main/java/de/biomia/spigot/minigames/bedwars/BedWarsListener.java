@@ -58,7 +58,7 @@ public class BedWarsListener extends GameHandler {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-
+        e.setJoinMessage(null);
         Player p = e.getPlayer();
         BackToLobby.getLobbyItem(p, 8);
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
@@ -106,8 +106,8 @@ public class BedWarsListener extends GameHandler {
 
             bp.getPlayer().setLevel(mode.getStateManager().getLobbyState().getCountDown());
 
-
-            Bukkit.broadcastMessage(bp.isPremium() ? "\u00A76" : "\u00A77" + p.getName() + MinigamesMessages.joinedTheGame);
+            String nameString = (bp.isPremium() ? "\u00A76" : "\u00A7b") + p.getName();
+            Bukkit.broadcastMessage(MinigamesMessages.joinedTheGame.replaceAll("%p", nameString));
 
             mode.partyJoin(bp);
             Scoreboards.setLobbyScoreboard(p);
