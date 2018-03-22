@@ -24,7 +24,7 @@ public class CoinsCommand extends BiomiaCommand {
 
         if (p.getPlayer().hasPermission("biomia.coins")) {
             if (args.length >= 1) {
-                String arg1 = args[0];
+                String arg1 = args[0].toLowerCase();
                 if (args.length >= 2) {
                     OfflineBiomiaPlayer target = p;
 
