@@ -198,7 +198,6 @@ public class GameStateManager {
                         }
                         i--;
                     }
-
                 }
             }.runTaskTimer(Main.getPlugin(), 0, 20);
         }
