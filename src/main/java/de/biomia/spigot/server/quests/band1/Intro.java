@@ -29,7 +29,7 @@ public class Intro implements Listener {
     private DialogMessage startDialog;
 
     public Intro() {
-        q = Biomia.getQuestManager().registerNewQuest("Intro", 1);
+        q = Biomia.getQuestManager().registerNewQuest("Intro", 99);
         aaron = q.createNPC(EntityType.PLAYER, "DerAaron");
         Location locAaron = new Location(Bukkit.getWorld("Quests"), -35, 68, -204, 30, 5);
         aaron.spawn(locAaron);
@@ -40,9 +40,7 @@ public class Intro implements Listener {
     @EventHandler
     public void onInteract(NPCRightClickEvent e) {
         if (aaron.equals(e.getNPC())) {
-
             QuestPlayer qp = Biomia.getQuestPlayer(e.getClicker());
-
             if (qp.getDialog() == null) {
                 qp.setDialog(startDialog);
                 qp.getDialog().execute(qp);
@@ -51,7 +49,6 @@ public class Intro implements Listener {
     }
 
     private void initDialog() {
-
         startDialog = new DialogMessage(q, aaron).setInhalt("Willkommen auf dem QuestServer von Biomia!");
         startDialog.setNext(
                 "Im nord\u00f6stlich von hier liegenden Dorf findest du verschiedene NPCs, die mit Aufgaben auf dich warten. Bitte "

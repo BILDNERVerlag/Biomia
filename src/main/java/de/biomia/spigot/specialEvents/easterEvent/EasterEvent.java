@@ -5,6 +5,7 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.OfflineBiomiaPlayer;
 import de.biomia.spigot.achievements.Stats;
+import de.biomia.spigot.server.quests.sonstigeQuests.Osterhase;
 import de.biomia.spigot.tools.HeadCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -45,6 +46,7 @@ public class EasterEvent implements Listener {
     public EasterEvent() {
         final String world;
         switch (Main.getGroupName()) {
+            case "TestLobby":
             case "Lobby":
                 world = "LobbyBiomia";
                 location = new Location(Bukkit.getWorld(world), 532, 112, 300);
@@ -105,6 +107,7 @@ public class EasterEvent implements Listener {
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
         startSpawningEggs();
         spawnSpecialEgg();
+        Bukkit.getPluginManager().registerEvents(new Osterhase(), Main.getPlugin());
     }
 
     private void spawnSpecialEgg() {

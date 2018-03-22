@@ -22,7 +22,7 @@ public class BedWarsTeam extends GameTeam {
         bed = ((BedWarsConfig) mode.getConfig()).loadBeds(mode.getInstance(), this);
     }
 
-    private boolean hasBed;
+    private boolean hasBed = true;
 
     @Override
     public void setDead(BiomiaPlayer bp) {
@@ -54,8 +54,6 @@ public class BedWarsTeam extends GameTeam {
         // Scoreboard
         Scoreboards.spectatorSB.getTeam("spectator").addEntry(bp.getName());
         Scoreboards.setSpectatorSB(bp.getPlayer());
-
-
     }
 
     public void destroyBed() {

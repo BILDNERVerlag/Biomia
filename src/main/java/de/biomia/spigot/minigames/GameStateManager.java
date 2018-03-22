@@ -185,19 +185,17 @@ public class GameStateManager {
 
                 @Override
                 public void run() {
-                    while (i >= 0) {
-                        if (i == 15) {
-                            Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("%t", i + ""));
-                        } else if (i == 10) {
-                            Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("%t", i + ""));
-                        } else if (i <= 5 && i != 0) {
-                            Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("%t", i + ""));
-                        } else if (i == 0) {
-                            stop();
-                            return;
-                        }
-                        i--;
+                    if (i == 15) {
+                        Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("%t", i + ""));
+                    } else if (i == 10) {
+                        Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("%t", i + ""));
+                    } else if (i <= 5 && i != 0) {
+                        Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("%t", i + ""));
+                    } else if (i <= 0) {
+                        stop();
+                        return;
                     }
+                    i--;
                 }
             }.runTaskTimer(Main.getPlugin(), 0, 20);
         }
