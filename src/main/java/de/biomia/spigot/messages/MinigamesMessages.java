@@ -26,7 +26,8 @@ public class MinigamesMessages {
             "\u00A77Nur Teammitglieder können deine Chatnachrichten sehen.\n" +
             "\u00A77Tippe \u00A7b@a \u00A77oder \u00A7b@all \u00A77vor eine Nachricht, um an alle zu senden.\n" +
             "\u00A77\u00A7m-------------------------------------------------\u00A7r";
-    public static final String playerKilledByPlayer = "\u00A78Der Spieler %s \u00A78wurde von %s \u00A78get\u00F6tet!";
+    public static final String playerKilledByPlayer = "\u00A77>>Der Spieler %s \u00A77wurde von %s \u00A77get\u00F6tet!";
     public static final String playerDied = "\u00A77Der Spieler %p \u00A77ist gestorben.";
-    public static final String playerDiedFinally = "\u00A78Der Spieler %p \u00A78ist endg\u00fcltig gestorben!";
+    public static final String playerDiedFinally = "\u00A77Der Spieler %p \u00A77ist endg\u00fcltig gestorben!";
+    public static final String destroyOwnBed = "§7Du kannst das eigene Bett nicht zerstören.\n Deine Mitspieler wären enttäuscht :(";
 }

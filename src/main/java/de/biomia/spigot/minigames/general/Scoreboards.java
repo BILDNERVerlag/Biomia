@@ -30,10 +30,10 @@ public class Scoreboards {
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         o.getScore(" ").setScore(7);
-        o.getScore("\u00A75Map:").setScore(6);
+        o.getScore("\u00A7cMap:").setScore(6);
         o.getScore("\u00A7c").setScore(5);
         o.getScore("\u00A7a").setScore(4);
-        o.getScore("\u00A75Teams:").setScore(3);
+        o.getScore("\u00A7cTeams:").setScore(3);
         o.getScore("\u00A7f").setScore(2);
         o.getScore("\u00A71").setScore(1);
 
@@ -43,8 +43,8 @@ public class Scoreboards {
         map.addEntry("\u00A7c");
         teams.addEntry("\u00A7f");
 
-        map.setPrefix("\u00A72" + mode.getInstance().getWorld().getName());
-        teams.setPrefix("\u00A75" + mode.getInstance().getTeamAmount() + " \u00A77x " + "\u00A72" + mode.getInstance().getTeamSize());
+        map.setPrefix("\u00A7b" + mode.getInstance().getWorld().getName());
+        teams.setPrefix("\u00A7b" + mode.getInstance().getTeamAmount() + " \u00A77x " + "\u00A7b" + mode.getInstance().getTeamSize());
 
         for (GameTeam t : mode.getTeams()) {
             lobbySB.registerNewTeam(t.getColor().name()).setPrefix(t.getColorcode());
@@ -74,7 +74,7 @@ public class Scoreboards {
             case BED_WARS:
             case BED_WARS_VS:
                 o.getScore(" ").setScore(3);
-                o.getScore("\u00A75Team:").setScore(2);
+                o.getScore("\u00A7cTeam:").setScore(2);
                 o.getScore("\u00A7c").setScore(1);
 
                 team = sb.registerNewTeam("team");
@@ -85,10 +85,10 @@ public class Scoreboards {
             case SKY_WARS_VS:
 
                 o.getScore(" ").setScore(7);
-                o.getScore("\u00A75Kit:").setScore(6);
+                o.getScore("\u00A7cKit:").setScore(6);
                 o.getScore("\u00A7c").setScore(5);
                 o.getScore("\u00A7a").setScore(4);
-                o.getScore("\u00A75Team:").setScore(3);
+                o.getScore("\u00A7cTeam:").setScore(3);
                 o.getScore("\u00A7f").setScore(2);
                 o.getScore("\u00A71").setScore(1);
 

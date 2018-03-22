@@ -51,14 +51,14 @@ public class GamemodeCommand extends BiomiaCommand {
                         if (args.length >= 2) {
                             Player target = Bukkit.getPlayer(args[1]);
                             target.setGameMode(gameMode);
-                            target.sendMessage("\u00A75Du bist nun im GameMode \u00A72" + gameMode.name().toLowerCase());
-                            p.sendMessage("\u00A75Der Spieler\u00A72 " + target.getName() + " \u00A75ist nun im GameMode \u00A72" + gameMode.name().toLowerCase());
+                            target.sendMessage("\u00A7b>>\u00A77Du bist nun im GameMode \u00A7b" + gameMode.name().toLowerCase());
+                            p.sendMessage("\u00A7b>>\u00A77Der Spieler\u00A7c " + target.getName() + " \u00A77ist nun im GameMode \u00A7b" + gameMode.name().toLowerCase());
                         } else {
                             p.setGameMode(gameMode);
-                            p.sendMessage("\u00A75Du bist nun im GameMode \u00A72" + gameMode.name().toLowerCase());
+                            p.sendMessage("\u00A7b>>\u00A77Du bist nun im GameMode \u00A7b" + gameMode.name().toLowerCase());
                         }
                     } else {
-                        p.sendMessage("/gm <GameMode> [Spieler]");
+                        p.sendMessage("\u00A77/\u00A7bgm \u00A77<\u00A7bGameMode\u00A77> [\u00A7bSpieler\u00A77]");
                     }
                 } else {
                     sender.sendMessage(Messages.NO_PERM);

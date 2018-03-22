@@ -26,8 +26,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.*;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
-import java.util.logging.Level;
-
 public abstract class GameHandler implements Listener {
 
     protected final GameMode mode;
@@ -216,12 +214,12 @@ public abstract class GameHandler implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractAtEntityEvent e) {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        if (SkyWars.getSkyWars().getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
+        if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
             e.setCancelled(true);
         }
 
         if (e.getRightClicked() instanceof ArmorStand) {
-            for (GameTeam allteams : SkyWars.getSkyWars().getTeams()) {
+            for (GameTeam allteams : mode.getTeams()) {
 
                 Entity entity = mode.getJoiner().get(allteams.getColor());
                 if (e.getRightClicked().equals(entity)) {

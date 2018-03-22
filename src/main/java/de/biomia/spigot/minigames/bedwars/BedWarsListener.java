@@ -201,7 +201,7 @@ public class BedWarsListener extends GameHandler {
         e.setKeepInventory(true);
         p.getInventory().clear();
 
-        if (mode.getInstance().containsPlayer(bp) && !bp.getTeam().lives(bp)) {
+        if (mode.getInstance().containsPlayer(bp) && !((BedWarsTeam) team).hasBed()) {
             e.setDeathMessage(MinigamesMessages.playerDiedFinally.replace("%p", team.getColorcode() + p.getName()));
             team.setDead(bp);
         } else {
@@ -538,7 +538,7 @@ public class BedWarsListener extends GameHandler {
                     BedWarsTeam bt = ((BedWarsTeam) gt);
                     if (bt.getBed().contains(e.getBlock())) {
                         if (bt.equals((BedWarsTeam) Biomia.getBiomiaPlayer(e.getPlayer()).getTeam())) {
-                            e.getPlayer().sendMessage("§7Du kannst das eigene Bett nicht zerstören. Deine Mitspieler wären enttäuscht :(");
+                            e.getPlayer().sendMessage(MinigamesMessages.destroyOwnBed);
                             e.setCancelled(true);
                             return;
                         }

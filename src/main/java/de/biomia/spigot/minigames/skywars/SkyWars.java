@@ -36,17 +36,9 @@ public class SkyWars extends GameMode {
         super(instance);
     }
 
-    private static SkyWars instance;
-
-    public static SkyWars getSkyWars() {
-        return instance;
-    }
-
     @Override
     public void start() {
         super.start();
-
-        instance = this;
 
         Main.getPlugin().saveDefaultConfig();
         saveConfig();
@@ -58,7 +50,7 @@ public class SkyWars extends GameMode {
             @Override
             public void start() {
                 super.start();
-                SkyWars.getSkyWars().getStateManager().setActualGameState(GameStateManager.GameState.WAITING_FOR_START);
+                getMode().getStateManager().setActualGameState(GameStateManager.GameState.WAITING_FOR_START);
 
                 HashMap<BiomiaPlayer, Integer> biomiaPlayerKits = new HashMap<>();
                 for (Player p : Bukkit.getOnlinePlayers()) {
