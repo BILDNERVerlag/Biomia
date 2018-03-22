@@ -45,6 +45,7 @@ import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 import java.util.ArrayList;
 
@@ -223,19 +224,19 @@ public class BedWarsListener extends GameHandler {
 
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
+        GameTeam t = Biomia.getBiomiaPlayer(p).getTeam();
 
         if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
-
-            GameTeam t = Biomia.getBiomiaPlayer(p).getTeam();
             if (t != null) {
                 if (!mode.getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
                     e.setRespawnLocation(t.getHome());
                 } else
                     e.setRespawnLocation(new Location(Bukkit.getWorld(MinigamesConfig.getMapName()), 0, 100, 0));
-                return;
             }
+        } else {
+            //TODO: set spawn
+            e.setRespawnLocation(GameMode.getSpawn());
         }
-        e.setRespawnLocation(GameMode.getSpawn());
     }
 
     @EventHandler
@@ -368,7 +369,7 @@ public class BedWarsListener extends GameHandler {
         if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
             // Check if Player is instatnce of the act round
             if (mode.getInstance().containsPlayer(bp)) {
-                e.setQuitMessage(e.getPlayer().getName() + " hat das Spiel verlassen");
+                e.setQuitMessage(MinigamesMessages.leftTheGame.replaceAll("%p", e.getPlayer().getName()));
                 Bukkit.getPluginManager().callEvent(new BedWarsLeaveEvent(bp));
                 if (mode.canStop()) {
                     mode.stop();

@@ -49,7 +49,6 @@ public class Teleport {
                     bp.getPlayer().setFallDistance(0);
                     bp.getPlayer().teleport(bp.getTeam().getHome());
                     bp.sendMessage(MinigamesMessages.explainMessages);
-                    //TODO: set spawn
                 } else {
                     cancel();
                 }

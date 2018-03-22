@@ -215,15 +215,15 @@ public class EasterEvent implements Listener {
                                     exklusives SkyWars-Kit (Eierwerfer-Kit)
 
                             NORMALE EIER:
-                            1:
-                                "Du hast tatsächlich eins meiner Ostereier gefunden! Ich hoffe, dir gefallen die Preise!"
+                              "Du hast tatsächlich eins meiner Ostereier gefunden! Ich hoffe, dir gefallen die Preise!"
                                 100 BC
                                 1 Beacon (Freebuild)
                                 Farbklecks-Hut (Quests)
                             3:
                                 "3 Eier schon! Ein starker Start, Gratulation!"
                                 150 BC
-                                1 Verzauberte Elytra (Freebuild)
+                                1 Verz 1:
+                             auberte Elytra (Freebuild)
                                 16 Enderperlen (Quests)
                             5:
                                 "5 Eier waren für dich nicht mal eine Herausforderung! Da ist mir direkt nach Tanzen zumute! Hier, etwas musikalisches."
