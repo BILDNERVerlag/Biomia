@@ -9,7 +9,6 @@ import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.general.Dead;
 import de.biomia.spigot.minigames.general.Scoreboards;
 import de.biomia.spigot.minigames.general.Teleport;
-import de.biomia.spigot.minigames.skywars.SkyWars;
 import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.ItemCreator;
 import net.md_5.bungee.api.ChatColor;
@@ -23,6 +22,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.*;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
@@ -104,6 +104,15 @@ public abstract class GameHandler implements Listener {
             if (mode.getInstance().containsPlayer(bp) && mode.getInstance().containsPlayer(damager))
                 if (bp.getTeam().equals(damager.getTeam()))
                     e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onHit(EntityDamageEvent e) {
+        if (e.getEntity() instanceof Player) {
+            BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getEntity());
+            if (mode.getInstance().containsPlayer(bp) && mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY)
+                e.setCancelled(true);
         }
     }
 

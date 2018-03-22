@@ -369,11 +369,12 @@ public class BedWarsListener extends GameHandler {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
 
         if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
-            // Check if Player is instatnce of the act round
             if (mode.getInstance().containsPlayer(bp)) {
                 e.setQuitMessage(MinigamesMessages.leftTheGame.replaceAll("%p", e.getPlayer().getName()));
                 Bukkit.getPluginManager().callEvent(new BedWarsLeaveEvent(bp));
                 bp.getTeam().leave(bp);
+                if (mode.canStop())
+                    mode.stop();
             }
         } else if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
             super.onDisconnect(e);
