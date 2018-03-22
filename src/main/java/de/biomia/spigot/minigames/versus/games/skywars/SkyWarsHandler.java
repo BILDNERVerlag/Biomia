@@ -92,7 +92,7 @@ class SkyWarsHandler extends GameHandler {
                     chests = ((VersusSkyWars) mode).getChests();
                 }
 
-                if (SkyWars.getSkyWars().getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
+                if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
 
                     if (chests.fillChest(chest.getLocation()))
                         firstOpen = true;

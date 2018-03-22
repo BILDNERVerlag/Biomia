@@ -2,7 +2,7 @@ package de.biomia.spigot.messages;
 
 public class BedWarsMessages {
 
-    public static final String bedwars = "\u00A75Bed\u00A72Wars";
+    public static final String bedwars = "\u00A7cBED\u00A7bWARS";
     public static final String blocksMustBeBeds = "\u00A7cDu musst auf dem Fu\u00DF eines Bettes stehen und auf den Kopf schauen!";
     public static final String invailedSide = "\u00A7cDiese Seite ist nicht verf\u00fcgbar!";
     public static final String shopInventory = "\u00A7cShop";

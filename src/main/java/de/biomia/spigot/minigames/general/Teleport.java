@@ -80,7 +80,7 @@ public class Teleport {
                         p.setBuild(true);
                         p.setDamageEntitys(true);
                         p.setGetDamage(true);
-                        SkyWars.getSkyWars().getStateManager().setActualGameState(GameStateManager.GameState.INGAME);
+                        mode.getStateManager().setActualGameState(GameStateManager.GameState.INGAME);
                         cancel();
                     } else {
                         ActionBar.sendActionBar("\u00A78" + waitForStartCountdown, p.getPlayer());
