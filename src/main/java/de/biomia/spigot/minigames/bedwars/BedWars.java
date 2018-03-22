@@ -28,14 +28,11 @@ public class BedWars extends GameMode {
         return new BedWarsListener(this);
     }
 
-    private static BedWars instance;
-
     public final HashMap<GameTeam, ArrayList<Block>> teamChestsLocs = new HashMap<>();
     public final HashMap<UUID, ArrayList<Player>> handlerMap = new HashMap<>();
 
     public BedWars(GameInstance instance) {
         super(instance);
-        BedWars.instance = this;
     }
 
     @Override

@@ -100,7 +100,6 @@ public class GameTeam {
     public void leave(BiomiaPlayer bp) {
         bp.setTeam(null);
         players.remove(bp);
-        mode.getInstance().getPlayers().remove(bp);
     }
 
     public Location getHome() {
