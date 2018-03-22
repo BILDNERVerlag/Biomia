@@ -7,6 +7,7 @@ import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.bedwars.BedWarsTeam;
 import de.biomia.spigot.minigames.general.TeamSwitcher;
+import de.biomia.spigot.minigames.general.Teleport;
 import de.biomia.spigot.minigames.versus.Versus;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayer;
 import org.bukkit.Bukkit;
@@ -67,10 +68,12 @@ public abstract class GameMode {
     }
 
     public void stop() {
-        instance.getPlayers().forEach(each -> ((Versus) Biomia.getServerInstance()).getManager().moveToLobby(each.getPlayer()));
+        Bukkit.broadcastMessage("%%%stop");
+        Teleport.teleportAllToWarteLobby(spawn, instance.getPlayers());
         handler.unregister();
         instance.startDeleting();
         stateManager.getInGameState().stop();
+        Bukkit.broadcastMessage("%%%stop2");
     }
 
     public GameStateManager getStateManager() {

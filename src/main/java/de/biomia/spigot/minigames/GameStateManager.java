@@ -178,7 +178,7 @@ public class GameStateManager {
                 Biomia.getBiomiaPlayer(p).setGetDamage(false);
             }
 
-            Teleport.teleportAllToWarteLobby(GameMode.getSpawn());
+            Teleport.teleportAllToWarteLobby(GameMode.getSpawn(), getMode().getInstance().getPlayers());
 
             new BukkitRunnable() {
                 int i = 15;

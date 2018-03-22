@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -22,16 +23,16 @@ public class Teleport {
 
     private static final HashMap<BiomiaPlayer, Location> starts = new HashMap<>();
 
-    public static void teleportAllToWarteLobby(Location warteLobbySpawn) {
+    public static void teleportAllToWarteLobby(Location warteLobbySpawn, ArrayList<BiomiaPlayer> players) {
 
-        Iterator<? extends Player> players = Bukkit.getOnlinePlayers().iterator();
+        Iterator<BiomiaPlayer> iterator = players.iterator();
 
         new BukkitRunnable() {
 
             @Override
             public void run() {
-                if (players.hasNext()) {
-                    players.next().teleport(warteLobbySpawn);
+                if (iterator.hasNext()) {
+                    iterator.next().getPlayer().teleport(warteLobbySpawn);
                 } else {
                     cancel();
                 }
