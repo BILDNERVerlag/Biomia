@@ -401,7 +401,7 @@ public class BedWarsListener extends GameHandler {
                 if (team != null && teamkiller != null) {
                     if (team.equals(teamkiller)) {
                         e.setCancelled(true);
-                    } else if (e.getFinalDamage() > p.getHealth() && !((BedWarsTeam) Biomia.getBiomiaPlayer(killer).getTeam()).hasBed()) {
+                    } else if (e.getFinalDamage() > p.getHealth() && !((BedWarsTeam) teamkiller).hasBed()) {
                         e.setCancelled(true);
                         Bukkit.getPluginManager().callEvent(new BedWarsDeathEvent(bp, bpKiller, true));
                         Bukkit.getPluginManager().callEvent(new BedWarsKillEvent(bp, bpKiller, false));
