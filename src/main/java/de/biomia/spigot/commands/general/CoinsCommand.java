@@ -31,12 +31,16 @@ public class CoinsCommand extends BiomiaCommand {
                     if (args.length >= 3)
                         target = Biomia.getOfflineBiomiaPlayer(args[2]);
 
-                    int coins;
+                    int coins = 0;
                     try {
                         coins = Integer.valueOf(args[1]);
-                    } catch (Exception e) {
-                        sender.sendMessage("\u00A7cBitte gib eine \u00A7bZahl \u00A7cein\u00A77!");
-                        return true;
+                    } catch (NumberFormatException e) {
+                        if (arg1.equals("get")) {
+                            target = Biomia.getOfflineBiomiaPlayer(args[1]);
+                        } else {
+                            sender.sendMessage("\u00A7cBitte gib eine \u00A7bZahl \u00A7cein\u00A77!");
+                            return true;
+                        }
                     }
 
                     switch (arg1) {
@@ -57,7 +61,7 @@ public class CoinsCommand extends BiomiaCommand {
                             sender.sendMessage(Messages.PREFIX + "\u00A77" + target.getName() + " wurden \u00A7b" + coins + " \u00A77BC hinzugf\u00fcgt!");
                             break;
                         case "get":
-                            sender.sendMessage(Messages.PREFIX + "\u00A77Der Spieler " + target.getName() + " besitzt \u00A7b" + target.getCoins() + " \u00A77BC's!");
+                            break;
                         default:
                             return true;
                     }
