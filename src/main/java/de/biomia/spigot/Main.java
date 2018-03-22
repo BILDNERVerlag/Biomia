@@ -156,7 +156,7 @@ public class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         this.saveConfig();
-        event.disable();
+        event.removeAllEggs();
         Biomia.getServerInstance().stop();
         MySQL.closeConnections();
     }

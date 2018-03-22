@@ -111,7 +111,7 @@ public class EasterEvent implements Listener {
         HeadCreator.setSkullUrl(specialEggName, specialEggLocation.getBlock());
     }
 
-    public void disable() {
+    public void removeAllEggs() {
         //despawn eggs
         blocks.forEach(each -> {
             if (each.getType() == Material.SKULL)
@@ -123,12 +123,7 @@ public class EasterEvent implements Listener {
     private void startSpawningEggs() {
         new BukkitRunnable() {
             public void run() {
-                blocks.forEach(each -> {
-                    if (each.getType() == Material.SKULL)
-                        each.setType(Material.AIR);
-                });
-                blocks.clear();
-
+                removeAllEggs();
                 for (int i = 0; i < randomEggsPerServer; i++) {
                     Location loc;
                     do {
@@ -137,14 +132,13 @@ public class EasterEvent implements Listener {
                         int degree = new Random().nextInt(360);
 
                         loc.add(r * Math.cos(degree), 0, r * Math.sin(degree));
-                        Material highestBlockType = loc.getWorld().getHighestBlockAt(loc).getLocation().subtract(0, 1, 0).getBlock().getType();
+                        Block highestBlock = loc.getWorld().getHighestBlockAt(loc).getLocation().subtract(0, 1, 0).getBlock();
 
-                        if (highestBlockType != Material.DIRT && highestBlockType != Material.GRASS && highestBlockType != Material.STONE) {
+                        if (highestBlock.getType() != Material.DIRT && highestBlock.getType() != Material.GRASS && highestBlock.getType() != Material.STONE) {
                             i--;
-                            continue;
+                        } else {
+                            loc = highestBlock.getLocation();
                         }
-
-                        loc = loc.getWorld().getHighestBlockAt(loc).getLocation();
                     } while (loc.getY() > maxHight && loc.getY() != 1);
 
                     Block b = loc.getBlock();
