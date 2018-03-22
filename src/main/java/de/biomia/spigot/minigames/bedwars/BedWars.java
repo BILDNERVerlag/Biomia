@@ -20,8 +20,8 @@ import java.util.UUID;
 
 public class BedWars extends GameMode {
 
-    //TODO: spawnpunkt zum bett setzen
     //TODO: bei spielende die leute ordentlich rausteleporten
+    //TODO: schaden in der lobby
 
     @Override
     protected GameHandler initHandler() {

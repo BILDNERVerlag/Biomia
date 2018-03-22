@@ -45,7 +45,6 @@ import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
-import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 import java.util.ArrayList;
 
@@ -220,7 +219,7 @@ public class BedWarsListener extends GameHandler {
     }
 
     @EventHandler
-    public void onPlayerRespawn(PlayerRespawnEvent e) {
+    public void onRespawn(PlayerRespawnEvent e) {
 
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
@@ -234,8 +233,11 @@ public class BedWarsListener extends GameHandler {
                     e.setRespawnLocation(new Location(Bukkit.getWorld(MinigamesConfig.getMapName()), 0, 100, 0));
             }
         } else {
-            //TODO: set spawn
-            e.setRespawnLocation(GameMode.getSpawn());
+            if (t != null) {
+                e.setRespawnLocation(t.getHome());
+            } else {
+                e.setRespawnLocation(GameMode.getSpawn());
+            }
         }
     }
 
@@ -363,6 +365,7 @@ public class BedWarsListener extends GameHandler {
 
     @EventHandler
     public void onDisconnect(PlayerQuitEvent e) {
+        e.setQuitMessage(null);
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
 
@@ -532,6 +535,23 @@ public class BedWarsListener extends GameHandler {
     public void onBlockBreak(BlockBreakEvent e) {
         if (destroyableBlocks.contains(e.getBlock())) {
             destroyableBlocks.remove(e.getBlock());
+        } else if (e.getBlock().getType() == Material.BED_BLOCK) {
+            for (GameTeam gt : mode.getTeams()) {
+                if (gt instanceof BedWarsTeam) {
+                    BedWarsTeam bt = ((BedWarsTeam) gt);
+                    if (bt.getBed().contains(e.getBlock())) {
+                        if (bt.equals((BedWarsTeam) Biomia.getBiomiaPlayer(e.getPlayer()).getTeam())) {
+                            e.getPlayer().sendMessage("§7Du kannst das eigene Bett nicht zerstören. Deine Mitspieler wären enttäuscht :(");
+                            e.setCancelled(true);
+                            return;
+                        }
+                        bt.destroyBed();
+                        Bukkit.broadcastMessage(bt.getColorcode() + ">>§7Das Bett von " + bt.getColorcode() + "Team " + bt.getTeamname() + "§7 wurde zerstört.");
+                        e.setDropItems(false);
+                        return;
+                    }
+                }
+            }
         } else {
             e.setCancelled(true);
             e.getPlayer().sendMessage(BedWarsMessages.cantDestroyThisBlock);
