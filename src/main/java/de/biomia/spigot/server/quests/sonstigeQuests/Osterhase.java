@@ -54,9 +54,6 @@ public class Osterhase implements Listener {
         startDialog = new DialogMessage(q, osterhase).setInhalt("Willkommen auf dem LobbyServer von Biomia!");
         startDialog.setNext("Hey ich bin der Ostermann, schau was ich an Ostern kann.",0,osterhase);
         /*
-        heyhoe, ich bin der osterman
-        schau was ich an ostern can
-
         "ich hab alle meine ostereier verloren"
         "geschenke abholen"
         "smalltalken"

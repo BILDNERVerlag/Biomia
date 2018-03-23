@@ -33,8 +33,10 @@ public abstract class GameMode {
     private final HashMap<TeamColor, Entity> joiner = new HashMap<>();
 
     protected GameMode(GameInstance instance) {
-
         this.instance = instance;
+        setConfig();
+        setHandler();
+        initTeams();
     }
 
     public GameTeam getTeamFromData(short data) {
@@ -68,12 +70,10 @@ public abstract class GameMode {
     }
 
     public void stop() {
-        Bukkit.broadcastMessage("%%%stop");
         Teleport.teleportAllToWarteLobby(spawn, instance.getPlayers());
         handler.unregister();
         instance.startDeleting();
         stateManager.getInGameState().stop();
-        Bukkit.broadcastMessage("%%%stop2");
     }
 
     public GameStateManager getStateManager() {

@@ -3,6 +3,7 @@ package de.biomia.spigot.minigames.general.chests;
 import de.biomia.spigot.configs.SkyWarsConfig;
 import de.biomia.spigot.events.skywars.SkyWarsOpenChestEvent;
 import de.biomia.spigot.minigames.GameMode;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -12,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.logging.Level;
 
 public class Chests {
 
@@ -87,8 +89,11 @@ public class Chests {
                         filledSlots.add(i);
                 }
                 ItemStack[] stacks = new ItemStack[27];
-                filledSlots.forEach(eachSlot -> stacks[eachSlot] = items.get(new Random().nextInt(items.size())).clone());
-                filledChests.put(loc, stacks);
+                if (items.size() > 0) {
+                    int randomIndex = new Random().nextInt(items.size());
+                    filledSlots.forEach(eachSlot -> stacks[eachSlot] = items.get(randomIndex).clone());
+                    filledChests.put(loc, stacks);
+                }
             }
         });
 

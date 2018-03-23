@@ -244,32 +244,32 @@ public class SkyWarsListener extends GameHandler {
                         }
                     }
                     switch (name) {
-                    case SkyWarsItemNames.purchaseKit:
-                        p.closeInventory();
-                        KitManager kitManager = KitManager.getManager(bp);
-                        if (kitManager.buy(kit)) {
-                            kitManager.selectSkyWarsKit(kit);
-                            p.sendMessage(SkyWarsMessages.youChoseKit.replace("%k", kit.getName()));
-                        }
-                        break;
-                    case SkyWarsItemNames.selectKit:
-                        final ArrayList<Kit> kits = KitManager.getManager(bp).getAvailableKits();
-                        if (kits.contains(kit)) {
+                        case SkyWarsItemNames.purchaseKit:
                             p.closeInventory();
-                            if (!KitManager.getManager(bp).selectSkyWarsKit(kit)) {
-                                p.sendMessage(SkyWarsMessages.kitAlreadyChosen);
-                            } else {
+                            KitManager kitManager = KitManager.getManager(bp);
+                            if (kitManager.buy(kit)) {
+                                kitManager.selectSkyWarsKit(kit);
                                 p.sendMessage(SkyWarsMessages.youChoseKit.replace("%k", kit.getName()));
                             }
-                        } else {
-                            p.closeInventory();
-                            p.sendMessage(SkyWarsMessages.kitNotBought);
-                        }
-                        break;
-                    case SkyWarsItemNames.showKit:
-                        KitManager.getManager(bp).showInventory(kit);
-                        p.sendMessage(SkyWarsMessages.nowLookingAtKit.replace("%k", kit.getName()));
-                        break;
+                            break;
+                        case SkyWarsItemNames.selectKit:
+                            final ArrayList<Kit> kits = KitManager.getManager(bp).getAvailableKits();
+                            if (kits.contains(kit)) {
+                                p.closeInventory();
+                                if (!KitManager.getManager(bp).selectSkyWarsKit(kit)) {
+                                    p.sendMessage(SkyWarsMessages.kitAlreadyChosen);
+                                } else {
+                                    p.sendMessage(SkyWarsMessages.youChoseKit.replace("%k", kit.getName()));
+                                }
+                            } else {
+                                p.closeInventory();
+                                p.sendMessage(SkyWarsMessages.kitNotBought);
+                            }
+                            break;
+                        case SkyWarsItemNames.showKit:
+                            KitManager.getManager(bp).showInventory(kit);
+                            p.sendMessage(SkyWarsMessages.nowLookingAtKit.replace("%k", kit.getName()));
+                            break;
                     }
                     e.setCancelled(true);
                 }
@@ -371,8 +371,7 @@ public class SkyWarsListener extends GameHandler {
             }
         }
 
-
-        if (!(Biomia.getBiomiaPlayer(p).canBuild()) && !mode.getInstance().containsPlayer(bp) && !bp.getTeam().lives(bp)) {
+        if (!(Biomia.getBiomiaPlayer(p).canBuild()) && !mode.getInstance().containsPlayer(bp) && (bp.getTeam() != null && !bp.getTeam().lives(bp))) {
             e.setCancelled(true);
         }
         if (!(Biomia.getBiomiaPlayer(p).canBuild()) && mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
@@ -408,7 +407,7 @@ public class SkyWarsListener extends GameHandler {
 
                 // Check if the Entity in the same team like the damager
                 if (mode.getInstance().containsPlayer(killerbp) && mode.getInstance().containsPlayer(Biomia.getBiomiaPlayer(p))) {
-                    if (killerbp.getTeam().containsPlayer(bp)) {
+                    if (killerbp.getTeam() != null && killerbp.getTeam().containsPlayer(bp)) {
                         e.setCancelled(true);
                     }
                 } else {
@@ -428,8 +427,14 @@ public class SkyWarsListener extends GameHandler {
 
                         Location loc = p.getLocation().add(0, 1, 0);
 
-                        Arrays.asList(p.getInventory().getContents()).forEach(each -> p.getWorld().dropItem(loc, each));
-                        Arrays.asList(p.getInventory().getArmorContents()).forEach(each -> p.getWorld().dropItem(loc, each));
+                        for (ItemStack itemStack : Arrays.asList(p.getInventory().getContents())) {
+                            if (itemStack != null)
+                                p.getWorld().dropItem(loc, itemStack);
+                        }
+                        for (ItemStack itemStack : Arrays.asList(p.getInventory().getArmorContents())) {
+                            if (itemStack != null)
+                                p.getWorld().dropItem(loc, itemStack);
+                        }
                         p.getInventory().clear();
                         p.setHealth(20);
 
@@ -491,7 +496,7 @@ public class SkyWarsListener extends GameHandler {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) ie.getWhoClicked());
         if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
             if (ie.getCurrentItem() != null) {
-                if (!mode.getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
+                if (!mode.getInstance().containsPlayer(bp) || bp.getTeam() == null || !bp.getTeam().lives(bp)) {
                     if (!bp.canBuild()) {
                         ie.setCancelled(true);
                         ie.setCursor(new ItemStack(Material.AIR));

@@ -1,8 +1,8 @@
 package de.biomia.spigot.commands.general;
 
 import de.biomia.spigot.commands.BiomiaCommand;
-import de.biomia.universal.MySQL;
 import de.biomia.universal.Messages;
+import de.biomia.universal.MySQL;
 import org.bukkit.command.CommandSender;
 
 public class CreateTableCommand extends BiomiaCommand {
@@ -62,7 +62,7 @@ public class CreateTableCommand extends BiomiaCommand {
                 MySQL.execute("CREATE TABLE IF NOT EXISTS `achiev_db`.`" + args[1] + "` ( `ID` INT NOT NULL , `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`ID`) );", MySQL.Databases.achiev_db);
                 break;
             default:
-                sender.sendMessage("\u00A77" + args[0] + "\u00A7c ist ung\u00fcltig. Benutze \u00A77stat \u00A7coder \u00A77achiev\u00A7c.");
+                sender.sendMessage("\u00A7cDas Argument \u00A77" + args[0] + "\u00A7c ist ung\u00fcltig. Benutze \u00A77stat \u00A7c/ \u00A77statex\u00A7coder \u00A77achiev\u00A7c.");
                 return true;
         }
 

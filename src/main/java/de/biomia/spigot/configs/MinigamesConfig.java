@@ -10,6 +10,7 @@ import org.bukkit.entity.Entity;
 
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.logging.Level;
 
 public abstract class MinigamesConfig extends Config {
 
@@ -119,6 +120,11 @@ public abstract class MinigamesConfig extends Config {
         int remFromID = mode.getTeams().size();
         for (TeamColor t : TeamColor.values()) {
             Entity entity = Bukkit.getEntity(teamJoiner.get(t));
+            if (entity == null) {
+                Bukkit.getLogger().log(Level.SEVERE,"%%% Error while loading TeamJoiner entitys %%%");
+                //TODO: fix entity==null, then remove this if-check
+                return;
+            }
             if (t.getID() > remFromID) {
                 entity.remove();
             } else {

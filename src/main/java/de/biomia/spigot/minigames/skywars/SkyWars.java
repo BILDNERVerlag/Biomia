@@ -10,6 +10,7 @@ import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
+import de.biomia.spigot.minigames.general.TeamSwitcher;
 import de.biomia.spigot.minigames.general.Teleport;
 import de.biomia.spigot.minigames.general.chests.Chests;
 import de.biomia.spigot.minigames.general.chests.Items;
@@ -25,15 +26,16 @@ import static de.biomia.spigot.configs.Config.saveConfig;
 
 public class SkyWars extends GameMode {
 
-    private final Chests chests = new Chests(this);
+    private Chests chests;
 
     @Override
     protected GameHandler initHandler() {
         return new SkyWarsListener(this);
     }
 
-    protected SkyWars(GameInstance instance) {
+    public SkyWars(GameInstance instance) {
         super(instance);
+        chests = new Chests(this);
     }
 
     @Override
@@ -62,6 +64,8 @@ public class SkyWars extends GameMode {
                 Teleport.sendCountDown(getMode());
             }
         });
+
+        teamSwitcher = TeamSwitcher.getTeamSwitcher(this);
     }
 
     public Chests getChests() {

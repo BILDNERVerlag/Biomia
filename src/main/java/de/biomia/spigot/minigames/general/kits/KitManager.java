@@ -20,6 +20,7 @@ import org.bukkit.potion.PotionType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 public class KitManager {
 
@@ -29,13 +30,14 @@ public class KitManager {
     private final ArrayList<Kit> availableKits = new ArrayList<>();
     private final Inventory inv;
     private final BiomiaPlayer bp;
-    private Kit selectedKit = standardKit;
+    private Kit selectedKit;
 
     private KitManager(BiomiaPlayer bp) {
         this.bp = bp;
         this.inv = Bukkit.createInventory(null, 36, "Kits");
         playerKits.put(bp, this);
         loadKits();
+        selectedKit = standardKit;
     }
 
     public static void initKits() {
@@ -47,6 +49,7 @@ public class KitManager {
         standartKit.addItem(2, ItemCreator.itemCreate(Material.IRON_AXE));
         standartKit.setDescription(Arrays.asList("Die gute alte", "Standardausr\u00fcstung"));
         standardKit = standartKit;
+
 
         // Bauarbeiter
         ItemStack yellow_hat = new ItemStack(Material.LEATHER_HELMET, 1);
@@ -309,6 +312,7 @@ public class KitManager {
             if (allKits.isShowable() || availableKits.contains(allKits))
                 inv.addItem(allKits.getIcon());
         }
+        //TODO: fix nullpointer (selectedKid == null)
         inv.setItem(inv.getSize() - 5, selectedKit.getIcon());
         bp.getPlayer().openInventory(inv);
     }
