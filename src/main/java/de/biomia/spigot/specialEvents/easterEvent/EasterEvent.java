@@ -24,17 +24,11 @@ import java.util.Random;
 public class EasterEvent implements Listener {
 
     private static final int specialEggsAmount = 6;
-    //private static final String specialEggName = "ei_gold";
-    //private static final String egg1Name = "ei_blaugruen";
-    //private static final String egg2Name = "ei_rot";
-    //private static final String egg3Name = "ei_gepunktet";
-    //private static final String egg4Name = "ei_gestreift";
 
-    private static final String specialEggName = "4e693cf3b7bf83248527aacc2714638b55587cde593963d1f861884f5be1638";
-    private static final String egg1Name = "a448ad2dc04a753b88554f9aa9201846dde958331b072877565fda7f18f";
-    private static final String egg2Name = "6ffdf1348c5284bbdf0e4acbcce9d102b3efd63e4f4f54684b2f48f8d41c70";
-    private static final String egg3Name = "cbc38a7342f923460d980ec331d546862be119decc8af3b796bdb1cdb8b9f";
-    private static final String egg4Name = "fa93594996be9526fd6e7afd109ea77170aff388311343ebc4e4f42a840";
+    private static final String eggName = "9fbeb0aa688e97e463b518d4c0c8f5ba822a7386a46de3ca26ce2c5b3137985c";
+    private static final String specialEggName = "7be7545297dfd6266bbaa2051825e8879cbfa42c7e7e24e50796f27ca6a18";
+
+    //TODO: osterhasendialog funktioniert noch nicht
 
     private final int randomEggsPerServer;
     private final Location location;
@@ -54,6 +48,11 @@ public class EasterEvent implements Listener {
                 radius = 80;
                 maxHight = 112;
                 randomEggsPerServer = 20;
+                HeadCreator.setSkullUrl(eggName, new Location(Bukkit.getWorld("LobbyBiomia"), 533.5, 70, 225.5).getBlock());
+                HeadCreator.setSkullUrl(eggName, new Location(Bukkit.getWorld("LobbyBiomia"), 531.5, 70, 225.5).getBlock());
+                HeadCreator.setSkullUrl(eggName, new Location(Bukkit.getWorld("LobbyBiomia"), 539.5, 70, 225.5).getBlock());
+                HeadCreator.setSkullUrl(eggName, new Location(Bukkit.getWorld("LobbyBiomia"), 532.5, 70, 224.5).getBlock());
+                HeadCreator.setSkullUrl(specialEggName, new Location(Bukkit.getWorld("LobbyBiomia"), 532.5, 70, 225.5).getBlock());
                 break;
             case "TestQuest":
             case "QuestServer":
@@ -72,6 +71,7 @@ public class EasterEvent implements Listener {
                 maxHight = 77;
                 randomEggsPerServer = 5;
                 break;
+            case "TestSkyWars":
             case "SkyWars":
                 world = "Spawn";
                 location = new Location(Bukkit.getWorld(world), 0, 0, 0);
@@ -80,6 +80,7 @@ public class EasterEvent implements Listener {
                 maxHight = 86;
                 randomEggsPerServer = 3;
                 break;
+            case "TestBedWars":
             case "BedWars":
                 world = "Spawn";
                 location = new Location(Bukkit.getWorld(world), 0, 0, 0);
@@ -129,37 +130,19 @@ public class EasterEvent implements Listener {
                 removeAllEggs();
                 for (int i = 0; i < randomEggsPerServer; i++) {
                     Location loc;
-                    do {
+                    while (true) {
                         loc = location.clone();
                         int r = new Random().nextInt(radius);
                         int degree = new Random().nextInt(360);
 
                         loc.add(r * Math.cos(degree), 0, r * Math.sin(degree));
-                        Block highestBlock = loc.getWorld().getHighestBlockAt(loc).getLocation().subtract(0, 1, 0).getBlock();
-
-                        if (highestBlock.getType() != Material.DIRT && highestBlock.getType() != Material.GRASS && highestBlock.getType() != Material.STONE) {
-                            i--;
-                        } else {
-                            loc = highestBlock.getLocation();
-                        }
-                    } while (loc.getY() > maxHight && loc.getY() != 1);
-
-                    Block b = loc.getBlock();
-
-                    switch (new Random().nextInt(4)) {
-                        case 0:
-                            HeadCreator.setSkullUrl(egg1Name, b);
-                            break;
-                        case 1:
-                            HeadCreator.setSkullUrl(egg2Name, b);
-                            break;
-                        case 2:
-                            HeadCreator.setSkullUrl(egg3Name, b);
-                            break;
-                        case 3:
-                            HeadCreator.setSkullUrl(egg4Name, b);
+                        Block highestBlock = loc.getWorld().getHighestBlockAt(loc).getLocation().getBlock();
+                        loc = highestBlock.getLocation();
+                        if ((loc.getY() <= maxHight && loc.getY() != 1) && (highestBlock.getType() == Material.DIRT || highestBlock.getType() == Material.GRASS || highestBlock.getType() == Material.STONE))
                             break;
                     }
+                    Block b = loc.add(0, 1, 0).getBlock();
+                    HeadCreator.setSkullUrl(eggName, b);
                     blocks.add(b);
                 }
             }

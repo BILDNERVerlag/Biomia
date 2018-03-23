@@ -12,6 +12,8 @@ import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameStateManager;
+import de.biomia.spigot.minigames.GameTeam;
+import de.biomia.spigot.minigames.general.Scoreboards;
 import de.biomia.spigot.minigames.general.chests.Chests;
 import de.biomia.spigot.minigames.general.kits.Kit;
 import de.biomia.spigot.minigames.general.kits.KitManager;
@@ -50,13 +52,50 @@ public class SkyWarsListener extends GameHandler {
     public void onJoin(PlayerJoinEvent e) {
 
         Player p = e.getPlayer();
+        p.getInventory().clear();
         BackToLobby.getLobbyItem(p, 8);
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         bp.setDamageEntitys(false);
         bp.setGetDamage(false);
 
-        if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
+        if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
+            // Hide
+            for (Player all : Bukkit.getOnlinePlayers()) {
+
+                GameTeam team = bp.getTeam();
+
+                if (team != null && team.lives(bp)) {
+                    all.hidePlayer(p);
+                } else {
+                    all.showPlayer(all);
+                }
+            }
+
+            // Disable Damage / Build
+            bp.setGetDamage(false);
+            bp.setDamageEntitys(false);
+            bp.setBuild(false);
+            p.setGameMode(org.bukkit.GameMode.ADVENTURE);
+
+            // Fly settings
+            p.setAllowFlight(true);
+            p.setFlying(true);
+            p.setFlySpeed(0.5F);
+
+            Scoreboards.setSpectatorSB(p);
+            Scoreboards.spectatorSB.getTeam("spectator").addEntry(p.getName());
+
+            p.teleport(new Location(Bukkit.getWorld(MinigamesConfig.getMapName()), 0, 100, 0));
+
+        } else if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
+            p.getInventory().clear();
             p.getInventory().setItem(0, kitItem);
+            if (p.hasPermission("biomia.sw.start")) {
+                p.getInventory().setItem(1, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, SkyWarsItemNames.startItem));
+            }
+
+            p.getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, SkyWarsItemNames.teamWaehlerItem));
+            BackToLobby.getLobbyItem(p, 8);
         }
 
     }
@@ -228,6 +267,13 @@ public class SkyWarsListener extends GameHandler {
             if (e.getCurrentItem() != null) {
                 if (e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().hasDisplayName()) {
                     String name = e.getCurrentItem().getItemMeta().getDisplayName();
+
+                    if (e.getClickedInventory().getName().equals(mode.getTeamSwitcher().getName())) {
+                        mode.getTeamFromData(e.getCurrentItem().getData().getData()).join(bp);
+                        e.setCancelled(true);
+                        p.closeInventory();
+                        return;
+                    }
 
                     Kit kit = KitManager.getStandardKit();
                     String invName = e.getInventory().getName();
@@ -418,8 +464,6 @@ public class SkyWarsListener extends GameHandler {
 
                     // Check if Player is instatnce of the act round
                     if (mode.getInstance().containsPlayer(bp)) {
-                        e.setCancelled(true);
-
                         Bukkit.getPluginManager().callEvent(new SkyWarsDeathEvent(bp, killerbp));
                         Bukkit.getPluginManager().callEvent(new SkyWarsKillEvent(killerbp, bp));
 
@@ -436,8 +480,7 @@ public class SkyWarsListener extends GameHandler {
                                 p.getWorld().dropItem(loc, itemStack);
                         }
                         p.getInventory().clear();
-                        p.setHealth(20);
-
+                        //p.setHealth(20);
                     }
                 }
             }

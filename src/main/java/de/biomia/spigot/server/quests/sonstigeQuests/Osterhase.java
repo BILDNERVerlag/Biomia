@@ -32,7 +32,7 @@ public class Osterhase implements Listener {
         Bukkit.broadcastMessage("%%%%Ich bin der Osterman");
         q = Biomia.getQuestManager().registerNewQuest("Osterhase", 99);
         osterhase = q.createNPC(EntityType.RABBIT, "Osterhase");
-        Location locAaron = new Location(Bukkit.getWorld("LobbyBiomia"), 534.5,71,226.5, -145, 0);
+        Location locAaron = new Location(Bukkit.getWorld("LobbyBiomia"), 534.5, 71, 226.5, -145, 0);
         osterhase.spawn(locAaron);
         Bukkit.broadcastMessage("%%%%%Spawned");
 
@@ -51,8 +51,9 @@ public class Osterhase implements Listener {
     }
 
     private void initDialog() {
-        startDialog = new DialogMessage(q, osterhase).setInhalt("Willkommen auf dem LobbyServer von Biomia!");
-        startDialog.setNext("Hey ich bin der Ostermann, schau was ich an Ostern kann.",0,osterhase);
+        startDialog = new DialogMessage(q, osterhase).setInhalt("Huiuiui, alle Eier verloren, so ein Unglück..");
+        startDialog.setNext("Oh, hast du ein paar meiner Eier gefunden..?", 0, osterhase).setFortsetzung("Wer bist du?").setFortsetzung("Ja, hab ich!").setFortsetzung("Nein, leider nicht.");
+        startDialog.getNext(0).setNext("Ich bin der Osterhase!", 0, osterhase).setNext("Das ist ja großartig!", 1, osterhase).setNext("Oh, schade...", 2, osterhase);
         /*
         "ich hab alle meine ostereier verloren"
         "geschenke abholen"

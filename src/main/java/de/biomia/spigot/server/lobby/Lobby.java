@@ -7,6 +7,7 @@ import de.biomia.spigot.BiomiaServer;
 import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.general.RandomServerGroupCommand;
+import de.biomia.spigot.commands.quest.QuestCommands;
 import de.biomia.spigot.listeners.LobbyInventoryManager;
 import de.biomia.spigot.listeners.servers.LobbyListener;
 import de.biomia.spigot.tools.ItemCreator;
@@ -89,6 +90,8 @@ public class Lobby extends BiomiaServer {
     protected void initCommands() {
         super.initCommands();
         Main.registerCommand(new RandomServerGroupCommand());
+        //TODO: nach event entfernen
+        Main.registerCommand(new QuestCommands());
     }
 
     private void initNavigator() {

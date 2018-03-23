@@ -60,14 +60,14 @@ public class GameTeam {
             }
             team.leave(bp);
         }
-
-        for (BiomiaPlayer pl : getPlayers()) {
-            ActionBar.sendActionBar(MinigamesMessages.joinedTeam.replace("%p", getColorcode() + bp.getName()), pl.getPlayer());
-        }
-
         bp.getPlayer().getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, BedWarsItemNames.teamWaehlerItem, getColordata()));
         bp.setTeam(this);
         players.put(bp, true);
+
+        for (BiomiaPlayer pl : getPlayers()) {
+            ActionBar.sendActionBar(MinigamesMessages.joinedTeam.replace("%p", getColorcode() + bp.getName()).replace("%t", getTeamname()), pl.getPlayer());
+        }
+
         Scoreboards.lobbySB.getTeam(color.name()).addEntry(bp.getName());
 
         TeamSwitcher.getTeamSwitcher(mode);
