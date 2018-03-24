@@ -14,12 +14,12 @@ public class BungeeBiomia {
     }
 
     public static OfflineBungeeBiomiaPlayer getOfflineBiomiaPlayer(String name) {
-        int biomiaPlayerID = UniversalBiomiaPlayer.getBiomiaPlayerID(name);
-        return offlineBungeeBiomiaPlayer.computeIfAbsent(biomiaPlayerID, biomiaplayer -> new OfflineBungeeBiomiaPlayer(biomiaPlayerID, name));
+        int biomiaID = UniversalBiomiaPlayer.getBiomiaPlayerID(name);
+        return offlineBungeeBiomiaPlayer.computeIfAbsent(biomiaID, biomiaplayer -> new OfflineBungeeBiomiaPlayer(biomiaID, name));
     }
 
     public static OfflineBungeeBiomiaPlayer getOfflineBiomiaPlayer(UUID uuid) {
-        int biomiaPlayerID = UniversalBiomiaPlayer.getBiomiaPlayerID(uuid);
-        return offlineBungeeBiomiaPlayer.computeIfAbsent(biomiaPlayerID, biomiaplayer -> new OfflineBungeeBiomiaPlayer(biomiaPlayerID, uuid));
+        int biomiaID = UniversalBiomiaPlayer.getBiomiaPlayerID(uuid);
+        return offlineBungeeBiomiaPlayer.computeIfAbsent(biomiaID, biomiaplayer -> new OfflineBungeeBiomiaPlayer(biomiaID, uuid));
     }
 }

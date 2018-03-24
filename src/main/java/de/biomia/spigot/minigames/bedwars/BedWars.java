@@ -20,12 +20,23 @@ import java.util.UUID;
 
 public class BedWars extends GameMode {
 
-    //TODO: bei spielende die leute ordentlich rausteleporten
-    //TODO: schaden in der lobby
-
     @Override
     protected GameHandler initHandler() {
         return new BedWarsListener(this);
+    }
+
+    @Override
+    protected HashMap<TeamColor, UUID> initTeamJoiner() {
+        HashMap<TeamColor, UUID> teamJoiner = new HashMap<>();
+        teamJoiner.put(TeamColor.BLACK, UUID.fromString("92af2252-1787-4dc2-bb52-a9bd012865a2"));
+        teamJoiner.put(TeamColor.ORANGE, UUID.fromString("d33e1331-3390-4c27-82e3-9095a3614610"));
+        teamJoiner.put(TeamColor.BLUE, UUID.fromString("f75b9a9d-d122-4a70-b542-aeb69b59c61c"));
+        teamJoiner.put(TeamColor.GREEN, UUID.fromString("ff626803-fa9e-47b0-ad18-d2334098376d"));
+        teamJoiner.put(TeamColor.YELLOW, UUID.fromString("056ae035-7a07-470e-87c9-b4fe14c620d4"));
+        teamJoiner.put(TeamColor.RED, UUID.fromString("0fdfcda5-24e9-4aae-89d7-ddfde06ae0ce"));
+        teamJoiner.put(TeamColor.WHITE, UUID.fromString("23126ec9-9288-4d9e-96ea-9a9d93e1e96c"));
+        teamJoiner.put(TeamColor.PURPLE, UUID.fromString("7d4309d7-344c-410e-80ef-2db2724a814b"));
+        return teamJoiner;
     }
 
     public final HashMap<GameTeam, ArrayList<Block>> teamChestsLocs = new HashMap<>();

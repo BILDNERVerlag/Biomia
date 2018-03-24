@@ -1,6 +1,8 @@
 package de.biomia.spigot;
 
 public enum BiomiaServerType {
-    TestLobby, TestQuest, TestBedWars, TestSkyWars, TestDuellLobby, TestFreebuild,
-    Lobby, Quest, QuestServer, SkyWars, DuellLobby, Weltenlabor_1, FreebuildFarm, Freebuild, FarmServer, BauServer
+
+    TestLobby, TestQuest, TestBedWars, TestSkyWars, TestDuell, TestFreebuild,
+    Lobby, Quest, BedWars, SkyWars, Duell, Weltenlabor_1, FreebuildFarm, Freebuild, BauServer
+
 }

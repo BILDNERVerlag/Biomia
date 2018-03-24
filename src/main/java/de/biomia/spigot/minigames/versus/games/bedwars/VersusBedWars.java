@@ -11,11 +11,19 @@ import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.spigot.minigames.general.SpawnItems;
 import de.biomia.spigot.minigames.versus.Versus;
 
+import java.util.HashMap;
+import java.util.UUID;
+
 public class VersusBedWars extends GameMode {
 
     @Override
     protected GameHandler initHandler() {
         return new BedWarsHandler(this);
+    }
+
+    @Override
+    protected HashMap<TeamColor, UUID> initTeamJoiner() {
+        return null;
     }
 
     private final BedWarsScoreboard bedWarsScoreboard;

@@ -8,6 +8,7 @@ import de.biomia.bungee.cmds.ModusCommand;
 import de.biomia.bungee.specialEvents.WinterEvent;
 import de.biomia.bungee.var.BanManager;
 import de.biomia.bungee.var.Bans;
+import de.biomia.spigot.BiomiaServerType;
 import de.biomia.universal.MySQL;
 import de.biomia.universal.UniversalBiomia;
 import de.biomia.universal.UniversalBiomiaPlayer;
@@ -50,7 +51,7 @@ public class Login implements Listener {
 
         isLobbyServerOnline = false;
 
-        TimoCloudAPI.getUniversalInstance().getServerGroup("Lobby").getServers().forEach(each -> {
+        TimoCloudAPI.getUniversalInstance().getServerGroup(BiomiaServerType.Lobby.name()).getServers().forEach(each -> {
             if (each.getState().equalsIgnoreCase("ONLINE")) {
                 isLobbyServerOnline = true;
             }

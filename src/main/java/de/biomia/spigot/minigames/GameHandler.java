@@ -4,7 +4,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.MinigamesConfig;
-import de.biomia.spigot.messages.BedWarsItemNames;
+import de.biomia.spigot.messages.MinigamesItemNames;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.general.Dead;
 import de.biomia.spigot.minigames.general.Scoreboards;
@@ -23,6 +23,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.*;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
@@ -41,6 +42,7 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
+
         Player p = e.getPlayer();
         BackToLobby.getLobbyItem(p, 8);
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
@@ -79,18 +81,20 @@ public abstract class GameHandler implements Listener {
 
         } else if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
 
+            mode.getInstance().registerPlayer(Biomia.getBiomiaPlayer(e.getPlayer()));
             p.teleport(GameMode.getSpawn());
 
-            if (p.hasPermission("biomia.sw.start")) {
-                p.getInventory().setItem(0, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, BedWarsItemNames.startItem));
+            if (p.hasPermission("biomia.minigames.start")) {
+                p.getInventory().setItem(0, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, MinigamesItemNames.startItem));
             }
 
-            p.getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, BedWarsItemNames.teamWaehlerItem));
+            p.getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, MinigamesItemNames.teamWaehlerItem));
 
             bp.getPlayer().setLevel(mode.getStateManager().getLobbyState().getCountDown());
 
             Bukkit.broadcastMessage(bp.isPremium() ? "\u00A76" : "\u00A77" + p.getName() + MinigamesMessages.joinedTheGame);
 
+            mode.partyJoin(bp);
             Scoreboards.setLobbyScoreboard(p);
             Scoreboards.lobbySB.getTeam("xnoteam").addEntry(p.getName());
         }
@@ -182,7 +186,8 @@ public abstract class GameHandler implements Listener {
     @EventHandler
     public void onDisconnect(PlayerQuitEvent e) {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        if (mode.getInstance().containsPlayer(bp)) {
+        if (!mode.isSpectator(bp)) {
+            e.setQuitMessage(bp.getTeam().getColorcode() + e.getPlayer().getName() + MinigamesMessages.leftTheGame);
             if (bp.getTeam() != null)
                 bp.getTeam().leave(bp);
         }
@@ -210,6 +215,20 @@ public abstract class GameHandler implements Listener {
     public void onRespawn(PlayerRespawnEvent e) {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
+
+        if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
+            if (!mode.getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
+                e.setRespawnLocation(bp.getTeam().getHome());
+            } else
+                e.setRespawnLocation(new Location(Bukkit.getWorld(MinigamesConfig.getMapName()), 0, 100, 0));
+        } else {
+            if (bp.getTeam() != null) {
+                e.setRespawnLocation(bp.getTeam().getHome());
+            } else {
+                e.setRespawnLocation(GameMode.getSpawn());
+            }
+        }
+
         if (mode.getInstance().containsPlayer(bp) && bp.getPlayer().getWorld().equals(mode.getInstance().getWorld())) {
             e.setRespawnLocation(mode.getInstance().getWorld().getSpawnLocation().add(0, 100, 0));
         }
@@ -237,5 +256,11 @@ public abstract class GameHandler implements Listener {
                 }
             }
         }
+    }
+
+    @EventHandler
+    public void onCraft(PrepareItemCraftEvent e) {
+        if (!e.isRepair())
+            e.getInventory().setResult(ItemCreator.itemCreate(Material.AIR));
     }
 }

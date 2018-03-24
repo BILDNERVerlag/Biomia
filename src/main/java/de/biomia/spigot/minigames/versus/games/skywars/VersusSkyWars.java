@@ -7,15 +7,24 @@ import de.biomia.spigot.configs.SkyWarsConfig;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
+import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.spigot.minigames.general.chests.Chests;
 import de.biomia.spigot.minigames.general.kits.KitManager;
 import de.biomia.spigot.minigames.versus.Versus;
+
+import java.util.HashMap;
+import java.util.UUID;
 
 public class VersusSkyWars extends GameMode {
 
     @Override
     protected GameHandler initHandler() {
         return new SkyWarsHandler(this);
+    }
+
+    @Override
+    protected HashMap<TeamColor, UUID> initTeamJoiner() {
+        return null;
     }
 
     private final Chests chests = new Chests(this);

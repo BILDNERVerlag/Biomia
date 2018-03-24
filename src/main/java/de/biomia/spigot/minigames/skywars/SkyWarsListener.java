@@ -7,18 +7,16 @@ import de.biomia.spigot.events.skywars.SkyWarsDeathEvent;
 import de.biomia.spigot.events.skywars.SkyWarsKillEvent;
 import de.biomia.spigot.events.skywars.SkyWarsLeaveEvent;
 import de.biomia.spigot.events.skywars.SkyWarsOpenChestEvent;
+import de.biomia.spigot.messages.MinigamesItemNames;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameStateManager;
-import de.biomia.spigot.minigames.GameTeam;
-import de.biomia.spigot.minigames.general.Scoreboards;
 import de.biomia.spigot.minigames.general.chests.Chests;
 import de.biomia.spigot.minigames.general.kits.Kit;
 import de.biomia.spigot.minigames.general.kits.KitManager;
 import de.biomia.spigot.minigames.versus.games.skywars.VersusSkyWars;
-import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.RankManager;
 import de.biomia.universal.UniversalBiomia;
@@ -50,54 +48,9 @@ public class SkyWarsListener extends GameHandler {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-
-        Player p = e.getPlayer();
-        p.getInventory().clear();
-        BackToLobby.getLobbyItem(p, 8);
-        BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-        bp.setDamageEntitys(false);
-        bp.setGetDamage(false);
-
-        if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
-            // Hide
-            for (Player all : Bukkit.getOnlinePlayers()) {
-
-                GameTeam team = bp.getTeam();
-
-                if (team != null && team.lives(bp)) {
-                    all.hidePlayer(p);
-                } else {
-                    all.showPlayer(all);
-                }
-            }
-
-            // Disable Damage / Build
-            bp.setGetDamage(false);
-            bp.setDamageEntitys(false);
-            bp.setBuild(false);
-            p.setGameMode(org.bukkit.GameMode.ADVENTURE);
-
-            // Fly settings
-            p.setAllowFlight(true);
-            p.setFlying(true);
-            p.setFlySpeed(0.5F);
-
-            Scoreboards.setSpectatorSB(p);
-            Scoreboards.spectatorSB.getTeam("spectator").addEntry(p.getName());
-
-            p.teleport(new Location(Bukkit.getWorld(MinigamesConfig.getMapName()), 0, 100, 0));
-
-        } else if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
-            p.getInventory().clear();
-            p.getInventory().setItem(0, kitItem);
-            if (p.hasPermission("biomia.sw.start")) {
-                p.getInventory().setItem(1, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, SkyWarsItemNames.startItem));
-            }
-
-            p.getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, SkyWarsItemNames.teamWaehlerItem));
-            BackToLobby.getLobbyItem(p, 8);
-        }
-
+        super.onJoin(e);
+        if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY)
+            e.getPlayer().getInventory().setItem(0, kitItem);
     }
 
     @EventHandler
@@ -373,10 +326,10 @@ public class SkyWarsListener extends GameHandler {
                     case SkyWarsItemNames.kitItemName:
                         KitManager.getManager(bp).openKitMenu();
                         break;
-                    case SkyWarsItemNames.teamWaehlerItem:
+                case MinigamesItemNames.teamWaehlerItem:
                         p.openInventory(mode.getTeamSwitcher());
                         break;
-                    case SkyWarsItemNames.startItem:
+                case MinigamesItemNames.startItem:
                         if (mode.getStateManager().getLobbyState().getCountDown() > 5)
                             mode.getStateManager().getLobbyState().setCountDown(5);
                         break;

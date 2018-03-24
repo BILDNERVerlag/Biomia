@@ -52,8 +52,8 @@ public class Biomia {
     public static OfflineBiomiaPlayer getOfflineBiomiaPlayer(String name) {
         Player p = org.bukkit.Bukkit.getPlayer(name);
         if (p == null) {
-            int biomiaPlayerID = OfflineBiomiaPlayer.getBiomiaPlayerID(name);
-            return offlineBiomiaPlayers.computeIfAbsent(biomiaPlayerID, biomiaplayer -> new OfflineBiomiaPlayer(biomiaPlayerID, name));
+            int biomiaID = OfflineBiomiaPlayer.getBiomiaPlayerID(name);
+            return offlineBiomiaPlayers.computeIfAbsent(biomiaID, biomiaplayer -> new OfflineBiomiaPlayer(biomiaID, name));
         } else {
             return getBiomiaPlayer(p);
         }
@@ -62,8 +62,8 @@ public class Biomia {
     public static OfflineBiomiaPlayer getOfflineBiomiaPlayer(UUID uuid) {
         Player p = org.bukkit.Bukkit.getPlayer(uuid);
         if (p == null) {
-            int biomiaPlayerID = OfflineBiomiaPlayer.getBiomiaPlayerID(uuid);
-            return offlineBiomiaPlayers.computeIfAbsent(biomiaPlayerID, biomiaplayer -> new OfflineBiomiaPlayer(biomiaPlayerID, uuid));
+            int biomiaID = OfflineBiomiaPlayer.getBiomiaPlayerID(uuid);
+            return offlineBiomiaPlayers.computeIfAbsent(biomiaID, biomiaplayer -> new OfflineBiomiaPlayer(biomiaID, uuid));
         } else {
             return getBiomiaPlayer(p);
         }

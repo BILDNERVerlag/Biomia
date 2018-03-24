@@ -6,14 +6,8 @@ import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.messages.manager.ActionBar;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
-import de.biomia.spigot.minigames.GameTeam;
-import de.biomia.spigot.minigames.bedwars.BedWarsTeam;
-import de.biomia.spigot.minigames.skywars.SkyWars;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;

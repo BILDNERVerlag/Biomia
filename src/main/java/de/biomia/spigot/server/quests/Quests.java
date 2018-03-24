@@ -1,14 +1,15 @@
 package de.biomia.spigot.server.quests;
 
+import de.biomia.spigot.BiomiaServer;
+import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.quest.QuestCommands;
-import de.biomia.spigot.BiomiaServer;
+import de.biomia.spigot.listeners.servers.QuestListener;
 import de.biomia.spigot.server.quests.band1.*;
 import de.biomia.spigot.server.quests.general.DialogMessage;
 import de.biomia.spigot.server.quests.general.NPCManager;
 import de.biomia.spigot.server.quests.general.Quest;
 import de.biomia.spigot.server.quests.general.QuestPlayer;
-import de.biomia.spigot.listeners.servers.QuestListener;
 import de.biomia.spigot.tools.LastPositionListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -16,6 +17,10 @@ import org.bukkit.plugin.PluginManager;
 import static de.biomia.spigot.Main.getPlugin;
 
 public class Quests extends BiomiaServer {
+
+    public Quests() {
+        super(BiomiaServerType.Quest);
+    }
 
     @Override
     public void start() {

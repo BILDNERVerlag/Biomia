@@ -57,49 +57,49 @@ public class Stats {
     /**
      * Zaehle einen bestimmten Stat eines bestimmten Spielers um 1 hoch.
      */
-    public static void incrementStat(BiomiaStat stat, int biomiaPlayerID) {
-        incrementStatBy(stat, biomiaPlayerID, 1);
+    public static void incrementStat(BiomiaStat stat, int biomiaID) {
+        incrementStatBy(stat, biomiaID, 1);
     }
 
     /**
      * Zaehle einen bestimmten Stat eines bestimmten Spielers um einen uebergebenen
      * Wert hoch.
      */
-    public static void incrementStatBy(BiomiaStat stat, int biomiaPlayerID, int increment) {
-        int value = getStat(stat, biomiaPlayerID) + increment;
-        MySQL.executeUpdate("INSERT INTO `" + stat.toString() + "`(ID, value, inc) VALUES (" + biomiaPlayerID + ", " + value + ", " + increment + ")", MySQL.Databases.stats_db);
-        checkForAchievementUnlocks(stat, biomiaPlayerID, value);
+    public static void incrementStatBy(BiomiaStat stat, int biomiaID, int increment) {
+        int value = getStat(stat, biomiaID) + increment;
+        MySQL.executeUpdate("INSERT INTO `" + stat.toString() + "`(ID, value, inc) VALUES (" + biomiaID + ", " + value + ", " + increment + ")", MySQL.Databases.stats_db);
+        checkForAchievementUnlocks(stat, biomiaID, value);
     }
 
-    public static void incrementStat(BiomiaStat stat, int biomiaPlayerID, String comment) {
-        int value = getStat(stat, biomiaPlayerID) + 1;
-        MySQL.executeUpdate("INSERT INTO `" + stat.toString() + "`(ID, value, comment) VALUES (" + biomiaPlayerID + ", " + value + ", '" + comment + "')", MySQL.Databases.stats_db);
-        checkForAchievementUnlocks(stat, biomiaPlayerID, value);
+    public static void incrementStat(BiomiaStat stat, int biomiaID, String comment) {
+        int value = getStat(stat, biomiaID) + 1;
+        MySQL.executeUpdate("INSERT INTO `" + stat.toString() + "`(ID, value, comment) VALUES (" + biomiaID + ", " + value + ", '" + comment + "')", MySQL.Databases.stats_db);
+        checkForAchievementUnlocks(stat, biomiaID, value);
     }
 
     public static void incrementStat(BiomiaStat stat, Player player, String comment) {
-        int biomiaPlayerID = Biomia.getBiomiaPlayer(player).getBiomiaPlayerID();
-        incrementStat(stat, biomiaPlayerID, comment);
+        int biomiaID = Biomia.getBiomiaPlayer(player).getBiomiaPlayerID();
+        incrementStat(stat, biomiaID, comment);
     }
 
     public static void incrementStatBy(BiomiaStat stat, Player player, int increment) {
-        int biomiaPlayerID = Biomia.getBiomiaPlayer(player).getBiomiaPlayerID();
-        incrementStatBy(stat, biomiaPlayerID, increment);
+        int biomiaID = Biomia.getBiomiaPlayer(player).getBiomiaPlayerID();
+        incrementStatBy(stat, biomiaID, increment);
     }
 
     public static void incrementStat(BiomiaStat stat, Player player) {
-        int biomiaPlayerID = Biomia.getBiomiaPlayer(player).getBiomiaPlayerID();
-        incrementStatBy(stat, biomiaPlayerID, 1);
+        int biomiaID = Biomia.getBiomiaPlayer(player).getBiomiaPlayerID();
+        incrementStatBy(stat, biomiaID, 1);
     }
 
-    public static HashMap<String, Integer> getComments(BiomiaStat stat, int biomiaPlayerID) {
-        //SELECT `comment` FROM tabelle WHERE ID = biomiaPlayerID
+    public static HashMap<String, Integer> getComments(BiomiaStat stat, int biomiaID) {
+        //SELECT `comment` FROM tabelle WHERE ID = biomiaID
         HashMap<String, Integer> output = new HashMap<>();
         Connection con = MySQL.Connect(MySQL.Databases.stats_db);
         if (con != null)
             try {
                 PreparedStatement statement = con.prepareStatement("SELECT `comment` FROM `" + stat.toString() + "` where ID = ?");
-                statement.setInt(1, biomiaPlayerID);
+                statement.setInt(1, biomiaID);
                 ResultSet rs = statement.executeQuery();
                 String comment;
                 while (rs.next()) {
@@ -117,8 +117,8 @@ public class Stats {
         return out == -1 ? 0 : out;
     }
 
-    public static int getStat(BiomiaStat stat, int biomiaPlayerID) {
-        int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + stat.toString() + "` where ID = " + biomiaPlayerID, "value", MySQL.Databases.stats_db);
+    public static int getStat(BiomiaStat stat, int biomiaID) {
+        int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + stat.toString() + "` where ID = " + biomiaID, "value", MySQL.Databases.stats_db);
         return out == -1 ? 0 : out;
     }
 
@@ -127,12 +127,12 @@ public class Stats {
         return out == -1 ? 0 : out;
     }
 
-    public static int getStat(BiomiaStat stat, int biomiaPlayerID, String comment) {
-        int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + stat.toString() + "` where ID = " + biomiaPlayerID + " AND comment = '" + comment + "'", "value", MySQL.Databases.stats_db);
+    public static int getStat(BiomiaStat stat, int biomiaID, String comment) {
+        int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + stat.toString() + "` where ID = " + biomiaID + " AND comment = '" + comment + "'", "value", MySQL.Databases.stats_db);
         return out == -1 ? 0 : out;
     }
 
-    public static int getStatLastX(BiomiaStat stat, int biomiaPlayerID, String datetime_expr, int amount) {
+    public static int getStatLastX(BiomiaStat stat, int biomiaID, String datetime_expr, int amount) {
         switch (datetime_expr.toUpperCase()) {
             case "SECOND":
             case "MINUTE":
@@ -154,7 +154,7 @@ public class Stats {
             boolean withComment = false;
             try {
                 PreparedStatement statement = con.prepareStatement("SELECT `value`, `inc` FROM `" + stat.toString() + "` where ID = ? AND `timestamp` >= TIMESTAMPADD(" + datetime_expr + ",-?,NOW())");
-                statement.setInt(1, biomiaPlayerID);
+                statement.setInt(1, biomiaID);
                 //statement.setString(2, datetime_expr);
                 statement.setInt(2, amount);
                 ResultSet rs = statement.executeQuery();
@@ -180,7 +180,7 @@ public class Stats {
             if (withComment) {
                 try {
                     PreparedStatement statement = con.prepareStatement("SELECT `value` FROM `" + stat.toString() + "` where ID = ? AND `timestamp` >= TIMESTAMPADD(" + datetime_expr + ",-?,NOW())");
-                    statement.setInt(1, biomiaPlayerID);
+                    statement.setInt(1, biomiaID);
                     //statement.setString(2, datetime_expr);
                     statement.setInt(2, amount);
                     ResultSet rs = statement.executeQuery();
@@ -214,27 +214,27 @@ public class Stats {
      * Immer, wenn sich der Wert eines Stats aendert, checkt diese Methode, ob ein
      * Achievement unlocked werden soll
      */
-    private static void checkForAchievementUnlocks(BiomiaStat stat, int biomiaPlayerID, int value) {
+    private static void checkForAchievementUnlocks(BiomiaStat stat, int biomiaID, int value) {
         ArrayList<Achievements> achievements = stats.get(stat);
 
         StringBuilder out = new StringBuilder();
 
-        out.append("\n\u00A77<\u00A7cChecking \u00A77").append(stat).append(" \u00A7cfor \u00A7b").append(BiomiaPlayer.getName(biomiaPlayerID)).append("\u00A77,\n");
+        out.append("\n\u00A77<\u00A7cChecking \u00A77").append(stat).append(" \u00A7cfor \u00A7b").append(BiomiaPlayer.getName(biomiaID)).append("\u00A77,\n");
         if (achievements != null) {
             out.append("\u00A77-\u00A7c# of Achievements: \u00A7b").append(achievements.size()).append("\u00A77,\n");
             for (Achievements each : achievements) {
                 if (each.getComment() != null) {
-                    if (Stats.getComments(stat, biomiaPlayerID).get(each.getComment()) >= each.getTargetValue()) {
-                        if (unlock(each.getAchievement(), biomiaPlayerID)) {
-                            out.append("\u00A77-\u00A7cComment is \u00A77'\u00A7b").append(each.getComment()).append("\u00A77' (\u00A7c").append(Stats.getComments(stat, biomiaPlayerID).get(each.getComment())).append("\u00A77>=\u00A7c").append(each.getTargetValue()).append("\u00A77),\n");
+                    if (Stats.getComments(stat, biomiaID).get(each.getComment()) >= each.getTargetValue()) {
+                        if (unlock(each.getAchievement(), biomiaID)) {
+                            out.append("\u00A77-\u00A7cComment is \u00A77'\u00A7b").append(each.getComment()).append("\u00A77' (\u00A7c").append(Stats.getComments(stat, biomiaID).get(each.getComment())).append("\u00A77>=\u00A7c").append(each.getTargetValue()).append("\u00A77),\n");
                             out.append("\u00A77-\u00A7cUnlocked \u00A7b").append(each.getAchievement().name()).append("\u00A77>");
                         } else out.append("\u00A77-\u00A7cNo new unlocks (already unlocked).\u00A77>");
                     } else {
-                        out.append("\u00A77-\u00A7cComment is \u00A77'\u00A7b").append(each.getComment()).append("\u00A77' (\u00A7c").append(Stats.getComments(stat, biomiaPlayerID).get(each.getComment())).append("\u00A77<=\u00A7c").append(each.getTargetValue()).append("\u00A77),\n");
+                        out.append("\u00A77-\u00A7cComment is \u00A77'\u00A7b").append(each.getComment()).append("\u00A77' (\u00A7c").append(Stats.getComments(stat, biomiaID).get(each.getComment())).append("\u00A77<=\u00A7c").append(each.getTargetValue()).append("\u00A77),\n");
                         out.append("\u00A77-\u00A7cNo new unlocks.\u00A77>");
                     }
                 } else if (value >= each.getTargetValue()) {
-                    if (unlock(each.getAchievement(), biomiaPlayerID)) {
+                    if (unlock(each.getAchievement(), biomiaID)) {
                         out.append("\u00A77-\u00A7cNo comment. \u00A7b").append(value).append("\u00A77>=\u00A7b").append(each.getTargetValue()).append("\u00A77,\n");
                         out.append("\u00A77-\u00A7cUnlocked \u00A7b").append(each.getAchievement().name()).append("\u00A77>");
                     } else
@@ -250,8 +250,8 @@ public class Stats {
      * bricht ab, falls der Spieler das Achievement bereits hat. Gibt true zurueck,
      * falls ein Achievement unlocked wird (ansonsten false).
      */
-    private static boolean unlock(BiomiaAchievement bA, int biomiaPlayerID) {
-        return MySQL.executeUpdate("INSERT INTO `" + bA.toString() + "` (`ID`) VALUES (" + biomiaPlayerID + ")", MySQL.Databases.achiev_db);
+    private static boolean unlock(BiomiaAchievement bA, int biomiaID) {
+        return MySQL.executeUpdate("INSERT INTO `" + bA.toString() + "` (`ID`) VALUES (" + biomiaID + ")", MySQL.Databases.achiev_db);
     }
 
     //SELECT `inc`,`wert` FROM `TestTabelle` WHERE `time` >= TIMESTAMPADD(DAY,-3,NOW());

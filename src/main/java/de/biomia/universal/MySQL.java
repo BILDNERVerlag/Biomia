@@ -2,6 +2,7 @@ package de.biomia.universal;
 
 import java.sql.*;
 import java.util.HashMap;
+import java.util.Properties;
 
 public abstract class MySQL {
 
@@ -34,14 +35,19 @@ public abstract class MySQL {
     }
 
     private static Connection newConnection(Databases db) throws SQLException, ClassNotFoundException {
+
+        Properties properties = new Properties();
+        properties.setProperty("user", "biomia_usertest");
+        properties.setProperty("password", "O78s3SObra0QzDZh");
+        properties.setProperty("useSSL", "true");
+        properties.setProperty("autoReconnect", "true");
+        properties.setProperty("verifyServerCertificate", "false");
+
         Class.forName("com.mysql.jdbc.Driver");
-        String dbPass = "O78s3SObra0QzDZh";
-        String dbUser = "biomia_usertest";
         String dbName = db.name();
         String dbPort = "3306";
         String dbHost = "89.163.160.106";
-        return DriverManager.getConnection("jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName + "?" + "user="
-                + dbUser + "&" + "password=" + dbPass + "&verifyServerCertificate=false&useSSL=true&autoReconnect=true");
+        return DriverManager.getConnection("jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName, properties);
     }
 
     public static Connection Connect(Databases db) {
@@ -49,7 +55,7 @@ public abstract class MySQL {
             try {
                 return newConnection(db);
             } catch (ClassNotFoundException e) {
-                System.out.println("Treiber nicht gefunden");
+                System.out.println("Driver Not Found");
             } catch (SQLException e) {
                 handleSQLException(e);
             }
@@ -61,7 +67,7 @@ public abstract class MySQL {
                 connections.put(db, connection);
             }
         } catch (ClassNotFoundException e) {
-            System.out.println("Treiber nicht gefunden");
+            System.out.println("Driver Not Found");
         } catch (SQLException e) {
             handleSQLException(e);
         }

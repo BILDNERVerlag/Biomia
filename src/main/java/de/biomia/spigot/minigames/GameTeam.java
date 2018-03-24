@@ -1,7 +1,7 @@
 package de.biomia.spigot.minigames;
 
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.messages.BedWarsItemNames;
+import de.biomia.spigot.messages.MinigamesItemNames;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.messages.manager.ActionBar;
 import de.biomia.spigot.minigames.general.Dead;
@@ -60,13 +60,14 @@ public class GameTeam {
             }
             team.leave(bp);
         }
-        bp.getPlayer().getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, BedWarsItemNames.teamWaehlerItem, getColordata()));
+        bp.getPlayer().getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, MinigamesItemNames.teamWaehlerItem, getColordata()));
         bp.setTeam(this);
-        players.put(bp, true);
 
         for (BiomiaPlayer pl : getPlayers()) {
             ActionBar.sendActionBar(MinigamesMessages.joinedTeam.replace("%p", getColorcode() + bp.getName()).replace("%t", getTeamname()), pl.getPlayer());
         }
+
+        players.put(bp, true);
 
         Scoreboards.lobbySB.getTeam(color.name()).addEntry(bp.getName());
 

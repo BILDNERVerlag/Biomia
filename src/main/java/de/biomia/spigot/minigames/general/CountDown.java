@@ -77,6 +77,7 @@ public class CountDown {
 
     public void setCountdown(int countdown) {
         this.countdown = countdown;
+        mode.getInstance().getPlayers().forEach(each -> each.getPlayer().setLevel(countdown));
     }
 
     public void cancel() {

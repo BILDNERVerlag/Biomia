@@ -28,13 +28,13 @@ class InformationInventory {
     private final BiomiaPlayer bp;
 
     //TODO add Command to show better
-    InformationInventory(BiomiaPlayer bp, int biomiaPlayerID) {
-        String name = Biomia.getOfflineBiomiaPlayer(biomiaPlayerID).getName();
+    InformationInventory(BiomiaPlayer bp, int biomiaID) {
+        String name = Biomia.getOfflineBiomiaPlayer(biomiaID).getName();
         this.bp = bp;
-        this.biomiaID = biomiaPlayerID;
+        this.biomiaID = biomiaID;
         this.inv = Bukkit.createInventory(null, 27, "\u00A7cInformationen \u00fcber " + name);
 
-        int level = ReportSQL.getLevel(biomiaPlayerID);
+        int level = ReportSQL.getLevel(biomiaID);
         int bans = 0;
         int entbannungen = 0;
         Connection con = MySQL.Connect(MySQL.Databases.biomia_db);
@@ -43,7 +43,7 @@ class InformationInventory {
                 //Chached Ban List
 
                 PreparedStatement sql = con.prepareStatement("Select * from CachedBanList where biomiaID = ?");
-                sql.setInt(1, biomiaPlayerID);
+                sql.setInt(1, biomiaID);
                 ResultSet rs = sql.executeQuery();
                 while (rs.next()) {
                     String reason = rs.getString("Grund");
@@ -85,7 +85,7 @@ class InformationInventory {
                 //Actual BanList
 
                 PreparedStatement banListStatement = con.prepareStatement("Select permanent from BanList where biomiaID = ?");
-                banListStatement.setInt(1, biomiaPlayerID);
+                banListStatement.setInt(1, biomiaID);
 
                 ResultSet banListResult = banListStatement.executeQuery();
 

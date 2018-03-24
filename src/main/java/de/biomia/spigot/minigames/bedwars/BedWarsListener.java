@@ -2,7 +2,6 @@ package de.biomia.spigot.minigames.bedwars;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.events.bedwars.BedWarsDeathEvent;
 import de.biomia.spigot.events.bedwars.BedWarsKillEvent;
 import de.biomia.spigot.events.bedwars.BedWarsLeaveEvent;
@@ -16,18 +15,15 @@ import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.general.ColorType;
 import de.biomia.spigot.minigames.general.Dead;
-import de.biomia.spigot.minigames.general.Scoreboards;
 import de.biomia.spigot.minigames.general.shop.ItemType;
 import de.biomia.spigot.minigames.general.shop.Shop;
 import de.biomia.spigot.minigames.general.shop.ShopGroup;
 import de.biomia.spigot.minigames.general.shop.ShopItem;
-import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.RankManager;
 import de.biomia.universal.UniversalBiomia;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
@@ -54,67 +50,6 @@ public class BedWarsListener extends GameHandler {
 
     BedWarsListener(GameMode mode) {
         super(mode);
-    }
-
-    @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
-        e.setJoinMessage(null);
-        Player p = e.getPlayer();
-        BackToLobby.getLobbyItem(p, 8);
-        BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-        bp.setDamageEntitys(false);
-        bp.setGetDamage(false);
-
-        if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
-            // Hide
-            for (Player all : Bukkit.getOnlinePlayers()) {
-
-                GameTeam team = bp.getTeam();
-
-                if (team != null && team.lives(bp)) {
-                    all.hidePlayer(p);
-                } else {
-                    all.showPlayer(all);
-                }
-            }
-
-            // Disable Damage / Build
-            bp.setGetDamage(false);
-            bp.setDamageEntitys(false);
-            bp.setBuild(false);
-            p.setGameMode(org.bukkit.GameMode.ADVENTURE);
-
-            // Fly settings
-            p.setAllowFlight(true);
-            p.setFlying(true);
-            p.setFlySpeed(0.5F);
-
-            Scoreboards.setSpectatorSB(p);
-            Scoreboards.spectatorSB.getTeam("spectator").addEntry(p.getName());
-
-            p.teleport(new Location(Bukkit.getWorld(MinigamesConfig.getMapName()), 0, 100, 0));
-
-        } else if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
-
-            p.teleport(GameMode.getSpawn());
-
-            if (p.hasPermission("biomia.sw.start")) {
-                p.getInventory().setItem(0, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, BedWarsItemNames.startItem));
-            }
-
-            p.getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, BedWarsItemNames.teamWaehlerItem));
-
-            bp.getPlayer().setLevel(mode.getStateManager().getLobbyState().getCountDown());
-
-            String nameString = (bp.isPremium() ? "\u00A76" : "\u00A7b") + p.getName();
-            Bukkit.broadcastMessage(MinigamesMessages.joinedTheGame.replaceAll("%p", nameString));
-
-            mode.partyJoin(bp);
-            Scoreboards.setLobbyScoreboard(p);
-            Scoreboards.lobbySB.getTeam("xnoteam").addEntry(p.getName());
-
-        }
-
     }
 
     @EventHandler
@@ -215,29 +150,6 @@ public class BedWarsListener extends GameHandler {
         }
         Bukkit.getPluginManager().callEvent(new BedWarsDeathEvent(Biomia.getBiomiaPlayer(p), killer != null ? Biomia.getBiomiaPlayer(killer) : null, true));
         Dead.respawn(p);
-    }
-
-    @EventHandler
-    public void onRespawn(PlayerRespawnEvent e) {
-
-        Player p = e.getPlayer();
-        BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-        GameTeam t = Biomia.getBiomiaPlayer(p).getTeam();
-
-        if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
-            if (t != null) {
-                if (!mode.getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
-                    e.setRespawnLocation(t.getHome());
-                } else
-                    e.setRespawnLocation(new Location(Bukkit.getWorld(MinigamesConfig.getMapName()), 0, 100, 0));
-            }
-        } else {
-            if (t != null) {
-                e.setRespawnLocation(t.getHome());
-            } else {
-                e.setRespawnLocation(GameMode.getSpawn());
-            }
-        }
     }
 
     @EventHandler
@@ -369,16 +281,12 @@ public class BedWarsListener extends GameHandler {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
 
         if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
-            if (mode.getInstance().containsPlayer(bp)) {
-                e.setQuitMessage(MinigamesMessages.leftTheGame.replaceAll("%p", e.getPlayer().getName()));
+            if (!mode.isSpectator(bp)) {
+                e.setQuitMessage(bp.getTeam().getColorcode() + p.getName() + MinigamesMessages.leftTheGame);
                 Bukkit.getPluginManager().callEvent(new BedWarsLeaveEvent(bp));
-                bp.getTeam().leave(bp);
-                if (mode.canStop())
-                    mode.stop();
             }
-        } else if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
-            super.onDisconnect(e);
         }
+            super.onDisconnect(e);
     }
 
     @EventHandler
@@ -493,7 +401,7 @@ public class BedWarsListener extends GameHandler {
     }
 
     @EventHandler
-    public void Interact(PlayerInteractEntityEvent e) {
+    public void onInteract(PlayerInteractEntityEvent e) {
         Player p = e.getPlayer();
 
         if (e.getRightClicked() instanceof Villager || e.getRightClicked() instanceof ArmorStand) {
@@ -507,11 +415,6 @@ public class BedWarsListener extends GameHandler {
                 ((BedWars) mode).handlerMap.get(e.getRightClicked().getUniqueId()).add(p);
             }
         }
-    }
-
-    @EventHandler
-    public void onCraftItem(PrepareItemCraftEvent e) {
-        e.getInventory().setResult(ItemCreator.itemCreate(Material.AIR));
     }
 
     @EventHandler
@@ -538,7 +441,7 @@ public class BedWarsListener extends GameHandler {
                 if (gt instanceof BedWarsTeam) {
                     BedWarsTeam bt = ((BedWarsTeam) gt);
                     if (bt.getBed().contains(e.getBlock())) {
-                        if (bt.equals((BedWarsTeam) Biomia.getBiomiaPlayer(e.getPlayer()).getTeam())) {
+                        if (bt.equals(Biomia.getBiomiaPlayer(e.getPlayer()).getTeam())) {
                             e.getPlayer().sendMessage(MinigamesMessages.destroyOwnBed);
                             e.setCancelled(true);
                             return;

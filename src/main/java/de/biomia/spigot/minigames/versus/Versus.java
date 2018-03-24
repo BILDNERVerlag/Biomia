@@ -1,6 +1,7 @@
 package de.biomia.spigot.minigames.versus;
 
 import de.biomia.spigot.BiomiaServer;
+import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.minigames.versus.SWCommand;
 import de.biomia.spigot.commands.minigames.versus.VSCommands;
@@ -14,6 +15,10 @@ public class Versus extends BiomiaServer {
     private VSManager manager;
 
     private static Versus instance;
+
+    public Versus() {
+        super(BiomiaServerType.Duell);
+    }
 
     public static Versus getInstance() {
         return instance;

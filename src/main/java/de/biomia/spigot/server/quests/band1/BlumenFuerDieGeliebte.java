@@ -29,6 +29,7 @@ public class BlumenFuerDieGeliebte implements Listener {
     HashMap<UUID, Quest> hm = new HashMap<>();
     private DialogMessage startDialogRoman;
     private DialogMessage startDialogJulchen;
+    //TODO init nachQuestJulchen
     private DialogMessage nachQuestJulchen;
     private DialogMessage comeBackWRose;
     private DialogMessage comeBackWORose;

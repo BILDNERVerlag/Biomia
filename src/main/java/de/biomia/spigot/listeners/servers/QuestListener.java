@@ -2,6 +2,7 @@ package de.biomia.spigot.listeners.servers;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.QuestItemNames;
 import de.biomia.spigot.messages.QuestMessages;
@@ -65,12 +66,12 @@ public class QuestListener extends BiomiaListener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
-        InventorySave.saveInventory(e.getPlayer(), "QuestServer");
+        InventorySave.saveInventory(e.getPlayer(), BiomiaServerType.Quest);
     }
 
     @EventHandler
     public void onJoin_(PlayerJoinEvent e) {
-        InventorySave.setInventory(e.getPlayer(), "QuestServer");
+        InventorySave.setInventory(e.getPlayer(), BiomiaServerType.Quest);
 
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         QuestItems.giveQuestItems(bp);

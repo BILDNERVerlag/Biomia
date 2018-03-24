@@ -6,6 +6,7 @@ import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
+import de.biomia.spigot.messages.MinigamesItemNames;
 import de.biomia.spigot.messages.manager.ActionBar;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
@@ -62,9 +63,9 @@ public class SpecialItems implements Listener {
         if (e.hasItem() && e.getItem().hasItemMeta() && e.getItem().getItemMeta().hasDisplayName()) {
             String displayname = e.getItem().getItemMeta().getDisplayName();
 
-            if (displayname.equals(BedWarsItemNames.teamWaehlerItem))
+            if (displayname.equals(MinigamesItemNames.teamWaehlerItem))
                 p.openInventory(mode.getTeamSwitcher());
-            else if (displayname.equals(BedWarsItemNames.startItem)) {
+            else if (displayname.equals(MinigamesItemNames.startItem)) {
                 if (mode.getStateManager().getLobbyState().getCountDown() > 5)
                     mode.getStateManager().getLobbyState().setCountDown(5);
             } else if (displayname.equals(BedWarsItemNames.bedSetter)) {

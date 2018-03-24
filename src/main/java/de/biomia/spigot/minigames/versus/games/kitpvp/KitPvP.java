@@ -4,6 +4,10 @@ import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
+import de.biomia.spigot.minigames.TeamColor;
+
+import java.util.HashMap;
+import java.util.UUID;
 
 public class KitPvP extends GameMode {
 
@@ -17,6 +21,11 @@ public class KitPvP extends GameMode {
 
     @Override
     protected GameHandler initHandler() {
+        return null;
+    }
+
+    @Override
+    protected HashMap<TeamColor, UUID> initTeamJoiner() {
         return null;
     }
 

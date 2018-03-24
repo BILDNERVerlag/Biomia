@@ -94,19 +94,18 @@ public class Main extends JavaPlugin {
         Cosmetic.initGroup(new CosmeticGroup(Group.SUITS, ItemCreator.itemCreate(Material.GOLD_CHESTPLATE, "\u00A75Suits")));
 
         groupName = ((DedicatedServer) ((CraftServer) Bukkit.getServer()).getServer()).propertyManager.properties.getProperty("server-name").split("-")[0];
-        switch (groupName) {
-            case "TestLobby":
-            case "Lobby":
+        switch (BiomiaServerType.valueOf(groupName)) {
+        case TestLobby:
+        case Lobby:
                 Biomia.setServerInstance(new Lobby());
                 break;
-            case "TestQuest":
-            case "Quest":
-            case "QuestServer":
+        case TestQuest:
+        case Quest:
                 Biomia.setServerInstance(new Quests());
                 break;
-            case "TestBedWars":
-            case "BedWars":
-                Biomia.setServerInstance(new BiomiaServer() {
+        case TestBedWars:
+        case BedWars:
+            Biomia.setServerInstance(new BiomiaServer(BiomiaServerType.BedWars) {
                     @Override
                     public void start() {
                         super.start();
@@ -115,9 +114,9 @@ public class Main extends JavaPlugin {
                 });
                 new GameInstance(BED_WARS, MinigamesConfig.getMapName(), MinigamesConfig.getTeamAmount(), MinigamesConfig.getTeamSize()).getGameMode().start();
                 break;
-            case "TestSkyWars":
-            case "SkyWars":
-                Biomia.setServerInstance(new BiomiaServer() {
+        case TestSkyWars:
+        case SkyWars:
+            Biomia.setServerInstance(new BiomiaServer(BiomiaServerType.SkyWars) {
                     @Override
                     public void start() {
                         super.start();
@@ -126,26 +125,22 @@ public class Main extends JavaPlugin {
                 });
                 new GameInstance(SKY_WARS, MinigamesConfig.getMapName(), MinigamesConfig.getTeamAmount(), MinigamesConfig.getTeamSize()).getGameMode().start();
                 break;
-            case "TestDuellLobby":
-            case "DuellLobby":
+        case Duell:
                 Biomia.setServerInstance(new Versus());
                 break;
-            case "Weltenlabor#1":
+        case Weltenlabor_1:
                 Biomia.setServerInstance(new Weltenlabor());
                 break;
-            case "TestFreebuild":
-            case "Freebuild":
-            case "FreebuildServer":
+        case TestFreebuild:
+        case Freebuild:
                 Biomia.setServerInstance(new Freebuild());
                 break;
-            case "Freebuild-Farm":
-            case "FarmServer":
+        case FreebuildFarm:
                 //TODO Farmserver nach Fertigstellung hinzufuegen
                 break;
-            case "BauServer":
+        case BauServer:
                 Bukkit.getPluginManager().registerEvents(new BauServerListener(), this);
                 break;
-            //TODO: Group Names ändern
         }
 
         Biomia.getServerInstance().start();

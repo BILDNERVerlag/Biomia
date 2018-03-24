@@ -2,7 +2,6 @@ package de.biomia.spigot.server.lobby;
 
 import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import cloud.timo.TimoCloud.api.objects.ServerObject;
-import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaServer;
 import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
@@ -29,6 +28,10 @@ public class Lobby extends BiomiaServer {
     private final ArrayList<Player> inAir = new ArrayList<>();
     private Inventory navigator;
     private Inventory lobbySwitcher;
+
+    public Lobby() {
+        super(BiomiaServerType.Lobby);
+    }
 
     @Override
     public void start() {
@@ -116,9 +119,9 @@ public class Lobby extends BiomiaServer {
         Location backTeleportationQuests = new Location(Bukkit.getWorld("LobbyBiomia"), 480.5, 123, 359.5, 90, 0);
 
         // Quests
-        new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 446, 124, 359), new Location(Bukkit.getWorld("LobbyBiomia"), 447, 125, 361), backTeleportationQuests, BiomiaServerType.QuestServer);
-        new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 459, 124, 377), new Location(Bukkit.getWorld("LobbyBiomia"), 460, 125, 378), backTeleportationQuests, BiomiaServerType.QuestServer);
-        new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 459, 124, 341), new Location(Bukkit.getWorld("LobbyBiomia"), 460, 125, 342), backTeleportationQuests, BiomiaServerType.QuestServer);
+        new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 446, 124, 359), new Location(Bukkit.getWorld("LobbyBiomia"), 447, 125, 361), backTeleportationQuests, BiomiaServerType.Quest);
+        new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 459, 124, 377), new Location(Bukkit.getWorld("LobbyBiomia"), 460, 125, 378), backTeleportationQuests, BiomiaServerType.Quest);
+        new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 459, 124, 341), new Location(Bukkit.getWorld("LobbyBiomia"), 460, 125, 342), backTeleportationQuests, BiomiaServerType.Quest);
 
         // Freebuild
         new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 552, 97, 290), new Location(Bukkit.getWorld("LobbyBiomia"), 553, 98, 291), new Location(Bukkit.getWorld("LobbyBiomia"), 556.5, 96, 292.5, -90, 0), BiomiaServerType.Freebuild);

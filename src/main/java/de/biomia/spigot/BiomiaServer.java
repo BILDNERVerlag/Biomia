@@ -9,6 +9,16 @@ import static de.biomia.spigot.Main.registerCommand;
 
 public abstract class BiomiaServer {
 
+    private final BiomiaServerType serverType;
+
+    protected BiomiaServer(BiomiaServerType type) {
+        this.serverType = type;
+    }
+
+    public BiomiaServerType getServerType() {
+        return serverType;
+    }
+
     public void start() {
         initListeners();
         initCommands();
@@ -50,5 +60,7 @@ public abstract class BiomiaServer {
         registerCommand(new WarpCommand("warp"));
         registerCommand(new WarpCommand("delwarp"));
     }
+
+
 }
 

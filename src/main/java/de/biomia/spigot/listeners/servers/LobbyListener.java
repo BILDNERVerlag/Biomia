@@ -4,14 +4,15 @@ import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.general.cosmetics.MysteryChest;
 import de.biomia.spigot.listeners.LobbyInventoryManager;
-import de.biomia.universal.Messages;
 import de.biomia.spigot.server.lobby.Lobby;
 import de.biomia.spigot.server.lobby.LobbyScoreboard;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.PlayerToServerConnector;
 import de.biomia.spigot.tools.RankManager;
+import de.biomia.universal.Messages;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -289,7 +290,7 @@ public class LobbyListener extends BiomiaListener {
                             break;
                     }
                 } else if (ie.getClickedInventory().getName().equals("\u00A7dLobby Switcher"))
-                    for (ServerObject so : TimoCloudAPI.getUniversalInstance().getServerGroup("Lobby")
+                    for (ServerObject so : TimoCloudAPI.getUniversalInstance().getServerGroup(BiomiaServerType.Lobby.name())
                             .getServers())
                         if (itemName.contains(so.getName()))
                             if (!so.getName().equals(TimoCloudAPI.getBukkitInstance().getThisServer().getName()))

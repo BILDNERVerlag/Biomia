@@ -2,9 +2,6 @@ package de.biomia.spigot.messages;
 
 public class BedWarsItemNames {
 
-    public static final String teamWaehlerItem = "\u00A7cTeam W\u00e4hler";
-    public static final String startItem = "\u00A7bStart";
-
     public static final String bedSetter = "\u00A7cBedSetter";
     public static final String bronze = "\u00A7cBronze";
     public static final String iron = "\u00A77Eisen";

@@ -1,7 +1,6 @@
 package de.biomia.spigot.minigames;
 
 import cloud.timo.TimoCloud.api.TimoCloudAPI;
-import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.MinigamesConfig;
@@ -14,9 +13,7 @@ import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.IOException;
@@ -57,7 +54,7 @@ public class GameInstance implements Listener {
                 gameMode = new SkyWars(this);
                 break;
             default:
-                Bukkit.getLogger().log(Level.SEVERE, "%%% GameInstance does not exist. %%%");
+                Bukkit.getLogger().log(Level.SEVERE, "%%% GameType does not exist. %%%");
                 new Exception().printStackTrace();
                 break;
         }
@@ -122,13 +119,4 @@ public class GameInstance implements Listener {
         return teamAmount;
     }
 
-    //LISTENER
-
-    @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
-        //TODO: fix nullpointer
-        if (getGameMode().getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
-            getGameMode().getInstance().registerPlayer(Biomia.getBiomiaPlayer(e.getPlayer()));
-        }
-    }
 }

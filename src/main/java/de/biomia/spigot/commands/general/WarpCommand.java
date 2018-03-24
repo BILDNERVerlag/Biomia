@@ -55,7 +55,7 @@ public class WarpCommand extends BiomiaCommand {
                     return true;
                 }
                 if (!allowedGroups.contains(Main.getGroupName())) {
-                    p.sendMessage("\u00A7cEigene Warps sind auf diesem Server (\u00A7b" + Main.getGroupName() + "\u00A7c) nicht erlaubt. Sorry!");
+                    p.sendMessage("\u00A7cEigene Warps sind auf diesem Server (\u00A7b" + Main.getGroupName() + "\u00A7c) nicht erlaubt.");
                     return true;
                 }
 
@@ -71,7 +71,6 @@ public class WarpCommand extends BiomiaCommand {
                         bp.getBiomiaPlayerID() +
                         ")", MySQL.Databases.biomia_db);
                 p.sendMessage("\u00A7cDu hast den Warp \u00A7b" + args[0] + "\u00A7c erfolgreich erstellt!");
-                playerWarpLocations = getAllLocations(p);
                 verbleibendeWarps--;
                 if (verbleibendeWarps <= 0)
                     p.sendMessage("\u00A77Dies war dein letzter verbleibender Warppunkt.");
@@ -155,29 +154,29 @@ public class WarpCommand extends BiomiaCommand {
 
     private HashMap<String, WarpLocation> initPublicWarps(Player p) {
         HashMap<String, WarpLocation> locations = new HashMap<>();
-        switch (Main.getGroupName()) {
-            case "TestQuest":
-            case "QuestServer":
-                locations.put("Baum", new WarpLocation(new Location(Bukkit.getWorld("Quests"), -159, 74, -267), Main.getGroupName(), "Spawn"));
-                break;
-            case "FreebuildServer":
-                break;
-            case "FarmServer":
-                break;
-            case "BauServer":
-                break;
-            case "DuellLobby":
-                break;
-            case "Weltenlabor#1":
-                break;
-            case "TestLobby":
-            case "Lobby":
-                locations.put("Baum", new WarpLocation(new Location(Bukkit.getWorld("LobbyBiomia"), 551.5, 89, 333.5), Main.getGroupName(), "Spawn"));
-                break;
-            default:
-                return locations;
+        switch (Biomia.getServerInstance().getServerType()) {
+        case TestQuest:
+        case Quest:
+            locations.put("Baum", new WarpLocation(new Location(Bukkit.getWorld("Quests"), -159, 74, -267), Main.getGroupName()));
+            break;
+        case Freebuild:
+            break;
+        case FreebuildFarm:
+            break;
+        case BauServer:
+            break;
+        case Duell:
+            break;
+        case Weltenlabor_1:
+            break;
+        case TestLobby:
+        case Lobby:
+            locations.put("Baum", new WarpLocation(new Location(Bukkit.getWorld("LobbyBiomia"), 551.5, 89, 333.5), Main.getGroupName()));
+            break;
+        default:
+            return locations;
         }
-        locations.put("Spawn", new WarpLocation(p.getWorld().getSpawnLocation(), Main.getGroupName(), "Spawn"));
+        locations.put("Spawn", new WarpLocation(p.getWorld().getSpawnLocation(), Main.getGroupName()));
         return locations;
     }
 
@@ -201,7 +200,7 @@ public class WarpCommand extends BiomiaCommand {
                 String worldname = rs.getString("worldname");
                 String name = rs.getString("name");
 
-                wloc = new WarpLocation(x, y, z, yaw, pitch, groupname, worldname, name);
+                wloc = new WarpLocation(x, y, z, yaw, pitch, groupname, worldname);
                 locations.put(name, wloc);
             }
             rs.close();
@@ -215,40 +214,30 @@ public class WarpCommand extends BiomiaCommand {
 }
 
 class WarpLocation {
-    private double x, y, z;
-    private float yaw, pitch;
-    private String groupname, worldname, name;
-    private Location loc;
 
-    public WarpLocation(double x0, double y0, double z0, float yaw0, float pitch0, String groupname0, String worldname0, String nameOfWarp) {
-        x = x0;
-        y = y0;
-        z = z0;
-        yaw = yaw0;
-        pitch = pitch0;
-        groupname = groupname0;
-        worldname = worldname0;
-        name = nameOfWarp;
+    private final String groupname;
+    private final Location loc;
+
+    WarpLocation(double x, double y, double z, float yaw, float pitch, String groupname, String worldname) {
+        loc = new Location(Bukkit.getWorld(worldname), x, y, z, yaw, pitch);
+        this.groupname = groupname;
     }
 
-    public WarpLocation(Location loc0, String groupname0, String nameOfWarp) {
+    WarpLocation(Location loc0, String groupname) {
         loc = loc0;
-        groupname = groupname0;
-        name = nameOfWarp;
+        this.groupname = groupname;
     }
 
     public Location getLocation() {
-        return (loc != null) ? loc : new Location(Bukkit.getWorld(worldname), x, y, z, yaw, pitch);
+        return loc;
     }
 
     public String toString() {
-        return (loc != null) ? "\u00A77[x=\u00A7c" + loc.getX() + "\u00A77, y=\u00A7c" + loc.getY() + "\u00A77, z=\u00A7c" + loc.getZ() + "\u00A77 : \u00A7c" + groupname + "\u00A77]"
-                : "\u00A77[x=\u00A7c" + x + "\u00A77, y=\u00A7c" + y + "\u00A77, z=\u00A7c" + z + "\u00A77 : \u00A7c" + groupname + "\u00A77]";
-
+        return loc.serialize().toString();
     }
 
     public String getWorldname() {
-        return (worldname == null) ? loc.getWorld().getName() : worldname;
+        return loc.getWorld().getName();
     }
 
     public String getGroupname() {

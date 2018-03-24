@@ -39,76 +39,77 @@ public class EasterEvent implements Listener {
 
     public EasterEvent() {
         final String world;
-        switch (Main.getGroupName()) {
-            case "TestLobby":
-            case "Lobby":
-                world = "LobbyBiomia";
-                location = new Location(Bukkit.getWorld(world), 532, 112, 300);
-                specialEggLocation = new Location(Bukkit.getWorld(world), 595, 74, 298);
-                radius = 80;
-                maxHight = 112;
-                randomEggsPerServer = 20;
-                HeadCreator.setSkullUrl(eggName, new Location(Bukkit.getWorld("LobbyBiomia"), 533.5, 70, 225.5).getBlock());
-                HeadCreator.setSkullUrl(eggName, new Location(Bukkit.getWorld("LobbyBiomia"), 531.5, 70, 225.5).getBlock());
-                HeadCreator.setSkullUrl(eggName, new Location(Bukkit.getWorld("LobbyBiomia"), 539.5, 70, 225.5).getBlock());
-                HeadCreator.setSkullUrl(eggName, new Location(Bukkit.getWorld("LobbyBiomia"), 532.5, 70, 224.5).getBlock());
-                HeadCreator.setSkullUrl(specialEggName, new Location(Bukkit.getWorld("LobbyBiomia"), 532.5, 70, 225.5).getBlock());
-                break;
-            case "TestQuest":
-            case "QuestServer":
-                world = "Quests";
-                location = new Location(Bukkit.getWorld(world), 114, 0, -288);
-                specialEggLocation = new Location(Bukkit.getWorld(world), 141, 66, -259);
-                radius = 50;
-                maxHight = 85;
-                randomEggsPerServer = 5;
-                break;
-            case "BauWelt":
-                world = "BauWelt";
-                location = new Location(Bukkit.getWorld(world), 0, 0, 0);
-                specialEggLocation = new Location(Bukkit.getWorld(world), 11, 67, 19);
-                radius = 150;
-                maxHight = 77;
-                randomEggsPerServer = 5;
-                break;
-            case "TestSkyWars":
-            case "SkyWars":
-                world = "Spawn";
-                location = new Location(Bukkit.getWorld(world), 0, 0, 0);
-                specialEggLocation = new Location(Bukkit.getWorld(world), 0, 71, 51);
-                radius = 50;
-                maxHight = 86;
-                randomEggsPerServer = 3;
-                break;
-            case "TestBedWars":
-            case "BedWars":
-                world = "Spawn";
-                location = new Location(Bukkit.getWorld(world), 0, 0, 0);
-                specialEggLocation = new Location(Bukkit.getWorld(world), 45, 85, 37);
-                radius = 50;
-                maxHight = 86;
-                randomEggsPerServer = 3;
-                break;
-            case "FreebuildServer":
-                world = "world";
-                location = new Location(Bukkit.getWorld(world), -261, 64, 350);
-                specialEggLocation = new Location(Bukkit.getWorld(world), -255, 65, 323);
-                radius = 150;
-                maxHight = 75;
-                randomEggsPerServer = 4;
-                break;
-            default:
-                location = null;
-                maxHight = 0;
-                radius = 0;
-                specialEggLocation = null;
-                randomEggsPerServer = 0;
-                return;
+        switch (Biomia.getServerInstance().getServerType()) {
+        case TestLobby:
+        case Lobby:
+            world = "LobbyBiomia";
+            location = new Location(Bukkit.getWorld(world), 532, 112, 300);
+            specialEggLocation = new Location(Bukkit.getWorld(world), 595, 74, 298);
+            radius = 80;
+            maxHight = 112;
+            randomEggsPerServer = 20;
+            HeadCreator.setSkullUrl(eggName, new Location(Bukkit.getWorld("LobbyBiomia"), 533.5, 70, 225.5).getBlock());
+            HeadCreator.setSkullUrl(eggName, new Location(Bukkit.getWorld("LobbyBiomia"), 531.5, 70, 225.5).getBlock());
+            HeadCreator.setSkullUrl(eggName, new Location(Bukkit.getWorld("LobbyBiomia"), 539.5, 70, 225.5).getBlock());
+            HeadCreator.setSkullUrl(eggName, new Location(Bukkit.getWorld("LobbyBiomia"), 532.5, 70, 224.5).getBlock());
+            HeadCreator.setSkullUrl(specialEggName, new Location(Bukkit.getWorld("LobbyBiomia"), 532.5, 70, 225.5).getBlock());
+            Bukkit.getPluginManager().registerEvents(new Osterhase(), Main.getPlugin());
+            break;
+        case Quest:
+        case TestQuest:
+            world = "Quests";
+            location = new Location(Bukkit.getWorld(world), 114, 0, -288);
+            specialEggLocation = new Location(Bukkit.getWorld(world), 141, 66, -259);
+            radius = 50;
+            maxHight = 85;
+            randomEggsPerServer = 5;
+            break;
+        case BauServer:
+            world = "BauWelt";
+            location = new Location(Bukkit.getWorld(world), 0, 0, 0);
+            specialEggLocation = new Location(Bukkit.getWorld(world), 11, 67, 19);
+            radius = 150;
+            maxHight = 77;
+            randomEggsPerServer = 5;
+            break;
+        case TestSkyWars:
+        case SkyWars:
+            world = "Spawn";
+            location = new Location(Bukkit.getWorld(world), 0, 0, 0);
+            specialEggLocation = new Location(Bukkit.getWorld(world), 0, 71, 51);
+            radius = 50;
+            maxHight = 86;
+            randomEggsPerServer = 3;
+            break;
+        case TestBedWars:
+        case BedWars:
+            world = "Spawn";
+            location = new Location(Bukkit.getWorld(world), 0, 0, 0);
+            specialEggLocation = new Location(Bukkit.getWorld(world), 45, 85, 37);
+            radius = 50;
+            maxHight = 86;
+            randomEggsPerServer = 3;
+            break;
+        case Freebuild:
+        case TestFreebuild:
+            world = "world";
+            location = new Location(Bukkit.getWorld(world), -261, 64, 350);
+            specialEggLocation = new Location(Bukkit.getWorld(world), -255, 65, 323);
+            radius = 150;
+            maxHight = 75;
+            randomEggsPerServer = 4;
+            break;
+        default:
+            location = null;
+            maxHight = 0;
+            radius = 0;
+            specialEggLocation = null;
+            randomEggsPerServer = 0;
+            return;
         }
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
         startSpawningEggs();
         spawnSpecialEgg();
-        Bukkit.getPluginManager().registerEvents(new Osterhase(), Main.getPlugin());
     }
 
     private void spawnSpecialEgg() {

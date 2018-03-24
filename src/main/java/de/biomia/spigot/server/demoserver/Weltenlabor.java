@@ -1,10 +1,11 @@
 package de.biomia.spigot.server.demoserver;
 
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.BiomiaServer;
+import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.weltenlabor.BauWerkCommand;
 import de.biomia.spigot.configs.DemoConfig;
-import de.biomia.spigot.BiomiaServer;
 import de.biomia.spigot.listeners.servers.DemoListener;
 import de.biomia.spigot.server.demoserver.teleporter.Bauten;
 import de.biomia.spigot.server.demoserver.teleporter.ScrollingInventory;
@@ -17,6 +18,10 @@ public class Weltenlabor extends BiomiaServer {
 
     private final ArrayList<Bauten> bauten = new ArrayList<>();
     private final HashMap<BiomiaPlayer, ScrollingInventory> scrollingInv = new HashMap<>();
+
+    public Weltenlabor() {
+        super(BiomiaServerType.Weltenlabor_1);
+    }
 
     @Override
     public void start() {

@@ -8,7 +8,6 @@ import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.bedwars.BedWarsTeam;
 import de.biomia.spigot.minigames.general.TeamSwitcher;
 import de.biomia.spigot.minigames.general.Teleport;
-import de.biomia.spigot.minigames.versus.Versus;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -20,6 +19,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.UUID;
 
 public abstract class GameMode {
 
@@ -52,9 +52,9 @@ public abstract class GameMode {
         boolean b = true;
         for (BiomiaPlayer bp : getInstance().getPlayers()) {
             if (b)
-                getTeams().get(0).join(bp);
+                teams.get(0).join(bp);
             else
-                getTeams().get(1).join(bp);
+                teams.get(1).join(bp);
             b = !b;
         }
     }
@@ -66,7 +66,7 @@ public abstract class GameMode {
     public void start() {
         stateManager.getLobbyState().start();
         TeamSwitcher.getTeamSwitcher(this);
-        config.loadTeamJoiner();
+        config.loadTeamJoiner(initTeamJoiner());
     }
 
     public void stop() {
@@ -155,7 +155,7 @@ public abstract class GameMode {
         return teamSwitcher;
     }
 
-    public void initTeams() {
+    private void initTeams() {
 
         for (TeamColor colors : TeamColor.values()) {
             if (colors.getID() > getInstance().getTeamAmount())
@@ -181,13 +181,15 @@ public abstract class GameMode {
         return config;
     }
 
-    public void setConfig() {
+    private void setConfig() {
         this.config = initConfig();
     }
 
     protected abstract GameHandler initHandler();
 
-    public void setHandler() {
+    protected abstract HashMap<TeamColor, UUID> initTeamJoiner();
+
+    private void setHandler() {
         this.handler = initHandler();
     }
 
@@ -201,5 +203,9 @@ public abstract class GameMode {
 
     public GameHandler getHandler() {
         return handler;
+    }
+
+    public boolean isSpectator(BiomiaPlayer bp) {
+        return !getInstance().containsPlayer(bp) || !(bp.getTeam() != null && bp.getTeam().lives(bp));
     }
 }

@@ -13,16 +13,16 @@ import java.util.UUID;
 
 public class OfflineBungeeBiomiaPlayer extends UniversalBiomiaPlayer {
 
-    public OfflineBungeeBiomiaPlayer(int biomiaPlayerID) {
-        super(biomiaPlayerID);
+    public OfflineBungeeBiomiaPlayer(int biomiaID) {
+        super(biomiaID);
     }
 
-    public OfflineBungeeBiomiaPlayer(int biomiaPlayerID, String name) {
-        super(biomiaPlayerID, name);
+    public OfflineBungeeBiomiaPlayer(int biomiaID, String name) {
+        super(biomiaID, name);
     }
 
-    public OfflineBungeeBiomiaPlayer(int biomiaPlayerID, UUID uuid) {
-        super(biomiaPlayerID, uuid);
+    public OfflineBungeeBiomiaPlayer(int biomiaID, UUID uuid) {
+        super(biomiaID, uuid);
     }
 
     public void sendMessage(TextComponent component) {

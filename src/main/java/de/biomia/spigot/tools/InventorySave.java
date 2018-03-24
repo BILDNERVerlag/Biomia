@@ -1,6 +1,7 @@
 package de.biomia.spigot.tools;
 
 import de.biomia.spigot.Biomia;
+import de.biomia.spigot.BiomiaServerType;
 import de.biomia.universal.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -17,24 +18,24 @@ import java.io.IOException;
 
 public class InventorySave {
 
-    public static void saveInventory(Player p, String serverGroup) {
+    public static void saveInventory(Player p, BiomiaServerType serverGroup) {
 
         String inv = toBase64(p.getInventory());
         int biomiaID = Biomia.getBiomiaPlayer(p).getBiomiaPlayerID();
 
-        if (MySQL.executeQuery("SELECT * from InventorySaves where biomiaID = " + biomiaID + " AND servergroup = '" + serverGroup + "'", "inventory", MySQL.Databases.biomia_db) != null) {
+        if (MySQL.executeQuery("SELECT * from InventorySaves where biomiaID = " + biomiaID + " AND servergroup = '" + serverGroup.name() + "'", "inventory", MySQL.Databases.biomia_db) != null) {
 
-            MySQL.executeUpdate("UPDATE `InventorySaves` SET `biomiaID`= " + biomiaID + ",`inventory`='" + inv + "',`servergroup`='" + serverGroup + "' WHERE biomiaID = " + biomiaID + " AND servergroup = '" + serverGroup + "'", MySQL.Databases.biomia_db);
+            MySQL.executeUpdate("UPDATE `InventorySaves` SET `biomiaID`= " + biomiaID + ",`inventory`='" + inv + "',`servergroup`='" + serverGroup + "' WHERE biomiaID = " + biomiaID + " AND servergroup = '" + serverGroup.name() + "'", MySQL.Databases.biomia_db);
         } else {
-            MySQL.executeUpdate("INSERT INTO `InventorySaves` (`biomiaID`, `inventory`, `servergroup`) VALUES (" + biomiaID + ",'" + inv + "','" + serverGroup + "')", MySQL.Databases.biomia_db);
+            MySQL.executeUpdate("INSERT INTO `InventorySaves` (`biomiaID`, `inventory`, `servergroup`) VALUES (" + biomiaID + ",'" + inv + "','" + serverGroup.name() + "')", MySQL.Databases.biomia_db);
         }
 
     }
 
-    public static void setInventory(Player p, String serverGroup) {
+    public static void setInventory(Player p, BiomiaServerType serverGroup) {
 
         int biomiaID = Biomia.getBiomiaPlayer(p).getBiomiaPlayerID();
-        String s = MySQL.executeQuery("SELECT * from InventorySaves where biomiaID = " + biomiaID + " AND servergroup = '" + serverGroup + "'", "inventory", MySQL.Databases.biomia_db);
+        String s = MySQL.executeQuery("SELECT * from InventorySaves where biomiaID = " + biomiaID + " AND servergroup = '" + serverGroup.name() + "'", "inventory", MySQL.Databases.biomia_db);
 
         if (s != null) {
 

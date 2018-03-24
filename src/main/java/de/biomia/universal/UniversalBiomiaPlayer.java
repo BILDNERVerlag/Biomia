@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public abstract class UniversalBiomiaPlayer {
 
-    private final int biomiaPlayerID;
+    private final int biomiaID;
     private String name;
     private UUID uuid;
 
@@ -20,17 +20,17 @@ public abstract class UniversalBiomiaPlayer {
         return MySQL.executeQuerygetint("Select id from BiomiaPlayer where name = '" + playerName + "'", "id", MySQL.Databases.biomia_db);
     }
 
-    protected UniversalBiomiaPlayer(int biomiaPlayerID) {
-        this.biomiaPlayerID = biomiaPlayerID;
+    protected UniversalBiomiaPlayer(int biomiaID) {
+        this.biomiaID = biomiaID;
     }
 
-    protected UniversalBiomiaPlayer(int biomiaPlayerID, String name) {
-        this.biomiaPlayerID = biomiaPlayerID;
+    protected UniversalBiomiaPlayer(int biomiaID, String name) {
+        this.biomiaID = biomiaID;
         this.name = name;
     }
 
-    protected UniversalBiomiaPlayer(int biomiaPlayerID, UUID uuid) {
-        this.biomiaPlayerID = biomiaPlayerID;
+    protected UniversalBiomiaPlayer(int biomiaID, UUID uuid) {
+        this.biomiaID = biomiaID;
         this.uuid = uuid;
     }
 
@@ -47,34 +47,34 @@ public abstract class UniversalBiomiaPlayer {
 
     public final void giveBoost(int percent, int timeinseconds) {
         stopCoinBoost();
-        MySQL.executeUpdate("INSERT INTO `CoinBoost`(`BiomiaPlayer`, `percent`, `until`) VALUES (" + biomiaPlayerID
+        MySQL.executeUpdate("INSERT INTO `CoinBoost`(`BiomiaPlayer`, `percent`, `until`) VALUES (" + biomiaID
                 + "," + percent + "," + timeinseconds + (System.currentTimeMillis() / 1000) + ")", MySQL.Databases.biomia_db);
     }
 
     protected void stopCoinBoost() {
-        MySQL.executeUpdate("DELETE FROM `CoinBoost` WHERE BiomiaPlayer = " + biomiaPlayerID, MySQL.Databases.biomia_db);
+        MySQL.executeUpdate("DELETE FROM `CoinBoost` WHERE BiomiaPlayer = " + biomiaID, MySQL.Databases.biomia_db);
     }
 
     // GETTERS AND SETTERS
 
     protected final UUID getUUID() {
-        return uuid != null ? uuid : (uuid = getUUID(biomiaPlayerID));
+        return uuid != null ? uuid : (uuid = getUUID(biomiaID));
     }
 
     public final int getBiomiaPlayerID() {
-        return biomiaPlayerID;
+        return biomiaID;
     }
 
     public final String getName() {
-        return name != null ? name : (name = getName(biomiaPlayerID));
+        return name != null ? name : (name = getName(biomiaID));
     }
 
     public final int getCoins() {
-        return MySQL.executeQuerygetint("SELECT * FROM `BiomiaCoins` where ID = " + biomiaPlayerID, "coins", MySQL.Databases.biomia_db);
+        return MySQL.executeQuerygetint("SELECT * FROM `BiomiaCoins` where ID = " + biomiaID, "coins", MySQL.Databases.biomia_db);
     }
 
     public final void setCoins(int coins) {
-        MySQL.executeUpdate("UPDATE `BiomiaCoins` SET `coins` = " + coins + " WHERE `ID` = " + biomiaPlayerID, MySQL.Databases.biomia_db);
+        MySQL.executeUpdate("UPDATE `BiomiaCoins` SET `coins` = " + coins + " WHERE `ID` = " + biomiaID, MySQL.Databases.biomia_db);
     }
 
     public abstract boolean isOnline();
