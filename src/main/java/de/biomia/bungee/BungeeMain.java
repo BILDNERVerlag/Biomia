@@ -74,7 +74,7 @@ public class BungeeMain extends Plugin {
 
                     int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) / 3;
 
-                    double multiplicator = 1.6;
+                    double multiplicator = 1.5;
 
                     switch (hour) {
                     case 0:
@@ -107,20 +107,19 @@ public class BungeeMain extends Plugin {
 
                     int min = 3 * (int) multiplicator;
                     int max = min + 5;
-                    int fakeTemp = new Random().nextInt(3) + 1;
 
                     if (actualFakePlayers < min) {
-                        actualFakePlayers += fakeTemp;
+                        actualFakePlayers += 1;
                     } else if (actualFakePlayers > max) {
-                        actualFakePlayers -= fakeTemp;
+                        actualFakePlayers -= 1;
                     } else {
-                        if (new Random().nextInt(2) == 1) {
-                            actualFakePlayers += fakeTemp;
+                        if (new Random().nextBoolean()) {
+                            actualFakePlayers += 1;
                         } else {
-                            actualFakePlayers -= fakeTemp;
+                            actualFakePlayers -= 1;
                         }
                     }
-                    Thread.sleep(1000 * (new Random().nextInt(15) + 80));
+                    Thread.sleep(1000 * (new Random().nextInt(15) + 25));
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     break;
