@@ -2,7 +2,7 @@ package de.biomia.spigot.minigames.versus.games.skywars;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.events.skywars.SkyWarsOpenChestEvent;
+import de.biomia.spigot.events.game.skywars.SkyWarsOpenChestEvent;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
@@ -104,7 +104,7 @@ class SkyWarsHandler extends GameHandler {
                 }
 
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                    Bukkit.getPluginManager().callEvent(new SkyWarsOpenChestEvent(Biomia.getBiomiaPlayer(p), firstOpen, chestType));
+                    Bukkit.getPluginManager().callEvent(new SkyWarsOpenChestEvent(bp, firstOpen, chestType, mode));
                     e.setCancelled(true);
                     p.openInventory(chest.getInventory());
                 }

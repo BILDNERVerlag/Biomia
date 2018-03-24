@@ -2,7 +2,7 @@ package de.biomia.spigot.commands.minigames.versus;
 
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.configs.SkyWarsConfig;
-import de.biomia.spigot.events.skywars.SkyWarsOpenChestEvent;
+import de.biomia.spigot.events.game.skywars.SkyWarsOpenChestEvent;
 import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.TeamColor;
 import org.bukkit.Location;

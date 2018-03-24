@@ -1,10 +1,9 @@
 package de.biomia.spigot.minigames.general.shop;
 
-import de.biomia.spigot.Biomia;
-import de.biomia.spigot.events.bedwars.BedWarsBuyItemEvent;
+import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.events.game.bedwars.BedWarsBuyItemEvent;
 import de.biomia.spigot.minigames.general.ColorType;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class ShopItem extends Price {
@@ -41,10 +40,14 @@ public class ShopItem extends Price {
         return type;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
-    public boolean take(Player p) {
-        BedWarsBuyItemEvent e = new BedWarsBuyItemEvent(Biomia.getBiomiaPlayer(p), name, getPrice());
+    public boolean take(BiomiaPlayer bp) {
+        BedWarsBuyItemEvent e = new BedWarsBuyItemEvent(bp, this, getItem().getAmount(), null);
         Bukkit.getPluginManager().callEvent(e);
-        return super.take(p);
+        return super.take(bp);
     }
 }

@@ -110,4 +110,8 @@ public class GameTeam {
     public short getColordata() {
         return color.getData();
     }
+
+    public GameMode getMode() {
+        return mode;
+    }
 }

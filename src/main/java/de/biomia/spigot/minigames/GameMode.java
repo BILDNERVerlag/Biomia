@@ -206,6 +206,6 @@ public abstract class GameMode {
     }
 
     public boolean isSpectator(BiomiaPlayer bp) {
-        return !getInstance().containsPlayer(bp) || !(bp.getTeam() != null && bp.getTeam().lives(bp));
+        return (!getInstance().containsPlayer(bp) || !(bp.getTeam() != null && bp.getTeam().lives(bp))) && bp.getPlayer().getWorld().equals(getInstance().getWorld());
     }
 }

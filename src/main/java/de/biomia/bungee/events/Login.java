@@ -15,8 +15,10 @@ import de.biomia.universal.UniversalBiomiaPlayer;
 import me.philipsnostrum.bungeepexbridge.BungeePexBridge;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.ServerPing;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.md_5.bungee.api.event.ProxyPingEvent;
 import net.md_5.bungee.api.event.ServerConnectEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
@@ -25,7 +27,6 @@ import net.md_5.bungee.event.EventPriority;
 import java.util.ArrayList;
 
 public class Login implements Listener {
-
 
     private static boolean isLobbyServerOnline;
     private final TextComponent wartungsmodus = new TextComponent(ChatColor.AQUA + "Der Server ist im Wartungsmodus.\n" + ChatColor.RED + "Bitte versuche es in einer Weile erneut!");
@@ -99,34 +100,34 @@ public class Login implements Listener {
 
         if (BungeeMain.plugin.getProxy().getOnlineCount() == 520) {
 
-            ArrayList<ProxiedPlayer> lvl0 = new ArrayList<>();
             ArrayList<ProxiedPlayer> lvl1 = new ArrayList<>();
+            ArrayList<ProxiedPlayer> lvl2 = new ArrayList<>();
 
             try {
                 BungeeCord.getInstance().getPlayers().forEach(each -> {
 
-                    int lvl = -1;
+                    int lvl;
                     try {
-                        lvl = Integer.valueOf(UniversalBiomia.getRankLevel(BungeePexBridge.getPerms().getPlayerGroups(each).get(0)));
+                        lvl = UniversalBiomia.getRankLevel(BungeePexBridge.getPerms().getPlayerGroups(each).get(0));
                     } catch (Exception e) {
                         e.printStackTrace();
+                        return;
                     }
-
-                    if (lvl == 0)
-                        if (lvl0.size() < 20)
-                            lvl0.add(each);
+                    if (lvl == 1)
+                        if (lvl1.size() < 20)
+                            lvl1.add(each);
                         else
                             throw new BreakException();
-                    else if (lvl == 1)
-                        if (lvl0.size() < 20 || lvl1.size() < 20)
-                            lvl1.add(each);
+                    else if (lvl == 2)
+                        if (lvl1.size() < 20 || lvl2.size() < 20)
+                            lvl2.add(each);
                 });
             } catch (BreakException ignored) {
             }
 
             int i = 0;
 
-            for (ProxiedPlayer ppl : lvl0) {
+            for (ProxiedPlayer ppl : lvl1) {
                 if (i < 20) {
                     ppl.disconnect(new TextComponent(
                             "\u00A7cDu wurdest gekickt, um einem Spieler mit einem h\u00f6heren Rang Platz zu machen.\n\u00A75Kauf dir Premium auf \n\u00A72www.biomia.de\n\u00A75um nicht mehr gekickt zu werden!"));
@@ -135,7 +136,7 @@ public class Login implements Listener {
                     break;
             }
             if (i < 20) {
-                for (ProxiedPlayer ppl : lvl1) {
+                for (ProxiedPlayer ppl : lvl2) {
                     if (i < 20) {
                         ppl.disconnect(new TextComponent(
                                 "\u00A7cDu wurdest gekickt, um einem Spieler mit einem h\u00f6heren Rang Platz zu machen.\n\u00A75Kauf dir Premium auf \n\u00A72www.biomia.de\n\u00A75um nicht mehr gekickt zu werden!"));
@@ -153,5 +154,13 @@ public class Login implements Listener {
             }
         }
 
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPingEvent(ProxyPingEvent e) {
+        int maxPlayers = e.getResponse().getPlayers().getMax();
+        ServerPing ping = e.getResponse();
+        ping.setPlayers(new ServerPing.Players(maxPlayers, BungeeCord.getInstance().getOnlineCount() + BungeeMain.actualFakePlayers, new ServerPing.PlayerInfo[0]));
+        e.setResponse(ping);
     }
 }

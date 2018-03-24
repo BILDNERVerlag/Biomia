@@ -4,6 +4,9 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.MinigamesConfig;
+import de.biomia.spigot.events.game.GameDeathEvent;
+import de.biomia.spigot.events.game.GameKillEvent;
+import de.biomia.spigot.events.game.GameLeaveEvent;
 import de.biomia.spigot.messages.MinigamesItemNames;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.general.Dead;
@@ -23,6 +26,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.*;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
@@ -115,7 +119,7 @@ public abstract class GameHandler implements Listener {
     public void onHit(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player) {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getEntity());
-            if (mode.getInstance().containsPlayer(bp) && mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY)
+            if (!mode.isSpectator(bp))
                 e.setCancelled(true);
         }
     }
@@ -186,7 +190,8 @@ public abstract class GameHandler implements Listener {
     @EventHandler
     public void onDisconnect(PlayerQuitEvent e) {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        if (!mode.isSpectator(bp)) {
+        if (WaitingLobbyListener.inLobbyOrSpectator(bp)) {
+            Bukkit.getPluginManager().callEvent(new GameLeaveEvent(bp, mode));
             e.setQuitMessage(bp.getTeam().getColorcode() + e.getPlayer().getName() + MinigamesMessages.leftTheGame);
             if (bp.getTeam() != null)
                 bp.getTeam().leave(bp);
@@ -262,5 +267,53 @@ public abstract class GameHandler implements Listener {
     public void onCraft(PrepareItemCraftEvent e) {
         if (!e.isRepair())
             e.getInventory().setResult(ItemCreator.itemCreate(Material.AIR));
+    }
+
+    @EventHandler
+    public void onProjectileHit(PlayerEggThrowEvent event) {
+        event.setHatching(false);
+    }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent e) {
+
+        Player p = e.getPlayer();
+        if (e.getItem() != null) {
+            if (e.getItem().hasItemMeta() && e.getItem().getItemMeta().hasDisplayName()) {
+
+                String displayname = e.getItem().getItemMeta().getDisplayName();
+                switch (displayname) {
+                case MinigamesItemNames.teamWaehlerItem:
+                    p.openInventory(mode.getTeamSwitcher());
+                    break;
+                case MinigamesItemNames.startItem:
+                    if (mode.getStateManager().getLobbyState().getCountDown() > 5)
+                        mode.getStateManager().getLobbyState().setCountDown(5);
+                    break;
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent e) {
+
+        Player p = e.getEntity();
+        Player killer = p.getKiller();
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
+
+        if (!mode.isSpectator(bp)) {
+            BiomiaPlayer bpKiller;
+            if (killer != null) {
+                bpKiller = Biomia.getBiomiaPlayer(killer);
+                Bukkit.getPluginManager().callEvent(new GameKillEvent(bpKiller, bp, true, mode));
+                e.setDeathMessage(MinigamesMessages.playerKilledByPlayer.replace("%p1", bp.getTeam().getColorcode() + p.getName()).replace("%p2", bpKiller.getTeam().getColorcode() + killer.getName()));
+            } else {
+                bpKiller = null;
+                e.setDeathMessage(MinigamesMessages.playerDied.replace("%p", bp.getTeam().getColorcode() + p.getName()));
+            }
+            bp.getTeam().setDead(bp);
+            Bukkit.getPluginManager().callEvent(new GameDeathEvent(bp, bpKiller, true, mode));
+        }
     }
 }

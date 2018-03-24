@@ -1,11 +1,8 @@
 package de.biomia.spigot.minigames.bedwars;
 
-import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.configs.MinigamesConfig;
-import de.biomia.spigot.events.bedwars.BedWarsEndEvent;
-import de.biomia.spigot.events.bedwars.BedWarsStartEvent;
 import de.biomia.spigot.minigames.*;
 import de.biomia.spigot.minigames.general.SpawnItems;
 import de.biomia.spigot.minigames.general.TeamSwitcher;
@@ -51,28 +48,18 @@ public class BedWars extends GameMode {
 
         getStateManager().setInGameState(new GameStateManager.InGameState(this) {
 
+            private SpawnItems items;
+
             @Override
             public void start() {
                 super.start();
-                new SpawnItems(((BedWarsConfig) getConfig()).loadSpawner(getInstance()), getInstance().getWorld()).startSpawning();
-                Bukkit.getPluginManager().callEvent(new BedWarsStartEvent(getMode()));
+                items = new SpawnItems(((BedWarsConfig) getConfig()).loadSpawner(getInstance()), getInstance().getWorld());
+                items.startSpawning();
             }
 
             @Override
             public void stop() {
-                ArrayList<BiomiaPlayer> biomiaPlayersWinner = new ArrayList<>();
-                String winnerTeam = null;
-
-                for (GameTeam teams : getMode().getTeams()) {
-                    for (BiomiaPlayer bp : teams.getPlayers()) {
-                        if (teams.lives(bp)) {
-                            biomiaPlayersWinner.add(bp);
-                            winnerTeam = teams.getTeamname();
-                        }
-                    }
-                }
-
-                Bukkit.getPluginManager().callEvent(new BedWarsEndEvent(biomiaPlayersWinner, getMode().getInstance().getPlayedTime(), winnerTeam));
+                items.stopSpawning();
                 super.stop();
             }
         });

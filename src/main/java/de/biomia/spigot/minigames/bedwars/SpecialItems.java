@@ -6,12 +6,10 @@ import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
-import de.biomia.spigot.messages.MinigamesItemNames;
 import de.biomia.spigot.messages.manager.ActionBar;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.GameTeam;
-import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.spigot.minigames.general.Teleport;
 import de.biomia.spigot.minigames.general.shop.ItemType;
 import de.biomia.spigot.tools.Particles;
@@ -34,7 +32,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 public class SpecialItems implements Listener {
 
@@ -63,69 +60,44 @@ public class SpecialItems implements Listener {
         if (e.hasItem() && e.getItem().hasItemMeta() && e.getItem().getItemMeta().hasDisplayName()) {
             String displayname = e.getItem().getItemMeta().getDisplayName();
 
-            if (displayname.equals(MinigamesItemNames.teamWaehlerItem))
-                p.openInventory(mode.getTeamSwitcher());
-            else if (displayname.equals(MinigamesItemNames.startItem)) {
-                if (mode.getStateManager().getLobbyState().getCountDown() > 5)
-                    mode.getStateManager().getLobbyState().setCountDown(5);
-            } else if (displayname.equals(BedWarsItemNames.bedSetter)) {
-                Block blockFoot = p.getLocation().getBlock();
-                Block blockHead = p.getTargetBlock((Set<Material>) null, 100);
-
-                if (blockFoot.getType() == Material.BED_BLOCK && blockHead.getType() == Material.BED_BLOCK) {
-                    BedWarsConfig.addBedsLocations(blockFoot.getLocation(), blockHead.getLocation(), TeamColor.getColorFromData(e.getItem().getData().getData()));
-                    Bukkit.broadcastMessage("Bett hinzugef\u00fcgt!");
-                } else {
-                    p.sendMessage(BedWarsMessages.blocksMustBeBeds);
-                }
-
-            } else if (displayname.equals(BedWarsItemNames.warper)) {
+            switch (displayname) {
+            case BedWarsItemNames.warper:
                 if (Teleport.getStartLocation(bp) == null) {
                     warpHome(bp, e.getItem());
                 }
-            } else if (displayname.equals(BedWarsItemNames.wand)) {
+                break;
+            case BedWarsItemNames.wand:
                 e.setCancelled(true);
                 if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)
                     buildProtectionWall(p);
-            } else if (displayname.equals(BedWarsItemNames.bronzeSetter)) {
-                if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                    addSpawner(e.getClickedBlock().getLocation(), e.getBlockFace(), p, ItemType.BRONZE);
-                    p.sendMessage(BedWarsMessages.bronzeSpawnAdded);
-                }
-            } else if (displayname.equals(BedWarsItemNames.ironSetter)) {
-                if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                    addSpawner(e.getClickedBlock().getLocation(), e.getBlockFace(), p, ItemType.IRON);
-                    p.sendMessage(BedWarsMessages.ironSpawnAdded);
-                }
-            } else if (displayname.equals(BedWarsItemNames.goldSetter)) {
-                if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                    addSpawner(e.getClickedBlock().getLocation(), e.getBlockFace(), p, ItemType.GOLD);
-                    p.sendMessage(BedWarsMessages.goldSpawnAdded);
-                }
-            } else if (displayname.equals(BedWarsItemNames.villagerSpawner)) {
+                break;
+            case BedWarsItemNames.villagerSpawner:
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                     spawnVillager(e.getClickedBlock().getLocation().add(0.5, 1, 0.5));
                     e.setCancelled(true);
                 }
-            } else if (displayname.equals("\u00A7c30 Sekunden Shop")) {
+                break;
+            case "\u00A7c30 Sekunden Shop":
                 e.setCancelled(true);
                 if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                     spawn30secShop(e.getClickedBlock().getLocation().add(0.5, 1, 0.5), e.getItem());
                     e.setCancelled(true);
                 }
-            } else if (displayname.equals("\u00A7cRettungs Plattform")) {
+                break;
+            case "\u00A7cRettungs Plattform":
                 if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                     buildRettungsplattform(e.getPlayer().getLocation(), e.getItem());
                     e.setCancelled(true);
                 }
-            } else if (e.getItem().getType() == Material.MONSTER_EGG) {
+                break;
+            }
+            if (e.getItem().getType() == Material.MONSTER_EGG) {
                 if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                     summonTNTSheep(bp, e.getItem());
                     e.setCancelled(true);
                 }
             }
         }
-
         if (!bp.canBuild()) {
             if (!mode.getInstance().containsPlayer(bp) || mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME)
                 e.setCancelled(true);

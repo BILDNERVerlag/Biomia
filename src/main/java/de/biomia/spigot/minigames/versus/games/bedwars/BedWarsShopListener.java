@@ -5,11 +5,11 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
+import de.biomia.spigot.minigames.general.ColorType;
+import de.biomia.spigot.minigames.general.shop.ItemType;
 import de.biomia.spigot.minigames.general.shop.Shop;
 import de.biomia.spigot.minigames.general.shop.ShopGroup;
 import de.biomia.spigot.minigames.general.shop.ShopItem;
-import de.biomia.spigot.minigames.general.ColorType;
-import de.biomia.spigot.minigames.general.shop.ItemType;
 import de.biomia.spigot.tools.ItemCreator;
 import net.minecraft.server.v1_12_R1.AttributeInstance;
 import net.minecraft.server.v1_12_R1.GenericAttributes;
@@ -96,7 +96,7 @@ public class BedWarsShopListener implements Listener {
                                     int i = iStack.getMaxStackSize() / iStack.getAmount();
                                     boolean first = true;
                                     for (int j = 0; j < i; j++) {
-                                        if (shopItem.take(p)) {
+                                        if (shopItem.take(bp)) {
                                             p.getInventory().addItem(returnItem);
                                             first = false;
                                         } else if (first) {
@@ -107,7 +107,7 @@ public class BedWarsShopListener implements Listener {
                                             return;
                                         }
                                     }
-                                } else if (shopItem.take(p)) {
+                                } else if (shopItem.take(bp)) {
                                     p.getInventory().addItem(returnItem);
                                 } else {
                                     String name = ItemType.getName(shopItem.getItemType());

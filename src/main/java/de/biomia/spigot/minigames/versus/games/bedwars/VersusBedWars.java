@@ -8,6 +8,8 @@ import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.TeamColor;
+import de.biomia.spigot.minigames.bedwars.BedWarsListener;
+import de.biomia.spigot.minigames.general.Scoreboards;
 import de.biomia.spigot.minigames.general.SpawnItems;
 import de.biomia.spigot.minigames.versus.Versus;
 
@@ -18,7 +20,7 @@ public class VersusBedWars extends GameMode {
 
     @Override
     protected GameHandler initHandler() {
-        return new BedWarsHandler(this);
+        return new BedWarsListener(this);
     }
 
     @Override
@@ -26,7 +28,6 @@ public class VersusBedWars extends GameMode {
         return null;
     }
 
-    private final BedWarsScoreboard bedWarsScoreboard;
     private final BedWarsShopListener shop = new BedWarsShopListener(this);
     private final SpawnItems spawnItems = new SpawnItems(((BedWarsConfig) getConfig()).loadSpawner(getInstance()), getInstance().getWorld());
 
@@ -34,32 +35,11 @@ public class VersusBedWars extends GameMode {
         super(instance);
         new VersusBedWarsTeam(this, TeamColor.BLUE);
         new VersusBedWarsTeam(this, TeamColor.RED);
-        bedWarsScoreboard = new BedWarsScoreboard(this);
-    }
-
-    public BedWarsScoreboard getBedWarsScoreboard() {
-        return bedWarsScoreboard;
-    }
-
-    @Override
-    public void start() {
-        splitPlayersInTwoTeams();
-        spawnItems.startSpawning();
-        for (BiomiaPlayer bp : getInstance().getPlayers()) {
-            bp.setGetDamage(true);
-            bp.setDamageEntitys(true);
-            bp.setBuild(true);
-            bp.getPlayer().getInventory().clear();
-            bedWarsScoreboard.setScoreboard(bp, false);
-            bp.getPlayer().setCollidable(false);
-            bp.getPlayer().teleport(bp.getTeam().getHome());
-        }
     }
 
     @Override
     public void stop() {
         super.stop();
-        spawnItems.stopSpawning();
         shop.unregister();
         ((Versus) Biomia.getServerInstance()).getManager().getRequests().get(getInstance()).finish();
     }

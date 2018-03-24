@@ -31,14 +31,14 @@ public abstract class UniversalBiomia {
         RANK_NAMES_PREFIXES.put("UnregSpieler", "\u00A78");
     }
 
-    public static String getRankLevel(String rank) {
-        int i = 0;
+    public static int getRankLevel(String rank) {
+        int i = 1;
         for (String prefix : RANK_NAMES_PREFIXES.keySet()) {
             if (prefix.equalsIgnoreCase(rank)) {
-                return i < 10 ? "00" + i : "0" + i;
+                return i;
             }
             i++;
         }
-        return "-1";
+        return -1;
     }
 }

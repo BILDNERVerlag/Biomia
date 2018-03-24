@@ -6,6 +6,8 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.MinigamesConfig;
+import de.biomia.spigot.events.game.GameEndEvent;
+import de.biomia.spigot.events.game.GameStartEvent;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.general.CountDown;
 import de.biomia.spigot.minigames.general.Scoreboards;
@@ -151,6 +153,7 @@ public class GameStateManager {
                 bp.getPlayer().setAllowFlight(false);
             }
 
+            Bukkit.getPluginManager().callEvent(new GameStartEvent(getMode()));
             Scoreboards.initSpectatorSB(getMode());
             Teleport.teleportPlayerToMap(getMode());
         }
@@ -158,6 +161,7 @@ public class GameStateManager {
         public void stop() {
 
             clock.cancel();
+            Bukkit.getPluginManager().callEvent(new GameEndEvent(getMode()));
             getMode().getStateManager().setActualGameState(GameState.END);
             getMode().getStateManager().getEndState().start();
         }

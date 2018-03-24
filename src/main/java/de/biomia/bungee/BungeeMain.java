@@ -15,6 +15,8 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Plugin;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Random;
 
 public class BungeeMain extends Plugin {
 
@@ -22,6 +24,8 @@ public class BungeeMain extends Plugin {
 
     private final int bugRewardMoney = 1000;
     public static final int playerReportRewardMoney = 500;
+
+    public static int actualFakePlayers = 0;
 
     public static Plugin plugin;
 
@@ -63,6 +67,68 @@ public class BungeeMain extends Plugin {
         });
         thread.start();
         allThreads.add(thread);
+
+        Thread second = new Thread(() -> {
+            while (true) {
+                try {
+
+                    int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) / 3;
+
+                    double multiplicator = 1.6;
+
+                    switch (hour) {
+                    case 0:
+                        multiplicator *= 2;
+                        break;
+                    case 1:
+                    case 2:
+                        multiplicator *= 1;
+                        break;
+                    case 3:
+                    case 4:
+                        multiplicator *= 5;
+                        break;
+                    case 5:
+                        multiplicator *= 8;
+                        break;
+                    case 6:
+                        multiplicator *= 13;
+                        break;
+                    case 7:
+                        multiplicator *= 8;
+                        break;
+                    case 8:
+                        multiplicator *= 3;
+                        break;
+                    default:
+                        multiplicator *= 1;
+                        break;
+                    }
+
+                    int min = 3 * (int) multiplicator;
+                    int max = min + 5;
+                    int fakeTemp = new Random().nextInt(3) + 1;
+
+                    if (actualFakePlayers < min) {
+                        actualFakePlayers += fakeTemp;
+                    } else if (actualFakePlayers > max) {
+                        actualFakePlayers -= fakeTemp;
+                    } else {
+                        if (new Random().nextInt(2) == 1) {
+                            actualFakePlayers += fakeTemp;
+                        } else {
+                            actualFakePlayers -= fakeTemp;
+                        }
+                    }
+                    Thread.sleep(1000 * (new Random().nextInt(15) + 80));
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+        });
+        second.start();
+        allThreads.add(second);
     }
 
     @Override

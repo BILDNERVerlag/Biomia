@@ -1,5 +1,6 @@
 package de.biomia.spigot.minigames.general.shop;
 
+import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -43,7 +44,7 @@ public class Price {
         return ItemCreator.setAmount(ItemCreator.itemCreate(m, name), price);
     }
 
-    int getPrice() {
+    private int getPrice() {
         return price;
     }
 
@@ -82,9 +83,9 @@ public class Price {
         }
     }
 
-    boolean take(Player p) {
-        if (hasEnough(p)) {
-            takePriceFromInventory(p);
+    boolean take(BiomiaPlayer bp) {
+        if (hasEnough(bp.getPlayer())) {
+            takePriceFromInventory(bp.getPlayer());
             return true;
         }
         return false;
