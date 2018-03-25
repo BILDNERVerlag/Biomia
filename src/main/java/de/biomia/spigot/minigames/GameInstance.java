@@ -87,7 +87,7 @@ public class GameInstance implements Listener {
         return world;
     }
 
-    void startDeleting() {
+    void deleteWorld() {
         Bukkit.unloadWorld(world, false);
         try {
             FileUtils.deleteDirectory(world.getWorldFolder());

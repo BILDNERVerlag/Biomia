@@ -48,16 +48,6 @@ public class BedWarsListener extends GameHandler {
         super(mode);
     }
 
-    @SuppressWarnings("deprecation")
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void cancelInvClick(InventoryClickEvent e) {
-        BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getWhoClicked());
-        if (WaitingLobbyListener.inLobbyOrSpectator(bp) && e.getCurrentItem() != null && !bp.canBuild()) {
-            e.setCancelled(true);
-            e.setCursor(new ItemStack(Material.AIR));
-        }
-    }
-
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
 

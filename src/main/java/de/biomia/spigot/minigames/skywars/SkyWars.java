@@ -56,8 +56,6 @@ public class SkyWars extends GameMode {
         saveConfig();
 
         Main.getPlugin().getServer().createWorld(new WorldCreator(MinigamesConfig.getMapName()));
-        Items.init();
-        KitManager.initKits();
         getStateManager().setInGameState(new GameStateManager.InGameState(this) {
             @Override
             public void start() {

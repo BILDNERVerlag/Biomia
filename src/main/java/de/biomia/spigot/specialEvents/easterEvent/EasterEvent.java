@@ -15,7 +15,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -152,7 +151,7 @@ public class EasterEvent implements Listener {
 
     @EventHandler
     public void onEggClick(PlayerInteractEvent e) {
-        if ((e.getAction() == Action.LEFT_CLICK_BLOCK || e.getHand().equals(EquipmentSlot.HAND)) && e.getClickedBlock().getType() == Material.SKULL) {
+        if ((e.getAction() == Action.RIGHT_CLICK_BLOCK) && e.getClickedBlock() != null && e.getClickedBlock().getType() == Material.SKULL) {
 
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
             if (blocks.contains(e.getClickedBlock())) {

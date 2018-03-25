@@ -20,11 +20,12 @@ public enum GameType {
 
     public boolean isVersus() {
         switch (this) {
-            case BED_WARS_VS:
-            case SKY_WARS_VS:
-                return true;
-            default:
-                return false;
+        case BED_WARS_VS:
+        case SKY_WARS_VS:
+        case KIT_PVP_VS:
+            return true;
+        default:
+            return false;
         }
     }
 }

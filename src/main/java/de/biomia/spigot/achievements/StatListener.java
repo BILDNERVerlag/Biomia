@@ -262,7 +262,7 @@ public class StatListener implements Listener {
         switch (e.getType()) {
         case BUY:
             Stats.incrementStat(Stats.BiomiaStat.KitsBought, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKit().getID() + "");
-        case USE:
+        case SELECT:
             Stats.incrementStat(Stats.BiomiaStat.KitsChanged, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKit().getID() + "");
         case SHOW:
             Stats.incrementStat(Stats.BiomiaStat.KitsShown, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKit().getID() + "");

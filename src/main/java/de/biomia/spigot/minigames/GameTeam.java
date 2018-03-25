@@ -101,6 +101,10 @@ public class GameTeam {
     public void leave(BiomiaPlayer bp) {
         bp.setTeam(null);
         players.remove(bp);
+        if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.LOBBY)
+            if (mode.canStop()) {
+                mode.stop();
+            }
     }
 
     public Location getHome() {

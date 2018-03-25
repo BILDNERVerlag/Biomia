@@ -3,6 +3,7 @@ package de.biomia.spigot.minigames.general;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.messages.BedWarsMessages;
+import de.biomia.spigot.messages.SkyWarsMessages;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.GameType;
@@ -26,7 +27,7 @@ public class Scoreboards {
 
         Objective o = lobbySB.registerNewObjective("ccc", "ddd");
 
-        o.setDisplayName(BedWarsMessages.bedwars);
+        setDisplayName(mode.getInstance().getType(), o);
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         o.getScore(" ").setScore(7);
@@ -62,8 +63,7 @@ public class Scoreboards {
         Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
 
         Objective o = sb.registerNewObjective("aaa", "bbb");
-
-        o.setDisplayName(BedWarsMessages.bedwars);
+        setDisplayName(type, o);
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         GameTeam gameTeam = Biomia.getBiomiaPlayer(p).getTeam();
@@ -83,7 +83,6 @@ public class Scoreboards {
                 break;
             case SKY_WARS:
             case SKY_WARS_VS:
-
                 o.getScore(" ").setScore(7);
                 o.getScore("\u00A7cKit:").setScore(6);
                 o.getScore("\u00A7c").setScore(5);
@@ -133,6 +132,22 @@ public class Scoreboards {
 
     public static void setSpectatorSB(Player p) {
         p.setScoreboard(spectatorSB);
+    }
+
+    private static void setDisplayName(GameType type, Objective o) {
+
+        switch (type) {
+        default:
+        case BED_WARS:
+        case BED_WARS_VS:
+            o.setDisplayName(BedWarsMessages.bedwars);
+            break;
+        case SKY_WARS:
+        case SKY_WARS_VS:
+            o.setDisplayName(SkyWarsMessages.skywars);
+            break;
+        }
+
     }
 
 }

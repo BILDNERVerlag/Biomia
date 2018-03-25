@@ -72,7 +72,6 @@ public abstract class GameMode {
     public void stop() {
         Teleport.teleportAllToWarteLobby(spawn, instance.getPlayers());
         handler.unregister();
-        instance.startDeleting();
         stateManager.getInGameState().stop();
     }
 
@@ -206,6 +205,6 @@ public abstract class GameMode {
     }
 
     public boolean isSpectator(BiomiaPlayer bp) {
-        return (!getInstance().containsPlayer(bp) || !(bp.getTeam() != null && bp.getTeam().lives(bp))) && bp.getPlayer().getWorld().equals(getInstance().getWorld());
+        return !getInstance().containsPlayer(bp) && !(bp.getTeam() != null && bp.getTeam().lives(bp)) && bp.getPlayer().getWorld().equals(getInstance().getWorld());
     }
 }

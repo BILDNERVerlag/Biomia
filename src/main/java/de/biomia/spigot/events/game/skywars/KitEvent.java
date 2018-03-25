@@ -1,12 +1,13 @@
 package de.biomia.spigot.events.game.skywars;
 
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.events.BiomiaPlayerEvent;
 import de.biomia.spigot.events.game.BiomiaPlayerGameEvent;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.general.kits.Kit;
 import org.bukkit.event.HandlerList;
 
-public class KitEvent extends BiomiaPlayerGameEvent {
+public class KitEvent extends BiomiaPlayerEvent {
 
     private static final HandlerList handlerList = new HandlerList();
 
@@ -14,8 +15,8 @@ public class KitEvent extends BiomiaPlayerGameEvent {
 
     private final KitEventType type;
 
-    public KitEvent(BiomiaPlayer biomiaPlayer, Kit kit, KitEventType type, GameMode mode) {
-        super(biomiaPlayer, mode);
+    public KitEvent(BiomiaPlayer biomiaPlayer, Kit kit, KitEventType type) {
+        super(biomiaPlayer);
         this.kit = kit;
         this.type = type;
     }
@@ -38,7 +39,7 @@ public class KitEvent extends BiomiaPlayerGameEvent {
     }
 
     public enum KitEventType {
-        BUY, USE, SHOW
+        BUY, SELECT, SHOW
     }
 
 }

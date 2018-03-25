@@ -22,13 +22,15 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.ItemStack;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 public abstract class GameHandler implements Listener {
@@ -48,6 +50,7 @@ public abstract class GameHandler implements Listener {
     public void onJoin(PlayerJoinEvent e) {
 
         Player p = e.getPlayer();
+        p.getInventory().clear();
         BackToLobby.getLobbyItem(p, 8);
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         bp.setDamageEntitys(false);
@@ -89,7 +92,7 @@ public abstract class GameHandler implements Listener {
             p.teleport(GameMode.getSpawn());
 
             if (p.hasPermission("biomia.minigames.start")) {
-                p.getInventory().setItem(0, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, MinigamesItemNames.startItem));
+                p.getInventory().setItem(1, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, MinigamesItemNames.startItem));
             }
 
             p.getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, MinigamesItemNames.teamWaehlerItem));
@@ -109,18 +112,9 @@ public abstract class GameHandler implements Listener {
         if (e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getEntity());
             BiomiaPlayer damager = Biomia.getBiomiaPlayer((Player) e.getDamager());
-            if (mode.getInstance().containsPlayer(bp) && mode.getInstance().containsPlayer(damager))
+            if (!mode.isSpectator(bp) && !mode.isSpectator(damager))
                 if (bp.getTeam().equals(damager.getTeam()))
                     e.setCancelled(true);
-        }
-    }
-
-    @EventHandler
-    public void onHit(EntityDamageEvent e) {
-        if (e.getEntity() instanceof Player) {
-            BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getEntity());
-            if (!mode.isSpectator(bp))
-                e.setCancelled(true);
         }
     }
 
@@ -314,6 +308,16 @@ public abstract class GameHandler implements Listener {
             }
             bp.getTeam().setDead(bp);
             Bukkit.getPluginManager().callEvent(new GameDeathEvent(bp, bpKiller, true, mode));
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void cancelInvClick(InventoryClickEvent e) {
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getWhoClicked());
+        if (WaitingLobbyListener.inLobbyOrSpectator(bp) && e.getCurrentItem() != null && !bp.canBuild()) {
+            e.setCancelled(true);
+            e.setCursor(new ItemStack(Material.AIR));
         }
     }
 }

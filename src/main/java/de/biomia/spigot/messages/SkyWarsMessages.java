@@ -2,7 +2,7 @@ package de.biomia.spigot.messages;
 
 public class SkyWarsMessages {
 
-    public static final String skywars = "\u00A75Sky\u00A72Wars";
+    public static final String skywars = "\u00A7cSKY\u00A7bWARS";
     // %k = Kit Name
     public static final String demoInventory = "\u00A7cDemo Inventory: %kit";
     public static final String kitPurchased = "\u00A7aGl\u00fcckwunsch, du hast das Kit %kit erworben!";

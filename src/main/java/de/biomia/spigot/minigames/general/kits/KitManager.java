@@ -1,6 +1,7 @@
 package de.biomia.spigot.minigames.general.kits;
 
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.events.game.skywars.KitEvent;
 import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
 import de.biomia.spigot.tools.ItemCreator;
@@ -20,7 +21,6 @@ import org.bukkit.potion.PotionType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.logging.Level;
 
 public class KitManager {
 
@@ -30,17 +30,20 @@ public class KitManager {
     private final ArrayList<Kit> availableKits = new ArrayList<>();
     private final Inventory inv;
     private final BiomiaPlayer bp;
-    private Kit selectedKit;
+    private Kit selectedKit = standardKit;
+
+    static {
+        initKits();
+    }
 
     private KitManager(BiomiaPlayer bp) {
         this.bp = bp;
         this.inv = Bukkit.createInventory(null, 36, "Kits");
         playerKits.put(bp, this);
         loadKits();
-        selectedKit = standardKit;
     }
 
-    public static void initKits() {
+    private static void initKits() {
 
         // Standart Kit
         Kit standartKit = new Kit("Standard Kit", 0, 0, ItemCreator.itemCreate(Material.IRON_PICKAXE), true);
@@ -303,6 +306,7 @@ public class KitManager {
 
     public void showInventory(Kit kit) {
         bp.getPlayer().openInventory(kit.getDemoInv());
+        Bukkit.getPluginManager().callEvent(new KitEvent(bp, kit, KitEvent.KitEventType.SHOW));
     }
 
     public void openKitMenu() {
@@ -312,7 +316,6 @@ public class KitManager {
             if (allKits.isShowable() || availableKits.contains(allKits))
                 inv.addItem(allKits.getIcon());
         }
-        //TODO: fix nullpointer (selectedKid == null)
         inv.setItem(inv.getSize() - 5, selectedKit.getIcon());
         bp.getPlayer().openInventory(inv);
     }
@@ -326,6 +329,7 @@ public class KitManager {
                     bp.takeCoins(k.getPrice());
                     bp.getPlayer().sendMessage(SkyWarsMessages.kitPurchased.replaceAll("%k", k.getName()));
                     availableKits.add(k);
+                    Bukkit.getPluginManager().callEvent(new KitEvent(bp, k, KitEvent.KitEventType.BUY));
                     selectSkyWarsKit(k);
                 } else
                     bp.getPlayer().sendMessage(SkyWarsMessages.errorWhilePurchasing.replaceAll("%k", k.getName()));
@@ -350,6 +354,7 @@ public class KitManager {
             return false;
         selectedKit = k;
         SkyWarsKitManager.setLastSelectedKit(bp, k.getID());
+        Bukkit.getPluginManager().callEvent(new KitEvent(bp, k, KitEvent.KitEventType.SELECT));
         return true;
     }
 

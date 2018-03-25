@@ -3,7 +3,6 @@ package de.biomia.spigot.minigames;
 import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.events.game.GameEndEvent;
@@ -12,7 +11,6 @@ import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.general.CountDown;
 import de.biomia.spigot.minigames.general.Scoreboards;
 import de.biomia.spigot.minigames.general.Teleport;
-import de.biomia.spigot.tools.PlayerToServerConnector;
 import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -159,7 +157,6 @@ public class GameStateManager {
         }
 
         public void stop() {
-
             clock.cancel();
             Bukkit.getPluginManager().callEvent(new GameEndEvent(getMode()));
             getMode().getStateManager().setActualGameState(GameState.END);
@@ -184,30 +181,34 @@ public class GameStateManager {
 
             Teleport.teleportAllToWarteLobby(GameMode.getSpawn(), getMode().getInstance().getPlayers());
 
-            new BukkitRunnable() {
-                int i = 15;
+            if (!getMode().getInstance().getType().isVersus())
+                new BukkitRunnable() {
+                    int i = 15;
 
-                @Override
-                public void run() {
-                    if (i == 15) {
-                        Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("%t", i + ""));
-                    } else if (i == 10) {
-                        Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("%t", i + ""));
-                    } else if (i <= 5 && i != 0) {
-                        Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("%t", i + ""));
-                    } else if (i <= 0) {
-                        stop();
-                        return;
+                    @Override
+                    public void run() {
+                        if (i == 15) {
+                            Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("%t", i + ""));
+                        } else if (i == 10) {
+                            Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("%t", i + ""));
+                        } else if (i <= 5 && i != 0) {
+                            Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("%t", i + ""));
+                        } else if (i <= 0) {
+                            cancel();
+                            stop();
+                            return;
+                        }
+                        i--;
                     }
-                    i--;
-                }
-            }.runTaskTimer(Main.getPlugin(), 0, 20);
+                }.runTaskTimer(Main.getPlugin(), 0, 20);
+            else
+                getMode().getInstance().deleteWorld();
         }
 
         @Override
         void stop() {
             for (Player p : Bukkit.getOnlinePlayers()) {
-                PlayerToServerConnector.connectToRandom(p, BiomiaServerType.Lobby);
+                p.kickPlayer("");
             }
             Bukkit.shutdown();
         }

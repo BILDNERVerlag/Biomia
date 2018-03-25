@@ -116,7 +116,7 @@ public class SkyWarsListener extends GameHandler {
                         return;
                     }
 
-                    Kit kit = KitManager.getStandardKit();
+                    Kit kit = null;
                     String invName = e.getInventory().getName();
                     for (Kit allKits : KitManager.allKits.values()) {
                         if (invName.equals("Kits")) {
@@ -130,7 +130,8 @@ public class SkyWarsListener extends GameHandler {
                             break;
                         }
                     }
-                    switch (name) {
+                    if (kit != null) {
+                        switch (name) {
                         case SkyWarsItemNames.purchaseKit:
                             p.closeInventory();
                             KitManager kitManager = KitManager.getManager(bp);
@@ -157,8 +158,9 @@ public class SkyWarsListener extends GameHandler {
                             KitManager.getManager(bp).showInventory(kit);
                             p.sendMessage(SkyWarsMessages.nowLookingAtKit.replace("%k", kit.getName()));
                             break;
+                        }
+                        e.setCancelled(true);
                     }
-                    e.setCancelled(true);
                 }
             }
         }
@@ -227,34 +229,46 @@ public class SkyWarsListener extends GameHandler {
 
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK) {
             if (e.getClickedBlock().getType() == Material.CHEST) {
+
+                Bukkit.broadcastMessage("%%% is chest");
+
                 Chest chest = (Chest) e.getClickedBlock().getState();
                 boolean firstOpen = false;
-                SkyWarsOpenChestEvent.ChestType chestType = SkyWarsOpenChestEvent.ChestType.NormalChest;
+                SkyWarsOpenChestEvent.ChestType chestType;
 
                 Chests chests;
 
                 if (mode instanceof SkyWars) {
+                    Bukkit.broadcastMessage("%%% is not versus");
                     chests = ((SkyWars) mode).getChests();
                 } else {
+                    Bukkit.broadcastMessage("%%% is versus");
                     chests = ((VersusSkyWars) mode).getChests();
                 }
 
                 if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
 
-                    if (chests.fillChest(chest.getLocation()))
+                    Bukkit.broadcastMessage("%%% filling, ingame");
+
+                    if (chests.fillChest(chest.getLocation())) {
                         firstOpen = true;
+                        Bukkit.broadcastMessage("%%% filled");
+                    }
                     if (chests.isNormalChest(chest.getLocation())) {
+                        Bukkit.broadcastMessage("%%% normal chest");
                         chestType = SkyWarsOpenChestEvent.ChestType.NormalChest;
                     } else {
                         chestType = SkyWarsOpenChestEvent.ChestType.GoodChest;
                     }
+                    if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                        Bukkit.broadcastMessage("%%% is rightclick");
+                        Bukkit.getPluginManager().callEvent(new SkyWarsOpenChestEvent(Biomia.getBiomiaPlayer(p), firstOpen, chestType, mode));
+                        e.setCancelled(true);
+                        p.openInventory(chest.getInventory());
+                        Bukkit.broadcastMessage("%%% open again");
+                    }
                 }
 
-                if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                    Bukkit.getPluginManager().callEvent(new SkyWarsOpenChestEvent(Biomia.getBiomiaPlayer(p), firstOpen, chestType, mode));
-                    e.setCancelled(true);
-                    p.openInventory(chest.getInventory());
-                }
             }
         }
 

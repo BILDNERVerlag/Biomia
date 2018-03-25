@@ -2,6 +2,7 @@ package de.biomia.spigot.minigames;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.listeners.servers.BiomiaListener;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.tools.RankManager;
 import de.biomia.universal.UniversalBiomia;
@@ -16,7 +17,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
-public class WaitingLobbyListener implements Listener {
+public class WaitingLobbyListener extends BiomiaListener {
 
     private final boolean isVersus;
 

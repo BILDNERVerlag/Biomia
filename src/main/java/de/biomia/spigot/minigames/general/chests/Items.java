@@ -170,17 +170,7 @@ public class Items {
     }
 
     public static int random(int arg1, int arg2) {
-
-        int randomZahl = 0;
-
-        Random random = new Random();
-
-        while (randomZahl < arg1) {
-            randomZahl = random.nextInt(arg2);
-        }
-
-        return randomZahl;
-
+        return new Random().nextInt(arg2 - arg1 + 1) + arg1;
     }
 
 }
