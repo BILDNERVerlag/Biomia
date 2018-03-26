@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 
 public class Stats {
 
@@ -66,12 +67,20 @@ public class Stats {
      * Wert hoch.
      */
     public static void incrementStatBy(BiomiaStat stat, int biomiaID, int increment) {
+        if (biomiaID == -1) {
+            new InputMismatchException().printStackTrace();
+            return;
+        }
         int value = getStat(stat, biomiaID) + increment;
         MySQL.executeUpdate("INSERT INTO `" + stat.toString() + "`(ID, value, inc) VALUES (" + biomiaID + ", " + value + ", " + increment + ")", MySQL.Databases.stats_db);
         checkForAchievementUnlocks(stat, biomiaID, value);
     }
 
     public static void incrementStat(BiomiaStat stat, int biomiaID, String comment) {
+        if (biomiaID == -1) {
+            new InputMismatchException().printStackTrace();
+            return;
+        }
         int value = getStat(stat, biomiaID) + 1;
         MySQL.executeUpdate("INSERT INTO `" + stat.toString() + "`(ID, value, comment) VALUES (" + biomiaID + ", " + value + ", '" + comment + "')", MySQL.Databases.stats_db);
         checkForAchievementUnlocks(stat, biomiaID, value);

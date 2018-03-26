@@ -31,12 +31,10 @@ public class Osterhase implements Listener {
     private DialogMessage startDialog;
 
     public Osterhase() {
-        Bukkit.broadcastMessage("%%%%Ich bin der Osterman");
         q = Biomia.getQuestManager().registerNewQuest("Osterhase", 99);
-        osterhase = q.createNPC(EntityType.RABBIT, "Osterhase");
+        osterhase = q.createNPC(EntityType.RABBIT, "§cOsterhase");
         Location locAaron = new Location(Bukkit.getWorld("LobbyBiomia"), 534.5, 71, 226.5, -145, 0);
         osterhase.spawn(locAaron);
-        Bukkit.broadcastMessage("%%%%%Spawned");
 
         initDialog();
     }
@@ -57,7 +55,7 @@ public class Osterhase implements Listener {
         startDialog.setNext("Oh, hast du ein paar meiner Eier gefunden..?", 0, osterhase).setFortsetzung("Wer bist du?").setFortsetzung("Ja, hab ich!").setFortsetzung("Nein, leider nicht.");
         startDialog.getNext(0).setNext("Ich bin der Osterhase! Aber ich habe fast alle meine schönen weissblauen Eier verloren... Bring sie mir wieder, aber nur genau diese!", 0, osterhase)
                 .setNext("Ach, und diese ganz besonderen, regenbogenfarbigen Eier gibt es auch noch.. Aber ich glaube nicht, dass du die findest!",0,osterhase);
-        startDialog.getNext(0).setNext("Ach, tatsächlich..?", 1, osterhase).addEvent(giveRewardEvent);
+        startDialog.getNext(0).setNext("Ach, tatsächlich..? Komm nochmal, sobald du mehr hast!", 1, osterhase).addEvent(giveRewardEvent);
         startDialog.getNext(0).setNext("Oh, schade...", 2, osterhase).setNext("Komm doch wieder, sobald du welche hast!",0,osterhase);
         /*
         "ich hab alle meine ostereier verloren"

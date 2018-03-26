@@ -36,16 +36,14 @@ public class GiveItemEvent implements Event {
     }
 
     private void giveItem() {
-        if (stack == null) {
-            if (name != null) {
-                qp.getPlayer().getInventory()
-                        .addItem(ItemCreator.setAmount(ItemCreator.itemCreate(material, name), menge));
-            } else {
-                qp.getPlayer().getInventory().addItem(ItemCreator.setAmount(ItemCreator.itemCreate(material), menge));
-            }
-        } else {
-            qp.getPlayer().getInventory().addItem(stack);
-        }
+        int count = 0;
+        for (ItemStack i : qp.getPlayer().getInventory())
+            if (i == null) count++;
+        if (stack == null)
+            if (name != null) stack = ItemCreator.setAmount(ItemCreator.itemCreate(material, name), menge);
+            else stack = ItemCreator.setAmount(ItemCreator.itemCreate(material), menge);
+        if (count == 0) qp.getPlayer().getWorld().dropItem(qp.getPlayer().getLocation(), stack);
+        else qp.getPlayer().getInventory().addItem(stack);
     }
 
 }
