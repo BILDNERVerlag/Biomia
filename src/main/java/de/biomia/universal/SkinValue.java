@@ -47,7 +47,7 @@ public class SkinValue {
     }
 
     public static String addToDatabase(UniversalBiomiaPlayer universalBiomiaPlayer) {
-        String query = MySQL.executeQuery("Select value from Skins where biomiaID = " + universalBiomiaPlayer.getBiomiaPlayerID(), "skin", MySQL.Databases.biomia_db);
+        String query = MySQL.executeQuery("Select skin from Skins where biomiaID = " + universalBiomiaPlayer.getBiomiaPlayerID(), "skin", MySQL.Databases.biomia_db);
         String skin = getSkinCode(universalBiomiaPlayer.getUUID().toString());
         if (query != null && query.equals(skin)) {
             MySQL.executeUpdate("UPDATE `Skins` SET `skin`='" + skin + "' where biomiaID = " + universalBiomiaPlayer.getBiomiaPlayerID(), MySQL.Databases.biomia_db);
@@ -58,7 +58,7 @@ public class SkinValue {
     }
 
     public static String getSkin(UniversalBiomiaPlayer universalBiomiaPlayer) {
-        String query = MySQL.executeQuery("Select value from Skins where biomiaID = " + universalBiomiaPlayer.getBiomiaPlayerID(), "skin", MySQL.Databases.biomia_db);
+        String query = MySQL.executeQuery("Select skin from Skins where biomiaID = " + universalBiomiaPlayer.getBiomiaPlayerID(), "skin", MySQL.Databases.biomia_db);
         return query == null ? addToDatabase(universalBiomiaPlayer) : query;
     }
 
