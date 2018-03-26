@@ -57,7 +57,7 @@ public abstract class UniversalBiomiaPlayer {
 
     // GETTERS AND SETTERS
 
-    protected final UUID getUUID() {
+    public final UUID getUUID() {
         return uuid != null ? uuid : (uuid = getUUID(biomiaID));
     }
 

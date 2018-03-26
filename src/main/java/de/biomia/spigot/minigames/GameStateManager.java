@@ -135,6 +135,7 @@ public class GameStateManager {
 
             getMode().getStateManager().setActualGameState(GameState.INGAME);
             TimoCloudAPI.getBukkitInstance().getThisServer().setState(GameState.INGAME.name());
+            getMode().getInstance().setPlayersOnStart();
             for (BiomiaPlayer bp : getMode().getInstance().getPlayers()) {
 
                 for (BiomiaPlayer p2 : getMode().getInstance().getPlayers()) {

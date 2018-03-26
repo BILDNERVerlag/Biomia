@@ -29,6 +29,7 @@ public class GameInstance implements Listener {
     private final ArrayList<BiomiaPlayer> players = new ArrayList<>();
     private final int teamSize;
     private final int teamAmount;
+    private int playersOnStart = 0;
 
     public GameInstance(GameType type, String mapDisplayName, int teamAmount, int teamSize) {
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
@@ -54,7 +55,7 @@ public class GameInstance implements Listener {
                 gameMode = new SkyWars(this);
                 break;
             default:
-                Bukkit.getLogger().log(Level.SEVERE, "%%% GameType does not exist. %%%");
+                Bukkit.getLogger().log(Level.SEVERE, "GameType does not exist!");
                 new Exception().printStackTrace();
                 break;
         }
@@ -73,6 +74,10 @@ public class GameInstance implements Listener {
 
     public void registerPlayer(BiomiaPlayer bp) {
         players.add(bp);
+    }
+
+    public void removePlayer(BiomiaPlayer bp) {
+        players.remove(bp);
     }
 
     public GameMode getGameMode() {
@@ -117,6 +122,14 @@ public class GameInstance implements Listener {
 
     public int getTeamAmount() {
         return teamAmount;
+    }
+
+    public void setPlayersOnStart() {
+        this.playersOnStart = players.size();
+    }
+
+    public int getPlayersOnStart() {
+        return playersOnStart;
     }
 
 }

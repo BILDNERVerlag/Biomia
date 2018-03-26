@@ -8,6 +8,7 @@ import de.biomia.bungee.cmds.ModusCommand;
 import de.biomia.bungee.specialEvents.WinterEvent;
 import de.biomia.bungee.var.BanManager;
 import de.biomia.bungee.var.Bans;
+import de.biomia.universal.SkinValue;
 import de.biomia.spigot.BiomiaServerType;
 import de.biomia.universal.MySQL;
 import de.biomia.universal.UniversalBiomia;
@@ -45,6 +46,8 @@ public class Login implements Listener {
             MySQL.executeUpdate("UPDATE `BiomiaPlayer` SET `name`='" + pp.getName() + "' WHERE uuid = '" + pp.getUniqueId().toString() + "'", MySQL.Databases.biomia_db);
             bp = BungeeBiomia.getOfflineBiomiaPlayer(pp.getUniqueId());
         }
+
+        SkinValue.addToDatabase(bp);
 
         if (WinterEvent.isEnabled) {
             WinterEvent.isWinner(bp);

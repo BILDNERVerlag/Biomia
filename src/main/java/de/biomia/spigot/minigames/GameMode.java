@@ -70,7 +70,6 @@ public abstract class GameMode {
     }
 
     public void stop() {
-        Teleport.teleportAllToWarteLobby(spawn, instance.getPlayers());
         handler.unregister();
         stateManager.getInGameState().stop();
     }

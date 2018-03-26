@@ -132,21 +132,41 @@ public class Stats {
         return out == -1 ? 0 : out;
     }
 
+    public static int getTop(BiomiaStat stat, String comment) {
+        int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS ID FROM `" + stat.toString() + "` where comment = '" + comment + "'", "ID", MySQL.Databases.stats_db);
+        return out == -1 ? 0 : out;
+    }
+
+    public static int getTop(BiomiaStat stat) {
+        int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS ID FROM " + stat.toString(), "ID", MySQL.Databases.stats_db);
+        return out == -1 ? 0 : out;
+    }
+
+    public static int getTop(int topX, BiomiaStat stat) {
+
+
+        //TODO
+//        Connection con = MySQL.Connect(MySQL.Databases.stats_db);
+//        if (con != null) {
+//            boolean withComment = false;
+//            try {
+//                PreparedStatement statement = con.prepareStatement("SELECT `value`, `inc` FROM `" + stat.toString());
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        int out = MySQL.executeQuerygetint("SELECT value, ID FROM " + stat.toString(), "ID", MySQL.Databases.stats_db);
+        return 1;
+    }
+
+//    public static int getTopLastX(BiomiaStat stat, String datetime_expr, int amount) {
+//        //TODO
+//        return 0;
+//    }
+
     public static int getStatLastX(BiomiaStat stat, int biomiaID, String datetime_expr, int amount) {
-        switch (datetime_expr.toUpperCase()) {
-            case "SECOND":
-            case "MINUTE":
-            case "HOUR":
-            case "DAY":
-            case "WEEK":
-            case "MONTH":
-            case "QUARTER":
-            case "YEAR":
-                //all good
-                break;
-            default:
-                datetime_expr = "DAY";
-        }
+        datetime_expr = toDayTime(datetime_expr);
 
         Connection con = MySQL.Connect(MySQL.Databases.stats_db);
         int minValue = 0, minInc = 0, maxValue = 0;
@@ -262,5 +282,23 @@ public class Stats {
 
     public static boolean isLogging() {
         return log;
+    }
+
+    private static String toDayTime(String s) {
+        switch (s = s.toUpperCase()) {
+        case "SECOND":
+        case "MINUTE":
+        case "HOUR":
+        case "DAY":
+        case "WEEK":
+        case "MONTH":
+        case "QUARTER":
+        case "YEAR":
+            //all good
+            break;
+        default:
+            s = "DAY";
+        }
+        return s;
     }
 }

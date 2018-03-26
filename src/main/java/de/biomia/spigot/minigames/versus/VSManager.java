@@ -35,7 +35,6 @@ public class VSManager implements Listener {
 
     private final HashMap<BiomiaPlayer, VSSettings> settings = new HashMap<>();
     private final HashMap<GameInstance, VSRequest> requests = new HashMap<>();
-    private final Location home = new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 40, 0);
     private final ItemStack toChallangeItem = ItemCreator.itemCreate(Material.DIAMOND_SWORD, "\u00A7cHerausforderer");
     private final ItemStack settingItem = ItemCreator.itemCreate(Material.REDSTONE, "\u00A7cEinstellungen");
     private VSGroup main;
@@ -68,7 +67,7 @@ public class VSManager implements Listener {
     }
 
     public void moveToLobby(Player p) {
-        p.teleport(home);
+        p.teleport(de.biomia.spigot.minigames.GameMode.getSpawn());
         p.setGameMode(GameMode.SURVIVAL);
         setInventory(p);
         p.setHealth(20);
@@ -240,10 +239,6 @@ public class VSManager implements Listener {
                 }
             }
         }
-    }
-
-    public Location getHome() {
-        return home;
     }
 
     public HashMap<GameInstance, VSRequest> getRequests() {

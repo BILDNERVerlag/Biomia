@@ -39,7 +39,6 @@ public class SkyWarsConfig extends MinigamesConfig {
             for (int i = 1; i <= getConfig().getInt(lastID); i++)
                 list.add(getLocation(instance, "Chests." + type.name() + "." + i).getBlock());
         }
-        Bukkit.getLogger().log(Level.INFO, "%%%" + map.toString());
         return map;
     }
 }

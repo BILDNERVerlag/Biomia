@@ -302,6 +302,7 @@ public class KitManager {
             if (allKits.getID() == kitID && availableKits.contains(allKits))
                 selectedKit = allKits;
         }
+        bp.getPlayer().getInventory().setItem(7, selectedKit.getIcon());
     }
 
     public void showInventory(Kit kit) {
@@ -355,6 +356,7 @@ public class KitManager {
         selectedKit = k;
         SkyWarsKitManager.setLastSelectedKit(bp, k.getID());
         Bukkit.getPluginManager().callEvent(new KitEvent(bp, k, KitEvent.KitEventType.SELECT));
+        bp.getPlayer().getInventory().setItem(7, selectedKit.getIcon());
         return true;
     }
 

@@ -14,7 +14,7 @@ import static de.biomia.spigot.configs.Config.saveConfig;
 public class EventCommands extends BiomiaCommand {
 
     private final static boolean winterEventOn = false;
-    private final static boolean easterEventOn = false;
+    private final static boolean easterEventOn = true;
 
     public EventCommands(String string) {
         super(string);
@@ -66,12 +66,12 @@ public class EventCommands extends BiomiaCommand {
 
             //Ostern
             if (easterEventOn) {
-                if (getName().equals("givereward") && p.hasPermission("biomia.listener.givereward")) {
+                if (getName().equals("givereward") && p.hasPermission("biomia.event.givereward")) {
                     if (args.length >= 1) {
                         Main.getEvent().giveReward(Biomia.getOfflineBiomiaPlayer(args[0]));
                     }
                 }
-                if (getName().equals("addeggs") && p.hasPermission("biomia.listener.addeggs")) {
+                if (getName().equals("addeggs") && p.hasPermission("biomia.event.addeggs")) {
                     if (args.length >= 2) {
                         Main.getEvent().addEggs(Biomia.getOfflineBiomiaPlayer(args[0]).getBiomiaPlayerID(), Integer.valueOf(args[1]));
                     }

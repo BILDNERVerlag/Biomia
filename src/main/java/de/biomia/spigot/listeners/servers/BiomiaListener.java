@@ -104,7 +104,6 @@ public abstract class BiomiaListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public final void onSendMessage(AsyncPlayerChatEvent e) {
-        Bukkit.broadcastMessage("%%%biolistener.onchat");
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
 

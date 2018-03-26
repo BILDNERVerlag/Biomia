@@ -31,4 +31,11 @@ public class MinigamesMessages {
     public static final String playerDied = "\u00A77Der Spieler %p \u00A77ist gestorben.";
     public static final String playerDiedFinally = "\u00A77Der Spieler %p \u00A77ist endg\u00fcltig gestorben!";
     public static final String destroyOwnBed = "§7Du kannst das eigene Bett nicht zerstören.\n Deine Mitspieler wären enttäuscht :(";
+
+    public static final String rank = "§c%s §b#%s";
+    public static final String winns = "§8Gewonnen: §b%s";
+    public static final String kd = "§8K/D: §b%s";
+    public static final String played = "§8Gespielt: §b%s";
+
+
 }

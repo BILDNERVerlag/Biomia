@@ -84,8 +84,10 @@ public class Kit {
         PlayerInventory inv = p.getInventory();
         inv.clear();
 
-        if (getName().equals("Assassin"))
+        if (getName().equals("Assassin")) {
+            p.setHealth(10);
             p.setHealthScale(10);
+        }
 
         for (int i = 0; i < 26; i++)
             inv.setItem(i, contents.get(i));

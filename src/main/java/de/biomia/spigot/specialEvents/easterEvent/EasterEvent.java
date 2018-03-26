@@ -35,6 +35,7 @@ public class EasterEvent implements Listener {
     private final int maxHight;
     private final ArrayList<Block> blocks = new ArrayList<>();
     private final Location specialEggLocation;
+    private int delayInMin = 2;
 
     public EasterEvent() {
         final String world;
@@ -76,18 +77,20 @@ public class EasterEvent implements Listener {
             world = "Spawn";
             location = new Location(Bukkit.getWorld(world), 0, 0, 0);
             specialEggLocation = new Location(Bukkit.getWorld(world), 0, 71, 51);
-            radius = 50;
+            radius = 200;
             maxHight = 86;
-            randomEggsPerServer = 3;
+            randomEggsPerServer = 1;
+            delayInMin = 4;
             break;
         case TestBedWars:
         case BedWars:
             world = "Spawn";
             location = new Location(Bukkit.getWorld(world), 0, 0, 0);
             specialEggLocation = new Location(Bukkit.getWorld(world), 45, 85, 37);
-            radius = 50;
+            radius = 200;
             maxHight = 86;
-            randomEggsPerServer = 3;
+            randomEggsPerServer = 1;
+            delayInMin = 4;
             break;
         case Freebuild:
         case TestFreebuild:
@@ -146,7 +149,7 @@ public class EasterEvent implements Listener {
                     blocks.add(b);
                 }
             }
-        }.runTaskTimer(Main.getPlugin(), 0, 20 * 60 * 2);
+        }.runTaskTimer(Main.getPlugin(), 0, 20 * 60 * delayInMin);
     }
 
     @EventHandler
@@ -285,9 +288,9 @@ public class EasterEvent implements Listener {
 
                 if (p.isOnline())
                     if (missingEggs == 1) {
-                        p.getBiomiaPlayer().getPlayer().sendMessage("Finde mindestens noch 1 weiteres Ei!");
+                        p.getBiomiaPlayer().getPlayer().sendMessage("§cFinde mindestens noch §b1 §cweiteres Ei!");
                     } else {
-                        p.getBiomiaPlayer().getPlayer().sendMessage("Finde mindestens " + missingEggs + " weitere Eier!");
+                        p.getBiomiaPlayer().getPlayer().sendMessage("§cFinde mindestens §b" + missingEggs + " §cweitere Eier!");
                     }
             } else {
                 eggsAbgegeben += 10;

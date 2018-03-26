@@ -2,12 +2,9 @@ package de.biomia.spigot.minigames.skywars;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.events.game.GameDeathEvent;
 import de.biomia.spigot.events.game.GameKillEvent;
-import de.biomia.spigot.events.game.GameLeaveEvent;
 import de.biomia.spigot.events.game.skywars.SkyWarsOpenChestEvent;
-import de.biomia.spigot.messages.MinigamesItemNames;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
@@ -30,7 +27,9 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 
@@ -50,21 +49,6 @@ public class SkyWarsListener extends GameHandler {
         super.onJoin(e);
         if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY)
             e.getPlayer().getInventory().setItem(0, kitItem);
-    }
-
-
-    @EventHandler
-    public void onPlayerRespawn(PlayerRespawnEvent e) {
-
-        if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
-            if (e.getPlayer().getKiller() != null) {
-                e.setRespawnLocation(e.getPlayer().getKiller().getLocation().add(0, 2, 0));
-            } else {
-                e.setRespawnLocation(new Location(Bukkit.getWorld(MinigamesConfig.getMapName()), 0, 100, 0));
-            }
-        } else {
-            e.setRespawnLocation(new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 45, 0));
-        }
     }
 
     @EventHandler
@@ -168,7 +152,7 @@ public class SkyWarsListener extends GameHandler {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
-
+        super.onPlayerInteract(e);
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         if (e.getItem() != null) {
@@ -176,29 +160,20 @@ public class SkyWarsListener extends GameHandler {
 
                 String displayname = e.getItem().getItemMeta().getDisplayName();
                 switch (displayname) {
-                case MinigamesItemNames.teamWaehlerItem:
-                    p.openInventory(mode.getTeamSwitcher());
-                    break;
-                case MinigamesItemNames.startItem:
-                    if (mode.getStateManager().getLobbyState().getCountDown() > 5)
-                        mode.getStateManager().getLobbyState().setCountDown(5);
-                    break;
                 case SkyWarsItemNames.playerTracker:
                         if (e.getItem().getType() == Material.COMPASS) {
-
                             for (Entity entity : p.getNearbyEntities(500, 500, 500)) {
                                 if (entity instanceof Player) {
                                     Player nearest = (Player) entity;
-                                    if (!mode.getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp) && bp.getTeam().containsPlayer(Biomia.getBiomiaPlayer(nearest))) {
+                                    BiomiaPlayer nearestbp = Biomia.getBiomiaPlayer(nearest);
+                                    if (!mode.isSpectator(nearestbp) && bp.getTeam() != null && bp.getTeam().containsPlayer(nearestbp)) {
                                         p.setCompassTarget(nearest.getLocation());
-                                        p.sendMessage(SkyWarsMessages.compassMessages.replace("%p", nearest.getName())
-                                                .replace("%d", (int) p.getLocation().distance(nearest.getLocation()) + ""));
+                                        p.sendMessage(SkyWarsMessages.compassMessages.replace("%p", nearest.getName()).replace("%d", (int) p.getLocation().distance(nearest.getLocation()) + ""));
                                         return;
                                     }
                                 }
                             }
                         }
-
                         break;
                 case SkyWarsItemNames.oneHitSnowball:
                         if (e.getItem().getType() == Material.SNOW_BALL) {
@@ -230,7 +205,6 @@ public class SkyWarsListener extends GameHandler {
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK) {
             if (e.getClickedBlock().getType() == Material.CHEST) {
 
-                Bukkit.broadcastMessage("%%% is chest");
 
                 Chest chest = (Chest) e.getClickedBlock().getState();
                 boolean firstOpen = false;
@@ -239,33 +213,25 @@ public class SkyWarsListener extends GameHandler {
                 Chests chests;
 
                 if (mode instanceof SkyWars) {
-                    Bukkit.broadcastMessage("%%% is not versus");
                     chests = ((SkyWars) mode).getChests();
                 } else {
-                    Bukkit.broadcastMessage("%%% is versus");
                     chests = ((VersusSkyWars) mode).getChests();
                 }
 
                 if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
 
-                    Bukkit.broadcastMessage("%%% filling, ingame");
-
                     if (chests.fillChest(chest.getLocation())) {
                         firstOpen = true;
-                        Bukkit.broadcastMessage("%%% filled");
                     }
                     if (chests.isNormalChest(chest.getLocation())) {
-                        Bukkit.broadcastMessage("%%% normal chest");
                         chestType = SkyWarsOpenChestEvent.ChestType.NormalChest;
                     } else {
                         chestType = SkyWarsOpenChestEvent.ChestType.GoodChest;
                     }
                     if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                        Bukkit.broadcastMessage("%%% is rightclick");
                         Bukkit.getPluginManager().callEvent(new SkyWarsOpenChestEvent(Biomia.getBiomiaPlayer(p), firstOpen, chestType, mode));
                         e.setCancelled(true);
                         p.openInventory(chest.getInventory());
-                        Bukkit.broadcastMessage("%%% open again");
                     }
                 }
 
@@ -275,17 +241,6 @@ public class SkyWarsListener extends GameHandler {
         if (!(bp.canBuild()) && WaitingLobbyListener.inLobbyOrSpectator(bp)) {
             e.setCancelled(true);
         }
-    }
-
-    @EventHandler
-    public void onDisconnect(PlayerQuitEvent e) {
-
-        Player p = e.getPlayer();
-        BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-        if (!WaitingLobbyListener.inLobbyOrSpectator(bp)) {
-            Bukkit.getPluginManager().callEvent(new GameLeaveEvent(bp, mode));
-        }
-        super.onDisconnect(e);
     }
 
     @EventHandler

@@ -18,7 +18,6 @@ public class Teleport {
     private static final HashMap<BiomiaPlayer, Location> starts = new HashMap<>();
 
     public static void teleportAllToWarteLobby(Location warteLobbySpawn, ArrayList<BiomiaPlayer> players) {
-
         Iterator<BiomiaPlayer> iterator = players.iterator();
 
         new BukkitRunnable() {
@@ -71,14 +70,14 @@ public class Teleport {
             public void run() {
                 for (BiomiaPlayer p : mode.getInstance().getPlayers()) {
                     if (waitForStartCountdown == 0) {
-                        ActionBar.sendActionBar("\u00A78Los!", p.getPlayer());
+                        ActionBar.sendActionBar("\u00A7cLos!", p.getPlayer());
                         p.setBuild(true);
                         p.setDamageEntitys(true);
                         p.setGetDamage(true);
                         mode.getStateManager().setActualGameState(GameStateManager.GameState.INGAME);
                         cancel();
                     } else {
-                        ActionBar.sendActionBar("\u00A78" + waitForStartCountdown, p.getPlayer());
+                        ActionBar.sendActionBar("\u00A7c" + waitForStartCountdown, p.getPlayer());
                     }
                 }
                 waitForStartCountdown--;

@@ -9,13 +9,15 @@ import de.biomia.universal.UniversalBiomia;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 public class WaitingLobbyListener extends BiomiaListener {
 
@@ -23,6 +25,11 @@ public class WaitingLobbyListener extends BiomiaListener {
 
     public WaitingLobbyListener(boolean isVersus) {
         this.isVersus = isVersus;
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onSpawn(PlayerSpawnLocationEvent e) {
+        e.setSpawnLocation(GameMode.getSpawn());
     }
 
     @EventHandler
@@ -57,6 +64,7 @@ public class WaitingLobbyListener extends BiomiaListener {
 
     @EventHandler
     public void onLogin(PlayerLoginEvent e) {
+
         if (e.getResult().equals(PlayerLoginEvent.Result.KICK_FULL)) {
             String rank = RankManager.getRank(e.getPlayer());
             int i = UniversalBiomia.getRankLevel(rank);

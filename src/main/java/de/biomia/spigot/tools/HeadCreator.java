@@ -7,7 +7,6 @@ import net.minecraft.server.v1_12_R1.TileEntitySkull;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.block.Skull;
 import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
 import org.bukkit.inventory.ItemStack;
@@ -43,7 +42,6 @@ public class HeadCreator {
 
     public static void setSkullUrl(String name, Block block) {
 
-        //String url = "https://bildnerverlag.de/biomia/" + name + ".png";
         String url = "http://textures.minecraft.net/texture/" + name;
 
         block.setType(Material.SKULL);
@@ -51,8 +49,9 @@ public class HeadCreator {
         skullData.setSkullType(SkullType.PLAYER);
 
         TileEntitySkull skullTile = (TileEntitySkull) ((CraftWorld) block.getWorld()).getHandle().getTileEntity(new BlockPosition(block.getX(), block.getY(), block.getZ()));
-        if (skullTile != null)
-            skullTile.setGameProfile(getNonPlayerProfile(url));
+        if (skullTile == null)
+            return;
+        skullTile.setGameProfile(getNonPlayerProfile(url));
         skullTile.setRotation(new Random().nextInt(360));
         block.setData((byte) 1);
         block.getState().update(true);

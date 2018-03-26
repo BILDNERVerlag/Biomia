@@ -1,7 +1,6 @@
 package de.biomia.spigot.minigames.versus.games.skywars;
 
 import de.biomia.spigot.Biomia;
-import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.configs.SkyWarsConfig;
 import de.biomia.spigot.minigames.GameHandler;
@@ -9,7 +8,6 @@ import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.spigot.minigames.general.chests.Chests;
-import de.biomia.spigot.minigames.general.kits.KitManager;
 import de.biomia.spigot.minigames.versus.Versus;
 
 import java.util.HashMap;
@@ -35,19 +33,6 @@ public class VersusSkyWars extends GameMode {
 
     public Chests getChests() {
         return chests;
-    }
-
-    @Override
-    public void start() {
-        splitPlayersInTwoTeams();
-        for (BiomiaPlayer bp : getInstance().getPlayers()) {
-            bp.setGetDamage(true);
-            bp.setDamageEntitys(true);
-            bp.setBuild(true);
-            bp.getPlayer().getInventory().clear();
-            bp.getPlayer().teleport(bp.getTeam().getHome());
-            KitManager.getManager(bp).setKitInventory();
-        }
     }
 
     @Override

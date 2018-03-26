@@ -40,7 +40,6 @@ public class Chests {
         ItemStack[] inv = normalFillableChests.get(locations.getBlock());
         inv = inv != null ? inv : goodFillableChests.get(locations.getBlock());
         if (c != null && inv != null) {
-            Bukkit.broadcastMessage(inv.toString());
             c.getInventory().setContents(inv);
             openedChests.add(locations);
             return true;

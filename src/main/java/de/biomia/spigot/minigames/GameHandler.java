@@ -5,6 +5,7 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.events.game.GameDeathEvent;
+import de.biomia.spigot.events.game.GameEndEvent;
 import de.biomia.spigot.events.game.GameKillEvent;
 import de.biomia.spigot.events.game.GameLeaveEvent;
 import de.biomia.spigot.messages.MinigamesItemNames;
@@ -31,7 +32,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
-import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 public abstract class GameHandler implements Listener {
 
@@ -44,6 +44,24 @@ public abstract class GameHandler implements Listener {
 
     void unregister() {
         HandlerList.unregisterAll(this);
+    }
+
+    @EventHandler
+    public void onKill(GameKillEvent e) {
+        GameRewards.KILL.giveReward(e.getBiomiaPlayer().getBiomiaPlayer(), e.getMode().getInstance());
+    }
+
+    @EventHandler
+    public void onWin(GameEndEvent e) {
+        e.getWinner().forEach(each -> {
+            GameRewards.WIN.giveReward(each, e.getMode().getInstance());
+            GameRewards.PLAYED.giveReward(each, e.getMode().getInstance());
+        });
+    }
+
+    @EventHandler
+    public void onPlayed(GameLeaveEvent e) {
+        GameRewards.PLAYED.giveReward(e.getBiomiaPlayer().getBiomiaPlayer(), e.getMode().getInstance());
     }
 
     @EventHandler
@@ -176,15 +194,20 @@ public abstract class GameHandler implements Listener {
     public void onWorldChange(PlayerChangedWorldEvent e) {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         if (e.getFrom().equals(mode.getInstance().getWorld()))
-            if (mode.getInstance().containsPlayer(bp))
-                if (bp.getTeam() != null)
+            if (!WaitingLobbyListener.inLobbyOrSpectator(bp)) {
+                Bukkit.getPluginManager().callEvent(new GameLeaveEvent(bp, mode));
+                mode.getInstance().removePlayer(bp);
+                mode.getInstance().getPlayers().forEach(each -> each.sendMessage(bp.getTeam().getColorcode() + e.getPlayer().getName() + MinigamesMessages.leftTheGame));
+                if (bp.getTeam() != null) {
                     bp.getTeam().leave(bp);
+                }
+            }
     }
 
     @EventHandler
     public void onDisconnect(PlayerQuitEvent e) {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        if (WaitingLobbyListener.inLobbyOrSpectator(bp)) {
+        if (!WaitingLobbyListener.inLobbyOrSpectator(bp)) {
             Bukkit.getPluginManager().callEvent(new GameLeaveEvent(bp, mode));
             e.setQuitMessage(bp.getTeam().getColorcode() + e.getPlayer().getName() + MinigamesMessages.leftTheGame);
             if (bp.getTeam() != null)
@@ -231,11 +254,6 @@ public abstract class GameHandler implements Listener {
         if (mode.getInstance().containsPlayer(bp) && bp.getPlayer().getWorld().equals(mode.getInstance().getWorld())) {
             e.setRespawnLocation(mode.getInstance().getWorld().getSpawnLocation().add(0, 100, 0));
         }
-    }
-
-    @EventHandler
-    public void onSpawn(PlayerSpawnLocationEvent e) {
-        e.setSpawnLocation(new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 40, 0));
     }
 
     @EventHandler
