@@ -2,7 +2,7 @@ package de.biomia.universal;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import org.apache.commons.codec.binary.Base64;
+import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -21,9 +21,7 @@ public class SkinValue {
             return null;
         JsonObject o = parser.parse(json).getAsJsonObject();
         String jsonBase64 = o.get("properties").getAsJsonArray().get(0).getAsJsonObject().get("value").getAsString();
-
-        o = parser.parse(new String(Base64.decodeBase64(jsonBase64))).getAsJsonObject();
-
+        o = parser.parse(new String(Base64Coder.decodeLines(jsonBase64))).getAsJsonObject();
         String s = o.get("textures").getAsJsonObject().get("SKIN").getAsJsonObject().get("url").getAsString();
         return s.substring("http://textures.minecraft.net/texture/".length());
     }
