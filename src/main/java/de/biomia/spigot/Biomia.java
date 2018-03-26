@@ -16,16 +16,6 @@ public class Biomia {
     private static QuestManager questManager;
     private static BiomiaServer serverInstance;
 
-    // METHODS
-    public static void stopWithDelay() {
-        new BukkitRunnable() {
-            public void run() {
-                for (Player p : Bukkit.getOnlinePlayers())
-                    p.kickPlayer(null);
-                Bukkit.shutdown();
-            }
-        }.runTaskLater(Main.getPlugin(), 10 * 20);
-    }
 
     public static void removeBiomiaPlayer(Player p) {
         biomiaPlayers.remove(p);
