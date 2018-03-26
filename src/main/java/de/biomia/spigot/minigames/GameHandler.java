@@ -110,7 +110,10 @@ public abstract class GameHandler implements Listener {
             p.teleport(GameMode.getSpawn());
 
             if (p.hasPermission("biomia.minigames.start")) {
-                p.getInventory().setItem(1, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, MinigamesItemNames.startItem));
+                if (mode.getInstance().getType() == GameType.SKY_WARS)
+                    p.getInventory().setItem(1, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, MinigamesItemNames.startItem));
+                else
+                    p.getInventory().setItem(0, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, MinigamesItemNames.startItem));
             }
 
             p.getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, MinigamesItemNames.teamWaehlerItem));
