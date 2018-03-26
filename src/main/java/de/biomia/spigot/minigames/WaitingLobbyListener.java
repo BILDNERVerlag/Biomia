@@ -13,8 +13,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
@@ -92,6 +92,25 @@ public class WaitingLobbyListener extends BiomiaListener {
             }
 
             e.setKickMessage(MinigamesMessages.serverFull);
+        }
+    }
+
+    @EventHandler
+    public void onChat(AsyncPlayerChatEvent e) {
+
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
+        String message;
+        if (bp.getTeam() != null) {
+            if (bp.getTeam().getMode().getStateManager().getActualGameState() == GameStateManager.GameState.INGAME)
+                return;
+            message = MinigamesMessages.chatMessageLobby.replaceAll("%p", bp.getTeam().getColorcode() + bp.getName()).replaceAll("%msg", e.getMessage());
+        } else {
+            message = MinigamesMessages.chatMessageLobby.replaceAll("%p", "\u00A77" + bp.getName()).replaceAll("%msg", e.getMessage());
+        }
+
+        for (Player spec : Bukkit.getOnlinePlayers()) {
+            if (spec.getWorld().equals(GameMode.getSpawn().getWorld()))
+                spec.sendMessage(message);
         }
     }
 

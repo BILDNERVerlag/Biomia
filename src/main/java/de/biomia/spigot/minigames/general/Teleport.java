@@ -4,6 +4,7 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.messages.manager.ActionBar;
+import de.biomia.spigot.messages.manager.Title;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
 import org.bukkit.Location;
@@ -70,14 +71,14 @@ public class Teleport {
             public void run() {
                 for (BiomiaPlayer p : mode.getInstance().getPlayers()) {
                     if (waitForStartCountdown == 0) {
-                        ActionBar.sendActionBar("\u00A7cLos!", p.getPlayer());
+                        Title.sendTitel("\u00A7cLos!", p.getPlayer());
                         p.setBuild(true);
                         p.setDamageEntitys(true);
                         p.setGetDamage(true);
                         mode.getStateManager().setActualGameState(GameStateManager.GameState.INGAME);
                         cancel();
                     } else {
-                        ActionBar.sendActionBar("\u00A7c" + waitForStartCountdown, p.getPlayer());
+                        Title.sendTitel("\u00A7c" + waitForStartCountdown, p.getPlayer());
                     }
                 }
                 waitForStartCountdown--;

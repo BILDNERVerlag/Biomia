@@ -253,7 +253,8 @@ public class StatListener implements Listener {
 
     @EventHandler
     public void onSkyWarsOpenChestEvent(SkyWarsOpenChestEvent e) {
-        Stats.incrementStat(Stats.BiomiaStat.SW_ChestsOpened, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getChestType().name());
+        if (e.isFirstOpen())
+            Stats.incrementStat(Stats.BiomiaStat.SW_ChestsOpened, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getChestType().name());
     }
 
     @EventHandler

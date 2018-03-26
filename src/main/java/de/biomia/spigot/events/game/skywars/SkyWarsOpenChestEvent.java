@@ -11,7 +11,6 @@ public class SkyWarsOpenChestEvent extends BiomiaPlayerGameEvent {
     private final boolean isFirstOpen;
     private final ChestType chestType;
 
-    //TODO nur tracken beim ersten öffnen?
     public SkyWarsOpenChestEvent(BiomiaPlayer bp, boolean isFirstOpen, ChestType type, GameMode mode) {
         super(bp, mode);
         this.isFirstOpen = isFirstOpen;

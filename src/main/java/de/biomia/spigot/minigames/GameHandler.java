@@ -143,14 +143,13 @@ public abstract class GameHandler implements Listener {
         GameTeam team = bp.getTeam();
         String msg = e.getMessage();
         String format;
+        e.setCancelled(true);
         if (p.hasPermission("biomia.coloredchat"))
             msg = ChatColor.translateAlternateColorCodes('&', e.getMessage());
 
         if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
-
             if (team != null) {
                 if (e.getMessage().startsWith("@")) {
-
                     msg = msg.replaceAll("@all ", "");
                     msg = msg.replaceAll("@all", "");
                     msg = msg.replaceAll("@a ", "");
@@ -158,8 +157,16 @@ public abstract class GameHandler implements Listener {
                     msg = msg.replaceAll("@ ", "");
                     msg = msg.replaceAll("@", "");
 
-                    e.setFormat(MinigamesMessages.chatMessageAll.replaceAll("%p", team.getColorcode() + p.getDisplayName())
-                            .replaceAll("%msg", msg));
+                    format = MinigamesMessages.chatMessageAll.replaceAll("%p", team.getColorcode() + p.getDisplayName())
+                            .replaceAll("%msg", msg);
+
+                    for (Player all : Bukkit.getOnlinePlayers()) {
+                        BiomiaPlayer allbps = Biomia.getBiomiaPlayer(all);
+                        if (mode.getInstance().containsPlayer(allbps) || mode.isSpectator(allbps)) {
+                            all.sendMessage(format);
+                        }
+                    }
+
                 } else {
                     e.setCancelled(true);
                     format = MinigamesMessages.chatMessageTeam.replaceAll("%p", team.getColorcode() + p.getDisplayName())
@@ -170,23 +177,13 @@ public abstract class GameHandler implements Listener {
                 }
             } else {
                 format = MinigamesMessages.chatMessageDead.replaceAll("%p", p.getDisplayName()).replaceAll("%msg", msg);
-                e.setCancelled(true);
                 for (Player spec : Bukkit.getOnlinePlayers()) {
-
                     BiomiaPlayer specbp = Biomia.getBiomiaPlayer(spec);
-                    if (!mode.getInstance().containsPlayer(specbp) || !specbp.getTeam().lives(bp)) {
+                    if (mode.isSpectator(specbp)) {
                         spec.sendMessage(format);
                     }
                 }
-
             }
-        } else if (team != null) {
-            format = MinigamesMessages.chatMessageLobby.replaceAll("%p", team.getColorcode() + p.getDisplayName())
-                    .replaceAll("%msg", msg);
-            e.setFormat(format);
-        } else {
-            format = MinigamesMessages.chatMessageLobby.replaceAll("%p", "\u00A77" + p.getDisplayName()).replaceAll("%msg", msg);
-            e.setFormat(format);
         }
     }
 

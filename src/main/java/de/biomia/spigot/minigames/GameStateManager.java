@@ -146,7 +146,7 @@ public class GameStateManager {
                 bp.setDamageEntitys(true);
                 bp.setGetDamage(true);
                 bp.getPlayer().setGameMode(org.bukkit.GameMode.SURVIVAL);
-                Scoreboards.setInGameScoreboard(bp.getPlayer(), GameType.BED_WARS);
+                Scoreboards.setInGameScoreboard(bp.getPlayer(), getMode().getInstance().getType());
                 bp.getPlayer().getInventory().clear();
                 bp.getPlayer().setFlying(false);
                 bp.getPlayer().setAllowFlight(false);
