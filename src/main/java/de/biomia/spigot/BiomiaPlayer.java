@@ -15,6 +15,9 @@ import java.util.List;
 
 public class BiomiaPlayer extends OfflineBiomiaPlayer {
 
+    private class BiomiaPlayerCantBeAnNPCException extends Exception {
+    }
+
     private int actualOnlineMinutes;
 
     // CONSTANTS
@@ -32,6 +35,9 @@ public class BiomiaPlayer extends OfflineBiomiaPlayer {
     // CONSTRUCTOR
     public BiomiaPlayer(Player p) {
         super(OfflineBiomiaPlayer.getBiomiaPlayerID(p.getName()), p.getName());
+        if (p.hasMetadata("NPC")) {
+            new BiomiaPlayerCantBeAnNPCException().printStackTrace();
+        }
         this.player = p;
         spigotPafpl = PAFPlayerManager.getInstance().getPlayer(getUUID());
     }
