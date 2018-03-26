@@ -21,7 +21,7 @@ public class Scoreboards {
     // VersusLobbyListener
     public static final Scoreboard lobbySB = Bukkit.getScoreboardManager().getNewScoreboard();
     // Spectator
-    public static final Scoreboard spectatorSB = Bukkit.getScoreboardManager().getNewScoreboard();
+    private static final Scoreboard spectatorSB = Bukkit.getScoreboardManager().getNewScoreboard();
 
     public static void initLobbySB(GameMode mode) {
 
@@ -97,7 +97,7 @@ public class Scoreboards {
                 kit.addEntry("\u00A7c");
                 team.addEntry("\u00A7f");
 
-                kit.setPrefix("\u00A7c" + KitManager.getManager(Biomia.getBiomiaPlayer(p)).getSelectedKit().getName());
+                kit.setPrefix("\u00A7b" + KitManager.getManager(Biomia.getBiomiaPlayer(p)).getSelectedKit().getName());
                 team.setPrefix(gameTeam.getColorcode() + gameTeam.getColor().translate());
                 break;
         }
@@ -131,6 +131,7 @@ public class Scoreboards {
     }
 
     public static void setSpectatorSB(Player p) {
+        Scoreboards.spectatorSB.getTeam("spectator").addEntry(p.getName());
         p.setScoreboard(spectatorSB);
     }
 

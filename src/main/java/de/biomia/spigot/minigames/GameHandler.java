@@ -29,7 +29,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
@@ -75,33 +74,7 @@ public abstract class GameHandler implements Listener {
         bp.setGetDamage(false);
 
         if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
-
-            // Hide
-            for (Player all : Bukkit.getOnlinePlayers()) {
-
-                GameTeam team = bp.getTeam();
-
-                if (team != null && team.lives(bp)) {
-                    all.hidePlayer(p);
-                } else {
-                    all.showPlayer(all);
-                }
-            }
-
-            // Disable Damage / Build
-            bp.setGetDamage(false);
-            bp.setDamageEntitys(false);
-            bp.setBuild(false);
-            p.setGameMode(org.bukkit.GameMode.ADVENTURE);
-
-            // Fly settings
-            p.setAllowFlight(true);
-            p.setFlying(true);
-            p.setFlySpeed(0.5F);
-
-            Scoreboards.setSpectatorSB(p);
-            Scoreboards.spectatorSB.getTeam("spectator").addEntry(p.getName());
-
+            Dead.setDead(bp);
             p.teleport(new Location(Bukkit.getWorld(MinigamesConfig.getMapName()), 0, 100, 0));
 
         } else if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
@@ -273,12 +246,6 @@ public abstract class GameHandler implements Listener {
                 }
             }
         }
-    }
-
-    @EventHandler
-    public void onCraft(PrepareItemCraftEvent e) {
-        if (!e.isRepair())
-            e.getInventory().setResult(ItemCreator.itemCreate(Material.AIR));
     }
 
     @EventHandler

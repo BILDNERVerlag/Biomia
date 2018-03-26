@@ -68,12 +68,12 @@ public class WaitingLobbyListener extends BiomiaListener {
         if (e.getResult().equals(PlayerLoginEvent.Result.KICK_FULL)) {
             String rank = RankManager.getRank(e.getPlayer());
             int i = UniversalBiomia.getRankLevel(rank);
-            if (i == 1 || i == 2)
+            if (i == 1 || i == 2) {
+                e.disallow(PlayerLoginEvent.Result.KICK_FULL, MinigamesMessages.serverFull);
                 return;
+            }
             for (Player eachPlayer : Bukkit.getOnlinePlayers()) {
-
                 GameTeam team = Biomia.getBiomiaPlayer(eachPlayer).getTeam();
-
                 if (team != null && team.getMode().getStateManager().getActualGameState() != GameStateManager.GameState.LOBBY) {
                     if (isVersus)
                         continue;
@@ -82,7 +82,6 @@ public class WaitingLobbyListener extends BiomiaListener {
                         return;
                     }
                 }
-
                 if (UniversalBiomia.getRankLevel(RankManager.getRank(eachPlayer)) < i) {
                     eachPlayer.sendMessage(MinigamesMessages.kickedForPremium);
                     eachPlayer.kickPlayer("");
@@ -107,7 +106,7 @@ public class WaitingLobbyListener extends BiomiaListener {
         } else {
             message = MinigamesMessages.chatMessageLobby.replaceAll("%p", "\u00A77" + bp.getName()).replaceAll("%msg", e.getMessage());
         }
-
+        e.setCancelled(true);
         for (Player spec : Bukkit.getOnlinePlayers()) {
             if (spec.getWorld().equals(GameMode.getSpawn().getWorld()))
                 spec.sendMessage(message);

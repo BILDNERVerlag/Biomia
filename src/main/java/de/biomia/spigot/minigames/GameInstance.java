@@ -37,7 +37,9 @@ public class GameInstance implements Listener {
         this.teamSize = teamSize;
         this.type = type;
         this.world = new WorldCreator(mapDisplayName).createWorld();
+        world.setGameRuleValue("announceAdvancements", "false");
         MinigamesConfig.mapName = mapDisplayName;
+
         switch (type) {
             case KIT_PVP_VS:
                 gameMode = new KitPvP(this);

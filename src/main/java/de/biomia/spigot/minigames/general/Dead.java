@@ -15,6 +15,7 @@ public class Dead {
         target.setGetDamage(false);
         target.getPlayer().setSilent(true);
         target.getPlayer().setGameMode(GameMode.SPECTATOR);
+        Scoreboards.setSpectatorSB(target.getPlayer());
     }
 
     public static void respawn(Player p) {

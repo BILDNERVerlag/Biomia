@@ -6,7 +6,6 @@ import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.TeamColor;
-import de.biomia.spigot.minigames.general.Scoreboards;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -23,38 +22,6 @@ public class BedWarsTeam extends GameTeam {
     }
 
     private boolean hasBed = true;
-
-    @Override
-    public void setDead(BiomiaPlayer bp) {
-        super.setDead(bp);
-
-        // Hide
-        for (Player all : Bukkit.getOnlinePlayers()) {
-            BiomiaPlayer temp = Biomia.getBiomiaPlayer(all);
-            if (temp.getTeam().lives(temp))
-                all.hidePlayer(bp.getPlayer());
-            else
-                bp.getPlayer().showPlayer(all);
-        }
-
-        // Disable Damage / Build
-        bp.setGetDamage(false);
-        bp.setDamageEntitys(false);
-        bp.setBuild(false);
-
-        bp.getPlayer().setGameMode(org.bukkit.GameMode.SPECTATOR);
-        bp.getPlayer().setSilent(true);
-        bp.getPlayer().getInventory().clear();
-
-        // Fly settings
-        bp.getPlayer().setAllowFlight(true);
-        bp.getPlayer().setFlying(true);
-        bp.getPlayer().setFlySpeed(0.5F);
-
-        // Scoreboard
-        Scoreboards.spectatorSB.getTeam("spectator").addEntry(bp.getName());
-        Scoreboards.setSpectatorSB(bp.getPlayer());
-    }
 
     public void destroyBed() {
         hasBed = false;
