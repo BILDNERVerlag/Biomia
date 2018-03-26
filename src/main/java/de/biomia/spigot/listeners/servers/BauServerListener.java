@@ -1,6 +1,7 @@
 package de.biomia.spigot.listeners.servers;
 
 import de.biomia.spigot.Biomia;
+import de.biomia.spigot.messages.manager.Scoreboards;
 import de.biomia.spigot.tools.BackToLobby;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -15,6 +16,7 @@ public class BauServerListener extends BiomiaListener {
         p.setGameMode(GameMode.CREATIVE);
         Biomia.getBiomiaPlayer(p).setBuild(true);
         BackToLobby.getLobbyItem(p, 8);
+        Scoreboards.setTabList(e.getPlayer());
     }
 
 }
