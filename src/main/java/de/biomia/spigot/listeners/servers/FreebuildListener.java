@@ -5,6 +5,7 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.tools.InventorySave;
 import de.biomia.spigot.tools.PlayerToServerConnector;
+import de.biomia.spigot.tools.RewardItems;
 import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -24,6 +25,7 @@ public class FreebuildListener extends BiomiaListener {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         InventorySave.setInventory(p, BiomiaServerType.Freebuild);
         p.sendMessage(Messages.PREFIX + "\u00A76Willkommen auf dem FreebuildServer, " + p.getName() + "!");
+        RewardItems.giveItems(bp, BiomiaServerType.Freebuild);
         bp.setBuild(true);
     }
 

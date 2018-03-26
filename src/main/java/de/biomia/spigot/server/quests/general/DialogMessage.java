@@ -72,13 +72,13 @@ public class DialogMessage {
             qp.getPlayer().setWalkSpeed(0);
 
         players.forEach(each -> {
-            each.getPlayer().sendMessage("\u00A77" + npc.getName() + ": \u00A76" + inhalt);
+            each.getPlayer().sendMessage("\u00A7c" + npc.getName() + "\u00A77: \u00A7b" + inhalt);
             executeEvent(each);
         });
         if (fortsetzungen[0] != null) {
             for (int i = 0; i < fortsetzungen.length; i++) {
                 if (fortsetzungen[i] != null) {
-                    TextComponent msg = new TextComponent("\u00A75" + (i + 1) + ". \u00A72" + fortsetzungen[i]);
+                    TextComponent msg = new TextComponent("\u00A77" + (i + 1) + ". \u00A7b" + fortsetzungen[i]);
                     if (qp.getDialog() != null && !qp.getDialog().isLast()) {
                         lastQuestID++;
                         ClickEvent clickEvent = new ClickEvent(Action.RUN_COMMAND, "/q " + lastQuestID);

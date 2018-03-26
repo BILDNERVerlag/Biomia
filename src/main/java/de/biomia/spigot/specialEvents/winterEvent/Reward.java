@@ -1,8 +1,9 @@
 package de.biomia.spigot.specialEvents.winterEvent;
 
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.tools.ItemCreator;
-import de.biomia.spigot.tools.QuestItems;
+import de.biomia.spigot.tools.RewardItems;
 import de.biomia.spigot.tools.SkyWarsKitManager;
 import de.biomia.universal.MySQL;
 import org.bukkit.Color;
@@ -137,7 +138,7 @@ public class Reward {
                         break;
                 }
                 if (is != null)
-                    QuestItems.addQuestItem(biomiaPlayer, is);
+                    RewardItems.addItem(biomiaPlayer, is, BiomiaServerType.Quest);
                 break;
             case Shop_Gutschein:
                 biomiaPlayer.getPlayer().sendMessage("\u00A74Einen 5€ Gutschein f\u00fcr den BILDNER-Verlag Online Shop!");

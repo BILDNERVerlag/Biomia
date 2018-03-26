@@ -52,21 +52,21 @@ public class Shop {
     public static void init() {
 
         // Groups
-        ShopGroup baumaterialien = addNewGroup("Baumaterialien", ChatColor.GOLD,
+        ShopGroup baumaterialien = addNewGroup(BedWarsItemNames.baumaterialien, ChatColor.GOLD,
                 ItemCreator.itemCreate(Material.GOLD_PICKAXE));
 
-        ShopGroup waffen = addNewGroup("Waffen", ChatColor.GRAY, ItemCreator.itemCreate(Material.IRON_SWORD));
+        ShopGroup waffen = addNewGroup(BedWarsItemNames.waffen, ChatColor.GRAY, ItemCreator.itemCreate(Material.IRON_SWORD));
 
-        ShopGroup ruestung = addNewGroup("R\u00fcstung", ChatColor.DARK_PURPLE,
+        ShopGroup ruestung = addNewGroup(BedWarsItemNames.ruestung, ChatColor.DARK_PURPLE,
                 ItemCreator.itemCreate(Material.IRON_CHESTPLATE));
 
-        ShopGroup boegen = addNewGroup("B\u00F6gen", ChatColor.BLUE, ItemCreator.itemCreate(Material.BOW));
+        ShopGroup boegen = addNewGroup(BedWarsItemNames.boegen, ChatColor.BLUE, ItemCreator.itemCreate(Material.BOW));
 
-        ShopGroup essen = addNewGroup("Essen", ChatColor.GREEN, ItemCreator.itemCreate(Material.MELON));
+        ShopGroup essen = addNewGroup(BedWarsItemNames.essen, ChatColor.GREEN, ItemCreator.itemCreate(Material.MELON));
 
-        ShopGroup traenke = addNewGroup("Tr\u00fcnke", ChatColor.YELLOW, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM));
+        ShopGroup traenke = addNewGroup(BedWarsItemNames.traenke, ChatColor.YELLOW, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM));
 
-        ShopGroup special = addNewGroup("Special", ChatColor.LIGHT_PURPLE,
+        ShopGroup special = addNewGroup(BedWarsItemNames.special, ChatColor.LIGHT_PURPLE,
                 ItemCreator.itemCreate(Material.EYE_OF_ENDER));
 
         // Bau-Gruppe

@@ -12,7 +12,7 @@ import de.biomia.spigot.server.quests.QuestEvents.TakeItemEvent;
 import de.biomia.spigot.server.quests.general.Quest;
 import de.biomia.spigot.server.quests.general.QuestPlayer;
 import de.biomia.spigot.tools.InventorySave;
-import de.biomia.spigot.tools.QuestItems;
+import de.biomia.spigot.tools.RewardItems;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -74,7 +74,7 @@ public class QuestListener extends BiomiaListener {
         InventorySave.setInventory(e.getPlayer(), BiomiaServerType.Quest);
 
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        QuestItems.giveQuestItems(bp);
+        RewardItems.giveItems(bp, BiomiaServerType.Quest);
 
         QuestPlayer qp = bp.getQuestPlayer();
         for (Quest quest : Biomia.getQuestManager().getQuests()) {

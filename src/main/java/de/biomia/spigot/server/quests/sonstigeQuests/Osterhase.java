@@ -1,9 +1,11 @@
 package de.biomia.spigot.server.quests.sonstigeQuests;
 
 import de.biomia.spigot.Biomia;
+import de.biomia.spigot.server.quests.QuestEvents.Event;
 import de.biomia.spigot.server.quests.general.DialogMessage;
 import de.biomia.spigot.server.quests.general.Quest;
 import de.biomia.spigot.server.quests.general.QuestPlayer;
+import de.biomia.spigot.specialEvents.easterEvent.EasterEvent;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
@@ -53,12 +55,24 @@ public class Osterhase implements Listener {
     private void initDialog() {
         startDialog = new DialogMessage(q, osterhase).setInhalt("Huiuiui, alle Eier verloren, so ein Unglück..");
         startDialog.setNext("Oh, hast du ein paar meiner Eier gefunden..?", 0, osterhase).setFortsetzung("Wer bist du?").setFortsetzung("Ja, hab ich!").setFortsetzung("Nein, leider nicht.");
-        startDialog.getNext(0).setNext("Ich bin der Osterhase!", 0, osterhase).setNext("Das ist ja großartig!", 1, osterhase).setNext("Oh, schade...", 2, osterhase);
+        startDialog.getNext(0).setNext("Ich bin der Osterhase! Aber ich habe fast alle meine schönen weissblauen Eier verloren... Bring sie mir wieder, aber nur genau diese!", 0, osterhase)
+                .setNext("Ach, und diese ganz besonderen, regenbogenfarbigen Eier gibt es auch noch.. Aber ich glaube nicht, dass du die findest!",0,osterhase);
+        startDialog.getNext(0).setNext("Ach, tatsächlich..?", 1, osterhase).addEvent(giveRewardEvent);
+        startDialog.getNext(0).setNext("Oh, schade...", 2, osterhase).setNext("Komm doch wieder, sobald du welche hast!",0,osterhase);
         /*
         "ich hab alle meine ostereier verloren"
         "geschenke abholen"
         "smalltalken"
          */
     }
+
+    private final Event giveRewardEvent = new Event() {
+        // anonyme klasse, da erstens platzsparender und zweitens ermoeglicht referenz
+        // auf das ghost-objekt (das eigl ja nicht im event ist)
+        @Override
+        public void executeEvent(QuestPlayer qp0) {
+            EasterEvent.giveReward(qp0.getBiomiaPlayer());
+        }
+    };
 
 }
