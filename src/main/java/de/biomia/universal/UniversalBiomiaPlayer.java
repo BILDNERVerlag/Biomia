@@ -4,6 +4,9 @@ import java.util.UUID;
 
 public abstract class UniversalBiomiaPlayer {
 
+    private class BiomiaIDCantBeMinusOneException extends Exception {
+    }
+
     private final int biomiaID;
     private String name;
     private UUID uuid;
@@ -21,15 +24,21 @@ public abstract class UniversalBiomiaPlayer {
     }
 
     protected UniversalBiomiaPlayer(int biomiaID) {
+        if (biomiaID == -1)
+            new BiomiaIDCantBeMinusOneException().printStackTrace();
         this.biomiaID = biomiaID;
     }
 
     protected UniversalBiomiaPlayer(int biomiaID, String name) {
+        if (biomiaID == -1)
+            new BiomiaIDCantBeMinusOneException().printStackTrace();
         this.biomiaID = biomiaID;
         this.name = name;
     }
 
     protected UniversalBiomiaPlayer(int biomiaID, UUID uuid) {
+        if (biomiaID == -1)
+            new BiomiaIDCantBeMinusOneException().printStackTrace();
         this.biomiaID = biomiaID;
         this.uuid = uuid;
     }
