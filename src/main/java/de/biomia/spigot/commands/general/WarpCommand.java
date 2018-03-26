@@ -2,6 +2,7 @@ package de.biomia.spigot.commands.general;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.tools.RankManager;
@@ -22,11 +23,11 @@ import java.util.*;
 
 public class WarpCommand extends BiomiaCommand {
 
-    private final ArrayList<String> allowedGroups;
+    private final ArrayList<BiomiaServerType> allowedGroups;
 
     public WarpCommand(String command) {
         super(command);
-        allowedGroups = new ArrayList<>(Arrays.asList("BauServer", "FreebuildServer", "FarmServer", "QuestServer", "TestQuest"));
+        allowedGroups = new ArrayList<>(Arrays.asList(BiomiaServerType.BauServer, BiomiaServerType.Freebuild, BiomiaServerType.FreebuildFarm, BiomiaServerType.Quest, BiomiaServerType.TestQuest));
     }
 
     public boolean execute(CommandSender sender, String label, String[] args) {
@@ -54,7 +55,7 @@ public class WarpCommand extends BiomiaCommand {
                     p.sendMessage("\u00A7cBenutze \u00A77/\u00A7cdelwarp \u00A77<\u00A7cName\u00A77> \u00A7bum Warps zu l\u00f6schen \u00A7coder hol dir einen unserer Premiumränge und unterstütze damit den Server.");
                     return true;
                 }
-                if (!allowedGroups.contains(Main.getGroupName())) {
+                if (!allowedGroups.contains(Biomia.getServerInstance().getServerType())) {
                     p.sendMessage("\u00A7cEigene Warps sind auf diesem Server (\u00A7b" + Main.getGroupName() + "\u00A7c) nicht erlaubt.");
                     return true;
                 }
