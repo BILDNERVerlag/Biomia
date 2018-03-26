@@ -104,7 +104,7 @@ public class BedWarsConfig extends MinigamesConfig {
 
         for (ItemType itemType : ItemType.values()) {
             for (int i = 1; i <= getConfig().getInt("lastID." + itemType.name()); i++) {
-                Location spawnerLoc = getLocation(instance, "Spawner." + itemType.name() + "." + i).add(0, 0.6, 0);
+                Location spawnerLoc = getLocation(instance, "Spawner." + itemType.name() + "." + i).add(0, 1.1, 0);
                 spawner.computeIfAbsent(itemType, list -> new ArrayList<>()).add(spawnerLoc);
             }
         }
