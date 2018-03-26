@@ -2,8 +2,6 @@ package de.biomia.universal;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import de.biomia.universal.MySQL;
-import de.biomia.universal.UniversalBiomiaPlayer;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -18,7 +16,7 @@ public class SkinValue {
 
     private static String getSkinCode(String uuid) {
         String API_PROFILE_LINK = "https://sessionserver.mojang.com/session/minecraft/profile/";
-        String json = getContent(API_PROFILE_LINK + uuid);
+        String json = getContent(API_PROFILE_LINK + uuid.replaceAll("-", ""));
         if (json == null)
             return null;
         JsonObject o = parser.parse(json).getAsJsonObject();
