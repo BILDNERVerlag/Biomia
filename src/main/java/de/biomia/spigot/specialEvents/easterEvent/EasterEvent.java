@@ -253,118 +253,117 @@ public class EasterEvent implements Listener {
             Stats.incrementStatBy(Stats.BiomiaStat.EasterRewardsErhalten, p.getBiomiaPlayerID(), eggsWithoutRewards);
         }
 
-        for (Integer i : preisliste) {
-            if (i <= eggsFound && i > eggsRewardsErhalten) {
-                switch (i) {
-                    case 1:
-                        RewardItems.addItem(p, ItemCreator.itemCreate(Material.IRON_BLOCK), BiomiaServerType.Freebuild);
+        for (int i = eggsFound; i > eggsRewardsErhalten; i--) {
+            switch (i) {
+                case 1:
+                    RewardItems.addItem(p, ItemCreator.itemCreate(Material.IRON_BLOCK), BiomiaServerType.Freebuild);
+                    RewardItems.addItem(p, ItemCreator.itemCreate(Material.GOLDEN_APPLE), BiomiaServerType.Quest);
+                    coinsToAdd += 250;
+                    osterhasenTalk = ("ßcOsterhaseß7: ßbDu hast tats‰chlich ein Ei gefunden! Als Belohnung bekommst du ein paar M¸nzen und je eine Kleinigkeit auf dem Quest- und Freebuildserver.");
+                    quest_rewards.add("1x Goldener Apfel");
+                    freebuild_rewards.add("1x Goldener Apfel");
+                    break;
+                case 3:
+                    RewardItems.addItem(p, ItemCreator.itemCreate(Material.ELYTRA), BiomiaServerType.Freebuild);
+                    is = ItemCreator.itemCreate(Material.ENDER_PEARL);
+                    is.setAmount(16);
+                    RewardItems.addItem(p, is, BiomiaServerType.Quest);
+                    coinsToAdd += 250;
+                    quest_rewards.add("16x Enderperle");
+                    freebuild_rewards.add("1x Elytra");
+                    break;
+                case 5:
+                    RewardItems.addItem(p, ItemCreator.itemCreate(Material.JUKEBOX), BiomiaServerType.Freebuild);
+                    RewardItems.addItem(p, ItemCreator.itemCreate(Material.RECORD_10), BiomiaServerType.Freebuild);
+                    RewardItems.addItem(p, ItemCreator.itemCreate(Material.RECORD_7), BiomiaServerType.Freebuild);
+                    RewardItems.addItem(p, ItemCreator.itemCreate(Material.RECORD_3), BiomiaServerType.Freebuild);
+                    RewardItems.addItem(p, ItemCreator.itemCreate(Material.TOTEM), BiomiaServerType.Quest);
+                    coinsToAdd += 300;
+                    osterhasenTalk = ("ßcOsterhaseß7: ßbNoch mehr Eier! Viel Spaﬂ mit den Belohnungen!");
+                    freebuild_rewards.addAll(Arrays.asList("1x Jukebox", "3x Schallplatte"));
+                    quest_rewards.add("1x Totem der Unsterblichkeit");
+                    break;
+                case 15:
+                    is = ItemCreator.itemCreate(Material.NAME_TAG);
+                    is.setAmount(16);
+                    RewardItems.addItem(p, is, BiomiaServerType.Freebuild);
+
+                    is = ItemCreator.itemCreate(Material.LEATHER_HELMET, "Farbklecks-Hut");
+                    LeatherArmorMeta elfenHatMeta = (LeatherArmorMeta) is.getItemMeta();
+                    elfenHatMeta.setColor(Color.fromRGB(179, 0, 12));
+                    is.setItemMeta(elfenHatMeta);
+                    is.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+                    is.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4);
+                    RewardItems.addItem(p, is, BiomiaServerType.Quest);
+                    coinsToAdd += 400;
+                    osterhasenTalk = ("ßcOsterhaseß7: ßbNoch mehr Eier! Viel Spaﬂ mit den Belohnungen!");
+                    quest_rewards.add("1x Farbklecks-Hut");
+                    freebuild_rewards.add("16x Namensschild");
+                    break;
+                case 25:
+                    is = ItemCreator.itemCreate(Material.BOOKSHELF);
+                    is.setAmount(64);
+                    RewardItems.addItem(p, is, BiomiaServerType.Freebuild);
+
+                    RewardItems.addItem(p, ItemCreator.itemCreate(Material.ENCHANTMENT_TABLE), BiomiaServerType.Freebuild);
+                    is = ItemCreator.itemCreate(Material.LEATHER_BOOTS, "Farbklecks-Schuhe");
+                    LeatherArmorMeta elfenBootsMeta = (LeatherArmorMeta) is.getItemMeta();
+                    elfenBootsMeta.setColor(Color.fromRGB(0, 179, 44));
+                    is.setItemMeta(elfenBootsMeta);
+                    is.addUnsafeEnchantment(Enchantment.FROST_WALKER, 2);
+                    is.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4);
+                    RewardItems.addItem(p, is, BiomiaServerType.Quest);
+                    coinsToAdd += 500;
+                    osterhasenTalk = ("ßcOsterhaseß7: ßbSchon 25 Eier gefunden! Viel Spaﬂ mit den Belohnungen!");
+                    quest_rewards.add("1x Farbklecks-Schuhe");
+                    freebuild_rewards.add("64x B¸cherregal");
+                    break;
+                case 50:
+                    is = ItemCreator.itemCreate(Material.GOLD_BLOCK);
+                    is.setAmount(9);
+                    RewardItems.addItem(p, is, BiomiaServerType.Freebuild);
+
+                    is = ItemCreator.itemCreate(Material.LEATHER_LEGGINGS, "Farbklecks-Hose");
+                    LeatherArmorMeta elfenPantsMeta = (LeatherArmorMeta) is.getItemMeta();
+                    elfenPantsMeta.setColor(Color.fromRGB(0, 179, 44));
+                    is.setItemMeta(elfenPantsMeta);
+                    is.addUnsafeEnchantment(Enchantment.PROTECTION_FALL, 2);
+                    is.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4);
+                    RewardItems.addItem(p, is, BiomiaServerType.Quest);
+                    coinsToAdd += 750;
+                    osterhasenTalk = ("ßcOsterhaseß7: ßbSchon 50 Eier, nicht schlecht! Die letzte Belohnung bekommst du aber nur, wenn du 100 findest!");
+                    quest_rewards.add("1x Farbklecks-Hose");
+                    freebuild_rewards.add("9x Goldblock");
+                    break;
+                case 100:
+                    is = ItemCreator.itemCreate(Material.BEACON);
+                    RewardItems.addItem(p, is, BiomiaServerType.Freebuild);
+
+                    is = ItemCreator.itemCreate(Material.LEATHER_CHESTPLATE, "Farbklecks-Hemd");
+                    LeatherArmorMeta elfenChestMeta = (LeatherArmorMeta) is.getItemMeta();
+                    elfenChestMeta.setColor(Color.fromRGB(0, 179, 44));
+                    is.setItemMeta(elfenChestMeta);
+                    is.addUnsafeEnchantment(Enchantment.THORNS, 2);
+                    is.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4);
+                    RewardItems.addItem(p, is, BiomiaServerType.Quest);
+                    coinsToAdd += 1000;
+                    osterhasenTalk = ("ßcOsterhaseß7: ßbUff, jetzt hast du aber alle groﬂen Belohnungen abgestaubt!");
+                    quest_rewards.add("1x Farbklecks-Hemd");
+                    freebuild_rewards.add("1x Beacon");
+                    break;
+                default:
+                    if (i > 100 && i % 20 == 0) {
+                        is = ItemCreator.itemCreate(Material.DIAMOND);
+                        is.setAmount(5);
+                        RewardItems.addItem(p, is, BiomiaServerType.Freebuild);
+
                         RewardItems.addItem(p, ItemCreator.itemCreate(Material.GOLDEN_APPLE), BiomiaServerType.Quest);
                         coinsToAdd += 250;
-                        osterhasenTalk = ("ßcOsterhaseß7: ßbDu hast tats‰chlich ein Ei gefunden! Als Belohnung bekommst du ein paar M¸nzen und je eine Kleinigkeit auf dem Quest- und Freebuildserver.");
+                        osterhasenTalk = ("ßcOsterhaseß7: b7Noch mehr Eier! Viel Spaﬂ mit den Belohnungen!");
                         quest_rewards.add("1x Goldener Apfel");
-                        freebuild_rewards.add("1x Goldener Apfel");
+                        freebuild_rewards.add("5x Diamanten");
                         break;
-                    case 3:
-                        RewardItems.addItem(p, ItemCreator.itemCreate(Material.ELYTRA), BiomiaServerType.Freebuild);
-                        is = ItemCreator.itemCreate(Material.ENDER_PEARL);
-                        is.setAmount(16);
-                        RewardItems.addItem(p, is, BiomiaServerType.Quest);
-                        coinsToAdd += 250;
-                        quest_rewards.add("16x Enderperle");
-                        freebuild_rewards.add("1x Elytra");
-                        break;
-                    case 5:
-                        RewardItems.addItem(p, ItemCreator.itemCreate(Material.JUKEBOX), BiomiaServerType.Freebuild);
-                        RewardItems.addItem(p, ItemCreator.itemCreate(Material.RECORD_10), BiomiaServerType.Freebuild);
-                        RewardItems.addItem(p, ItemCreator.itemCreate(Material.RECORD_7), BiomiaServerType.Freebuild);
-                        RewardItems.addItem(p, ItemCreator.itemCreate(Material.RECORD_3), BiomiaServerType.Freebuild);
-                        RewardItems.addItem(p, ItemCreator.itemCreate(Material.TOTEM), BiomiaServerType.Quest);
-                        coinsToAdd += 300;
-                        osterhasenTalk = ("ßcOsterhaseß7: ßbNoch mehr Eier! Viel Spaﬂ mit den Belohnungen!");
-                        freebuild_rewards.addAll(Arrays.asList("1x Jukebox", "3x Schallplatte"));
-                        quest_rewards.add("1x Totem der Unsterblichkeit");
-                        break;
-                    case 15:
-                        is = ItemCreator.itemCreate(Material.NAME_TAG);
-                        is.setAmount(16);
-                        RewardItems.addItem(p, is, BiomiaServerType.Freebuild);
-
-                        is = ItemCreator.itemCreate(Material.LEATHER_HELMET, "Farbklecks-Hut");
-                        LeatherArmorMeta elfenHatMeta = (LeatherArmorMeta) is.getItemMeta();
-                        elfenHatMeta.setColor(Color.fromRGB(179, 0, 12));
-                        is.setItemMeta(elfenHatMeta);
-                        is.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
-                        is.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4);
-                        RewardItems.addItem(p, is, BiomiaServerType.Quest);
-                        coinsToAdd += 400;
-                        osterhasenTalk = ("ßcOsterhaseß7: ßbNoch mehr Eier! Viel Spaﬂ mit den Belohnungen!");
-                        quest_rewards.add("1x Farbklecks-Hut");
-                        freebuild_rewards.add("16x Namensschild");
-                        break;
-                    case 25:
-                        is = ItemCreator.itemCreate(Material.BOOKSHELF);
-                        is.setAmount(64);
-                        RewardItems.addItem(p, is, BiomiaServerType.Freebuild);
-
-                        RewardItems.addItem(p, ItemCreator.itemCreate(Material.ENCHANTMENT_TABLE), BiomiaServerType.Freebuild);
-                        is = ItemCreator.itemCreate(Material.LEATHER_BOOTS, "Farbklecks-Schuhe");
-                        LeatherArmorMeta elfenBootsMeta = (LeatherArmorMeta) is.getItemMeta();
-                        elfenBootsMeta.setColor(Color.fromRGB(0, 179, 44));
-                        is.setItemMeta(elfenBootsMeta);
-                        is.addUnsafeEnchantment(Enchantment.FROST_WALKER, 2);
-                        is.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4);
-                        RewardItems.addItem(p, is, BiomiaServerType.Quest);
-                        coinsToAdd += 500;
-                        osterhasenTalk = ("ßcOsterhaseß7: ßbSchon 25 Eier gefunden! Viel Spaﬂ mit den Belohnungen!");
-                        quest_rewards.add("1x Farbklecks-Schuhe");
-                        freebuild_rewards.add("64x B¸cherregal");
-                        break;
-                    case 50:
-                        is = ItemCreator.itemCreate(Material.GOLD_BLOCK);
-                        is.setAmount(9);
-                        RewardItems.addItem(p, is, BiomiaServerType.Freebuild);
-
-                        is = ItemCreator.itemCreate(Material.LEATHER_LEGGINGS, "Farbklecks-Hose");
-                        LeatherArmorMeta elfenPantsMeta = (LeatherArmorMeta) is.getItemMeta();
-                        elfenPantsMeta.setColor(Color.fromRGB(0, 179, 44));
-                        is.setItemMeta(elfenPantsMeta);
-                        is.addUnsafeEnchantment(Enchantment.PROTECTION_FALL, 2);
-                        is.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4);
-                        RewardItems.addItem(p, is, BiomiaServerType.Quest);
-                        coinsToAdd += 750;
-                        osterhasenTalk = ("ßcOsterhaseß7: ßbSchon 50 Eier, nicht schlecht! Die letzte Belohnung bekommst du aber nur, wenn du 100 findest!");
-                        quest_rewards.add("1x Farbklecks-Hose");
-                        freebuild_rewards.add("9x Goldblock");
-                        break;
-                    case 100:
-                        is = ItemCreator.itemCreate(Material.BEACON);
-                        RewardItems.addItem(p, is, BiomiaServerType.Freebuild);
-
-                        is = ItemCreator.itemCreate(Material.LEATHER_CHESTPLATE, "Farbklecks-Hemd");
-                        LeatherArmorMeta elfenChestMeta = (LeatherArmorMeta) is.getItemMeta();
-                        elfenChestMeta.setColor(Color.fromRGB(0, 179, 44));
-                        is.setItemMeta(elfenChestMeta);
-                        is.addUnsafeEnchantment(Enchantment.THORNS, 2);
-                        is.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4);
-                        RewardItems.addItem(p, is, BiomiaServerType.Quest);
-                        coinsToAdd += 1000;
-                        osterhasenTalk = ("ßcOsterhaseß7: ßbUff, jetzt hast du aber alle groﬂen Belohnungen abgestaubt!");
-                        quest_rewards.add("1x Farbklecks-Hemd");
-                        freebuild_rewards.add("1x Beacon");
-                        break;
-                    default:
-                        if (eggsFound > 100 && eggsWithoutRewards == 20) {
-                            is = ItemCreator.itemCreate(Material.DIAMOND);
-                            is.setAmount(5);
-                            RewardItems.addItem(p, is, BiomiaServerType.Freebuild);
-
-                            RewardItems.addItem(p, ItemCreator.itemCreate(Material.GOLDEN_APPLE), BiomiaServerType.Quest);
-                            coinsToAdd += 250;
-                            osterhasenTalk = ("ßcOsterhaseß7: b7Noch mehr Eier! Viel Spaﬂ mit den Belohnungen!");
-                            quest_rewards.add("1x Goldener Apfel");
-                            freebuild_rewards.add("5x Diamanten");
-                        }
-                }
+                    }
             }
         }
 
