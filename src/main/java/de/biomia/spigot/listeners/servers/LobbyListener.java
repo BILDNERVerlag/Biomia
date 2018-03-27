@@ -63,7 +63,6 @@ public class LobbyListener extends BiomiaListener {
     @EventHandler
     public void onRespawn(PlayerRespawnEvent pr) {
         Player pl = pr.getPlayer();
-
         LobbyInventoryManager.setInventory(pl);
     }
 

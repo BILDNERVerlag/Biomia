@@ -52,12 +52,56 @@ public class Stats {
 
         //Events
 
-        SpecialEggsFound, BW_ItemsBoughtNames, BW_FinalKills, BW_FinalDeaths, EasterEggsFound
+        SpecialEggsFound, BW_ItemsBoughtNames, BW_FinalKills, BW_FinalDeaths, EasterEggsFound;
+
+
+        /**
+         * Zaehle einen bestimmten Stat eines bestimmten Spielers um einen uebergebenen
+         * Wert hoch.
+         */
+        public void increment(int biomiaID, int increment, String comment) {
+            if (biomiaID == -1) {
+                new InputMismatchException().printStackTrace();
+                return;
+            }
+            int value = getStat(this, biomiaID, comment) + increment;
+            MySQL.executeUpdate("INSERT INTO `" + this.name() + "`(ID, value, inc" + (comment != null ? ", comment" : "") + ") VALUES (" + biomiaID + ", " + value + ", " + increment + (comment != null ? ", '" + comment + "'" : "") + ")", MySQL.Databases.stats_db);
+            checkForAchievementUnlocks(this, biomiaID, value);
+        }
+
+        public HashMap<Integer, Integer> getTop(int topX, String comment) {
+            HashMap<Integer, Integer> leaderboard = new HashMap<>();
+
+            Connection con = MySQL.Connect(MySQL.Databases.stats_db);
+            if (con != null) {
+                try {
+                    PreparedStatement statement = con.prepareStatement("SELECT ID AS biomiaID, COUNT(`value`) AS value FROM " + this.name() + (comment == null ? "" : ("WHERE comment = '" + comment + "'")) + " GROUP BY spieler ORDER BY value DESC LIMIT ?");
+                    statement.setInt(0, topX);
+                    ResultSet rs = statement.executeQuery();
+                    while (rs.next()) {
+                        leaderboard.put(rs.getInt("biomiaID"), rs.getInt("value"));
+                    }
+                    rs.close();
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            return leaderboard;
+        }
+
+        public static int getStat(BiomiaStat stat, int biomiaID, String comment) {
+            int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + stat.toString() + "` where ID = " + biomiaID + " AND comment = '" + comment + "'", "value", MySQL.Databases.stats_db);
+            return out == -1 ? 0 : out;
+        }
+
     }
+
 
     /**
      * Zaehle einen bestimmten Stat eines bestimmten Spielers um 1 hoch.
      */
+    @Deprecated
     public static void incrementStat(BiomiaStat stat, int biomiaID) {
         incrementStatBy(stat, biomiaID, 1);
     }
@@ -66,6 +110,7 @@ public class Stats {
      * Zaehle einen bestimmten Stat eines bestimmten Spielers um einen uebergebenen
      * Wert hoch.
      */
+    @Deprecated
     public static void incrementStatBy(BiomiaStat stat, int biomiaID, int increment) {
         if (biomiaID == -1) {
             new InputMismatchException().printStackTrace();
@@ -76,6 +121,7 @@ public class Stats {
         checkForAchievementUnlocks(stat, biomiaID, value);
     }
 
+    @Deprecated
     public static void incrementStat(BiomiaStat stat, int biomiaID, String comment) {
         if (biomiaID == -1) {
             new InputMismatchException().printStackTrace();
@@ -86,23 +132,26 @@ public class Stats {
         checkForAchievementUnlocks(stat, biomiaID, value);
     }
 
+    @Deprecated
     public static void incrementStat(BiomiaStat stat, Player player, String comment) {
         int biomiaID = Biomia.getBiomiaPlayer(player).getBiomiaPlayerID();
         incrementStat(stat, biomiaID, comment);
     }
 
+    @Deprecated
     public static void incrementStatBy(BiomiaStat stat, Player player, int increment) {
         int biomiaID = Biomia.getBiomiaPlayer(player).getBiomiaPlayerID();
         incrementStatBy(stat, biomiaID, increment);
     }
 
+    @Deprecated
     public static void incrementStat(BiomiaStat stat, Player player) {
         int biomiaID = Biomia.getBiomiaPlayer(player).getBiomiaPlayerID();
         incrementStatBy(stat, biomiaID, 1);
     }
 
+    @Deprecated
     public static HashMap<String, Integer> getComments(BiomiaStat stat, int biomiaID) {
-        //SELECT `comment` FROM tabelle WHERE ID = biomiaID
         HashMap<String, Integer> output = new HashMap<>();
         Connection con = MySQL.Connect(MySQL.Databases.stats_db);
         if (con != null)
@@ -136,41 +185,35 @@ public class Stats {
         return out == -1 ? 0 : out;
     }
 
-    public static int getStat(BiomiaStat stat, int biomiaID, String comment) {
-        int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + stat.toString() + "` where ID = " + biomiaID + " AND comment = '" + comment + "'", "value", MySQL.Databases.stats_db);
-        return out == -1 ? 0 : out;
-    }
-
-    public static int getTop(BiomiaStat stat, String comment) {
-        int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS ID FROM `" + stat.toString() + "` where comment = '" + comment + "'", "ID", MySQL.Databases.stats_db);
-        return out == -1 ? 0 : out;
-    }
-
     public static int getTop(BiomiaStat stat) {
         int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS ID FROM " + stat.toString(), "ID", MySQL.Databases.stats_db);
         return out == -1 ? 0 : out;
     }
 
-    public static int getTop(int topX, BiomiaStat stat) {
+    public static HashMap<Integer, Integer> getTop(int topX, BiomiaStat stat, String comment) {
 
+        HashMap<Integer, Integer> leaderboard = new HashMap<>();
 
-        //TODO
-//        Connection con = MySQL.Connect(MySQL.Databases.stats_db);
-//        if (con != null) {
-//            boolean withComment = false;
-//            try {
-//                PreparedStatement statement = con.prepareStatement("SELECT `value`, `inc` FROM `" + stat.toString());
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        int out = MySQL.executeQuerygetint("SELECT value, ID FROM " + stat.toString(), "ID", MySQL.Databases.stats_db);
-        return 1;
+        Connection con = MySQL.Connect(MySQL.Databases.stats_db);
+        if (con != null) {
+            try {
+                PreparedStatement statement = con.prepareStatement("SELECT ID AS biomiaID, COUNT(`value`) AS value FROM " + stat.name() + (comment == null ? "" : ("WHERE comment = '" + comment + "'")) + " GROUP BY spieler ORDER BY value DESC LIMIT ?");
+                statement.setInt(0, topX);
+                ResultSet rs = statement.executeQuery();
+                while (rs.next()) {
+                    leaderboard.put(rs.getInt("biomiaID"), rs.getInt("value"));
+                }
+                rs.close();
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return leaderboard;
     }
 
 //    public static int getTopLastX(BiomiaStat stat, String datetime_expr, int amount) {
-//        //TODO
+//        TODO
 //        return 0;
 //    }
 
