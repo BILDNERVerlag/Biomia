@@ -1,67 +1,72 @@
 package de.biomia.spigot.tools;
 
 import de.biomia.universal.UniversalBiomia;
+import me.lucko.luckperms.LuckPerms;
+import me.lucko.luckperms.api.LuckPermsApi;
+import me.lucko.luckperms.api.User;
 import org.bukkit.entity.Player;
-import ru.tehkode.permissions.PermissionUser;
-import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class RankManager {
 
+    public static LuckPermsApi api = LuckPerms.getApi();
+
     public static String getRank(Player p) {
-        PermissionUser user = PermissionsEx.getUser(p);
-        String[] groups = user.getGroupsNames();
-        return groups[0];
+        User user = api.getUser(p.getUniqueId());
+        if (user != null)
+            return user.getPrimaryGroup();
+        return "";
     }
 
     public static String getRank(String s) {
-        PermissionUser user = PermissionsEx.getUser(s);
-        String[] groups = user.getGroupsNames();
-        return groups[0];
+        User user = api.getUser(s);
+        if (user != null)
+            return user.getPrimaryGroup();
+        return "";
     }
 
     public static void setRank(Player p, String rank) {
-        PermissionUser user = PermissionsEx.getUser(p);
-        String[] groups = {rank};
-        user.setGroups(groups);
+        User user = api.getUser(p.getUniqueId());
+        if (user != null)
+            user.setPrimaryGroup(rank);
     }
 
     public static void setRank(String playerName, String rank) {
-        PermissionUser user = PermissionsEx.getUser(playerName);
-        String[] groups = {rank};
-        user.setGroups(groups);
+        User user = api.getUser(playerName);
+        if (user != null)
+            user.setPrimaryGroup(rank);
     }
 
     public static boolean isPremium(String name) {
-        String rank = RankManager.getRank(name).toLowerCase();
+        String rank = getRank(name);
         return rank.contains("premium");
     }
 
     public static int getPremiumLevel(String name) {
-        String s = RankManager.getRank(name).replace("Premium", "");
+        String s = getRank(name).replace("premium", "");
 
         switch (s) {
-            case "Eins":
-                return 1;
-            case "Zwei":
-                return 2;
-            case "Drei":
-                return 3;
-            case "Vier":
-                return 4;
-            case "Fuenf":
-                return 5;
-            case "Sechs":
-                return 6;
-            case "Sieben":
-                return 7;
-            case "Acht":
-                return 8;
-            case "Neun":
-                return 9;
-            case "Zehn":
-                return 10;
-            default:
-                return -1;
+        case "eins":
+            return 1;
+        case "zwei":
+            return 2;
+        case "drei":
+            return 3;
+        case "vier":
+            return 4;
+        case "fünf":
+            return 5;
+        case "sechs":
+            return 6;
+        case "sieben":
+            return 7;
+        case "acht":
+            return 8;
+        case "neun":
+            return 9;
+        case "zehn":
+            return 10;
+        default:
+            return -1;
         }
     }
 

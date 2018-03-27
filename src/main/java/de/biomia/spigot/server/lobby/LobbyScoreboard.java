@@ -118,37 +118,37 @@ public class LobbyScoreboard {
 
     private static String getGroupName(Player p) {
         String rankName = RankManager.getRank(p);
-        if (rankName.contains("Premium")) {
+        if (rankName.contains("premium")) {
             rankName = rankName.substring(7);
             switch (rankName) {
-                case "Eins":
+            case "eins":
                     rankName = "Premium I";
                     break;
-                case "Zwei":
+            case "zwei":
                     rankName = "Premium II";
                     break;
-                case "Drei":
+            case "drei":
                     rankName = "Premium III";
                     break;
-                case "Vier":
+            case "vier":
                     rankName = "Premium IV";
                     break;
-                case "Fuenf":
+            case "fünf":
                     rankName = "Premium V";
                     break;
-                case "Sechs":
+            case "sechs":
                     rankName = "Premium VI";
                     break;
-                case "Sieben":
+            case "sieben":
                     rankName = "Premium VII";
                     break;
-                case "Acht":
+            case "acht":
                     rankName = "Premium VIII";
                     break;
-                case "Neun":
+            case "neun":
                     rankName = "Premium IX";
                     break;
-                case "Zehn":
+            case "zehn":
                     rankName = "Premium X";
                     break;
             }

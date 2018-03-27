@@ -65,7 +65,7 @@ public class Stats {
                 return;
             }
             int value = getStat(this, biomiaID, comment) + increment;
-            MySQL.executeUpdate("INSERT INTO `" + this.name() + "`(ID, value, inc" + (comment != null ? ", comment" : "") + ") VALUES (" + biomiaID + ", " + value + ", " + increment + (comment != null ? ", '" + comment + "'" : "") + ")", MySQL.Databases.stats_db);
+            MySQL.executeUpdate("INSERT INTO `" + this.name() + "`(biomiaID, value, inc" + (comment != null ? ", comment" : "") + ") VALUES (" + biomiaID + ", " + value + ", " + increment + (comment != null ? ", '" + comment + "'" : "") + ")", MySQL.Databases.stats_db);
             checkForAchievementUnlocks(this, biomiaID, value);
         }
 
@@ -75,7 +75,7 @@ public class Stats {
             Connection con = MySQL.Connect(MySQL.Databases.stats_db);
             if (con != null) {
                 try {
-                    PreparedStatement statement = con.prepareStatement("SELECT ID AS biomiaID, COUNT(`value`) AS value FROM " + this.name() + (comment == null ? "" : ("WHERE comment = '" + comment + "'")) + " GROUP BY spieler ORDER BY value DESC LIMIT ?");
+                    PreparedStatement statement = con.prepareStatement("SELECT biomiaID, COUNT(`value`) AS value FROM " + this.name() + (comment == null ? "" : ("WHERE comment = '" + comment + "'")) + " GROUP BY spieler ORDER BY value DESC LIMIT ?");
                     statement.setInt(0, topX);
                     ResultSet rs = statement.executeQuery();
                     while (rs.next()) {
