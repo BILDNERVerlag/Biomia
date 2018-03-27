@@ -144,7 +144,7 @@ public class Main extends JavaPlugin {
             //TODO Farmserver nach Fertigstellung hinzufuegen
             break;
         case BauServer:
-            Biomia.setServerInstance(new BiomiaServer(BiomiaServerType.SkyWars) {
+            Biomia.setServerInstance(new BiomiaServer(BiomiaServerType.BauServer) {
                 @Override
                 public void start() {
                     super.start();

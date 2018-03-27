@@ -51,12 +51,13 @@ public class Osterhase implements Listener {
     }
 
     private void initDialog() {
-        startDialog = new DialogMessage(q, osterhase).setInhalt("Huiuiui, alle Eier verloren, so ein Unglück..");
-        startDialog.setNext("Oh, hast du ein paar meiner Eier gefunden..?", 0, osterhase).setFortsetzung("Wer bist du?").setFortsetzung("Ja, hab ich!").setFortsetzung("Nein, leider nicht.");
-        startDialog.getNext(0).setNext("Ich bin der Osterhase! Aber ich habe fast alle meine schönen weissblauen Eier verloren... Bring sie mir wieder, aber nur genau diese!", 0, osterhase)
-                .setNext("Ach, und diese ganz besonderen, regenbogenfarbigen Eier gibt es auch noch.. Aber ich glaube nicht, dass du die findest!",0,osterhase);
-        startDialog.getNext(0).setNext("Ach, tatsächlich..? Komm nochmal, sobald du mehr hast!", 1, osterhase).addEvent(giveRewardEvent);
-        startDialog.getNext(0).setNext("Oh, schade...", 2, osterhase).setNext("Komm doch wieder, sobald du welche hast!",0,osterhase);
+        startDialog = new DialogMessage(q, osterhase).setInhalt("Huiuiui, alle Eier verloren, so ein Unglück..\n" +
+                "Oh, hast du etwa ein paar davon gefunden..?");
+        startDialog.setFortsetzung("Wer bist du?").setFortsetzung("Ja, hab ich!").setFortsetzung("Nein, leider nicht.");
+        startDialog.setNext("Ich bin der Osterhase! Aber ich habe fast alle meine schönen weissblauen Eier verloren... Bring sie mir wieder, aber nur genau solche wie die hier, die um mich herumliegen!", 0, osterhase)
+                .setNext("Ach, und diese ganz besonderen, regenbogenfarbigen Eier gibt es auch noch.. Aber ich glaube nicht, dass du davon welche findest!", 0, osterhase);
+        startDialog.setNext("Ach, tatsächlich..? Komm nochmal, sobald du mehr hast!", 1, osterhase).addEvent(giveRewardEvent);
+        startDialog.setNext("Oh, schade...", 2, osterhase).setNext("Komm doch wieder, sobald du welche hast!", 0, osterhase);
         /*
         "ich hab alle meine ostereier verloren"
         "geschenke abholen"
