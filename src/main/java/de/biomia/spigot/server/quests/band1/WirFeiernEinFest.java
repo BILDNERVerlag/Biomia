@@ -4,6 +4,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
 import de.biomia.spigot.server.quests.QuestEvents.AddCoinEvent;
 import de.biomia.spigot.server.quests.QuestEvents.GiveItemEvent;
+import de.biomia.spigot.server.quests.QuestEvents.SummonEntity;
 import de.biomia.spigot.server.quests.QuestEvents.TakeItemEvent;
 import de.biomia.spigot.server.quests.Quests;
 import de.biomia.spigot.server.quests.general.*;
@@ -91,14 +92,14 @@ public class WirFeiernEinFest implements Listener {
         comeBackWithFireworks.addEvent(new GiveItemEvent(Material.FLINT_AND_STEEL, 1));
         comeBackWithFireworks.addEvent(new AddCoinEvent(300));
 
-        // if (habil != null) {
-        // Location loc = Bukkit.getEntity(habil.getUniqueId()).getLocation().add(0, 3,
-        // 0);
-        //
-        // comeBackWithFireworks.addEvent(new SummonEntity(loc, EntityType.FIREWORK,
-        // 3));
-        // comeBackWithFireworks.finish();
-        // }
+        if (habil != null) {
+            Location loc = Bukkit.getEntity(habil.getUniqueId()).getLocation().add(0, 3,
+                    0);
+
+            comeBackWithFireworks.addEvent(new SummonEntity(loc, EntityType.FIREWORK,
+                    3));
+            comeBackWithFireworks.finish();
+        }
 
         // nach quest
         nachQuest = new DialogMessage(q, habil).setInhalt("Gro\u00dfartiges Feuerwerk war das.");

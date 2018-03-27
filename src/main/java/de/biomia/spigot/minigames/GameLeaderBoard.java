@@ -12,27 +12,28 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class GameLeaderBoard {
+class GameLeaderBoard {
 
     private final ArrayList<Location> locations;
     private final BiomiaServerType type;
-    private final int lastXDays;
     private final Stats.BiomiaStat sortBy;
 
-    public GameLeaderBoard(ArrayList<Location> locations, BiomiaServerType target, int lastXDays, Stats.BiomiaStat sortBy) {
+    public GameLeaderBoard(ArrayList<Location> locations, BiomiaServerType target, Stats.BiomiaStat sortBy) {
         //TODO besprechen wie in versus tracken? als bedwars? oder gesammt winns zb oder wie?
         this.locations = locations;
         this.type = target;
-        this.lastXDays = lastXDays;
         this.sortBy = sortBy;
     }
 
     public void reloadLeaderBoardSigns() {
 
+        HashMap<Integer, Integer> map = sortBy.getTop(locations.size(), null);
+
         for (int i = 1; i <= locations.size(); i++) {
 
-            OfflineBiomiaPlayer bp = Biomia.getOfflineBiomiaPlayer(Stats.getTop(sortBy));
+            OfflineBiomiaPlayer bp = Biomia.getOfflineBiomiaPlayer(map.get(i));
 
             Location location = locations.get(i - 1);
 
@@ -41,10 +42,12 @@ public class GameLeaderBoard {
                 int wins = 0, kills = 0, deaths = 0, playedGames = 0;
 
                 switch (type) {
-                case SkyWars:
-                    deaths = 1;
-                case BedWars:
-                    deaths = 1;
+                    case SkyWars:
+                        deaths = 1;
+                        break;
+                    case BedWars:
+                        deaths = 1;
+                        break;
                 }
 
 

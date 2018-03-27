@@ -3,7 +3,6 @@ package de.biomia.spigot.minigames.general;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.MinigamesMessages;
-import de.biomia.spigot.messages.manager.ActionBar;
 import de.biomia.spigot.messages.manager.Title;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;

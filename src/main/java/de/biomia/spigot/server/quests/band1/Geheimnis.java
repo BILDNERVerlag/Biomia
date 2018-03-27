@@ -19,14 +19,10 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import java.util.HashMap;
-import java.util.UUID;
-
 public class Geheimnis implements Listener {
 
     private final Quest q = Biomia.getQuestManager().registerNewQuest("Geheimnis", 1);
     private final NPC nana;
-    HashMap<UUID, Quest> hm = new HashMap<>();
     private DialogMessage startDialog;
     private DialogMessage comeBackWStroh;
     private DialogMessage comeBackWOStroh;

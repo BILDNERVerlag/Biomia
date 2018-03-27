@@ -35,8 +35,8 @@ public class DialogMessage {
         this.q = q;
     }
 
-    public DialogMessage setInhalt(String npcAuskunft) {
-        inhalt = npcAuskunft;
+    public DialogMessage setInhalt(String dialog) {
+        inhalt = dialog;
         return this;
     }
 
@@ -48,10 +48,6 @@ public class DialogMessage {
 
     public DialogMessage setNext(String s, int i, NPC npc) {
         return nexterAbschnitt[i] = new DialogMessage(q, npc).setInhalt(s);
-    }
-
-    public DialogMessage setNext(DialogMessage dm0, int i) {
-        return nexterAbschnitt[i] = dm0;
     }
 
     private void sendeAntwort(QuestPlayer qp) {

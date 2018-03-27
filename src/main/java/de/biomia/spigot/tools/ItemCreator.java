@@ -9,14 +9,11 @@ import org.bukkit.inventory.meta.SkullMeta;
 public class ItemCreator {
 
     public static ItemStack itemCreate(Material material, String name, short data) {
-
         ItemStack itemStack = new ItemStack(material, 1, data);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(name);
         itemStack.setItemMeta(itemMeta);
-
         return itemStack;
-
     }
 
     private static ItemStack itemCreate(short data) {
@@ -24,35 +21,20 @@ public class ItemCreator {
     }
 
     public static ItemStack itemCreate(Material material, String name) {
-
         ItemStack itemStack = new ItemStack(material);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(name);
         itemStack.setItemMeta(itemMeta);
-
         return itemStack;
-
     }
 
     public static ItemStack itemCreate(Material material) {
-
         return new ItemStack(material);
-
     }
 
     public static ItemStack setAmount(ItemStack itemStack, int menge) {
         itemStack.setAmount(menge);
         return itemStack;
-    }
-
-    public static ItemStack setUnbreakable(ItemStack itemStack) {
-
-        ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setUnbreakable(true);
-        itemStack.setItemMeta(itemMeta);
-
-        return itemStack;
-
     }
 
     public static ItemStack headWithSkin(String name) {

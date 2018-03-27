@@ -21,9 +21,9 @@ import java.util.Random;
 
 public class Reward {
 
-    private int rewardID;
-    private byte id;
-    private rewardType type;
+    private final int rewardID;
+    private final byte id;
+    private final rewardType type;
 
     public static Reward getRandomReward(BiomiaPlayer biomiaPlayer) {
         ArrayList<Integer> ids = getRewards(biomiaPlayer);

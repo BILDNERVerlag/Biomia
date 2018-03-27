@@ -3,17 +3,23 @@
   <component name="EntryPointsManager">
     <entry_points version="2.0">
       <entry_point TYPE="field" FQNAME="de.biomiaAPI.QuestEvents.TakeItemEvent qp" />
+      <entry_point TYPE="field" FQNAME="de.biomia.bungee.events.Login wartungsmodus" />
+      <entry_point TYPE="field" FQNAME="de.biomia.bungee.events.Login isLobbyServerOnline" />
     </entry_points>
     <list size="2">
-          <item index="0" class="java.lang.String" itemvalue="net.md_5.bungee.event.EventHandler"/>
-          <item index="1" class="java.lang.String" itemvalue="org.bukkit.event.EventHandler"/>
+      <item index="0" class="java.lang.String" itemvalue="net.md_5.bungee.event.EventHandler" />
+      <item index="1" class="java.lang.String" itemvalue="org.bukkit.event.EventHandler" />
     </list>
-    <pattern value="de.biomia.bungee.BungeeMain" method="onEnable"/>
-    <pattern value="de.biomia.bungee.BungeeMain" method="onDisable"/>
-    <pattern value="de.biomia.Main"/>
-    <pattern value="de.biomia.Main" method="onEnable"/>
+    <pattern value="de.biomia.bungee.BungeeMain" hierarchically="true" method="onEnable" />
+    <pattern value="de.biomia.bungee.BungeeMain" method="onDisable" />
+    <pattern value="de.biomia.Main" />
+    <pattern value="de.biomia.Main" method="onEnable" />
     <pattern value="de.biomia.Main" method="onLoad" />
     <pattern value="de.biomia.Main" method="onDisable" />
+    <pattern value="org.bukkit.event.Event" method="getHandlerList" />
+    <pattern value="de.biomia.bungee.events.Login" method="onLogin" />
+    <pattern value="de.biomia.spigot.events.game.GameStartEvent" method="getHandlerList" />
+    <pattern value="net.md_5.bungee.api.plugin.Command" hierarchically="true" />
   </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Desktop/BiomiaDoc" />

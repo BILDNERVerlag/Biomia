@@ -19,18 +19,14 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import java.util.HashMap;
-import java.util.UUID;
-
 public class BlumenFuerDieGeliebte implements Listener {
     private final Quest q = Biomia.getQuestManager().registerNewQuest("BlumenGeliebte", 1);
     private final NPC roman;
     private final NPC julchen;
-    HashMap<UUID, Quest> hm = new HashMap<>();
     private DialogMessage startDialogRoman;
     private DialogMessage startDialogJulchen;
-    //TODO init nachQuestJulchen
     private DialogMessage nachQuestJulchen;
+    private DialogMessage nachQuestRoman;
     private DialogMessage comeBackWRose;
     private DialogMessage comeBackWORose;
     private DialogMessage mehrAufmerksamkeit;
@@ -84,6 +80,8 @@ public class BlumenFuerDieGeliebte implements Listener {
                     }
                 } else if (!qp.hasFinished(q)) {
                     qp.setDialog(startDialogRoman);
+                } else {
+                    qp.setDialog(nachQuestRoman);
                 }
                 qp.getDialog().execute(qp);
             }
@@ -233,8 +231,8 @@ public class BlumenFuerDieGeliebte implements Listener {
         julchenRose.getNext(1).addEvent(new TakeItemEvent(Material.RED_ROSE, 1));
 
         // nachQuest
-        @SuppressWarnings("unused")
-        DialogMessage nachQuestRoman = new DialogMessage(q, roman).setInhalt("Danke f\u00fcr die Hilfe noch!");
+        nachQuestRoman = new DialogMessage(q, roman).setInhalt("Danke f\u00fcr die Hilfe noch!");
+        nachQuestJulchen = new DialogMessage(q, roman).setInhalt("Danke f\u00fcr alles!");
 
         // platzhalter
         platzhalter = new DialogMessage(q, julchen).setInhalt("XXX PLATZHALTER XXX");

@@ -18,13 +18,9 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import java.util.HashMap;
-import java.util.UUID;
-
 public class AufDerSucheNachGlueck implements Listener {
     private final Quest q = Biomia.getQuestManager().registerNewQuest("AufDerSucheNachGl\u00fcck", 1);
     private final NPC npc;
-    HashMap<UUID, Quest> hm = new HashMap<>();
     private DialogMessage startDialog;
     private DialogMessage vorQuest;
     private DialogMessage withoutRabbitFoot;
@@ -114,5 +110,6 @@ public class AufDerSucheNachGlueck implements Listener {
         vorQuest.getNext(0).setNext(
                 "Du musst nur einen Hasen erledigen. Wenn du Gl\u00fcck hast, bekommst du dann die Hasenpfote. Aber pass auf! Hasen sind sehr schnell! Du sollst auch nicht leer ausgehen. Wenn du es schaffst, bekommst du von mir ein Geschenk.",
                 1, npc).addPlayerToQuest();
+        nachQuest = new DialogMessage(q, npc).setInhalt("Danke dir.");
     }
 }

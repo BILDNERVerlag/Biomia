@@ -8,8 +8,8 @@ public class GameDeathEvent extends BiomiaPlayerGameEvent {
 
     private static final HandlerList handlerList = new HandlerList();
 
-    private BiomiaPlayer killer;
-    private boolean finalDeath;
+    private final BiomiaPlayer killer;
+    private final boolean finalDeath;
 
     @Override
     public HandlerList getHandlers() {

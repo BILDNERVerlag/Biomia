@@ -17,9 +17,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import java.util.HashMap;
-import java.util.UUID;
-
 public class FinteMitTinte implements Listener {
 
     private final Material itemZuBesorgen = Material.INK_SACK;
@@ -27,7 +24,6 @@ public class FinteMitTinte implements Listener {
 
     private final Quest q = Biomia.getQuestManager().registerNewQuest(questName, 1);
     private final NPC npc;
-    HashMap<UUID, Quest> hm = new HashMap<>();
     private DialogMessage startDialog;
     private DialogMessage comeWithItem;
     private DialogMessage comeWithoutItem;

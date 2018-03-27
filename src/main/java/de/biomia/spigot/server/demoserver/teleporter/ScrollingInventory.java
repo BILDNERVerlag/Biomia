@@ -33,10 +33,6 @@ public class ScrollingInventory implements Listener {
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
     }
 
-    public void addItem(ItemStack is) {
-        items.add(is);
-    }
-
     private void clearItems() {
         inv.clear();
         items.clear();

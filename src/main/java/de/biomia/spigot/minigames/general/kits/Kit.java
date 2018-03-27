@@ -5,7 +5,6 @@ import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;

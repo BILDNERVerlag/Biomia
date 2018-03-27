@@ -22,14 +22,12 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
-import java.util.UUID;
 
 public class BergHuehner implements Listener {
     private final Quest q = Biomia.getQuestManager().registerNewQuest("BergHuehner", 1);
     private final HashMap<QuestPlayer, Boolean> hasEggs = new HashMap<>();
     private final Location zielLoc = new Location(Bukkit.getWorld("Quests"), 216, 158, -162);
     private final NPC tom;
-    HashMap<UUID, Quest> hm = new HashMap<>();
     private DialogMessage startDialog;
     private DialogMessage comeBackWithEggs;
     private DialogMessage comeBackWithoutEggs;

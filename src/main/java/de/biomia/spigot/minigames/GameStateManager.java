@@ -38,10 +38,6 @@ public class GameStateManager {
         return actualGameState;
     }
 
-    public void setLobbyState(LobbyState lobbyState) {
-        this.lobbyState = lobbyState;
-    }
-
     public void setInGameState(InGameState inGameState) {
         this.inGameState = inGameState;
     }
@@ -58,7 +54,7 @@ public class GameStateManager {
         return inGameState != null ? inGameState : (inGameState = new InGameState(mode));
     }
 
-    public EndState getEndState() {
+    private EndState getEndState() {
         return endState != null ? endState : (endState = new EndState(mode));
     }
 
@@ -84,7 +80,7 @@ public class GameStateManager {
 
         private final CountDown countDown;
 
-        protected LobbyState(GameMode mode) {
+        LobbyState(GameMode mode) {
             super(mode);
             this.countDown = new CountDown(mode);
         }
@@ -165,14 +161,14 @@ public class GameStateManager {
         }
     }
 
-    public static class EndState extends State {
+    static class EndState extends State {
 
         EndState(GameMode mode) {
             super(mode);
         }
 
         @Override
-        public void start() {
+        void start() {
 
             for (Player p : Bukkit.getOnlinePlayers()) {
                 Biomia.getBiomiaPlayer(p).setBuild(false);

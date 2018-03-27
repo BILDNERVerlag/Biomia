@@ -12,7 +12,7 @@ import java.net.URL;
 
 public class SkinValue {
 
-    static private JsonParser parser = new JsonParser();
+    static private final JsonParser parser = new JsonParser();
 
     private static String getSkinCode(String uuid) {
         String API_PROFILE_LINK = "https://sessionserver.mojang.com/session/minecraft/profile/";

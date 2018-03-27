@@ -28,7 +28,7 @@ public class SpawnItems {
 
     private final World world;
 
-    private HashMap<ItemType, ArrayList<Location>> locations;
+    private final HashMap<ItemType, ArrayList<Location>> locations;
 
     public SpawnItems(HashMap<ItemType, ArrayList<Location>> locations, World world) {
         this.locations = locations;

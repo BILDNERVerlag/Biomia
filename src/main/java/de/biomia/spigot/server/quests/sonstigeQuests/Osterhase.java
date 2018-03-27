@@ -14,9 +14,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import java.util.HashMap;
-import java.util.UUID;
-
 public class Osterhase implements Listener {
 
     /*
@@ -27,7 +24,6 @@ public class Osterhase implements Listener {
 
     private final NPC osterhase;
     private final Quest q;
-    HashMap<UUID, Quest> hm = new HashMap<>();
     private DialogMessage startDialog;
 
     public Osterhase() {
@@ -65,13 +61,8 @@ public class Osterhase implements Listener {
          */
     }
 
-    private final Event giveRewardEvent = new Event() {
-        // anonyme klasse, da erstens platzsparender und zweitens ermoeglicht referenz
-        // auf das ghost-objekt (das eigl ja nicht im event ist)
-        @Override
-        public void executeEvent(QuestPlayer qp0) {
-            EasterEvent.giveReward(qp0.getBiomiaPlayer());
-        }
-    };
+    // anonyme klasse, da erstens platzsparender und zweitens ermoeglicht referenz
+// auf das ghost-objekt (das eigl ja nicht im event ist)
+    private final Event giveRewardEvent = qp0 -> EasterEvent.giveReward(qp0.getBiomiaPlayer());
 
 }

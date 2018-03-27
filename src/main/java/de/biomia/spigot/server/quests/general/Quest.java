@@ -10,13 +10,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Objects;
 
 public class Quest {
 
     private final ArrayList<NPC> npcs = new ArrayList<>();
-    private final HashMap<States, DialogMessage> dialog = new HashMap<>();
     private final String questName;
     private String displayName;
     private String infoText;
@@ -26,7 +24,6 @@ public class Quest {
     private final int band;
     private boolean repeatable;
     private boolean removeOnReload;
-    private boolean playableWithParty;
 
     //CONSTRUCTOR
     public Quest(String questName, int bandNummer) {
@@ -68,11 +65,6 @@ public class Quest {
     }
 
 
-    // GETTERS AND SETTERS
-    public HashMap<States, DialogMessage> getDialogs() {
-        return dialog;
-    }
-
     public boolean isRepeatable() {
         return repeatable;
     }
@@ -100,14 +92,6 @@ public class Quest {
     public int getQuestID() {
 
         return questid;
-    }
-
-    public DialogMessage getDialog(States stat) {
-        return dialog.get(stat);
-    }
-
-    public void setDialog(DialogMessage dialogpl, States stat) {
-        dialog.put(stat, dialogpl);
     }
 
     public ArrayList<Integer> getActivePlayerBiomiaIDs() {
@@ -145,14 +129,6 @@ public class Quest {
 
     public int getBand() {
         return band;
-    }
-
-    public boolean getPlayableWithParty() {
-        return playableWithParty;
-    }
-
-    public void setPlayableWithParty(boolean b) {
-        this.playableWithParty = b;
     }
 
     public void setCooldown(int cooldown, TIME t) {

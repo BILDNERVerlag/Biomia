@@ -2,12 +2,9 @@ package de.biomia.spigot;
 
 import de.biomia.spigot.server.quests.general.QuestManager;
 import de.biomia.spigot.server.quests.general.QuestPlayer;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
-import java.util.UUID;
 
 public class Biomia {
 
@@ -44,16 +41,6 @@ public class Biomia {
         if (p == null) {
             int biomiaID = OfflineBiomiaPlayer.getBiomiaPlayerID(name);
             return offlineBiomiaPlayers.computeIfAbsent(biomiaID, biomiaplayer -> new OfflineBiomiaPlayer(biomiaID, name));
-        } else {
-            return getBiomiaPlayer(p);
-        }
-    }
-
-    public static OfflineBiomiaPlayer getOfflineBiomiaPlayer(UUID uuid) {
-        Player p = org.bukkit.Bukkit.getPlayer(uuid);
-        if (p == null) {
-            int biomiaID = OfflineBiomiaPlayer.getBiomiaPlayerID(uuid);
-            return offlineBiomiaPlayers.computeIfAbsent(biomiaID, biomiaplayer -> new OfflineBiomiaPlayer(biomiaID, uuid));
         } else {
             return getBiomiaPlayer(p);
         }

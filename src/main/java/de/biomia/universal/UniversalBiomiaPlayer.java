@@ -11,10 +11,6 @@ public abstract class UniversalBiomiaPlayer {
     private String name;
     private UUID uuid;
 
-    public static boolean isPlayerRegistered(UUID uuid) {
-        return getBiomiaPlayerID(uuid) != -1;
-    }
-
     public static int getBiomiaPlayerID(UUID uuid) {
         return MySQL.executeQuerygetint("Select id from BiomiaPlayer where uuid = '" + uuid.toString() + "'", "id", MySQL.Databases.biomia_db);
     }
@@ -85,13 +81,5 @@ public abstract class UniversalBiomiaPlayer {
     public final void setCoins(int coins) {
         MySQL.executeUpdate("UPDATE `BiomiaCoins` SET `coins` = " + coins + " WHERE `ID` = " + biomiaID, MySQL.Databases.biomia_db);
     }
-
-    public abstract boolean isOnline();
-
-    public abstract void takeCoins(int coins);
-
-    public abstract void addCoins(int coins, boolean enableBoost);
-
-    public abstract void sendMessage(String string);
 
 }

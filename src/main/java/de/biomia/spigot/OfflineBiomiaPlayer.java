@@ -9,7 +9,6 @@ import org.bukkit.Bukkit;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.UUID;
 
 public class OfflineBiomiaPlayer extends UniversalBiomiaPlayer {
 
@@ -19,10 +18,6 @@ public class OfflineBiomiaPlayer extends UniversalBiomiaPlayer {
 
     OfflineBiomiaPlayer(int biomiaID, String name) {
         super(biomiaID, name);
-    }
-
-    OfflineBiomiaPlayer(int biomiaID, UUID uuid) {
-        super(biomiaID, uuid);
     }
 
     public void sendMessage(String string) {

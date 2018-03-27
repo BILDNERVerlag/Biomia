@@ -8,7 +8,6 @@ import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.TeamColor;
-import de.biomia.spigot.minigames.bedwars.BedWars;
 import de.biomia.spigot.minigames.general.shop.ItemType;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
@@ -17,8 +16,6 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.util.Set;
 
 public class BWCommand extends BiomiaCommand {
     //TODO renew (merge)
@@ -44,7 +41,7 @@ public class BWCommand extends BiomiaCommand {
                                 sender.sendMessage("/bedwars addloc team");
                             break;
                         case "addspawner":
-                            Location l = p.getTargetBlock((Set<Material>) null, 100).getLocation();
+                            Location l = p.getTargetBlock(null, 100).getLocation();
 
                             switch (l.getBlock().getType()) {
                                 case HARD_CLAY:
@@ -68,7 +65,7 @@ public class BWCommand extends BiomiaCommand {
                         case "addbed":
                             if (args.length >= 2) {
                                 Block blockFoot = p.getLocation().getBlock();
-                                Block blockHead = p.getTargetBlock((Set<Material>) null, 100);
+                                Block blockHead = p.getTargetBlock(null, 100);
 
                                 if (blockFoot.getType() == Material.BED_BLOCK && blockHead.getType() == Material.BED_BLOCK) {
                                     BedWarsConfig.addBedsLocations(blockHead.getLocation(), blockFoot.getLocation(), TeamColor.valueOf(args[1]));

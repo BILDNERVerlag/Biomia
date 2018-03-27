@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import static de.biomia.spigot.configs.Config.saveConfig;
 
 public class Hologram {
-
     public static void newHologram(Player p, String[] s) {
         int i = 0;
         for (String string : s) {
@@ -31,18 +30,6 @@ public class Hologram {
             Main.getPlugin().getConfig().set("Holograms", l);
             saveConfig();
             i++;
-        }
-    }
-
-    public static void removeHologram(ArmorStand armorStand) {
-
-        ArrayList<String> l = new ArrayList<>(Main.getPlugin().getConfig().getStringList("Holograms"));
-
-        if (l.contains(armorStand.getUniqueId().toString())) {
-            armorStand.remove();
-            l.remove(armorStand.getUniqueId().toString());
-            Main.getPlugin().getConfig().set("Holograms", l);
-            saveConfig();
         }
     }
 }

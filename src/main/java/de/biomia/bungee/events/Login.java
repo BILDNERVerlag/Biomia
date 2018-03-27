@@ -38,7 +38,9 @@ public class Login implements Listener {
         ProxiedPlayer pp = evt.getPlayer();
         OfflineBungeeBiomiaPlayer bp;
 
-        if (!UniversalBiomiaPlayer.isPlayerRegistered(pp.getUniqueId())) {
+
+
+        if (UniversalBiomiaPlayer.getBiomiaPlayerID(pp.getUniqueId()) == -1) {
             MySQL.executeUpdate("INSERT INTO `BiomiaPlayer` (`uuid`, `name`) VALUES ('" + pp.getUniqueId().toString() + "','" + pp.getName() + "')", MySQL.Databases.biomia_db);
             bp = BungeeBiomia.getOfflineBiomiaPlayer(pp.getUniqueId());
             MySQL.executeUpdate("INSERT INTO `BiomiaCoins` (`ID`, `coins`) VALUES (" + bp.getBiomiaPlayerID() + ", 0)", MySQL.Databases.biomia_db);
@@ -149,7 +151,7 @@ public class Login implements Listener {
                 }
             }
         }
-        if (ModusCommand.wm) {
+        if (ModusCommand.wartungsModus) {
             if (!pp.hasPermission("biomia.join")) {
                 TextComponent msg = new TextComponent(wartungsmodus);
                 pp.disconnect(msg);

@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 public class GameTeam {
 
-    protected final GameMode mode;
+    private final GameMode mode;
     private final HashMap<BiomiaPlayer, Boolean> players;
     private final TeamColor color;
     private final Location home;

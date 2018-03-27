@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class VoidWorldGenerator {
+class VoidWorldGenerator {
     //TODO: fertigmachen, testen
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
         return new Generator();

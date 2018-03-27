@@ -7,7 +7,7 @@ public abstract class GameEvent extends Event {
 
     private final GameMode mode;
 
-    protected GameEvent(GameMode mode) {
+    GameEvent(GameMode mode) {
         this.mode = mode;
     }
 

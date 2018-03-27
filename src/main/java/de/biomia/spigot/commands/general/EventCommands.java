@@ -4,6 +4,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.configs.Config;
+import de.biomia.spigot.specialEvents.easterEvent.EasterEvent;
 import de.biomia.spigot.specialEvents.winterEvent.WinterTag;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
@@ -68,7 +69,7 @@ public class EventCommands extends BiomiaCommand {
             if (easterEventOn) {
                 if (getName().equals("givereward") && p.hasPermission("biomia.event.givereward")) {
                     if (args.length >= 1) {
-                        Main.getEvent().giveReward(Biomia.getOfflineBiomiaPlayer(args[0]));
+                        EasterEvent.giveReward(Biomia.getOfflineBiomiaPlayer(args[0]));
                     }
                 }
                 if (getName().equals("addeggs") && p.hasPermission("biomia.event.addeggs")) {

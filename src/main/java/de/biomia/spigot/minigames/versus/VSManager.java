@@ -75,7 +75,7 @@ public class VSManager implements Listener {
         Scoreboards.setTabList(p);
     }
 
-    public void setInventory(Player p) {
+    private void setInventory(Player p) {
         p.getInventory().clear();
         p.getInventory().setItem(3, settingItem);
         p.getInventory().setItem(5, toChallangeItem);

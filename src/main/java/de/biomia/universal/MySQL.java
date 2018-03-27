@@ -7,12 +7,8 @@ import java.util.Properties;
 public abstract class MySQL {
 
     public enum Databases {
-        biomia_db, paf_db, perm_db, cosmetics_db, plots_db, quests_db, stats_db, misc_db, achiev_db
+        biomia_db, cosmetics_db, quests_db, stats_db, achiev_db
     }
-
-    /*
-    All versions that do not use the new Databases enum are from now on deprecated.
-     */
 
     private static final HashMap<Databases, Connection> connections = new HashMap<>();
 

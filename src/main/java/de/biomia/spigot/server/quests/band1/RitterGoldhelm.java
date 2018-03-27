@@ -24,15 +24,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class RitterGoldhelm implements Listener {
 
     private final Quest q = Biomia.getQuestManager().registerNewQuest("Goldhelm1", 1);
     private final NPC goldhelm;
-    HashMap<UUID, Quest> hm = new HashMap<>();
     private DialogMessage startDialogArmor;
     private DialogMessage startDialogNoArmor;
     private DialogMessage comeBackWithBones;

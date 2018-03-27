@@ -3,7 +3,6 @@ package de.biomia.spigot.minigames.bedwars;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
-import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.messages.manager.ActionBar;
@@ -11,7 +10,6 @@ import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.general.Teleport;
-import de.biomia.spigot.minigames.general.shop.ItemType;
 import de.biomia.spigot.tools.Particles;
 import net.minecraft.server.v1_12_R1.AttributeInstance;
 import net.minecraft.server.v1_12_R1.EnumParticle;
@@ -33,7 +31,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SpecialItems implements Listener {
+class SpecialItems implements Listener {
 
     private final GameMode mode;
     private final HashMap<GameTeam, Inventory> teamChests = new HashMap<>();
@@ -183,35 +181,6 @@ public class SpecialItems implements Listener {
             }
             l = start.getLocation();
         }
-    }
-
-    private void addSpawner(Location l, BlockFace blockFace, Player p, ItemType itemType) {
-
-        switch (blockFace) {
-            case UP:
-                l = l.add(0, 1, 0);
-                break;
-            case DOWN:
-                l = l.add(0, -1, 0);
-                break;
-            case EAST:
-                l = l.add(1, 0, 0);
-                break;
-            case NORTH:
-                l = l.add(0, 0, -1);
-                break;
-            case SOUTH:
-                l = l.add(0, 0, 1);
-                break;
-            case WEST:
-                l = l.add(-1, 0, 0);
-                break;
-            default:
-                p.sendMessage(BedWarsMessages.invailedSide);
-                return;
-        }
-
-        BedWarsConfig.addSpawnerLocations(l, itemType);
     }
 
     private void warpHome(BiomiaPlayer bp, ItemStack is) {

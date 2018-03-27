@@ -10,7 +10,7 @@ import net.md_5.bungee.api.plugin.Command;
 
 public class ModusCommand extends Command {
 
-    public static boolean wm = getModus();
+    public static boolean wartungsModus = getModus();
 
     public ModusCommand(String name) {
         super(name);
@@ -25,14 +25,14 @@ public class ModusCommand extends Command {
                 if (args.length == 1) {
                     String switcher = args[0];
                     if (switcher.toLowerCase().equals("on")) {
-                        wm = true;
+                        wartungsModus = true;
                         setModus(true);
                         for (ProxiedPlayer p : BungeeCord.getInstance().getPlayers())
                             if (!p.hasPermission("biomia.join"))
                                 p.disconnect(new TextComponent("\u00A7cDer Server ist jetzt im \u00A7bWartungsmodus\u00A7c!"));
                         BungeeCord.getInstance().broadcast(new TextComponent("\u00A7cDer Server ist jetzt im \u00A7bWartungsmodus\u00A7c!"));
                     } else if (switcher.toLowerCase().equals("off")) {
-                        wm = false;
+                        wartungsModus = false;
                         setModus(false);
                         BungeeCord.getInstance().broadcast(new TextComponent("\u00A7cDer Server ist nicht l\u00e4nger im \u00A7bWartungsmodus\u00A7c!"));
                     }

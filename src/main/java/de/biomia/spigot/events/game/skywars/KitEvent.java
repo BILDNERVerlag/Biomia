@@ -2,8 +2,6 @@ package de.biomia.spigot.events.game.skywars;
 
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.events.BiomiaPlayerEvent;
-import de.biomia.spigot.events.game.BiomiaPlayerGameEvent;
-import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.general.kits.Kit;
 import org.bukkit.event.HandlerList;
 

@@ -18,13 +18,9 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import java.util.HashMap;
-import java.util.UUID;
-
 public class Kuerbissuche implements Listener {
     private final Quest q = Biomia.getQuestManager().registerNewQuest("K\u00fcrbissuche", 1);
     private final NPC korbinian;
-    HashMap<UUID, Quest> hm = new HashMap<>();
     private DialogMessage startDialog;
     private DialogMessage comeBackWPumpkin;
     private DialogMessage comeBackWOPumpkin;

@@ -65,21 +65,6 @@ public class ItemConditions {
         return (i >= menge);
     }
 
-    public static boolean hasItemOnArmor(QuestPlayer qp, Material material, int menge, String name, byte data) {
-
-        int i = 0;
-
-        MaterialData dat = new MaterialData(material, data);
-        for (ItemStack is : qp.getPlayer().getInventory().getArmorContents()) {
-            if (is != null)
-                if (is.getType() == material && is.getData() == dat && is.getItemMeta() != null
-                        && is.getItemMeta().getDisplayName().equals(name))
-                    i += is.getAmount();
-        }
-
-        return i >= menge;
-    }
-
     public static boolean hasItemOnArmor(QuestPlayer qp, Material material, int menge, String name) {
 
         int i = 0;
@@ -88,19 +73,6 @@ public class ItemConditions {
             if (is != null)
                 if (is.getType() == material && is.getItemMeta() != null
                         && is.getItemMeta().getDisplayName().equals(name))
-                    i += is.getAmount();
-        }
-
-        return i >= menge;
-    }
-
-    public static boolean hasItemOnArmor(QuestPlayer qp, Material material, int menge) {
-
-        int i = 0;
-
-        for (ItemStack is : qp.getPlayer().getInventory().getArmorContents()) {
-            if (is != null)
-                if (is.getType() == material)
                     i += is.getAmount();
         }
 

@@ -1,14 +1,10 @@
 package de.biomia.spigot.minigames.bedwars;
 
-import de.biomia.spigot.Biomia;
-import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.TeamColor;
-import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 

@@ -11,9 +11,9 @@ import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class WinterEvent implements Listener {
+class WinterEvent implements Listener {
 
-    public static HashMap<Integer, Reward> rewards = new HashMap<>();
+    public static final HashMap<Integer, Reward> rewards = new HashMap<>();
 
     @EventHandler
     public void onEntityInteract(PlayerInteractAtEntityEvent e) {

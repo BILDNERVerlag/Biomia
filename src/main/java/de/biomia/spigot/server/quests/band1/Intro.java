@@ -12,9 +12,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import java.util.HashMap;
-import java.util.UUID;
-
 public class Intro implements Listener {
 
     /*
@@ -25,7 +22,6 @@ public class Intro implements Listener {
 
     private final NPC aaron;
     private final Quest q;
-    HashMap<UUID, Quest> hm = new HashMap<>();
     private DialogMessage startDialog;
 
     public Intro() {

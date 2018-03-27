@@ -14,19 +14,14 @@ import java.util.Objects;
 
 public class SkyWarsKitManager {
 
-    public static boolean addKit(BiomiaPlayer biomiaPlayer, int kitID, int... months) {
-        return MySQL.executeUpdate("Insert into SkyWarsKits (`biomiaID`, `kitID`, `available`) values ("
+    public static void addKit(BiomiaPlayer biomiaPlayer, int kitID, int... months) {
+        MySQL.executeUpdate("Insert into SkyWarsKits (`biomiaID`, `kitID`, `available`) values ("
                 + biomiaPlayer.getBiomiaPlayerID() + ", " + kitID + ", '" + Arrays.toString(months) + "')", MySQL.Databases.biomia_db);
     }
 
     public static boolean addKit(BiomiaPlayer biomiaPlayer, int kitID) {
         return MySQL.executeUpdate("Insert into SkyWarsKits (`biomiaID`, `kitID`) values ("
                 + biomiaPlayer.getBiomiaPlayerID() + ", " + kitID + ")", MySQL.Databases.biomia_db);
-    }
-
-    public static boolean removeKit(BiomiaPlayer biomiaPlayer, int kitID) {
-        return MySQL.executeUpdate("Delete from SkyWarsKits where biomiaID = " + biomiaPlayer.getBiomiaPlayerID()
-                + " and kitID = " + kitID, MySQL.Databases.biomia_db);
     }
 
     public static ArrayList<Integer> getAvailableKits(BiomiaPlayer biomiaPlayer) {

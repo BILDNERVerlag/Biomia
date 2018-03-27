@@ -13,8 +13,6 @@ import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Set;
-
 import static de.biomia.spigot.configs.Config.saveConfig;
 
 public class SWCommand extends BiomiaCommand {
@@ -60,7 +58,7 @@ public class SWCommand extends BiomiaCommand {
                         }
                     case "addchest":
                         if (args.length >= 2) {
-                            Location l = p.getTargetBlock((Set<Material>) null, 100).getLocation();
+                            Location l = p.getTargetBlock(null, 100).getLocation();
                             if (l.getBlock().getType() == Material.CHEST) {
                                 switch (args[1].toLowerCase()) {
                                 case "g":

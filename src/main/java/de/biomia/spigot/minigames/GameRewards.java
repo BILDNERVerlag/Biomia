@@ -6,8 +6,8 @@ public enum GameRewards {
 
     KILL(50), WIN(30, 15), PLAYED(10);
 
-    private int coins;
-    private int versusCoins;
+    private final int coins;
+    private final int versusCoins;
 
     GameRewards(int coins, int versusCoins) {
         this.coins = coins;

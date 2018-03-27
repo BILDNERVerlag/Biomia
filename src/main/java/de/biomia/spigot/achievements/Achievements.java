@@ -2,6 +2,7 @@ package de.biomia.spigot.achievements;
 
 import java.util.ArrayList;
 
+@SuppressWarnings("SameParameterValue")
 public class Achievements {
 
     //ATTRIBUTES

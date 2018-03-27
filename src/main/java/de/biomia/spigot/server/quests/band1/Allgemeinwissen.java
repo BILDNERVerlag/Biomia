@@ -21,9 +21,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 public class Allgemeinwissen implements Listener {
 
@@ -44,7 +42,6 @@ public class Allgemeinwissen implements Listener {
             ghost.despawn();
         }
     };
-    HashMap<UUID, Quest> hm = new HashMap<>();
     private DialogMessage startDialog;
     private DialogMessage nachQuest;
     private DialogMessage inQuest;

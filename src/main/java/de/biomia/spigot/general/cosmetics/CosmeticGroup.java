@@ -99,7 +99,4 @@ public class CosmeticGroup {
         return icon;
     }
 
-    public ArrayList<? super CosmeticItem> getItems() {
-        return items;
-    }
 }

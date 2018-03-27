@@ -17,7 +17,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 
-    private GadgetListener gadgetListener;
+    private final GadgetListener gadgetListener;
     private final ItemStack gadgetItem;
 
     @EventHandler
@@ -53,10 +53,6 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
         gadgetListener = Cosmetic.getGadgetListener(id);
         this.gadgetItem = gadgetItem;
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
-    }
-
-    public void setGadgetListener(GadgetListener gadgetListener) {
-        this.gadgetListener = gadgetListener;
     }
 
     public ItemStack getGadgetItem() {

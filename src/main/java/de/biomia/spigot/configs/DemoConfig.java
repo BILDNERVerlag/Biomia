@@ -11,7 +11,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public class DemoConfig {
 
-    public static final FileConfiguration config = Main.getPlugin().getConfig();
+    private static final FileConfiguration config = Main.getPlugin().getConfig();
 
     public static void addObjekt(int seite, String name, Location loc, Material material) {
         int lastID = config.getInt("lastID");

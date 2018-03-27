@@ -9,7 +9,6 @@ import de.biomia.spigot.minigames.*;
 import de.biomia.spigot.minigames.general.TeamSwitcher;
 import de.biomia.spigot.minigames.general.Teleport;
 import de.biomia.spigot.minigames.general.chests.Chests;
-import de.biomia.spigot.minigames.general.chests.Items;
 import de.biomia.spigot.minigames.general.kits.KitManager;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
@@ -22,7 +21,7 @@ import static de.biomia.spigot.configs.Config.saveConfig;
 
 public class SkyWars extends GameMode {
 
-    private Chests chests;
+    private final Chests chests;
 
     @Override
     protected GameHandler initHandler() {

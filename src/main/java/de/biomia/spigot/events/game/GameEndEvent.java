@@ -12,7 +12,7 @@ public class GameEndEvent extends GameEvent {
 
     private static final HandlerList handlerList = new HandlerList();
 
-    private ArrayList<BiomiaPlayer> winner = new ArrayList<>();
+    private final ArrayList<BiomiaPlayer> winner = new ArrayList<>();
     private TeamColor winnerTeam = null;
 
 

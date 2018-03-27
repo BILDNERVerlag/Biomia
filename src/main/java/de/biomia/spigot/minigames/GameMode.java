@@ -7,7 +7,6 @@ import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.bedwars.BedWarsTeam;
 import de.biomia.spigot.minigames.general.TeamSwitcher;
-import de.biomia.spigot.minigames.general.Teleport;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -23,12 +22,12 @@ import java.util.UUID;
 
 public abstract class GameMode {
 
-    private static Location spawn = new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 45, 0);
+    private static final Location spawn = new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 45, 0);
     private MinigamesConfig config;
     protected Inventory teamSwitcher;
     private final GameInstance instance;
     private final ArrayList<GameTeam> teams = new ArrayList<>();
-    private GameStateManager stateManager = new GameStateManager(this);
+    private final GameStateManager stateManager = new GameStateManager(this);
     private GameHandler handler;
     private final HashMap<TeamColor, Entity> joiner = new HashMap<>();
 

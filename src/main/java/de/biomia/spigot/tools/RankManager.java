@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 public class RankManager {
 
-    public static LuckPermsApi api = LuckPerms.getApi();
+    private static final LuckPermsApi api = LuckPerms.getApi();
 
     public static String getRank(Player p) {
         User user = api.getUser(p.getUniqueId());

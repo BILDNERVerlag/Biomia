@@ -56,7 +56,7 @@ public class CosmeticParticleItem extends CosmeticItem {
     }
 
     private void removeItemFromInventory(BiomiaPlayer bp, int menge) {
-        new TakeItemEvent(getItem().getType(), getItem().getItemMeta().getDisplayName(), 1)
+        new TakeItemEvent(getItem().getType(), getItem().getItemMeta().getDisplayName(), menge)
                 .executeEvent(bp.getQuestPlayer());
     }
 }

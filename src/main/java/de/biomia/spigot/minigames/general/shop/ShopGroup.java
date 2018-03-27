@@ -59,10 +59,6 @@ public class ShopGroup {
         items.add(item);
     }
 
-    public String getName() {
-        return name;
-    }
-
     public String getFullName() {
         return color + name;
     }

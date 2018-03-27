@@ -90,7 +90,7 @@ public class Stats {
             return leaderboard;
         }
 
-        public static int getStat(BiomiaStat stat, int biomiaID, String comment) {
+        static int getStat(BiomiaStat stat, int biomiaID, String comment) {
             int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + stat.toString() + "` where ID = " + biomiaID + " AND comment = '" + comment + "'", "value", MySQL.Databases.stats_db);
             return out == -1 ? 0 : out;
         }

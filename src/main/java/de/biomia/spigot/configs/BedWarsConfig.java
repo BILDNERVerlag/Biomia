@@ -17,8 +17,8 @@ public class BedWarsConfig extends MinigamesConfig {
         super(mode);
     }
 
-    public void addSignsLocation(Location loc, int id) {
-
+//    public void addSignsLocation(Location loc, int id) {
+//
 //        Sign sign = (Sign) loc.getBlock().getState();
 //        org.bukkit.material.Sign signData = (org.bukkit.material.Sign) sign.getData();
 //
@@ -26,8 +26,8 @@ public class BedWarsConfig extends MinigamesConfig {
 //        getConfig().set(getSavePath("Signs." + (id) + ".Facing"), signData.getFacing().name());
 //
 //        Variables.signLocations.put(sign, id);
-        saveConfig();
-    }
+    //        saveConfig();
+    //   }
 
     public static void addSpawnerLocations(Location loc, ItemType spawner) {
 

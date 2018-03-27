@@ -15,7 +15,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 public class QuestPlayer {
 
@@ -25,8 +24,8 @@ public class QuestPlayer {
 
     private DialogMessage aktuellerDialog;
 
-    private ArrayList<Material> mineableBlocks = new ArrayList<>();
-    private ArrayList<Material> buildableBlocks = new ArrayList<>();
+    private final ArrayList<Material> mineableBlocks = new ArrayList<>();
+    private final ArrayList<Material> buildableBlocks = new ArrayList<>();
 
     // CONSTRUCTOR
     public QuestPlayer(BiomiaPlayer bp) {
@@ -107,39 +106,13 @@ public class QuestPlayer {
         mineableBlocks.remove(material);
     }
 
-    public void addBuildableBlock(Material material) {
-        buildableBlocks.add(material);
-    }
-
-    public void removeBuildableBlock(Material material) {
-        buildableBlocks.remove(material);
-    }
-
-    public void addMineableBlocks(ArrayList<Material> list_of_materials) {
-        mineableBlocks.addAll(list_of_materials);
-    }
-
-    public void removeMineableBlocks(ArrayList<Material> list_of_materialsm) {
-        for (Material i : list_of_materialsm) {
-            mineableBlocks.remove(i);
-        }
-    }
-
     //GETTERS AND SETTERS
     public ArrayList<Material> getMineableBlocks() {
         return mineableBlocks;
     }
 
-    public void setMineableBlocks(ArrayList<Material> mineableBlocks) {
-        this.mineableBlocks = mineableBlocks;
-    }
-
     public ArrayList<Material> getBuildableBlocks() {
         return buildableBlocks;
-    }
-
-    public void setBuildableBlocks(ArrayList<Material> mineableBlocks) {
-        this.buildableBlocks = mineableBlocks;
     }
 
     public List<Quest> getActiveQuests() {
@@ -232,11 +205,6 @@ public class QuestPlayer {
         return Objects.requireNonNull(getActiveQuests()).contains(quest);
     }
 
-    public DialogMessage setRandomDialog(ArrayList<DialogMessage> dm) {
-        aktuellerDialog = dm.get(new Random().nextInt(dm.size() - 1));
-        return aktuellerDialog;
-    }
-
     public DialogMessage getDialog() {
         return this.aktuellerDialog;
     }
@@ -251,14 +219,6 @@ public class QuestPlayer {
             return null;
         else
             return States.valueOf(s);
-    }
-
-    public int getNumberOfFinishedQuests() {
-        return getFinishedQuests().size();
-    }
-
-    public int getNumberOfActiveQuests() {
-        return Objects.requireNonNull(getActiveQuests()).size();
     }
 
     public Player getPlayer() {

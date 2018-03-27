@@ -5,6 +5,7 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
+import de.biomia.spigot.minigames.bedwars.BedWarsTeam;
 import de.biomia.spigot.minigames.general.ColorType;
 import de.biomia.spigot.minigames.general.shop.ItemType;
 import de.biomia.spigot.minigames.general.shop.Shop;
@@ -33,7 +34,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
-public class BedWarsShopListener implements Listener {
+class BedWarsShopListener implements Listener {
 
     private final VersusBedWars versusBedWars;
 
@@ -74,10 +75,9 @@ public class BedWarsShopListener implements Listener {
                                 ItemStack returnItem = iStack.clone();
 
                                 if (shopItem.isColorble()) {
-                                    VersusBedWarsTeam team = (VersusBedWarsTeam) bp.getTeam();
                                     if (shopItem.getType() == ColorType.LEATHER) {
                                         LeatherArmorMeta meta = (LeatherArmorMeta) returnItem.getItemMeta();
-                                        switch (team.getColor()) {
+                                        switch (bp.getTeam().getColor()) {
                                             case RED:
                                                 meta.setColor(Color.RED);
                                                 break;
@@ -89,7 +89,7 @@ public class BedWarsShopListener implements Listener {
                                         }
                                         returnItem.setItemMeta(meta);
                                     } else {
-                                        returnItem.setDurability(team.getColordata());
+                                        returnItem.setDurability(bp.getTeam().getColordata());
                                     }
                                 }
                                 if (e.getClick().isShiftClick()) {

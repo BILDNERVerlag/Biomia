@@ -75,6 +75,8 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="Maven: cloud.timo.TimoCloud:TimoCloud-API:5.1.3" level="project" />
+    <orderEntry type="library" name="Maven: me.lucko.luckperms:luckperms-api:4.1" level="project" />
+    <orderEntry type="library" name="Maven: cloud.timo.TimoCloud:TimoCloud-API:5.1.3" level="project" />
     <orderEntry type="library" name="Maven: net.citizensnpcs:citizensapi:2.0.22-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: me.lucko.luckperms:luckperms-api:4.1" level="project" />
     <orderEntry type="library" name="Maven: de.simonsator:Party-and-Friends-MySQL-Edition-Spigot-API:1.3.2" level="project" />

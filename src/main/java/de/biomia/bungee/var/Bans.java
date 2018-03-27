@@ -23,32 +23,16 @@ public class Bans {
         return biomiaID;
     }
 
-    public void setUuid(int biomiaID) {
-        this.biomiaID = biomiaID;
-    }
-
     public String getGrund() {
         return grund;
-    }
-
-    public void setGrund(String grund) {
-        this.grund = grund;
     }
 
     public boolean isPerm() {
         return perm;
     }
 
-    public void setPerm(boolean perm) {
-        this.perm = perm;
-    }
-
     public int getBis() {
         return bis;
-    }
-
-    public void setBis(int bis) {
-        this.bis = bis;
     }
 
     public int getVon() {

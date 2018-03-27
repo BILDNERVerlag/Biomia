@@ -18,9 +18,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import java.util.HashMap;
-import java.util.UUID;
-
 public class StillePost implements Listener {
     private final Quest q = Biomia.getQuestManager().registerNewQuest("StillePost", 1);
     private final NPC lorena;
@@ -28,8 +25,6 @@ public class StillePost implements Listener {
     private final NPC elisabeth;
     private final NPC mario;
     private final String compassName = "\u00A7bLorena's Kompass";
-    HashMap<UUID, Quest> hm = new HashMap<>();
-    DialogMessage comeToFrankyWCompass, comeToElisabethWCompass, comeToMarioWCompass;
     private DialogMessage startDialogLorena;
     private DialogMessage startDialogFranky;
     private DialogMessage startDialogElisabeth;

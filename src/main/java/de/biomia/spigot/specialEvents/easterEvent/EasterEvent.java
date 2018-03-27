@@ -25,12 +25,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-import java.util.logging.Level;
 
 public class EasterEvent implements Listener {
 
     private static final int specialEggsAmount = 6;
-    private static ArrayList<Material> allowedMaterials = new ArrayList<>(Arrays.asList(
+    private static final ArrayList<Material> allowedMaterials = new ArrayList<>(Arrays.asList(
             Material.DIRT, Material.GRASS,
             Material.STONE, Material.STONE_SLAB2,
             Material.WOOD, Material.LOG, Material.LOG_2,
@@ -140,9 +139,7 @@ public class EasterEvent implements Listener {
 
     private void startSpawningEggs() {
         new BukkitRunnable() {
-            Random r = new Random();
-            double phi, theta, randomRadius;
-
+            final Random r = new Random();
             public void run() {
                 removeAllEggs();
                 for (int i = 0; i < randomEggsPerServer; i++) {
@@ -203,10 +200,12 @@ public class EasterEvent implements Listener {
                             case TestBedWars:
                             case BedWars:
                                 is = ItemCreator.itemCreate(Material.BED);
+                                RewardItems.addItem(bp, is, BiomiaServerType.Freebuild);
                                 break;
                             case TestSkyWars:
                             case SkyWars:
                                 is = ItemCreator.itemCreate(Material.EMERALD_BLOCK);
+                                RewardItems.addItem(bp, is, BiomiaServerType.Freebuild);
                                 break;
                             case TestFreebuild:
                             case Freebuild:
@@ -385,20 +384,20 @@ public class EasterEvent implements Listener {
                 p.sendMessage(" §7" + s.replace("x ", " §7x§b "));
             }
         }
-        String preisOutput = "";
+        StringBuilder preisOutput = new StringBuilder();
         for (Integer i : preisliste) {
-            if (!preisOutput.equals("")) {
-                preisOutput += "§7, ";
+            if (!preisOutput.toString().equals("")) {
+                preisOutput.append("§7, ");
             }
             if (i <= eggsFound) {
-                preisOutput += "§7[§m" + i + "§r§7]";
+                preisOutput.append("§7[§m").append(i).append("§r§7]");
             } else {
-                preisOutput += "§7[§b" + i + "§7]§r";
+                preisOutput.append("§7[§b").append(i).append("§7]§r");
             }
         }
-        if (!preisOutput.equals("")) {
+        if (!preisOutput.toString().equals("")) {
             p.sendMessage("§cBenötigte Ostereier §7(§cDu hast §b" + eggsFound + "§c§7):");
-            p.sendMessage(preisOutput);
+            p.sendMessage(preisOutput.toString());
         }
     }
 }

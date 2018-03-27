@@ -2,6 +2,8 @@ package de.biomia.spigot.tools;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import de.biomia.spigot.OfflineBiomiaPlayer;
+import de.biomia.universal.SkinValue;
 import net.minecraft.server.v1_12_R1.BlockPosition;
 import net.minecraft.server.v1_12_R1.TileEntitySkull;
 import org.bukkit.Material;
@@ -19,9 +21,9 @@ import java.util.UUID;
 
 public class HeadCreator {
 
-    public static ItemStack getSkull(String name) {
+    public static ItemStack getSkull(OfflineBiomiaPlayer name) {
 
-        String url = "https://bildnerverlag.de/biomia/" + name + ".png";
+        String url = "http://textures.minecraft.net/texture/" + SkinValue.getSkin(name);
 
         ItemStack head = new ItemStack(Material.SKULL_ITEM, (short) 3);
         if (url.isEmpty()) return head;
@@ -40,9 +42,9 @@ public class HeadCreator {
         return head;
     }
 
-    public static void setSkullUrl(String name, Block block) {
+    public static void setSkullUrl(String code, Block block) {
 
-        String url = "http://textures.minecraft.net/texture/" + name;
+        String url = "http://textures.minecraft.net/texture/" + code;
 
         block.setType(Material.SKULL);
         Skull skullData = (Skull) block.getState();

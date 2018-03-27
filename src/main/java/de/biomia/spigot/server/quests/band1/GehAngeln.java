@@ -17,14 +17,10 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import java.util.HashMap;
-import java.util.UUID;
-
 public class GehAngeln implements Listener {
 
     private final Quest q = Biomia.getQuestManager().registerNewQuest("GehAngeln", 1);
     private final NPC pari;
-    HashMap<UUID, Quest> hm = new HashMap<>();
     private DialogMessage startDialog;
     private DialogMessage whileQuesting;
     private DialogMessage afterQuesting;

@@ -51,7 +51,7 @@ public class ReiteDasSchwein implements Listener {
     private static NPC falto;
 
     private final Location endLoc = new Location(Bukkit.getWorld("Quests"), 303, 64, -157);
-    Location startLoc = new Location(Bukkit.getWorld("Quests"), 146, 64, -147);
+    private final Location startLoc = new Location(Bukkit.getWorld("Quests"), 146, 64, -147);
 
     public ReiteDasSchwein() {
 
@@ -258,7 +258,6 @@ public class ReiteDasSchwein implements Listener {
         startDialog.getNext(0).getNext(0).getNext(1).addPlayerToQuest();
         startDialog.getNext(0).getNext(0).getNext(1).addEvent(new GiveItemEvent(Material.CARROT_STICK, 1))
                 .addEvent(qp -> {
-                    Location startLoc = new Location(Bukkit.getWorld("Quests"), 146, 64, -147);
                     Entity pig = startLoc.getWorld().spawnEntity(startLoc, EntityType.PIG);
                     pig.addPassenger(qp.getPlayer());
                     ReiteDasSchwein.timer(qp, pig);

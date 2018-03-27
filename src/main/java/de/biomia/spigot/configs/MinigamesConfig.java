@@ -80,7 +80,7 @@ public abstract class MinigamesConfig extends Config {
         saveConfig();
     }
 
-    public Location getLocation(GameInstance instance, String settingName) {
+    Location getLocation(GameInstance instance, String settingName) {
 
         String savePath = getSavePath(settingName);
 
@@ -92,7 +92,7 @@ public abstract class MinigamesConfig extends Config {
         return new Location(instance.getWorld(), x, y, z, ya, 0);
     }
 
-    public Location getLocation(TeamColor color, GameInstance instance, String settingName) {
+    Location getLocation(TeamColor color, GameInstance instance, String settingName) {
 
         String savePath = getSaveTeamPath(settingName, color);
 
