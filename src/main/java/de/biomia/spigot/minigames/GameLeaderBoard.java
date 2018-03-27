@@ -21,7 +21,7 @@ class GameLeaderBoard {
     private final Stats.BiomiaStat sortBy;
 
     public GameLeaderBoard(ArrayList<Location> locations, BiomiaServerType target, Stats.BiomiaStat sortBy) {
-        //TODO besprechen wie in versus tracken? als bedwars? oder gesammt winns zb oder wie?
+        //TODO tracken sowohl gemeinsam (als Versus) als auch separat
         this.locations = locations;
         this.type = target;
         this.sortBy = sortBy;

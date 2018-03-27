@@ -212,11 +212,6 @@ public class Stats {
         return leaderboard;
     }
 
-//    public static int getTopLastX(BiomiaStat stat, String datetime_expr, int amount) {
-//        TODO
-//        return 0;
-//    }
-
     public static int getStatLastX(BiomiaStat stat, int biomiaID, String datetime_expr, int amount) {
         datetime_expr = toDayTime(datetime_expr);
 

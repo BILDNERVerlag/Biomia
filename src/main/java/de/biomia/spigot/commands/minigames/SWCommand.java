@@ -16,7 +16,6 @@ import org.bukkit.entity.Player;
 import static de.biomia.spigot.configs.Config.saveConfig;
 
 public class SWCommand extends BiomiaCommand {
-    //TODO renew (merge)
     public SWCommand() {
         super("skywars", "sw");
     }

@@ -93,7 +93,7 @@ public class Lobby extends BiomiaServer {
     protected void initCommands() {
         super.initCommands();
         Main.registerCommand(new RandomServerGroupCommand());
-        //TODO: nach event entfernen
+        //TODO: nach event entfernen (oder nach questsystem re-write)
         Main.registerCommand(new QuestCommands());
     }
 
