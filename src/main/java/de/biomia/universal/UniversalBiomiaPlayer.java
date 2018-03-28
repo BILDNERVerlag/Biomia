@@ -134,7 +134,7 @@ public abstract class UniversalBiomiaPlayer {
             if (ranks.getName().equals(rank))
                 return ranks;
         }
-        return null;
+        return Ranks.UnregSpieler;
     }
 
     public void setRank(Ranks rank) {

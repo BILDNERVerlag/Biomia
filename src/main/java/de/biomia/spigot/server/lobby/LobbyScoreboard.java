@@ -14,20 +14,6 @@ import org.bukkit.scoreboard.Team;
 
 public class LobbyScoreboard {
 
-    private static void addToEach(Player p) {
-        for (Player pl : Bukkit.getOnlinePlayers()) {
-
-            Scoreboard asb = pl.getScoreboard();
-
-            for (Team t : asb.getTeams()) {
-                if (t.getName().contains(Biomia.getBiomiaPlayer(pl).getRank().name())) {
-                    t.addEntry(p.getName());
-                    break;
-                }
-            }
-        }
-    }
-
     public static void sendScoreboard(Player p) {
         Team freunde, rank, coins;
         Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
@@ -35,15 +21,19 @@ public class LobbyScoreboard {
         initScoreboard(sb);
 
         for (Player pl : Bukkit.getOnlinePlayers()) {
-            for (Team t : sb.getTeams()) {
-                if (t.getName().contains(Biomia.getBiomiaPlayer(pl).getRank().name())) {
+            Scoreboard asb = pl.getScoreboard();
+            Ranks ranks = Biomia.getBiomiaPlayer(pl).getRank();
+            for (Team t : asb.getTeams())
+                if (t.getName().contains(ranks.name())) {
+                    t.addEntry(p.getName());
+                    break;
+                }
+            for (Team t : sb.getTeams())
+                if (t.getName().contains(ranks.name())) {
                     t.addEntry(pl.getName());
                     break;
                 }
-            }
         }
-
-        addToEach(p);
 
         Objective o = sb.registerNewObjective("aaa", "bbb");
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
@@ -104,7 +94,7 @@ public class LobbyScoreboard {
         for (Ranks r : Ranks.values()) {
             Team t;
             if (r.getLevel() < 10)
-                t = sb.registerNewTeam("0" + r.getLevel() +r.name());
+                t = sb.registerNewTeam("0" + r.getLevel() + r.name());
             else
                 t = sb.registerNewTeam(r.getLevel() + r.name());
             t.setPrefix(r.getPrefix());
