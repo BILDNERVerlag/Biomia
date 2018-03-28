@@ -30,6 +30,7 @@ public class Quests extends BiomiaServer {
 
     @Override
     public void stop() {
+        super.stop();
         Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "npc remove all");
     }
 

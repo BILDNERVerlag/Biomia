@@ -25,6 +25,7 @@ public abstract class BiomiaServer {
     }
 
     public void stop() {
+        Bukkit.getOnlinePlayers().forEach(each -> each.kickPlayer(""));
     }
 
     protected void initListeners() {
