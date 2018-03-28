@@ -41,32 +41,41 @@ public class RankManager {
         return rank.contains("premium");
     }
 
+    public static boolean isOwner(String name) {
+        String rank = getRank(name);
+        return rank.contains("owner");
+    }
+
+    public static boolean isSupporter(String name) {
+        String rank = getRank(name);
+        return rank.contains("sup");
+    }
+
     public static int getPremiumLevel(String name) {
         String s = getRank(name).replace("premium", "");
-
         switch (s) {
-        case "eins":
-            return 1;
-        case "zwei":
-            return 2;
-        case "drei":
-            return 3;
-        case "vier":
-            return 4;
-        case "fünf":
-            return 5;
-        case "sechs":
-            return 6;
-        case "sieben":
-            return 7;
-        case "acht":
-            return 8;
-        case "neun":
-            return 9;
-        case "zehn":
-            return 10;
-        default:
-            return -1;
+            case "eins":
+                return 1;
+            case "zwei":
+                return 2;
+            case "drei":
+                return 3;
+            case "vier":
+                return 4;
+            case "fünf":
+                return 5;
+            case "sechs":
+                return 6;
+            case "sieben":
+                return 7;
+            case "acht":
+                return 8;
+            case "neun":
+                return 9;
+            case "zehn":
+                return 10;
+            default:
+                return -1;
         }
     }
 

@@ -21,7 +21,7 @@ public class PermissionCommand extends BiomiaCommand {
     private static void addPermission(String p, String permission) {
         User user = LuckPerms.getApi().getUser(p);
         if (user != null)
-            user.setPermission(LuckPerms.getApi().buildNode(permission).setValue(false).build());
+            user.setPermission(LuckPerms.getApi().buildNode(permission).build());
     }
 
     @Override

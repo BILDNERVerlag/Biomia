@@ -118,45 +118,81 @@ public class LobbyScoreboard {
 
     private static String getGroupName(Player p) {
         String rankName = RankManager.getRank(p);
-        if (rankName.contains("premium")) {
-            rankName = rankName.substring(7);
-            switch (rankName) {
+        rankName = rankName.replaceAll("premium", "");
+        rankName = rankName.replaceAll("spieler", "");
+        switch (rankName) {
             case "eins":
-                    rankName = "Premium I";
-                    break;
+                rankName = "Premium I";
+                break;
             case "zwei":
-                    rankName = "Premium II";
-                    break;
+                rankName = "Premium II";
+                break;
             case "drei":
-                    rankName = "Premium III";
-                    break;
+                rankName = "Premium III";
+                break;
             case "vier":
-                    rankName = "Premium IV";
-                    break;
+                rankName = "Premium IV";
+                break;
             case "fünf":
-                    rankName = "Premium V";
-                    break;
+                rankName = "Premium V";
+                break;
             case "sechs":
-                    rankName = "Premium VI";
-                    break;
+                rankName = "Premium VI";
+                break;
             case "sieben":
-                    rankName = "Premium VII";
-                    break;
+                rankName = "Premium VII";
+                break;
             case "acht":
-                    rankName = "Premium VIII";
-                    break;
+                rankName = "Premium VIII";
+                break;
             case "neun":
-                    rankName = "Premium IX";
-                    break;
+                rankName = "Premium IX";
+                break;
             case "zehn":
-                    rankName = "Premium X";
-                    break;
-            }
-        } else if (rankName.startsWith("Reg")) {
-            rankName = "Spieler";
-        } else if (rankName.startsWith("Unreg")) {
-            rankName = "Unreg";
+                rankName = "Premium X";
+                break;
+            case "reg":
+                rankName = "Spieler";
+                break;
+            case "unreg":
+                rankName = "Unreg";
+                break;
+            case "owner":
+                rankName = "Owner";
+                break;
+            case "supporter":
+                rankName = "Supporter";
+                break;
+            case "jrbuilder":
+                rankName = "JrBuilder";
+                break;
+            case "builder":
+                rankName = "SrBuilder";
+                break;
+            case "srbuilder":
+                rankName = "SrBuilder";
+                break;
+            case "moderator":
+                rankName = "Moderator";
+                break;
+            case "srmoderator":
+                rankName = "SrMod";
+                break;
+            case "developer":
+                rankName = "Dev";
+                break;
         }
         return rankName;
     }
+
+    /*
+        Database
+        Tabelle
+
+
+        Item:
+            einzigartige ID
+            jeder eigenschaft in spalte
+
+     */
 }

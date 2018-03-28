@@ -25,14 +25,14 @@ public class WirFeiernEinFest implements Listener {
     private DialogMessage comeBackWithFireworks;
     private DialogMessage comeBackWithoutFireworks;
     private DialogMessage nachQuest;
+    private Location habilLoc = new Location(Bukkit.getWorld("Quests"), 111, 72, -278, 0, 0);
 
     public WirFeiernEinFest() {
         q.setInfoText(
                 "Habil ist an der Organisation eines gro\u00dfen Dorffestes beteiligt, und obwohl er f\u00fcr das Feuerwerk zust\u00fcndig ist, hat er noch keine Raketen. Vielleicht kannst du welche auftreiben, drei St\u00fcck sollten gen\u00fcgen.");
         q.setDisplayName("Wir feiern ein Fest!");
         habil = q.createNPC(EntityType.PLAYER, "Habil");
-        Location loc = new Location(Bukkit.getWorld("Quests"), 111, 72, -278, 0, 0);
-        habil.spawn(loc);
+        habil.spawn(habilLoc);
 
         q.setRepeatable(true);
         q.setCooldown(24, TIME.STUNDEN);
@@ -91,15 +91,10 @@ public class WirFeiernEinFest implements Listener {
         comeBackWithFireworks.addEvent(new TakeItemEvent(Material.FIREWORK, 3));
         comeBackWithFireworks.addEvent(new GiveItemEvent(Material.FLINT_AND_STEEL, 1));
         comeBackWithFireworks.addEvent(new AddCoinEvent(300));
-
-        if (habil != null) {
-            Location loc = Bukkit.getEntity(habil.getUniqueId()).getLocation().add(0, 3,
-                    0);
-
-            comeBackWithFireworks.addEvent(new SummonEntity(loc, EntityType.FIREWORK,
-                    3));
-            comeBackWithFireworks.finish();
-        }
+        Location loc = habilLoc.clone().add(0, 3, 0);
+        comeBackWithFireworks.addEvent(new SummonEntity(loc, EntityType.FIREWORK,
+                3));
+        comeBackWithFireworks.finish();
 
         // nach quest
         nachQuest = new DialogMessage(q, habil).setInhalt("Gro\u00dfartiges Feuerwerk war das.");

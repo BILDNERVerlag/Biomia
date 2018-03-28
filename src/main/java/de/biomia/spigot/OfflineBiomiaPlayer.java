@@ -32,7 +32,17 @@ public class OfflineBiomiaPlayer extends UniversalBiomiaPlayer {
 
     public final boolean isStaff() {
         String rank = de.biomia.spigot.tools.RankManager.getRank(getName());
-        return rank.contains("Owner") || rank.contains("Admin") || rank.contains("Builder") || rank.contains("Sup");
+        return rank.equals("owner") || rank.equals("admin") || rank.contains("builder") || rank.equals("supporter") || rank.equals("developer") || rank.contains("moderator");
+    }
+
+    public final boolean isJrStaff() {
+        String rank = de.biomia.spigot.tools.RankManager.getRank(getName());
+        return rank.contains("jr") || rank.equals("supporter");
+    }
+
+    public final boolean isSrStaff() {
+        String rank = de.biomia.spigot.tools.RankManager.getRank(getName());
+        return rank.equals("owner") || rank.equals("admin") || rank.equals("developer") || rank.equals("srbuilder") || rank.equals("srmoderator");
     }
 
     public final boolean isYouTuber() {

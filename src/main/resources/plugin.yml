@@ -1,11 +1,7 @@
 main: de.biomia.spigot.Main
 name: Biomia
-version: 0.5
+version: 0.6
 authors: [DerJulsn, DerAaron]
 loadbefore: [TimoCloud]
 softdepend: [Citizens]
-
-commands:
-  delhome:
-  home:
-  sethome:
+dependency: [LuckPerms]
