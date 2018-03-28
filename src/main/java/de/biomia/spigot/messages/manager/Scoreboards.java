@@ -36,7 +36,7 @@ public class Scoreboards {
         return sb;
     }
 
-    public static void initScoreboard(Scoreboard sb) {
+    private static void initScoreboard(Scoreboard sb) {
         for (Ranks r : Ranks.values()) {
             Team t;
             if (r.getLevel() < 10)
