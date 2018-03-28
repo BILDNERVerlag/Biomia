@@ -8,12 +8,10 @@ import de.biomia.bungee.cmds.ModusCommand;
 import de.biomia.bungee.specialEvents.WinterEvent;
 import de.biomia.bungee.var.BanManager;
 import de.biomia.bungee.var.Bans;
-import de.biomia.universal.SkinValue;
 import de.biomia.spigot.BiomiaServerType;
 import de.biomia.universal.MySQL;
-import de.biomia.universal.UniversalBiomia;
+import de.biomia.universal.SkinValue;
 import de.biomia.universal.UniversalBiomiaPlayer;
-import me.philipsnostrum.bungeepexbridge.BungeePexBridge;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ServerPing;
@@ -37,7 +35,6 @@ public class Login implements Listener {
 
         ProxiedPlayer pp = evt.getPlayer();
         OfflineBungeeBiomiaPlayer bp;
-
 
 
         if (UniversalBiomiaPlayer.getBiomiaPlayerID(pp.getUniqueId()) == -1) {
@@ -113,7 +110,7 @@ public class Login implements Listener {
 
                     int lvl;
                     try {
-                        lvl = UniversalBiomia.getRankLevel(BungeePexBridge.getPerms().getPlayerGroups(each).get(0));
+                        lvl = BungeeBiomia.getOfflineBiomiaPlayer(each.getName()).getRank().getLevel();
                     } catch (Exception e) {
                         e.printStackTrace();
                         return;

@@ -3,8 +3,7 @@ package de.biomia.spigot.server.lobby;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
-import de.biomia.spigot.tools.RankManager;
-import de.biomia.universal.UniversalBiomia;
+import de.biomia.universal.Ranks;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -21,7 +20,7 @@ public class LobbyScoreboard {
             Scoreboard asb = pl.getScoreboard();
 
             for (Team t : asb.getTeams()) {
-                if (t.getName().contains(RankManager.getRank(p))) {
+                if (t.getName().contains(Biomia.getBiomiaPlayer(pl).getRank().name())) {
                     t.addEntry(p.getName());
                     break;
                 }
@@ -37,7 +36,7 @@ public class LobbyScoreboard {
 
         for (Player pl : Bukkit.getOnlinePlayers()) {
             for (Team t : sb.getTeams()) {
-                if (t.getName().contains(RankManager.getRank(pl))) {
+                if (t.getName().contains(Biomia.getBiomiaPlayer(pl).getRank().name())) {
                     t.addEntry(pl.getName());
                     break;
                 }
@@ -101,23 +100,19 @@ public class LobbyScoreboard {
         freunde.setPrefix("\u00A7b" + bp.getOnlineFriends().size() + " \u00A77/ \u00A7b" + bp.getFriends().size());
     }
 
-    private static void initScoreboard(Scoreboard sb) {
-        int i = 0;
-
-        for (String s : UniversalBiomia.RANK_NAMES_PREFIXES.keySet()) {
+    public static void initScoreboard(Scoreboard sb) {
+        for (Ranks r : Ranks.values()) {
             Team t;
-            if (i < 10)
-                t = sb.registerNewTeam("0" + i + s);
+            if (r.getLevel() < 10)
+                t = sb.registerNewTeam("0" + r.getLevel() +r.name());
             else
-                t = sb.registerNewTeam(i + s);
-            t.setPrefix(RankManager.getPrefix(s));
-            i++;
+                t = sb.registerNewTeam(r.getLevel() + r.name());
+            t.setPrefix(r.getPrefix());
         }
-
     }
 
     private static String getGroupName(Player p) {
-        String rankName = RankManager.getRank(p);
+        String rankName = Biomia.getBiomiaPlayer(p).getRank().getName();
         rankName = rankName.replaceAll("premium", "");
         rankName = rankName.replaceAll("spieler", "");
         switch (rankName) {

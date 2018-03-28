@@ -1,8 +1,9 @@
 package de.biomia.spigot.commands.general;
 
+import de.biomia.spigot.Biomia;
+import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.commands.BiomiaCommand;
-import de.biomia.spigot.tools.RankManager;
-import de.biomia.universal.UniversalBiomia;
+import de.biomia.universal.Ranks;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -20,38 +21,34 @@ public class RankCommand extends BiomiaCommand {
 
         if (sender.hasPermission("biomia.setrank")) {
             if (args.length == 2) {
-                if (UniversalBiomia.RANK_NAMES_PREFIXES.keySet().contains(args[1])) {
+                try {
+                    Ranks toSet = Ranks.valueOf(args[1]);
                     Player p = Bukkit.getPlayer(args[0]);
+                    BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
+                    bp.setRank(toSet);
+                    sender.sendMessage("\u00A7aDer Spieler " + args[0] + " ist nun " + args[1] + ".");
                     if (p != null) {
-                        RankManager.setRank(p, args[1]);
-                        sender.sendMessage("\u00A7aDer Spieler " + args[0] + " ist nun " + args[1] + ".");
                         for (Player pl : Bukkit.getOnlinePlayers()) {
                             Scoreboard asb = pl.getScoreboard();
                             for (Team t : asb.getTeams()) {
-                                if (t.getName().contains(RankManager.getRank(p))) {
+                                if (t.getName().contains(toSet.name())) {
                                     t.addEntry(p.getName());
                                     break;
                                 }
                             }
                         }
-                    } else {
-                        RankManager.setRank(args[0], args[1]);
-                        sender.sendMessage("\u00A7aDer Spieler " + args[0] + " ist nun " + args[1]);
                     }
-                } else {
+                } catch (IllegalArgumentException ignored) {
                     sender.sendMessage("\u00A7cEs sind nur diese R\u00fcnge verf\u00fcgbar:");
 
-                    for (String s : UniversalBiomia.RANK_NAMES_PREFIXES.keySet()) {
-                        sender.sendMessage("\u00A7c" + s);
-                    }
+                    for (Ranks r : Ranks.values())
+                        sender.sendMessage("\u00A7c" + r.name());
                 }
-
             } else {
                 sender.sendMessage("\u00A7c/rank <Spieler> <Rank>");
             }
 
         }
-
         return false;
     }
 

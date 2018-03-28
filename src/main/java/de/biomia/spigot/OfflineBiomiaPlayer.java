@@ -1,5 +1,6 @@
 package de.biomia.spigot;
 
+import de.biomia.universal.Messages;
 import de.biomia.universal.MySQL;
 import de.biomia.spigot.events.coins.CoinAddEvent;
 import de.biomia.spigot.events.coins.CoinTakeEvent;
@@ -25,36 +26,6 @@ public class OfflineBiomiaPlayer extends UniversalBiomiaPlayer {
             getBiomiaPlayer().getPlayer().sendMessage(string);
     }
 
-    //RANK METHODS
-    public final boolean isPremium() {
-        return de.biomia.spigot.tools.RankManager.isPremium(getName());
-    }
-
-    public final boolean isStaff() {
-        String rank = de.biomia.spigot.tools.RankManager.getRank(getName());
-        return rank.equals("owner") || rank.equals("admin") || rank.contains("builder") || rank.equals("supporter") || rank.equals("developer") || rank.contains("moderator");
-    }
-
-    public final boolean isJrStaff() {
-        String rank = de.biomia.spigot.tools.RankManager.getRank(getName());
-        return rank.contains("jr") || rank.equals("supporter");
-    }
-
-    public final boolean isSrStaff() {
-        String rank = de.biomia.spigot.tools.RankManager.getRank(getName());
-        return rank.equals("owner") || rank.equals("admin") || rank.equals("developer") || rank.equals("srbuilder") || rank.equals("srmoderator");
-    }
-
-    public final boolean isYouTuber() {
-        String rank = de.biomia.spigot.tools.RankManager.getRank(getName());
-        return rank.contains("YouTube");
-    }
-
-    public final boolean isOwner() {
-        String rank = de.biomia.spigot.tools.RankManager.getRank(getName());
-        return rank.contains("Owner");
-    }
-
     // GETTERS AND SETTERS
     public final BiomiaPlayer getBiomiaPlayer() {
         return this instanceof BiomiaPlayer ? (BiomiaPlayer) this : Biomia.getBiomiaPlayer(org.bukkit.Bukkit.getPlayer(getName()));
@@ -69,7 +40,7 @@ public class OfflineBiomiaPlayer extends UniversalBiomiaPlayer {
         int actualCoins = getCoins();
 
         if (actualCoins < coins && isOnline()) {
-            getBiomiaPlayer().getPlayer().sendMessage("Du hast nicht genug BC! Dir fehlen noch " + (actualCoins - coins) + " BC!");
+            getBiomiaPlayer().getPlayer().sendMessage(Messages.PREFIX + "§cDu hast nicht genug BC! Dir fehlen noch §b" + (actualCoins - coins) + " §cBC!");
             return;
         }
 

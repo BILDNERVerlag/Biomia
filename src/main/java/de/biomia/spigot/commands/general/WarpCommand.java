@@ -5,7 +5,6 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.BiomiaCommand;
-import de.biomia.spigot.tools.RankManager;
 import de.biomia.universal.Messages;
 import de.biomia.universal.MySQL;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -46,11 +45,12 @@ public class WarpCommand extends BiomiaCommand {
                     sendWarpInstructions(p);
                     return true;
                 }
-                int verbleibendeWarps = RankManager.getPremiumLevel((p.getName())) + 3 - playerWarpLocations.size();
+                args[0] = args[0].toLowerCase();
+                int verbleibendeWarps = bp.getPremiumLevel() + 3 - playerWarpLocations.size();
                 if (bp.isStaff()) verbleibendeWarps += 2;
                 if (bp.isOwner()) verbleibendeWarps += 6;
 
-                if (playerWarpLocations.size() >= RankManager.getPremiumLevel(p.getName()) + 3) {
+                if (playerWarpLocations.size() >= bp.getPremiumLevel() + 3) {
                     p.sendMessage("\u00A7cDu hast bereits die \u00A7bmaximale \u00A7cAnzahl Warps erreicht.");
                     p.sendMessage("\u00A7cBenutze \u00A77/\u00A7cdelwarp \u00A77<\u00A7cName\u00A77> \u00A7bum Warps zu l\u00f6schen \u00A7coder hol dir einen unserer Premiumränge und unterstütze damit den Server.");
                     return true;
@@ -59,7 +59,6 @@ public class WarpCommand extends BiomiaCommand {
                     p.sendMessage("\u00A7cEigene Warps sind auf diesem Server (\u00A7b" + Main.getGroupName() + "\u00A7c) nicht erlaubt.");
                     return true;
                 }
-
                 MySQL.executeUpdate("INSERT INTO Warps (`x`, `y`, `z`, `yaw`, `pitch`, `groupname`, `worldname`, `name`, `biomiaPlayerID`) VALUES (" +
                         ploc.getBlockX() + "," +
                         ploc.getBlockY() + "," +
@@ -109,7 +108,7 @@ public class WarpCommand extends BiomiaCommand {
                     return true;
                 }
                 if (playerWarpLocations.containsKey(args[0])) {
-                    MySQL.executeUpdate("DELETE FROM `Warps` WHERE biomiaPlayerID = " + Biomia.getBiomiaPlayer(p).getBiomiaPlayerID() + " AND name = '" + args[0] + "'", MySQL.Databases.biomia_db);
+                    MySQL.executeUpdate("DELETE FROM `Warps` WHERE biomiaPlayerID = " + Biomia.getBiomiaPlayer(p).getBiomiaPlayerID() + " AND name = '" + args[0].toLowerCase() + "'", MySQL.Databases.biomia_db);
                     p.sendMessage("\u00A7cWarp \u00A7b" + args[0] + " \u00A7cwurde gel\u00f6scht.");
                 } else {
                     p.sendMessage("\u00A7cWarp \u00A7b" + args[0] + " \u00A7cwurde nicht gel\u00f6scht, denn er wurde nicht gefunden.");
@@ -156,28 +155,28 @@ public class WarpCommand extends BiomiaCommand {
     private HashMap<String, WarpLocation> initPublicWarps(Player p) {
         HashMap<String, WarpLocation> locations = new HashMap<>();
         switch (Biomia.getServerInstance().getServerType()) {
-        case TestQuest:
-        case Quest:
-            locations.put("Baum", new WarpLocation(new Location(Bukkit.getWorld("Quests"), -159, 74, -267), Main.getGroupName()));
-            break;
-        case Freebuild:
-            break;
-        case FreebuildFarm:
-            break;
-        case BauServer:
-            break;
-        case Duell:
-            break;
-        case Weltenlabor_1:
-            break;
-        case TestLobby:
-        case Lobby:
-            locations.put("Baum", new WarpLocation(new Location(Bukkit.getWorld("LobbyBiomia"), 551.5, 89, 333.5), Main.getGroupName()));
-            break;
-        default:
-            return locations;
+            case TestQuest:
+            case Quest:
+                locations.put("Baum", new WarpLocation(new Location(Bukkit.getWorld("Quests"), -159, 74, -267), Main.getGroupName()));
+                break;
+            case Freebuild:
+                break;
+            case FreebuildFarm:
+                break;
+            case BauServer:
+                break;
+            case Duell:
+                break;
+            case Weltenlabor_1:
+                break;
+            case TestLobby:
+            case Lobby:
+                locations.put("Baum", new WarpLocation(new Location(Bukkit.getWorld("LobbyBiomia"), 551.5, 89, 333.5), Main.getGroupName()));
+                break;
+            default:
+                return locations;
         }
-        locations.put("Spawn", new WarpLocation(p.getWorld().getSpawnLocation(), Main.getGroupName()));
+        locations.put("spawn", new WarpLocation(p.getWorld().getSpawnLocation(), Main.getGroupName()));
         return locations;
     }
 

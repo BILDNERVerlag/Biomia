@@ -11,7 +11,6 @@ import de.biomia.spigot.server.lobby.Lobby;
 import de.biomia.spigot.server.lobby.LobbyScoreboard;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.PlayerToServerConnector;
-import de.biomia.spigot.tools.RankManager;
 import de.biomia.universal.Messages;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -235,7 +234,7 @@ public class LobbyListener extends BiomiaListener {
     }
 
     private static void sendRegMsg(Player p) {
-        if (RankManager.getRank(p).equals("unregspieler")) {
+        if (Biomia.getBiomiaPlayer(p).getRank().equals("unregspieler")) {
             TextComponent register = new TextComponent();
             p.sendMessage(ChatColor.DARK_PURPLE + "Du bist noch nicht registriert!");
             register.setText(ChatColor.BLUE + "Registriere dich jetzt auf: " + ChatColor.GRAY + "www."
