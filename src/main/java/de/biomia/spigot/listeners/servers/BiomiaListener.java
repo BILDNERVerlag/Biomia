@@ -39,7 +39,7 @@ public abstract class BiomiaListener implements Listener {
         e.setJoinMessage(null);
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         if (RankManager.getRank(e.getPlayer()).equals("default")) {
-            RankManager.setRank(e.getPlayer(), "UnregSpieler");
+            RankManager.setRank(e.getPlayer(), "unregspieler");
         }
         HeaderAndFooter.sendHeaderAndFooter(e.getPlayer(), "\n\u00A7cBIO\u00A7bMIA\n",
                 "\u00A7cWebsite: \u00A7bwww.biomia.de\n\u00A7cTS: \u00A7bts.biomia.de");

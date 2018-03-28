@@ -235,7 +235,7 @@ public class LobbyListener extends BiomiaListener {
     }
 
     private static void sendRegMsg(Player p) {
-        if (RankManager.getRank(p).equals("UnregSpieler")) {
+        if (RankManager.getRank(p).equals("unregspieler")) {
             TextComponent register = new TextComponent();
             p.sendMessage(ChatColor.DARK_PURPLE + "Du bist noch nicht registriert!");
             register.setText(ChatColor.BLUE + "Registriere dich jetzt auf: " + ChatColor.GRAY + "www."
