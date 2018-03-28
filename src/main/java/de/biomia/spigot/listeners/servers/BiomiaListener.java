@@ -38,9 +38,6 @@ public abstract class BiomiaListener implements Listener {
     public final void onJoin(PlayerJoinEvent e) {
         e.setJoinMessage(null);
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        if (bp.getRank().equals("default")) {
-            bp.setRank(Ranks.UnregSpieler);
-        }
         HeaderAndFooter.sendHeaderAndFooter(e.getPlayer(), "\n\u00A7cBIO\u00A7bMIA\n",
                 "\u00A7cWebsite: \u00A7bwww.biomia.de\n\u00A7cTS: \u00A7bts.biomia.de");
         Cosmetic.load(bp);
