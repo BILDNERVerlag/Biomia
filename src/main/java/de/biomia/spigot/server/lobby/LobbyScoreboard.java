@@ -43,12 +43,13 @@ public class LobbyScoreboard {
         new BukkitRunnable() {
             @Override
             public void run() {
-                if (p.isOnline())
-                    reloadSB(p, sb);
-                else
+                if (!p.isOnline())
                     cancel();
+                reloadSB(p, sb);
             }
         }.runTaskTimer(Main.getPlugin(), 0, 100);
+
+        p.setScoreboard(sb);
     }
 
     private static void reloadSB(Player p, Scoreboard sb) {
