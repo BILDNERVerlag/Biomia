@@ -2,6 +2,7 @@ package de.biomia.spigot.listeners.servers;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.messages.manager.Scoreboards;
 import de.biomia.spigot.server.demoserver.Weltenlabor;
 import de.biomia.spigot.server.demoserver.teleporter.Bauten;
 import de.biomia.spigot.server.demoserver.teleporter.ScrollingInventory;
@@ -29,7 +30,7 @@ public class DemoListener extends BiomiaListener {
         bp.setDamageEntitys(false);
         bp.setGetDamage(false);
         p.setGameMode(GameMode.SURVIVAL);
-
+        Scoreboards.setTabList(p, true);
         BackToLobby.getLobbyItem(p, 8);
         p.getInventory().setItem(0, ItemCreator.itemCreate(Material.CHEST, "\u00A7dTeleporter"));
 

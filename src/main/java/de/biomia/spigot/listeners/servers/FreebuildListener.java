@@ -3,6 +3,7 @@ package de.biomia.spigot.listeners.servers;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.BiomiaServerType;
+import de.biomia.spigot.messages.manager.Scoreboards;
 import de.biomia.spigot.tools.InventorySave;
 import de.biomia.spigot.tools.PlayerToServerConnector;
 import de.biomia.spigot.tools.RewardItems;
@@ -26,6 +27,7 @@ public class FreebuildListener extends BiomiaListener {
         InventorySave.setInventory(p, BiomiaServerType.Freebuild);
         p.sendMessage(Messages.PREFIX + "\u00A76Willkommen auf dem FreebuildServer, " + p.getName() + "!");
         RewardItems.giveItems(bp, BiomiaServerType.Freebuild);
+        Scoreboards.setTabList(p, true);
         bp.setBuild(true);
     }
 

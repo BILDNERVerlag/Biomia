@@ -1,7 +1,6 @@
 package de.biomia.spigot.messages.manager;
 
 import de.biomia.spigot.Biomia;
-import de.biomia.spigot.server.lobby.LobbyScoreboard;
 import de.biomia.universal.Ranks;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -10,24 +9,41 @@ import org.bukkit.scoreboard.Team;
 
 public class Scoreboards {
 
-    public static void setTabList(Player p) {
+    public static Scoreboard setTabList(Player p, boolean send) {
 
         Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
-        LobbyScoreboard.initScoreboard(sb);
-        String rank = Biomia.getBiomiaPlayer(p).getRank().name();
+        initScoreboard(sb);
+        Ranks bpRank = Biomia.getBiomiaPlayer(p).getRank();
 
         for (Player pl : Bukkit.getOnlinePlayers()) {
-            for (Team t : sb.getTeams()) {
-                if (t.getName().contains(Biomia.getBiomiaPlayer(pl).getRank().name())) {
-                    t.addEntry(pl.getDisplayName());
+            Scoreboard asb = pl.getScoreboard();
+            Ranks ranks = Biomia.getBiomiaPlayer(pl).getRank();
+            for (Team t : asb.getTeams())
+                if (t.getName().contains(bpRank.name())) {
+                    t.addEntry(p.getName());
                     break;
                 }
-            }
-            for (Team t : pl.getScoreboard().getTeams()) {
-                if (t.getName().contains(rank))
-                    t.addEntry(pl.getDisplayName());
-            }
+            for (Team t : sb.getTeams())
+                if (t.getName().contains(ranks.name())) {
+                    t.addEntry(pl.getName());
+                    break;
+                }
         }
-        p.setScoreboard(sb);
+
+        if (send)
+            p.setScoreboard(sb);
+
+        return sb;
+    }
+
+    public static void initScoreboard(Scoreboard sb) {
+        for (Ranks r : Ranks.values()) {
+            Team t;
+            if (r.getLevel() < 10)
+                t = sb.registerNewTeam("0" + r.getLevel() + r.name());
+            else
+                t = sb.registerNewTeam(r.getLevel() + r.name());
+            t.setPrefix(r.getPrefix());
+        }
     }
 }

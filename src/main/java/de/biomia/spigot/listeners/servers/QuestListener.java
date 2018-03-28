@@ -7,6 +7,7 @@ import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.QuestItemNames;
 import de.biomia.spigot.messages.QuestMessages;
 import de.biomia.spigot.messages.manager.ActionBar;
+import de.biomia.spigot.messages.manager.Scoreboards;
 import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
 import de.biomia.spigot.server.quests.QuestEvents.TakeItemEvent;
 import de.biomia.spigot.server.quests.general.Quest;
@@ -74,6 +75,7 @@ public class QuestListener extends BiomiaListener {
         InventorySave.setInventory(e.getPlayer(), BiomiaServerType.Quest);
 
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
+        Scoreboards.setTabList(e.getPlayer(), true);
         RewardItems.giveItems(bp, BiomiaServerType.Quest);
 
         QuestPlayer qp = bp.getQuestPlayer();

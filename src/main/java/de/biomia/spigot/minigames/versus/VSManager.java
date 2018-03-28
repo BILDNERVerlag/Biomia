@@ -72,7 +72,7 @@ public class VSManager implements Listener {
         setInventory(p);
         p.setHealth(20);
         p.setFoodLevel(20);
-        Scoreboards.setTabList(p);
+        Scoreboards.setTabList(p, true);
     }
 
     private void setInventory(Player p) {
