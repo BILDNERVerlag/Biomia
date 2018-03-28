@@ -1,6 +1,5 @@
 package de.biomia.spigot.minigames.versus.games.bedwars;
 
-import de.biomia.spigot.Biomia;
 import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.minigames.GameHandler;
@@ -38,7 +37,7 @@ public class VersusBedWars extends GameMode {
     public void stop() {
         super.stop();
         shop.unregister();
-        ((Versus) Biomia.getServerInstance()).getManager().getRequests().get(getInstance()).finish();
+        Versus.getInstance().getManager().getRequests().get(getInstance()).finish();
     }
 
     @Override

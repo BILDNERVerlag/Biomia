@@ -15,7 +15,7 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class LobbyInventoryManager implements Listener {
+public class LobbyInventoryManager {
 
     private final static ItemStack elytra = ItemCreator.itemCreate(Material.ELYTRA, "\u00A7bElytra");
     private final static ItemStack bow = ItemCreator.itemCreate(Material.BOW, "\u00A74Teleport-Bogen");
@@ -94,22 +94,6 @@ public class LobbyInventoryManager implements Listener {
             addSilentItem(pl);
         } else if (biomiaPlayer.isPremium()) {
             addBow(pl);
-        }
-    }
-
-    @EventHandler
-    public void onHitProt(ProjectileHitEvent e) {
-        if (e.getEntity().getShooter() instanceof Player && e.getEntityType() == EntityType.ARROW) {
-            Player p = (Player) e.getEntity().getShooter();
-            Location loc = e.getEntity().getLocation();
-            e.getEntity().remove();
-
-            double x = loc.getX();
-            double y = loc.getY();
-            double z = loc.getZ();
-            World world = loc.getWorld();
-
-            p.teleport(new Location(world, x, y, z, p.getLocation().getYaw(), p.getLocation().getPitch()));
         }
     }
 }

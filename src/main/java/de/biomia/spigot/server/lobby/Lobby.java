@@ -85,7 +85,6 @@ public class Lobby extends BiomiaServer {
     protected void initListeners() {
         super.initListeners();
         Bukkit.getPluginManager().registerEvents(new LobbyListener(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new LobbyInventoryManager(), getPlugin());
         Bukkit.getPluginManager().registerEvents(new LastPositionListener(), getPlugin());
     }
 

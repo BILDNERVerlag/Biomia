@@ -40,7 +40,7 @@ public class SkyWarsListener extends GameHandler {
 
     private static final ItemStack kitItem = ItemCreator.itemCreate(Material.CHEST, SkyWarsItemNames.kitItemName);
 
-    SkyWarsListener(de.biomia.spigot.minigames.GameMode mode) {
+    public SkyWarsListener(de.biomia.spigot.minigames.GameMode mode) {
         super(mode);
     }
 

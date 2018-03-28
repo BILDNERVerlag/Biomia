@@ -34,7 +34,7 @@ public class VSSettingItem {
 
     public void inverse(BiomiaPlayer bp, VSGroupInventory inv) {
         ItemStack switcher;
-        VSSettings settings = ((Versus) Biomia.getServerInstance()).getManager().getSettings(bp);
+        VSSettings settings = Versus.getInstance().getManager().getSettings(bp);
         settings.invertSetting(this);
         if (settings.getSetting(this))
             switcher = enabled;
@@ -73,7 +73,7 @@ public class VSSettingItem {
 
     public void setToInventory(VSGroupInventory inv) {
         inv.setItem(item, itemSlot);
-        VSSettings settings = ((Versus) Biomia.getServerInstance()).getManager().getSettings(inv.getBiomiaPlayer());
+        VSSettings settings = Versus.getInstance().getManager().getSettings(inv.getBiomiaPlayer());
         ItemStack switcher;
         if (settings.getSetting(this))
             switcher = enabled;
