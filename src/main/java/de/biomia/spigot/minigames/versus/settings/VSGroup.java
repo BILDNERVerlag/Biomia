@@ -80,5 +80,4 @@ public class VSGroup {
     public boolean isDeaktivateable() {
         return deaktivateable;
     }
-
 }

@@ -40,8 +40,8 @@ public class CountDown {
                             for (Player p : Bukkit.getOnlinePlayers()) {
                                 p.setLevel(0);
                             }
-                            setCountdown(-1);
                             mode.getStateManager().getLobbyState().stop();
+                            cancel();
                             return;
                         }
 

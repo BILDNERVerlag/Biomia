@@ -6,9 +6,7 @@ import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.minigames.bedwars.BedWars;
 import de.biomia.spigot.minigames.skywars.SkyWars;
-import de.biomia.spigot.minigames.versus.games.bedwars.VersusBedWars;
-import de.biomia.spigot.minigames.versus.games.kitpvp.KitPvP;
-import de.biomia.spigot.minigames.versus.games.skywars.VersusSkyWars;
+import de.biomia.spigot.minigames.kitpvp.KitPvP;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -41,25 +39,21 @@ public class GameInstance implements Listener {
         MinigamesConfig.mapName = mapDisplayName;
 
         switch (type) {
-            case KIT_PVP_VS:
-                gameMode = new KitPvP(this);
-                break;
-            case BED_WARS_VS:
-                gameMode = new VersusBedWars(this);
-                break;
-            case SKY_WARS_VS:
-                gameMode = new VersusSkyWars(this);
-                break;
-            case BED_WARS:
-                gameMode = new BedWars(this);
-                break;
-            case SKY_WARS:
-                gameMode = new SkyWars(this);
-                break;
-            default:
-                Bukkit.getLogger().log(Level.SEVERE, "GameType does not exist!");
-                new Exception().printStackTrace();
-                break;
+        case KIT_PVP_VS:
+            gameMode = new KitPvP(this);
+            break;
+        case BED_WARS_VS:
+        case BED_WARS:
+            gameMode = new BedWars(this);
+            break;
+        case SKY_WARS_VS:
+        case SKY_WARS:
+            gameMode = new SkyWars(this);
+            break;
+        default:
+            Bukkit.getLogger().log(Level.SEVERE, "GameType does not exist!");
+            new Exception().printStackTrace();
+            break;
         }
         new BukkitRunnable() {
             @Override

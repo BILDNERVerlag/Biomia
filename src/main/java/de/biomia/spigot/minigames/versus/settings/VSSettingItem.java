@@ -1,6 +1,5 @@
 package de.biomia.spigot.minigames.versus.settings;
 
-import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.minigames.versus.Versus;
 import de.biomia.spigot.tools.ItemCreator;
@@ -36,7 +35,7 @@ public class VSSettingItem {
         ItemStack switcher;
         VSSettings settings = Versus.getInstance().getManager().getSettings(bp);
         settings.invertSetting(this);
-        if (settings.getSetting(this))
+        if (settings.isEnabled(this))
             switcher = enabled;
         else
             switcher = disabled;
@@ -75,7 +74,7 @@ public class VSSettingItem {
         inv.setItem(item, itemSlot);
         VSSettings settings = Versus.getInstance().getManager().getSettings(inv.getBiomiaPlayer());
         ItemStack switcher;
-        if (settings.getSetting(this))
+        if (settings.isEnabled(this))
             switcher = enabled;
         else
             switcher = disabled;

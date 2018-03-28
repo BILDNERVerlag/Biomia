@@ -12,9 +12,6 @@ import java.util.HashMap;
 
 public class VSSettings {
 
-    // id 0 = is group activated
-    // id 100+ = maps
-
     private static final HashMap<GameType, HashMap<Integer, VSSettingItem>> settingItems = new HashMap<>();
 
     private final HashMap<GameType, HashMap<Integer, Boolean>> settings = new HashMap<>();
@@ -46,14 +43,8 @@ public class VSSettings {
         }
     }
 
-    public boolean getSetting(VSSettingItem item) {
-
-        HashMap<Integer, Boolean> hm = settings.get(item.getGroup().getMode());
-
-        if (hm.containsKey(item.getID()))
-            return hm.get(item.getID());
-        else
-            return item.getStandard();
+    public boolean isEnabled(VSSettingItem item) {
+        return settings.get(item.getGroup().getMode()).computeIfAbsent(item.getID(), value -> item.getStandard());
     }
 
     private void setSetting(GameType group, int id, boolean wert) {
@@ -87,7 +78,7 @@ public class VSSettings {
     public void invertSetting(VSSettingItem item) {
         GameType mode = item.getGroup().getMode();
         int id = item.getID();
-        boolean b = !getSetting(item);
+        boolean b = !isEnabled(item);
         setSetting(mode, id, b);
     }
 
@@ -95,6 +86,10 @@ public class VSSettings {
         settingItems.get(mode).put(id, item);
     }
 
+    /**
+     * ID 0 = isGroupEnabled
+     * ID >100 = isMapEnabled (100 = Map1, 101 = Map2, ...)
+     */
     public static VSSettingItem getItem(GameType mode, int id) {
         return settingItems.get(mode).get(id);
     }
