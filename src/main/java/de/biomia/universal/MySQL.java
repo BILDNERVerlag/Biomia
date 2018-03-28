@@ -157,11 +157,8 @@ public abstract class MySQL {
     private static void closeQuietly(ResultSet rs, PreparedStatement ps) {
         try {
             if (rs != null) rs.close();
-        } catch (Exception ignored) {
-        }
-        try {
             if (ps != null) ps.close();
-        } catch (Exception ignored) {
+        } catch (SQLException ignored) {
         }
     }
 
