@@ -2,9 +2,9 @@ package de.biomia.spigot.commands.general;
 
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.universal.Messages;
+import me.lucko.luckperms.LuckPerms;
+import me.lucko.luckperms.api.User;
 import org.bukkit.command.CommandSender;
-import ru.tehkode.permissions.PermissionUser;
-import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class PermissionCommand extends BiomiaCommand {
 
@@ -13,13 +13,15 @@ public class PermissionCommand extends BiomiaCommand {
     }
 
     private static void removePermission(String p, String permission) {
-        PermissionUser user = PermissionsEx.getUser(p);
-        user.removePermission(permission);
+        User user = LuckPerms.getApi().getUser(p);
+        if (user != null)
+            user.setPermission(LuckPerms.getApi().buildNode(permission).setValue(false).build());
     }
 
     private static void addPermission(String p, String permission) {
-        PermissionUser user = PermissionsEx.getUser(p);
-        user.addPermission(permission);
+        User user = LuckPerms.getApi().getUser(p);
+        if (user != null)
+            user.setPermission(LuckPerms.getApi().buildNode(permission).setValue(false).build());
     }
 
     @Override
