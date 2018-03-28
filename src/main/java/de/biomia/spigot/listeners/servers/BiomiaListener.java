@@ -11,8 +11,8 @@ import de.biomia.spigot.general.reportsystem.ReportSQL;
 import de.biomia.spigot.messages.manager.HeaderAndFooter;
 import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.PlayerToServerConnector;
-import de.biomia.spigot.tools.RankManager;
 import de.biomia.universal.Messages;
+import de.biomia.universal.Ranks;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -38,8 +38,8 @@ public abstract class BiomiaListener implements Listener {
     public final void onJoin(PlayerJoinEvent e) {
         e.setJoinMessage(null);
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        if (RankManager.getRank(e.getPlayer()).equals("default")) {
-            RankManager.setRank(e.getPlayer(), "unregspieler");
+        if (bp.getRank().equals("default")) {
+            bp.setRank(Ranks.UnregSpieler);
         }
         HeaderAndFooter.sendHeaderAndFooter(e.getPlayer(), "\n\u00A7cBIO\u00A7bMIA\n",
                 "\u00A7cWebsite: \u00A7bwww.biomia.de\n\u00A7cTS: \u00A7bts.biomia.de");
@@ -122,7 +122,7 @@ public abstract class BiomiaListener implements Listener {
             ReportManager.waitForCostumReason.remove(bp);
         }
 
-        e.setFormat(RankManager.getPrefix(p) + "%s\u00A77: \u00A7f%s");
+        e.setFormat(bp.getRank().getPrefix() + "%s\u00A77: \u00A7f%s");
 
         if (p.hasPermission("biomia.coloredchat")) {
             e.setMessage(ChatColor.translateAlternateColorCodes('&', e.getMessage()));

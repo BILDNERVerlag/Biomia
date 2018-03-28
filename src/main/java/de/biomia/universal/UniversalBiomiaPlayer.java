@@ -1,8 +1,15 @@
 package de.biomia.universal;
 
+import me.lucko.luckperms.LuckPerms;
+import me.lucko.luckperms.api.LuckPermsApi;
+import me.lucko.luckperms.api.User;
+
 import java.util.UUID;
 
 public abstract class UniversalBiomiaPlayer {
+
+    private static final LuckPermsApi api = LuckPerms.getApi();
+    private User permUser;
 
     private class BiomiaIDCantBeMinusOneException extends Exception {
     }
@@ -10,6 +17,27 @@ public abstract class UniversalBiomiaPlayer {
     private final int biomiaID;
     private String name;
     private UUID uuid;
+
+    protected UniversalBiomiaPlayer(int biomiaID, String name, UUID uuid) {
+        if (biomiaID == -1)
+            new BiomiaIDCantBeMinusOneException().printStackTrace();
+        this.biomiaID = biomiaID;
+        this.name = name;
+        this.uuid = uuid;
+        permUser = api.getUser(getName());
+    }
+
+    protected UniversalBiomiaPlayer(int biomiaID) {
+        this(biomiaID, null, null);
+    }
+
+    protected UniversalBiomiaPlayer(int biomiaID, String name) {
+        this(biomiaID, name, null);
+    }
+
+    protected UniversalBiomiaPlayer(int biomiaID, UUID uuid) {
+        this(biomiaID, null, uuid);
+    }
 
     public static int getBiomiaPlayerID(UUID uuid) {
         return MySQL.executeQuerygetint("Select id from BiomiaPlayer where uuid = '" + uuid.toString() + "'", "id", MySQL.Databases.biomia_db);
@@ -19,25 +47,6 @@ public abstract class UniversalBiomiaPlayer {
         return MySQL.executeQuerygetint("Select id from BiomiaPlayer where name = '" + playerName + "'", "id", MySQL.Databases.biomia_db);
     }
 
-    protected UniversalBiomiaPlayer(int biomiaID) {
-        if (biomiaID == -1)
-            new BiomiaIDCantBeMinusOneException().printStackTrace();
-        this.biomiaID = biomiaID;
-    }
-
-    protected UniversalBiomiaPlayer(int biomiaID, String name) {
-        if (biomiaID == -1)
-            new BiomiaIDCantBeMinusOneException().printStackTrace();
-        this.biomiaID = biomiaID;
-        this.name = name;
-    }
-
-    protected UniversalBiomiaPlayer(int biomiaID, UUID uuid) {
-        if (biomiaID == -1)
-            new BiomiaIDCantBeMinusOneException().printStackTrace();
-        this.biomiaID = biomiaID;
-        this.uuid = uuid;
-    }
 
     // ID and UUID METHODS
 
@@ -82,4 +91,53 @@ public abstract class UniversalBiomiaPlayer {
         MySQL.executeUpdate("UPDATE `BiomiaCoins` SET `coins` = " + coins + " WHERE `ID` = " + biomiaID, MySQL.Databases.biomia_db);
     }
 
+    // rank methods
+
+    public final boolean isStaff() {
+        return (getRank() != Ranks.YouTube && getRank() != Ranks.RegSpieler && getRank() != Ranks.UnregSpieler && !getRank().isPremium());
+    }
+
+    public final boolean isJrStaff() {
+        return (getRank() == Ranks.JrBuilder || getRank() == Ranks.Supporter);
+    }
+
+    public final boolean isSrStaff() {
+        return (getRank() == Ranks.Owner || getRank() == Ranks.Admin || getRank() == Ranks.Developer || getRank() == Ranks.SrBuilder || getRank() == Ranks.SrModerator);
+
+    }
+
+    public final boolean isYouTuber() {
+        return (getRank() == Ranks.YouTube);
+    }
+
+    public final boolean isOwner() {
+        return (getRank() == Ranks.Owner);
+    }
+
+    public boolean isPremium() {
+        return getRank().isPremium();
+    }
+
+    public boolean isSupporter() {
+        return (getRank() == Ranks.Supporter);
+    }
+
+    public int getPremiumLevel() {
+        if (getRank().isPremium())
+            return getRank().getLevel() - 1;
+        else return 0;
+    }
+
+    public Ranks getRank() {
+        String rank = permUser.getPrimaryGroup();
+        for (Ranks ranks : Ranks.values()) {
+            if (ranks.getName().equals(rank))
+                return ranks;
+        }
+        return null;
+    }
+
+    public void setRank(Ranks rank) {
+        permUser.setPrimaryGroup(rank.getName());
+    }
 }

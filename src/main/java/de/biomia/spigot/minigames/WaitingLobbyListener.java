@@ -4,8 +4,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.listeners.servers.BiomiaListener;
 import de.biomia.spigot.messages.MinigamesMessages;
-import de.biomia.spigot.tools.RankManager;
-import de.biomia.universal.UniversalBiomia;
+import de.biomia.universal.Ranks;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -66,14 +65,15 @@ public class WaitingLobbyListener extends BiomiaListener {
     public void onLogin(PlayerLoginEvent e) {
 
         if (e.getResult().equals(PlayerLoginEvent.Result.KICK_FULL)) {
-            String rank = RankManager.getRank(e.getPlayer());
-            int i = UniversalBiomia.getRankLevel(rank);
-            if (i == 1 || i == 2) {
+            Ranks rank = Biomia.getBiomiaPlayer(e.getPlayer()).getRank();
+            int i = rank.getLevel();
+            if (rank == Ranks.RegSpieler || rank == Ranks.UnregSpieler) {
                 e.disallow(PlayerLoginEvent.Result.KICK_FULL, MinigamesMessages.serverFull);
                 return;
             }
             for (Player eachPlayer : Bukkit.getOnlinePlayers()) {
-                GameTeam team = Biomia.getBiomiaPlayer(eachPlayer).getTeam();
+                BiomiaPlayer eachBP = Biomia.getBiomiaPlayer(eachPlayer);
+                GameTeam team = eachBP.getTeam();
                 if (team != null && team.getMode().getStateManager().getActualGameState() != GameStateManager.GameState.LOBBY) {
                     if (isVersus)
                         continue;
@@ -82,7 +82,7 @@ public class WaitingLobbyListener extends BiomiaListener {
                         return;
                     }
                 }
-                if (UniversalBiomia.getRankLevel(RankManager.getRank(eachPlayer)) < i) {
+                if (eachBP.getRank().getLevel() < i) {
                     eachPlayer.sendMessage(MinigamesMessages.kickedForPremium);
                     eachPlayer.kickPlayer("");
                     e.allow();

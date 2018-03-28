@@ -95,6 +95,10 @@ public class Stats {
             return out == -1 ? 0 : out;
         }
 
+        static int getStatLastX(BiomiaStat stat, int biomiaID, String comment) {
+            //TODO: stat statGetX-fertigmachen
+            return 0;
+        }
     }
 
 
@@ -333,18 +337,18 @@ public class Stats {
 
     private static String toDayTime(String s) {
         switch (s = s.toUpperCase()) {
-        case "SECOND":
-        case "MINUTE":
-        case "HOUR":
-        case "DAY":
-        case "WEEK":
-        case "MONTH":
-        case "QUARTER":
-        case "YEAR":
-            //all good
-            break;
-        default:
-            s = "DAY";
+            case "SECOND":
+            case "MINUTE":
+            case "HOUR":
+            case "DAY":
+            case "WEEK":
+            case "MONTH":
+            case "QUARTER":
+            case "YEAR":
+                //all good
+                break;
+            default:
+                s = "DAY";
         }
         return s;
     }
