@@ -96,7 +96,7 @@ public class VSRequest {
     }
 
     public void startServer() {
-        gameInstance = new GameInstance(mode, Versus.getInstance().getManager().copyWorld(mode, id, mapName), mapName, 2, 1);
+        gameInstance = new GameInstance(mode, Versus.getInstance().getManager().copyWorld(mode, id, mapName), 2, 1);
         gameInstance.registerPlayer(leader);
         gameInstance.registerPlayer(bp2);
         Versus.getInstance().getManager().getRequests().put(gameInstance, this);
@@ -119,16 +119,17 @@ public class VSRequest {
         int id = 100;
         VSSettingItem item;
 
-        do {
-            item = VSSettings.getItem(mode, id);
+        while (true) {
+            item = VSSettings.getItem(mode, id++);
             if (item == null)
                 break;
-            if (requesterSettings.isEnabled(item))
-                if (checkBoth && !receiverSettings.isEnabled(item))
+            if (requesterSettings.isEnabled(item)) {
+                if (checkBoth && !receiverSettings.isEnabled(item)) {
                     continue;
-            maps.add(item.getName());
-            id++;
-        } while (true);
+                }
+                maps.add(item.getName());
+            }
+        }
 
         if (maps.isEmpty())
             return false;
@@ -146,10 +147,12 @@ public class VSRequest {
         for (GameType mode : GameType.values()) {
             VSSettingItem item = VSSettings.getItem(mode, 0);
             if (item != null)
-                if (requesterSettings.isEnabled(item))
-                    if (checkBoth && !receiverSettings.isEnabled(item))
+                if (requesterSettings.isEnabled(item)) {
+                    if (checkBoth && !receiverSettings.isEnabled(item)) {
                         continue;
-            modes.add(mode);
+                    }
+                    modes.add(mode);
+                }
         }
         if (modes.size() == 0)
             return false;

@@ -5,8 +5,8 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.minigames.bedwars.BedWars;
-import de.biomia.spigot.minigames.skywars.SkyWars;
 import de.biomia.spigot.minigames.kitpvp.KitPvP;
+import de.biomia.spigot.minigames.skywars.SkyWars;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -63,9 +63,8 @@ public class GameInstance implements Listener {
         }.runTaskLater(Main.getPlugin(), 15);
     }
 
-    public GameInstance(GameType type, World world, String mapDisplayName, int teamAmount, int teamSize) {
-        this(type, mapDisplayName, teamAmount, teamSize);
-        this.world = world;
+    public GameInstance(GameType type, World world, int teamAmount, int teamSize) {
+        this(type, world.getName(), teamAmount, teamSize);
     }
 
     public void registerPlayer(BiomiaPlayer bp) {

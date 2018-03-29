@@ -27,13 +27,13 @@ public class WaitingLobbyListener extends BiomiaListener {
     @EventHandler
     public void onJoin_(PlayerJoinEvent e) {
         if (isVersus) {
-            Versus.getInstance().getManager().moveToLobby(e.getPlayer());
+            Versus.getInstance().getManager().moveToLobby(e.getPlayer(), true);
         }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onSpawn(PlayerSpawnLocationEvent e) {
-        e.setSpawnLocation(GameMode.getSpawn());
+        e.setSpawnLocation(GameMode.getSpawn(isVersus));
     }
 
     @EventHandler
@@ -112,7 +112,7 @@ public class WaitingLobbyListener extends BiomiaListener {
         }
         e.setCancelled(true);
         for (Player spec : Bukkit.getOnlinePlayers()) {
-            if (spec.getWorld().equals(GameMode.getSpawn().getWorld()))
+            if (spec.getWorld().equals(GameMode.getSpawn(isVersus).getWorld()))
                 spec.sendMessage(message);
         }
     }

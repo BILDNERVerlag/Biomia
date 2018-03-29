@@ -176,14 +176,15 @@ public class GameStateManager {
         void start() {
 
             for (Player p : Bukkit.getOnlinePlayers()) {
-                Biomia.getBiomiaPlayer(p).setBuild(false);
-                Biomia.getBiomiaPlayer(p).setDamageEntitys(false);
-                Biomia.getBiomiaPlayer(p).setGetDamage(false);
+                BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
+                if (!getMode().isSpectator(bp))
+                    continue;
+                bp.setBuild(false);
+                bp.setDamageEntitys(false);
+                bp.setGetDamage(false);
             }
-
-            Teleport.teleportAllToWarteLobby(GameMode.getSpawn(), getMode().getInstance().getPlayers());
-
-            if (!getMode().getInstance().getType().isVersus())
+            Teleport.teleportAllToWarteLobby(getMode());
+            if (!getMode().getInstance().getType().isVersus()) {
                 new BukkitRunnable() {
                     int i = 15;
 
@@ -203,8 +204,9 @@ public class GameStateManager {
                         i--;
                     }
                 }.runTaskTimer(Main.getPlugin(), 0, 20);
-            else
+            } else {
                 getMode().getInstance().deleteWorld();
+            }
         }
 
         @Override

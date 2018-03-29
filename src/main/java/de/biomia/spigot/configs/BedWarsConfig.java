@@ -51,53 +51,6 @@ public class BedWarsConfig extends MinigamesConfig {
         return new ArrayList<>(Arrays.asList(l1.getBlock(), l2.getBlock()));
     }
 
-    public void loadSignsFromConfig(GameInstance instance) {
-        for (int i = 1; i <= 10; i++) {
-            if (getConfig().getString("Signs." + i + ".World") != null) {
-
-                BlockFace blockFace = BlockFace.valueOf(getSavePath("Signs." + (i) + ".Facing"));
-                Location loc = getLocation(instance, "Signs." + i);
-
-                org.bukkit.material.Sign signData = (org.bukkit.material.Sign) loc.getBlock().getState().getData();
-                signData.setFacingDirection(blockFace);
-                Sign sign = (Sign) loc.getBlock().getState();
-                sign.setData(signData);
-
-//				Stats stat = Leaderboard.getStat(i);
-//
-//				if (stat != null) {
-//
-//					double kd = 0;
-//					if(stat.deaths != 0) {
-//						kd = stat.kills / stat.deaths;
-//					}
-//
-//					NumberFormat n = NumberFormat.getInstance();
-//					n.setMaximumFractionDigits(2);
-//
-//					sign.setLine(0, "?5" + stat.name + " ?2#" + stat.rank);
-//					sign.setLine(1, "?8Wins:?7 " + stat.wins);
-//					sign.setLine(2, "?8K/D:?7 " + n.format(kd));
-//					sign.setLine(3, "?8Gespielt:?7 " + stat.played_games);
-//
-//					sign.update(true);
-//
-//					Block b = sign.getBlock().getLocation().add(0, 1, 0).getBlock();
-//
-//					b.setTypeIdAndData(Material.SKULL.getId(), Leaderboard.getFacingDirectionByte(signData.getFacing()),
-//							true);
-//
-//					Skull s = (Skull) b.getState();
-//					s.setSkullType(SkullType.PLAYER);
-//					s.setOwner(stat.name);
-//					s.update();
-//				}
-
-//                Variables.signLocations.put(sign, i);
-            }
-        }
-    }
-
     public HashMap<ItemType, ArrayList<Location>> loadSpawner(GameInstance instance) {
 
         HashMap<ItemType, ArrayList<Location>> spawner = new HashMap<>();

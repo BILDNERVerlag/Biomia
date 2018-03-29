@@ -24,7 +24,7 @@ public class VSCommands extends BiomiaCommand {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
 
             if (args.length == 0 && getName().equalsIgnoreCase("spawn")) {
-                Versus.getInstance().getManager().moveToLobby(p);
+                Versus.getInstance().getManager().moveToLobby(p, false);
             } else if (args.length == 1) {
                 String player = args[0];
                 Player parg = Bukkit.getPlayer(player);

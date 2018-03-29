@@ -23,7 +23,7 @@ import java.util.UUID;
 public abstract class GameMode {
 
     private static final Location spawn = new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 45, 0);
-    private static final Location versusSpawn = new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 45, 0);
+    private static final Location versusSpawn = new Location(Bukkit.getWorld("Spawn"), -34.5, 85, -113.5, 0, 0);
     private MinigamesConfig config;
     protected Inventory teamSwitcher;
     private final GameInstance instance;
@@ -184,11 +184,9 @@ public abstract class GameMode {
         return joiner;
     }
 
-    public static Location getSpawn() {
-        return spawn;
-    }
-
-    public static Location getVerusSpawn() {
+    public static Location getSpawn(boolean isVersus) {
+        if (isVersus)
+            return versusSpawn;
         return spawn;
     }
 
