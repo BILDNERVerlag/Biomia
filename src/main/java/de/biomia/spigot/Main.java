@@ -34,6 +34,8 @@ import org.bukkit.craftbukkit.v1_12_R1.CraftServer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.logging.Level;
+
 import static de.biomia.spigot.minigames.GameType.BED_WARS;
 import static de.biomia.spigot.minigames.GameType.SKY_WARS;
 
@@ -101,6 +103,7 @@ public class Main extends JavaPlugin {
             case Lobby:
                 Biomia.setServerInstance(new Lobby());
                 break;
+            case TestServer:
             case TestQuest:
             case Quest:
                 Biomia.setServerInstance(new Quests());

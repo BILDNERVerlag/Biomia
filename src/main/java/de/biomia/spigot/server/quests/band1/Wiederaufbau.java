@@ -36,7 +36,7 @@ public class Wiederaufbau implements Listener {
                         + "m\u00f6chte die Verteidigungslinien st\u00e4rken und braucht dazu 32 Bruchstein.");
         String npcName = "Jonathan";
         npc = q.createNPC(EntityType.PLAYER, npcName);
-        Location npcLoc = new Location(Bukkit.getWorld("Quests"), 96.5, 73, -268.5, 160, 0);
+        Location npcLoc = new Location(Bukkit.getWorld("BiomiaWelt"), 96.5, 73, -268.5, 160, 0);
         npc.spawn(npcLoc);
 
         initDialog();

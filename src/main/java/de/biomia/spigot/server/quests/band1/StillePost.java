@@ -57,13 +57,13 @@ public class StillePost implements Listener {
         elisabeth = q.createNPC(EntityType.PLAYER, "Elisabeth");
         mario = q.createNPC(EntityType.PLAYER, "Mario");
 
-        Location locLorena = new Location(Bukkit.getWorld("Quests"), 174, 63, -281, 60, 0);
+        Location locLorena = new Location(Bukkit.getWorld("BiomiaWelt"), 174, 63, -281, 60, 0);
         lorena.spawn(locLorena);
-        Location locFranky = new Location(Bukkit.getWorld("Quests"), 107.5, 70, -292, -155, 0);
+        Location locFranky = new Location(Bukkit.getWorld("BiomiaWelt"), 107.5, 70, -292, -155, 0);
         franky.spawn(locFranky);
-        Location locElisa = new Location(Bukkit.getWorld("Quests"), 121.5, 73, -280.5, 0, 0);
+        Location locElisa = new Location(Bukkit.getWorld("BiomiaWelt"), 121.5, 73, -280.5, 0, 0);
         elisabeth.spawn(locElisa);
-        Location locMario = new Location(Bukkit.getWorld("Quests"), 83.7, 70, -267.5, 180, 0);
+        Location locMario = new Location(Bukkit.getWorld("BiomiaWelt"), 83.7, 70, -267.5, 180, 0);
         mario.spawn(locMario);
         initDialog();
     }

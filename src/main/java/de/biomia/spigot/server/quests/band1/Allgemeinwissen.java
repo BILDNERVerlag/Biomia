@@ -56,12 +56,12 @@ public class Allgemeinwissen implements Listener {
                 "Herbert m\u00f6chte, dass du f\u00fcr ihn ein verlorenes Familienerbst\u00fcck wiederbeschaffst. Er vertraut dir ein altes Buch an, mit dessen Hilfe du ein R\u00e4tsel l\u00f6sen sollst.");
 
         herbert = q.createNPC(EntityType.PLAYER, "Herbert");
-        Location locHerbert = new Location(Bukkit.getWorld("Quests"), 101.5, 70, -304.5, 95, 0);
+        Location locHerbert = new Location(Bukkit.getWorld("BiomiaWelt"), 101.5, 70, -304.5, 95, 0);
         herbert.spawn(locHerbert);
 
         ghost = q.createNPC(EntityType.PLAYER, "Geist");
 
-        locGhost = new Location(Bukkit.getWorld("Quests"), 99.5, 70, -305.5, -22, 0);
+        locGhost = new Location(Bukkit.getWorld("BiomiaWelt"), 99.5, 70, -305.5, -22, 0);
         initBook();
         initDialog();
     }

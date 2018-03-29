@@ -3,6 +3,7 @@ package de.biomia.spigot.listeners.servers;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.BiomiaServerType;
+import de.biomia.spigot.achievements.Stats;
 import de.biomia.spigot.general.cosmetics.Cosmetic;
 import de.biomia.spigot.general.cosmetics.items.CosmeticPetItem;
 import de.biomia.spigot.general.reportsystem.PlayerReport;
@@ -24,9 +25,11 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * The Listener of the actual Server have to extend this class
@@ -155,6 +158,24 @@ public abstract class BiomiaListener implements Listener {
             Player p = (Player) e.getDamager();
             if (!Biomia.getBiomiaPlayer(p).canDamageEntitys()) {
                 e.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public final void onItemPickUp(EntityPickupItemEvent e) {
+        if (e.getEntity() instanceof Player) {
+            Player p = (Player) e.getEntity();
+            e.getItem().setPickupDelay(0);
+            ItemStack is = e.getItem().getItemStack();
+            if (is.getType() == Material.BROWN_GLAZED_TERRACOTTA) {
+                if (is.getItemMeta().getDisplayName().equals("§eSchnitzel")) {
+                    Stats.incrementStat(Stats.BiomiaStat.SchnitzelFound, p);
+                    int anzSchnitzel = Stats.getStat(Stats.BiomiaStat.SchnitzelFound, p);
+                    p.sendMessage(Messages.PREFIX + "§7Du hast dein §b" + anzSchnitzel + ". §cSchnitzel gefunden!");
+                    e.getItem().remove();
+                    e.setCancelled(true);
+                }
             }
         }
     }

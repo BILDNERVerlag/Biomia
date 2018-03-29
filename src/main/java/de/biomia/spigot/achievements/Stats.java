@@ -52,7 +52,8 @@ public class Stats {
 
         //Events
 
-        SpecialEggsFound, BW_ItemsBoughtNames, BW_FinalKills, BW_FinalDeaths, EasterEggsFound;
+        SpecialEggsFound, BW_ItemsBoughtNames, BW_FinalKills, BW_FinalDeaths, EasterEggsFound,
+        SchnitzelFound;
 
 
         /**

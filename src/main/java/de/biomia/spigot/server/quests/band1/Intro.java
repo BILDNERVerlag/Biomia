@@ -27,7 +27,7 @@ public class Intro implements Listener {
     public Intro() {
         q = Biomia.getQuestManager().registerNewQuest("Intro", 99);
         aaron = q.createNPC(EntityType.PLAYER, "DerAaron");
-        Location locAaron = new Location(Bukkit.getWorld("Quests"), -35, 68, -204, 30, 5);
+        Location locAaron = new Location(Bukkit.getWorld("BiomiaWelt"), -35, 68, -204, 30, 5);
         aaron.spawn(locAaron);
 
         initDialog();

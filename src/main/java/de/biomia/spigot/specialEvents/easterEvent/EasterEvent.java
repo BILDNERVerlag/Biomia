@@ -65,7 +65,7 @@ public class EasterEvent implements Listener {
                 break;
             case Quest:
             case TestQuest:
-                world = "Quests";
+                world = "BiomiaWelt";
                 location = new Location(Bukkit.getWorld(world), 114, 0, -288);
                 specialEggLocation = new Location(Bukkit.getWorld(world), 141, 66, -259);
                 radius = 50;

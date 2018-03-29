@@ -31,8 +31,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class QuestListener extends BiomiaListener {
 
-    private static final Location holzfarmLoc = new Location(Bukkit.getWorld("Quests"), 283, 69, -234);
-    private static final Location cobblefarmLoc = new Location(Bukkit.getWorld("Quests"), 128, 71, -187);
+    private static final Location holzfarmLoc = new Location(Bukkit.getWorld("BiomiaWelt"), 283, 69, -234);
+    private static final Location cobblefarmLoc = new Location(Bukkit.getWorld("BiomiaWelt"), 128, 71, -187);
 
     @EventHandler
     public static void playerInteract(PlayerInteractEvent event) {
@@ -149,7 +149,7 @@ public class QuestListener extends BiomiaListener {
 
     @EventHandler
     public void onLeaveBreak(LeavesDecayEvent e) {
-        if (e.getBlock().getLocation().distance(new Location(Bukkit.getWorld("Quests"), 283, 69, -234)) <= 40) {
+        if (e.getBlock().getLocation().distance(new Location(Bukkit.getWorld("BiomiaWelt"), 283, 69, -234)) <= 40) {
 
             Location loc = e.getBlock().getLocation();
             Block b = e.getBlock();
@@ -172,6 +172,7 @@ public class QuestListener extends BiomiaListener {
 
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
+        Bukkit.broadcastMessage(e.getTo().toString());
         if (e.getTo().distance(holzfarmLoc) <= 40 && e.getFrom().distance(holzfarmLoc) > 40) {
             ActionBar.sendActionBar(QuestMessages.woodFarmEnter, e.getPlayer());
         } else if (e.getTo().distance(holzfarmLoc) > 40 && e.getFrom().distance(holzfarmLoc) <= 40) {

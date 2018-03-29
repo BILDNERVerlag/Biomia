@@ -26,7 +26,7 @@ import java.util.HashMap;
 public class BergHuehner implements Listener {
     private final Quest q = Biomia.getQuestManager().registerNewQuest("BergHuehner", 1);
     private final HashMap<QuestPlayer, Boolean> hasEggs = new HashMap<>();
-    private final Location zielLoc = new Location(Bukkit.getWorld("Quests"), 216, 158, -162);
+    private final Location zielLoc = new Location(Bukkit.getWorld("BiomiaWelt"), 216, 158, -162);
     private final NPC tom;
     private DialogMessage startDialog;
     private DialogMessage comeBackWithEggs;
@@ -43,7 +43,7 @@ public class BergHuehner implements Listener {
         q.setCooldown(1, TIME.TAGE);
 
         tom = q.createNPC(EntityType.PLAYER, "Tom");
-        Location npcLoc = new Location(Bukkit.getWorld("Quests"), 181, 72, -220, 140, 0);
+        Location npcLoc = new Location(Bukkit.getWorld("BiomiaWelt"), 181, 72, -220, 140, 0);
         tom.spawn(npcLoc);
         initDialog();
     }

@@ -14,6 +14,8 @@ import de.biomia.spigot.tools.LastPositionListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
+import java.util.logging.Level;
+
 import static de.biomia.spigot.Main.getPlugin;
 
 public class Quests extends BiomiaServer {
@@ -24,10 +26,8 @@ public class Quests extends BiomiaServer {
 
     @Override
     public void start() {
-        Bukkit.broadcastMessage("%%%1");
         super.start();
         NPCManager.saveNPCLocations();
-        Bukkit.broadcastMessage("%%%2");
     }
 
     @Override
@@ -38,7 +38,6 @@ public class Quests extends BiomiaServer {
 
     @Override
     protected void initListeners() {
-        Bukkit.broadcastMessage("%%%3");
         super.initListeners();
 
         PluginManager pm = Bukkit.getPluginManager();
@@ -47,15 +46,12 @@ public class Quests extends BiomiaServer {
         pm.registerEvents(new QuestListener(), getPlugin());
 
         initQuests(pm);
-        Bukkit.broadcastMessage("%%%4");
     }
 
     @Override
     protected void initCommands() {
-        Bukkit.broadcastMessage("%%%5");
         super.initCommands();
         Main.registerCommand(new QuestCommands());
-        Bukkit.broadcastMessage("%%%6");
     }
 
     private void initQuests(PluginManager pm) {

@@ -1,14 +1,18 @@
 package de.biomia.spigot.commands.general;
 
 import de.biomia.spigot.Biomia;
+import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.configs.Config;
 import de.biomia.spigot.specialEvents.easterEvent.EasterEvent;
 import de.biomia.spigot.specialEvents.winterEvent.WinterTag;
+import de.biomia.spigot.tools.ItemCreator;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import static de.biomia.spigot.configs.Config.saveConfig;
 
@@ -16,6 +20,7 @@ public class EventCommands extends BiomiaCommand {
 
     private final static boolean winterEventOn = false;
     private final static boolean easterEventOn = true;
+    private final static boolean schnitzelEventOn = true;
 
     public EventCommands(String string) {
         super(string);
@@ -26,6 +31,7 @@ public class EventCommands extends BiomiaCommand {
 
         if (sender instanceof Player) {
             Player p = (Player) sender;
+            BiomiaPlayer biomiaPlayer = Biomia.getBiomiaPlayer(p);
 
             // WINTER
             if (winterEventOn) {
@@ -76,6 +82,14 @@ public class EventCommands extends BiomiaCommand {
                     if (args.length >= 2) {
                         Main.getEvent().addEggs(Biomia.getOfflineBiomiaPlayer(args[0]).getBiomiaPlayerID(), Integer.valueOf(args[1]));
                     }
+                }
+            }
+
+            //Schnitzel
+            if (schnitzelEventOn) {
+                if (getName().equals("schnitzel") && biomiaPlayer.isSrStaff()) {
+                    ItemStack is = ItemCreator.itemCreate(Material.BROWN_GLAZED_TERRACOTTA, "§eSchnitzel");
+                    p.getLocation().getWorld().dropItem(p.getLocation(), is);
                 }
             }
         }

@@ -30,7 +30,7 @@ public class Forsthilfe implements Listener {
         q.setInfoText(npcName
                 + ", der F\u00f6rster, m\u00f6chte, dass du ihm dabei hilfst, den Wald wieder auszuweiten. Er bittet dich deshalb darum, ihm einige Setzlinge zu besorgen. Zehn sollten gen\u00fcgen.");
         npc = q.createNPC(EntityType.PLAYER, npcName);
-        Location npcLoc = new Location(Bukkit.getWorld("Quests"), 118.305, 71, -300, 92, 28);
+        Location npcLoc = new Location(Bukkit.getWorld("BiomiaWelt"), 118.305, 71, -300, 92, 28);
         npc.spawn(npcLoc);
 
         q.setRepeatable(true);

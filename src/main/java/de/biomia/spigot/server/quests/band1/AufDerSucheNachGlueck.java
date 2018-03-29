@@ -32,7 +32,7 @@ public class AufDerSucheNachGlueck implements Listener {
                 "Lato ist vom Ungl\u00fcck verfolgt. Er m\u00f6chte dies \u00e4ndern und bittet dich darum, ihm eine Hasenpfote zu beschaffen.");
         q.setDisplayName("Suche nach Gl\u00fcck");
         npc = q.createNPC(EntityType.PLAYER, "Lato");
-        Location loc = new Location(Bukkit.getWorld("Quests"), 139, 64, -235.5, 17, 0);
+        Location loc = new Location(Bukkit.getWorld("BiomiaWelt"), 139, 64, -235.5, 17, 0);
         npc.spawn(loc);
         initDialog();
     }
