@@ -60,11 +60,15 @@ public class Wasserholen implements Listener {
                 } else {
                     Quests.restartQuestIfTimeOver(qp, q, dialog_Start, nachQuest);
                 }
-
-
                 qp.getDialog().execute(qp);
             }
         }
+    }
+
+    public interface Condition{
+
+        boolean isTrue(QuestPlayer qp);
+
     }
 
     private void initDialog() {
