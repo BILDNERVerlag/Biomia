@@ -66,8 +66,9 @@ public class VSManager implements Listener {
 //        kitpvpsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, kitpvpsMaps, "Map1"));
     }
 
-    public void moveToLobby(Player p) {
-        p.teleport(de.biomia.spigot.minigames.GameMode.getSpawn());
+    public void moveToLobby(Player p, boolean onSpawn) {
+        if (!onSpawn)
+            p.teleport(de.biomia.spigot.minigames.GameMode.getSpawn(true));
         p.setGameMode(GameMode.SURVIVAL);
         setInventory(p);
         p.setHealth(20);

@@ -83,7 +83,7 @@ public abstract class GameHandler implements Listener {
         } else if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.LOBBY) {
 
             mode.getInstance().registerPlayer(Biomia.getBiomiaPlayer(e.getPlayer()));
-            p.teleport(GameMode.getSpawn());
+            p.teleport(GameMode.getSpawn(false));
 
             if (p.hasPermission("biomia.minigames.start")) {
                 if (mode.getInstance().getType() == GameType.SKY_WARS)
@@ -205,7 +205,7 @@ public abstract class GameHandler implements Listener {
                 Teleport.removeFromStartLocs(bp);
             }
         } else if (e.getTo().getBlockY() <= 20) {
-            e.getPlayer().teleport(GameMode.getSpawn());
+            e.getPlayer().teleport(GameMode.getSpawn(mode.getInstance().getType().isVersus()));
         }
     }
 
@@ -223,7 +223,7 @@ public abstract class GameHandler implements Listener {
             if (bp.getTeam() != null) {
                 e.setRespawnLocation(bp.getTeam().getHome());
             } else {
-                e.setRespawnLocation(GameMode.getSpawn());
+                e.setRespawnLocation(GameMode.getSpawn(mode.getInstance().getType().isVersus()));
             }
         }
 

@@ -1,15 +1,19 @@
 package de.biomia.spigot.minigames.general;
 
+import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.messages.manager.Title;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
+import de.biomia.spigot.minigames.versus.VSManager;
+import de.biomia.spigot.minigames.versus.Versus;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -17,15 +21,20 @@ public class Teleport {
 
     private static final HashMap<BiomiaPlayer, Location> starts = new HashMap<>();
 
-    public static void teleportAllToWarteLobby(Location warteLobbySpawn, ArrayList<BiomiaPlayer> players) {
-        Iterator<BiomiaPlayer> iterator = players.iterator();
+    public static void teleportAllToWarteLobby(GameMode instance) {
+        Iterator<? extends Player> iterator = Bukkit.getOnlinePlayers().iterator();
 
         new BukkitRunnable() {
-
+            VSManager manager = Versus.getInstance().getManager();
+            boolean versus = instance.getInstance().getType().isVersus();
             @Override
             public void run() {
                 if (iterator.hasNext()) {
-                    iterator.next().getPlayer().teleport(warteLobbySpawn);
+                    Player p = iterator.next();
+                    if (versus && instance.isSpectator(Biomia.getBiomiaPlayer(p)))
+                        manager.moveToLobby(p, false);
+                    else
+                        iterator.next().getPlayer().teleport(GameMode.getSpawn(false));
                 } else {
                     cancel();
                 }
