@@ -31,7 +31,7 @@ public class Wasserholen implements Listener {
                 "Elsa bittet dich nicht darum, im n\u00e4chsten Schneek\u00f6niginnenwettbewerb f\u00fcr sie abzustimmen, sondern m\u00f6chte lediglich, dass du ihr drei volle Eimer Wasser bringst.");
 
         elsa = q.createNPC(EntityType.PLAYER, "Elsa");
-        Location loc = new Location(Bukkit.getWorld("BiomiaWelt"), 104.5, 73, -268.5, 180, 0);
+        Location loc = new Location(Bukkit.getWorld("Quests"), 104.5, 73, -268.5, 180, 0);
         elsa.spawn(loc);
 
         q.setRepeatable(true);

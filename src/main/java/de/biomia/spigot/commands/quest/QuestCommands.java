@@ -423,7 +423,7 @@ public class QuestCommands extends BiomiaCommand {
         for (Quest q : Biomia.getQuestManager().getQuests()) {
             for (NPC n : q.getNpcs()) {
                 j = (i % 2 == 0) ? 0 : 1;
-                n.teleport(new Location(Bukkit.getWorld("BiomiaWelt"), 160 + i, 64, -263 + j), TeleportCause.COMMAND);
+                n.teleport(new Location(Bukkit.getWorld("Quests"), 160 + i, 64, -263 + j), TeleportCause.COMMAND);
                 n.getDefaultGoalController().addBehavior(WanderGoal.createWithNPCAndRange(n, 1, 1), 3);
                 n.getDefaultGoalController().removeBehavior(WanderGoal.createWithNPCAndRange(n, 1, 1));
                 i++;

@@ -41,7 +41,7 @@ public class RitterGoldFuss implements Listener {
                 "In der N\u00e4he des Dorfes triffst du einen Ritter mit golden gl\u00e4nzenden Latschen. Er m\u00f6chte, dass du ihm im Kampf gegen die Kreaturen der Nacht unterst\u00fctzt und ihm als Beweis 32 St\u00fcck verdorbenes Fleisch pr\u00e4sentierst.");
         q.setDisplayName("Ritter Goldfu\u00df");
         goldfuss = q.createNPC(EntityType.PLAYER, "Ritter Goldfu\u00df");
-        Location loc = new Location(Bukkit.getWorld("BiomiaWelt"), 156, 70, -318, -130, 0);
+        Location loc = new Location(Bukkit.getWorld("Quests"), 156, 70, -318, -130, 0);
         goldfuss.spawn(loc);
 
         try {

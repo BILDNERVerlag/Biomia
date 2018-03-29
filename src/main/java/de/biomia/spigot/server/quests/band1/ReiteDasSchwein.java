@@ -50,8 +50,8 @@ public class ReiteDasSchwein implements Listener {
     private static NPC brian;
     private static NPC falto;
 
-    private final Location endLoc = new Location(Bukkit.getWorld("BiomiaWelt"), 303, 64, -157);
-    private final Location startLoc = new Location(Bukkit.getWorld("BiomiaWelt"), 146, 64, -147);
+    private final Location endLoc = new Location(Bukkit.getWorld("Quests"), 303, 64, -157);
+    private final Location startLoc = new Location(Bukkit.getWorld("Quests"), 146, 64, -147);
 
     public ReiteDasSchwein() {
 
@@ -60,8 +60,8 @@ public class ReiteDasSchwein implements Listener {
                 "Das stets Schabernack treibende Duo aus Brian und Falto fordert dich zu einem Schweinerennen heraus.");
         q.setRemoveOnReload(true);
 
-        Location loc_brian = new Location(Bukkit.getWorld("BiomiaWelt"), 133, 70, -150, -152, 0);
-        Location loc_falto = new Location(Bukkit.getWorld("BiomiaWelt"), 135, 70, -149, -151, 0);
+        Location loc_brian = new Location(Bukkit.getWorld("Quests"), 133, 70, -150, -152, 0);
+        Location loc_falto = new Location(Bukkit.getWorld("Quests"), 135, 70, -149, -151, 0);
 
         brian = q.createNPC(EntityType.PLAYER, "Brian");
         falto = q.createNPC(EntityType.PLAYER, "Falto");

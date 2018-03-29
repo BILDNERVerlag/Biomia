@@ -35,7 +35,7 @@ public class HolzfaellerInDerHolzfalle implements Listener {
         q.setDisplayName("Kein Brett vorm Kopf");
         String npcName = "Logan";
         npc = q.createNPC(EntityType.PLAYER, npcName);
-        Location npcLoc = new Location(Bukkit.getWorld("BiomiaWelt"), 84.5, 70, -281.5, -25, 0);
+        Location npcLoc = new Location(Bukkit.getWorld("Quests"), 84.5, 70, -281.5, -25, 0);
         npc.spawn(npcLoc);
         initDialog();
     }

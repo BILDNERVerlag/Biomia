@@ -41,7 +41,7 @@ public class RitterGoldhelm implements Listener {
                 "Nahe der Holzfarm triffst du einen Ritter mit golden gl\u00e4nzendem Helm. Er m\u00f6chte, dass du ihm im Kampf gegen die Kreaturen der Nacht unterst\u00fctzt und ihm als beweis 32 Knochen pr\u00e4sentierst.");
         q.setDisplayName("Ritter Goldhelm");
         goldhelm = q.createNPC(EntityType.PLAYER, "Ritter Goldhelm");
-        Location loc = new Location(Bukkit.getWorld("BiomiaWelt"), 326.9, 63, -164.5, 142, 5);
+        Location loc = new Location(Bukkit.getWorld("Quests"), 326.9, 63, -164.5, 142, 5);
         goldhelm.spawn(loc);
 
         try {

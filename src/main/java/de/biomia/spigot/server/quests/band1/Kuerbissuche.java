@@ -30,7 +30,7 @@ public class Kuerbissuche implements Listener {
         q.setInfoText(
                 "Korbinian ist bereits voll mit den Vorbereitungen f\u00fcr das n\u00e4chste Halloween-Event besch\u00e4ftigt und ben\u00f6tigt einen K\u00fcrbis, um eine gruselige Laterne daraus zu machen.");
         korbinian = q.createNPC(EntityType.PLAYER, "Korbinian");
-        Location loc = new Location(Bukkit.getWorld("BiomiaWelt"), 97.5, 70, -305.5, -60, 0);
+        Location loc = new Location(Bukkit.getWorld("Quests"), 97.5, 70, -305.5, -60, 0);
         korbinian.spawn(loc);
         initDialog();
     }

@@ -25,7 +25,7 @@ public class WirFeiernEinFest implements Listener {
     private DialogMessage comeBackWithFireworks;
     private DialogMessage comeBackWithoutFireworks;
     private DialogMessage nachQuest;
-    private Location habilLoc = new Location(Bukkit.getWorld("BiomiaWelt"), 111, 72, -278, 0, 0);
+    private Location habilLoc = new Location(Bukkit.getWorld("Quests"), 111, 72, -278, 0, 0);
 
     public WirFeiernEinFest() {
         q.setInfoText(

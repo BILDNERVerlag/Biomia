@@ -25,6 +25,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.logging.Level;
 
 public class EasterEvent implements Listener {
 
@@ -51,7 +52,7 @@ public class EasterEvent implements Listener {
             case TestLobby:
             case Lobby:
                 world = "LobbyBiomia";
-                location = new Location(Bukkit.getWorld(world), 532, 112, 300);
+                location = new Location(Bukkit.getWorld(world), 532, 112, -280);
                 specialEggLocation = new Location(Bukkit.getWorld(world), 595, 74, 298);
                 radius = 160;
                 maxHight = 112;
@@ -65,10 +66,10 @@ public class EasterEvent implements Listener {
                 break;
             case Quest:
             case TestQuest:
-                world = "BiomiaWelt";
-                location = new Location(Bukkit.getWorld(world), 114, 0, -288);
+                world = "Quests";
+                location = new Location(Bukkit.getWorld(world), 114, 0, 288);
                 specialEggLocation = new Location(Bukkit.getWorld(world), 141, 66, -259);
-                radius = 50;
+                radius = 90;
                 maxHight = 85;
                 randomEggsPerServer = 2;
                 break;
@@ -76,7 +77,7 @@ public class EasterEvent implements Listener {
                 world = "BauWelt";
                 location = new Location(Bukkit.getWorld(world), 0, 0, 0);
                 specialEggLocation = new Location(Bukkit.getWorld(world), 11, 67, 19);
-                radius = 80;
+                radius = 90;
                 maxHight = 77;
                 randomEggsPerServer = 2;
                 break;
@@ -138,24 +139,32 @@ public class EasterEvent implements Listener {
     private void startSpawningEggs() {
         new BukkitRunnable() {
             final Random r = new Random();
+
             public void run() {
                 removeAllEggs();
                 for (int i = 0; i < randomEggsPerServer; i++) {
                     Location loc;
+                    int j = 0;
                     while (true) {
+                        j++;
+                        if (j > 200) {
+                            return;
+                        }
                         loc = location.clone();
                         int x = r.nextInt(radius * 2) - radius;
                         int z = r.nextInt(radius * 2) - radius;
 
-                        if (loc.add(x, 0, z).distance(loc) > radius) continue;
+//                        if (loc.add(x, 0, z).distance(location) > radius) {
+//                            continue;
+//                        }
 
                         Block highestBlock = loc.getWorld().getHighestBlockAt(loc).getLocation().getBlock();
                         loc = highestBlock.getLocation();
-                        if ((loc.getY() <= maxHight && loc.getY() != 1) && allowedMaterials.contains(highestBlock.getType()))
+                        if ((loc.getY() <= maxHight) && allowedMaterials.contains(highestBlock.getType())) {
                             break;
+                        }
                     }
                     Block b = loc.add(0, 1, 0).getBlock();
-
                     HeadCreator.setSkullUrl(eggName, b);
                     blocks.add(b);
                 }

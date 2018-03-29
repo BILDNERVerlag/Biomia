@@ -21,7 +21,6 @@ import de.biomia.spigot.minigames.versus.Versus;
 import de.biomia.spigot.server.demoserver.Weltenlabor;
 import de.biomia.spigot.server.freebuild.Freebuild;
 import de.biomia.spigot.server.lobby.Lobby;
-import de.biomia.spigot.server.quests.Quests;
 import de.biomia.spigot.specialEvents.easterEvent.EasterEvent;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.PlayerToServerConnector;
@@ -33,8 +32,6 @@ import org.bukkit.command.CommandMap;
 import org.bukkit.craftbukkit.v1_12_R1.CraftServer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.logging.Level;
 
 import static de.biomia.spigot.minigames.GameType.BED_WARS;
 import static de.biomia.spigot.minigames.GameType.SKY_WARS;
@@ -106,7 +103,9 @@ public class Main extends JavaPlugin {
             case TestServer:
             case TestQuest:
             case Quest:
-                Biomia.setServerInstance(new Quests());
+                //    Biomia.setServerInstance(new Quests());
+                Biomia.setServerInstance(new BiomiaServer(BiomiaServerType.Quest) {
+                });
                 break;
             case TestBedWars:
             case BedWars:

@@ -35,7 +35,7 @@ public class FinteMitTinte implements Listener {
         q.setDisplayName("Des Schreibers Crux");
         String npcName = "Frank Kazka";
         npc = q.createNPC(EntityType.PLAYER, npcName);
-        Location npcLoc = new Location(Bukkit.getWorld("BiomiaWelt"), 142.5, 67, -249, 0, 0);
+        Location npcLoc = new Location(Bukkit.getWorld("Quests"), 142.5, 67, -249, 0, 0);
         npc.spawn(npcLoc);
 
         initDialog();

@@ -41,9 +41,9 @@ public class BlumenFuerDieGeliebte implements Listener {
                 "Roman ist Hals \u00fcber Kopf in Julchen verliebt. Weil er zu sch\u00fcchtern ist, um sie selbst anzusprechen, sollst du f\u00fcr seinen Schwarm eine rote Rose besorgen.");
         roman = q.createNPC(EntityType.PLAYER, "Roman");
         julchen = q.createNPC(EntityType.PLAYER, "Julchen");
-        Location locRoman = new Location(Bukkit.getWorld("BiomiaWelt"), 126, 70, -311, -22, 0);
+        Location locRoman = new Location(Bukkit.getWorld("Quests"), 126, 70, -311, -22, 0);
         roman.spawn(locRoman);
-        Location locJulchen = new Location(Bukkit.getWorld("BiomiaWelt"), 133.5, 71, -295.5, 90, 0);
+        Location locJulchen = new Location(Bukkit.getWorld("Quests"), 133.5, 71, -295.5, 90, 0);
         julchen.spawn(locJulchen);
         initDialog();
     }

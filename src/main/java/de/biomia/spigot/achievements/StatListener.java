@@ -133,6 +133,12 @@ public class StatListener implements Listener {
 
     @EventHandler
     public void onLogin(PlayerLoginEvent e) {
+        if (e.getPlayer().hasMetadata("NPC")) {
+            // In this case "Player" is actually a Citizens NPC.
+            // We don't want CitizenNPCs in our database.
+            return;
+        }
+
         Stats.incrementStat(Stats.BiomiaStat.Logins, e.getPlayer(), Main.getGroupName());
 
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
@@ -261,12 +267,12 @@ public class StatListener implements Listener {
     public void onKitChangeEvent(KitEvent e) {
 
         switch (e.getType()) {
-        case BUY:
-            Stats.incrementStat(Stats.BiomiaStat.KitsBought, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKit().getID() + "");
-        case SELECT:
-            Stats.incrementStat(Stats.BiomiaStat.KitsChanged, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKit().getID() + "");
-        case SHOW:
-            Stats.incrementStat(Stats.BiomiaStat.KitsShown, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKit().getID() + "");
+            case BUY:
+                Stats.incrementStat(Stats.BiomiaStat.KitsBought, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKit().getID() + "");
+            case SELECT:
+                Stats.incrementStat(Stats.BiomiaStat.KitsChanged, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKit().getID() + "");
+            case SHOW:
+                Stats.incrementStat(Stats.BiomiaStat.KitsShown, e.getBiomiaPlayer().getBiomiaPlayerID(), e.getKit().getID() + "");
 
         }
 

@@ -72,10 +72,10 @@ public class Login implements Listener {
             return;
         }
 
-        if (pp.isForgeUser()) {
-            pp.disconnect(new TextComponent("\u00A7cBitte nutze die Minecraft ohne Forge!"));
-            return;
-        }
+//        if (pp.isForgeUser()) {
+//            pp.disconnect(new TextComponent("\u00A7cBitte nutze die Minecraft ohne Forge!"));
+//            return;
+//        }
 
         ArrayList<Bans> unbans = new ArrayList<>();
         BungeeMain.activeBans.forEach(eachBan -> {

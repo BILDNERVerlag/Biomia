@@ -157,7 +157,6 @@ public class WarpCommand extends BiomiaCommand {
         switch (Biomia.getServerInstance().getServerType()) {
             case TestQuest:
             case Quest:
-                locations.put("Baum", new WarpLocation(new Location(Bukkit.getWorld("BiomiaWelt"), -159, 74, -267), Main.getGroupName()));
                 break;
             case Freebuild:
                 break;
@@ -171,7 +170,6 @@ public class WarpCommand extends BiomiaCommand {
                 break;
             case TestLobby:
             case Lobby:
-                locations.put("Baum", new WarpLocation(new Location(Bukkit.getWorld("LobbyBiomia"), 551.5, 89, 333.5), Main.getGroupName()));
                 break;
             default:
                 return locations;
