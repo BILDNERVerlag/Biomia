@@ -87,18 +87,21 @@ public class GameStateManager {
 
         public void start() {
             Scoreboards.initLobbySB(getMode());
-            countDown.startCountDown();
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    TimoCloudAPI.getBukkitInstance().getThisServer().setExtra(String.format(MinigamesMessages.mapSize, MinigamesConfig.getTeamAmount() + "", MinigamesConfig.getTeamSize() + ""));
-                }
-            }.runTaskLater(Main.getPlugin(), 20);
+            if (!getMode().getInstance().getType().isVersus()) {
+                countDown.startCountDown();
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        TimoCloudAPI.getBukkitInstance().getThisServer().setExtra(String.format(MinigamesMessages.mapSize, MinigamesConfig.getTeamAmount() + "", MinigamesConfig.getTeamSize() + ""));
+                    }
+                }.runTaskLater(Main.getPlugin(), 20);
+            } else {
+                stop();
+            }
 
         }
 
         public void stop() {
-            countDown.cancel();
             getMode().setAllToTeams();
             getMode().getStateManager().getInGameState().start();
         }
@@ -127,15 +130,17 @@ public class GameStateManager {
                 public void run() {
                     getMode().getInstance().incPlayTime();
                 }
-            }.runTaskTimer(Main.getPlugin(), 0, 20);
+            }.runTaskTimer(Main.getPlugin(), 20, 20);
 
             getMode().getStateManager().setActualGameState(GameState.INGAME);
-            TimoCloudAPI.getBukkitInstance().getThisServer().setState(GameState.INGAME.name());
+
+            if (!getMode().getInstance().getType().isVersus())
+                TimoCloudAPI.getBukkitInstance().getThisServer().setState(GameState.INGAME.name());
             getMode().getInstance().setPlayersOnStart();
             for (BiomiaPlayer bp : getMode().getInstance().getPlayers()) {
 
                 for (BiomiaPlayer p2 : getMode().getInstance().getPlayers()) {
-                    bp.getPlayer().showPlayer(p2.getPlayer());
+                    bp.getPlayer().showPlayer(Main.getPlugin(), p2.getPlayer());
                 }
 
                 bp.setBuild(true);

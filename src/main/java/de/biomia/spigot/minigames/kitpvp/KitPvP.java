@@ -1,4 +1,4 @@
-package de.biomia.spigot.minigames.versus.games.kitpvp;
+package de.biomia.spigot.minigames.kitpvp;
 
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.minigames.GameHandler;

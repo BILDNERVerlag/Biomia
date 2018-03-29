@@ -30,6 +30,8 @@ public class SkyWars extends GameMode {
 
     @Override
     protected HashMap<TeamColor, UUID> initTeamJoiner() {
+        if (getInstance().getType().isVersus())
+            return null;
         HashMap<TeamColor, UUID> teamJoiner = new HashMap<>();
         teamJoiner.put(TeamColor.BLACK, UUID.fromString("a86b152d-9cdf-4265-97e4-eb03369024db"));
         teamJoiner.put(TeamColor.ORANGE, UUID.fromString("c1de65f4-17c9-4b78-8186-0832cc259480"));

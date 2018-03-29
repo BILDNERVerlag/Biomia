@@ -33,7 +33,8 @@ public class VSGroupInventory implements Listener {
         for (VSGroup g : group.getGroups())
             if (!g.isDeaktivateable())
                 inv.setItem(g.getSlot(), g.getIcon());
-        inv.setItem(backItemSlot, backItem);
+        if (group.getMode() != null)
+            inv.setItem(backItemSlot, backItem);
     }
 
     @EventHandler

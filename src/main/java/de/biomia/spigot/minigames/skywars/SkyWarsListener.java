@@ -14,7 +14,6 @@ import de.biomia.spigot.minigames.WaitingLobbyListener;
 import de.biomia.spigot.minigames.general.chests.Chests;
 import de.biomia.spigot.minigames.general.kits.Kit;
 import de.biomia.spigot.minigames.general.kits.KitManager;
-import de.biomia.spigot.minigames.versus.games.skywars.VersusSkyWars;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -40,7 +39,7 @@ public class SkyWarsListener extends GameHandler {
 
     private static final ItemStack kitItem = ItemCreator.itemCreate(Material.CHEST, SkyWarsItemNames.kitItemName);
 
-    SkyWarsListener(de.biomia.spigot.minigames.GameMode mode) {
+    public SkyWarsListener(de.biomia.spigot.minigames.GameMode mode) {
         super(mode);
     }
 
@@ -210,13 +209,7 @@ public class SkyWarsListener extends GameHandler {
                 boolean firstOpen = false;
                 SkyWarsOpenChestEvent.ChestType chestType;
 
-                Chests chests;
-
-                if (mode instanceof SkyWars) {
-                    chests = ((SkyWars) mode).getChests();
-                } else {
-                    chests = ((VersusSkyWars) mode).getChests();
-                }
+                Chests chests = ((SkyWars) mode).getChests();
 
                 if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
 

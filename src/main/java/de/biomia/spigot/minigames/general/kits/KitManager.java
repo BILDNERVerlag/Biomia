@@ -1,6 +1,8 @@
 package de.biomia.spigot.minigames.general.kits;
 
+import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.events.game.skywars.KitEvent;
 import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
@@ -302,7 +304,9 @@ public class KitManager {
             if (allKits.getID() == kitID && availableKits.contains(allKits))
                 selectedKit = allKits;
         }
-        bp.getPlayer().getInventory().setItem(7, selectedKit.getIcon());
+        BiomiaServerType type = Biomia.getServerInstance().getServerType();
+        if (type.isMinigame() && type != BiomiaServerType.Duell)
+            bp.getPlayer().getInventory().setItem(7, selectedKit.getIcon());
     }
 
     public void showInventory(Kit kit) {
@@ -356,7 +360,9 @@ public class KitManager {
         selectedKit = k;
         SkyWarsKitManager.setLastSelectedKit(bp, k.getID());
         Bukkit.getPluginManager().callEvent(new KitEvent(bp, k, KitEvent.KitEventType.SELECT));
-        bp.getPlayer().getInventory().setItem(7, selectedKit.getIcon());
+        BiomiaServerType type = Biomia.getServerInstance().getServerType();
+        if (type.isMinigame() && type != BiomiaServerType.Duell)
+            bp.getPlayer().getInventory().setItem(7, selectedKit.getIcon());
         return true;
     }
 

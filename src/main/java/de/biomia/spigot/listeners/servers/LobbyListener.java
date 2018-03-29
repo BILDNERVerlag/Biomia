@@ -17,16 +17,14 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockExplodeEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
@@ -230,6 +228,22 @@ public class LobbyListener extends BiomiaListener {
                     } catch (IllegalArgumentException ignored) {/*Location.distance throws IllegalArgs when the locations are on different worlds*/}
                 }
             }
+        }
+    }
+
+    @EventHandler
+    public void onHitProt(ProjectileHitEvent e) {
+        if (e.getEntity().getShooter() instanceof Player && e.getEntityType() == EntityType.ARROW) {
+            Player p = (Player) e.getEntity().getShooter();
+            Location loc = e.getEntity().getLocation();
+            e.getEntity().remove();
+
+            double x = loc.getX();
+            double y = loc.getY();
+            double z = loc.getZ();
+            World world = loc.getWorld();
+
+            p.teleport(new Location(world, x, y, z, p.getLocation().getYaw(), p.getLocation().getPitch()));
         }
     }
 

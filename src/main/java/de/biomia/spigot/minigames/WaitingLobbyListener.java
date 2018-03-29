@@ -4,6 +4,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.listeners.servers.BiomiaListener;
 import de.biomia.spigot.messages.MinigamesMessages;
+import de.biomia.spigot.minigames.versus.Versus;
 import de.biomia.universal.Ranks;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -12,10 +13,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+import org.bukkit.event.player.*;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 public class WaitingLobbyListener extends BiomiaListener {
@@ -24,6 +22,13 @@ public class WaitingLobbyListener extends BiomiaListener {
 
     public WaitingLobbyListener(boolean isVersus) {
         this.isVersus = isVersus;
+    }
+
+    @EventHandler
+    public void onJoin_(PlayerJoinEvent e) {
+        if (isVersus) {
+            Versus.getInstance().getManager().moveToLobby(e.getPlayer());
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -96,7 +101,6 @@ public class WaitingLobbyListener extends BiomiaListener {
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {
-
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         String message;
         if (bp.getTeam() != null) {
