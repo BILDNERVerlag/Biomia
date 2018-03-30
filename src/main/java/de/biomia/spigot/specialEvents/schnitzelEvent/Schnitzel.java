@@ -1,10 +1,10 @@
 package de.biomia.spigot.specialEvents.schnitzelEvent;
 
-import de.biomia.universal.Time;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.achievements.Stats;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.universal.Messages;
+import de.biomia.universal.Time;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -59,7 +59,7 @@ public class Schnitzel {
 
         if (!comments.contains(id + "")) {
             Stats.incrementStat(Stats.BiomiaStat.SchnitzelFound, bp.getBiomiaPlayerID(), id + "");
-            bp.sendMessage(Messages.PREFIX + "§cDu hast das Schnitzel §b" + id + " §cgefunden!");
+            bp.sendMessage(Messages.PREFIX + "§cDu hast " + getItem().getItemMeta().getDisplayName() + " §cgefunden!");
         } else {
             return;
         }

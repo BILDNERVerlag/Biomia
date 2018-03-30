@@ -5,16 +5,12 @@ import de.biomia.spigot.BiomiaServer;
 import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.achievements.Stats;
-import de.biomia.spigot.tools.HeadCreator;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.LastPositionListener;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import net.minecraft.server.v1_12_R1.IChatBaseComponent;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftMetaBook;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.Inventory;
@@ -47,6 +43,17 @@ public class SchnitzelEvent extends BiomiaServer {
         initSchnitzel();
         initSecretBooks();
         initSpawner();
+
+        spawn.getWorld().setGameRuleValue("keepInventory", "true");
+        spawn.getWorld().setGameRuleValue("mobGriefing", "false");
+        spawn.getWorld().setGameRuleValue("randomTickSpeed", "0");
+        spawn.getWorld().setDifficulty(Difficulty.NORMAL);
+    }
+
+    @Override
+    protected void initCommands() {
+        super.initCommands();
+        Main.registerCommand(new Checkpoint());
     }
 
     @Override
@@ -125,9 +132,7 @@ public class SchnitzelEvent extends BiomiaServer {
         schnitzelMap.values().forEach(each -> {
             ItemStack item = each.getItem().clone();
             if (!foundSchnitzel.contains(each.getID() + "")) {
-                item.setType(Material.SKULL_ITEM);
-                item.getData().setData((byte) 3);
-                HeadCreator.getSkull(item, "d23eaefbd581159384274cdbbd576ced82eb72423f2ea887124f9ed33a6872c");
+                item.setType(Material.STONE);
             }
             inv.setItem(each.getSlot(), item);
         });
@@ -139,9 +144,7 @@ public class SchnitzelEvent extends BiomiaServer {
                 ItemMeta meta = item.getItemMeta();
                 meta.setDisplayName("§7???");
                 item.setItemMeta(meta);
-                item.setType(Material.SKULL_ITEM);
-                item.getData().setData((byte) 3);
-                HeadCreator.getSkull(item, "5163dafac1d91a8c91db576caac784336791a6e18d8f7f62778fc47bf146b6");
+                item.setType(Material.STONE_PLATE);
             }
             inv.setItem(each.getSlot(), item);
         });
@@ -192,5 +195,9 @@ public class SchnitzelEvent extends BiomiaServer {
             book.setItemMeta(bookMeta);
         }
         return book;
+    }
+
+    public static Location getSpawn() {
+        return spawn;
     }
 }

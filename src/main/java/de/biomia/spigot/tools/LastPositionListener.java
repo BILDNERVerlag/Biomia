@@ -95,21 +95,23 @@ public class LastPositionListener implements Listener {
     }
 
     private boolean containsLocation(Player p) {
+        boolean b = false;
         Connection con = MySQL.Connect(database);
         try {
             PreparedStatement ps = con
                     .prepareStatement("Select x from LastPosition where ServerGroup = ? AND biomiaID = ?");
             ps.setString(1, Biomia.getServerInstance().getServerType().name());
-            ps.setString(2, Biomia.getBiomiaPlayer(p).getBiomiaPlayerID() + "");
+            ps.setInt(2, Biomia.getBiomiaPlayer(p).getBiomiaPlayerID());
             ResultSet s = ps.executeQuery();
-            ps.close();
-            if (s != null) {
-                return true;
+            if (s.next()) {
+                b = true;
             }
+            s.close();
+            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return b;
     }
 
     private Location getLastLocation(Player p) {

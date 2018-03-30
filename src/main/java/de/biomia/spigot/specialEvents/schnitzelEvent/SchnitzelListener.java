@@ -2,6 +2,7 @@ package de.biomia.spigot.specialEvents.schnitzelEvent;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.Main;
 import de.biomia.spigot.listeners.servers.BiomiaListener;
 import de.biomia.spigot.messages.manager.Scoreboards;
 import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
@@ -13,23 +14,25 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityPickupItemEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.bukkit.event.entity.ItemDespawnEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.logging.Level;
 
 public class SchnitzelListener extends BiomiaListener {
+
+    private static final HashMap<BiomiaPlayer, Location> checkPoints = new HashMap<>();
+
+    public static HashMap<BiomiaPlayer, Location> getCheckPoints() {
+        return checkPoints;
+    }
 
     private static final ItemStack shovel = ItemCreator.itemCreate(Material.IRON_SPADE, "ßb‹berlebens Schaufel");
     private static final ItemStack helmet = ItemCreator.itemCreate(Material.CHAINMAIL_HELMET, "ßbMinen Helm");
@@ -42,11 +45,11 @@ public class SchnitzelListener extends BiomiaListener {
 
     static {
 
-        ItemMeta meta = shovel.getItemMeta();
 
+        ItemMeta meta = shovel.getItemMeta();
         meta.setUnbreakable(true);
-        shovel.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1);
         shovel.setItemMeta(meta);
+        shovel.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 2);
 
         meta = chestplate.getItemMeta();
         meta.setUnbreakable(true);
@@ -98,6 +101,25 @@ public class SchnitzelListener extends BiomiaListener {
 
     @EventHandler
     public void onJoin_(PlayerJoinEvent e) {
+
+        new BukkitRunnable() {
+            BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
+            Location loc = null;
+
+            @Override
+            public void run() {
+                if (bp.getPlayer() != null) {
+                    if (checkPoints.get(bp).equals(loc)) {
+                        loc = e.getPlayer().getLocation();
+                        checkPoints.put(bp, loc);
+                        bp.sendMessage("ßcCheckpoint wird automatisch gespeichert...");
+                    } else
+                        cancel();
+                }
+            }
+        }.runTaskTimer(Main.getPlugin(), 20, 20 * 60 * 2);
+
+
         e.getPlayer().getInventory().clear();
 
         e.getPlayer().getInventory().setItem(8, backpack);
@@ -130,7 +152,6 @@ public class SchnitzelListener extends BiomiaListener {
     @EventHandler
     public void onGetHunger(FoodLevelChangeEvent e) {
         if (e.getEntity() instanceof Player) {
-            Bukkit.broadcastMessage(e.getFoodLevel() + "");
             Player p = (Player) e.getEntity();
             if (e.getFoodLevel() < 20 && !ItemConditions.hasItemInInventory(Biomia.getQuestPlayer(p), Material.BREAD, 1)) {
                 p.getInventory().addItem(bread);
@@ -168,9 +189,23 @@ public class SchnitzelListener extends BiomiaListener {
     }
 
     @EventHandler
+    public void onRespawn(PlayerRespawnEvent e) {
+        e.setRespawnLocation(checkPoints.get(Biomia.getBiomiaPlayer(e.getPlayer())));
+    }
+
+    @EventHandler
+    public void onItemDrop(ItemSpawnEvent e) {
+        ItemStack is = e.getEntity().getItemStack();
+
+        if (is.getType() != Material.PAPER && is.getType() != Material.BOOK) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
     public void onMove(PlayerMoveEvent e) {
 
-        int multiplicator = 1;
+        int multiplicator = 0;
         int nowInSeconds = (int) (System.currentTimeMillis() / 1000);
         Random random = new Random();
 
@@ -178,13 +213,12 @@ public class SchnitzelListener extends BiomiaListener {
 
             Location loc = spawner.getLocation();
 
-            if (nowInSeconds - spawner.getLastSpawnedTime() > random.nextInt(20) + 30) {
-                int distance = spawner.getDistance();
-                if (e.getTo().distance(loc) <= distance) {
-                    for (Player allPlayer : Bukkit.getOnlinePlayers()) {
+            int distance = spawner.getDistance();
+            if (e.getTo().distance(loc) <= distance) {
 
-                        if (e.getPlayer().equals(allPlayer))
-                            continue;
+                if (nowInSeconds - spawner.getLastSpawnedTime() > 30) {
+
+                    for (Player allPlayer : Bukkit.getOnlinePlayers()) {
 
                         if (allPlayer.getLocation().distance(loc) <= distance) {
                             multiplicator += 1;
@@ -197,10 +231,11 @@ public class SchnitzelListener extends BiomiaListener {
                     final int targetSpawns = spawner.getMonsterPerPlayer() * multiplicator;
 
                     for (Location possibleLocs : possibleSpawnLocations) {
-                        if (targetSpawns >= spawned)
-                            return;
+
                         possibleLocs.getWorld().spawnEntity(possibleLocs, spawner.getType());
                         spawned++;
+                        if (targetSpawns == spawned)
+                            break;
                     }
 
                     int loops = 0;
@@ -211,27 +246,23 @@ public class SchnitzelListener extends BiomiaListener {
                             Bukkit.getLogger().log(Level.SEVERE, "Not enough places to Spawn found! Stopped spawning to not overload the CPU!");
                             return;
                         }
-                        int x = random.nextInt(7) - 3;
-                        int z = random.nextInt(7) - 3;
-
-                        Location location = loc.clone();
                         int temp = 0;
-                        while (location.clone().add(0, 1, 0).getBlock().getType() != Material.AIR) {
-                            location = location.add(x, 1, z);
+                        Location location;
+                        do {
+                            location = loc.clone().add(random.nextInt(7) - 3, 0, random.nextInt(7) - 3);
                             temp++;
-                            if (temp > 4) {
+                            if (temp > 4)
                                 continue a;
-                            }
-                        }
+                        } while (location.clone().add(0, 1, 0).getBlock().getType() != Material.AIR);
                         if (!possibleSpawnLocations.contains(location))
                             possibleSpawnLocations.add(location);
 
                         location.getWorld().spawnEntity(location, spawner.getType());
                         spawned++;
                     }
-
-                    spawner.setLastSpawnedTime();
+                    spawner.setLastSpawnedTime(nowInSeconds);
                 }
+
             }
 
         }

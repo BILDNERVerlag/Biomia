@@ -45,8 +45,8 @@ public class Spawner {
         return monsterPerPlayer;
     }
 
-    public void setLastSpawnedTime() {
-        this.lastSpawnedTime = (int) System.currentTimeMillis() / 1000;
+    public void setLastSpawnedTime(int nowInSeconds) {
+        this.lastSpawnedTime = nowInSeconds;
     }
 
     public int getLastSpawnedTime() {
