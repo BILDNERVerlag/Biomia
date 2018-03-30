@@ -42,6 +42,27 @@ public class HeadCreator {
         return head;
     }
 
+    public static ItemStack getSkull(ItemStack is, String value) {
+
+        String url = "http://textures.minecraft.net/texture/" + value;
+
+        ItemStack head = is == null ? new ItemStack(Material.SKULL_ITEM, (short) 3) : is;
+        if (url.isEmpty()) return head;
+
+        SkullMeta headMeta = (SkullMeta) head.getItemMeta();
+        GameProfile profile = getNonPlayerProfile(url);
+        Field profileField;
+        try {
+            profileField = headMeta.getClass().getDeclaredField("profile");
+            profileField.setAccessible(true);
+            profileField.set(headMeta, profile);
+        } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e1) {
+            e1.printStackTrace();
+        }
+        head.setItemMeta(headMeta);
+        return head;
+    }
+
     public static void setSkullUrl(String code, Block block) {
 
         String url = "http://textures.minecraft.net/texture/" + code;

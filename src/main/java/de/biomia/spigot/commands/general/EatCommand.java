@@ -20,7 +20,7 @@ public class EatCommand extends BiomiaCommand {
         }
 
         Player p = (Player) sender;
-        p.setFoodLevel(50);
+        p.setFoodLevel(10);
         return true;
     }
 

@@ -31,9 +31,9 @@ import java.util.logging.Level;
 public class SchnitzelListener extends BiomiaListener {
 
     private static final ItemStack shovel = ItemCreator.itemCreate(Material.IRON_SPADE, "ßb‹berlebens Schaufel");
-    private static final ItemStack helmet = ItemCreator.itemCreate(Material.CHAINMAIL_HELMET, "ßbArbeits Hose");
+    private static final ItemStack helmet = ItemCreator.itemCreate(Material.CHAINMAIL_HELMET, "ßbMinen Helm");
     private static final ItemStack chestplate = ItemCreator.itemCreate(Material.LEATHER_CHESTPLATE, "ßcMonster Schutzjacke");
-    private static final ItemStack leggings = ItemCreator.itemCreate(Material.LEATHER_HELMET, "ßbMinen Helm");
+    private static final ItemStack leggings = ItemCreator.itemCreate(Material.LEATHER_LEGGINGS, "ßbArbeits Hose");
     private static final ItemStack boots = ItemCreator.itemCreate(Material.GOLD_BOOTS, "ßcBergmanns Schuhe");
 
     private static final ItemStack backpack = ItemCreator.itemCreate(Material.CHEST, "ßcRucksack");
@@ -75,17 +75,22 @@ public class SchnitzelListener extends BiomiaListener {
     public void onItemPickUp(EntityPickupItemEvent e) {
         if (e.getEntity() instanceof Player) {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getEntity());
-            e.getItem().setPickupDelay(0);
+
+            if (!bp.canBuild())
+                e.setCancelled(true);
+
             ItemStack is = e.getItem().getItemStack();
             if (is.getType() == Material.PAPER) {
                 if (is.getItemMeta().getDisplayName().contains("Schnitzel")) {
-                    SchnitzelEvent.getSchnitzel(is.getItemMeta().getDisplayName()).pickUp(bp);
                     e.setCancelled(true);
+                    SchnitzelEvent.getSchnitzel(is.getItemMeta().getDisplayName()).pickUp(bp);
                 }
             } else if (is.getType() == Material.BOOK) {
                 SecretBook book = SchnitzelEvent.getSecretBook(is.getItemMeta().getDisplayName());
-                if (book != null)
+                if (book != null) {
+                    e.setCancelled(true);
                     book.pickUp(bp);
+                }
             }
         }
     }
@@ -96,7 +101,6 @@ public class SchnitzelListener extends BiomiaListener {
 
         e.getPlayer().getInventory().setItem(8, backpack);
         e.getPlayer().getInventory().setItem(7, SchnitzelEvent.getInfoBook());
-        e.getPlayer().getInventory().setItem(1, bread);
 
         e.getPlayer().getInventory().setItem(0, shovel);
         e.getPlayer().getInventory().setHelmet(helmet);
@@ -123,6 +127,7 @@ public class SchnitzelListener extends BiomiaListener {
     @EventHandler
     public void onGetHunger(FoodLevelChangeEvent e) {
         if (e.getEntity() instanceof Player) {
+            Bukkit.broadcastMessage(e.getFoodLevel() + "");
             Player p = (Player) e.getEntity();
             if (e.getFoodLevel() < 20 && !ItemConditions.hasItemInInventory(Biomia.getQuestPlayer(p), Material.BREAD, 1)) {
                 p.getInventory().addItem(bread);
@@ -140,7 +145,7 @@ public class SchnitzelListener extends BiomiaListener {
 
     @EventHandler
     public void onClick_(InventoryClickEvent e) {
-        if (e.getClickedInventory().getName().equals(SchnitzelEvent.getBackpackName()))
+        if (e.getClickedInventory() != null && e.getClickedInventory().getName().equals(SchnitzelEvent.getBackpackName()))
             e.setCancelled(true);
     }
 

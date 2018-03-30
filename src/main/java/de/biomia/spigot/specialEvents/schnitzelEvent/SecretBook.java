@@ -43,25 +43,28 @@ public class SecretBook {
     }
 
     public void spawn() {
+
+        if (!loc.getChunk().isLoaded())
+            loc.getChunk().load();
+
         Bukkit.getWorld("BiomiaWelt").dropItem(loc, is).setPickupDelay(0);
     }
 
     public void pickUp(BiomiaPlayer bp) {
-        HashMap<String, Integer> comments = Stats.getComments(Stats.BiomiaStat.BooksFound, bp.getBiomiaPlayerID());
 
-        if (!comments.containsKey(id + "")) {
-            Stats.incrementStat(Stats.BiomiaStat.BooksFound, bp.getBiomiaPlayerID(), id + "");
-            comments.put(id + "", 1);
-            bp.sendMessage(Messages.PREFIX + "§cDu hast das Buch §b" + name + " §cgefunden!");
+        Set<String> comments = SchnitzelEvent.getFoundBooks(bp);
+
+        if (!comments.contains(name)) {
+            Stats.incrementStat(Stats.BiomiaStat.BooksFound, bp.getBiomiaPlayerID(), name);
+            bp.sendMessage(Messages.PREFIX + "§7Du hast das Buch " + name + " §7gefunden!");
         } else {
             return;
         }
 
-        if (comments.size() == 6) {
+        if (comments.size() == 5) {
             Date date = Stats.getFirstIncrementDate(Stats.BiomiaStat.SchnitzelFound, bp);
-            String text = Time.toText((int) (Calendar.getInstance().getTime().getTime() - date.getTime()) / 1000);
-
-            Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat alle §c" + SchnitzelEvent.getSchnitzel() + " §bSchnitzel in §c" + text + " §bgefunden!");
+            String text = Time.toText((int) ((System.currentTimeMillis() - date.getTime()) / 1000));
+            Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat alle §c6 §bGeheimen Bücher in §c" + text + " §bgefunden!");
         }
     }
 

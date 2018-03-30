@@ -11,7 +11,10 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Set;
 
 public class Schnitzel {
 
@@ -43,8 +46,11 @@ public class Schnitzel {
     }
 
     public void spawn() {
-        Bukkit.getWorld("BiomiaWelt").dropItem(loc, is).setPickupDelay(0);
 
+        if (!loc.getChunk().isLoaded())
+            loc.getChunk().load();
+
+        Bukkit.getWorld("BiomiaWelt").dropItem(loc, is).setPickupDelay(0);
     }
 
     public void pickUp(BiomiaPlayer bp) {
@@ -53,15 +59,14 @@ public class Schnitzel {
 
         if (!comments.contains(id + "")) {
             Stats.incrementStat(Stats.BiomiaStat.SchnitzelFound, bp.getBiomiaPlayerID(), id + "");
-            comments.add(id + "");
             bp.sendMessage(Messages.PREFIX + "§cDu hast das Schnitzel §b" + id + " §cgefunden!");
         } else {
             return;
         }
 
-        if (comments.size() == SchnitzelEvent.getSchnitzel()) {
+        if (comments.size() + 1 == SchnitzelEvent.getSchnitzel()) {
             Date date = Stats.getFirstIncrementDate(Stats.BiomiaStat.SchnitzelFound, bp);
-            String text = Time.toText((int) (Calendar.getInstance().getTime().getTime() - date.getTime()) / 1000);
+            String text = Time.toText((int) ((System.currentTimeMillis() - date.getTime()) / 1000));
             Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat alle §c" + SchnitzelEvent.getSchnitzel() + " §bSchnitzel in §c" + text + " §bgefunden!");
         }
     }

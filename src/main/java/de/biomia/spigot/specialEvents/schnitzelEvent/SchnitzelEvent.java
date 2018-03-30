@@ -5,6 +5,7 @@ import de.biomia.spigot.BiomiaServer;
 import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.achievements.Stats;
+import de.biomia.spigot.tools.HeadCreator;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.LastPositionListener;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -19,6 +20,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,10 +33,10 @@ public class SchnitzelEvent extends BiomiaServer {
     private static SchnitzelEvent instance;
     private static final HashMap<Integer, Schnitzel> schnitzelMap = new HashMap<>();
     private static final HashMap<String, SecretBook> secretBookMap = new HashMap<>();
-    private static final Location spawn = new Location(Bukkit.getWorld("BiomiaWelt"), 22, 100, 11);
+    private static final Location spawn = new Location(Bukkit.getWorld("BiomiaWelt"), 351, 72, 697.5, -35, 0);
     private static final HashMap<BiomiaPlayer, Inventory> inventorys = new HashMap<>();
 
-    protected SchnitzelEvent() {
+    public SchnitzelEvent() {
         super(BiomiaServerType.Event_Schnitzeljagd);
         instance = this;
     }
@@ -62,8 +64,14 @@ public class SchnitzelEvent extends BiomiaServer {
         World world = spawn.getWorld();
 
         schnitzel = new Schnitzel(1);
-        schnitzel.setLocation(new Location(world, 1, 70, 1));
-        schnitzel.setDescription("Das ist ein Test", "Noch ein Test");
+        schnitzel.setLocation(new Location(world, 345.5, 80.1, 709.5));
+        schnitzel.setDescription("Ein langer Weg,", "Das Ziel scheint unerreichbar", "Doch unten angekommen,", "Ist der Weg dann unvergleichbar");
+        schnitzel.spawn();
+
+        schnitzel = new Schnitzel(2);
+        schnitzel.setLocation(new Location(world, 271.5, 22.1, 706.5));
+        schnitzel.setDescription("Da bist du nun,", "unten.", "Ein langer weg,", "liegt nun vor dir");
+        schnitzel.spawn();
     }
 
     private void initSecretBooks() {
@@ -73,9 +81,10 @@ public class SchnitzelEvent extends BiomiaServer {
         SecretBook secretBook;
         World world = spawn.getWorld();
 
-        secretBook = new SecretBook("TestBuch", 1);
-        secretBook.setDescription("123", "TEEST");
-        secretBook.setLocation(new Location(world, 1, 1, 1));
+        secretBook = new SecretBook("§cBIO§bMIA §7| §cDas geheime Buch", 1);
+        secretBook.setDescription("Da wo alles verdampft,", "gewinnt man keinen Kampf");
+        secretBook.setLocation(new Location(world, 362.5, 17, 323.5));
+        secretBook.spawn();
     }
 
     private void initSpawner() {
@@ -116,7 +125,9 @@ public class SchnitzelEvent extends BiomiaServer {
         schnitzelMap.values().forEach(each -> {
             ItemStack item = each.getItem().clone();
             if (!foundSchnitzel.contains(each.getID() + "")) {
-                item.setType(Material.STONE);
+                item.setType(Material.SKULL_ITEM);
+                item.getData().setData((byte) 3);
+                HeadCreator.getSkull(item, "d23eaefbd581159384274cdbbd576ced82eb72423f2ea887124f9ed33a6872c");
             }
             inv.setItem(each.getSlot(), item);
         });
@@ -125,7 +136,12 @@ public class SchnitzelEvent extends BiomiaServer {
         secretBookMap.values().forEach(each -> {
             ItemStack item = each.getItem().clone();
             if (!foundBooks.contains(each.getName())) {
-                item.setType(Material.INK_SACK);
+                ItemMeta meta = item.getItemMeta();
+                meta.setDisplayName("§7???");
+                item.setItemMeta(meta);
+                item.setType(Material.SKULL_ITEM);
+                item.getData().setData((byte) 3);
+                HeadCreator.getSkull(item, "5163dafac1d91a8c91db576caac784336791a6e18d8f7f62778fc47bf146b6");
             }
             inv.setItem(each.getSlot(), item);
         });
@@ -137,7 +153,7 @@ public class SchnitzelEvent extends BiomiaServer {
         return Stats.getComments(Stats.BiomiaStat.SchnitzelFound, bp.getBiomiaPlayerID()).keySet();
     }
 
-    private static Set<String> getFoundBooks(BiomiaPlayer bp) {
+    public static Set<String> getFoundBooks(BiomiaPlayer bp) {
         return Stats.getComments(Stats.BiomiaStat.BooksFound, bp.getBiomiaPlayerID()).keySet();
     }
 
@@ -153,7 +169,7 @@ public class SchnitzelEvent extends BiomiaServer {
     public static ItemStack getInfoBook() {
 
         if (book == null) {
-            book = ItemCreator.itemCreate(Material.BOOK, "§bInfo Buch der Schnitzeljäger");
+            book = ItemCreator.itemCreate(Material.WRITTEN_BOOK, "§bInfo Buch der Schnitzeljäger");
             BookMeta bookMeta = (BookMeta) book.getItemMeta();
             List<IChatBaseComponent> pages;
 

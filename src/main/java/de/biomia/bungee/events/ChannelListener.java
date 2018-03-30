@@ -52,6 +52,7 @@ public class ChannelListener implements Listener {
                 int idToBan = in.readInt();
                 int time = in.readInt();
                 String reason = in.readUTF();
+
                 String playerName = BungeeBiomia.getOfflineBiomiaPlayer(biomiaID).getName();
 
 

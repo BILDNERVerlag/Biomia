@@ -23,6 +23,7 @@ import de.biomia.spigot.server.freebuild.Freebuild;
 import de.biomia.spigot.server.lobby.Lobby;
 import de.biomia.spigot.server.quests.Quests;
 import de.biomia.spigot.specialEvents.easterEvent.EasterEvent;
+import de.biomia.spigot.specialEvents.schnitzelEvent.SchnitzelEvent;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.PlayerToServerConnector;
 import de.biomia.universal.MySQL;
@@ -148,12 +149,7 @@ public class Main extends JavaPlugin {
             });
             break;
         case Event_Schnitzeljagd:
-            Biomia.setServerInstance(new BiomiaServer(BiomiaServerType.Event_Schnitzeljagd) {
-                @Override
-                public void start() {
-                    super.start();
-                }
-            });
+            Biomia.setServerInstance(new SchnitzelEvent());
             break;
         }
 
