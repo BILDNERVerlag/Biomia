@@ -10,8 +10,8 @@ import org.bukkit.GameMode;
 
 public class Freebuild extends BiomiaServer {
 
-    public Freebuild() {
-        super(BiomiaServerType.Freebuild);
+    public Freebuild(BiomiaServerType type) {
+        super(type);
     }
 
     @Override

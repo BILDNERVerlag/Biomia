@@ -14,14 +14,12 @@ import de.biomia.spigot.tools.LastPositionListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
-import java.util.logging.Level;
-
 import static de.biomia.spigot.Main.getPlugin;
 
 public class Quests extends BiomiaServer {
 
-    public Quests() {
-        super(BiomiaServerType.Quest);
+    public Quests(BiomiaServerType type) {
+        super(type);
     }
 
     @Override
@@ -42,7 +40,7 @@ public class Quests extends BiomiaServer {
 
         PluginManager pm = Bukkit.getPluginManager();
 
-        pm.registerEvents(new LastPositionListener(), getPlugin());
+        pm.registerEvents(new LastPositionListener(null), getPlugin());
         pm.registerEvents(new QuestListener(), getPlugin());
 
         initQuests(pm);

@@ -37,13 +37,13 @@ public class StatListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         if (!e.isCancelled())
-            Stats.incrementStat(Stats.BiomiaStat.BlocksDestroyed, e.getPlayer(), Main.getGroupName());
+            Stats.incrementStat(Stats.BiomiaStat.BlocksDestroyed, e.getPlayer(), Biomia.getServerInstance().getServerType().name());
     }
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
         if (!e.isCancelled())
-            Stats.incrementStat(Stats.BiomiaStat.BlocksPlaced, e.getPlayer(), Main.getGroupName());
+            Stats.incrementStat(Stats.BiomiaStat.BlocksPlaced, e.getPlayer(), Biomia.getServerInstance().getServerType().name());
     }
 
     @EventHandler
@@ -139,7 +139,7 @@ public class StatListener implements Listener {
             return;
         }
 
-        Stats.incrementStat(Stats.BiomiaStat.Logins, e.getPlayer(), Main.getGroupName());
+        Stats.incrementStat(Stats.BiomiaStat.Logins, e.getPlayer(), Biomia.getServerInstance().getServerType().name());
 
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
 
@@ -285,7 +285,7 @@ public class StatListener implements Listener {
             // We don't want CitizenNPCs in our database.
             return;
         }
-        Stats.incrementStat(Stats.BiomiaStat.TeleportsMade, e.getPlayer(), Main.getGroupName());
+        Stats.incrementStat(Stats.BiomiaStat.TeleportsMade, e.getPlayer(), Biomia.getServerInstance().getServerType().name());
     }
 
     @EventHandler

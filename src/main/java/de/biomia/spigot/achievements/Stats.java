@@ -6,11 +6,9 @@ import de.biomia.universal.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 
@@ -53,7 +51,7 @@ public class Stats {
         //Events
 
         SpecialEggsFound, BW_ItemsBoughtNames, BW_FinalKills, BW_FinalDeaths, EasterEggsFound,
-        SchnitzelFound;
+        SchnitzelFound, BooksFound;
 
 
         /**
@@ -203,7 +201,7 @@ public class Stats {
         if (con != null) {
             try {
                 PreparedStatement statement = con.prepareStatement("SELECT ID AS biomiaID, COUNT(`value`) AS value FROM " + stat.name() + (comment == null ? "" : ("WHERE comment = '" + comment + "'")) + " GROUP BY spieler ORDER BY value DESC LIMIT ?");
-                statement.setInt(0, topX);
+                statement.setInt(1, topX);
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()) {
                     leaderboard.put(rs.getInt("biomiaID"), rs.getInt("value"));
@@ -215,6 +213,25 @@ public class Stats {
             }
         }
         return leaderboard;
+    }
+
+    public static Date getFirstIncrementDate(BiomiaStat stat, BiomiaPlayer bp) {
+        Timestamp time = null;
+        Connection con = MySQL.Connect(MySQL.Databases.stats_db);
+        if (con != null) {
+            try {
+                PreparedStatement statement = con.prepareStatement("SELECT timestamp FROM " + stat.name() + " Where ID = ? ORDER BY timestamp DESC");
+                statement.setInt(1, bp.getBiomiaPlayerID());
+                ResultSet rs = statement.executeQuery();
+                if (rs.next())
+                    time = Timestamp.valueOf(rs.getString("timestamp"));
+                rs.close();
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return time;
     }
 
     public static int getStatLastX(BiomiaStat stat, int biomiaID, String datetime_expr, int amount) {

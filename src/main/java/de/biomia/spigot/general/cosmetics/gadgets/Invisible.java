@@ -38,7 +38,7 @@ class Invisible implements GadgetListener, Listener {
         }
 
         for (Player p : Bukkit.getOnlinePlayers())
-            p.hidePlayer(bp.getPlayer());
+            p.hidePlayer(Main.getPlugin(), bp.getPlayer());
         invisibles.add(bp.getPlayer());
 
         new BukkitRunnable() {
@@ -55,6 +55,6 @@ class Invisible implements GadgetListener, Listener {
     @EventHandler
     public static void onJoin(PlayerJoinEvent e) {
         for (Player p : invisibles)
-            e.getPlayer().hidePlayer(p);
+            e.getPlayer().hidePlayer(Main.getPlugin(), p);
     }
 }

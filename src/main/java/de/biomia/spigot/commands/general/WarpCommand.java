@@ -56,7 +56,7 @@ public class WarpCommand extends BiomiaCommand {
                     return true;
                 }
                 if (!allowedGroups.contains(Biomia.getServerInstance().getServerType())) {
-                    p.sendMessage("\u00A7cEigene Warps sind auf diesem Server (\u00A7b" + Main.getGroupName() + "\u00A7c) nicht erlaubt.");
+                    p.sendMessage("\u00A7cEigene Warps sind auf diesem Server (\u00A7b" + Biomia.getServerInstance().getServerType().name() + "\u00A7c) nicht erlaubt.");
                     return true;
                 }
                 MySQL.executeUpdate("INSERT INTO Warps (`x`, `y`, `z`, `yaw`, `pitch`, `groupname`, `worldname`, `name`, `biomiaPlayerID`) VALUES (" +
@@ -65,7 +65,7 @@ public class WarpCommand extends BiomiaCommand {
                         ploc.getBlockZ() + "," +
                         ploc.getYaw() + "," +
                         ploc.getPitch() + ",'" +
-                        Main.getGroupName() + "','" +
+                        Biomia.getServerInstance().getServerType().name() + "','" +
                         p.getWorld().getName() + "','" +
                         args[0] + "'," +
                         bp.getBiomiaPlayerID() +
@@ -91,12 +91,12 @@ public class WarpCommand extends BiomiaCommand {
                     WarpLocation wLoc = playerWarpLocations.get(args[0]);
                     if (wLoc == null) wLoc = publicWarpLocations.get(args[0]);
                     Location targetLoc = wLoc.getLocation();
-                    if (Main.getGroupName().equals(wLoc.getGroupname()) && p.getWorld().getName().equals(wLoc.getWorldname())) {
+                    if (Biomia.getServerInstance().getServerType().name().equals(wLoc.getGroupname()) && p.getWorld().getName().equals(wLoc.getWorldname())) {
                         p.teleport(targetLoc);
                     } else {
                         p.sendMessage(Messages.PREFIX + "\u00A7cDu musst dich auf dem selben Server wie dein Warppunkt befinden. " +
                                 "(\u00A7b" + args[0] + "\u00A7c befindet sich auf \u00A7b" + wLoc.getGroupname() + "\u00A7c)");
-                        p.sendMessage("Du befindest dich auf " + Main.getGroupName() + ", Weltname: " + wLoc.getWorldname());
+                        p.sendMessage("Du befindest dich auf " + Biomia.getServerInstance().getServerType().name() + ", Weltname: " + wLoc.getWorldname());
                     }
                 } else {
                     p.sendMessage("\u00A7cDu hast keinen Warppunkt mit dem Namen \u00A7b" + args[0] + "\u00A7c!");
@@ -174,7 +174,7 @@ public class WarpCommand extends BiomiaCommand {
             default:
                 return locations;
         }
-        locations.put("spawn", new WarpLocation(p.getWorld().getSpawnLocation(), Main.getGroupName()));
+        locations.put("spawn", new WarpLocation(p.getWorld().getSpawnLocation(), Biomia.getServerInstance().getServerType().name()));
         return locations;
     }
 

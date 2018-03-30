@@ -151,9 +151,9 @@ public class EasterEvent implements Listener {
                             return;
                         }
                         loc = location.clone();
-                        int x = r.nextInt(radius * 2) - radius;
-                        int z = r.nextInt(radius * 2) - radius;
-
+//                        int x = r.nextInt(radius * 2) - radius;
+//                        int z = r.nextInt(radius * 2) - radius;
+//
 //                        if (loc.add(x, 0, z).distance(location) > radius) {
 //                            continue;
 //                        }
@@ -183,9 +183,9 @@ public class EasterEvent implements Listener {
                 bp.getPlayer().sendMessage("\u00A7cDu hast dein \u00A7b" + Stats.getStat(Stats.BiomiaStat.EasterEggsFound, bp.getBiomiaPlayerID()) + ".\u00A7c Osterei gefunden!");
                 bp.getPlayer().sendMessage("\u00A77(Der Osterhase in der Lobby verteilt Belohnungen...)");
             } else if (e.getClickedBlock().getLocation().distance(specialEggLocation) < 0.5) {
-                int specialEggsFoundOnThisServer = Stats.getStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer(), Main.getGroupName());
+                int specialEggsFoundOnThisServer = Stats.getStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer(), Biomia.getServerInstance().getServerType().name());
                 if (specialEggsFoundOnThisServer == 0) {
-                    Stats.incrementStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer(), Main.getGroupName());
+                    Stats.incrementStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer(), Biomia.getServerInstance().getServerType().name());
                     int specialEggsFoundEverywhere = Stats.getStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer());
                     if (specialEggsFoundEverywhere == specialEggsAmount) {
                         e.getPlayer().sendMessage("\u00A7cDu hast \u00A7lalle\u00A7r\u00A7c besonderen Eier gefunden! Daf\u00fcr erh\u00e4ltst du:");

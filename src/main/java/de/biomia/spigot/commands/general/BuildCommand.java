@@ -17,7 +17,7 @@ public class BuildCommand extends BiomiaCommand {
 
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
-        if (sender.hasPermission("biomia.build." + Main.getGroupName()) || sender.hasPermission("biomia.build.*")) {
+        if (sender.hasPermission("biomia.build." + Biomia.getServerInstance().getServerType().name()) || sender.hasPermission("biomia.build.*")) {
             BiomiaPlayer bp;
             if (args.length == 0) {
                 if (sender instanceof Player)

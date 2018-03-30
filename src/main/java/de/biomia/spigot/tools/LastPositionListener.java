@@ -1,7 +1,5 @@
 package de.biomia.spigot.tools;
 
-import cloud.timo.TimoCloud.api.TimoCloudAPI;
-import cloud.timo.TimoCloud.api.objects.ServerGroupObject;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.Main;
 import de.biomia.universal.MySQL;
@@ -24,14 +22,19 @@ public class LastPositionListener implements Listener {
 
     private static final MySQL.Databases database = MySQL.Databases.biomia_db;
 
+    private final Location defaultLocation;
+
+    public LastPositionListener(Location defaultLoc) {
+        this.defaultLocation = defaultLoc;
+    }
+
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
 
         new BukkitRunnable() {
             @Override
             public void run() {
-                Location loc = getLastLocation(e.getPlayer(),
-                        TimoCloudAPI.getBukkitInstance().getThisServer().getGroup());
+                Location loc = getLastLocation(e.getPlayer());
                 if (loc != null) {
                     e.getPlayer().teleport(loc);
                 }
@@ -42,16 +45,16 @@ public class LastPositionListener implements Listener {
 
     @EventHandler
     public void onDisonnect(PlayerQuitEvent e) {
-        saveLocation(e.getPlayer(), TimoCloudAPI.getBukkitInstance().getThisServer().getGroup());
+        saveLocation(e.getPlayer());
     }
 
-    private static void saveLocation(Player p, ServerGroupObject group) {
+    private void saveLocation(Player p) {
         Location loc = p.getLocation();
 
         double x = (int) (loc.getX() * 100);
         x = x / 100;
-        double y = (int) (loc.getY() * 100);
-        y = y / 100;
+        double y = (int) (loc.getY() * 1000);
+        y = y / 1000;
         double z = (int) (loc.getZ() * 100);
         z = z / 100;
         double yaw = (int) loc.getYaw();
@@ -62,11 +65,11 @@ public class LastPositionListener implements Listener {
         if (con != null)
             try {
                 PreparedStatement ps;
-                if (!containsLocation(p, group)) {
+                if (!containsLocation(p)) {
                     ps = con.prepareStatement("INSERT INTO LastPosition (`biomiaID`, `ServerGroup`, `x`, `y`, `z`, `yaw`, `pitch`, `world`) VALUES (?,?,?,?,?,?,?,?)");
 
                     ps.setInt(1, Biomia.getBiomiaPlayer(p).getBiomiaPlayerID());
-                    ps.setString(2, group.getName());
+                    ps.setString(2, Biomia.getServerInstance().getServerType().name());
                     ps.setDouble(3, x);
                     ps.setDouble(4, y);
                     ps.setDouble(5, z);
@@ -82,7 +85,7 @@ public class LastPositionListener implements Listener {
                     ps.setDouble(5, pitch);
                     ps.setString(6, loc.getWorld().getName());
                     ps.setInt(7, Biomia.getBiomiaPlayer(p).getBiomiaPlayerID());
-                    ps.setString(8, group.getName());
+                    ps.setString(8, Biomia.getServerInstance().getServerType().name());
                 }
                 ps.executeUpdate();
                 ps.close();
@@ -91,12 +94,12 @@ public class LastPositionListener implements Listener {
             }
     }
 
-    private static boolean containsLocation(Player p, ServerGroupObject group) {
+    private boolean containsLocation(Player p) {
         Connection con = MySQL.Connect(database);
         try {
             PreparedStatement ps = con
                     .prepareStatement("Select x from LastPosition where ServerGroup = ? AND biomiaID = ?");
-            ps.setString(1, group.getName());
+            ps.setString(1, Biomia.getServerInstance().getServerType().name());
             ps.setString(2, Biomia.getBiomiaPlayer(p).getBiomiaPlayerID() + "");
             ResultSet s = ps.executeQuery();
             ps.close();
@@ -109,20 +112,20 @@ public class LastPositionListener implements Listener {
         return false;
     }
 
-    private static Location getLastLocation(Player p, ServerGroupObject group) {
+    private Location getLastLocation(Player p) {
         Connection con = MySQL.Connect(database);
-        Location loc = null;
+        Location loc = defaultLocation;
         try {
             PreparedStatement ps = con.prepareStatement(
                     "Select x,y,z,yaw,pitch,world from LastPosition where ServerGroup = ? AND biomiaID = ?");
-            ps.setString(1, group.getName());
+            ps.setString(1, Biomia.getServerInstance().getServerType().name());
             ps.setString(2, Biomia.getBiomiaPlayer(p).getBiomiaPlayerID() + "");
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 World w = Bukkit.getWorld(rs.getString("world"));
                 double x = rs.getDouble("x");
-                double y = rs.getDouble("y");
+                double y = rs.getDouble("y") + 0.1;
                 double z = rs.getDouble("z");
                 float yaw = (float) rs.getDouble("yaw");
                 float pitch = (float) rs.getDouble("pitch");

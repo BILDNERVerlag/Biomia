@@ -161,23 +161,4 @@ public abstract class BiomiaListener implements Listener {
             }
         }
     }
-
-    @EventHandler
-    public final void onItemPickUp(EntityPickupItemEvent e) {
-        if (e.getEntity() instanceof Player) {
-            Player p = (Player) e.getEntity();
-            e.getItem().setPickupDelay(0);
-            ItemStack is = e.getItem().getItemStack();
-            if (is.getType() == Material.BROWN_GLAZED_TERRACOTTA) {
-                if (is.getItemMeta().getDisplayName().equals("§eSchnitzel")) {
-                    Stats.incrementStat(Stats.BiomiaStat.SchnitzelFound, p);
-                    int anzSchnitzel = Stats.getStat(Stats.BiomiaStat.SchnitzelFound, p);
-                    p.sendMessage(Messages.PREFIX + "§7Du hast dein §b" + anzSchnitzel + ". §cSchnitzel gefunden!");
-                    e.getItem().remove();
-                    e.setCancelled(true);
-                }
-            }
-        }
-    }
-
 }

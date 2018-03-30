@@ -5,6 +5,7 @@ import cloud.timo.TimoCloud.api.objects.ServerObject;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.BiomiaServerType;
+import de.biomia.spigot.Main;
 import de.biomia.spigot.general.cosmetics.MysteryChest;
 import de.biomia.spigot.listeners.LobbyInventoryManager;
 import de.biomia.spigot.server.lobby.Lobby;
@@ -77,8 +78,8 @@ public class LobbyListener extends BiomiaListener {
         LobbyScoreboard.sendScoreboard(p);
 
         for (Player pl : ((Lobby) Biomia.getServerInstance()).getSilentLobby()) {
-            p.hidePlayer(pl);
-            pl.hidePlayer(p);
+            p.hidePlayer(Main.getPlugin(), pl);
+            pl.hidePlayer(Main.getPlugin(), p);
         }
     }
 
@@ -164,8 +165,8 @@ public class LobbyListener extends BiomiaListener {
                             ItemCreator.itemCreate(Material.FIREWORK_CHARGE, "\u00A7aSilent Lobby:\u00A78 On"));
 
                     for (Player p : Bukkit.getOnlinePlayers()) {
-                        p.hidePlayer(pl);
-                        pl.hidePlayer(p);
+                        p.hidePlayer(Main.getPlugin(), pl);
+                        pl.hidePlayer(Main.getPlugin(), p);
                     }
                     ((Lobby) Biomia.getServerInstance()).getSilentLobby().add(pl);
 
