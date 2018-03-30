@@ -1,17 +1,15 @@
 package de.biomia.spigot.quests;
 
+import de.biomia.universal.Time;
 import de.biomia.spigot.server.quests.general.DialogMessage;
-import de.biomia.spigot.server.quests.general.TIME;
 import de.biomia.universal.MySQL;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,21 +51,8 @@ public abstract class Quest {
         npcs.add(npc);
     }
 
-    public void setCooldown(int cooldown, TIME t) {
-        switch (t) {
-            case SEKUNDEN:
-                this.cooldown = cooldown;
-                break;
-            case MINUTEN:
-                this.cooldown = cooldown * 60;
-                break;
-            case STUNDEN:
-                this.cooldown = cooldown * 60 * 60;
-                break;
-            case TAGE:
-                this.cooldown = cooldown * 60 * 60 * 24;
-                break;
-        }
+    public void setCooldown(int cooldown, Time time) {
+        this.cooldown = cooldown * time.getSekunden();
     }
 
     private void registerQuestIfnotExist() {

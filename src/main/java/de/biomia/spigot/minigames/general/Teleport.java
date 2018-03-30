@@ -7,7 +7,6 @@ import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.messages.manager.Title;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
-import de.biomia.spigot.minigames.versus.VSManager;
 import de.biomia.spigot.minigames.versus.Versus;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -25,14 +24,14 @@ public class Teleport {
         Iterator<? extends Player> iterator = Bukkit.getOnlinePlayers().iterator();
 
         new BukkitRunnable() {
-            VSManager manager = Versus.getInstance().getManager();
             boolean versus = instance.getInstance().getType().isVersus();
             @Override
             public void run() {
                 if (iterator.hasNext()) {
                     Player p = iterator.next();
-                    if (versus && instance.isSpectator(Biomia.getBiomiaPlayer(p)))
-                        manager.moveToLobby(p, false);
+                    BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
+                    if (versus && (instance.isSpectator(bp) || instance.getInstance().containsPlayer(bp)))
+                        Versus.getInstance().getManager().moveToLobby(p, false);
                     else
                         iterator.next().getPlayer().teleport(GameMode.getSpawn(false));
                 } else {

@@ -92,7 +92,7 @@ public class SchnitzelEvent extends BiomiaServer {
         //TODO add Spawner
 
         World world = spawn.getWorld();
-        new Spawner(EntityType.ZOMBIE, new Location(world, 50, 80, 50), 3, 3);
+        new Spawner(EntityType.ZOMBIE, new Location(world, 261.5, 19, 677.5), 4, 3);
     }
 
     public static SchnitzelEvent getInstance() {

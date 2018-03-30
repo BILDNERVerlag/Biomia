@@ -29,6 +29,8 @@ public class BungeeMain extends Plugin {
 
     public static Plugin plugin;
 
+    private static final TextComponent restart = new TextComponent("§cRestarte Server... §bDies kann zwischen §c15 §bSekunden und §c3 §bMinuten dauern§7!");
+
     public static ArrayList<Bans> activeBans = new ArrayList<>();
     public static ArrayList<Bans> cachedBans = new ArrayList<>();
 
@@ -132,6 +134,8 @@ public class BungeeMain extends Plugin {
 
     @Override
     public void onDisable() {
+//        BungeeCord.getInstance().getPlayers().forEach(each -> each.disconnect(restart));
+
         MySQL.closeConnections();
         allThreads.forEach(Thread::interrupt);
     }
@@ -140,6 +144,7 @@ public class BungeeMain extends Plugin {
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new ModusCommand("modus"));
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new RegisterCommand("register"));
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new GTPCommand("gtp"));
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new BlistCommand());
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new BanCommand("ban"));
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new UnbanCommand("unban"));
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new WasBannedCommand("wasbanned"));

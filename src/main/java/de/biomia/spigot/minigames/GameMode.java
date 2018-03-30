@@ -149,13 +149,15 @@ public abstract class GameMode {
                 continue;
 
             switch (getInstance().getType()) {
-                case BED_WARS:
-                    new BedWarsTeam(colors, this);
-                    break;
-                default:
-                case SKY_WARS:
-                    new GameTeam(colors, this);
-                    break;
+            case BED_WARS_VS:
+            case BED_WARS:
+                new BedWarsTeam(colors, this);
+                break;
+            default:
+            case SKY_WARS_VS:
+            case SKY_WARS:
+                new GameTeam(colors, this);
+                break;
             }
 
 

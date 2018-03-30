@@ -1,5 +1,6 @@
 package de.biomia.spigot.server.quests.band1;
 
+import de.biomia.universal.Time;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
 import de.biomia.spigot.server.quests.QuestEvents.AddCoinEvent;
@@ -35,7 +36,7 @@ public class Wasserholen implements Listener {
         elsa.spawn(loc);
 
         q.setRepeatable(true);
-        q.setCooldown(24, TIME.STUNDEN);
+        q.setCooldown(1, Time.Tage);
         initDialog();
     }
 

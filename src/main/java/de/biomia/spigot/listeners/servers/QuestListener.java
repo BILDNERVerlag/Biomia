@@ -172,7 +172,6 @@ public class QuestListener extends BiomiaListener {
 
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
-        Bukkit.broadcastMessage(e.getTo().toString());
         if (e.getTo().distance(holzfarmLoc) <= 40 && e.getFrom().distance(holzfarmLoc) > 40) {
             ActionBar.sendActionBar(QuestMessages.woodFarmEnter, e.getPlayer());
         } else if (e.getTo().distance(holzfarmLoc) > 40 && e.getFrom().distance(holzfarmLoc) <= 40) {

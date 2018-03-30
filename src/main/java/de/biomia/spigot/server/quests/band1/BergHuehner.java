@@ -1,5 +1,6 @@
 package de.biomia.spigot.server.quests.band1;
 
+import de.biomia.universal.Time;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
@@ -40,7 +41,7 @@ public class BergHuehner implements Listener {
         q.setDisplayName("Bergh\u00fchner");
         q.setRemoveOnReload(true);
         q.setRepeatable(true);
-        q.setCooldown(1, TIME.TAGE);
+        q.setCooldown(1, Time.Tage);
 
         tom = q.createNPC(EntityType.PLAYER, "Tom");
         Location npcLoc = new Location(Bukkit.getWorld("Quests"), 181, 72, -220, 140, 0);

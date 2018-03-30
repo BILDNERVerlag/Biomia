@@ -1,5 +1,6 @@
 package de.biomia.spigot.server.quests.general;
 
+import de.biomia.universal.Time;
 import de.biomia.spigot.Biomia;
 import de.biomia.universal.MySQL;
 import net.citizensnpcs.api.CitizensAPI;
@@ -131,21 +132,8 @@ public class Quest {
         return band;
     }
 
-    public void setCooldown(int cooldown, TIME t) {
-        switch (t) {
-            case SEKUNDEN:
-                this.cooldown = cooldown;
-                break;
-            case MINUTEN:
-                this.cooldown = cooldown * 60;
-                break;
-            case STUNDEN:
-                this.cooldown = cooldown * 60 * 60;
-                break;
-            case TAGE:
-                this.cooldown = cooldown * 60 * 60 * 24;
-                break;
-        }
+    public void setCooldown(int cooldown, Time t) {
+        this.cooldown = t.getSekunden() * cooldown;
     }
 
     public int getCooldown() {

@@ -3,6 +3,7 @@ package de.biomia.spigot.specialEvents.schnitzelEvent;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.listeners.servers.BiomiaListener;
+import de.biomia.spigot.messages.manager.Scoreboards;
 import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
@@ -107,6 +108,8 @@ public class SchnitzelListener extends BiomiaListener {
         e.getPlayer().getInventory().setChestplate(chestplate);
         e.getPlayer().getInventory().setBoots(boots);
         e.getPlayer().getInventory().setLeggings(leggings);
+
+        Scoreboards.setTabList(e.getPlayer(), true);
     }
 
     @EventHandler

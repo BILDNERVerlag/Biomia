@@ -1,6 +1,6 @@
 package de.biomia.spigot.specialEvents.schnitzelEvent;
 
-import de.biomia.bungee.events.Time;
+import de.biomia.universal.Time;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.achievements.Stats;
 import de.biomia.spigot.tools.ItemCreator;
@@ -66,6 +66,7 @@ public class Schnitzel {
 
         if (comments.size() + 1 == SchnitzelEvent.getSchnitzel()) {
             Date date = Stats.getFirstIncrementDate(Stats.BiomiaStat.SchnitzelFound, bp);
+
             String text = Time.toText((int) ((System.currentTimeMillis() - date.getTime()) / 1000));
             Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat alle §c" + SchnitzelEvent.getSchnitzel() + " §bSchnitzel in §c" + text + " §bgefunden!");
         }

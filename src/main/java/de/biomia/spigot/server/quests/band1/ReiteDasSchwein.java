@@ -1,5 +1,6 @@
 package de.biomia.spigot.server.quests.band1;
 
+import de.biomia.universal.Time;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.manager.ActionBar;
@@ -85,7 +86,7 @@ public class ReiteDasSchwein implements Listener {
         ((Pig) faltopig.getEntity()).setSaddle(true);
 
         q.setRepeatable(true);
-        q.setCooldown(1, TIME.MINUTEN);
+        q.setCooldown(2, Time.Stunden);
 
         initDialog();
     }

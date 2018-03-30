@@ -1,6 +1,6 @@
 package de.biomia.spigot.specialEvents.schnitzelEvent;
 
-import de.biomia.bungee.events.Time;
+import de.biomia.universal.Time;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.achievements.Stats;
 import de.biomia.spigot.tools.ItemCreator;

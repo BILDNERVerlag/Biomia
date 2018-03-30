@@ -220,7 +220,7 @@ public class Stats {
         Connection con = MySQL.Connect(MySQL.Databases.stats_db);
         if (con != null) {
             try {
-                PreparedStatement statement = con.prepareStatement("SELECT timestamp FROM " + stat.name() + " Where ID = ? ORDER BY timestamp DESC");
+                PreparedStatement statement = con.prepareStatement("SELECT timestamp FROM " + stat.name() + " Where ID = ?");
                 statement.setInt(1, bp.getBiomiaPlayerID());
                 ResultSet rs = statement.executeQuery();
                 if (rs.next())
