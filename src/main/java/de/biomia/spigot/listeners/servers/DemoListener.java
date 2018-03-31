@@ -30,7 +30,7 @@ public class DemoListener extends BiomiaListener {
         bp.setDamageEntitys(false);
         bp.setGetDamage(false);
         p.setGameMode(GameMode.SURVIVAL);
-        Scoreboards.setTabList(p, true);
+        Scoreboards.setTabList(p, true, false);
         BackToLobby.getLobbyItem(p, 8);
         p.getInventory().setItem(0, ItemCreator.itemCreate(Material.CHEST, "\u00A7dTeleporter"));
 

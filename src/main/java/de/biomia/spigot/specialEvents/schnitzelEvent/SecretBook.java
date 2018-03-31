@@ -64,10 +64,17 @@ public class SecretBook {
             return;
         }
 
-        if (comments.size() == 5) {
+        if (comments.size() + 1 == SchnitzelEvent.getSecretBookMap().size()) {
             Date date = Stats.getFirstIncrementDate(Stats.BiomiaStat.SchnitzelFound, bp);
-            String text = Time.toText((int) ((System.currentTimeMillis() - date.getTime()) / 1000));
-            Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat alle §c6 §bGeheimen Bücher in §c" + text + " §bgefunden!");
+            int duration = (int) ((System.currentTimeMillis() - date.getTime()) / 1000);
+            SchnitzelEvent.booksHighScore.put(bp.getName(), duration);
+            SchnitzelEvent.reloadSBBooks();
+            Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat alle §c6 §bGeheimen Bücher in §c" + Time.toText(duration) + " §bgefunden!");
+
+            if (SchnitzelEvent.getFirstName(SchnitzelEvent.booksHighScore).equals(bp.getName())) {
+                Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat den High Score gebrochen!!!");
+            }
+
         }
     }
 

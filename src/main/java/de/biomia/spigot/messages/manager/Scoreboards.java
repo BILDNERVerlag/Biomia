@@ -9,31 +9,53 @@ import org.bukkit.scoreboard.Team;
 
 public class Scoreboards {
 
-    public static Scoreboard setTabList(Player p, boolean send) {
+    private static Scoreboard main = Bukkit.getScoreboardManager().getNewScoreboard();
 
-        Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
-        initScoreboard(sb);
-        Ranks bpRank = Biomia.getBiomiaPlayer(p).getRank();
+    static {
+        initScoreboard(main);
+    }
 
-        for (Player pl : Bukkit.getOnlinePlayers()) {
-            Scoreboard asb = pl.getScoreboard();
-            Ranks ranks = Biomia.getBiomiaPlayer(pl).getRank();
-            for (Team t : asb.getTeams())
+    public static Scoreboard setTabList(Player p, boolean send, boolean ownScoreboard) {
+
+        if (ownScoreboard) {
+            Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
+            initScoreboard(sb);
+            Ranks bpRank = Biomia.getBiomiaPlayer(p).getRank();
+
+            for (Player pl : Bukkit.getOnlinePlayers()) {
+                Scoreboard asb = pl.getScoreboard();
+                Ranks ranks = Biomia.getBiomiaPlayer(pl).getRank();
+                for (Team t : asb.getTeams())
+                    if (t.getName().contains(bpRank.name())) {
+                        t.addEntry(p.getName());
+                        break;
+                    }
+                for (Team t : sb.getTeams())
+                    if (t.getName().contains(ranks.name())) {
+                        t.addEntry(pl.getName());
+                        break;
+                    }
+            }
+
+            if (send)
+                p.setScoreboard(sb);
+
+            return sb;
+        } else {
+
+            Ranks bpRank = Biomia.getBiomiaPlayer(p).getRank();
+
+            for (Team t : main.getTeams())
                 if (t.getName().contains(bpRank.name())) {
                     t.addEntry(p.getName());
                     break;
                 }
-            for (Team t : sb.getTeams())
-                if (t.getName().contains(ranks.name())) {
-                    t.addEntry(pl.getName());
-                    break;
-                }
+
+            if (send) {
+                p.setScoreboard(main);
+            }
+            return main;
         }
-
-        if (send)
-            p.setScoreboard(sb);
-
-        return sb;
     }
 
     private static void initScoreboard(Scoreboard sb) {
@@ -45,5 +67,9 @@ public class Scoreboards {
                 t = sb.registerNewTeam(r.getLevel() + r.name());
             t.setPrefix(r.getPrefix());
         }
+    }
+
+    public static Scoreboard getMainScoreboard() {
+        return main;
     }
 }

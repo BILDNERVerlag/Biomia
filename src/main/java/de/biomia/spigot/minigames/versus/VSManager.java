@@ -76,7 +76,7 @@ public class VSManager implements Listener {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         bp.setGetDamage(false);
         bp.setDamageEntitys(false);
-        Scoreboards.setTabList(p, true);
+        Scoreboards.setTabList(p, true, false);
     }
 
     public void setInventory(Player p) {

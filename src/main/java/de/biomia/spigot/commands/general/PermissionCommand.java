@@ -1,10 +1,12 @@
 package de.biomia.spigot.commands.general;
 
+import de.biomia.spigot.Biomia;
+import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.OfflineBiomiaPlayer;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.universal.Messages;
-import me.lucko.luckperms.LuckPerms;
-import me.lucko.luckperms.api.User;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class PermissionCommand extends BiomiaCommand {
 
@@ -12,29 +14,21 @@ public class PermissionCommand extends BiomiaCommand {
         super("permission");
     }
 
-    private static void removePermission(String p, String permission) {
-        User user = LuckPerms.getApi().getUser(p);
-        if (user != null)
-            user.setPermission(LuckPerms.getApi().buildNode(permission).setValue(false).build());
-    }
-
-    private static void addPermission(String p, String permission) {
-        User user = LuckPerms.getApi().getUser(p);
-        if (user != null)
-            user.setPermission(LuckPerms.getApi().buildNode(permission).build());
-    }
-
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
+
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) sender);
+
         if (sender.hasPermission("biomia.setpermission")) {
             if (args.length >= 3) {
 
+                OfflineBiomiaPlayer user = Biomia.getOfflineBiomiaPlayer(args[1]);
                 if (args[0].equalsIgnoreCase("add")) {
-                    addPermission(args[1], args[2]);
+                    user.addPermission(args[2]);
                     sender.sendMessage(
                             "\u00A76Der Spieler \u00A7a" + args[1] + " \u00A76hat jetzt die Permission\u00A7a " + args[2] + "\u00A76!");
                 } else if (args[0].equalsIgnoreCase("remove")) {
-                    removePermission(args[1], args[2]);
+                    user.removePermission(args[2]);
                     sender.sendMessage(
                             "\u00A76Dem Spieler \u00A7a" + args[1] + " \u00A76wurde die Permission\u00A7a " + args[2] + " \u00A76entzogen!");
                 } else {

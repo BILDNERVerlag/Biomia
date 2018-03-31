@@ -66,9 +66,14 @@ public class Schnitzel {
 
         if (comments.size() + 1 == SchnitzelEvent.getSchnitzel()) {
             Date date = Stats.getFirstIncrementDate(Stats.BiomiaStat.SchnitzelFound, bp);
+            int duration = (int) ((System.currentTimeMillis() - date.getTime()) / 1000);
+            SchnitzelEvent.schnitzelHighScore.put(bp.getName(), duration);
+            SchnitzelEvent.reloadSBSchnitzel();
+            Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat alle §c" + SchnitzelEvent.getSchnitzel() + " §bSchnitzel in §c" + Time.toText(duration) + " §bgefunden!");
 
-            String text = Time.toText((int) ((System.currentTimeMillis() - date.getTime()) / 1000));
-            Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat alle §c" + SchnitzelEvent.getSchnitzel() + " §bSchnitzel in §c" + text + " §bgefunden!");
+            if (SchnitzelEvent.getFirstName(SchnitzelEvent.schnitzelHighScore).equals(bp.getName())) {
+                Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat den High Score gebrochen!!!");
+            }
         }
     }
 

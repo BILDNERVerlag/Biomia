@@ -2,7 +2,7 @@ package de.biomia.spigot.specialEvents.schnitzelEvent;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.Main;
+import de.biomia.spigot.achievements.Stats;
 import de.biomia.spigot.listeners.servers.BiomiaListener;
 import de.biomia.spigot.messages.manager.Scoreboards;
 import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
@@ -10,6 +10,7 @@ import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -19,20 +20,12 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 import java.util.logging.Level;
 
 public class SchnitzelListener extends BiomiaListener {
-
-    private static final HashMap<BiomiaPlayer, Location> checkPoints = new HashMap<>();
-
-    public static HashMap<BiomiaPlayer, Location> getCheckPoints() {
-        return checkPoints;
-    }
 
     private static final ItemStack shovel = ItemCreator.itemCreate(Material.IRON_SPADE, "§bÜberlebens Schaufel");
     private static final ItemStack helmet = ItemCreator.itemCreate(Material.CHAINMAIL_HELMET, "§bMinen Helm");
@@ -102,23 +95,7 @@ public class SchnitzelListener extends BiomiaListener {
     @EventHandler
     public void onJoin_(PlayerJoinEvent e) {
 
-        new BukkitRunnable() {
-            BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-            Location loc = null;
-
-            @Override
-            public void run() {
-                if (bp.getPlayer() != null) {
-                    if (checkPoints.get(bp).equals(loc)) {
-                        loc = e.getPlayer().getLocation();
-                        checkPoints.put(bp, loc);
-                        bp.sendMessage("§cCheckpoint wird automatisch gespeichert...");
-                    } else
-                        cancel();
-                }
-            }
-        }.runTaskTimer(Main.getPlugin(), 20, 20 * 60 * 2);
-
+        Checkpoint.startSave(Biomia.getBiomiaPlayer(e.getPlayer()));
 
         e.getPlayer().getInventory().clear();
 
@@ -131,7 +108,9 @@ public class SchnitzelListener extends BiomiaListener {
         e.getPlayer().getInventory().setBoots(boots);
         e.getPlayer().getInventory().setLeggings(leggings);
 
-        Scoreboards.setTabList(e.getPlayer(), true);
+        e.getPlayer().setLevel(Stats.getStat(Stats.BiomiaStat.SchnitzelMonsterKilled, e.getPlayer()));
+
+        Scoreboards.setTabList(e.getPlayer(), true, false);
     }
 
     @EventHandler
@@ -190,7 +169,24 @@ public class SchnitzelListener extends BiomiaListener {
 
     @EventHandler
     public void onRespawn(PlayerRespawnEvent e) {
-        e.setRespawnLocation(checkPoints.get(Biomia.getBiomiaPlayer(e.getPlayer())));
+        Location loc = Checkpoint.getLastSavedLocation(Biomia.getBiomiaPlayer(e.getPlayer()));
+        if (loc == null) {
+            e.getPlayer().sendMessage("§cRespawn am Spawn, da du nur alle §b30 §cSekunden zu deinem Checkpoint zurückkehren kannst§7!");
+            loc = SchnitzelEvent.getSpawn();
+        }
+        e.setRespawnLocation(loc);
+    }
+
+    @EventHandler
+    public void mobDeathEvent(EntityDeathEvent e) {
+        e.setDroppedExp(0);
+        Player p = e.getEntity().getKiller();
+        if (p != null) {
+            Stats.incrementStat(Stats.BiomiaStat.SchnitzelMonsterKilled, p, e.getEntityType().name());
+            p.setLevel(p.getLevel() + 1);
+            p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
+            SchnitzelEvent.mobsKilled.put(Biomia.getBiomiaPlayer(p).getName(), p.getLevel());
+        }
     }
 
     @EventHandler
@@ -214,13 +210,12 @@ public class SchnitzelListener extends BiomiaListener {
             Location loc = spawner.getLocation();
 
             int distance = spawner.getDistance();
-            if (e.getTo().distance(loc) <= distance) {
+            if (e.getFrom().distance(loc) <= distance) {
 
                 if (nowInSeconds - spawner.getLastSpawnedTime() > 30) {
 
                     for (Player allPlayer : Bukkit.getOnlinePlayers()) {
-
-                        if (allPlayer.getLocation().distance(loc) <= distance) {
+                        if (allPlayer.getLocation().distance(loc) <= distance + 2) {
                             multiplicator += 1;
                         }
                     }
@@ -249,7 +244,7 @@ public class SchnitzelListener extends BiomiaListener {
                         int temp = 0;
                         Location location;
                         do {
-                            location = loc.clone().add(random.nextInt(7) - 3, 0, random.nextInt(7) - 3);
+                            location = loc.clone().add(random.nextDouble() * 7 - 3, 0, random.nextDouble() * 7 - 3);
                             temp++;
                             if (temp > 4)
                                 continue a;

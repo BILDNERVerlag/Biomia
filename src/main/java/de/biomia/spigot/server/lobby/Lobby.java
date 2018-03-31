@@ -24,7 +24,6 @@ import static de.biomia.spigot.Main.getPlugin;
 public class Lobby extends BiomiaServer {
 
     private final ArrayList<Player> silentLobby = new ArrayList<>();
-    private final ArrayList<Player> inAir = new ArrayList<>();
     private Inventory navigator;
     private Inventory lobbySwitcher;
 
@@ -141,10 +140,6 @@ public class Lobby extends BiomiaServer {
 
     public ArrayList<Player> getSilentLobby() {
         return silentLobby;
-    }
-
-    public ArrayList<Player> getInAir() {
-        return inAir;
     }
 
     public Inventory getNavigator() {

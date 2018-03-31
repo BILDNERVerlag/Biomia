@@ -130,14 +130,37 @@ public abstract class UniversalBiomiaPlayer {
 
     public Ranks getRank() {
         String rank = permUser.getPrimaryGroup();
+
+        if (rank.equals("default")) {
+            setRank(Ranks.UnregSpieler);
+            return Ranks.UnregSpieler;
+        }
+
         for (Ranks ranks : Ranks.values()) {
             if (ranks.getName().equals(rank))
                 return ranks;
         }
+
         return Ranks.UnregSpieler;
     }
 
     public void setRank(Ranks rank) {
-        permUser.setPrimaryGroup(rank.getName());
+        String oldRank = permUser.getPrimaryGroup();
+
+        if (permUser.hasPermission(api.buildNode("group." + oldRank).build()).asBoolean())
+            removePermission("group." + oldRank);
+        addPermission("group." + rank.getName());
+
+    }
+
+    public void removePermission(String permission) {
+        permUser.setPermission(LuckPerms.getApi().buildNode(permission).setValue(false).build());
+        LuckPerms.getApi().getUserManager().saveUser(permUser);
+    }
+
+    public void addPermission(String permission) {
+        permUser.setPermission(LuckPerms.getApi().buildNode(permission).build());
+        LuckPerms.getApi().getUserManager().saveUser(permUser);
     }
 }
+

@@ -16,7 +16,7 @@ public class BauServerListener extends BiomiaListener {
         p.setGameMode(GameMode.CREATIVE);
         Biomia.getBiomiaPlayer(p).setBuild(true);
         BackToLobby.getLobbyItem(p, 8);
-        Scoreboards.setTabList(e.getPlayer(), true);
+        Scoreboards.setTabList(e.getPlayer(), true, false);
     }
 
 }

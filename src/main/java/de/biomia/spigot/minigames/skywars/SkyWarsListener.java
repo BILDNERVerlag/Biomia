@@ -165,7 +165,7 @@ public class SkyWarsListener extends GameHandler {
                                 if (entity instanceof Player) {
                                     Player nearest = (Player) entity;
                                     BiomiaPlayer nearestbp = Biomia.getBiomiaPlayer(nearest);
-                                    if (!mode.isSpectator(nearestbp) && bp.getTeam() != null && bp.getTeam().containsPlayer(nearestbp)) {
+                                    if (!mode.isSpectator(nearestbp) && bp.getTeam() != null && !bp.getTeam().containsPlayer(nearestbp)) {
                                         p.setCompassTarget(nearest.getLocation());
                                         p.sendMessage(SkyWarsMessages.compassMessages.replace("%p", nearest.getName()).replace("%d", (int) p.getLocation().distance(nearest.getLocation()) + ""));
                                         return;

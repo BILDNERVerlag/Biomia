@@ -1,12 +1,11 @@
 package de.biomia.spigot.specialEvents.schnitzelEvent;
 
-import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.BiomiaServer;
-import de.biomia.spigot.BiomiaServerType;
-import de.biomia.spigot.Main;
+import de.biomia.spigot.*;
 import de.biomia.spigot.achievements.Stats;
+import de.biomia.spigot.messages.manager.Scoreboards;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.LastPositionListener;
+import de.biomia.universal.Time;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import net.minecraft.server.v1_12_R1.IChatBaseComponent;
@@ -17,10 +16,13 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class SchnitzelEvent extends BiomiaServer {
 
@@ -31,6 +33,12 @@ public class SchnitzelEvent extends BiomiaServer {
     private static final HashMap<String, SecretBook> secretBookMap = new HashMap<>();
     private static final Location spawn = new Location(Bukkit.getWorld("BiomiaWelt"), 351, 72, 697.5, -35, 0);
     private static final HashMap<BiomiaPlayer, Inventory> inventorys = new HashMap<>();
+
+    public static HashMap<String, Integer> mobsKilled = new HashMap<>();
+    public static HashMap<String, Integer> booksHighScore = new HashMap<>();
+    public static HashMap<String, Integer> schnitzelHighScore = new HashMap<>();
+
+    private static String placeholder = "§7§m---";
 
     public SchnitzelEvent() {
         super(BiomiaServerType.Event_Schnitzeljagd);
@@ -48,6 +56,39 @@ public class SchnitzelEvent extends BiomiaServer {
         spawn.getWorld().setGameRuleValue("mobGriefing", "false");
         spawn.getWorld().setGameRuleValue("randomTickSpeed", "0");
         spawn.getWorld().setDifficulty(Difficulty.NORMAL);
+
+
+        for (Map.Entry<Integer, Integer> integerIntegerEntry : Stats.BiomiaStat.SchnitzelMonsterKilled.getTop(-1, null).entrySet())
+            mobsKilled.put(Biomia.getOfflineBiomiaPlayer(integerIntegerEntry.getKey()).getName(), integerIntegerEntry.getValue());
+
+        Stats.BiomiaStat.SchnitzelFound.getWhereValueIsX(schnitzelMap.size(), null).forEach(each -> {
+
+            OfflineBiomiaPlayer bp = Biomia.getOfflineBiomiaPlayer(each);
+
+            Date first = Stats.getFirstIncrementDate(Stats.BiomiaStat.SchnitzelFound, bp);
+            Date last = Stats.getLastIncrementDate(Stats.BiomiaStat.SchnitzelFound, bp);
+
+            int duration = ((int) last.getTime() / 1000) - ((int) first.getTime() / 1000);
+
+            schnitzelHighScore.put(bp.getName(), duration);
+
+        });
+
+        Stats.BiomiaStat.BooksFound.getWhereValueIsX(secretBookMap.size(), null).forEach(each -> {
+
+            OfflineBiomiaPlayer bp = Biomia.getOfflineBiomiaPlayer(each);
+
+            Date first = Stats.getFirstIncrementDate(Stats.BiomiaStat.SchnitzelFound, bp);
+            Date last = Stats.getLastIncrementDate(Stats.BiomiaStat.BooksFound, bp);
+
+            int duration = ((int) last.getTime() / 1000) - ((int) first.getTime() / 1000);
+
+            booksHighScore.put(bp.getName(), duration);
+
+        });
+
+        initScoreboard();
+
     }
 
     @Override
@@ -199,5 +240,100 @@ public class SchnitzelEvent extends BiomiaServer {
 
     public static Location getSpawn() {
         return spawn;
+    }
+
+    private static Scoreboard sb = Scoreboards.getMainScoreboard();
+    private static Team schnitzelHS, bookHS, mobHS, schnitzelHSName, bookHSName, mobHSName;
+
+    private static void initScoreboard() {
+
+        Objective o = sb.registerNewObjective("aaa", "bbb");
+        o.setDisplaySlot(DisplaySlot.SIDEBAR);
+        o.setDisplayName("\u00A7cBIO\u00A7bMIA");
+        o.getScore(" ").setScore(13);
+        o.getScore("\u00A7cMobs Getötet:").setScore(12);
+        o.getScore("\u00A7c\u00A7b").setScore(11);
+        o.getScore("\u00A7a").setScore(10);
+        o.getScore("\u00A7b").setScore(9);
+        o.getScore("\u00A7cSchnitzel:").setScore(8);
+        o.getScore("\u00A7f\u00A7b").setScore(7);
+        o.getScore("\u00A71").setScore(6);
+        o.getScore("\u00A72").setScore(5);
+        o.getScore("\u00A7cBücher:").setScore(4);
+        o.getScore("\u00A7r\u00A7b").setScore(3);
+        o.getScore("\u00A73").setScore(2);
+        o.getScore("\u00A7l").setScore(1);
+
+        mobHS = sb.registerNewTeam("mobsHS");
+        mobHSName = sb.registerNewTeam("mobsHSName");
+        schnitzelHS = sb.registerNewTeam("schnitzelHS");
+        schnitzelHSName = sb.registerNewTeam("schnitzelHSName");
+        bookHS = sb.registerNewTeam("bookHS");
+        bookHSName = sb.registerNewTeam("bookHSName");
+
+        mobHSName.addEntry("\u00A7c\u00A7b");
+        mobHSName.setPrefix("§7#§c1 ");
+        schnitzelHSName.addEntry("\u00A7f\u00A7b");
+        schnitzelHSName.setPrefix("§7#§c1 ");
+        bookHSName.addEntry("\u00A7r\u00A7b");
+        bookHSName.setPrefix("§7#§c1 ");
+
+        mobHS.addEntry("\u00A7a");
+        schnitzelHS.addEntry("\u00A71");
+        bookHS.addEntry("\u00A73");
+
+        reloadSBBooks();
+        reloadSBSchnitzel();
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                mobsKilled = sortByValue(mobsKilled, true);
+
+                mobHS.setPrefix(mobsKilled.isEmpty() ? "§7§m---" : "§7" + getFirstInt(mobsKilled));
+                mobHSName.setSuffix(mobsKilled.isEmpty() ? "§7§m---" : getFirstName(mobsKilled));
+            }
+        }.runTaskTimer(Main.getPlugin(), 0, 20 * 5);
+
+    }
+
+    public static void reloadSBSchnitzel() {
+        schnitzelHighScore = sortByValue(schnitzelHighScore, false);
+        String name = getFirstName(schnitzelHighScore);
+        String integer = getFirstInt(schnitzelHighScore);
+
+        schnitzelHSName.setSuffix(name == null ? placeholder : name);
+        schnitzelHS.setPrefix(integer == null ? placeholder : "§7" + Time.toFromatString("HH:mm:ss", Integer.valueOf(integer)));
+    }
+
+    public static void reloadSBBooks() {
+        booksHighScore = sortByValue(booksHighScore, false);
+        String name = getFirstName(booksHighScore);
+        String integer = getFirstInt(booksHighScore);
+
+        bookHSName.setSuffix(name == null ? placeholder : name);
+        bookHS.setPrefix(integer == null ? placeholder : "§7" + Time.toFromatString("HH:mm:ss", Integer.valueOf(integer)));
+    }
+
+    public static String getFirstName(HashMap<String, Integer> map) {
+        return map.keySet().stream().findFirst().orElse(null);
+    }
+
+    private static String getFirstInt(HashMap<String, Integer> map) {
+        return map.values().stream().findFirst().map(Object::toString).orElse(null);
+    }
+
+    private static <K, V extends Comparable<? super V>> HashMap<K, V> sortByValue(Map<K, V> map, boolean invert) {
+        List<Map.Entry<K, V>> list = new ArrayList<>(map.entrySet());
+        if (invert)
+            list.sort(Comparator.comparing(Map.Entry<K, V>::getValue).reversed());
+        else
+            list.sort(Comparator.comparing(Map.Entry<K, V>::getValue));
+
+        HashMap<K, V> result = new LinkedHashMap<>();
+        for (Map.Entry<K, V> entry : list) {
+            result.put(entry.getKey(), entry.getValue());
+        }
+
+        return result;
     }
 }

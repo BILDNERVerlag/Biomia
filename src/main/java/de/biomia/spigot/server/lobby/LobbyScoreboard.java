@@ -16,7 +16,7 @@ public class LobbyScoreboard {
     public static void sendScoreboard(Player p) {
         Team freunde, rank, coins;
 
-        Scoreboard sb = Scoreboards.setTabList(p, false);
+        Scoreboard sb = Scoreboards.setTabList(p, false, true);
 
         Objective o = sb.registerNewObjective("aaa", "bbb");
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
@@ -43,8 +43,9 @@ public class LobbyScoreboard {
         new BukkitRunnable() {
             @Override
             public void run() {
-                if (!p.isOnline())
+                if (!p.getScoreboard().equals(sb))
                     cancel();
+                else
                 reloadSB(p, sb);
             }
         }.runTaskTimer(Main.getPlugin(), 0, 100);
@@ -63,12 +64,6 @@ public class LobbyScoreboard {
         rank = sb.getTeam("rank");
 
         rank.setPrefix("\u00A7b" + getGroupName(p));
-        if (rank.getPrefix().contains("Unreg")) {
-            rank.setPrefix("\u00A7bNicht ");
-            rank.setSuffix("\u00A7bRegistriert!");
-        } else {
-            rank.setSuffix("");
-        }
         coins.setPrefix("\u00A7b" + bp.getCoins());
         freunde.setPrefix("\u00A7b" + bp.getOnlineFriends().size() + " \u00A77/ \u00A7b" + bp.getFriends().size());
     }
@@ -111,7 +106,7 @@ public class LobbyScoreboard {
                 rankName = "Spieler";
                 break;
             case "unreg":
-                rankName = "Unreg";
+                rankName = "Unregistriert";
                 break;
             case "owner":
                 rankName = "Owner";
@@ -123,7 +118,7 @@ public class LobbyScoreboard {
                 rankName = "JrBuilder";
                 break;
             case "builder":
-                rankName = "SrBuilder";
+                rankName = "Builder";
                 break;
             case "srbuilder":
                 rankName = "SrBuilder";
@@ -137,18 +132,10 @@ public class LobbyScoreboard {
             case "developer":
                 rankName = "Dev";
                 break;
+            case "admin":
+                rankName = "Admin";
+                break;
         }
         return rankName;
     }
-
-    /*
-        Database
-        Tabelle
-
-
-        Item:
-            einzigartige ID
-            jeder eigenschaft in spalte
-
-     */
 }

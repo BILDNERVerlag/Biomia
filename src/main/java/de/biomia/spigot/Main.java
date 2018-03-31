@@ -160,9 +160,9 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        Biomia.getServerInstance().stop();
         this.saveConfig();
         event.removeAllEggs();
-        Biomia.getServerInstance().stop();
         MySQL.closeConnections();
     }
 }

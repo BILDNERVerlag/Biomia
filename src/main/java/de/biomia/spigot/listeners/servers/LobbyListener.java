@@ -13,6 +13,7 @@ import de.biomia.spigot.server.lobby.LobbyScoreboard;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.PlayerToServerConnector;
 import de.biomia.universal.Messages;
+import de.biomia.universal.Ranks;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -31,9 +32,14 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
+import java.util.ArrayList;
+
 public class LobbyListener extends BiomiaListener {
 
-    private final Location stonebutton = new Location(Bukkit.getWorld("LobbyBiomia"), 465, 97, 359);
+    private static final Location stonebutton = new Location(Bukkit.getWorld("LobbyBiomia"), 465, 97, 359);
+
+    private static final ArrayList<Player> inAir = new ArrayList<>();
+
 
     @EventHandler
     public void onDrop(PlayerDropItemEvent di) {
@@ -122,27 +128,25 @@ public class LobbyListener extends BiomiaListener {
 
     @EventHandler
     public void onToggleFlight(PlayerToggleFlightEvent e) {
-
         Player p = e.getPlayer();
         if (p.getGameMode() != GameMode.CREATIVE) {
             e.setCancelled(true);
-            if (!((Lobby) Biomia.getServerInstance()).getInAir().contains(p)) {
-                p.setFlying(false);
+            p.setFlying(false);
+            if (!inAir.contains(p)) {
                 p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_LARGE_BLAST, 1, 0);
-                Vector jump = p.getLocation().getDirection().multiply(2.6D).setY(1.2);
+                Vector jump = p.getLocation().getDirection().multiply(2.4D).setY(1.2);
                 p.setVelocity(p.getVelocity().add(jump));
-                p.setAllowFlight(false);
-                ((Lobby) Biomia.getServerInstance()).getInAir().add(p);
+                inAir.add(p);
             }
         }
     }
 
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
-        if (((Lobby) Biomia.getServerInstance()).getInAir().contains(e.getPlayer())) {
+        if (inAir.contains(e.getPlayer())) {
             if (e.getPlayer().isOnGround()) {
                 e.getPlayer().setAllowFlight(true);
-                ((Lobby) Biomia.getServerInstance()).getInAir().remove(e.getPlayer());
+                inAir.remove(e.getPlayer());
             }
         }
     }
@@ -249,7 +253,7 @@ public class LobbyListener extends BiomiaListener {
     }
 
     private static void sendRegMsg(Player p) {
-        if (Biomia.getBiomiaPlayer(p).getRank().equals("unregspieler")) {
+        if (Biomia.getBiomiaPlayer(p).getRank() == Ranks.UnregSpieler) {
             TextComponent register = new TextComponent();
             p.sendMessage(ChatColor.DARK_PURPLE + "Du bist noch nicht registriert!");
             register.setText(ChatColor.BLUE + "Registriere dich jetzt auf: " + ChatColor.GRAY + "www."

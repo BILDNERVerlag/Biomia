@@ -75,7 +75,7 @@ public class QuestListener extends BiomiaListener {
         InventorySave.setInventory(e.getPlayer(), BiomiaServerType.Quest);
 
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        Scoreboards.setTabList(e.getPlayer(), true);
+        Scoreboards.setTabList(e.getPlayer(), true, false);
         RewardItems.giveItems(bp, BiomiaServerType.Quest);
 
         QuestPlayer qp = bp.getQuestPlayer();

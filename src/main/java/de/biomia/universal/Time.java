@@ -1,5 +1,9 @@
 package de.biomia.universal;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 public enum Time {
 
     Jahre(365 * 24 * 3600), Monate(30 * 24 * 3600), Tage(24 * 3600), Stunden(3600), Minuten(60), Sekunden(1);
@@ -15,7 +19,7 @@ public enum Time {
     }
 
     private String getEinzahl() {
-        return name().substring(name().length() - 1);
+        return name().substring(0, name().length() - 1);
     }
 
     public static String toText(int i) {
@@ -35,6 +39,12 @@ public enum Time {
             firstRun = false;
         }
         return output.toString();
+    }
+
+    public static String toFromatString(String format, int seconds) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return sdf.format(new Date(seconds * 1000));
     }
 
 }

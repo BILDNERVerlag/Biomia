@@ -34,7 +34,7 @@ public class GTPCommand extends Command {
                             Thread thread = new Thread(() -> {
 
                                 try {
-                                    Thread.sleep(1500);
+                                    Thread.sleep(2500);
                                 } catch (InterruptedException ignored) {
                                 }
                                 ChannelListener.teleport(pp.getName(), to.getName(), to.getServer().getInfo());
@@ -56,7 +56,17 @@ public class GTPCommand extends Command {
                         if (from != null && to != null) {
                             if (!from.getServer().getInfo().equals(to.getServer().getInfo()))
                                 from.connect(to.getServer().getInfo());
-                            ChannelListener.teleport(from.getName(), to.getName(), to.getServer().getInfo());
+                            Thread thread = new Thread(() -> {
+
+                                try {
+                                    Thread.sleep(2500);
+                                } catch (InterruptedException ignored) {
+                                }
+                                ChannelListener.teleport(pp.getName(), to.getName(), to.getServer().getInfo());
+
+                            });
+                            thread.start();
+                            BungeeMain.allThreads.add(thread);
                         } else {
                             sender.sendMessage(new TextComponent(Messages.NOT_ONLINE));
                         }

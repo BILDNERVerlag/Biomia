@@ -2,6 +2,7 @@ package de.biomia.spigot.achievements;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.OfflineBiomiaPlayer;
 import de.biomia.universal.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -51,7 +52,7 @@ public class Stats {
         //Events
 
         SpecialEggsFound, BW_ItemsBoughtNames, BW_FinalKills, BW_FinalDeaths, EasterEggsFound,
-        SchnitzelFound, BooksFound;
+        SchnitzelFound, BooksFound, SchnitzelMonsterKilled;
 
 
         /**
@@ -68,17 +69,38 @@ public class Stats {
             checkForAchievementUnlocks(this, biomiaID, value);
         }
 
+        public ArrayList<Integer> getWhereValueIsX(int x, String comment) {
+
+            ArrayList<Integer> leaderboard = new ArrayList<>();
+
+            Connection con = MySQL.Connect(MySQL.Databases.stats_db);
+            if (con != null) {
+                try {
+                    PreparedStatement statement = con.prepareStatement("SELECT ID, value FROM ( SELECT ID, COUNT(`value`) AS value FROM " + name() + " GROUP BY ID ) as l WHERE value = ? " + (comment != null ? ("AND comment = '" + comment + "'") : "") + " ORDER BY ID DESC");
+                    statement.setInt(1, x);
+                    ResultSet rs = statement.executeQuery();
+                    while (rs.next()) {
+                        leaderboard.add(rs.getInt("ID"));
+                    }
+                    rs.close();
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            return leaderboard;
+        }
+
         public HashMap<Integer, Integer> getTop(int topX, String comment) {
             HashMap<Integer, Integer> leaderboard = new HashMap<>();
 
             Connection con = MySQL.Connect(MySQL.Databases.stats_db);
             if (con != null) {
                 try {
-                    PreparedStatement statement = con.prepareStatement("SELECT biomiaID, COUNT(`value`) AS value FROM " + this.name() + (comment == null ? "" : ("WHERE comment = '" + comment + "'")) + " GROUP BY spieler ORDER BY value DESC LIMIT ?");
-                    statement.setInt(0, topX);
+                    PreparedStatement statement = con.prepareStatement("SELECT ID, COUNT(`value`) AS value FROM " + this.name() + (comment == null ? "" : ("WHERE comment = '" + comment + "'")) + " GROUP BY ID ORDER BY value DESC " + (topX != -1 ? "LIMIT " + topX : ""));
                     ResultSet rs = statement.executeQuery();
                     while (rs.next()) {
-                        leaderboard.put(rs.getInt("biomiaID"), rs.getInt("value"));
+                        leaderboard.put(rs.getInt("ID"), rs.getInt("value"));
                     }
                     rs.close();
                     statement.close();
@@ -215,12 +237,31 @@ public class Stats {
         return leaderboard;
     }
 
-    public static Date getFirstIncrementDate(BiomiaStat stat, BiomiaPlayer bp) {
+    public static Date getFirstIncrementDate(BiomiaStat stat, OfflineBiomiaPlayer bp) {
         Timestamp time = null;
         Connection con = MySQL.Connect(MySQL.Databases.stats_db);
         if (con != null) {
             try {
                 PreparedStatement statement = con.prepareStatement("SELECT timestamp FROM " + stat.name() + " Where ID = ?");
+                statement.setInt(1, bp.getBiomiaPlayerID());
+                ResultSet rs = statement.executeQuery();
+                if (rs.next())
+                    time = Timestamp.valueOf(rs.getString("timestamp"));
+                rs.close();
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return time;
+    }
+
+    public static Date getLastIncrementDate(BiomiaStat stat, OfflineBiomiaPlayer bp) {
+        Timestamp time = null;
+        Connection con = MySQL.Connect(MySQL.Databases.stats_db);
+        if (con != null) {
+            try {
+                PreparedStatement statement = con.prepareStatement("SELECT timestamp FROM " + stat.name() + " Where ID = ? ORDER BY timestamp DESC");
                 statement.setInt(1, bp.getBiomiaPlayerID());
                 ResultSet rs = statement.executeQuery();
                 if (rs.next())
