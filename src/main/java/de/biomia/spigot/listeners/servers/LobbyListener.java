@@ -179,8 +179,8 @@ public class LobbyListener extends BiomiaListener {
                     pl.getInventory().setItem(6, ItemCreator.itemCreate(Material.FIREBALL, "\u00A7cSilent Lobby:\u00A78 Off"));
                     for (Player p : Bukkit.getOnlinePlayers()) {
                         if (!((Lobby) Biomia.getServerInstance()).getSilentLobby().contains(p)) {
-                            p.showPlayer(pl);
-                            pl.showPlayer(p);
+                            p.showPlayer(Main.getPlugin(), pl);
+                            pl.showPlayer(Main.getPlugin(), p);
                         }
                     }
                     ((Lobby) Biomia.getServerInstance()).getSilentLobby().remove(pl);

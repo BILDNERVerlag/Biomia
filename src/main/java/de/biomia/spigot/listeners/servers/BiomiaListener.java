@@ -3,7 +3,6 @@ package de.biomia.spigot.listeners.servers;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.BiomiaServerType;
-import de.biomia.spigot.achievements.Stats;
 import de.biomia.spigot.general.cosmetics.Cosmetic;
 import de.biomia.spigot.general.cosmetics.items.CosmeticPetItem;
 import de.biomia.spigot.general.reportsystem.PlayerReport;
@@ -13,7 +12,6 @@ import de.biomia.spigot.messages.manager.HeaderAndFooter;
 import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.PlayerToServerConnector;
 import de.biomia.universal.Messages;
-import de.biomia.universal.Ranks;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -25,11 +23,9 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
-import org.bukkit.inventory.ItemStack;
 
 /**
  * The Listener of the actual Server have to extend this class

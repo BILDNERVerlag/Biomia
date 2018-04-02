@@ -1,6 +1,6 @@
 package de.biomia.spigot;
 
-import de.biomia.spigot.achievements.Achievements;
+import de.biomia.spigot.achievements.Achievement;
 import de.biomia.spigot.achievements.StatListener;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.commands.minigames.BWCommand;
@@ -82,7 +82,7 @@ public class Main extends JavaPlugin {
 
         GadgetIniter.init();
         ParticleIniter.init();
-        Achievements.init();
+        Achievement.init();
         Bukkit.getPluginManager().registerEvents(new StatListener(), this);
 
         Cosmetic.initGroup(new CosmeticGroup(Group.HEADS, ItemCreator.itemCreate(Material.SKULL_ITEM, "\u00A7cHeads")));

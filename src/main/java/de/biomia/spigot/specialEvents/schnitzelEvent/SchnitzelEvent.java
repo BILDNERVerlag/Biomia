@@ -1,7 +1,7 @@
 package de.biomia.spigot.specialEvents.schnitzelEvent;
 
 import de.biomia.spigot.*;
-import de.biomia.spigot.achievements.Stats;
+import de.biomia.spigot.achievements.BiomiaStat;
 import de.biomia.spigot.messages.manager.Scoreboards;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.LastPositionListener;
@@ -58,15 +58,15 @@ public class SchnitzelEvent extends BiomiaServer {
         spawn.getWorld().setDifficulty(Difficulty.NORMAL);
 
 
-        for (Map.Entry<Integer, Integer> integerIntegerEntry : Stats.BiomiaStat.SchnitzelMonsterKilled.getTop(-1, null).entrySet())
+        for (Map.Entry<Integer, Integer> integerIntegerEntry : BiomiaStat.SchnitzelMonsterKilled.getTop(-1, null).entrySet())
             mobsKilled.put(Biomia.getOfflineBiomiaPlayer(integerIntegerEntry.getKey()).getName(), integerIntegerEntry.getValue());
 
-        Stats.BiomiaStat.SchnitzelFound.getWhereValueIsX(schnitzelMap.size(), null).forEach(each -> {
+        BiomiaStat.SchnitzelFound.getBiomiaIDSWhereValueIsX(schnitzelMap.size(), null).forEach(each -> {
 
             OfflineBiomiaPlayer bp = Biomia.getOfflineBiomiaPlayer(each);
 
-            Date first = Stats.getFirstIncrementDate(Stats.BiomiaStat.SchnitzelFound, bp);
-            Date last = Stats.getLastIncrementDate(Stats.BiomiaStat.SchnitzelFound, bp);
+            Date first = BiomiaStat.SchnitzelFound.getFirstIncrementDate(bp);
+            Date last = BiomiaStat.SchnitzelFound.getLastIncrementDate(bp);
 
             int duration = ((int) last.getTime() / 1000) - ((int) first.getTime() / 1000);
 
@@ -74,12 +74,12 @@ public class SchnitzelEvent extends BiomiaServer {
 
         });
 
-        Stats.BiomiaStat.BooksFound.getWhereValueIsX(secretBookMap.size(), null).forEach(each -> {
+        BiomiaStat.BooksFound.getBiomiaIDSWhereValueIsX(secretBookMap.size(), null).forEach(each -> {
 
             OfflineBiomiaPlayer bp = Biomia.getOfflineBiomiaPlayer(each);
 
-            Date first = Stats.getFirstIncrementDate(Stats.BiomiaStat.SchnitzelFound, bp);
-            Date last = Stats.getLastIncrementDate(Stats.BiomiaStat.BooksFound, bp);
+            Date first = BiomiaStat.SchnitzelFound.getFirstIncrementDate(bp);
+            Date last = BiomiaStat.BooksFound.getLastIncrementDate(bp);
 
             int duration = ((int) last.getTime() / 1000) - ((int) first.getTime() / 1000);
 
@@ -194,11 +194,11 @@ public class SchnitzelEvent extends BiomiaServer {
     }
 
     public static Set<String> getFoundSchnitzel(BiomiaPlayer bp) {
-        return Stats.getComments(Stats.BiomiaStat.SchnitzelFound, bp.getBiomiaPlayerID()).keySet();
+        return BiomiaStat.SchnitzelFound.getComments(bp.getBiomiaPlayerID()).keySet();
     }
 
     public static Set<String> getFoundBooks(BiomiaPlayer bp) {
-        return Stats.getComments(Stats.BiomiaStat.BooksFound, bp.getBiomiaPlayerID()).keySet();
+        return BiomiaStat.BooksFound.getComments(bp.getBiomiaPlayerID()).keySet();
     }
 
     public static String getBackpackName() {
@@ -209,7 +209,7 @@ public class SchnitzelEvent extends BiomiaServer {
         return secretBookMap;
     }
 
-    @SuppressWarnings("unchecked cast")
+    @SuppressWarnings("unchecked")
     public static ItemStack getInfoBook() {
 
         if (book == null) {

@@ -45,7 +45,7 @@ class Invisible implements GadgetListener, Listener {
             @Override
             public void run() {
                 for (Player p : Bukkit.getOnlinePlayers())
-                    p.showPlayer(bp.getPlayer());
+                    p.showPlayer(Main.getPlugin(), bp.getPlayer());
                 invisibles.remove(bp.getPlayer());
             }
         }.runTaskLater(Main.getPlugin(), 20 * 60);

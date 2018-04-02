@@ -3,7 +3,7 @@ package de.biomia.spigot.achievements;
 import java.util.ArrayList;
 
 @SuppressWarnings("SameParameterValue")
-public class Achievements {
+public class Achievement {
 
     //ATTRIBUTES
 
@@ -15,37 +15,37 @@ public class Achievements {
 
     //CONSTRUCTORS
 
-    private Achievements(BiomiaAchievement achievement, Stats.BiomiaStat stat, int targetValue, String displayName) {
+    private Achievement(BiomiaAchievement achievement, BiomiaStat stat, int targetValue, String displayName) {
         this.achievement = achievement;
         this.targetValue = targetValue;
         this.displayName = displayName;
 
-        if (!Stats.stats.containsKey(stat)) {
-            Stats.stats.put(stat, new ArrayList<>());
+        if (!BiomiaAchievement.stats.containsKey(stat)) {
+            BiomiaAchievement.stats.put(stat, new ArrayList<>());
         }
-        Stats.stats.get(stat).add(this);
+        BiomiaAchievement.stats.get(stat).add(this);
     }
 
-    private Achievements(BiomiaAchievement achievement, Stats.BiomiaStat stat, int targetValue, String displayName, String comment) {
+    private Achievement(BiomiaAchievement achievement, BiomiaStat stat, int targetValue, String displayName, String comment) {
         this.achievement = achievement;
         this.targetValue = targetValue;
         this.displayName = displayName;
         this.comment = comment;
 
-        if (!Stats.stats.containsKey(stat)) {
-            Stats.stats.put(stat, new ArrayList<>());
+        if (!BiomiaAchievement.stats.containsKey(stat)) {
+            BiomiaAchievement.stats.put(stat, new ArrayList<>());
         }
-        Stats.stats.get(stat).add(this);
+        BiomiaAchievement.stats.get(stat).add(this);
     }
 
     //METHODS
 
     public static void init() {
-        new Achievements(BiomiaAchievement.VerdieneFuenftausendCoins, Stats.BiomiaStat.CoinsAccumulated, 5000, "Sparfuchs")
+        new Achievement(BiomiaAchievement.VerdieneFuenftausendCoins, BiomiaStat.CoinsAccumulated, 5000, "Sparfuchs")
                 .setDescription("Verdiene insgesamt mindestens 5000 BC.");
-        new Achievements(BiomiaAchievement.OeffneZehnTruhen, Stats.BiomiaStat.ChestsOpened, 10, "Truhen\u00f6ffner")
+        new Achievement(BiomiaAchievement.OeffneZehnTruhen, BiomiaStat.ChestsOpened, 10, "Truhen\u00f6ffner")
                 .setDescription("\u00d6ffne zehn Truhen.");
-        new Achievements(BiomiaAchievement.Nimm20Fallschaden, Stats.BiomiaStat.HealthLost, 20, "Aua Aua", "FALL")
+        new Achievement(BiomiaAchievement.Nimm20Fallschaden, BiomiaStat.HealthLost, 20, "Aua Aua", "FALL")
                 .setDescription("Nimm 20 Fallschaden.");
     }
 

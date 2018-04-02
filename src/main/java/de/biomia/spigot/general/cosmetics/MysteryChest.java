@@ -2,7 +2,7 @@ package de.biomia.spigot.general.cosmetics;
 
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
-import de.biomia.spigot.achievements.Stats;
+import de.biomia.spigot.achievements.BiomiaStat;
 import de.biomia.spigot.general.cosmetics.items.CosmeticGadgetItem;
 import de.biomia.spigot.general.cosmetics.items.CosmeticItem;
 import de.biomia.spigot.general.cosmetics.items.CosmeticItem.Commonness;
@@ -110,7 +110,7 @@ public class MysteryChest {
         }
 
         bp.getPlayer().openInventory(inv);
-        Stats.incrementStat(Stats.BiomiaStat.MysteryChestsOpened, bp.getBiomiaPlayerID());
+        BiomiaStat.MysteryChestsOpened.increment(bp.getBiomiaPlayerID(), 1, null);
 
         new BukkitRunnable() {
             int counter = 0;

@@ -1,7 +1,7 @@
 package de.biomia.spigot.specialEvents.easterEvent;
 
 import de.biomia.spigot.*;
-import de.biomia.spigot.achievements.Stats;
+import de.biomia.spigot.achievements.BiomiaStat;
 import de.biomia.spigot.general.cosmetics.MysteryChest;
 import de.biomia.spigot.server.quests.sonstigeQuests.Osterhase;
 import de.biomia.spigot.tools.HeadCreator;
@@ -25,7 +25,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-import java.util.logging.Level;
 
 public class EasterEvent implements Listener {
 
@@ -179,14 +178,14 @@ public class EasterEvent implements Listener {
             if (blocks.contains(e.getClickedBlock())) {
                 blocks.remove(e.getClickedBlock());
                 e.getClickedBlock().setType(Material.AIR);
-                Stats.incrementStat(Stats.BiomiaStat.EasterEggsFound, bp.getBiomiaPlayerID());
-                bp.getPlayer().sendMessage("\u00A7cDu hast dein \u00A7b" + Stats.getStat(Stats.BiomiaStat.EasterEggsFound, bp.getBiomiaPlayerID()) + ".\u00A7c Osterei gefunden!");
+                BiomiaStat.EasterEggsFound.increment(bp.getBiomiaPlayerID(), 1, null);
+                bp.getPlayer().sendMessage("\u00A7cDu hast dein \u00A7b" + BiomiaStat.EasterEggsFound.get(bp.getBiomiaPlayerID(), null) + ".\u00A7c Osterei gefunden!");
                 bp.getPlayer().sendMessage("\u00A77(Der Osterhase in der Lobby verteilt Belohnungen...)");
             } else if (e.getClickedBlock().getLocation().distance(specialEggLocation) < 0.5) {
-                int specialEggsFoundOnThisServer = Stats.getStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer(), Biomia.getServerInstance().getServerType().name());
+                int specialEggsFoundOnThisServer = BiomiaStat.SpecialEggsFound.get(bp.getBiomiaPlayerID(), Biomia.getServerInstance().getServerType().name());
                 if (specialEggsFoundOnThisServer == 0) {
-                    Stats.incrementStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer(), Biomia.getServerInstance().getServerType().name());
-                    int specialEggsFoundEverywhere = Stats.getStat(Stats.BiomiaStat.SpecialEggsFound, e.getPlayer());
+                    BiomiaStat.SpecialEggsFound.increment(bp.getBiomiaPlayerID(), 1, Biomia.getServerInstance().getServerType().name());
+                    int specialEggsFoundEverywhere = BiomiaStat.SpecialEggsFound.get(bp.getBiomiaPlayerID(), null);
                     if (specialEggsFoundEverywhere == specialEggsAmount) {
                         e.getPlayer().sendMessage("\u00A7cDu hast \u00A7lalle\u00A7r\u00A7c besonderen Eier gefunden! Daf\u00fcr erh\u00e4ltst du:");
                     } else {
@@ -242,22 +241,21 @@ public class EasterEvent implements Listener {
     }
 
     public void addEggs(int bpID, int eggs) {
-        Stats.incrementStatBy(Stats.BiomiaStat.EasterEggsFound, bpID, eggs);
+        BiomiaStat.EasterEggsFound.increment(bpID, eggs, null);
     }
 
     public static void giveReward(OfflineBiomiaPlayer p) {
         ArrayList<Integer> preisliste = new ArrayList<>(Arrays.asList(1, 3, 5, 15, 25, 50, 100));
-        int eggsFound = Stats.getStat(Stats.BiomiaStat.EasterEggsFound, p.getBiomiaPlayerID());
-        int eggsRewardsErhalten = Stats.getStat(Stats.BiomiaStat.EasterRewardsErhalten, p.getBiomiaPlayerID());
+        int eggsFound = BiomiaStat.EasterEggsFound.get(p.getBiomiaPlayerID(), null);
+        int eggsRewardsErhalten = BiomiaStat.EasterRewardsErhalten.get(p.getBiomiaPlayerID(), null);
         int eggsWithoutRewards = eggsFound - eggsRewardsErhalten;
         ItemStack is;
         ArrayList<String> quest_rewards = new ArrayList<>();
         ArrayList<String> freebuild_rewards = new ArrayList<>();
         String osterhasenTalk = null;
         int coinsToAdd = 0;
-        if (eggsWithoutRewards > 0) {
-            Stats.incrementStatBy(Stats.BiomiaStat.EasterRewardsErhalten, p.getBiomiaPlayerID(), eggsWithoutRewards);
-        }
+        if (eggsWithoutRewards > 0)
+            BiomiaStat.EasterRewardsErhalten.increment(p.getBiomiaPlayerID(), eggsWithoutRewards, null);
 
         for (int i = eggsFound; i > eggsRewardsErhalten; i--) {
             switch (i) {

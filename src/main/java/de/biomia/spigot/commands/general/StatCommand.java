@@ -2,7 +2,7 @@ package de.biomia.spigot.commands.general;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.OfflineBiomiaPlayer;
-import de.biomia.spigot.achievements.Stats;
+import de.biomia.spigot.achievements.BiomiaStat;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.universal.Messages;
 import org.bukkit.command.CommandSender;
@@ -31,7 +31,7 @@ public class StatCommand extends BiomiaCommand {
 
             String statString;
             int value;
-            Stats.BiomiaStat stat;
+            BiomiaStat stat;
             String switchString = args[0].toLowerCase();
             OfflineBiomiaPlayer biomiaPlayer;
 
@@ -39,19 +39,21 @@ public class StatCommand extends BiomiaCommand {
                 case "getcomments":
                     try {
                         statString = args[1];
-                        stat = Stats.BiomiaStat.valueOf(statString);
+                        stat = BiomiaStat.valueOf(statString);
                     } catch (IllegalArgumentException e) {
                         sender.sendMessage("\u00A77" + args[1] + " \u00A7cist kein erlaubter Stat.");
                         return true;
                     }
-                    biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[2]);
-                    if (biomiaPlayer.getBiomiaPlayerID() != -1) {
-                        sender.sendMessage(Stats.getComments(stat, biomiaPlayer.getBiomiaPlayerID()).toString());
-                    } else {
+                    if (args.length == 3)
+                        biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[2]);
+                    else
+                        biomiaPlayer = Biomia.getBiomiaPlayer((Player) sender);
+                    if (biomiaPlayer.getBiomiaPlayerID() != -1)
+                        sender.sendMessage(stat.getComments(biomiaPlayer.getBiomiaPlayerID()).toString());
+                    else {
                         sender.sendMessage("\u00A7cDer Spieler \u00A77" + biomiaPlayer.getName() + " \u00A7cist nicht in der Datenbank vermerkt.");
                         return true;
                     }
-
                     break;
                 case "save":
                     sender.sendMessage("No longer exists.");
@@ -60,17 +62,17 @@ public class StatCommand extends BiomiaCommand {
                 case "inc":
                     try {
                         statString = args[1];
-                        stat = Stats.BiomiaStat.valueOf(statString);
+                        stat = BiomiaStat.valueOf(statString);
                     } catch (IllegalArgumentException e) {
                         sender.sendMessage("\u00A77" + args[1] + " \u00A7cist kein erlaubter Stat.");
                         return true;
                     }
                     if (args.length == 2) {
-                        Stats.incrementStat(stat, Biomia.getBiomiaPlayer((Player) sender).getBiomiaPlayerID());
+                        stat.increment(Biomia.getBiomiaPlayer((Player) sender).getBiomiaPlayerID(), 1, null);
                     } else {
                         biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[2]);
                         if (biomiaPlayer.getBiomiaPlayerID() != -1) {
-                            Stats.incrementStat(stat, biomiaPlayer.getBiomiaPlayerID());
+                            stat.increment(biomiaPlayer.getBiomiaPlayerID(), 1, null);
                         } else {
                             sender.sendMessage("\u00A7cDer Spieler \u00A77" + args[2] + " \u00A7cist nicht in der Datenbank vermerkt.");
                             return true;
@@ -81,17 +83,17 @@ public class StatCommand extends BiomiaCommand {
                 case "incx":
                     try {
                         statString = args[1];
-                        stat = Stats.BiomiaStat.valueOf(statString);
+                        stat = BiomiaStat.valueOf(statString);
                     } catch (IllegalArgumentException e) {
                         sender.sendMessage("\u00A77" + args[1] + " \u00A7cist kein erlaubter Stat.");
                         return true;
                     }
                     if (args.length == 3) {
-                        Stats.incrementStat(stat, Biomia.getBiomiaPlayer((Player) sender).getBiomiaPlayerID(), args[2]);
+                        stat.increment(Biomia.getBiomiaPlayer((Player) sender).getBiomiaPlayerID(), 1, args[2]);
                     } else {
                         biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[2]);
                         if (biomiaPlayer.getBiomiaPlayerID() != -1) {
-                            Stats.incrementStat(stat, biomiaPlayer.getBiomiaPlayerID(), args[2]);
+                            stat.increment(biomiaPlayer.getBiomiaPlayerID(), 1, args[2]);
                         } else {
                             sender.sendMessage("\u00A7cDer Spieler \u00A77" + args[3] + " \u00A7cist nicht in der Datenbank vermerkt.");
                             return true;
@@ -102,7 +104,7 @@ public class StatCommand extends BiomiaCommand {
                 case "incby":
                     try {
                         statString = args[1];
-                        stat = Stats.BiomiaStat.valueOf(statString);
+                        stat = BiomiaStat.valueOf(statString);
                         value = Integer.parseInt(args[2]);
                     } catch (NumberFormatException e) {
                         sender.sendMessage("\u00A77" + args[2] + " \u00A7cist keine erlaubte Zahl.");
@@ -112,11 +114,11 @@ public class StatCommand extends BiomiaCommand {
                         return true;
                     }
                     if (args.length == 3) {
-                        Stats.incrementStatBy(stat, Biomia.getBiomiaPlayer((Player) sender).getBiomiaPlayerID(), value);
+                        stat.increment(Biomia.getBiomiaPlayer((Player) sender).getBiomiaPlayerID(), value, null);
                     } else {
                         biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[2]);
                         if (biomiaPlayer.getBiomiaPlayerID() != -1) {
-                            Stats.incrementStatBy(stat, biomiaPlayer.getBiomiaPlayerID(), value);
+                            stat.increment(biomiaPlayer.getBiomiaPlayerID(), value, null);
                         } else {
                             sender.sendMessage("\u00A7cDer Spieler \u00A77" + args[3] + " \u00A7cist nicht in der Datenbank vermerkt.");
                             return true;
@@ -126,17 +128,17 @@ public class StatCommand extends BiomiaCommand {
                 case "get":
                     try {
                         statString = args[1];
-                        stat = Stats.BiomiaStat.valueOf(statString);
+                        stat = BiomiaStat.valueOf(statString);
                     } catch (IllegalArgumentException e) {
                         sender.sendMessage("\u00A77" + args[1] + " \u00A7cist kein erlaubter Stat.");
                         return true;
                     }
                     if (args.length == 2) {
-                        value = Stats.getStat(stat, Biomia.getBiomiaPlayer((Player) sender).getBiomiaPlayerID());
+                        value = stat.get(Biomia.getBiomiaPlayer((Player) sender).getBiomiaPlayerID(), null);
                         sender.sendMessage("\u00A77" + statString + " (" + sender.getName() + "): \u00A7a" + value);
                     } else {
                         biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[2]);
-                        value = Stats.getStat(stat, biomiaPlayer.getBiomiaPlayerID());
+                        value = stat.get(biomiaPlayer.getBiomiaPlayerID(), null);
                         if (value != -1) {
                             sender.sendMessage("\u00A77" + statString + " (" + args[2] + "): \u00A7a" + value);
                         } else {
@@ -149,7 +151,7 @@ public class StatCommand extends BiomiaCommand {
                     String daytime_expr;
                     try {
                         statString = args[1];
-                        stat = Stats.BiomiaStat.valueOf(statString);
+                        stat = BiomiaStat.valueOf(statString);
                         daytime_expr = args[2];
                         amount = Integer.parseInt(args[3]);
                     } catch (Exception e) {
@@ -159,13 +161,12 @@ public class StatCommand extends BiomiaCommand {
 
                     String dateString = amount + " " + daytime_expr.toLowerCase() + "s";
 
-                    if (args.length == 5) {
+                    if (args.length == 5)
                         biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[4]);
-                        sender.sendMessage("\u00A77" + statString + " (" + biomiaPlayer.getName() + ", " + dateString + "): \u00A7a" + Stats.getStatLastX(stat, biomiaPlayer.getBiomiaPlayerID(), daytime_expr, amount));
-                    } else {
+                    else
                         biomiaPlayer = Biomia.getBiomiaPlayer((Player) sender);
-                        sender.sendMessage("\u00A77" + statString + " (" + sender.getName() + ", " + dateString + "): \u00A7a" + Stats.getStatLastX(stat, biomiaPlayer.getBiomiaPlayerID(), daytime_expr, amount));
-                    }
+
+                    sender.sendMessage("\u00A77" + statString + " (" + biomiaPlayer.getName() + ", " + dateString + "): \u00A7a" + stat.getLastX(biomiaPlayer.getBiomiaPlayerID(), daytime_expr, amount));
                     return true;
                 default:
                     sendError(sender);

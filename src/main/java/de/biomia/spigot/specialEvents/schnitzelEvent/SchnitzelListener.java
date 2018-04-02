@@ -2,7 +2,7 @@ package de.biomia.spigot.specialEvents.schnitzelEvent;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.achievements.Stats;
+import de.biomia.spigot.achievements.BiomiaStat;
 import de.biomia.spigot.listeners.servers.BiomiaListener;
 import de.biomia.spigot.messages.manager.Scoreboards;
 import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
@@ -95,7 +95,9 @@ public class SchnitzelListener extends BiomiaListener {
     @EventHandler
     public void onJoin_(PlayerJoinEvent e) {
 
-        Checkpoint.startSave(Biomia.getBiomiaPlayer(e.getPlayer()));
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
+
+        Checkpoint.startSave(bp);
 
         e.getPlayer().getInventory().clear();
 
@@ -108,7 +110,7 @@ public class SchnitzelListener extends BiomiaListener {
         e.getPlayer().getInventory().setBoots(boots);
         e.getPlayer().getInventory().setLeggings(leggings);
 
-        e.getPlayer().setLevel(Stats.getStat(Stats.BiomiaStat.SchnitzelMonsterKilled, e.getPlayer()));
+        e.getPlayer().setLevel(BiomiaStat.SchnitzelMonsterKilled.get(bp.getBiomiaPlayerID(), null));
 
         Scoreboards.setTabList(e.getPlayer(), true, false);
     }
@@ -182,7 +184,8 @@ public class SchnitzelListener extends BiomiaListener {
         e.setDroppedExp(0);
         Player p = e.getEntity().getKiller();
         if (p != null) {
-            Stats.incrementStat(Stats.BiomiaStat.SchnitzelMonsterKilled, p, e.getEntityType().name());
+            BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
+            BiomiaStat.SchnitzelMonsterKilled.increment(bp.getBiomiaPlayerID(), 1, null);
             p.setLevel(p.getLevel() + 1);
             p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
             SchnitzelEvent.mobsKilled.put(Biomia.getBiomiaPlayer(p).getName(), p.getLevel());

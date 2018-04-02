@@ -3,7 +3,7 @@ package de.biomia.spigot.minigames;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.OfflineBiomiaPlayer;
-import de.biomia.spigot.achievements.Stats;
+import de.biomia.spigot.achievements.BiomiaStat;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.tools.HeadCreator;
 import de.biomia.universal.SkinValue;
@@ -18,9 +18,9 @@ class GameLeaderBoard {
 
     private final ArrayList<Location> locations;
     private final BiomiaServerType type;
-    private final Stats.BiomiaStat sortBy;
+    private final BiomiaStat sortBy;
 
-    public GameLeaderBoard(ArrayList<Location> locations, BiomiaServerType target, Stats.BiomiaStat sortBy) {
+    public GameLeaderBoard(ArrayList<Location> locations, BiomiaServerType target, BiomiaStat sortBy) {
         //TODO tracken sowohl gemeinsam (als Versus) als auch separat
         this.locations = locations;
         this.type = target;
