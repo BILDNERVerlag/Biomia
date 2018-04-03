@@ -1,8 +1,11 @@
 package de.biomia.universal;
 
+import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
+
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.concurrent.Executor;
 
 public abstract class MySQL {
 
@@ -78,7 +81,6 @@ public abstract class MySQL {
 
     public static String executeQuery(String cmd, String gettingspalte, Databases db) {
         Connection con = Connect(db);
-
         if (con != null) {
             PreparedStatement sql = null;
             ResultSet rs = null;

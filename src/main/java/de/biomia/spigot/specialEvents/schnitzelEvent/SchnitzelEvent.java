@@ -112,12 +112,19 @@ public class SchnitzelEvent extends BiomiaServer {
         World world = spawn.getWorld();
 
         schnitzel = new Schnitzel(1);
-        schnitzel.setLocation(new Location(world, 345.5, 80.1, 709.5));
+        schnitzel.setLocation(new Location(world, 345.5, 80.2, 709.5));
         schnitzel.setDescription("Ein langer Weg,", "Das Ziel scheint unerreichbar", "Doch unten angekommen,", "Ist der Weg dann unvergleichbar");
         schnitzel.spawn();
 
         schnitzel = new Schnitzel(2);
-        schnitzel.setLocation(new Location(world, 271.5, 22.1, 706.5));
+        schnitzel.setLocation(new Location(world, 271.5, 22.2, 706.5));
+        schnitzel.setDescription("Da bist du nun,", "unten.", "Ein langer weg,", "liegt nun vor dir");
+        schnitzel.spawn();
+
+        //ids not final
+        schnitzel = new Schnitzel(3);
+        schnitzel.setLocation(new Location(world, 236.5, 1.7, 623.5));
+        //geheimer schatz
         schnitzel.setDescription("Da bist du nun,", "unten.", "Ein langer weg,", "liegt nun vor dir");
         schnitzel.spawn();
     }
@@ -213,7 +220,7 @@ public class SchnitzelEvent extends BiomiaServer {
     public static ItemStack getInfoBook() {
 
         if (book == null) {
-            book = ItemCreator.itemCreate(Material.WRITTEN_BOOK, "§bInfo Buch der Schnitzeljäger");
+            book = ItemCreator.itemCreate(Material.WRITTEN_BOOK, "§bHandbuch der Schnitzeljäger");
             BookMeta bookMeta = (BookMeta) book.getItemMeta();
             List<IChatBaseComponent> pages;
 

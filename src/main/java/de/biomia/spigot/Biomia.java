@@ -25,7 +25,12 @@ public class Biomia {
 
     public static BiomiaPlayer getBiomiaPlayer(Player p) {
         if (p == null) return null;
-        return biomiaPlayers.computeIfAbsent(p, biomiaplayer -> new BiomiaPlayer(p));
+        BiomiaPlayer bp = biomiaPlayers.computeIfAbsent(p, biomiaplayer -> new BiomiaPlayer(p));
+        if (bp.getBiomiaPlayerID() == -1) {
+            biomiaPlayers.remove(p);
+            bp = biomiaPlayers.computeIfAbsent(p, biomiaplayer -> new BiomiaPlayer(p));
+        }
+        return bp;
     }
 
     public static OfflineBiomiaPlayer getOfflineBiomiaPlayer(int biomiaID) {

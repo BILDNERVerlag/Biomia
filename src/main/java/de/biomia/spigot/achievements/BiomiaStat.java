@@ -1,6 +1,7 @@
 package de.biomia.spigot.achievements;
 
 import de.biomia.spigot.OfflineBiomiaPlayer;
+import de.biomia.universal.BiomiaIDCantBeMinusOneException;
 import de.biomia.universal.MySQL;
 
 import java.sql.*;
@@ -51,7 +52,7 @@ public enum BiomiaStat {
      */
     public void increment(int biomiaID, int increment, String comment) {
         if (biomiaID == -1) {
-            new InputMismatchException().printStackTrace();
+            new BiomiaIDCantBeMinusOneException().printStackTrace();
             return;
         }
         int value = get(biomiaID, comment) + increment;

@@ -11,16 +11,14 @@ public abstract class UniversalBiomiaPlayer {
     private static final LuckPermsApi api = LuckPerms.getApi();
     private User permUser;
 
-    private class BiomiaIDCantBeMinusOneException extends Exception {
-    }
-
     private final int biomiaID;
     private String name;
     private UUID uuid;
 
     protected UniversalBiomiaPlayer(int biomiaID, String name, UUID uuid) {
-        if (biomiaID == -1)
+        if (biomiaID == -1) {
             new BiomiaIDCantBeMinusOneException().printStackTrace();
+        }
         this.biomiaID = biomiaID;
         this.name = name;
         this.uuid = uuid;
@@ -46,7 +44,6 @@ public abstract class UniversalBiomiaPlayer {
     public static int getBiomiaPlayerID(String playerName) {
         return MySQL.executeQuerygetint("Select id from BiomiaPlayer where name = '" + playerName + "'", "id", MySQL.Databases.biomia_db);
     }
-
 
     // ID and UUID METHODS
 

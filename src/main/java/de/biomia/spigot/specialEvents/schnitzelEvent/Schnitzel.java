@@ -89,3 +89,9 @@ public class Schnitzel {
         return id - 1;
     }
 }
+
+/*
+    Schnitzel Locations:
+
+
+ */
