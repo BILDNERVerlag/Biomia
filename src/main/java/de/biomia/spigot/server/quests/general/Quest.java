@@ -1,8 +1,8 @@
 package de.biomia.spigot.server.quests.general;
 
-import de.biomia.universal.Time;
 import de.biomia.spigot.Biomia;
 import de.biomia.universal.MySQL;
+import de.biomia.universal.Time;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.entity.EntityType;
@@ -42,6 +42,9 @@ public class Quest {
         NPC temp = CitizensAPI.getNPCRegistry().createNPC(entity, name);
 
         temp.addTrait(CitizensAPI.getTraitFactory().getTraitClass("lookclose"));
+
+        temp.addTrait(CitizensAPI.getTraitFactory().getTraitClass("lookclose"));
+
         temp.data().set("lookclose", true);
         npcs.add(temp);
         return temp;

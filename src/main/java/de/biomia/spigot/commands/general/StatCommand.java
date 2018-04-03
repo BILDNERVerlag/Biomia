@@ -55,9 +55,6 @@ public class StatCommand extends BiomiaCommand {
                         return true;
                     }
                     break;
-                case "save":
-                    sender.sendMessage("No longer exists.");
-                    break;
                 case "increment":
                 case "inc":
                     try {

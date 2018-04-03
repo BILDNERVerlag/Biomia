@@ -1,8 +1,8 @@
 package de.biomia.spigot.quests;
 
-import de.biomia.universal.Time;
 import de.biomia.spigot.server.quests.general.DialogMessage;
 import de.biomia.universal.MySQL;
+import de.biomia.universal.Time;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class Quest {
+
     //TODO: neues questsystem weiterentwickeln
 
     /*
@@ -41,6 +42,8 @@ public abstract class Quest {
 
     public void registerNpc(String name, EntityType type, Location loc) {
         NPC temp = CitizensAPI.getNPCRegistry().createNPC(type, name);
+
+        //TODO renew lookclose
         temp.addTrait(CitizensAPI.getTraitFactory().getTraitClass("lookclose"));
         temp.data().set("lookclose", true);
         temp.spawn(loc);
@@ -56,7 +59,7 @@ public abstract class Quest {
     }
 
     private void registerQuestIfnotExist() {
-        //TODO rename
+        //TODO rename | should quests be reseted?
         questID = MySQL.executeQuerygetint("SELECT id from `Quests` where name = '" + questName + "'",
                 "id", MySQL.Databases.quests_db);
         if (questID == -1) {
@@ -78,8 +81,8 @@ public abstract class Quest {
         return npcs.get(0);
     }
 
-    public void setRepeatable(boolean repeatable) {
-        this.repeatable = repeatable;
+    public void setRepeatable() {
+        this.repeatable = true;
     }
 }
 

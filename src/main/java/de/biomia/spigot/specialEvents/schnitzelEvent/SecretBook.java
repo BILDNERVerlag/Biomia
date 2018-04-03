@@ -57,8 +57,8 @@ public class SecretBook {
 
         Set<String> comments = SchnitzelEvent.getFoundBooks(bp);
 
-        if (!comments.contains(name)) {
-            BiomiaStat.BooksFound.increment(bp.getBiomiaPlayerID(), 1, name);
+        if (!comments.contains(id + "")) {
+            BiomiaStat.BooksFound.increment(bp.getBiomiaPlayerID(), 1, id + "");
             bp.sendMessage(Messages.PREFIX + "§7Du hast das Buch " + name + " §7gefunden!");
         } else {
             return;
