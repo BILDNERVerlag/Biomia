@@ -14,7 +14,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Set;
 
 public class Schnitzel {
 
@@ -55,24 +54,23 @@ public class Schnitzel {
 
     public void pickUp(BiomiaPlayer bp) {
 
-        Set<String> comments = SchnitzelEvent.getFoundSchnitzel(bp);
+        ArrayList<String> comments = SchnitzelEvent.getFoundSchnitzel(bp);
 
         if (!comments.contains(id + "")) {
+            comments.add(id + "");
             BiomiaStat.SchnitzelFound.increment(bp.getBiomiaPlayerID(), 1, id + "");
             bp.sendMessage(Messages.PREFIX + "§cDu hast " + getItem().getItemMeta().getDisplayName() + " §cgefunden!");
-        } else {
-            return;
-        }
 
-        if (comments.size() + 1 == SchnitzelEvent.getSchnitzel()) {
-            Date date = BiomiaStat.SchnitzelFound.getFirstIncrementDate(bp);
-            int duration = (int) ((System.currentTimeMillis() - date.getTime()) / 1000);
-            SchnitzelEvent.schnitzelHighScore.put(bp.getName(), duration);
-            SchnitzelEvent.reloadSBSchnitzel();
-            Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat alle §c" + SchnitzelEvent.getSchnitzel() + " §bSchnitzel in §c" + Time.toText(duration) + " §bgefunden!");
+            if (comments.size() == SchnitzelEvent.getSchnitzel()) {
+                Date date = BiomiaStat.SchnitzelFound.getFirstIncrementDate(bp);
+                int duration = (int) ((System.currentTimeMillis() - date.getTime()) / 1000);
+                SchnitzelEvent.schnitzelHighScore.put(bp.getName(), duration);
+                SchnitzelEvent.reloadSBSchnitzel();
+                Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat alle §c" + SchnitzelEvent.getSchnitzel() + " §bSchnitzel in §c" + Time.toText(duration) + " §bgefunden!");
 
-            if (SchnitzelEvent.getFirstName(SchnitzelEvent.schnitzelHighScore).equals(bp.getName())) {
-                Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat den High Score gebrochen!!!");
+                if (SchnitzelEvent.getFirstName(SchnitzelEvent.schnitzelHighScore).equals(bp.getName())) {
+                    Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat den High Score gebrochen!!!");
+                }
             }
         }
     }

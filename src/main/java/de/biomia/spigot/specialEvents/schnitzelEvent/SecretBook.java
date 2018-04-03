@@ -15,7 +15,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Set;
 
 public class SecretBook {
 
@@ -61,28 +60,27 @@ public class SecretBook {
 
     public void pickUp(BiomiaPlayer bp) {
 
-        Set<String> comments = SchnitzelEvent.getFoundBooks(bp);
+        ArrayList<String> comments = SchnitzelEvent.getFoundBooks(bp);
 
         if (!comments.contains(id + "")) {
+            comments.add(id + "");
             BiomiaStat.BooksFound.increment(bp.getBiomiaPlayerID(), 1, id + "");
             bp.sendMessage(Messages.PREFIX + "§7Du hast das Buch " + name + " §7gefunden!");
             event.executeEvent(bp);
-        } else {
-            return;
-        }
+            if (comments.size() == SchnitzelEvent.getSecretBookMap().size()) {
+                Date date = BiomiaStat.SchnitzelFound.getFirstIncrementDate(bp);
+                int duration = (int) ((System.currentTimeMillis() - date.getTime()) / 1000);
+                SchnitzelEvent.booksHighScore.put(bp.getName(), duration);
+                SchnitzelEvent.reloadSBBooks();
+                Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat alle §c6 §bGeheimen Bücher in §c" + Time.toText(duration) + " §bgefunden!");
 
-        if (comments.size() + 1 == SchnitzelEvent.getSecretBookMap().size()) {
-            Date date = BiomiaStat.SchnitzelFound.getFirstIncrementDate(bp);
-            int duration = (int) ((System.currentTimeMillis() - date.getTime()) / 1000);
-            SchnitzelEvent.booksHighScore.put(bp.getName(), duration);
-            SchnitzelEvent.reloadSBBooks();
-            Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat alle §c6 §bGeheimen Bücher in §c" + Time.toText(duration) + " §bgefunden!");
+                if (SchnitzelEvent.getFirstName(SchnitzelEvent.booksHighScore).equals(bp.getName())) {
+                    Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat den High Score gebrochen!!!");
+                }
 
-            if (SchnitzelEvent.getFirstName(SchnitzelEvent.booksHighScore).equals(bp.getName())) {
-                Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat den High Score gebrochen!!!");
             }
-
         }
+
     }
 
     public int getSlot() {
