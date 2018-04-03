@@ -278,6 +278,10 @@ public class SchnitzelEvent extends BiomiaServer {
         bookHS = sb.registerNewTeam("bookHS");
         bookHSName = sb.registerNewTeam("bookHSName");
 
+        mobHS.setSuffix("   ");
+        schnitzelHS.setSuffix("   ");
+        bookHS.setSuffix("   ");
+
         mobHSName.addEntry("\u00A7c\u00A7b");
         mobHSName.setPrefix("§7#§c1 ");
         schnitzelHSName.addEntry("\u00A7f\u00A7b");
