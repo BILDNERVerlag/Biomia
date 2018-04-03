@@ -266,15 +266,15 @@ public class SchnitzelEvent extends BiomiaServer {
         o.getScore(" ").setScore(13);
         o.getScore("\u00A7cMobs Getötet:").setScore(12);
         o.getScore("\u00A7c\u00A7b").setScore(11);
-        o.getScore("\u00A7a\u00A7b").setScore(10);
-        o.getScore("\u00A7b\u00A7b").setScore(9);
+        o.getScore("\u00A7a").setScore(10);
+        o.getScore("\u00A7b").setScore(9);
         o.getScore("\u00A7cSchnitzel:").setScore(8);
         o.getScore("\u00A7f\u00A7b").setScore(7);
-        o.getScore("\u00A71\u00A7b").setScore(6);
+        o.getScore("\u00A71").setScore(6);
         o.getScore("\u00A72").setScore(5);
         o.getScore("\u00A7cBücher:").setScore(4);
         o.getScore("\u00A7r\u00A7b").setScore(3);
-        o.getScore("\u00A73\u00A7b").setScore(2);
+        o.getScore("\u00A73").setScore(2);
         o.getScore("\u00A7l").setScore(1);
 
         mobHS = sb.registerNewTeam("mobsHS");
@@ -284,16 +284,16 @@ public class SchnitzelEvent extends BiomiaServer {
         bookHS = sb.registerNewTeam("bookHS");
         bookHSName = sb.registerNewTeam("bookHSName");
 
-        mobHS.setSuffix("§r §r §r §7§r ");
-        schnitzelHS.setSuffix(" §r §r §7");
-        bookHS.setSuffix("§r §r §d §r");
+        mobHS.setPrefix("   ");
+        schnitzelHS.setPrefix("   ");
+        bookHS.setPrefix("   ");
 
         mobHSName.addEntry("\u00A7c\u00A7b");
-        mobHSName.setPrefix("§7#§c1 ");
+        mobHSName.setSuffix("§7#§c1 ");
         schnitzelHSName.addEntry("\u00A7f\u00A7b");
-        schnitzelHSName.setPrefix("§7#§c1 ");
+        schnitzelHSName.setSuffix("§7#§c1 ");
         bookHSName.addEntry("\u00A7r\u00A7b");
-        bookHSName.setPrefix("§7#§c1 ");
+        bookHSName.setSuffix("§7#§c1 ");
 
         mobHS.addEntry("\u00A7a");
         schnitzelHS.addEntry("\u00A71");
