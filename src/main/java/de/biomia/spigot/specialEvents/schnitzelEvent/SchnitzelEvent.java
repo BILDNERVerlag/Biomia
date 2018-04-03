@@ -33,10 +33,12 @@ public class SchnitzelEvent extends BiomiaServer {
     private static final HashMap<String, SecretBook> secretBookMap = new HashMap<>();
     private static final Location spawn = new Location(Bukkit.getWorld("BiomiaWelt"), 351, 72, 697.5, -35, 0);
     private static final HashMap<BiomiaPlayer, Inventory> inventorys = new HashMap<>();
-
     public static HashMap<String, Integer> mobsKilled = new HashMap<>();
     public static HashMap<String, Integer> booksHighScore = new HashMap<>();
     public static HashMap<String, Integer> schnitzelHighScore = new HashMap<>();
+
+    public static HashMap<String, ArrayList<String>> foundBooks = new HashMap<>();
+    public static HashMap<String, ArrayList<String>> foundSchnitzel = new HashMap<>();
 
     private static String placeholder = "§7§m---";
 
@@ -61,6 +63,7 @@ public class SchnitzelEvent extends BiomiaServer {
         for (Map.Entry<Integer, Integer> integerIntegerEntry : BiomiaStat.SchnitzelMonsterKilled.getTop(-1, null).entrySet())
             mobsKilled.put(Biomia.getOfflineBiomiaPlayer(integerIntegerEntry.getKey()).getName(), integerIntegerEntry.getValue());
 
+
         BiomiaStat.SchnitzelFound.getBiomiaIDSWhereValueIsX(schnitzelMap.size(), null).forEach(each -> {
 
             OfflineBiomiaPlayer bp = Biomia.getOfflineBiomiaPlayer(each);
@@ -71,7 +74,6 @@ public class SchnitzelEvent extends BiomiaServer {
             int duration = ((int) last.getTime() / 1000) - ((int) first.getTime() / 1000);
 
             schnitzelHighScore.put(bp.getName(), duration);
-
         });
 
         BiomiaStat.BooksFound.getBiomiaIDSWhereValueIsX(secretBookMap.size(), null).forEach(each -> {
@@ -175,17 +177,21 @@ public class SchnitzelEvent extends BiomiaServer {
     public static void openBackpack(BiomiaPlayer biomiaPlayer) {
         Inventory inv = inventorys.computeIfAbsent(biomiaPlayer, inventory -> Bukkit.createInventory(null, 27, backpackName));
 
-        Set<String> foundSchnitzel = getFoundSchnitzel(biomiaPlayer);
+        ArrayList<String> foundSchnitzel = getFoundSchnitzel(biomiaPlayer);
 
         schnitzelMap.values().forEach(each -> {
             ItemStack item = each.getItem().clone();
             if (!foundSchnitzel.contains(each.getID() + "")) {
                 item.setType(Material.STONE);
+                ItemMeta meta = item.getItemMeta();
+                meta.setDisplayName("§7???");
+                meta.setLore(Collections.singletonList("§7???"));
+                item.setItemMeta(meta);
             }
             inv.setItem(each.getSlot(), item);
         });
 
-        Set<String> foundBooks = getFoundBooks(biomiaPlayer);
+        ArrayList<String> foundBooks = getFoundBooks(biomiaPlayer);
         secretBookMap.values().forEach(each -> {
             ItemStack item = each.getItem().clone();
             if (!foundBooks.contains(each.getName())) {
@@ -200,12 +206,12 @@ public class SchnitzelEvent extends BiomiaServer {
         biomiaPlayer.getPlayer().openInventory(inv);
     }
 
-    public static Set<String> getFoundSchnitzel(BiomiaPlayer bp) {
-        return BiomiaStat.SchnitzelFound.getComments(bp.getBiomiaPlayerID()).keySet();
+    public static ArrayList<String> getFoundSchnitzel(BiomiaPlayer bp) {
+        return foundSchnitzel.computeIfAbsent(bp.getName(), list -> new ArrayList<>(BiomiaStat.SchnitzelFound.getComments(bp.getBiomiaPlayerID()).keySet()));
     }
 
-    public static Set<String> getFoundBooks(BiomiaPlayer bp) {
-        return BiomiaStat.BooksFound.getComments(bp.getBiomiaPlayerID()).keySet();
+    public static ArrayList<String> getFoundBooks(BiomiaPlayer bp) {
+        return foundBooks.computeIfAbsent(bp.getName(), list -> new ArrayList<>(BiomiaStat.BooksFound.getComments(bp.getBiomiaPlayerID()).keySet()));
     }
 
     public static String getBackpackName() {
@@ -260,15 +266,15 @@ public class SchnitzelEvent extends BiomiaServer {
         o.getScore(" ").setScore(13);
         o.getScore("\u00A7cMobs Getötet:").setScore(12);
         o.getScore("\u00A7c\u00A7b").setScore(11);
-        o.getScore("\u00A7a").setScore(10);
-        o.getScore("\u00A7b").setScore(9);
+        o.getScore("\u00A7a\u00A7b").setScore(10);
+        o.getScore("\u00A7b\u00A7b").setScore(9);
         o.getScore("\u00A7cSchnitzel:").setScore(8);
         o.getScore("\u00A7f\u00A7b").setScore(7);
-        o.getScore("\u00A71").setScore(6);
+        o.getScore("\u00A71\u00A7b").setScore(6);
         o.getScore("\u00A72").setScore(5);
         o.getScore("\u00A7cBücher:").setScore(4);
         o.getScore("\u00A7r\u00A7b").setScore(3);
-        o.getScore("\u00A73").setScore(2);
+        o.getScore("\u00A73\u00A7b").setScore(2);
         o.getScore("\u00A7l").setScore(1);
 
         mobHS = sb.registerNewTeam("mobsHS");
@@ -278,9 +284,9 @@ public class SchnitzelEvent extends BiomiaServer {
         bookHS = sb.registerNewTeam("bookHS");
         bookHSName = sb.registerNewTeam("bookHSName");
 
-        mobHS.setSuffix("   ");
-        schnitzelHS.setSuffix("   ");
-        bookHS.setSuffix("   ");
+        mobHS.setSuffix("§r §r §r §7§r ");
+        schnitzelHS.setSuffix(" §r §r §7");
+        bookHS.setSuffix("§r §r §d §r");
 
         mobHSName.addEntry("\u00A7c\u00A7b");
         mobHSName.setPrefix("§7#§c1 ");
