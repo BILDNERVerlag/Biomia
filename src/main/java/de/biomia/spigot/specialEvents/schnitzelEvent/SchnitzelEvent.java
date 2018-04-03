@@ -37,8 +37,8 @@ public class SchnitzelEvent extends BiomiaServer {
     public static HashMap<String, Integer> booksHighScore = new HashMap<>();
     public static HashMap<String, Integer> schnitzelHighScore = new HashMap<>();
 
-    public static HashMap<String, ArrayList<String>> foundBooks = new HashMap<>();
-    public static HashMap<String, ArrayList<String>> foundSchnitzel = new HashMap<>();
+    private static HashMap<String, ArrayList<String>> foundBooks = new HashMap<>();
+    private static HashMap<String, ArrayList<String>> foundSchnitzel = new HashMap<>();
 
     private static String placeholder = "§7§m---";
 
@@ -194,7 +194,7 @@ public class SchnitzelEvent extends BiomiaServer {
         ArrayList<String> foundBooks = getFoundBooks(biomiaPlayer);
         secretBookMap.values().forEach(each -> {
             ItemStack item = each.getItem().clone();
-            if (!foundBooks.contains(each.getName())) {
+            if (!foundBooks.contains(each.getID() + "")) {
                 ItemMeta meta = item.getItemMeta();
                 meta.setDisplayName("§7???");
                 item.setItemMeta(meta);

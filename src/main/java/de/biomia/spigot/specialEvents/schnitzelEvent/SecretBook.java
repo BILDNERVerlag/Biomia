@@ -83,6 +83,10 @@ public class SecretBook {
 
     }
 
+    public int getID() {
+        return id;
+    }
+
     public int getSlot() {
         return id + 17;
     }
