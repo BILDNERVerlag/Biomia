@@ -13,8 +13,10 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
@@ -27,11 +29,11 @@ import java.util.logging.Level;
 
 public class SchnitzelListener extends BiomiaListener {
 
-    private static final ItemStack shovel = ItemCreator.itemCreate(Material.IRON_SPADE, "ßb‹berlebens Schaufel");
-    private static final ItemStack helmet = ItemCreator.itemCreate(Material.CHAINMAIL_HELMET, "ßbMinen Helm");
-    private static final ItemStack chestplate = ItemCreator.itemCreate(Material.LEATHER_CHESTPLATE, "ßcMonster Schutzjacke");
-    private static final ItemStack leggings = ItemCreator.itemCreate(Material.LEATHER_LEGGINGS, "ßbArbeits Hose");
-    private static final ItemStack boots = ItemCreator.itemCreate(Material.GOLD_BOOTS, "ßcBergmanns Schuhe");
+    private static final ItemStack shovel = ItemCreator.itemCreate(Material.IRON_SPADE, "ßb‹berlebens-Schaufel");
+    private static final ItemStack helmet = ItemCreator.itemCreate(Material.CHAINMAIL_HELMET, "ßbMinenhelm");
+    private static final ItemStack chestplate = ItemCreator.itemCreate(Material.LEATHER_CHESTPLATE, "ßcMonsterschutzjacke");
+    private static final ItemStack leggings = ItemCreator.itemCreate(Material.LEATHER_LEGGINGS, "ßbArbeitshose");
+    private static final ItemStack boots = ItemCreator.itemCreate(Material.GOLD_BOOTS, "ßcBergmannsschuhe");
 
     private static final ItemStack backpack = ItemCreator.itemCreate(Material.CHEST, "ßcRucksack");
     private static final ItemStack bread = ItemCreator.itemCreate(Material.BREAD, "ßcBauern Brot");
@@ -142,10 +144,8 @@ public class SchnitzelListener extends BiomiaListener {
 
     @EventHandler
     public void onInteract_(PlayerInteractEvent e) {
-        if (e.getItem() != null) {
-            if (e.getItem().isSimilar(backpack))
-                SchnitzelEvent.openBackpack(Biomia.getBiomiaPlayer(e.getPlayer()));
-        }
+        if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && e.getClickedBlock().getType() == Material.DISPENSER)
+            e.setCancelled(true);
     }
 
     @EventHandler
@@ -195,10 +195,12 @@ public class SchnitzelListener extends BiomiaListener {
     @EventHandler
     public void onItemDrop(ItemSpawnEvent e) {
         ItemStack is = e.getEntity().getItemStack();
+        if (is.getType() != Material.PAPER && is.getType() != Material.BOOK) e.setCancelled(true);
+    }
 
-        if (is.getType() != Material.PAPER && is.getType() != Material.BOOK) {
-            e.setCancelled(true);
-        }
+    @EventHandler
+    public void onEntityExplosion(EntityDamageByEntityEvent e) {
+        if (e.getEntity().getType() == EntityType.DROPPED_ITEM) e.setCancelled(true);
     }
 
     @EventHandler

@@ -150,12 +150,12 @@ public class EasterEvent implements Listener {
                             return;
                         }
                         loc = location.clone();
-//                        int x = r.nextInt(radius * 2) - radius;
-//                        int z = r.nextInt(radius * 2) - radius;
-//
-//                        if (loc.add(x, 0, z).distance(location) > radius) {
-//                            continue;
-//                        }
+                        int x = r.nextInt(radius * 2) - radius;
+                        int z = r.nextInt(radius * 2) - radius;
+
+                        if (loc.add(x, 0, z).distance(location) > radius) {
+                            continue;
+                        }
 
                         Block highestBlock = loc.getWorld().getHighestBlockAt(loc).getLocation().getBlock();
                         loc = highestBlock.getLocation();
