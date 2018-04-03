@@ -1,6 +1,7 @@
 package de.biomia.spigot.commands.general;
 
 import de.biomia.spigot.Biomia;
+import de.biomia.spigot.OfflineBiomiaPlayer;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.general.reportsystem.PlayerReport;
 import de.biomia.spigot.general.reportsystem.ReportManager;
@@ -20,7 +21,8 @@ public class ReportCommand extends BiomiaCommand {
         if (args.length >= 1) {
             if (sender instanceof Player) {
                 ((Player) sender).openInventory(ReportManager.grund);
-                new PlayerReport(Biomia.getBiomiaPlayer((Player) sender), Biomia.getOfflineBiomiaPlayer(args[0]));
+                OfflineBiomiaPlayer bp = Biomia.getOfflineBiomiaPlayer(args[0]);
+                new PlayerReport(Biomia.getBiomiaPlayer((Player) sender), bp);
             } else {
                 sender.sendMessage(Messages.NO_PLAYER);
             }

@@ -334,7 +334,6 @@ public class SchnitzelEvent extends BiomiaServer {
                 item.setType(Material.STONE);
                 ItemMeta meta = item.getItemMeta();
                 meta.setDisplayName("§7???");
-                meta.setLore(Collections.singletonList("§7???"));
                 item.setItemMeta(meta);
             }
             inv.setItem(each.getSlot(), item);

@@ -147,6 +147,7 @@ public abstract class UniversalBiomiaPlayer {
         if (permUser.hasPermission(api.buildNode("group." + oldRank).build()).asBoolean())
             removePermission("group." + oldRank);
         addPermission("group." + rank.getName());
+        permUser.setPrimaryGroup(rank.getName());
 
     }
 
