@@ -109,38 +109,187 @@ public class SchnitzelEvent extends BiomiaServer {
     private void initSchnitzel() {
 
         //TODO add Schnitzel
+        //TODO teleporter bei tempel
+        //TODO teleporter bei labyrinth
 
         Schnitzel schnitzel;
         World world = spawn.getWorld();
 
-        schnitzel = new Schnitzel(1);
-        schnitzel.setLocation(new Location(world, 345.5, 80.2, 709.5));
-        schnitzel.setDescription("Ein langer Weg,", "Das Ziel scheint unerreichbar", "Doch unten angekommen,", "Ist der Weg dann unvergleichbar");
+        //dschungeltempel
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 109.5, 85.2, 675));
+        schnitzel.setDescription("Zwischen Bäumen und Büschen", "Und uralten Fischen", "Hiervon gibts noch mehr", "Doch manche findet man schwer!");
         schnitzel.spawn();
 
-        schnitzel = new Schnitzel(2);
+        //dschungeltempel unten
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 127.5, 72.2, 675.5));
+        schnitzel.setDescription("Tief in dem Tempel", "Findet man Krempel", "Hinter Mauen und Ecken", "Kannst du es aufdecken?");
+        schnitzel.spawn();
+
+        //im haus
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 372.5, 73.2, 734.5));
+        schnitzel.setDescription("Da bist du nun,", "Im Haus.", "Nun, die Suche...", "Ist noch nicht uns.");
+        schnitzel.spawn();
+
+        //unten, mineneingang
+        schnitzel = new Schnitzel();
         schnitzel.setLocation(new Location(world, 271.5, 22.2, 706.5));
+        schnitzel.setDescription("Ein langer Weg,", "Das Ziel scheint unerreichbar", "Unten angekommen,", "Ist der Weg dann unvergleichbar");
+        schnitzel.spawn();
+
+        //geheimer schatz
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 236.5, 1.7, 623.5));
+        schnitzel.setDescription("Versteckt am Boden der Mine", "Gibt es einen Platz.", "Wer suchet, der findet", "Den geheimen Schatz.");
+        schnitzel.spawn();
+
+        //labyrintheingang: 370.5 23 439.5 -90 0
+        //labyrinth
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 437.5, 23.2, 498.5));
+        schnitzel.setDescription("Ein Ort, an dem mehr", "Gänge als Türen sind.", "Im Volksmund bekannt", "Als Labyrinth.");
+        schnitzel.spawn();
+
+        //sackgasse links anfang
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 107.5, 22.2, 576.5));
+        schnitzel.setDescription("Von drei Gängen", "Nimm den im Westen", "Dort findest du ein Buch,", "Eins von den Besten");
+        schnitzel.spawn();
+
+        //geradeaus, hinter steinen
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 260.9, 19.2, 582.6));
+        schnitzel.setDescription("Von Steinen fast zerdrückt,", "komm dorthin zurück.");
+        schnitzel.spawn();
+
+        //geradeaus, rechter gang
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 310.5, 18.2, 537.5));
         schnitzel.setDescription("Da bist du nun,", "unten.", "Ein langer weg,", "liegt nun vor dir");
         schnitzel.spawn();
 
-        //ids not final
-        schnitzel = new Schnitzel(3);
-        schnitzel.setLocation(new Location(world, 236.5, 1.7, 623.5));
-        //geheimer schatz
+        //rechts neben brücke
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 271.5, 16.7, 435.5));
+        schnitzel.setDescription("Über die Lücke", "Führt eine Brücke", "Such gleich nebenan.", "Wer kann, der kann!");
+        schnitzel.spawn();
+
+        //links von brücke in eckigem raum
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 212.5, 21.2, 451.5));
+        schnitzel.setDescription("Folg nicht den Schienen", "Viel interessanter: Die Minen!");
+        schnitzel.spawn();
+
+        //am ende der minecart bahn
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 361.0, 20.2, 426.6));
+        schnitzel.setDescription("Am Ende der Bahn", "wirst du trotzdem belohnt", "Wirst wohl so schnell", "nicht mehr entthront.");
+        schnitzel.spawn();
+
+        //bei den totenköpfen im eck
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 403.5, 15.2, 346.5));
+        schnitzel.setDescription("Jeder Junge", "und jedes Mädel", "findet das Schnitzel", "hinter dem Schädel!");
+        schnitzel.spawn();
+
+        //bei den pilzen #1
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 251.5, 27.2, 197.5));
+        schnitzel.setDescription("Ein kleiner Schritt für", "einen Menschen, aber", "ein riesiger für einen..", "Pilz..?");
+        schnitzel.spawn();
+
+        //bei den pilzen #2
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 282.5, 31.2, 292.5));
+        schnitzel.setDescription("Ein kleiner Schritt für", "einen Pilz, aber", "ein riesiger für einen..", "Menschen..?");
+        schnitzel.spawn();
+
+        //rundgang ende
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 366.5, 21.2, 674.5));
+        schnitzel.setDescription("Einmal den Rundgang", "überstanden!", "Besser als die", "ander'n Probanden!");
+        schnitzel.spawn();
+
+        //rundgang (unter wasser) ende
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 373.5, 21.2, 538.5));
+        schnitzel.setDescription("Unter der Oberfläche sitzt", "(und lächelt verschmitzt)", "ein Schnitzel.");
+        schnitzel.spawn();
+
+        //mittig durch
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 247.5, 20.2, 375.5));
+        schnitzel.setDescription("In", "und finde gerade heraus!", "liegt nun vor dir");
+        schnitzel.spawn();
+
+        //bei den kisten
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 141.5, 19.2, 291.5));
+        schnitzel.setDescription("Da bist du nun,", "unten.", "Ein langer weg,", "liegt nun vor dir");
+        schnitzel.spawn();
+
+        //loge
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 103.5, 27.7, 257.5));
+        schnitzel.setDescription("Da bist du nun,", "unten.", "Ein langer weg,", "liegt nun vor dir");
+        schnitzel.spawn();
+
+        //lavasee
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 92.5, 13.2, 188.5));
+        schnitzel.setDescription("Da bist du nun,", "unten.", "Ein langer weg,", "liegt nun vor dir");
+        schnitzel.spawn();
+
+        //hinterstes eck
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 313, 8.2, 168));
         schnitzel.setDescription("Da bist du nun,", "unten.", "Ein langer weg,", "liegt nun vor dir");
         schnitzel.spawn();
     }
 
     private void initSecretBooks() {
 
-        //TODO add Books
+        //TODO change lore
 
         SecretBook secretBook;
         World world = spawn.getWorld();
 
-        secretBook = new SecretBook("§cBIO§bMIA §7| §cDas geheime Buch", 1);
+        //lavasee
+        secretBook = new SecretBook("§cBIO§bMIA §7| §cDas geheime Buch");
         secretBook.setDescription("Da wo alles verdampft,", "gewinnt man keinen Kampf");
-        secretBook.setLocation(new Location(world, 362.5, 17, 323.5));
+        secretBook.setLocation(new Location(world, 361.5, 16.2, 322.5));
+        secretBook.spawn();
+
+        //über der brücke
+        secretBook = new SecretBook("§cBIO§bMIA §7| §cDas Obsidian-Gefängnis");
+        secretBook.setDescription("Da wo alles verdampft,", "gewinnt man keinen Kampf");
+        secretBook.setLocation(new Location(world, 210, 25.2, 403));
+        secretBook.spawn();
+
+        //jnr im see
+        secretBook = new SecretBook("§cBIO§bMIA §7| §cDas Labyrinth des Todes");
+        secretBook.setDescription("Da wo alles verdampft,", "gewinnt man keinen Kampf");
+        secretBook.setLocation(new Location(world, 218.5, 25, 260.5));
+        secretBook.spawn();
+
+        //totenkopf-lava-ding
+        secretBook = new SecretBook("§cBIO§bMIA §7| §cWeltenlabor#1");
+        secretBook.setDescription("Da wo alles verdampft,", "gewinnt man keinen Kampf");
+        secretBook.setLocation(new Location(world, 520, 17.2, 390.5));
+        secretBook.spawn();
+
+        //totenkopf-lava-ding
+        secretBook = new SecretBook("§cBIO§bMIA §7| §cWeltenlabor#2");
+        secretBook.setDescription("Da wo alles verdampft,", "gewinnt man keinen Kampf");
+        secretBook.setLocation(new Location(world, 122.5, 60.2, 671.5));
+        secretBook.spawn();
+
+        //totenkopf-lava-ding
+        secretBook = new SecretBook("§cBIO§bMIA §7| §cDas Handbuch");
+        secretBook.setDescription("Da wo alles verdampft,", "gewinnt man keinen Kampf");
+        secretBook.setLocation(new Location(world, 123.5, 60.2, 671.5));
         secretBook.spawn();
     }
 

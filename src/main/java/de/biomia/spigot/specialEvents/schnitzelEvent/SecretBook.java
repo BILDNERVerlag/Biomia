@@ -24,8 +24,10 @@ public class SecretBook {
     private String name;
     private Event event;
 
-    SecretBook(String name, int id) {
-        this.id = id;
+    private static int bookCount = 1;
+
+    SecretBook(String name) {
+        this.id = bookCount++;
         this.name = name;
         SchnitzelEvent.getSecretBookMap().put(name, this);
         is = ItemCreator.itemCreate(Material.BOOK, String.format(name, id));

@@ -23,8 +23,10 @@ public class Schnitzel {
     private Location loc;
     private final int id;
 
-    Schnitzel(int id) {
-        this.id = id;
+    private static int schnitzelCount = 1;
+
+    Schnitzel() {
+        this.id = schnitzelCount++;
         SchnitzelEvent.getSchnitzelMap().put(id, this);
         is = ItemCreator.itemCreate(Material.PAPER, String.format(name, id));
     }
