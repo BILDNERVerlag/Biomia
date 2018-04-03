@@ -1,5 +1,6 @@
 package de.biomia.spigot.server.quests.QuestEvents;
 
+import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.server.quests.general.QuestPlayer;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Material;
@@ -7,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class GiveItemEvent implements Event {
 
-    private QuestPlayer qp;
+    private BiomiaPlayer qp;
     private Material material;
     private String name;
     private int menge;
@@ -30,7 +31,7 @@ public class GiveItemEvent implements Event {
     }
 
     @Override
-    public void executeEvent(QuestPlayer qp) {
+    public void executeEvent(BiomiaPlayer qp) {
         this.qp = qp;
         giveItem();
     }

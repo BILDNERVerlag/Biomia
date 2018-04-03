@@ -1,6 +1,5 @@
 package de.biomia.spigot.server.quests.band1;
 
-import de.biomia.universal.Time;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
 import de.biomia.spigot.server.quests.QuestEvents.AddCoinEvent;
@@ -8,7 +7,11 @@ import de.biomia.spigot.server.quests.QuestEvents.Event;
 import de.biomia.spigot.server.quests.QuestEvents.GiveItemEvent;
 import de.biomia.spigot.server.quests.QuestEvents.TakeItemEvent;
 import de.biomia.spigot.server.quests.Quests;
-import de.biomia.spigot.server.quests.general.*;
+import de.biomia.spigot.server.quests.general.DialogMessage;
+import de.biomia.spigot.server.quests.general.Quest;
+import de.biomia.spigot.server.quests.general.QuestPlayer;
+import de.biomia.spigot.server.quests.general.States;
+import de.biomia.universal.Time;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
@@ -66,15 +69,9 @@ public class Wasserholen implements Listener {
         }
     }
 
-    public interface Condition{
-
-        boolean isTrue(QuestPlayer qp);
-
-    }
-
     private void initDialog() {
-        Event wasserErlaubt = qp -> qp.getMineableBlocks().remove(Material.WATER_BUCKET);
-        Event wasserVerbot = qp -> qp.getMineableBlocks().remove(Material.WATER_BUCKET);
+        Event wasserErlaubt = qp -> qp.getQuestPlayer().getMineableBlocks().add(Material.WATER_BUCKET);
+        Event wasserVerbot = qp -> qp.getQuestPlayer().getMineableBlocks().remove(Material.WATER_BUCKET);
 
         // start dl
         dialog_Start = new DialogMessage(q, elsa).setInhalt("Brian und Falto sind schon wieder verschwunden."

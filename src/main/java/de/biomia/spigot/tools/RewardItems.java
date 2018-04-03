@@ -41,7 +41,7 @@ public class RewardItems {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 String base64Item = rs.getString("Item");
-                new GiveItemEvent((ItemStack) Base64.fromBase64(base64Item)).executeEvent(biomiaPlayer.getQuestPlayer());
+                new GiveItemEvent((ItemStack) Base64.fromBase64(base64Item)).executeEvent(biomiaPlayer);
                 MySQL.executeUpdate("DELETE FROM `" + tablename + "` WHERE `BiomiaPlayer`= " + biomiaPlayer.getBiomiaPlayerID()
                         + " AND `Item` = '" + base64Item + "'", MySQL.Databases.quests_db);
             }

@@ -1,5 +1,6 @@
 package de.biomia.spigot.server.quests.QuestEvents;
 
+import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.server.quests.general.QuestPlayer;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
@@ -11,7 +12,7 @@ public class SummonEntity implements Event {
     private final int menge;
 
     @Override
-    public void executeEvent(QuestPlayer qp) {
+    public void executeEvent(BiomiaPlayer qp) {
         summonEntity();
     }
 

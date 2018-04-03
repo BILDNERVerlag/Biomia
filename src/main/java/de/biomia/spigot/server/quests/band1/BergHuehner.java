@@ -1,16 +1,19 @@
 package de.biomia.spigot.server.quests.band1;
 
-import de.biomia.universal.Time;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.Main;
+import de.biomia.spigot.messages.QuestItemNames;
 import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
 import de.biomia.spigot.server.quests.QuestEvents.AddCoinEvent;
 import de.biomia.spigot.server.quests.QuestEvents.GiveItemEvent;
 import de.biomia.spigot.server.quests.QuestEvents.TakeItemEvent;
 import de.biomia.spigot.server.quests.Quests;
-import de.biomia.spigot.server.quests.general.*;
-import de.biomia.spigot.messages.QuestItemNames;
+import de.biomia.spigot.server.quests.general.DialogMessage;
+import de.biomia.spigot.server.quests.general.Quest;
+import de.biomia.spigot.server.quests.general.QuestPlayer;
+import de.biomia.spigot.server.quests.general.States;
 import de.biomia.spigot.tools.ItemCreator;
+import de.biomia.universal.Time;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Bukkit;
@@ -82,7 +85,7 @@ public class BergHuehner implements Listener {
             QuestPlayer qp = Biomia.getQuestPlayer(e.getPlayer());
             if (!hasEggs.containsKey(qp)) {
                 if (qp.getPlayer().getLocation().distance(zielLoc) <= 10) {
-                    new GiveItemEvent(Material.EGG, QuestItemNames.specialEgg, 3).executeEvent(qp);
+                    new GiveItemEvent(Material.EGG, QuestItemNames.specialEgg, 3).executeEvent(qp.getBiomiaPlayer());
                     if (qp.getPlayer().getInventory().getChestplate() == null)
                         qp.getPlayer().getInventory()
                                 .setChestplate(ItemCreator.itemCreate(Material.ELYTRA, QuestItemNames.twoMinuteElytra));
@@ -95,7 +98,7 @@ public class BergHuehner implements Listener {
                                         Material.ELYTRA, 1, QuestItemNames.twoMinuteElytra)
                                         || ItemConditions.hasItemOnArmor(Biomia.getQuestPlayer(e.getPlayer()),
                                         Material.ELYTRA, 1, QuestItemNames.twoMinuteElytra))
-                                    new TakeItemEvent(Material.ELYTRA, QuestItemNames.twoMinuteElytra, 1).executeEvent(qp);
+                                    new TakeItemEvent(Material.ELYTRA, QuestItemNames.twoMinuteElytra, 1).executeEvent(qp.getBiomiaPlayer());
                         }
                     }.runTaskLater(Main.getPlugin(), 120 * 20);
                 }

@@ -1,7 +1,6 @@
 package de.biomia.spigot.server.quests.QuestEvents;
 
-import de.biomia.spigot.Biomia;
-import de.biomia.spigot.server.quests.general.QuestPlayer;
+import de.biomia.spigot.BiomiaPlayer;
 
 public class AddCoinEvent implements Event {
 
@@ -11,12 +10,12 @@ public class AddCoinEvent implements Event {
         this.coins = coins;
     }
 
-    private void addCoins(QuestPlayer qp, int coins) {
-        Biomia.getBiomiaPlayer(qp.getPlayer()).addCoins(coins, true);
+    private void addCoins(BiomiaPlayer qp, int coins) {
+        qp.addCoins(coins, true);
     }
 
     @Override
-    public void executeEvent(QuestPlayer qp) {
+    public void executeEvent(BiomiaPlayer qp) {
         addCoins(qp, coins);
     }
 

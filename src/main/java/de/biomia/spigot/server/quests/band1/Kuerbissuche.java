@@ -81,9 +81,9 @@ public class Kuerbissuche implements Listener {
         startDialog.getNext(1).setNext("Ich mag dich nicht.", 1, korbinian);
 
         startDialog.getNext(0).addEvent(qp -> {
-            qp.addMineableBlock(Material.PUMPKIN);
-            qp.getBuildableBlocks().add(Material.PUMPKIN_SEEDS);
-            qp.getBuildableBlocks().add(Material.PUMPKIN_STEM);
+            qp.getQuestPlayer().addMineableBlock(Material.PUMPKIN);
+            qp.getQuestPlayer().getBuildableBlocks().add(Material.PUMPKIN_SEEDS);
+            qp.getQuestPlayer().getBuildableBlocks().add(Material.PUMPKIN_STEM);
         }).addPlayerToQuest();
 
         startDialog.getNext(1).getNext(0).addPlayerToQuest();
@@ -96,9 +96,9 @@ public class Kuerbissuche implements Listener {
                 .setInhalt("Oh, was f\u00fcr ein Prachtexexmplar! Sehr gut, jetzt verschwinde!");
         comeBackWPumpkin.addEvent(new TakeItemEvent(Material.PUMPKIN, 1));
         comeBackWPumpkin.addEvent(qp -> {
-            qp.removeMineableBlock(Material.PUMPKIN);
-            qp.getBuildableBlocks().remove(Material.PUMPKIN_SEEDS);
-            qp.getBuildableBlocks().remove(Material.PUMPKIN_STEM);
+            qp.getQuestPlayer().removeMineableBlock(Material.PUMPKIN);
+            qp.getQuestPlayer().getBuildableBlocks().remove(Material.PUMPKIN_SEEDS);
+            qp.getQuestPlayer().getBuildableBlocks().remove(Material.PUMPKIN_STEM);
         }).finish();
         comeBackWPumpkin.setFortsetzung("Okay...").setFortsetzung("Hey, nicht so schnell!")
                 .setNext("Hm? Ach. Meinetwegen, hier ist deine Belohnung.", 1, korbinian);

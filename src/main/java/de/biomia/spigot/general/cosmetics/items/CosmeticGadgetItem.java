@@ -80,6 +80,6 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
 
     private void removeItemFromInventory(BiomiaPlayer bp) {
         new TakeItemEvent(getGadgetItem().getType(), getGadgetItem().getItemMeta().getDisplayName(), 1)
-                .executeEvent(bp.getQuestPlayer());
+                .executeEvent(bp);
     }
 }

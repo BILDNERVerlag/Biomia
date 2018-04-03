@@ -88,7 +88,7 @@ public class QuestListener extends BiomiaListener {
         if (ItemConditions.hasItemInInventory(qp, Material.ELYTRA, 1, QuestItemNames.twoMinuteElytra)
                 || ItemConditions.hasItemOnArmor(qp, Material.ELYTRA, 1, QuestItemNames.twoMinuteElytra)) {
             TakeItemEvent ie = new TakeItemEvent(Material.ELYTRA, QuestItemNames.twoMinuteElytra, 1);
-            ie.executeEvent(qp);
+            ie.executeEvent(bp);
         }
 
         qp.updateBook();

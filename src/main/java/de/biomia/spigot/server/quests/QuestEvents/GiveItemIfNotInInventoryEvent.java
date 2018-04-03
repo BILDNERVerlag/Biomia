@@ -1,12 +1,12 @@
 package de.biomia.spigot.server.quests.QuestEvents;
 
+import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
-import de.biomia.spigot.server.quests.general.QuestPlayer;
 import org.bukkit.inventory.ItemStack;
 
 public class GiveItemIfNotInInventoryEvent implements Event {
 
-    private QuestPlayer qp;
+    private BiomiaPlayer qp;
 
     private final ItemStack stack;
 
@@ -15,13 +15,13 @@ public class GiveItemIfNotInInventoryEvent implements Event {
     }
 
     @Override
-    public void executeEvent(QuestPlayer qp) {
+    public void executeEvent(BiomiaPlayer qp) {
         this.qp = qp;
         giveItem();
     }
 
     private void giveItem() {
-        if (!ItemConditions.hasItemInInventory(qp, stack.getType(), stack.getAmount(), stack.getItemMeta().getDisplayName())) {
+        if (!ItemConditions.hasItemInInventory(qp.getQuestPlayer(), stack.getType(), stack.getAmount(), stack.getItemMeta().getDisplayName())) {
             qp.getPlayer().getInventory().addItem(stack);
         }
     }

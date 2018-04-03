@@ -71,9 +71,10 @@ public class Geheimnis implements Listener {
     private void initDialog() {
         // event declaration
         Event wheatMineableEvent = qp -> {
-            qp.addMineableBlock(Material.CROPS);
-            qp.getBuildableBlocks().add(Material.SEEDS);
-            qp.getBuildableBlocks().add(Material.CROPS);
+
+            qp.getQuestPlayer().addMineableBlock(Material.CROPS);
+            qp.getQuestPlayer().getBuildableBlocks().add(Material.SEEDS);
+            qp.getQuestPlayer().getBuildableBlocks().add(Material.CROPS);
         };
 
         // start dl
@@ -105,9 +106,9 @@ public class Geheimnis implements Listener {
         comeBackWStroh.addEvent(new TakeItemEvent(Material.HAY_BLOCK, 1))
 
                 .addEvent(new AddCoinEvent(200)).addEvent(qp -> {
-            qp.getMineableBlocks().remove(Material.CROPS);
-            qp.getBuildableBlocks().remove(Material.SEEDS);
-            qp.getBuildableBlocks().remove(Material.CROPS);
+            qp.getQuestPlayer().getMineableBlocks().remove(Material.CROPS);
+            qp.getQuestPlayer().getBuildableBlocks().remove(Material.SEEDS);
+            qp.getQuestPlayer().getBuildableBlocks().remove(Material.CROPS);
         }).finish();
         comeBackWStroh.setFortsetzung("Ok.").setFortsetzung("Nein!").setNext(
                 "Meinetwegen, f\u00fcr deine M\u00fche verrate ich dir ein Geheimnis. Dein Freund war hier, Ian. Meine Schwester Nene wird ihn t\u00f6ten.",

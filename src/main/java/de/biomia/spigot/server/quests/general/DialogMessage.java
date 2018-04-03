@@ -126,7 +126,7 @@ public class DialogMessage {
 
     private void executeEvent(QuestPlayer qp) {
         for (Event e : events) {
-            e.executeEvent(qp);
+            e.executeEvent(qp.getBiomiaPlayer());
         }
         if (addPlayerToQuest)
             qp.addToQuest(q);

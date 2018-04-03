@@ -133,7 +133,7 @@ public class BlumenFuerDieGeliebte implements Listener {
         nachJulchenKeineRose.setNext("Oh? Das ist ja gro\u00dfartig! Vielen, vielen Dank!", 0, roman);
         nachJulchenKeineRose.setNext("Oh... Ich verstehe schon... Naja, danke trotzdem.", 1, roman);
 
-        Event e = qp -> qp.getMineableBlocks().remove(Material.RED_ROSE);
+        Event e = qp -> qp.getQuestPlayer().getMineableBlocks().remove(Material.RED_ROSE);
 
         nachJulchenKeineRose.getNext(0).addEvent(e).finish();
         nachJulchenKeineRose.getNext(1).addEvent(e).finish();
@@ -166,7 +166,7 @@ public class BlumenFuerDieGeliebte implements Listener {
         startDialogRoman.getNext(0).setNext("Ach menno, so wird sie doch nie etwas mit mir unternehmen wollen...", 1,
                 roman);
 
-        startDialogRoman.getNext(0).getNext(0).addEvent(qp -> qp.getMineableBlocks().add(Material.RED_ROSE))
+        startDialogRoman.getNext(0).getNext(0).addEvent(qp -> qp.getQuestPlayer().getMineableBlocks().add(Material.RED_ROSE))
                 .addPlayerToQuest();
 
         // JULCHEN

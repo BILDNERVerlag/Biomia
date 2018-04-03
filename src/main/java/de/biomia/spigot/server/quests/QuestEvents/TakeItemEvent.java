@@ -1,12 +1,12 @@
 package de.biomia.spigot.server.quests.QuestEvents;
 
-import de.biomia.spigot.server.quests.general.QuestPlayer;
+import de.biomia.spigot.BiomiaPlayer;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public class TakeItemEvent implements Event {
 
-    private QuestPlayer qp = null;
+    private BiomiaPlayer qp = null;
     private final Material material;
     private String name = null;
     private final int menge;
@@ -23,7 +23,7 @@ public class TakeItemEvent implements Event {
     }
 
     @Override
-    public void executeEvent(QuestPlayer qp) {
+    public void executeEvent(BiomiaPlayer qp) {
         this.qp = qp;
         takeItem();
     }

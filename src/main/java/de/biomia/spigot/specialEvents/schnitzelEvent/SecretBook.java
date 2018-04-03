@@ -2,6 +2,7 @@ package de.biomia.spigot.specialEvents.schnitzelEvent;
 
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.achievements.BiomiaStat;
+import de.biomia.spigot.server.quests.QuestEvents.Event;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.universal.Messages;
 import de.biomia.universal.Time;
@@ -18,10 +19,11 @@ import java.util.Set;
 
 public class SecretBook {
 
-    public ItemStack is;
-    public Location loc;
-    public final int id;
-    public String name;
+    private ItemStack is;
+    private Location loc;
+    private final int id;
+    private String name;
+    private Event event;
 
     SecretBook(String name, int id) {
         this.id = id;
@@ -45,6 +47,10 @@ public class SecretBook {
         this.loc = loc;
     }
 
+    public void setReward(Event event) {
+        this.event = event;
+    }
+
     public void spawn() {
 
         if (!loc.getChunk().isLoaded())
@@ -60,6 +66,7 @@ public class SecretBook {
         if (!comments.contains(id + "")) {
             BiomiaStat.BooksFound.increment(bp.getBiomiaPlayerID(), 1, id + "");
             bp.sendMessage(Messages.PREFIX + "§7Du hast das Buch " + name + " §7gefunden!");
+            event.executeEvent(bp);
         } else {
             return;
         }

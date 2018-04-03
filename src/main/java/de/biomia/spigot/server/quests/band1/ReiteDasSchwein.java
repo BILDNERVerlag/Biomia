@@ -261,7 +261,7 @@ public class ReiteDasSchwein implements Listener {
                 .addEvent(qp -> {
                     Entity pig = startLoc.getWorld().spawnEntity(startLoc, EntityType.PIG);
                     pig.addPassenger(qp.getPlayer());
-                    ReiteDasSchwein.timer(qp, pig);
+                    ReiteDasSchwein.timer(qp.getQuestPlayer(), pig);
                 });
 
         // geschafft

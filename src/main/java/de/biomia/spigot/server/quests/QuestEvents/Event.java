@@ -1,9 +1,9 @@
 package de.biomia.spigot.server.quests.QuestEvents;
 
-import de.biomia.spigot.server.quests.general.QuestPlayer;
+import de.biomia.spigot.BiomiaPlayer;
 
 public interface Event {
 
-    void executeEvent(QuestPlayer qp);
+    void executeEvent(BiomiaPlayer qp);
 
 }
