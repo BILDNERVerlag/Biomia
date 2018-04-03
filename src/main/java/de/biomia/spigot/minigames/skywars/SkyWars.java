@@ -11,7 +11,6 @@ import de.biomia.spigot.minigames.general.Teleport;
 import de.biomia.spigot.minigames.general.chests.Chests;
 import de.biomia.spigot.minigames.general.kits.KitManager;
 import org.bukkit.Bukkit;
-import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -63,6 +62,7 @@ public class SkyWars extends GameMode {
                 getMode().getStateManager().setActualGameState(GameStateManager.GameState.WAITING_FOR_START);
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
+                    bp.setBuild(true);
                     KitManager.getManager(bp).setKitInventory();
                 }
                 Teleport.sendCountDown(getMode());

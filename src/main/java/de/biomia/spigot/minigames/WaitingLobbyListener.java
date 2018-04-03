@@ -69,7 +69,6 @@ public class WaitingLobbyListener extends BiomiaListener {
     @EventHandler
     public void onLogin(PlayerLoginEvent e) {
 
-
         if (!Biomia.getBiomiaPlayer(e.getPlayer()).isSrStaff()) {
             e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "§cZUR ZEIT IN WARTUNGSARBEITEN!!");
             return;

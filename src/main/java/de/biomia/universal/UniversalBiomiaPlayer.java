@@ -151,7 +151,7 @@ public abstract class UniversalBiomiaPlayer {
     }
 
     public void removePermission(String permission) {
-        permUser.setPermission(LuckPerms.getApi().buildNode(permission).setValue(false).build());
+        permUser.unsetPermission(LuckPerms.getApi().buildNode(permission).build());
         LuckPerms.getApi().getUserManager().saveUser(permUser);
     }
 

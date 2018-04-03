@@ -143,7 +143,6 @@ public class GameStateManager {
                     bp.getPlayer().showPlayer(Main.getPlugin(), p2.getPlayer());
                 }
 
-                bp.setBuild(true);
                 bp.setDamageEntitys(true);
                 bp.setGetDamage(true);
                 bp.getPlayer().setGameMode(org.bukkit.GameMode.SURVIVAL);

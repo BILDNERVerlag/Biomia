@@ -21,7 +21,6 @@ public class ReportCommand extends BiomiaCommand {
             if (sender instanceof Player) {
                 ((Player) sender).openInventory(ReportManager.grund);
                 new PlayerReport(Biomia.getBiomiaPlayer((Player) sender), Biomia.getOfflineBiomiaPlayer(args[0]));
-
             } else {
                 sender.sendMessage(Messages.NO_PLAYER);
             }
