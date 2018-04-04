@@ -63,9 +63,10 @@ public class SchnitzelEvent extends BiomiaServer {
         spawn.getWorld().setDifficulty(Difficulty.NORMAL);
 
 
-        for (Map.Entry<Integer, Integer> integerIntegerEntry : BiomiaStat.SchnitzelMonsterKilled.getTop(-1, null).entrySet()) {
-            OfflineBiomiaPlayer bp = Biomia.getOfflineBiomiaPlayer(integerIntegerEntry.getKey());
-            mobsKilled.put(bp.getName(), new MonsterPunkte(bp, integerIntegerEntry.getValue()));
+        for (Map.Entry<Integer, Integer> entry : BiomiaStat.SchnitzelMonsterKilled.getTop(-1, null).entrySet()) {
+            OfflineBiomiaPlayer bp = Biomia.getOfflineBiomiaPlayer(entry.getKey());
+            int i = BiomiaStat.SchnitzelDiedByMonster.get(bp.getBiomiaPlayerID(), null);
+            mobsKilled.put(bp.getName(), new MonsterPunkte(bp, entry.getValue() - i));
         }
 
 
