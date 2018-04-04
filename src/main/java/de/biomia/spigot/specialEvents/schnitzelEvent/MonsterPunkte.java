@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 public class MonsterPunkte {
 
+    private static ItemStack backpack = ItemCreator.itemCreate(Material.CHEST, "§cRucksack");
+
     private static ItemStack helmetLVL1 = ItemCreator.itemCreate(Material.LEATHER_HELMET);
     private static ItemStack helmetLVL2 = ItemCreator.itemCreate(Material.GOLD_HELMET);
     private static ItemStack helmetLVL3 = ItemCreator.itemCreate(Material.IRON_HELMET);
@@ -134,6 +136,11 @@ public class MonsterPunkte {
         if (boots != null) {
             PlayerInventory inv = bp.getBiomiaPlayer().getPlayer().getInventory();
 
+            inv.clear();
+
+            inv.setItem(8, backpack);
+            inv.setItem(7, SchnitzelEvent.getInfoBook());
+
             inv.setBoots(boots);
             inv.setChestplate(chestplate);
             inv.setLeggings(leggings);
@@ -160,12 +167,15 @@ public class MonsterPunkte {
             case SPIDER:
             case CREEPER:
                 inc = 1;
+                break;
             case ENDERMAN:
             case WITCH:
                 inc = 2;
+                break;
             case WITHER_SKELETON:
             case BLAZE:
                 inc = 3;
+                break;
         }
 
         int oldPoints = points;
