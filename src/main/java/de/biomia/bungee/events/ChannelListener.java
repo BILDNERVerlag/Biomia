@@ -84,19 +84,6 @@ public class ChannelListener implements Listener {
         server.sendData("BiomiaChannel", stream.toByteArray());
     }
 
-    public static void rank(String rank, ProxiedPlayer player) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        DataOutputStream out = new DataOutputStream(stream);
-        try {
-            out.writeUTF("RankUp");
-            out.writeUTF(player.getName());
-            out.writeUTF(rank);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        send(stream, player.getServer().getInfo());
-    }
-
     public static void sendBanRequest(OfflineBungeeBiomiaPlayer bp, int IDtoBan) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(stream);

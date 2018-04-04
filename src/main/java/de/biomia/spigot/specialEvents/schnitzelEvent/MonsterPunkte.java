@@ -2,7 +2,6 @@ package de.biomia.spigot.specialEvents.schnitzelEvent;
 
 import de.biomia.spigot.OfflineBiomiaPlayer;
 import de.biomia.spigot.achievements.BiomiaStat;
-import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -10,6 +9,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 
@@ -88,7 +88,7 @@ public class MonsterPunkte {
             boots = bootsLVL7;
             leggings = leggingsLVL7;
             helmet = helmetLVL7;
-        } else if (points >= 200 && (oldPoints < 200 || oldPoints >= 300)) {
+        } else if (points >= 200 && oldPoints < 200) {
             weapons = new ArrayList<>();
             weapons.add(weaponLVL6);
             weapons.add(weapon_arrow);
@@ -97,35 +97,35 @@ public class MonsterPunkte {
             boots = bootsLVL6;
             leggings = leggingsLVL6;
             helmet = helmetLVL6;
-        } else if (points >= 150 && (oldPoints < 150 || oldPoints >= 200)) {
+        } else if (points >= 150 && oldPoints < 150) {
             weapons = new ArrayList<>();
             weapons.add(weaponLVL5);
             chestplate = chestplateLVL5;
             boots = bootsLVL5;
             leggings = leggingsLVL5;
             helmet = helmetLVL5;
-        } else if (points >= 100 && (oldPoints < 100 || oldPoints >= 150)) {
+        } else if (points >= 100 && oldPoints < 100) {
             weapons = new ArrayList<>();
             weapons.add(weaponLVL4);
             chestplate = chestplateLVL4;
             boots = bootsLVL4;
             leggings = leggingsLVL4;
             helmet = helmetLVL4;
-        } else if (points >= 50 && (oldPoints < 50 || oldPoints >= 100)) {
+        } else if (points >= 50 && oldPoints < 50) {
             weapons = new ArrayList<>();
             weapons.add(weaponLVL3);
             chestplate = chestplateLVL3;
             boots = bootsLVL3;
             leggings = leggingsLVL3;
             helmet = helmetLVL3;
-        } else if (points >= 20 && (oldPoints < 20 || oldPoints >= 50)) {
+        } else if (points >= 20 && oldPoints < 20) {
             weapons = new ArrayList<>();
             weapons.add(weaponLVL2);
             chestplate = chestplateLVL2;
             boots = bootsLVL2;
             leggings = leggingsLVL2;
             helmet = helmetLVL2;
-        } else if (oldPoints == -1 || !ItemConditions.hasItemInInventory(bp.getBiomiaPlayer().getQuestPlayer(), leggingsLVL1.getType(), 1)) {
+        } else if (oldPoints == -1) {
             weapons = new ArrayList<>();
             weapons.add(weaponLVL1);
             chestplate = chestplateLVL1;
@@ -134,7 +134,29 @@ public class MonsterPunkte {
             helmet = helmetLVL1;
         }
 
+
         if (boots != null) {
+
+            bp.sendMessage("§cLevel Up! §bDu hast ein neues Inventar erhalten!");
+
+            ItemMeta meta;
+
+            meta = boots.getItemMeta();
+            meta.setUnbreakable(true);
+            boots.setItemMeta(meta);
+
+            meta = leggings.getItemMeta();
+            meta.setUnbreakable(true);
+            leggings.setItemMeta(meta);
+
+            meta = chestplate.getItemMeta();
+            meta.setUnbreakable(true);
+            chestplate.setItemMeta(meta);
+
+            meta = helmet.getItemMeta();
+            meta.setUnbreakable(true);
+            helmet.setItemMeta(meta);
+
             PlayerInventory inv = bp.getBiomiaPlayer().getPlayer().getInventory();
 
             inv.clear();
@@ -147,6 +169,11 @@ public class MonsterPunkte {
             inv.setLeggings(leggings);
             inv.setHelmet(helmet);
             for (ItemStack is : weapons) {
+
+                meta = is.getItemMeta();
+                meta.setUnbreakable(true);
+                is.setItemMeta(meta);
+
                 inv.addItem(is);
             }
         }

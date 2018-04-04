@@ -31,13 +31,14 @@ public class SchnitzelListener extends BiomiaListener {
 
     private static final ItemStack bread = ItemCreator.itemCreate(Material.BREAD, "§cBauern Brot");
 
-
     @EventHandler
     public void onItemPickUp(EntityPickupItemEvent e) {
         if (e.getEntity() instanceof Player) {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getEntity());
+
             if (!bp.canBuild())
                 e.setCancelled(true);
+
             ItemStack is = e.getItem().getItemStack();
             if (is.getType() == Material.PAPER) {
                 if (is.getItemMeta().getDisplayName().contains("Schnitzel")) {
@@ -55,13 +56,7 @@ public class SchnitzelListener extends BiomiaListener {
     }
 
     @EventHandler
-    public void onLogin(PlayerLoginEvent e) {
-
-    }
-
-    @EventHandler
     public void onJoin_(PlayerJoinEvent e) {
-
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
 
         Checkpoint.startSave(bp);

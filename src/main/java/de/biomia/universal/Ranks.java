@@ -2,13 +2,13 @@ package de.biomia.universal;
 
 public enum Ranks {
 
-    UnregSpieler(0), RegSpieler(1),
-    PremiumEins(2), PremiumZwei(3), PremiumDrei(4), PremiumVier(5), PremiumFünf(6), PremiumSechs(7), PremiumSieben(8), PremiumAcht(9), PremiumNeun(10), PremiumZehn(0),
-    YouTube(11),
-    JrBuilder(12), Builder(13), PixelBiest(14), SrBuilder(15),
-    Supporter(16), Moderator(17), SrModerator(18),
-    Developer(19),
-    Admin(20), Owner(21);
+    UnregSpieler(22), RegSpieler(21),
+    PremiumEins(20), PremiumZwei(19), PremiumDrei(18), PremiumVier(17), PremiumFuenf(16), PremiumSechs(15), PremiumSieben(14), PremiumAcht(13), PremiumNeun(12), PremiumZehn(11),
+    YouTube(10),
+    JrBuilder(9), Builder(8), PixelBiest(7), SrBuilder(6),
+    Supporter(5), Moderator(4), SrModerator(3),
+    Developer(2),
+    Admin(1), Owner(0);
 
     private int level;
 
@@ -42,7 +42,7 @@ public enum Ranks {
                 return "\u00A7eIII | ";
             case PremiumEins:
                 return "\u00A7eI | ";
-            case PremiumFünf:
+            case PremiumFuenf:
                 return "\u00A7eV | ";
             case PremiumNeun:
                 return "\u00A76IX | ";
