@@ -124,7 +124,7 @@ public class MonsterPunkte {
             boots = bootsLVL2;
             leggings = leggingsLVL2;
             helmet = helmetLVL2;
-        } else if (oldPoints >= 20) {
+        } else if (oldPoints >= 20 || oldPoints == -1) {
             weapons = new ArrayList<>();
             weapons.add(weaponLVL1);
             chestplate = chestplateLVL1;

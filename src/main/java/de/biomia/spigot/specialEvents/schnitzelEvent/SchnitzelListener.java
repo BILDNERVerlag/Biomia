@@ -62,7 +62,7 @@ public class SchnitzelListener extends BiomiaListener {
         Checkpoint.startSave(bp);
         MonsterPunkte mp = SchnitzelEvent.mobsKilled.computeIfAbsent(bp.getName(), mob -> new MonsterPunkte(bp, BiomiaStat.SchnitzelMonsterKilled.get(bp.getBiomiaPlayerID(), null)));
         e.getPlayer().setLevel(mp.getPoints());
-        mp.giveInventory(0);
+        mp.giveInventory(-1);
         Scoreboards.setTabList(e.getPlayer(), true, false);
     }
 
