@@ -2,6 +2,7 @@ package de.biomia.spigot.specialEvents.schnitzelEvent;
 
 import de.biomia.spigot.OfflineBiomiaPlayer;
 import de.biomia.spigot.achievements.BiomiaStat;
+import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -62,10 +63,10 @@ public class MonsterPunkte {
 
     }
 
-    private int points = 0;
-    private OfflineBiomiaPlayer bp;
+    private int points;
+    private final OfflineBiomiaPlayer bp;
 
-    public MonsterPunkte(OfflineBiomiaPlayer bp, int points) {
+    MonsterPunkte(OfflineBiomiaPlayer bp, int points) {
         this.bp = bp;
         this.points = points;
     }
@@ -87,7 +88,7 @@ public class MonsterPunkte {
             boots = bootsLVL7;
             leggings = leggingsLVL7;
             helmet = helmetLVL7;
-        } else if (points >= 200 && oldPoints < 200) {
+        } else if (points >= 200 && (oldPoints < 200 || oldPoints >= 300)) {
             weapons = new ArrayList<>();
             weapons.add(weaponLVL6);
             weapons.add(weapon_arrow);
@@ -96,35 +97,35 @@ public class MonsterPunkte {
             boots = bootsLVL6;
             leggings = leggingsLVL6;
             helmet = helmetLVL6;
-        } else if (points >= 150 && oldPoints < 150) {
+        } else if (points >= 150 && (oldPoints < 150 || oldPoints >= 200)) {
             weapons = new ArrayList<>();
             weapons.add(weaponLVL5);
             chestplate = chestplateLVL5;
             boots = bootsLVL5;
             leggings = leggingsLVL5;
             helmet = helmetLVL5;
-        } else if (points >= 100 && oldPoints < 100) {
+        } else if (points >= 100 && (oldPoints < 100 || oldPoints >= 150)) {
             weapons = new ArrayList<>();
             weapons.add(weaponLVL4);
             chestplate = chestplateLVL4;
             boots = bootsLVL4;
             leggings = leggingsLVL4;
             helmet = helmetLVL4;
-        } else if (points >= 50 && oldPoints < 50) {
+        } else if (points >= 50 && (oldPoints < 50 || oldPoints >= 100)) {
             weapons = new ArrayList<>();
             weapons.add(weaponLVL3);
             chestplate = chestplateLVL3;
             boots = bootsLVL3;
             leggings = leggingsLVL3;
             helmet = helmetLVL3;
-        } else if (points >= 20 && oldPoints < 20) {
+        } else if (points >= 20 && (oldPoints < 20 || oldPoints >= 50)) {
             weapons = new ArrayList<>();
             weapons.add(weaponLVL2);
             chestplate = chestplateLVL2;
             boots = bootsLVL2;
             leggings = leggingsLVL2;
             helmet = helmetLVL2;
-        } else if (oldPoints >= 20 || oldPoints == -1) {
+        } else if (oldPoints == -1 || !ItemConditions.hasItemInInventory(bp.getBiomiaPlayer().getQuestPlayer(), leggingsLVL1.getType(), 1)) {
             weapons = new ArrayList<>();
             weapons.add(weaponLVL1);
             chestplate = chestplateLVL1;

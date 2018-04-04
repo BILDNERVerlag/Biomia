@@ -100,30 +100,37 @@ public class Lobby extends BiomiaServer {
     }
 
     private void initPortals() {
-        // BauWelt Portal
-        new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 559, 76, 286), new Location(Bukkit.getWorld("LobbyBiomia"), 562, 77, 289), new Location(Bukkit.getWorld("LobbyBiomia"), 551.5, 80, 285.5, -90, 0), BiomiaServerType.BauServer);
 
-        Location backTeleportationQuests = new Location(Bukkit.getWorld("LobbyBiomia"), 480.5, 123, 359.5, 90, 0);
+
+        World lobby = Bukkit.getWorld("LobbyBiomia");
+        
+        
+        // BauWelt Portal
+        new Teleporter(new Location(lobby, 559, 76, 286), new Location(lobby, 562, 77, 289), new Location(lobby, 551.5, 80, 285.5, -90, 0), BiomiaServerType.BauServer);
+
+        Location backTeleportationQuests = new Location(lobby, 480.5, 123, 359.5, 90, 0);
 
         // Quests
-        new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 446, 124, 359), new Location(Bukkit.getWorld("LobbyBiomia"), 447, 125, 361), backTeleportationQuests, BiomiaServerType.Quest);
-        new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 459, 124, 377), new Location(Bukkit.getWorld("LobbyBiomia"), 460, 125, 378), backTeleportationQuests, BiomiaServerType.Quest);
-        new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 459, 124, 341), new Location(Bukkit.getWorld("LobbyBiomia"), 460, 125, 342), backTeleportationQuests, BiomiaServerType.Quest);
+        new Teleporter(new Location(lobby, 446, 124, 359), new Location(lobby, 447, 125, 361), backTeleportationQuests, BiomiaServerType.Quest);
+        new Teleporter(new Location(lobby, 459, 124, 377), new Location(lobby, 460, 125, 378), backTeleportationQuests, BiomiaServerType.Quest);
+        new Teleporter(new Location(lobby, 459, 124, 341), new Location(lobby, 460, 125, 342), backTeleportationQuests, BiomiaServerType.Quest);
 
         // Freebuild
-        new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 552, 97, 290), new Location(Bukkit.getWorld("LobbyBiomia"), 553, 98, 291), new Location(Bukkit.getWorld("LobbyBiomia"), 556.5, 96, 292.5, -90, 0), BiomiaServerType.Freebuild);
+        new Teleporter(new Location(lobby, 552, 97, 290), new Location(lobby, 553, 98, 291), new Location(lobby, 556.5, 96, 292.5, -90, 0), BiomiaServerType.Freebuild);
         // FarmWelt
-        // new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 552, 97, 294), new Location(Bukkit.getWorld("LobbyBiomia"), 553, 98, 295), new Location(Bukkit.getWorld("LobbyBiomia"), 556.5, 96, 292.5, -90, 0), "FarmServer");
+        // new Teleporter(new Location(lobby, 552, 97, 294), new Location(lobby, 553, 98, 295), new Location(lobby, 556.5, 96, 292.5, -90, 0), "FarmServer");
 
         // SkyWars
-        new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 459.5, 71, 264), new Location(Bukkit.getWorld("LobbyBiomia"), 460, 73, 269), new Location(Bukkit.getWorld("SkywarsSignlobby"), 370.5, 82, 264.5, 70, 0));
+        new Teleporter(new Location(lobby, 459.5, 71, 264), new Location(lobby, 460, 73, 269), new Location(Bukkit.getWorld("SkywarsSignlobby"), 370.5, 82, 264.5, 70, 0));
         // BedWars
-        new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 459.5, 71, 252), new Location(Bukkit.getWorld("LobbyBiomia"), 460, 73, 257), new Location(Bukkit.getWorld("BedwarsSignlobby"), 370.5, 82, 264.5, 70, 0));
+        new Teleporter(new Location(lobby, 459.5, 71, 252), new Location(lobby, 460, 73, 257), new Location(Bukkit.getWorld("BedwarsSignlobby"), 370.5, 82, 264.5, 70, 0));
 
         // Grenzen nach au\u00dfen
         new Teleporter(new Location(Bukkit.getWorld("BedwarsSignlobby"), 0, -1000, 0), new Location(Bukkit.getWorld("BedwarsSignlobby"), 800, 1000, 1024), new Location(Bukkit.getWorld("BedwarsSignlobby"), 370.5, 82, 264.5, 70, 0)).setInverted();
         new Teleporter(new Location(Bukkit.getWorld("SkywarsSignlobby"), 0, -1000, 0), new Location(Bukkit.getWorld("SkywarsSignlobby"), 800, 1000, 1024), new Location(Bukkit.getWorld("SkywarsSignlobby"), 370.5, 82, 264.5, 70, 0)).setInverted();
-        new Teleporter(new Location(Bukkit.getWorld("LobbyBiomia"), 360, -1000, 150), new Location(Bukkit.getWorld("LobbyBiomia"), 800, 1000, 700), new Location(Bukkit.getWorld("LobbyBiomia"), 534.5, 67.5, 193.5)).setInverted();
+        new Teleporter(new Location(lobby, 360, -1000, 150), new Location(lobby, 800, 1000, 700), new Location(lobby, 534.5, 67.5, 193.5)).setInverted();
+
+        new Teleporter(new Location(lobby, 530, 70, 216), new Location(lobby, 531, 74, 219), new Location(lobby, 535.5, 70, 219.6), BiomiaServerType.Event_Schnitzeljagd);
     }
 
     // GETTER

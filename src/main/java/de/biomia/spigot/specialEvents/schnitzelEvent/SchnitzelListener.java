@@ -22,6 +22,8 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 import java.util.logging.Level;
 
@@ -50,6 +52,15 @@ public class SchnitzelListener extends BiomiaListener {
                     e.setCancelled(true);
                     book.pickUp(bp);
                 }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onLogin(PlayerLoginEvent e) {
+        if (!Biomia.getBiomiaPlayer(e.getPlayer()).isSrStaff()) {
+            if (Calendar.getInstance().get(Calendar.HOUR) < 14) {
+                e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "§cDas Event start erst um 14 Uhr!");
             }
         }
     }
