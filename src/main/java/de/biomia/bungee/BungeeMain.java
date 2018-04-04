@@ -72,7 +72,9 @@ public class BungeeMain extends Plugin {
             while (true) {
                 try {
 
-                    Login.MOTD = new TextComponent(MySQL.executeQuery("Select * from Motd", "text", MySQL.Databases.biomia_db));
+                    String motd = MySQL.executeQuery("Select * from Motd", "text", MySQL.Databases.biomia_db);
+
+                    Login.MOTD = new TextComponent(motd);
 
                     int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) / 3;
 
