@@ -136,7 +136,7 @@ public class SchnitzelListener extends BiomiaListener {
     public void onGetHunger(FoodLevelChangeEvent e) {
         if (e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
-            int fehlend = (20 - e.getFoodLevel()) / 4 + 1;
+            int fehlend = (int) (Math.ceil(((double) (20 - e.getFoodLevel()) / 4)) + 1);
             while (!ItemConditions.hasItemInInventory(Biomia.getQuestPlayer(p), Material.BREAD, fehlend))
                 p.getInventory().addItem(bread);
         }
