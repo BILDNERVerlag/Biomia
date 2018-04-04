@@ -36,8 +36,7 @@ public class SkinValue {
             br.close();
             if (inputLine != null)
                 return inputLine;
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
         }
         return null;
     }
