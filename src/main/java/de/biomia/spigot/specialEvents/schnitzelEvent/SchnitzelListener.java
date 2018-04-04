@@ -11,7 +11,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -21,7 +20,6 @@ import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -29,45 +27,7 @@ import java.util.logging.Level;
 
 public class SchnitzelListener extends BiomiaListener {
 
-    private static final ItemStack shovel = ItemCreator.itemCreate(Material.IRON_SPADE, "§bÜberlebens-Schaufel");
-    private static final ItemStack helmet = ItemCreator.itemCreate(Material.CHAINMAIL_HELMET, "§bMinenhelm");
-    private static final ItemStack chestplate = ItemCreator.itemCreate(Material.LEATHER_CHESTPLATE, "§cMonsterschutzjacke");
-    private static final ItemStack leggings = ItemCreator.itemCreate(Material.LEATHER_LEGGINGS, "§bArbeitshose");
-    private static final ItemStack boots = ItemCreator.itemCreate(Material.GOLD_BOOTS, "§cBergmannsschuhe");
-
-    private static final ItemStack backpack = ItemCreator.itemCreate(Material.CHEST, "§cRucksack");
     private static final ItemStack bread = ItemCreator.itemCreate(Material.BREAD, "§cBauern Brot");
-
-    static {
-
-
-        ItemMeta meta = shovel.getItemMeta();
-        meta.setUnbreakable(true);
-        shovel.setItemMeta(meta);
-        shovel.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 2);
-
-        meta = chestplate.getItemMeta();
-        meta.setUnbreakable(true);
-        chestplate.setItemMeta(meta);
-        chestplate.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-
-        meta = leggings.getItemMeta();
-        meta.setUnbreakable(true);
-        leggings.setItemMeta(meta);
-        leggings.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-
-        meta = helmet.getItemMeta();
-        meta.setUnbreakable(true);
-        helmet.setItemMeta(meta);
-        helmet.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
-
-        meta = boots.getItemMeta();
-        meta.setUnbreakable(true);
-        boots.setItemMeta(meta);
-        boots.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-        boots.addUnsafeEnchantment(Enchantment.PROTECTION_FALL, 1);
-
-    }
 
 
     @EventHandler
@@ -100,20 +60,9 @@ public class SchnitzelListener extends BiomiaListener {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
 
         Checkpoint.startSave(bp);
-
-        e.getPlayer().getInventory().clear();
-
-        e.getPlayer().getInventory().setItem(8, backpack);
-        e.getPlayer().getInventory().setItem(7, SchnitzelEvent.getInfoBook());
-
-        e.getPlayer().getInventory().setItem(0, shovel);
-        e.getPlayer().getInventory().setHelmet(helmet);
-        e.getPlayer().getInventory().setChestplate(chestplate);
-        e.getPlayer().getInventory().setBoots(boots);
-        e.getPlayer().getInventory().setLeggings(leggings);
-
         MonsterPunkte mp = SchnitzelEvent.mobsKilled.computeIfAbsent(bp.getName(), mob -> new MonsterPunkte(bp, BiomiaStat.SchnitzelMonsterKilled.get(bp.getBiomiaPlayerID(), null)));
         e.getPlayer().setLevel(mp.getPoints());
+        mp.giveInventory(0);
         Scoreboards.setTabList(e.getPlayer(), true, false);
     }
 
@@ -147,7 +96,7 @@ public class SchnitzelListener extends BiomiaListener {
         if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && e.getClickedBlock().getType() == Material.DISPENSER)
             e.setCancelled(true);
         else if (e.getItem() != null) {
-            if (e.getItem().isSimilar(backpack))
+            if (e.getItem().isSimilar(MonsterPunkte.backpack))
                 SchnitzelEvent.openBackpack(Biomia.getBiomiaPlayer(e.getPlayer()));
         }
     }
