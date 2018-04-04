@@ -135,6 +135,9 @@ public class LobbyScoreboard {
             case "admin":
                 rankName = "Admin";
                 break;
+            case "pixelbiest":
+                rankName = "PixelBiest";
+                break;
         }
         return rankName;
     }

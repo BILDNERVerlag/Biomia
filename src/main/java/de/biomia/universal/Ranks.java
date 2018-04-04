@@ -5,10 +5,10 @@ public enum Ranks {
     UnregSpieler(0), RegSpieler(1),
     PremiumEins(2), PremiumZwei(3), PremiumDrei(4), PremiumVier(5), PremiumFünf(6), PremiumSechs(7), PremiumSieben(8), PremiumAcht(9), PremiumNeun(10), PremiumZehn(0),
     YouTube(11),
-    JrBuilder(12), Builder(13), SrBuilder(14),
-    Supporter(15), Moderator(16), SrModerator(17),
-    Developer(18),
-    Admin(19), Owner(20);
+    JrBuilder(12), Builder(13), PixelBiest(14), SrBuilder(15),
+    Supporter(16), Moderator(17), SrModerator(18),
+    Developer(19),
+    Admin(20), Owner(21);
 
     private int level;
 
@@ -60,6 +60,8 @@ public enum Ranks {
                 return "\u00A78";
             case PremiumSieben:
                 return "\u00A7eVII | ";
+            case PixelBiest:
+                return "\u00A76PB | ";
         }
         return "NoPrefix";
     }

@@ -34,33 +34,24 @@ public class Lobby extends BiomiaServer {
     @Override
     public void start() {
         super.start();
-
         Bukkit.getServer().createWorld(new WorldCreator("BedwarsSignlobby"));
         Bukkit.getServer().createWorld(new WorldCreator("SkywarsSignlobby"));
-
         for (Player p : Bukkit.getOnlinePlayers()) {
             LobbyScoreboard.sendScoreboard(p);
             p.setAllowFlight(true);
         }
-
         Bukkit.setDefaultGameMode(GameMode.ADVENTURE);
-
         initPortals();
         initNavigator();
-
         lobbySwitcher = Bukkit.createInventory(null, 27, "\u00A7dLobby Switcher");
-
         new BukkitRunnable() {
             @Override
             public void run() {
                 ServerObject serverObject = TimoCloudAPI.getBukkitInstance().getThisServer();
-
                 ArrayList<ServerObject> lobbyServer = new ArrayList<>(
                         serverObject.getGroup().getServers());
                 lobbyServer.sort(Comparator.comparing(ServerObject::getName));
-
                 int i = 0;
-
                 for (ServerObject so : lobbyServer) {
                     int amount = so.getOnlinePlayerCount();
                     if (amount == 0)
@@ -75,8 +66,7 @@ public class Lobby extends BiomiaServer {
                 }
             }
         }.runTaskTimer(getPlugin(), 20 * 5, 20 * 10);
-
-
+        Bukkit.getWorld("LobbyBiomia").getBlockAt(481, 70, 235).setType(Material.AIR);
     }
 
     @Override

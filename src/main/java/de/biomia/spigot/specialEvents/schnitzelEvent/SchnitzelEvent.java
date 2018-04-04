@@ -56,10 +56,6 @@ public class SchnitzelEvent extends BiomiaServer {
         initSpawner();
         new Teleporter(new Location(Bukkit.getWorld("BiomiaWelt"), 121, 63, 722), new Location(Bukkit.getWorld("BiomiaWelt"), 125, 68, 719),
                 new Location(Bukkit.getWorld("BiomiaWelt"), 272.5, 69, 654, -120, 0));
-        new Teleporter(new Location(Bukkit.getWorld("BiomiaWelt"), 520.9, 18, 391), new Location(Bukkit.getWorld("BiomiaWelt"), 519.9, 16, 390),
-                new Location(Bukkit.getWorld("BiomiaWelt"), 424.1, 18, 390.5, 90, 0));
-        new Teleporter(new Location(Bukkit.getWorld("BiomiaWelt"), 121, 63, 722), new Location(Bukkit.getWorld("BiomiaWelt"), 125, 68, 719),
-                new Location(Bukkit.getWorld("BiomiaWelt"), 272.5, 69, 654, -120, 0));
 
         spawn.getWorld().setGameRuleValue("keepInventory", "true");
         spawn.getWorld().setGameRuleValue("mobGriefing", "false");

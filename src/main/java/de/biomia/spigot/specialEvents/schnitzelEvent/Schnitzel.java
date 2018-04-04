@@ -47,11 +47,10 @@ public class Schnitzel {
     }
 
     public void spawn() {
-
         if (!loc.getChunk().isLoaded())
             loc.getChunk().load();
 
-        Bukkit.getWorld("BiomiaWelt").dropItem(loc, is).setPickupDelay(0);
+        Bukkit.getWorld("BiomiaWelt").dropItemNaturally(loc, is).setPickupDelay(0);
     }
 
     public void pickUp(BiomiaPlayer bp) {
@@ -62,7 +61,7 @@ public class Schnitzel {
             comments.add(id + "");
             BiomiaStat.SchnitzelFound.increment(bp.getBiomiaPlayerID(), 1, id + "");
             bp.sendMessage(Messages.PREFIX + "§cDu hast " + getItem().getItemMeta().getDisplayName() + " §cgefunden!");
-
+            bp.addCoins(50, false);
             if (comments.size() == SchnitzelEvent.getSchnitzel()) {
                 Date date = BiomiaStat.SchnitzelFound.getFirstIncrementDate(bp);
                 int duration = (int) ((System.currentTimeMillis() - date.getTime()) / 1000);
@@ -71,8 +70,11 @@ public class Schnitzel {
                 Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat alle §c" + SchnitzelEvent.getSchnitzel() + " §bSchnitzel in §c" + Time.toText(duration) + " §bgefunden!");
 
                 if (SchnitzelEvent.getFirstName(SchnitzelEvent.schnitzelHighScore).equals(bp.getName())) {
-                    Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat den High Score gebrochen!!!");
+                    Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat den Highscore gebrochen!");
                 }
+            }
+            if (id == 10) {
+                bp.getPlayer().teleport(new Location(Bukkit.getWorld("BiomiaWelt"), 370.5, 23, 439.5, -90, 0));
             }
         }
     }

@@ -56,7 +56,7 @@ public class SpeedCommand extends BiomiaCommand {
                 }
             }
         } else {
-            sender.sendMessage("\u00A7c/speed <1-10> [Spieler]");
+            sender.sendMessage("\u00A7c/speed <0.1 - 0.9 (0.2 ist Standard)> [Spieler]");
         }
 
         return false;

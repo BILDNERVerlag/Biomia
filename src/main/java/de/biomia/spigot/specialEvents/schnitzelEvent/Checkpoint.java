@@ -28,10 +28,10 @@ public class Checkpoint extends BiomiaCommand {
             if (args[0].equalsIgnoreCase("set")) {
                 CheckpointRunnable cp = checkPoints.get(bp);
                 if (cp.setLastSavedLocation()) {
-                    bp.sendMessage("§cCheckpoint manuel gespeichert§7.");
+                    bp.sendMessage("§cCheckpoint manuell gespeichert§7.");
                     if (stopSave(bp)) {
                         bp.sendMessage("§cCheckpoint wird nun nicht mehr automatisch gespeichert§7!");
-                        bp.sendMessage("§cFür automatisches speichern benutze §b/checkpoint auto§7!");
+                        bp.sendMessage("§cFür automatisches Speichern benutze §b/checkpoint auto§7!");
                     }
                 } else {
                     bp.sendMessage("§cCheckpoint wird weiterhin automatisch gespeichert§7!");
