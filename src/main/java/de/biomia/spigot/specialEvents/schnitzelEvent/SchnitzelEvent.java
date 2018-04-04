@@ -34,7 +34,7 @@ public class SchnitzelEvent extends BiomiaServer {
     private static final HashMap<String, SecretBook> secretBookMap = new HashMap<>();
     private static final Location spawn = new Location(Bukkit.getWorld("BiomiaWelt"), 351, 72, 697.5, -35, 0);
     private static final HashMap<BiomiaPlayer, Inventory> inventorys = new HashMap<>();
-    public static HashMap<String, Integer> mobsKilled = new HashMap<>();
+    public static HashMap<String, MonsterPunkte> mobsKilled = new HashMap<>();
     public static HashMap<String, Integer> booksHighScore = new HashMap<>();
     public static HashMap<String, Integer> schnitzelHighScore = new HashMap<>();
 
@@ -67,8 +67,10 @@ public class SchnitzelEvent extends BiomiaServer {
         spawn.getWorld().setDifficulty(Difficulty.NORMAL);
 
 
-        for (Map.Entry<Integer, Integer> integerIntegerEntry : BiomiaStat.SchnitzelMonsterKilled.getTop(-1, null).entrySet())
-            mobsKilled.put(Biomia.getOfflineBiomiaPlayer(integerIntegerEntry.getKey()).getName(), integerIntegerEntry.getValue());
+        for (Map.Entry<Integer, Integer> integerIntegerEntry : BiomiaStat.SchnitzelMonsterKilled.getTop(-1, null).entrySet()) {
+            OfflineBiomiaPlayer bp = Biomia.getOfflineBiomiaPlayer(integerIntegerEntry.getKey());
+            mobsKilled.put(bp.getName(), new MonsterPunkte(bp, integerIntegerEntry.getValue()));
+        }
 
 
         BiomiaStat.SchnitzelFound.getBiomiaIDSWhereValueIsX(schnitzelMap.size(), null).forEach(each -> {
@@ -479,10 +481,10 @@ public class SchnitzelEvent extends BiomiaServer {
         new BukkitRunnable() {
             @Override
             public void run() {
-                mobsKilled = sortByValue(mobsKilled, true);
+                mobsKilled = sortMonsterPoints(mobsKilled);
 
-                mobHS.setPrefix(mobsKilled.isEmpty() ? "§7§m---" : "§7" + getFirstInt(mobsKilled));
-                mobHSName.setSuffix(mobsKilled.isEmpty() ? "§7§m---" : getFirstName(mobsKilled));
+                mobHS.setPrefix(mobsKilled.isEmpty() ? "§7§m---" : "§7" + mobsKilled.values().stream().findFirst().map(MonsterPunkte::getPoints).orElse(null));
+                mobHSName.setSuffix(mobsKilled.isEmpty() ? "§7§m---" : mobsKilled.values().stream().findFirst().map(MonsterPunkte::getName).orElse(null));
             }
         }.runTaskTimer(Main.getPlugin(), 0, 20 * 5);
 
@@ -526,6 +528,16 @@ public class SchnitzelEvent extends BiomiaServer {
             result.put(entry.getKey(), entry.getValue());
         }
 
+        return result;
+    }
+
+    private static HashMap<String, MonsterPunkte> sortMonsterPoints(Map<String, MonsterPunkte> map) {
+        List<Map.Entry<String, MonsterPunkte>> list = new ArrayList<>(map.entrySet());
+        list.sort((o1, o2) -> o2.getValue().getPoints() - o1.getValue().getPoints());
+        HashMap<String, MonsterPunkte> result = new LinkedHashMap<>();
+        for (Map.Entry<String, MonsterPunkte> entry : list) {
+            result.put(entry.getKey(), entry.getValue());
+        }
         return result;
     }
 }

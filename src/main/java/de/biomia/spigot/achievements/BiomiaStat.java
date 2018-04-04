@@ -43,7 +43,7 @@ public enum BiomiaStat {
     //Events
 
     SpecialEggsFound, BW_ItemsBoughtNames, BW_FinalKills, BW_FinalDeaths, EasterEggsFound,
-    SchnitzelFound, BooksFound, SchnitzelMonsterKilled;
+    SchnitzelFound, BooksFound, SchnitzelMonsterKilled, SchnitzelDiedByMonster;
 
 
     /**

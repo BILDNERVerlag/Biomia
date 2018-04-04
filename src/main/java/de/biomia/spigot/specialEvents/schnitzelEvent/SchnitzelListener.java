@@ -112,8 +112,8 @@ public class SchnitzelListener extends BiomiaListener {
         e.getPlayer().getInventory().setBoots(boots);
         e.getPlayer().getInventory().setLeggings(leggings);
 
-        e.getPlayer().setLevel(BiomiaStat.SchnitzelMonsterKilled.get(bp.getBiomiaPlayerID(), null));
-
+        MonsterPunkte mp = SchnitzelEvent.mobsKilled.computeIfAbsent(bp.getName(), mob -> new MonsterPunkte(bp, BiomiaStat.SchnitzelMonsterKilled.get(bp.getBiomiaPlayerID(), null)));
+        e.getPlayer().setLevel(mp.getPoints());
         Scoreboards.setTabList(e.getPlayer(), true, false);
     }
 
@@ -186,9 +186,19 @@ public class SchnitzelListener extends BiomiaListener {
         if (p != null) {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
             BiomiaStat.SchnitzelMonsterKilled.increment(bp.getBiomiaPlayerID(), 1, null);
-            p.setLevel(p.getLevel() + 1);
             p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
-            SchnitzelEvent.mobsKilled.put(Biomia.getBiomiaPlayer(p).getName(), p.getLevel());
+            SchnitzelEvent.mobsKilled.get(Biomia.getBiomiaPlayer(p).getName()).addPoint(e.getEntityType());
+        }
+    }
+
+    @EventHandler
+    public void onPlayerDamage(EntityDamageByEntityEvent e) {
+
+        if (e.getEntityType() == EntityType.PLAYER) {
+            Player p = (Player) e.getEntity();
+            if (e.getFinalDamage() >= p.getHealth()) {
+                SchnitzelEvent.mobsKilled.get(Biomia.getBiomiaPlayer(p).getName()).removePoints();
+            }
         }
     }
 
