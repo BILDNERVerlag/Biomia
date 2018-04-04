@@ -28,6 +28,8 @@ import java.util.ArrayList;
 
 public class Login implements Listener {
 
+    public static TextComponent MOTD;
+
     private static boolean isLobbyServerOnline;
     private final TextComponent wartungsmodus = new TextComponent(ChatColor.AQUA + "Der Server ist im Wartungsmodus.\n" + ChatColor.RED + "Bitte versuche es in einer Weile erneut!");
 
@@ -164,6 +166,7 @@ public class Login implements Listener {
         int maxPlayers = e.getResponse().getPlayers().getMax();
         ServerPing ping = e.getResponse();
         ping.setPlayers(new ServerPing.Players(maxPlayers, BungeeCord.getInstance().getOnlineCount() + BungeeMain.actualFakePlayers, new ServerPing.PlayerInfo[0]));
+        ping.setDescriptionComponent(MOTD);
         e.setResponse(ping);
     }
 }

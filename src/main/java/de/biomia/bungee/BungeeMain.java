@@ -29,8 +29,6 @@ public class BungeeMain extends Plugin {
 
     public static Plugin plugin;
 
-    private static final TextComponent restart = new TextComponent("§cRestarte Server... §bDies kann zwischen §c15 §bSekunden und §c3 §bMinuten dauern§7!");
-
     public static ArrayList<Bans> activeBans = new ArrayList<>();
     public static ArrayList<Bans> cachedBans = new ArrayList<>();
 
@@ -73,6 +71,8 @@ public class BungeeMain extends Plugin {
         Thread second = new Thread(() -> {
             while (true) {
                 try {
+
+                    Login.MOTD = new TextComponent(MySQL.executeQuery("Select * from Motd", "text", MySQL.Databases.biomia_db));
 
                     int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) / 3;
 
