@@ -91,16 +91,16 @@ public class SecretBook {
                     bp.addCoins(400, false);
                     break;
                 case 5:
-                    itemStack = ItemCreator.itemCreate(Material.DIAMOND);
-                    itemStack.setAmount(3);
-                    RewardItems.addItem(bp, itemStack, BiomiaServerType.Freebuild);
-                    bp.sendMessage(Messages.PREFIX + "§7Du erhältst §c3 Diamanten! (Freebuildwelt)§7!");
+                    itemStack = ItemCreator.itemCreate(Material.DIAMOND_SWORD);
+                    itemStack.setAmount(1);
+                    RewardItems.addItem(bp, itemStack, BiomiaServerType.Quest);
+                    bp.sendMessage(Messages.PREFIX + "§7Du erhältst §c1 Diamantschwert! (Questwelt)§7!");
                     break;
                 case 6:
                     itemStack = ItemCreator.itemCreate(Material.DIAMOND);
-                    itemStack.setAmount(3);
-                    RewardItems.addItem(bp, itemStack, BiomiaServerType.Freebuild);
-                    bp.sendMessage(Messages.PREFIX + "§7Du erhältst §c3 Diamanten! (Freebuildwelt)§7!");
+                    itemStack.setAmount(1);
+                    RewardItems.addItem(bp, itemStack, BiomiaServerType.Quest);
+                    bp.sendMessage(Messages.PREFIX + "§7Du erhältst §c1 Totem der Unsterblichkeit! (Questwelt)§7!");
                     break;
                 default:
                     break;

@@ -36,10 +36,8 @@ public class SchnitzelListener extends BiomiaListener {
     public void onItemPickUp(EntityPickupItemEvent e) {
         if (e.getEntity() instanceof Player) {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getEntity());
-
             if (!bp.canBuild())
                 e.setCancelled(true);
-
             ItemStack is = e.getItem().getItemStack();
             if (is.getType() == Material.PAPER) {
                 if (is.getItemMeta().getDisplayName().contains("Schnitzel")) {
@@ -58,11 +56,7 @@ public class SchnitzelListener extends BiomiaListener {
 
     @EventHandler
     public void onLogin(PlayerLoginEvent e) {
-        if (!Biomia.getBiomiaPlayer(e.getPlayer()).isSrStaff()) {
-            if (Calendar.getInstance().get(Calendar.HOUR) < 14) {
-                e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "§cDas Event start erst um 14 Uhr!");
-            }
-        }
+
     }
 
     @EventHandler

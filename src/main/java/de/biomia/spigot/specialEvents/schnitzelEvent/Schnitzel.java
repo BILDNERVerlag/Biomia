@@ -73,7 +73,7 @@ public class Schnitzel {
                     Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat den Highscore gebrochen!");
                 }
             }
-            if (id == 10) {
+            if (id == 17) {
                 bp.getPlayer().teleport(new Location(Bukkit.getWorld("BiomiaWelt"), 370.5, 23, 439.5, -90, 0));
             }
         }

@@ -54,7 +54,7 @@ public class SchnitzelEvent extends BiomiaServer {
         initSchnitzel();
         initSecretBooks();
         initSpawner();
-        new Teleporter(new Location(Bukkit.getWorld("BiomiaWelt"), 121, 63, 722), new Location(Bukkit.getWorld("BiomiaWelt"), 125, 68, 719),
+        new Teleporter(new Location(Bukkit.getWorld("BiomiaWelt"), 121, 63, 719), new Location(Bukkit.getWorld("BiomiaWelt"), 125, 68, 722),
                 new Location(Bukkit.getWorld("BiomiaWelt"), 272.5, 69, 654, -120, 0));
 
         spawn.getWorld().setGameRuleValue("keepInventory", "true");
@@ -124,7 +124,7 @@ public class SchnitzelEvent extends BiomiaServer {
 
         //dschungeltempel unten
         schnitzel = new Schnitzel();
-        schnitzel.setLocation(new Location(world, 127.5, 72.2, 675.5));
+        schnitzel.setLocation(new Location(world, 118.5, 72.2, 691.5));
         schnitzel.setDescription("Tief in dem Tempel", "Findet man Krempel", "Hinter Mauern und Ecken", "Kannst du es aufdecken?");
         schnitzel.spawn();
 
@@ -149,25 +149,13 @@ public class SchnitzelEvent extends BiomiaServer {
         //sackgasse links anfang
         schnitzel = new Schnitzel();
         schnitzel.setLocation(new Location(world, 107.5, 22.2, 576.5));
-        schnitzel.setDescription("Von drei Gängen", "Nimm den zur Linken", "Dort findest du ein Schnitzel,", "Eins von den Besten");
+        schnitzel.setDescription("Von drei Gängen", "Nimm den zur Linken", "Dort werden Schätze dir winken!");
         schnitzel.spawn();
 
         //geradeaus, hinter steinen
         schnitzel = new Schnitzel();
         schnitzel.setLocation(new Location(world, 260.9, 19.2, 582.6));
         schnitzel.setDescription("Von Steinen fast zerdrückt,", "komm dorthin zurück.");
-        schnitzel.spawn();
-
-        //geradeaus, rechter gang
-        schnitzel = new Schnitzel();
-        schnitzel.setLocation(new Location(world, 310.5, 18.2, 537.5));
-        schnitzel.setDescription("Kann man in Schatten", "wie Wasser tauchen", "Werden unzählige", "Zombies auftauchen.");
-        schnitzel.spawn();
-
-        //rechts neben brücke
-        schnitzel = new Schnitzel();
-        schnitzel.setLocation(new Location(world, 271.5, 16.7, 435.5));
-        schnitzel.setDescription("Über die Lücke", "Führt eine Brücke", "Such gleich nebenan.", "Wer kann, der kann!");
         schnitzel.spawn();
 
         //links von brücke in eckigem raum
@@ -182,13 +170,6 @@ public class SchnitzelEvent extends BiomiaServer {
         schnitzel.setDescription("Am Ende der Bahn", "wirst du trotzdem belohnt", "Wirst wohl so schnell", "nicht mehr entthront.");
         schnitzel.spawn();
 
-        //labyrintheingang: 370.5 23 439.5 -90 0
-        //labyrinth
-        schnitzel = new Schnitzel();
-        schnitzel.setLocation(new Location(world, 437.5, 23.2, 498.5));
-        schnitzel.setDescription("Ein Ort, an dem mehr", "Gänge als Türen sind.", "Wer in Kisten sieht,", "findet das Labyrinth.");
-        schnitzel.spawn();
-
         //bei den totenköpfen im eck
         schnitzel = new Schnitzel();
         schnitzel.setLocation(new Location(world, 403.5, 15.2, 346.5));
@@ -198,43 +179,25 @@ public class SchnitzelEvent extends BiomiaServer {
         //bei den pilzen #1
         schnitzel = new Schnitzel();
         schnitzel.setLocation(new Location(world, 251.5, 27.2, 197.5));
-        schnitzel.setDescription("Ein kleiner Schritt für", "einen Menschen, aber", "ein riesiger für einen..", "Pilz..?");
+        schnitzel.setDescription("Am großen Pilzbaum", "Was für ein Sprung-Traum!", "Hoch über die Kappen,", "man kann es kaum lassen!");
         schnitzel.spawn();
 
         //bei den pilzen #2
         schnitzel = new Schnitzel();
         schnitzel.setLocation(new Location(world, 282.5, 31.2, 292.5));
-        schnitzel.setDescription("Ein kleiner Schritt für", "einen Pilz, aber", "ein riesiger für einen..", "Menschen..?");
-        schnitzel.spawn();
-
-        //rundgang ende
-        schnitzel = new Schnitzel();
-        schnitzel.setLocation(new Location(world, 366.5, 21.2, 674.5));
-        schnitzel.setDescription("Einmal den Rundgang", "überstanden!", "Besser als die", "ander'n Probanden!");
-        schnitzel.spawn();
-
-        //rundgang (unter wasser) ende
-        schnitzel = new Schnitzel();
-        schnitzel.setLocation(new Location(world, 373.5, 21.2, 538.5));
-        schnitzel.setDescription("Unter der Oberfläche sitzt", "(und lächelt verschmitzt)", "ein Schnitzel.");
-        schnitzel.spawn();
-
-        //mittig durch
-        schnitzel = new Schnitzel();
-        schnitzel.setLocation(new Location(world, 247.5, 20.2, 375.5));
-        schnitzel.setDescription("Lauf mittig hindurch", "oder zumindest versuch's,", "Lauf schnell und gerade", "zu dem, was du suchst.");
+        schnitzel.setDescription("In pilzigen Höhen", "#2", "Große Pilze -", "Große Preise.");
         schnitzel.spawn();
 
         //bei den kisten
         schnitzel = new Schnitzel();
         schnitzel.setLocation(new Location(world, 141.5, 19.2, 291.5));
-        schnitzel.setDescription("Such bei den Kisten", "Such unter den Kisten", "Such über den Kisten", "Such neben den Kisten");
+        schnitzel.setDescription("Am See hoch die Leiter", "Such bei den Kisten", "Und niemand wird dich", "je überlisten");
         schnitzel.spawn();
 
         //loge
         schnitzel = new Schnitzel();
         schnitzel.setLocation(new Location(world, 103.5, 27.7, 257.5));
-        schnitzel.setDescription("Such am Ort mit der", "großartigen Aussicht", "Oder auch nicht.");
+        schnitzel.setDescription("Such am Ort mit der", "großartigen Aussicht", "Blick herab auf das Nass,", "da werden Zombies ganz blass.");
         schnitzel.spawn();
 
         //lavasee
@@ -246,7 +209,20 @@ public class SchnitzelEvent extends BiomiaServer {
         //hinterstes eck
         schnitzel = new Schnitzel();
         schnitzel.setLocation(new Location(world, 313, 8.2, 168));
-        schnitzel.setDescription("Tief, tief unten,", "lauf so weit wie du kannst", "schnell wird gefunden", "was finden du kannst.");
+        schnitzel.setDescription("Hinterm Pilz, über'n Teich", "bei den Stegen in den Gang", "schnell wird gefunden", "was finden du kannst.");
+        schnitzel.spawn();
+
+        //labyrintheingang: 370.5 23 439.5 -90 0
+        //labyrinth
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 437.5, 23.2, 498.5));
+        schnitzel.setDescription("Ein Ort, an dem mehr", "Gänge als Türen sind.", "Wer in Kisten sieht,", "findet das Labyrinth.");
+        schnitzel.spawn();
+
+        //rundgang ende
+        schnitzel = new Schnitzel();
+        schnitzel.setLocation(new Location(world, 366.5, 21.2, 674.5));
+        schnitzel.setDescription("Einmal den Rundgang", "überstanden!", "Besser als die", "ander'n Probanden!");
         schnitzel.spawn();
     }
 
@@ -338,7 +314,7 @@ public class SchnitzelEvent extends BiomiaServer {
     }
 
     public static void openBackpack(BiomiaPlayer biomiaPlayer) {
-        Inventory inv = inventorys.computeIfAbsent(biomiaPlayer, inventory -> Bukkit.createInventory(null, 45, backpackName));
+        Inventory inv = inventorys.computeIfAbsent(biomiaPlayer, inventory -> Bukkit.createInventory(null, 36, backpackName));
 
         ArrayList<String> foundSchnitzel = getFoundSchnitzel(biomiaPlayer);
 
@@ -397,30 +373,57 @@ public class SchnitzelEvent extends BiomiaServer {
                 e.printStackTrace();
                 return null;
             }
+
+            TextComponent textComp3 = new TextComponent(
+                    "§lSchnitzeljagd!§f\n\n" +
+                            "§1Sammle Schnitzel und Bücher§r, " +
+                            "sei einer der ersten um dir Preise " +
+                            "zu sichern!\n\n" +
+                            "§1Töte Monster§r! Je mehr Monster " +
+                            "du tötest, umso besser wird " +
+                            "deine Ausrüstung!"
+            );
+            IChatBaseComponent page3 = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(textComp3));
+            pages.add(page3);
+
             TextComponent textComp1 = new TextComponent(
-                    "Checkpoints:\n" +
+                    "§lCheckpoints:§f\n" +
                             "Alle 2 Minuten wird\n" +
                             "automatisch ein\n" +
                             "Checkpoint (Spawnpunkt)\n" +
                             "auf deine aktuelle\n" +
                             "Position gesetzt.\n" +
-                            "/checkpoint für TP zum\n" +
-                            "letzten Checkpoint\n" +
-                            "/checkpoint set Setze\n" +
+                            "§1/checkpoint§r für TP\n" +
+                            "zum letzten Checkpoint\n" +
+                            "§1/checkpoint set§r Setze\n" +
                             "den Checkpoint manuell");
             //TextComponent textComp2 = new TextComponent("\n\nINFO TEXT HINZUFÜGEN!");
             //textComp1.addExtra(textComp2);
             IChatBaseComponent page = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(textComp1));
             pages.add(page);
             TextComponent textComp2 = new TextComponent(
-                    "Preise:\n" +
-                            "Die Hauptpreise gehen je an die 3 besten Spieler in jeder Kategorie:\n" +
-                            "-Meiste Monstermarken\n" +
+                    "§lPreise:§f\n" +
+                            "Die Hauptpreise gehen je an die besten Spieler in jeder Kategorie:\n" +
+                            "-Meiste Monsterpunkte\n" +
+                            " §1Roccat Gaming Maus§r\n" +
                             "-Am schnellsten alle Schnitzel gefunden\n" +
-                            "-Am schnellsten alle Bücher gefunden");
+                            " §11 XBox Controller§r\n" +
+                            "-Am schnellsten alle Bücher gefunden\n" +
+                            " §1alle Biomia-Bücher"
+            );
             IChatBaseComponent page2 = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(textComp2));
             pages.add(page2);
-            //TODO: Preise hinzufügen
+            TextComponent textComp4 = new TextComponent(
+                    "2. Plätze:\n" +
+                            " §1Biomia Band 1 +\n" +
+                            " §1Biomia-Tasse§r\n" +
+                            "3. Plätze:\n" +
+                            " §1Biomia Weltenlabor#2§r\n\n" +
+                            "Viel Spaß wünscht\n" +
+                            "das BIOMIA-Team!"
+            );
+            IChatBaseComponent page4 = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(textComp4));
+            pages.add(page4);
             book.setItemMeta(bookMeta);
         }
         return book;
@@ -438,7 +441,7 @@ public class SchnitzelEvent extends BiomiaServer {
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
         o.setDisplayName("\u00A7cBIO\u00A7bMIA");
         o.getScore(" ").setScore(13);
-        o.getScore("\u00A7cMobs Getötet:").setScore(12);
+        o.getScore("\u00A7cMonsterpunkte:").setScore(12);
         o.getScore("\u00A7c\u00A7b").setScore(11);
         o.getScore("\u00A7a").setScore(10);
         o.getScore("\u00A7b").setScore(9);
