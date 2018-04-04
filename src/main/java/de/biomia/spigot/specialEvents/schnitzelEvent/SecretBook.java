@@ -68,7 +68,9 @@ public class SecretBook {
             comments.add(id + "");
             BiomiaStat.BooksFound.increment(bp.getBiomiaPlayerID(), 1, id + "");
             bp.sendMessage(Messages.PREFIX + "§7Du hast das Buch " + name + " §7gefunden!");
-            event.executeEvent(bp);
+            if (event != null) {
+                event.executeEvent(bp);
+            }
             if (comments.size() == SchnitzelEvent.getSecretBookMap().size()) {
                 Date date = BiomiaStat.SchnitzelFound.getFirstIncrementDate(bp);
                 int duration = (int) ((System.currentTimeMillis() - date.getTime()) / 1000);
@@ -90,7 +92,7 @@ public class SecretBook {
     }
 
     public int getSlot() {
-        return id + 17;
+        return id + 35;
     }
 
     public ItemStack getItem() {
