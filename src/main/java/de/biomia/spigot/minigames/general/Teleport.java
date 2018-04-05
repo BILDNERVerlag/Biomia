@@ -30,10 +30,12 @@ public class Teleport {
                 if (iterator.hasNext()) {
                     Player p = iterator.next();
                     BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-                    if (versus && (instance.isSpectator(bp) || instance.getInstance().containsPlayer(bp)))
-                        Versus.getInstance().getManager().moveToLobby(p, false);
-                    else
-                        iterator.next().getPlayer().teleport(GameMode.getSpawn(false));
+                    if (instance.getInstance().getWorld().equals(bp.getPlayer())) {
+                        if (versus)
+                            Versus.getInstance().getManager().moveToLobby(p, false);
+                        else
+                            iterator.next().getPlayer().teleport(GameMode.getSpawn(false));
+                    }
                 } else {
                     cancel();
                 }

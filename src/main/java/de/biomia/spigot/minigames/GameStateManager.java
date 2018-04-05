@@ -176,7 +176,7 @@ public class GameStateManager {
 
             for (Player p : Bukkit.getOnlinePlayers()) {
                 BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-                if (!getMode().isSpectator(bp))
+                if (!getMode().getInstance().getWorld().equals(p.getWorld()))
                     continue;
                 bp.setBuild(false);
                 bp.setDamageEntitys(false);

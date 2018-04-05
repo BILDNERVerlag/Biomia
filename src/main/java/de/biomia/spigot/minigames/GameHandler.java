@@ -214,21 +214,14 @@ public abstract class GameHandler implements Listener {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
 
-        if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
-            if (!mode.getInstance().containsPlayer(bp) || !bp.getTeam().lives(bp)) {
-                e.setRespawnLocation(bp.getTeam().getHome());
-            } else
-                e.setRespawnLocation(new Location(Bukkit.getWorld(MinigamesConfig.getMapName()), 0, 100, 0));
-        } else {
+        if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
             if (bp.getTeam() != null) {
                 e.setRespawnLocation(bp.getTeam().getHome());
+            } else if (mode.isSpectator(bp)) {
+                e.setRespawnLocation(mode.getInstance().getWorld().getSpawnLocation().add(0, 100, 0));
             } else {
                 e.setRespawnLocation(GameMode.getSpawn(mode.getInstance().getType().isVersus()));
             }
-        }
-
-        if (mode.getInstance().containsPlayer(bp) && bp.getPlayer().getWorld().equals(mode.getInstance().getWorld())) {
-            e.setRespawnLocation(mode.getInstance().getWorld().getSpawnLocation().add(0, 100, 0));
         }
     }
 
