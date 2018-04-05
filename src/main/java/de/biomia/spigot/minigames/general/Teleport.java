@@ -32,7 +32,7 @@ public class Teleport {
                         if (versus)
                             Versus.getInstance().getManager().moveToLobby(p, false);
                         else
-                            iterator.next().getPlayer().teleport(GameMode.getSpawn(false));
+                            p.teleport(GameMode.getSpawn(false));
                     }
                 } else {
                     cancel();
