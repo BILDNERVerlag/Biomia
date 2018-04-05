@@ -46,7 +46,7 @@ public class BedWarsListener extends GameHandler {
 
     public final ArrayList<Block> destroyableBlocks = new ArrayList<>();
 
-    public BedWarsListener(GameMode mode) {
+    BedWarsListener(GameMode mode) {
         super(mode);
     }
 

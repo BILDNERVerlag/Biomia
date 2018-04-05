@@ -47,7 +47,8 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onKill(GameKillEvent e) {
-        GameRewards.KILL.giveReward(e.getBiomiaPlayer().getBiomiaPlayer(), e.getMode().getInstance());
+        if (e.isFinalKill())
+            GameRewards.KILL.giveReward(e.getBiomiaPlayer().getBiomiaPlayer(), e.getMode().getInstance());
     }
 
     @EventHandler
