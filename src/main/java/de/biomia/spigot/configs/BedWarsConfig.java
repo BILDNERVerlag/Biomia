@@ -3,6 +3,7 @@ package de.biomia.spigot.configs;
 import de.biomia.spigot.minigames.*;
 import de.biomia.spigot.minigames.general.shop.ItemType;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 
 import java.util.ArrayList;
@@ -14,18 +15,6 @@ public class BedWarsConfig extends MinigamesConfig {
     public BedWarsConfig(GameMode mode) {
         super(mode);
     }
-
-//    public void addSignsLocation(Location loc, int id) {
-//
-//        Sign sign = (Sign) loc.getBlock().getState();
-//        org.bukkit.material.Sign signData = (org.bukkit.material.Sign) sign.getData();
-//
-//        addLocation(loc, "Signs." + id, GameType.SKY_WARS);
-//        getConfig().set(getSavePath("Signs." + (id) + ".Facing"), signData.getFacing().name());
-//
-//        Variables.signLocations.put(sign, id);
-    //        saveConfig();
-    //   }
 
     public static void addSpawnerLocations(Location loc, ItemType spawner) {
 
@@ -56,6 +45,8 @@ public class BedWarsConfig extends MinigamesConfig {
         for (ItemType itemType : ItemType.values()) {
             for (int i = 1; i <= getConfig().getInt("lastID." + itemType.name()); i++) {
                 Location spawnerLoc = getLocation(instance, "Spawner." + itemType.name() + "." + i).add(0, 1.1, 0);
+                while (spawnerLoc.getBlock().getType() != Material.AIR)
+                    spawnerLoc = spawnerLoc.subtract(0, 1, 0);
                 spawner.computeIfAbsent(itemType, list -> new ArrayList<>()).add(spawnerLoc);
             }
         }
