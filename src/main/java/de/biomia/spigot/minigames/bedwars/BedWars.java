@@ -1,5 +1,6 @@
 package de.biomia.spigot.minigames.bedwars;
 
+import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.configs.MinigamesConfig;
@@ -53,6 +54,10 @@ public class BedWars extends GameMode {
             @Override
             public void start() {
                 super.start();
+
+                for (BiomiaPlayer bp : getMode().getInstance().getPlayers()) {
+                    bp.setBuild(true);
+                }
                 items = new SpawnItems(((BedWarsConfig) getConfig()).loadSpawner(getInstance()), getInstance().getWorld());
                 items.startSpawning();
             }

@@ -24,11 +24,13 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -46,6 +48,13 @@ public class BedWarsListener extends GameHandler {
 
     public BedWarsListener(GameMode mode) {
         super(mode);
+    }
+
+    @EventHandler
+    public void onVillagerDamage(EntityDamageEvent e) {
+        if (e.getEntityType() == EntityType.VILLAGER) {
+            e.setCancelled(true);
+        }
     }
 
     @EventHandler
@@ -213,6 +222,7 @@ public class BedWarsListener extends GameHandler {
         if (WaitingLobbyListener.inLobbyOrSpectator(bp) || !bp.canBuild()) {
             e.setCancelled(true);
             e.getPlayer().sendMessage(BedWarsMessages.cantPlaceBlock);
+            return;
         }
 
         destroyableBlocks.add(e.getBlock());
@@ -241,6 +251,7 @@ public class BedWarsListener extends GameHandler {
         if (WaitingLobbyListener.inLobbyOrSpectator(bp) || !bp.canBuild()) {
             e.setCancelled(true);
             e.getPlayer().sendMessage(BedWarsMessages.cantDestroyThisBlock);
+            return;
         }
 
         if (destroyableBlocks.contains(e.getBlock())) {
