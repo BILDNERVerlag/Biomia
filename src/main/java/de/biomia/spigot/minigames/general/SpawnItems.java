@@ -38,15 +38,12 @@ public class SpawnItems {
 
     public void startSpawning() {
 
-        Bukkit.broadcastMessage("new Runnable");
-
         items = new BukkitRunnable() {
 
             int i = 0;
 
             @Override
             public void run() {
-                Bukkit.broadcastMessage("spawning...");
                 if (i % bronzeSpawnDelay == 0)
                     locations.get(ItemType.BRONZE).forEach(each -> world.dropItem(each, bronze));
                 if (i % ironSpawnDelay == 0)

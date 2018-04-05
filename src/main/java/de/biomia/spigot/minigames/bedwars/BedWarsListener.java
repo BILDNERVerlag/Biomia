@@ -273,6 +273,8 @@ public class BedWarsListener extends GameHandler {
                     }
                 }
             }
+        } else {
+            e.setCancelled(true);
         }
     }
 }
