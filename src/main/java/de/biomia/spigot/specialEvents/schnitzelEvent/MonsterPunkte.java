@@ -205,11 +205,12 @@ public class MonsterPunkte {
                 inc = 3;
                 break;
         }
+        if (inc != 0)
+            BiomiaStat.SchnitzelMonsterKilled.increment(bp.getBiomiaPlayerID(), inc, null);
 
         int oldPoints = points;
         points += inc;
 
-        BiomiaStat.SchnitzelMonsterKilled.increment(bp.getBiomiaPlayerID(), inc, null);
         p.setLevel(points);
         p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
         giveInventory(oldPoints);

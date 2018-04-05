@@ -138,7 +138,6 @@ public class SchnitzelListener extends BiomiaListener {
         Player p = e.getEntity().getKiller();
         if (p != null) {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-            BiomiaStat.SchnitzelMonsterKilled.increment(bp.getBiomiaPlayerID(), 1, null);
             p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
             SchnitzelEvent.mobsKilled.get(Biomia.getBiomiaPlayer(p).getName()).addPoint(e.getEntityType());
         }
