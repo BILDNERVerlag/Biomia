@@ -103,8 +103,8 @@ public class Lobby extends BiomiaServer {
 
 
         World lobby = Bukkit.getWorld("LobbyBiomia");
-        
-        
+
+
         // BauWelt Portal
         new Teleporter(new Location(lobby, 559, 76, 286), new Location(lobby, 562, 77, 289), new Location(lobby, 551.5, 80, 285.5, -90, 0), BiomiaServerType.BauServer);
 
@@ -130,7 +130,6 @@ public class Lobby extends BiomiaServer {
         new Teleporter(new Location(Bukkit.getWorld("SkywarsSignlobby"), 0, -1000, 0), new Location(Bukkit.getWorld("SkywarsSignlobby"), 800, 1000, 1024), new Location(Bukkit.getWorld("SkywarsSignlobby"), 370.5, 82, 264.5, 70, 0)).setInverted();
         new Teleporter(new Location(lobby, 360, -1000, 150), new Location(lobby, 800, 1000, 700), new Location(lobby, 534.5, 67.5, 193.5)).setInverted();
 
-        new Teleporter(new Location(lobby, 530, 70, 216), new Location(lobby, 531, 74, 219), new Location(lobby, 535.5, 70, 219.6), BiomiaServerType.Event_Schnitzeljagd);
     }
 
     // GETTER
