@@ -4,8 +4,6 @@ import de.biomia.spigot.minigames.*;
 import de.biomia.spigot.minigames.general.shop.ItemType;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.Sign;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +30,7 @@ public class BedWarsConfig extends MinigamesConfig {
     public static void addSpawnerLocations(Location loc, ItemType spawner) {
 
         int i = getConfig().getInt("lastID." + spawner.name());
-        addLocation(loc, "Spawner." + spawner.name() + "." + ++i, GameType.SKY_WARS);
+        addLocation(loc, "Spawner." + spawner.name() + "." + ++i, GameType.BED_WARS);
         getConfig().set("lastID." + spawner.name(), i);
         saveConfig();
     }
