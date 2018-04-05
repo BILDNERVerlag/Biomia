@@ -173,7 +173,6 @@ public class GameStateManager {
 
         @Override
         void start() {
-
             for (Player p : Bukkit.getOnlinePlayers()) {
                 BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
                 if (!getMode().getInstance().getWorld().equals(p.getWorld()))
@@ -181,6 +180,7 @@ public class GameStateManager {
                 bp.setBuild(false);
                 bp.setDamageEntitys(false);
                 bp.setGetDamage(false);
+                p.setGameMode(org.bukkit.GameMode.ADVENTURE);
             }
             Teleport.teleportAllToWarteLobby(getMode());
             if (!getMode().getInstance().getType().isVersus()) {
