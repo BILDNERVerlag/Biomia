@@ -98,7 +98,6 @@ public class GameStateManager {
             } else {
                 stop();
             }
-
         }
 
         public void stop() {
