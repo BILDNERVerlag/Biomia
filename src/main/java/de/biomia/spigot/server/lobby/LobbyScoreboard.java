@@ -130,7 +130,7 @@ public class LobbyScoreboard {
                 rankName = "SrMod";
                 break;
             case "developer":
-                rankName = "Dev";
+                rankName = "Developer";
                 break;
             case "admin":
                 rankName = "Admin";

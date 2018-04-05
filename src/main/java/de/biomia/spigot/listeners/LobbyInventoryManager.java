@@ -3,15 +3,9 @@ package de.biomia.spigot.listeners;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.tools.ItemCreator;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -85,7 +79,7 @@ public class LobbyInventoryManager {
         // 7 Verstecke Spieler
         addServerSwitcher(pl);
 
-        if (biomiaPlayer.isOwner()) {
+        if (biomiaPlayer.isOwnerOrDev()) {
             addBow(pl);
             addSilentItem(pl);
             addElytra(pl);

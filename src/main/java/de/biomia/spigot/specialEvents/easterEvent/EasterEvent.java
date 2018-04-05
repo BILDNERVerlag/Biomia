@@ -36,7 +36,6 @@ public class EasterEvent implements Listener {
             Material.QUARTZ_BLOCK, Material.MOSSY_COBBLESTONE, Material.HARD_CLAY));
     private static final String eggName = "9fbeb0aa688e97e463b518d4c0c8f5ba822a7386a46de3ca26ce2c5b3137985c";
     private static final String specialEggName = "7be7545297dfd6266bbaa2051825e8879cbfa42c7e7e24e50796f27ca6a18";
-
     private final int randomEggsPerServer;
     private final Location location;
     private final int radius;

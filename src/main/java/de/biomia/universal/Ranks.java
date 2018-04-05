@@ -22,6 +22,8 @@ public enum Ranks {
                 return "\u00A75Admin | ";
             case Owner:
                 return "\u00A7cOwner | ";
+            case Developer:
+                return "\u00A75Dev | ";
             case Builder:
                 return "\u00A72Builder | ";
             case YouTube:

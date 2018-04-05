@@ -22,7 +22,8 @@ public abstract class UniversalBiomiaPlayer {
         this.biomiaID = biomiaID;
         this.name = name;
         this.uuid = uuid;
-        permUser = api.getUser(getName());
+        if (name != null)
+            permUser = api.getUser(getName());
     }
 
     protected UniversalBiomiaPlayer(int biomiaID) {
@@ -107,8 +108,8 @@ public abstract class UniversalBiomiaPlayer {
         return (getRank() == Ranks.YouTube);
     }
 
-    public final boolean isOwner() {
-        return (getRank() == Ranks.Owner);
+    public final boolean isOwnerOrDev() {
+        return (getRank() == Ranks.Owner || getRank() == Ranks.Developer);
     }
 
     public boolean isPremium() {
@@ -127,17 +128,14 @@ public abstract class UniversalBiomiaPlayer {
 
     public Ranks getRank() {
         String rank = permUser.getPrimaryGroup();
-
         if (rank.equals("default")) {
             setRank(Ranks.UnregSpieler);
             return Ranks.UnregSpieler;
         }
-
         for (Ranks ranks : Ranks.values()) {
             if (ranks.getName().equals(rank))
                 return ranks;
         }
-
         return Ranks.UnregSpieler;
     }
 

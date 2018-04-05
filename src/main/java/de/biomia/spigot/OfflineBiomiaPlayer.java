@@ -88,4 +88,5 @@ public class OfflineBiomiaPlayer extends UniversalBiomiaPlayer {
             sendMessage("\u00A77Du erh\u00e4ltst \u00A7f" + coins + "\u00A77 BC!");
         }
     }
+
 }

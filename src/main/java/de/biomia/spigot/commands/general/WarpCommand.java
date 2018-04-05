@@ -3,13 +3,11 @@ package de.biomia.spigot.commands.general;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.BiomiaServerType;
-import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.universal.Messages;
 import de.biomia.universal.MySQL;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -48,7 +46,7 @@ public class WarpCommand extends BiomiaCommand {
                 args[0] = args[0].toLowerCase();
                 int verbleibendeWarps = bp.getPremiumLevel() + 3 - playerWarpLocations.size();
                 if (bp.isStaff()) verbleibendeWarps += 2;
-                if (bp.isOwner()) verbleibendeWarps += 6;
+                if (bp.isOwnerOrDev()) verbleibendeWarps += 6;
 
                 if (playerWarpLocations.size() >= bp.getPremiumLevel() + 3) {
                     p.sendMessage("\u00A7cDu hast bereits die \u00A7bmaximale \u00A7cAnzahl Warps erreicht.");
