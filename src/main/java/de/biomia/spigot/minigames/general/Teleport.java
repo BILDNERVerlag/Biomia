@@ -1,6 +1,5 @@
 package de.biomia.spigot.minigames.general;
 
-import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.MinigamesMessages;
@@ -29,8 +28,7 @@ public class Teleport {
             public void run() {
                 if (iterator.hasNext()) {
                     Player p = iterator.next();
-                    BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-                    if (instance.getInstance().getWorld().equals(bp.getPlayer())) {
+                    if (instance.getInstance().getWorld().equals(p.getWorld())) {
                         if (versus)
                             Versus.getInstance().getManager().moveToLobby(p, false);
                         else
