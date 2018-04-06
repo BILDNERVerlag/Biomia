@@ -28,12 +28,14 @@ public class GameInstance implements Listener {
     private final int teamSize;
     private final int teamAmount;
     private int playersOnStart = 0;
+    private final String mapDisplayName;
 
     public GameInstance(GameType type, String mapDisplayName, int teamAmount, int teamSize) {
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
         this.teamAmount = teamAmount;
         this.teamSize = teamSize;
         this.type = type;
+        this.mapDisplayName = mapDisplayName;
         this.world = new WorldCreator(mapDisplayName).createWorld();
         world.setGameRuleValue("announceAdvancements", "false");
         MinigamesConfig.mapName = mapDisplayName;
@@ -121,6 +123,10 @@ public class GameInstance implements Listener {
 
     public void setPlayersOnStart() {
         this.playersOnStart = players.size();
+    }
+
+    public String getMapDisplayName() {
+        return mapDisplayName;
     }
 
     public int getPlayersOnStart() {

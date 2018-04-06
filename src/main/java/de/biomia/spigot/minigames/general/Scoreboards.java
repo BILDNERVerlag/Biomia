@@ -44,7 +44,7 @@ public class Scoreboards {
         map.addEntry("\u00A7c");
         teams.addEntry("\u00A7f");
 
-        map.setPrefix("\u00A7b" + mode.getInstance().getWorld().getName());
+        map.setPrefix("\u00A7b" + mode.getInstance().getMapDisplayName());
         teams.setPrefix("\u00A7b" + mode.getInstance().getTeamAmount() + " \u00A77x " + "\u00A7b" + mode.getInstance().getTeamSize());
 
         for (GameTeam t : mode.getTeams()) {
