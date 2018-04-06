@@ -100,7 +100,7 @@ public abstract class UniversalBiomiaPlayer {
     }
 
     public final boolean isSrStaff() {
-        return (getRank() == Ranks.Owner || getRank() == Ranks.Admin || getRank() == Ranks.Developer || getRank() == Ranks.SrBuilder || getRank() == Ranks.SrModerator);
+        return (getRank() == Ranks.Owner || getRank() == Ranks.Admin || getRank() == Ranks.Developer || getRank() == Ranks.SrBuilder || getRank() == Ranks.SrModerator || getRank() == Ranks.TestAccount);
 
     }
 
@@ -109,7 +109,7 @@ public abstract class UniversalBiomiaPlayer {
     }
 
     public final boolean isOwnerOrDev() {
-        return (getRank() == Ranks.Owner || getRank() == Ranks.Developer);
+        return (getRank() == Ranks.Owner || getRank() == Ranks.Developer || getRank() == Ranks.TestAccount);
     }
 
     public boolean isPremium() {

@@ -3,6 +3,7 @@ package de.biomia.bungee.cmds;
 import de.biomia.bungee.BungeeBiomia;
 import de.biomia.bungee.OfflineBungeeBiomiaPlayer;
 import de.biomia.bungee.events.ChannelListener;
+import de.biomia.bungee.msg.BungeeMessages;
 import de.biomia.universal.Messages;
 import de.biomia.universal.MySQL;
 import de.biomia.universal.Ranks;
@@ -31,8 +32,7 @@ public class RegisterCommand extends Command {
 
             if (args.length == 0) {
                 TextComponent register = new TextComponent();
-                register.setText(ChatColor.BLUE + "Registriere dich jetzt auf: " + ChatColor.GRAY + "www."
-                        + ChatColor.DARK_PURPLE + "bio" + ChatColor.DARK_GREEN + "mia" + ChatColor.GRAY + ".de");
+                register.setText(BungeeMessages.registerAt);
                 register.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://biomia.de"));
                 p.sendMessage(register);
                 TextComponent klicker = new TextComponent("\u00A77Klick mich^^");

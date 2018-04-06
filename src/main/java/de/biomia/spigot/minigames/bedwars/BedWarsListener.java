@@ -37,6 +37,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
@@ -64,8 +65,7 @@ public class BedWarsListener extends GameHandler {
         Player killer = p.getKiller();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         GameTeam team = bp.getTeam();
-        p.getInventory().clear();
-
+        e.setKeepInventory(false);
         if (!mode.isSpectator(bp)) {
             if (!((BedWarsTeam) team).hasBed()) {
                 e.setDeathMessage(MinigamesMessages.playerDiedFinally.replace("%p", team.getColorcode() + p.getName()));
@@ -80,7 +80,7 @@ public class BedWarsListener extends GameHandler {
                     Bukkit.getPluginManager().callEvent(new GameKillEvent(bpKiller, bp, false, mode));
                 }
             }
-        Dead.respawn(p);
+            Dead.respawn(p);
         }
     }
 
@@ -276,5 +276,11 @@ public class BedWarsListener extends GameHandler {
         } else {
             e.setCancelled(true);
         }
+    }
+
+    @EventHandler
+    public void onRespawnNoOverload(PlayerRespawnEvent e) {
+        e.getPlayer().getInventory().clear();
+        //TODO Loop?
     }
 }

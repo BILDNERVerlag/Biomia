@@ -2,7 +2,7 @@ package de.biomia.universal;
 
 public enum Ranks {
 
-    UnregSpieler(22), RegSpieler(21),
+    UnregSpieler(23), RegSpieler(22), TestAccount(21),
     PremiumEins(20), PremiumZwei(19), PremiumDrei(18), PremiumVier(17), PremiumFuenf(16), PremiumSechs(15), PremiumSieben(14), PremiumAcht(13), PremiumNeun(12), PremiumZehn(11),
     YouTube(10),
     JrBuilder(9), Builder(8), PixelBiest(7), SrBuilder(6),
@@ -64,6 +64,8 @@ public enum Ranks {
                 return "\u00A7eVII | ";
             case PixelBiest:
                 return "\u00A76PB | ";
+            case TestAccount:
+                return "T\u00A7kX\u00A7rst | ";
         }
         return "NoPrefix";
     }

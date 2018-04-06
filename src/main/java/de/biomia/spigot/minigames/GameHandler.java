@@ -110,7 +110,7 @@ public abstract class GameHandler implements Listener {
         if (e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getEntity());
             BiomiaPlayer damager = Biomia.getBiomiaPlayer((Player) e.getDamager());
-            if (!mode.isSpectator(bp) && !mode.isSpectator(damager))
+            if (bp.getTeam() != null && damager.getTeam() != null)
                 if (bp.getTeam().equals(damager.getTeam()))
                     e.setCancelled(true);
         }
@@ -170,25 +170,26 @@ public abstract class GameHandler implements Listener {
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent e) {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        if (e.getFrom().equals(mode.getInstance().getWorld()))
+        if (e.getFrom().equals(mode.getInstance().getWorld())) {
+            mode.getInstance().removePlayer(bp);
+            if (bp.getTeam() != null)
+                bp.getTeam().leave(bp);
             if (!WaitingLobbyListener.inLobbyOrSpectator(bp)) {
                 Bukkit.getPluginManager().callEvent(new GameLeaveEvent(bp, mode));
-                mode.getInstance().removePlayer(bp);
                 mode.getInstance().getPlayers().forEach(each -> each.sendMessage(bp.getTeam().getColorcode() + e.getPlayer().getName() + MinigamesMessages.leftTheGame));
-                if (bp.getTeam() != null) {
-                    bp.getTeam().leave(bp);
-                }
             }
+        }
     }
 
     @EventHandler
     public void onDisconnect(PlayerQuitEvent e) {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
+        mode.getInstance().removePlayer(bp);
+        if (bp.getTeam() != null)
+            bp.getTeam().leave(bp);
         if (!WaitingLobbyListener.inLobbyOrSpectator(bp)) {
             Bukkit.getPluginManager().callEvent(new GameLeaveEvent(bp, mode));
             e.setQuitMessage(bp.getTeam().getColorcode() + e.getPlayer().getName() + MinigamesMessages.leftTheGame);
-            if (bp.getTeam() != null)
-                bp.getTeam().leave(bp);
         }
     }
 
@@ -202,12 +203,10 @@ public abstract class GameHandler implements Listener {
             }
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
             Location loc = Teleport.getStartLocation(bp);
-            if (loc != null && loc.distance(e.getTo()) > .5) {
+            if (loc != null && loc.distance(e.getTo()) > .5)
                 Teleport.removeFromStartLocs(bp);
-            }
-        } else if (e.getTo().getBlockY() <= 20) {
+        } else if (e.getTo().getBlockY() <= 20)
             e.getPlayer().teleport(GameMode.getSpawn(mode.getInstance().getType().isVersus()));
-        }
     }
 
     @EventHandler
@@ -229,10 +228,8 @@ public abstract class GameHandler implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractAtEntityEvent e) {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME) {
+        if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME)
             e.setCancelled(true);
-        }
-
         if (e.getRightClicked() instanceof ArmorStand) {
             for (GameTeam allteams : mode.getTeams()) {
 
@@ -259,13 +256,13 @@ public abstract class GameHandler implements Listener {
 
                 String displayname = e.getItem().getItemMeta().getDisplayName();
                 switch (displayname) {
-                case MinigamesItemNames.teamWaehlerItem:
-                    p.openInventory(mode.getTeamSwitcher());
-                    break;
-                case MinigamesItemNames.startItem:
-                    if (mode.getStateManager().getLobbyState().getCountDown() > 5)
-                        mode.getStateManager().getLobbyState().setCountDown(5);
-                    break;
+                    case MinigamesItemNames.teamWaehlerItem:
+                        p.openInventory(mode.getTeamSwitcher());
+                        break;
+                    case MinigamesItemNames.startItem:
+                        if (mode.getStateManager().getLobbyState().getCountDown() > 5)
+                            mode.getStateManager().getLobbyState().setCountDown(5);
+                        break;
                 }
             }
         }
