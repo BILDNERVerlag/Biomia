@@ -46,7 +46,7 @@ public class LobbyScoreboard {
                 if (!p.getScoreboard().equals(sb))
                     cancel();
                 else
-                reloadSB(p, sb);
+                    reloadSB(p, sb);
             }
         }.runTaskTimer(Main.getPlugin(), 0, 100);
 
@@ -67,6 +67,7 @@ public class LobbyScoreboard {
         coins.setPrefix("\u00A7b" + bp.getCoins());
         freunde.setPrefix("\u00A7b" + bp.getOnlineFriends().size() + " \u00A77/ \u00A7b" + bp.getFriends().size());
     }
+
     private static String getGroupName(Player p) {
         String rankName = Biomia.getBiomiaPlayer(p).getRank().getName();
         rankName = rankName.replaceAll("premium", "");
@@ -137,6 +138,9 @@ public class LobbyScoreboard {
                 break;
             case "pixelbiest":
                 rankName = "PixelBiest";
+                break;
+            case "testaccount":
+                rankName = "TestAccount";
                 break;
         }
         return rankName;

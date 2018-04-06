@@ -58,7 +58,7 @@ public class VSManager implements Listener {
 
         VSGroup skywars = main.registerDeaktivatableGroup(GameType.SKY_WARS_VS, skywarsSettingItem, "\u00A7aSkyWars", 2, 0, true);
         VSGroup skywarsMaps = skywars.registerGroup(GameType.SKY_WARS_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
-        skywarsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, skywarsMaps, "Map1"));
+        skywarsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.SMOOTH_BRICK, (byte) 2), 100, 0, true, skywarsMaps, "Ruins"));
         skywars.registerGroup(GameType.SKY_WARS_VS, SkyWarsItemNames.kitItem, SkyWarsItemNames.kitItemName, 1);
 
 //        VSGroup kitpvp = main.registerDeaktivatableGroup(GameType.KIT_PVP_VS, kitPvPSettingItem, "\u00A7dKitPvP", 4, 0, true);

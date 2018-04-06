@@ -2,6 +2,7 @@ package de.biomia.spigot.listeners.servers;
 
 import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import cloud.timo.TimoCloud.api.objects.ServerObject;
+import de.biomia.bungee.msg.BungeeMessages;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.BiomiaServerType;
@@ -255,13 +256,10 @@ public class LobbyListener extends BiomiaListener {
     private static void sendRegMsg(Player p) {
         if (Biomia.getBiomiaPlayer(p).getRank() == Ranks.UnregSpieler) {
             TextComponent register = new TextComponent();
-            p.sendMessage(ChatColor.DARK_PURPLE + "Du bist noch nicht registriert!");
-            register.setText(ChatColor.BLUE + "Registriere dich jetzt auf: " + ChatColor.GRAY + "www."
-                    + ChatColor.DARK_PURPLE + "Bio" + ChatColor.DARK_GREEN + "mia"
-                    + ChatColor.GRAY + ".de");
+            register.setText(BungeeMessages.registerAt);
             register.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://biomia.de"));
             p.spigot().sendMessage(register);
-            p.sendMessage(ChatColor.GRAY + "Oder später mit " + ChatColor.GOLD + "/register");
+            p.sendMessage(String.format("%sOder später mit %s/register",Messages.COLOR_MAIN,Messages.COLOR_SUB));
         }
     }
 

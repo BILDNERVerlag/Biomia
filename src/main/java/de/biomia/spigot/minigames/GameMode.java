@@ -90,14 +90,17 @@ public abstract class GameMode {
 
     public void setAllToTeams() {
         Iterator<BiomiaPlayer> l = getInstance().getPlayers().iterator();
-        for (GameTeam team : getTeams()) {
-            while (!team.isFull()) {
-                if (l.hasNext()) {
-                    BiomiaPlayer bp = l.next();
-                    if (bp.getTeam() == null)
-                        team.join(bp);
-                } else {
-                    return;
+        while (l.hasNext()) {
+            for (GameTeam team : getTeams()) {
+                if (!team.isFull()) {
+                    if (l.hasNext()) {
+                        BiomiaPlayer bp = l.next();
+                        if (bp.getTeam() == null) {
+                            team.join(bp);
+                        }
+                    } else {
+                        return;
+                    }
                 }
             }
         }
@@ -124,8 +127,9 @@ public abstract class GameMode {
                     } else {
                         for (GameTeam t : getTeams()) {
                             if (getInstance().getTeamSize() - t.getPlayers().size() >= onlineParty.size()) {
-                                for (BiomiaPlayer p : onlineParty)
+                                for (BiomiaPlayer p : onlineParty) {
                                     t.join(p);
+                                }
                                 return;
                             }
                         }
@@ -149,15 +153,15 @@ public abstract class GameMode {
                 continue;
 
             switch (getInstance().getType()) {
-            case BED_WARS_VS:
-            case BED_WARS:
-                new BedWarsTeam(colors, this);
-                break;
-            default:
-            case SKY_WARS_VS:
-            case SKY_WARS:
-                new GameTeam(colors, this);
-                break;
+                case BED_WARS_VS:
+                case BED_WARS:
+                    new BedWarsTeam(colors, this);
+                    break;
+                default:
+                case SKY_WARS_VS:
+                case SKY_WARS:
+                    new GameTeam(colors, this);
+                    break;
             }
 
 

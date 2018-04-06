@@ -237,53 +237,6 @@ public class SkyWarsListener extends GameHandler {
     }
 
     @EventHandler
-    public void onEntityDamage(EntityDamageByEntityEvent e) {
-        if (e.getEntity() instanceof Player) {
-            Player p = (Player) e.getEntity();
-            BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-            if (e.getDamager() instanceof Player) {
-                Player killer = (Player) e.getDamager();
-                BiomiaPlayer killerbp = Biomia.getBiomiaPlayer(killer);
-
-                if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME)
-                    e.setCancelled(true);
-
-                // Check if the Entity in the same team like the damager
-                if (mode.getInstance().containsPlayer(killerbp) && mode.getInstance().containsPlayer(Biomia.getBiomiaPlayer(p))) {
-                    if (killerbp.getTeam() != null && killerbp.getTeam().containsPlayer(bp)) {
-                        e.setCancelled(true);
-                    }
-                } else {
-                    e.setCancelled(true);
-                }
-
-                if (p.getHealth() <= e.getFinalDamage()) {
-
-                    // Check if Player is instatnce of the act round
-                    if (mode.getInstance().containsPlayer(bp)) {
-                        Bukkit.getPluginManager().callEvent(new GameDeathEvent(bp, killerbp, true, mode));
-                        Bukkit.getPluginManager().callEvent(new GameKillEvent(killerbp, bp, true, mode));
-
-                        Bukkit.broadcastMessage(String.format(MinigamesMessages.playerKilledByPlayer, bp.getTeam().getColorcode() + p.getName(), killerbp.getTeam().getColorcode() + killer.getName()));
-
-                        Location loc = p.getLocation().add(0, 1, 0);
-
-                        for (ItemStack itemStack : Arrays.asList(p.getInventory().getContents())) {
-                            if (itemStack != null)
-                                p.getWorld().dropItem(loc, itemStack);
-                        }
-                        for (ItemStack itemStack : Arrays.asList(p.getInventory().getArmorContents())) {
-                            if (itemStack != null)
-                                p.getWorld().dropItem(loc, itemStack);
-                        }
-                        p.getInventory().clear();
-                    }
-                }
-            }
-        }
-    }
-
-    @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
         if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.WAITING_FOR_START) {
             e.setCancelled(true);

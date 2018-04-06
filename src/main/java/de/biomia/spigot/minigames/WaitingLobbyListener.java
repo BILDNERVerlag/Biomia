@@ -7,6 +7,7 @@ import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.versus.Versus;
 import de.biomia.universal.Ranks;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -15,6 +16,8 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.*;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
+
+import java.util.logging.Level;
 
 public class WaitingLobbyListener extends BiomiaListener {
 
@@ -33,7 +36,10 @@ public class WaitingLobbyListener extends BiomiaListener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onSpawn(PlayerSpawnLocationEvent e) {
-        e.setSpawnLocation(GameMode.getSpawn(isVersus));
+        Location spawnLoc = GameMode.getSpawn(isVersus);
+        if (!spawnLoc.getChunk().isLoaded())
+            spawnLoc.getChunk().load();
+        e.setSpawnLocation(spawnLoc);
     }
 
     @EventHandler

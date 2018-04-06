@@ -19,8 +19,8 @@ import static de.biomia.spigot.configs.Config.saveConfig;
 public class EventCommands extends BiomiaCommand {
 
     private final static boolean winterEventOn = false;
-    private final static boolean easterEventOn = true;
-    private final static boolean schnitzelEventOn = true;
+    private final static boolean easterEventOn = false;
+    private final static boolean schnitzelEventOn = false;
 
     public EventCommands(String string) {
         super(string);
@@ -80,7 +80,7 @@ public class EventCommands extends BiomiaCommand {
                 }
                 if (getName().equals("addeggs") && p.hasPermission("biomia.event.addeggs")) {
                     if (args.length >= 2) {
-                        Main.getEvent().addEggs(Biomia.getOfflineBiomiaPlayer(args[0]).getBiomiaPlayerID(), Integer.valueOf(args[1]));
+                        //Main.getEvent().addEggs(Biomia.getOfflineBiomiaPlayer(args[0]).getBiomiaPlayerID(), Integer.valueOf(args[1]));
                     }
                 }
             }
