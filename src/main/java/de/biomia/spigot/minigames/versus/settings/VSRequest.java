@@ -96,7 +96,7 @@ public class VSRequest {
     }
 
     public void startServer() {
-        gameInstance = new GameInstance(mode, Versus.getInstance().getManager().copyWorld(mode, id, mapName), 2, 1);
+        gameInstance = new GameInstance(mode, mapName, Versus.getInstance().getManager().copyWorld(mode, id, mapName).getName(), 2, 1);
         gameInstance.registerPlayer(leader);
         gameInstance.registerPlayer(bp2);
         Versus.getInstance().getManager().getRequests().put(gameInstance, this);

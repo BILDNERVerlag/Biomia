@@ -30,13 +30,13 @@ public class GameInstance implements Listener {
     private int playersOnStart = 0;
     private final String mapDisplayName;
 
-    public GameInstance(GameType type, String mapDisplayName, int teamAmount, int teamSize) {
+    public GameInstance(GameType type, String mapDisplayName, String mapName, int teamAmount, int teamSize) {
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
         this.teamAmount = teamAmount;
         this.teamSize = teamSize;
         this.type = type;
         this.mapDisplayName = mapDisplayName;
-        this.world = new WorldCreator(mapDisplayName).createWorld();
+        this.world = new WorldCreator(mapName).createWorld();
         world.setGameRuleValue("announceAdvancements", "false");
         MinigamesConfig.mapName = mapDisplayName;
 
@@ -63,10 +63,6 @@ public class GameInstance implements Listener {
                 TimoCloudAPI.getBukkitInstance().getThisServer().setExtra(String.format("\u00A7b%d \u00A77x \u00A7c%d", teamAmount, teamSize));
             }
         }.runTaskLater(Main.getPlugin(), 15);
-    }
-
-    public GameInstance(GameType type, World world, int teamAmount, int teamSize) {
-        this(type, world.getName(), teamAmount, teamSize);
     }
 
     public void registerPlayer(BiomiaPlayer bp) {

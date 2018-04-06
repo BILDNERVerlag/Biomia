@@ -22,7 +22,6 @@ import de.biomia.spigot.server.demoserver.Weltenlabor;
 import de.biomia.spigot.server.freebuild.Freebuild;
 import de.biomia.spigot.server.lobby.Lobby;
 import de.biomia.spigot.server.quests.Quests;
-import de.biomia.spigot.specialEvents.easterEvent.EasterEvent;
 import de.biomia.spigot.specialEvents.schnitzelEvent.SchnitzelEvent;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.PlayerToServerConnector;
@@ -107,7 +106,7 @@ public class Main extends JavaPlugin {
                         Bukkit.getPluginManager().registerEvents(new WaitingLobbyListener(false), Main.getPlugin());
                     }
                 });
-                new GameInstance(BED_WARS, MinigamesConfig.getMapName(), MinigamesConfig.getTeamAmount(), MinigamesConfig.getTeamSize()).getGameMode().start();
+                new GameInstance(BED_WARS, MinigamesConfig.getMapName(), MinigamesConfig.getMapName(), MinigamesConfig.getTeamAmount(), MinigamesConfig.getTeamSize()).getGameMode().start();
                 break;
             case TestSkyWars:
             case SkyWars:
@@ -120,7 +119,7 @@ public class Main extends JavaPlugin {
                     }
                 });
                 Items.init();
-                new GameInstance(SKY_WARS, MinigamesConfig.getMapName(), MinigamesConfig.getTeamAmount(), MinigamesConfig.getTeamSize()).getGameMode().start();
+                new GameInstance(SKY_WARS, MinigamesConfig.getMapName(), MinigamesConfig.getMapName(), MinigamesConfig.getTeamAmount(), MinigamesConfig.getTeamSize()).getGameMode().start();
                 break;
             case Duell:
                 Biomia.setServerInstance(new Versus());
