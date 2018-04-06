@@ -69,7 +69,7 @@ public class SkyWarsListener extends GameHandler {
             Player pShooter = (Player) shooter;
             pShooter.playSound(pShooter.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10, 1);
 
-            if (projectile.getCustomName().equals(SkyWarsItemNames.oneHitSnowball)) {
+            if (projectile.getCustomName() != null && projectile.getCustomName().equals(SkyWarsItemNames.oneHitSnowball)) {
                 ((Damageable) event.getHitEntity()).damage(0.5D, pShooter);
                 ((Damageable) event.getHitEntity()).setHealth(0);
                 ((Damageable) event.getHitEntity()).damage(0.5D, pShooter);

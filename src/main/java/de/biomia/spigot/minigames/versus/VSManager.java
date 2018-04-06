@@ -9,6 +9,7 @@ import de.biomia.spigot.messages.manager.ActionBar;
 import de.biomia.spigot.messages.manager.Scoreboards;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameType;
+import de.biomia.spigot.minigames.general.Dead;
 import de.biomia.spigot.minigames.general.kits.Kit;
 import de.biomia.spigot.minigames.general.kits.KitManager;
 import de.biomia.spigot.minigames.versus.settings.VSGroup;
@@ -67,6 +68,7 @@ public class VSManager implements Listener {
     }
 
     public void moveToLobby(Player p, boolean onSpawn) {
+        Dead.respawn(p);
         if (!onSpawn)
             p.teleport(de.biomia.spigot.minigames.GameMode.getSpawn(true));
         p.setGameMode(GameMode.SURVIVAL);

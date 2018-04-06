@@ -11,6 +11,7 @@ import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.general.CountDown;
 import de.biomia.spigot.minigames.general.Scoreboards;
 import de.biomia.spigot.minigames.general.Teleport;
+import de.biomia.spigot.minigames.versus.Versus;
 import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -169,8 +170,12 @@ public class GameStateManager {
                 bp.setDamageEntitys(false);
                 bp.setGetDamage(false);
                 p.setGameMode(org.bukkit.GameMode.ADVENTURE);
+                if (bp.getTeam() != null)
+                    bp.getTeam().leave(bp);
+                if (getMode().getInstance().getType().isVersus())
+                    Versus.getInstance().getManager().moveToLobby(p, false);
             }
-            Teleport.teleportAllToWarteLobby(getMode());
+            //Teleport.teleportAllToWarteLobby(getMode());
             if (!getMode().getInstance().getType().isVersus()) {
                 new BukkitRunnable() {
                     int i = 15;

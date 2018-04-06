@@ -285,8 +285,8 @@ public abstract class GameHandler implements Listener {
                 bpKiller = null;
                 e.setDeathMessage(MinigamesMessages.playerDied.replace("%p", bp.getTeam().getColorcode() + p.getName()));
             }
-            bp.getTeam().setDead(bp);
             Bukkit.getPluginManager().callEvent(new GameDeathEvent(bp, bpKiller, true, mode));
+            bp.getTeam().setDead(bp);
         }
     }
 
