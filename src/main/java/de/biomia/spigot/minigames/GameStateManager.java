@@ -86,8 +86,8 @@ public class GameStateManager {
         }
 
         public void start() {
-            Scoreboards.initLobbySB(getMode());
             if (!getMode().getInstance().getType().isVersus()) {
+                Scoreboards.initLobbySB(getMode());
                 countDown.startCountDown();
                 new BukkitRunnable() {
                     @Override
@@ -120,24 +120,13 @@ public class GameStateManager {
             super(mode);
         }
 
-        private BukkitTask clock;
-
         public void start() {
-
-            clock = new BukkitRunnable() {
-                @Override
-                public void run() {
-                    getMode().getInstance().incPlayTime();
-                }
-            }.runTaskTimer(Main.getPlugin(), 20, 20);
-
             getMode().getStateManager().setActualGameState(GameState.INGAME);
 
             if (!getMode().getInstance().getType().isVersus())
                 TimoCloudAPI.getBukkitInstance().getThisServer().setState(GameState.INGAME.name());
             getMode().getInstance().setPlayersOnStart();
             for (BiomiaPlayer bp : getMode().getInstance().getPlayers()) {
-
                 for (BiomiaPlayer p2 : getMode().getInstance().getPlayers()) {
                     bp.getPlayer().showPlayer(Main.getPlugin(), p2.getPlayer());
                 }
@@ -149,6 +138,7 @@ public class GameStateManager {
                 bp.getPlayer().getInventory().clear();
                 bp.getPlayer().setFlying(false);
                 bp.getPlayer().setAllowFlight(false);
+                bp.setBuild(true);
             }
 
             Bukkit.getPluginManager().callEvent(new GameStartEvent(getMode()));
@@ -157,7 +147,6 @@ public class GameStateManager {
         }
 
         public void stop() {
-            clock.cancel();
             Bukkit.getPluginManager().callEvent(new GameEndEvent(getMode()));
             getMode().getStateManager().setActualGameState(GameState.END);
             getMode().getStateManager().getEndState().start();

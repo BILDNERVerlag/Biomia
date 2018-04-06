@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-public class GameInstance implements Listener {
+public class GameInstance {
 
     private final GameType type;
     private World world;
@@ -31,7 +31,6 @@ public class GameInstance implements Listener {
     private final String mapDisplayName;
 
     public GameInstance(GameType type, String mapDisplayName, String mapName, int teamAmount, int teamSize) {
-        Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
         this.teamAmount = teamAmount;
         this.teamSize = teamSize;
         this.type = type;

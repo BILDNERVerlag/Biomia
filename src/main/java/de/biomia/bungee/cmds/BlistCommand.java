@@ -73,6 +73,6 @@ public class BlistCommand extends Command {
                 }
             }
         }
-        sender.sendMessage(new TextComponent(ChatColor.RESET + "§cGesammte Spieleranzahl§7:§b " + TimoCloudAPI.getBungeeInstance().getThisProxy().getGroup().getOnlinePlayerCount()));
+        sender.sendMessage(new TextComponent(ChatColor.RESET + "§cGesamte Spieleranzahl§7:§b " + TimoCloudAPI.getBungeeInstance().getThisProxy().getGroup().getOnlinePlayerCount()));
     }
 }

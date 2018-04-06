@@ -21,7 +21,7 @@ public class Scoreboards {
     // VersusLobbyListener
     public static final Scoreboard lobbySB = Bukkit.getScoreboardManager().getNewScoreboard();
     // Spectator
-    private static final Scoreboard spectatorSB = Bukkit.getScoreboardManager().getNewScoreboard();
+    private static Scoreboard spectatorSB;
 
     public static void initLobbySB(GameMode mode) {
 
@@ -52,6 +52,22 @@ public class Scoreboards {
         }
         lobbySB.registerNewTeam("xnoteam").setPrefix("\u00A77");
 
+    }
+
+    public static void initSpectatorSB(GameMode mode) {
+        if (spectatorSB == null) {
+            spectatorSB = Bukkit.getScoreboardManager().getNewScoreboard();
+            for (GameTeam t : mode.getTeams())
+                spectatorSB.registerNewTeam(t.getColor().name()).setPrefix(t.getColorcode());
+            spectatorSB.registerNewTeam("spectator").setPrefix("\u00A77\u00A7o");
+        }
+        for (Player pl : Bukkit.getOnlinePlayers()) {
+            BiomiaPlayer bp = Biomia.getBiomiaPlayer(pl);
+            GameTeam team = bp.getTeam();
+            if (team != null && team.lives(bp))
+                spectatorSB.getTeam(bp.getTeam().getColor().name()).addEntry(pl.getName());
+            else spectatorSB.getTeam("spectator").addEntry(pl.getName());
+        }
     }
 
     public static void setLobbyScoreboard(Player p) {
@@ -112,24 +128,6 @@ public class Scoreboards {
         p.setScoreboard(sb);
     }
 
-    public static void initSpectatorSB(GameMode mode) {
-
-        for (GameTeam t : mode.getTeams()) {
-            spectatorSB.registerNewTeam(t.getColor().name()).setPrefix(t.getColorcode());
-        }
-        spectatorSB.registerNewTeam("spectator").setPrefix("\u00A77\u00A7o");
-
-        for (Player pl : Bukkit.getOnlinePlayers()) {
-            BiomiaPlayer bp = Biomia.getBiomiaPlayer(pl);
-            GameTeam team = bp.getTeam();
-            if (team != null && team.lives(bp)) {
-                spectatorSB.getTeam(bp.getTeam().getColor().name()).addEntry(pl.getName());
-            } else {
-                spectatorSB.getTeam("spectator").addEntry(pl.getName());
-            }
-        }
-    }
-
     public static void setSpectatorSB(Player p) {
         Scoreboards.spectatorSB.getTeam("spectator").addEntry(p.getName());
         p.setScoreboard(spectatorSB);
@@ -138,15 +136,15 @@ public class Scoreboards {
     private static void setDisplayName(GameType type, Objective o) {
 
         switch (type) {
-        default:
-        case BED_WARS:
-        case BED_WARS_VS:
-            o.setDisplayName(BedWarsMessages.bedwars);
-            break;
-        case SKY_WARS:
-        case SKY_WARS_VS:
-            o.setDisplayName(SkyWarsMessages.skywars);
-            break;
+            default:
+            case BED_WARS:
+            case BED_WARS_VS:
+                o.setDisplayName(BedWarsMessages.bedwars);
+                break;
+            case SKY_WARS:
+            case SKY_WARS_VS:
+                o.setDisplayName(SkyWarsMessages.skywars);
+                break;
         }
 
     }

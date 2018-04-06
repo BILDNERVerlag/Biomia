@@ -159,7 +159,7 @@ public class VSManager implements Listener {
             ItemStack is = p.getInventory().getItemInMainHand();
 
             if (is != null && is.getType() != Material.AIR) {
-                if (is.hasItemMeta()) {
+                if (is.hasItemMeta() && is.getItemMeta().hasDisplayName()) {
                     if (is.getItemMeta().getDisplayName().equals("\u00A7cHerausforderer")) {
                         if (e.getEntity() instanceof Player) {
                             Player p1 = (Player) e.getEntity();

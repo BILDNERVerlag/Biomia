@@ -70,9 +70,10 @@ public class GameTeam {
 
         players.put(bp, true);
 
-        Scoreboards.lobbySB.getTeam(color.name()).addEntry(bp.getName());
-
-        TeamSwitcher.getTeamSwitcher(mode);
+        if (!mode.getInstance().getType().isVersus()) {
+            Scoreboards.lobbySB.getTeam(color.name()).addEntry(bp.getName());
+            TeamSwitcher.getTeamSwitcher(mode);
+        }
     }
 
     public boolean containsPlayer(BiomiaPlayer bp) {

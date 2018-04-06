@@ -4,6 +4,7 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.versus.Versus;
+import de.biomia.universal.Messages;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -55,11 +56,11 @@ public class VSRequest {
         if (!cancelRequest && !isInRunningRound())
             if (canStart()) {
                 Player p = leader.getPlayer();
-                BaseComponent comp = new TextComponent("\u00A7cDer Spieler \u00A7d" + leader.getName() + " \u00A7chat dich Herausgefordert!\n");
-                comp.addExtra("\u00A75Modus\u00A77/\u00A72Map\u00A78:\u00A75 " + getModus().getDisplayName() + "\u00A77/\u00A72" + mapName);
+                BaseComponent comp = new TextComponent(String.format("%sDer Spieler %s%s%s hat dich herausgefordert!\n", Messages.COLOR_MAIN, Messages.COLOR_SUB, leader.getName(), Messages.COLOR_MAIN));
+                comp.addExtra(String.format("%sModus: %s%s%s / Map: %s%s", Messages.COLOR_AUX, Messages.COLOR_SUB, getModus().getDisplayName(), Messages.COLOR_AUX, Messages.COLOR_SUB, mapName));
                 comp.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/accept " + p.getName()));
                 bp2.getPlayer().spigot().sendMessage(comp);
-                p.sendMessage("\u00A7cDu hast den Spieler \u00A7d" + bp2.getName() + " \u00A7cHerausgefordert!");
+                p.sendMessage(String.format("%sDu hast den Spieler %s%s%s herausgefordert!\n", Messages.COLOR_MAIN, Messages.COLOR_SUB, bp2.getName(), Messages.COLOR_MAIN));
             } else {
                 leader.getPlayer().sendMessage("\u00A7cDeine Einstellungen sind zu genau!");
                 openRequests.remove(this);
