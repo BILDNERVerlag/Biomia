@@ -11,7 +11,6 @@ import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
-import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.IOException;
@@ -23,7 +22,6 @@ public class GameInstance {
     private final GameType type;
     private World world;
     private GameMode gameMode;
-    private int playedTime = 0;
     private final ArrayList<BiomiaPlayer> players = new ArrayList<>();
     private final int teamSize;
     private final int teamAmount;
@@ -101,16 +99,8 @@ public class GameInstance {
         return type;
     }
 
-    public void incPlayTime() {
-        playedTime++;
-    }
-
     public boolean containsPlayer(BiomiaPlayer bp) {
         return getPlayers().contains(bp);
-    }
-
-    public int getPlayedTime() {
-        return playedTime;
     }
 
     public int getTeamAmount() {
