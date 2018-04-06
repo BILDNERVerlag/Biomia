@@ -40,13 +40,8 @@ import static de.biomia.spigot.minigames.GameType.SKY_WARS;
 
 public class Main extends JavaPlugin {
 
-    private static EasterEvent event;
     private static Main plugin;
     private static CommandMap commandMap;
-
-    public static EasterEvent getEvent() {
-        return event;
-    }
 
     public static Main getPlugin() {
         return plugin;
@@ -93,76 +88,74 @@ public class Main extends JavaPlugin {
 
         BiomiaServerType groupName = BiomiaServerType.valueOf(((DedicatedServer) ((CraftServer) Bukkit.getServer()).getServer()).propertyManager.properties.getProperty("server-name").split("-")[0]);
         switch (groupName) {
-        case TestLobby:
-        case Lobby:
-            Biomia.setServerInstance(new Lobby(groupName));
-            break;
-        case TestServer:
-        case TestQuest:
-        case Quest:
-            Biomia.setServerInstance(new Quests(groupName));
-            break;
-        case TestBedWars:
-        case BedWars:
-            Biomia.setServerInstance(new BiomiaServer(groupName) {
-                @Override
-                public void start() {
-                    super.start();
-                    registerCommand(new BWCommand());
-                    Bukkit.getPluginManager().registerEvents(new WaitingLobbyListener(false), Main.getPlugin());
-                }
-            });
-            new GameInstance(BED_WARS, MinigamesConfig.getMapName(), MinigamesConfig.getTeamAmount(), MinigamesConfig.getTeamSize()).getGameMode().start();
-            break;
-        case TestSkyWars:
-        case SkyWars:
-            Biomia.setServerInstance(new BiomiaServer(groupName) {
-                @Override
-                public void start() {
-                    super.start();
-                    registerCommand(new SWCommand());
-                    Bukkit.getPluginManager().registerEvents(new WaitingLobbyListener(false), Main.getPlugin());
-                }
-            });
-            Items.init();
-            new GameInstance(SKY_WARS, MinigamesConfig.getMapName(), MinigamesConfig.getTeamAmount(), MinigamesConfig.getTeamSize()).getGameMode().start();
-            break;
-        case Duell:
-            Biomia.setServerInstance(new Versus());
-            break;
-        case Weltenlabor_1:
-            Biomia.setServerInstance(new Weltenlabor());
-            break;
-        case TestFreebuild:
-        case Freebuild:
-            Biomia.setServerInstance(new Freebuild(groupName));
-            break;
-        case FreebuildFarm:
-            break;
-        case BauServer:
-            Biomia.setServerInstance(new BiomiaServer(groupName) {
-                @Override
-                public void start() {
-                    super.start();
-                    Bukkit.getPluginManager().registerEvents(new BauServerListener(), Main.getPlugin());
-                }
-            });
-            break;
-        case Event_Schnitzeljagd:
-            Biomia.setServerInstance(new SchnitzelEvent());
-            break;
+            case TestLobby:
+            case Lobby:
+                Biomia.setServerInstance(new Lobby(groupName));
+                break;
+            case TestServer:
+            case TestQuest:
+            case Quest:
+                Biomia.setServerInstance(new Quests(groupName));
+                break;
+            case TestBedWars:
+            case BedWars:
+                Biomia.setServerInstance(new BiomiaServer(groupName) {
+                    @Override
+                    public void start() {
+                        super.start();
+                        registerCommand(new BWCommand());
+                        Bukkit.getPluginManager().registerEvents(new WaitingLobbyListener(false), Main.getPlugin());
+                    }
+                });
+                new GameInstance(BED_WARS, MinigamesConfig.getMapName(), MinigamesConfig.getTeamAmount(), MinigamesConfig.getTeamSize()).getGameMode().start();
+                break;
+            case TestSkyWars:
+            case SkyWars:
+                Biomia.setServerInstance(new BiomiaServer(groupName) {
+                    @Override
+                    public void start() {
+                        super.start();
+                        registerCommand(new SWCommand());
+                        Bukkit.getPluginManager().registerEvents(new WaitingLobbyListener(false), Main.getPlugin());
+                    }
+                });
+                Items.init();
+                new GameInstance(SKY_WARS, MinigamesConfig.getMapName(), MinigamesConfig.getTeamAmount(), MinigamesConfig.getTeamSize()).getGameMode().start();
+                break;
+            case Duell:
+                Biomia.setServerInstance(new Versus());
+                break;
+            case Weltenlabor_1:
+                Biomia.setServerInstance(new Weltenlabor());
+                break;
+            case TestFreebuild:
+            case Freebuild:
+                Biomia.setServerInstance(new Freebuild(groupName));
+                break;
+            case FreebuildFarm:
+                break;
+            case BauServer:
+                Biomia.setServerInstance(new BiomiaServer(groupName) {
+                    @Override
+                    public void start() {
+                        super.start();
+                        Bukkit.getPluginManager().registerEvents(new BauServerListener(), Main.getPlugin());
+                    }
+                });
+                break;
+            case Event_Schnitzeljagd:
+                Biomia.setServerInstance(new SchnitzelEvent());
+                break;
         }
 
         Biomia.getServerInstance().start();
 
-        event = new EasterEvent();
     }
 
     @Override
     public void onDisable() {
         Biomia.getServerInstance().stop();
         this.saveConfig();
-        event.removeAllEggs();
         MySQL.closeConnections();
     }
 }

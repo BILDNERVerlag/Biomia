@@ -16,6 +16,13 @@ public class ItemCreator {
         return itemStack;
     }
 
+    public static ItemStack itemCreate(Material material, short data) {
+        ItemStack itemStack = new ItemStack(material, 1, data);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
+
     private static ItemStack itemCreate(short data) {
         return new ItemStack(Material.SKULL_ITEM, 1, data);
     }
