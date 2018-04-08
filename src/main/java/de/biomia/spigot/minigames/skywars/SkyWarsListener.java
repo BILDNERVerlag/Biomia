@@ -2,10 +2,7 @@ package de.biomia.spigot.minigames.skywars;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.events.game.GameDeathEvent;
-import de.biomia.spigot.events.game.GameKillEvent;
 import de.biomia.spigot.events.game.skywars.SkyWarsOpenChestEvent;
-import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
 import de.biomia.spigot.minigames.GameHandler;
@@ -16,14 +13,12 @@ import de.biomia.spigot.minigames.general.kits.Kit;
 import de.biomia.spigot.minigames.general.kits.KitManager;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -33,13 +28,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class SkyWarsListener extends GameHandler {
 
     private static final ItemStack kitItem = ItemCreator.itemCreate(Material.CHEST, SkyWarsItemNames.kitItemName);
 
-    public SkyWarsListener(de.biomia.spigot.minigames.GameMode mode) {
+    SkyWarsListener(de.biomia.spigot.minigames.GameMode mode) {
         super(mode);
     }
 
@@ -238,7 +232,7 @@ public class SkyWarsListener extends GameHandler {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
-        if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.WAITING_FOR_START) {
+        if (mode.getInstance().containsPlayer(Biomia.getBiomiaPlayer(e.getPlayer())) && mode.getStateManager().getActualGameState() == GameStateManager.GameState.WAITING_FOR_START) {
             e.setCancelled(true);
         }
         super.onPlayerMove(e);

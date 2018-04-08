@@ -9,6 +9,7 @@ import de.biomia.spigot.minigames.general.SpawnItems;
 import de.biomia.spigot.minigames.general.TeamSwitcher;
 import de.biomia.spigot.minigames.general.shop.Shop;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
@@ -39,6 +40,7 @@ public class BedWars extends GameMode {
 
     public final HashMap<GameTeam, ArrayList<Block>> teamChestsLocs = new HashMap<>();
     public final HashMap<UUID, ArrayList<Player>> handlerMap = new HashMap<>();
+    public final HashMap<BiomiaPlayer, Location> starts = new HashMap<>();
 
     public BedWars(GameInstance instance) {
         super(instance);

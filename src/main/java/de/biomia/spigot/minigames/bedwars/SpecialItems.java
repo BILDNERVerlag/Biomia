@@ -6,10 +6,8 @@ import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.messages.manager.ActionBar;
-import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.GameTeam;
-import de.biomia.spigot.minigames.general.Teleport;
 import de.biomia.spigot.tools.Particles;
 import net.minecraft.server.v1_12_R1.AttributeInstance;
 import net.minecraft.server.v1_12_R1.EnumParticle;
@@ -33,10 +31,10 @@ import java.util.HashMap;
 
 class SpecialItems implements Listener {
 
-    private final GameMode mode;
+    private final BedWars mode;
     private final HashMap<GameTeam, Inventory> teamChests = new HashMap<>();
 
-    SpecialItems(GameMode mode) {
+    SpecialItems(BedWars mode) {
         this.mode = mode;
     }
 
@@ -47,7 +45,7 @@ class SpecialItems implements Listener {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if (e.getClickedBlock() != null && e.getClickedBlock().getType() == Material.ENDER_CHEST) {
-                GameTeam t = ((BedWars) mode).getTeamByTeamChests(e.getClickedBlock());
+                GameTeam t = mode.getTeamByTeamChests(e.getClickedBlock());
                 if (t != null) {
                     Inventory inv = teamChests.computeIfAbsent(t, t1 -> Bukkit.createInventory(null, 27, "\u00A78Team Kiste: " + t1.getColorcode() + t1.getColor().translate()));
                     e.setCancelled(true);
@@ -59,35 +57,35 @@ class SpecialItems implements Listener {
             String displayname = e.getItem().getItemMeta().getDisplayName();
 
             switch (displayname) {
-            case BedWarsItemNames.warper:
-                if (Teleport.getStartLocation(bp) == null) {
-                    warpHome(bp, e.getItem());
-                }
-                break;
-            case BedWarsItemNames.wand:
-                e.setCancelled(true);
-                if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)
-                    buildProtectionWall(p);
-                break;
-            case BedWarsItemNames.villagerSpawner:
-                if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                    spawnVillager(e.getClickedBlock().getLocation().add(0.5, 1, 0.5));
+                case BedWarsItemNames.warper:
+                    if (mode.starts.get(bp) == null) {
+                        warpHome(bp, e.getItem());
+                    }
+                    break;
+                case BedWarsItemNames.wand:
                     e.setCancelled(true);
-                }
-                break;
-            case "\u00A7c30 Sekunden Shop":
-                e.setCancelled(true);
-                if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                    spawn30secShop(e.getClickedBlock().getLocation().add(0.5, 1, 0.5), e.getItem());
+                    if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)
+                        buildProtectionWall(p);
+                    break;
+                case BedWarsItemNames.villagerSpawner:
+                    if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                        spawnVillager(e.getClickedBlock().getLocation().add(0.5, 1, 0.5));
+                        e.setCancelled(true);
+                    }
+                    break;
+                case BedWarsItemNames.shortShop:
                     e.setCancelled(true);
-                }
-                break;
-            case "\u00A7cRettungs Plattform":
-                if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                    buildRettungsplattform(e.getPlayer().getLocation(), e.getItem());
-                    e.setCancelled(true);
-                }
-                break;
+                    if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                        spawn30secShop(e.getClickedBlock().getLocation().add(0.5, 1, 0.5), e.getItem());
+                        e.setCancelled(true);
+                    }
+                    break;
+                case BedWarsItemNames.rettungsPlattform:
+                    if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                        buildRettungsplattform(e.getPlayer().getLocation(), e.getItem());
+                        e.setCancelled(true);
+                    }
+                    break;
             }
             if (e.getItem().getType() == Material.MONSTER_EGG) {
                 if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
@@ -187,7 +185,7 @@ class SpecialItems implements Listener {
 
         GameTeam team = bp.getTeam();
         if (team != null) {
-            Teleport.teleportBackHome(bp);
+            mode.starts.put(bp, bp.getPlayer().getLocation());
             new BukkitRunnable() {
                 final Location loc = team.getHome().clone();
                 final Location location = bp.getPlayer().getLocation();
@@ -195,7 +193,7 @@ class SpecialItems implements Listener {
 
                 @Override
                 public void run() {
-                    if (Teleport.getStartLocation(bp) != null) {
+                    if (mode.starts.get(bp) != null) {
                         if (i == 0) {
                             bp.getPlayer().teleport(team.getHome());
                             is.setAmount(is.getAmount() - 1);
@@ -240,7 +238,7 @@ class SpecialItems implements Listener {
     private void spawn30secShop(Location l, ItemStack is) {
         ArmorStand as = (ArmorStand) l.getWorld().spawnEntity(l, EntityType.ARMOR_STAND);
         as.setCustomNameVisible(true);
-        ((BedWars) mode).handlerMap.put(as.getUniqueId(), new ArrayList<>());
+        mode.handlerMap.put(as.getUniqueId(), new ArrayList<>());
         is.setAmount(is.getAmount() - 1);
         new BukkitRunnable() {
             int i = 30;
@@ -248,7 +246,7 @@ class SpecialItems implements Listener {
             @Override
             public void run() {
                 if (i == 0) {
-                    ((BedWars) mode).handlerMap.get(as.getUniqueId()).forEach(HumanEntity::closeInventory);
+                    mode.handlerMap.get(as.getUniqueId()).forEach(HumanEntity::closeInventory);
                     as.remove();
                     cancel();
                 }

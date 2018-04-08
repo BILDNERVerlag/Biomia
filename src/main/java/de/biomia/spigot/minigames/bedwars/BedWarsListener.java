@@ -21,6 +21,7 @@ import de.biomia.spigot.minigames.general.shop.ShopItem;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
@@ -37,6 +38,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
@@ -82,6 +84,15 @@ public class BedWarsListener extends GameHandler {
             }
             Dead.respawn(p);
         }
+    }
+
+    @EventHandler
+    public void onMove(PlayerMoveEvent e) {
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
+
+        Location loc = ((BedWars) mode).starts.get(bp);
+        if (loc != null && loc.distance(e.getTo()) > .5)
+            ((BedWars) mode).starts.remove(bp);
     }
 
     @EventHandler

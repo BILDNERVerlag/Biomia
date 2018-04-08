@@ -1,17 +1,12 @@
 package de.biomia.spigot.minigames.skywars;
 
-import de.biomia.spigot.Biomia;
-import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.configs.SkyWarsConfig;
 import de.biomia.spigot.minigames.*;
 import de.biomia.spigot.minigames.general.TeamSwitcher;
-import de.biomia.spigot.minigames.general.Teleport;
 import de.biomia.spigot.minigames.general.chests.Chests;
 import de.biomia.spigot.minigames.general.kits.KitManager;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -58,14 +53,8 @@ public class SkyWars extends GameMode {
         getStateManager().setInGameState(new GameStateManager.InGameState(this) {
             @Override
             public void start() {
+                getMode().getInstance().getPlayers().forEach(bp -> KitManager.getManager(bp).setKitInventory());
                 super.start();
-                getMode().getStateManager().setActualGameState(GameStateManager.GameState.WAITING_FOR_START);
-                for (Player p : Bukkit.getOnlinePlayers()) {
-                    BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-                    bp.setBuild(true);
-                    KitManager.getManager(bp).setKitInventory();
-                }
-                Teleport.sendCountDown(getMode());
             }
         });
 

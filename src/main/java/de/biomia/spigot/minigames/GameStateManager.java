@@ -10,13 +10,11 @@ import de.biomia.spigot.events.game.GameStartEvent;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.general.CountDown;
 import de.biomia.spigot.minigames.general.Scoreboards;
-import de.biomia.spigot.minigames.general.Teleport;
 import de.biomia.spigot.minigames.versus.Versus;
 import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 public class GameStateManager {
 
@@ -140,11 +138,14 @@ public class GameStateManager {
                 bp.getPlayer().setFlying(false);
                 bp.getPlayer().setAllowFlight(false);
                 bp.setBuild(true);
+
+                bp.getPlayer().setFallDistance(0);
+                bp.getPlayer().teleport(bp.getTeam().getHome());
+                bp.sendMessage(MinigamesMessages.explainMessages);
             }
 
             Bukkit.getPluginManager().callEvent(new GameStartEvent(getMode()));
             Scoreboards.initSpectatorSB(getMode());
-            Teleport.teleportPlayerToMap(getMode());
         }
 
         public void stop() {
@@ -172,27 +173,23 @@ public class GameStateManager {
                 p.setGameMode(org.bukkit.GameMode.ADVENTURE);
                 if (bp.getTeam() != null)
                     bp.getTeam().leave(bp);
+
                 if (getMode().getInstance().getType().isVersus())
                     Versus.getInstance().getManager().moveToLobby(p, false);
+                else
+                    p.teleport(GameMode.getSpawn(false));
             }
-            //Teleport.teleportAllToWarteLobby(getMode());
             if (!getMode().getInstance().getType().isVersus()) {
                 new BukkitRunnable() {
                     int i = 15;
-
                     @Override
                     public void run() {
-                        if (i == 15) {
-                            Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("%t", i + ""));
-                        } else if (i == 10) {
-                            Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("%t", i + ""));
-                        } else if (i <= 5 && i != 0) {
-                            Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("%t", i + ""));
-                        } else if (i <= 0) {
-                            cancel();
+                        if (i == 0) {
                             stop();
+                            cancel();
                             return;
-                        }
+                        } else if (i == 15 || i == 10 || i <= 5)
+                            Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("%t", i + ""));
                         i--;
                     }
                 }.runTaskTimer(Main.getPlugin(), 0, 20);

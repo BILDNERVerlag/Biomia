@@ -12,7 +12,6 @@ import de.biomia.spigot.messages.MinigamesItemNames;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.general.Dead;
 import de.biomia.spigot.minigames.general.Scoreboards;
-import de.biomia.spigot.minigames.general.Teleport;
 import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.ItemCreator;
 import net.md_5.bungee.api.ChatColor;
@@ -199,12 +198,7 @@ public abstract class GameHandler implements Listener {
             if (e.getTo().getBlockY() <= 0) {
                 e.getPlayer().setHealth(0);
                 Dead.respawn(e.getPlayer());
-                return;
             }
-            BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-            Location loc = Teleport.getStartLocation(bp);
-            if (loc != null && loc.distance(e.getTo()) > .5)
-                Teleport.removeFromStartLocs(bp);
         } else if (e.getTo().getBlockY() <= 20)
             e.getPlayer().teleport(GameMode.getSpawn(mode.getInstance().getType().isVersus()));
     }
