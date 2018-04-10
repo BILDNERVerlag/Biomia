@@ -57,8 +57,6 @@ public class SkyWars extends GameMode {
                 super.start();
             }
         });
-
-        teamSwitcher = TeamSwitcher.getTeamSwitcher(this);
     }
 
     public Chests getChests() {

@@ -100,9 +100,14 @@ public class Main extends JavaPlugin {
             case BedWars:
                 Biomia.setServerInstance(new BiomiaServer(groupName) {
                     @Override
-                    public void start() {
-                        super.start();
+                    protected void initCommands() {
+                        super.initCommands();
                         registerCommand(new BWCommand());
+                    }
+
+                    @Override
+                    protected void initListeners() {
+                        super.initListeners();
                         Bukkit.getPluginManager().registerEvents(new WaitingLobbyListener(false), Main.getPlugin());
                     }
                 });
@@ -112,9 +117,14 @@ public class Main extends JavaPlugin {
             case SkyWars:
                 Biomia.setServerInstance(new BiomiaServer(groupName) {
                     @Override
-                    public void start() {
-                        super.start();
+                    protected void initCommands() {
+                        super.initCommands();
                         registerCommand(new SWCommand());
+                    }
+
+                    @Override
+                    protected void initListeners() {
+                        super.initListeners();
                         Bukkit.getPluginManager().registerEvents(new WaitingLobbyListener(false), Main.getPlugin());
                     }
                 });

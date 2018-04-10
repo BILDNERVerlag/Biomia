@@ -26,6 +26,8 @@ public class BedWars extends GameMode {
 
     @Override
     protected HashMap<TeamColor, UUID> initTeamJoiner() {
+        if (getInstance().getType().isVersus())
+            return null;
         HashMap<TeamColor, UUID> teamJoiner = new HashMap<>();
         teamJoiner.put(TeamColor.BLACK, UUID.fromString("92af2252-1787-4dc2-bb52-a9bd012865a2"));
         teamJoiner.put(TeamColor.ORANGE, UUID.fromString("d33e1331-3390-4c27-82e3-9095a3614610"));
@@ -74,8 +76,6 @@ public class BedWars extends GameMode {
         super.start();
         Shop.init();
         Bukkit.getPluginManager().registerEvents(new SpecialItems(this), Main.getPlugin());
-
-        teamSwitcher = TeamSwitcher.getTeamSwitcher(this);
     }
 
     public GameTeam getTeamByTeamChests(Block block) {

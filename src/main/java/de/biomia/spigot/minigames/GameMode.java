@@ -25,7 +25,7 @@ public abstract class GameMode {
     private static final Location spawn = new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 45, 0);
     private static final Location versusSpawn = new Location(Bukkit.getWorld("Spawn"), -34.5, 85, -113.5, 0, 0);
     private MinigamesConfig config;
-    protected Inventory teamSwitcher;
+    private Inventory teamSwitcher;
     private final GameInstance instance;
     private final ArrayList<GameTeam> teams = new ArrayList<>();
     private final GameStateManager stateManager = new GameStateManager(this);

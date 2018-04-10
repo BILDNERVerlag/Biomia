@@ -55,7 +55,7 @@ public class VSManager implements Listener {
 
         VSGroup bedwars = main.registerDeaktivatableGroup(GameType.BED_WARS_VS, bedwarsSettingItem, "\u00A7cBedWars", 6, 0, true);
         VSGroup bedwarsMaps = bedwars.registerGroup(GameType.BED_WARS_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
-        bedwarsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, bedwarsMaps, "Map1"));
+        bedwarsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, bedwarsMaps, "Mayaria"));
 
         VSGroup skywars = main.registerDeaktivatableGroup(GameType.SKY_WARS_VS, skywarsSettingItem, "\u00A7aSkyWars", 2, 0, true);
         VSGroup skywarsMaps = skywars.registerGroup(GameType.SKY_WARS_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
