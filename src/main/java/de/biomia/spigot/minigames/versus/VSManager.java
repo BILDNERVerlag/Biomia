@@ -171,8 +171,10 @@ public class VSManager implements Listener {
                                 hitter.getPlayer().sendMessage("\u00A7cDu hast dem Spieler bereits eine Anfrage geschickt!");
                             } else if (VSRequest.hasRequestSended(hittedPlayer, hitter)) {
                                 VSRequest request = VSRequest.getRequest(hittedPlayer);
-                                assert request != null;
-                                request.accept();
+                                if (request != null) {
+                                    request.accept();
+                                    e.setCancelled(true);
+                                }
                             } else {
                                 VSRequest request = VSRequest.getRequest(hitter);
                                 if (request != null)
@@ -221,6 +223,7 @@ public class VSManager implements Listener {
                                 kitManager.selectSkyWarsKit(kit);
                                 p.sendMessage(SkyWarsMessages.youChoseKit.replace("%k", kit.getName()));
                             }
+                            e.setCancelled(true);
                             break;
                         case SkyWarsItemNames.selectKit:
                             final ArrayList<Kit> kits = KitManager.getManager(bp).getAvailableKits();
@@ -235,13 +238,14 @@ public class VSManager implements Listener {
                                 p.closeInventory();
                                 p.sendMessage(SkyWarsMessages.kitNotBought);
                             }
+                            e.setCancelled(true);
                             break;
                         case SkyWarsItemNames.showKit:
                             KitManager.getManager(bp).showInventory(kit);
                             p.sendMessage(SkyWarsMessages.nowLookingAtKit.replace("%k", kit.getName()));
+                            e.setCancelled(true);
                             break;
                     }
-                    e.setCancelled(true);
                 }
             }
         }

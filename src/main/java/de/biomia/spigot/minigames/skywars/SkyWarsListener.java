@@ -116,6 +116,7 @@ public class SkyWarsListener extends GameHandler {
                                 kitManager.selectSkyWarsKit(kit);
                                 p.sendMessage(SkyWarsMessages.youChoseKit.replace("%k", kit.getName()));
                             }
+                            e.setCancelled(true);
                             break;
                         case SkyWarsItemNames.selectKit:
                             final ArrayList<Kit> kits = KitManager.getManager(bp).getAvailableKits();
@@ -130,13 +131,14 @@ public class SkyWarsListener extends GameHandler {
                                 p.closeInventory();
                                 p.sendMessage(SkyWarsMessages.kitNotBought);
                             }
+                            e.setCancelled(true);
                             break;
                         case SkyWarsItemNames.showKit:
                             KitManager.getManager(bp).showInventory(kit);
                             p.sendMessage(SkyWarsMessages.nowLookingAtKit.replace("%k", kit.getName()));
+                            e.setCancelled(true);
                             break;
                         }
-                        e.setCancelled(true);
                     }
                 }
             }
