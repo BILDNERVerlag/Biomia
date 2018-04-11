@@ -31,7 +31,7 @@ public class WaitingLobbyListener extends BiomiaListener {
         if (isVersus) {
 
             Bukkit.getOnlinePlayers().forEach(each -> {
-                if (!each.equals(e.getPlayer()) && Biomia.getBiomiaPlayer(e.getPlayer()).getTeam() != null)
+                if (!each.equals(e.getPlayer()) && Biomia.getBiomiaPlayer(each).getTeam() != null)
                     each.hidePlayer(Main.getPlugin(), e.getPlayer());
             });
 
