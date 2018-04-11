@@ -47,12 +47,11 @@ public class Intro implements Listener {
     private void initDialog() {
         startDialog = new DialogMessage(q, aaron).setInhalt("Willkommen auf dem QuestServer von Biomia!");
         startDialog.setNext(
-                "Im nord\u00f6stlich von hier liegenden Dorf findest du verschiedene NPCs, die mit Aufgaben auf dich warten. Bitte "
-                        + "denk daran, dass der Server sich noch im Aufbau befindet und es sein kann, dass manche coins noch nicht ganz "
-                        + "funktionieren oder in sp\u00fcteren Updates ver\u00fcndert werden.",
+                "Bitte denk daran, dass der Server sich noch im Aufbau befindet und Quests sich in der Zukunft stets verändern können.\n" +
+                        "Ansonsten, spring einfach über den Bach hinter mir und halte dich rechts, du solltest das Dorf schon sehen können, bestimmt hat dort jemand Aufgaben für dich! ",
                 0, aaron)
                 .setNext(
-                        "Falls du Verbesserungsvorschl\u00fcge hast, \u00A7cwende dich gerne an das Team\u00A76! Verwende bitte die \u00A7c/report \u00A76Funktion,"
+                        "Ach, am Rande... Falls du Verbesserungsvorschläge hast, sprich ruhig das BIOMIA-Team an und verwende die \u00A7c/report\u00A7b-Funktion,"
                                 + " falls du auf Fehler triffst - oder Spieler, die sich unangemessen verhalten!",
                         0, aaron);
     }
