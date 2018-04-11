@@ -33,10 +33,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.inventory.InventoryAction;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.PrepareItemCraftEvent;
+import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -208,6 +205,17 @@ public class BedWarsListener extends GameHandler {
     }
 
     @EventHandler
+    public void onInventoryMove(InventoryInteractEvent e) {
+        if (e.getInventory().getName().equals(BedWarsMessages.shopInventory))
+            e.setCancelled(true);
+        else for (ShopGroup group : Shop.getGroups()) {
+            if (e.getInventory().getName().equals(group.getFullName())) {
+                e.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
     public void onInteract(PlayerInteractEntityEvent e) {
         Player p = e.getPlayer();
         if (e.getRightClicked() instanceof Villager || e.getRightClicked() instanceof ArmorStand)
@@ -285,5 +293,6 @@ public class BedWarsListener extends GameHandler {
     @EventHandler
     public void onRespawnNoOverload(PlayerRespawnEvent e) {
         e.getPlayer().getInventory().clear();
+        //TODO: Loop
     }
 }

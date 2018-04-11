@@ -58,7 +58,7 @@ public class CoinsCommand extends BiomiaCommand {
                             break;
                         case "add":
                             target.addCoins(coins, false);
-                            sender.sendMessage(Messages.PREFIX + "\u00A77" + target.getName() + " wurden \u00A7b" + coins + " \u00A77BC hinzugf\u00fcgt!");
+                            sender.sendMessage(Messages.PREFIX + "\u00A77" + target.getName() + " wurden \u00A7b" + coins + " \u00A77BC hinzugef\u00fcgt!");
                             break;
                         case "get":
                             break;

@@ -25,7 +25,8 @@ public class WarpCommand extends BiomiaCommand {
 
     public WarpCommand(String command) {
         super(command);
-        allowedGroups = new ArrayList<>(Arrays.asList(BiomiaServerType.BauServer, BiomiaServerType.Freebuild, BiomiaServerType.FreebuildFarm, BiomiaServerType.Quest, BiomiaServerType.TestQuest));
+        allowedGroups = new ArrayList<>(Arrays.asList(BiomiaServerType.BauServer,
+                BiomiaServerType.Freebuild, BiomiaServerType.FreebuildFarm, BiomiaServerType.Quest, BiomiaServerType.TestQuest));
     }
 
     public boolean execute(CommandSender sender, String label, String[] args) {
@@ -81,6 +82,10 @@ public class WarpCommand extends BiomiaCommand {
                     p.sendMessage("\u00A77Verbleibende Warppunkte: " + verbleibendeWarps + " \u00A77(vom Rang abh\u00e4ngig)");
                 break;
             case "warp":
+                if (!allowedGroups.contains(Biomia.getServerInstance().getServerType())) {
+                    p.sendMessage("\u00A7cWarps sind auf diesem Server (\u00A7b" + Biomia.getServerInstance().getServerType().name() + "\u00A7c) nicht erlaubt.");
+                    return true;
+                }
                 if (args.length < 1) {
                     if (playerWarpLocations.isEmpty()) {
                         sendWarpInstructions(p);
@@ -160,19 +165,10 @@ public class WarpCommand extends BiomiaCommand {
         switch (Biomia.getServerInstance().getServerType()) {
             case TestQuest:
             case Quest:
-                break;
             case Freebuild:
-                break;
             case FreebuildFarm:
-                break;
             case BauServer:
-                break;
-            case Duell:
-                break;
             case Weltenlabor_1:
-                break;
-            case TestLobby:
-            case Lobby:
                 break;
             default:
                 return locations;
