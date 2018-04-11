@@ -144,8 +144,8 @@ public class ReportListener implements Listener {
                             e.setCancelled(true);
                             if (waitForBanReason.containsKey(bp)) {
                                 PlayerBan ban = waitForBanReason.get(bp);
-                                ban.setReason(e.getCurrentItem().getItemMeta().getDisplayName().substring(2).replace(' ', '_').toUpperCase());
                                 p.closeInventory();
+                                ban.setReason(e.getCurrentItem().getItemMeta().getDisplayName().substring(2).replace(' ', '_').toUpperCase());
                             } else {
                                 Grund grund = Grund.valueOf(e.getCurrentItem().getItemMeta().getDisplayName().substring(2).replace(' ', '_').toUpperCase());
                                 for (PlayerReport report : ReportManager.unfinishedReports) {
