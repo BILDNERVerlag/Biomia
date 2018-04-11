@@ -50,7 +50,7 @@ public class WarpCommand extends BiomiaCommand {
 
                 if (playerWarpLocations.size() >= bp.getPremiumLevel() + 3) {
                     p.sendMessage("\u00A7cDu hast bereits die \u00A7bmaximale \u00A7cAnzahl Warps erreicht.");
-                    p.sendMessage("\u00A7cBenutze \u00A77/\u00A7cdelwarp \u00A77<\u00A7cName\u00A77> \u00A7bum Warps zu l\u00f6schen \u00A7coder hol dir einen unserer Premiumränge und unterstütze damit den Server.");
+                    p.sendMessage("\u00A7cBenutze \u00A77/\u00A7cdelwarp \u00A77<\u00A7cName\u00A77> \u00A7bum Warps zu l\u00f6schen \u00A7coder hol dir einen unserer Premiumr00e4nge und unterst00dctze damit den Server.");
                     return true;
                 }
                 if (!allowedGroups.contains(Biomia.getServerInstance().getServerType())) {
@@ -137,7 +137,7 @@ public class WarpCommand extends BiomiaCommand {
             }
         }
         if (!publicWarpLocations0.isEmpty()) {
-            p.sendMessage("\u00A7c Öffentliche Warps:");
+            p.sendMessage("\u00A7c \u00d6ffentliche Warps:");
             Iterator it2 = publicWarpLocations0.entrySet().iterator();
             while (it2.hasNext()) {
                 Map.Entry pair = (Map.Entry) it2.next();

@@ -39,11 +39,11 @@ public class BlistCommand extends Command {
             TextComponent component;
 
             if (!detail) {
-                component = new TextComponent("§7[");
-                TextComponent serverName = new TextComponent("§c" + serverGroupObject.getName());
+                component = new TextComponent("00A77[");
+                TextComponent serverName = new TextComponent("00A7c" + serverGroupObject.getName());
                 serverName.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/server " + serverGroupObject.getServers().get(0).getName()));
                 component.addExtra(serverName);
-                component.addExtra("§7] (§b" + onlinePlayers + "§7)");
+                component.addExtra("00A77] (00A7b" + onlinePlayers + "00A77)");
                 sender.sendMessage(component);
             } else {
                 for (ServerObject serverObject : serverGroupObject.getServers()) {
@@ -52,19 +52,19 @@ public class BlistCommand extends Command {
                         continue;
 
                     component = new TextComponent();
-                    component.setText("§7[");
-                    TextComponent serverName = new TextComponent("§c" + serverObject.getName());
+                    component.setText("00A77[");
+                    TextComponent serverName = new TextComponent("00A7c" + serverObject.getName());
                     serverName.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/server " + serverObject.getName()));
                     component.addExtra(serverName);
-                    component.addExtra("§7] (§b" + serverObject.getOnlinePlayerCount() + "§7): ");
+                    component.addExtra("00A77] (00A7b" + serverObject.getOnlinePlayerCount() + "00A77): ");
 
                     boolean first = true;
                     for (ProxiedPlayer pp : BungeeCord.getInstance().getServerInfo(serverObject.getName()).getPlayers()) {
                         if (!first) {
-                            component.addExtra("§7, ");
+                            component.addExtra("00A77, ");
                         }
 
-                        TextComponent playerName = new TextComponent("§7" + pp.getName());
+                        TextComponent playerName = new TextComponent("00A77" + pp.getName());
                         playerName.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/gtp " + pp.getName()));
                         component.addExtra(playerName);
                         first = false;
@@ -73,6 +73,6 @@ public class BlistCommand extends Command {
                 }
             }
         }
-        sender.sendMessage(new TextComponent(ChatColor.RESET + "§cGesamte Spieleranzahl§7:§b " + TimoCloudAPI.getBungeeInstance().getThisProxy().getGroup().getOnlinePlayerCount()));
+        sender.sendMessage(new TextComponent(ChatColor.RESET + "00A7cGesamte Spieleranzahl00A77:00A7b " + TimoCloudAPI.getBungeeInstance().getThisProxy().getGroup().getOnlinePlayerCount()));
     }
 }

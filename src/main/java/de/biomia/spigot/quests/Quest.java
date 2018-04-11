@@ -37,7 +37,7 @@ public abstract class Quest {
     private HashMap<NPC, ArrayList<DialogMessage>> dialoge;
 
     public Quest(Band band, String questName) {
-        registerQuestIfnotExist();
+        registerQuest();
     }
 
     public void registerNpc(String name, EntityType type, Location loc) {
@@ -58,8 +58,8 @@ public abstract class Quest {
         this.cooldown = cooldown * time.getSekunden();
     }
 
-    private void registerQuestIfnotExist() {
-        //TODO rename | should quests be reseted?
+    private void registerQuest() {
+        //TODO rename | should quests be reset?
         questID = MySQL.executeQuerygetint("SELECT id from `Quests` where name = '" + questName + "'",
                 "id", MySQL.Databases.quests_db);
         if (questID == -1) {
@@ -68,9 +68,10 @@ public abstract class Quest {
             questID = MySQL.executeQuerygetint(
                     "SELECT name, id from `Quests` where name = '" + questName + "'", "id", MySQL.Databases.quests_db);
         }
+        // else: Quest already in database
     }
 
-    //GETTER und SETTER
+    //GETTER and SETTER
 
     public void setActiveNpc(NPC npc) {
         npcs.add(npcs.get(0));

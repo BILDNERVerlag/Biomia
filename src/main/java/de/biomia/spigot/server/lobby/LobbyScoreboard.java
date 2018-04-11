@@ -85,7 +85,7 @@ public class LobbyScoreboard {
             case "vier":
                 rankName = "Premium IV";
                 break;
-            case "fünf":
+            case "f00dcnf":
                 rankName = "Premium V";
                 break;
             case "sechs":

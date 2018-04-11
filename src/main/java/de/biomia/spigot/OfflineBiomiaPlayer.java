@@ -40,7 +40,7 @@ public class OfflineBiomiaPlayer extends UniversalBiomiaPlayer {
         int actualCoins = getCoins();
 
         if (actualCoins < coins && isOnline()) {
-            getBiomiaPlayer().getPlayer().sendMessage(Messages.PREFIX + "§cDu hast nicht genug BC! Dir fehlen noch §b" + (actualCoins - coins) + " §cBC!");
+            getBiomiaPlayer().getPlayer().sendMessage(Messages.PREFIX + "00A7cDu hast nicht genug BC! Dir fehlen noch 00A7b" + (actualCoins - coins) + " 00A7cBC!");
             return;
         }
 

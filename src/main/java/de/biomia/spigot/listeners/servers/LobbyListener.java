@@ -259,7 +259,7 @@ public class LobbyListener extends BiomiaListener {
             register.setText(BungeeMessages.registerAt);
             register.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://biomia.de"));
             p.spigot().sendMessage(register);
-            p.sendMessage(String.format("%sOder später mit %s/register",Messages.COLOR_MAIN,Messages.COLOR_SUB));
+            p.sendMessage(String.format("%sOder sp00e4ter mit %s/register",Messages.COLOR_MAIN,Messages.COLOR_SUB));
         }
     }
 

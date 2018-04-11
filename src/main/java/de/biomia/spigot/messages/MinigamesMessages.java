@@ -24,18 +24,18 @@ public class MinigamesMessages {
     public static final String leftTheGame = "\u00A77 hat das Spiel verlassen.";
     public static final String explainMessages =
             "\u00A77\u00A7m-------------------------------------------------\u00A7r\n" +
-                    "\u00A77Nur Teammitglieder können deine Chatnachrichten sehen.\n" +
+                    "\u00A77Nur Teammitglieder k00f6nnen deine Chatnachrichten sehen.\n" +
                     "\u00A77Tippe \u00A7b@a \u00A77oder \u00A7b@all \u00A77vor eine Nachricht, um an alle zu senden.\n" +
                     "\u00A77\u00A7m-------------------------------------------------\u00A7r";
     public static final String playerKilledByPlayer = "\u00A77>>Der Spieler %s \u00A77wurde von %s \u00A77get\u00F6tet!";
     public static final String playerDied = "\u00A77Der Spieler %p \u00A77ist gestorben.";
     public static final String playerDiedFinally = "\u00A77Der Spieler %p \u00A77ist endg\u00fcltig gestorben!";
-    public static final String destroyOwnBed = "§7Du kannst das eigene Bett nicht zerstören.\n Deine Mitspieler wären enttäuscht :(";
+    public static final String destroyOwnBed = "00A77Du kannst das eigene Bett nicht zerst00f6ren.\n Deine Mitspieler w00e4ren entt00e4uscht :(";
 
-    public static final String rank = "§c%s §b#%s";
-    public static final String winns = "§8Gewonnen: §b%s";
-    public static final String kd = "§8K/D: §b%s";
-    public static final String played = "§8Gespielt: §b%s";
+    public static final String rank = "00A7c%s 00A7b#%s";
+    public static final String winns = "00A78Gewonnen: 00A7b%s";
+    public static final String kd = "00A78K/D: 00A7b%s";
+    public static final String played = "00A78Gespielt: 00A7b%s";
 
 
 }

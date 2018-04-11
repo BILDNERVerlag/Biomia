@@ -17,7 +17,7 @@ import java.util.Date;
 
 public class Schnitzel {
 
-    public final static String name = "§cSchnitzel §7#§b%s";
+    public final static String name = "00A7cSchnitzel 00A77#00A7b%s";
 
     private ItemStack is;
     private Location loc;
@@ -60,17 +60,17 @@ public class Schnitzel {
         if (!comments.contains(id + "")) {
             comments.add(id + "");
             BiomiaStat.SchnitzelFound.increment(bp.getBiomiaPlayerID(), 1, id + "");
-            bp.sendMessage(Messages.PREFIX + "§cDu hast " + getItem().getItemMeta().getDisplayName() + " §cgefunden!");
+            bp.sendMessage(Messages.PREFIX + "00A7cDu hast " + getItem().getItemMeta().getDisplayName() + " 00A7cgefunden!");
             bp.addCoins(50, false);
             if (comments.size() == SchnitzelEvent.getSchnitzel()) {
                 Date date = BiomiaStat.SchnitzelFound.getFirstIncrementDate(bp);
                 int duration = (int) ((System.currentTimeMillis() - date.getTime()) / 1000);
                 SchnitzelEvent.schnitzelHighScore.put(bp.getName(), duration);
                 SchnitzelEvent.reloadSBSchnitzel();
-                Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat alle §c" + SchnitzelEvent.getSchnitzel() + " §bSchnitzel in §c" + Time.toText(duration) + " §bgefunden!");
+                Bukkit.broadcastMessage("00A7c" + bp.getName() + " 00A7bhat alle 00A7c" + SchnitzelEvent.getSchnitzel() + " 00A7bSchnitzel in 00A7c" + Time.toText(duration) + " 00A7bgefunden!");
 
                 if (SchnitzelEvent.getFirstName(SchnitzelEvent.schnitzelHighScore).equals(bp.getName())) {
-                    Bukkit.broadcastMessage("§c" + bp.getName() + " §bhat den Highscore gebrochen!");
+                    Bukkit.broadcastMessage("00A7c" + bp.getName() + " 00A7bhat den Highscore gebrochen!");
                 }
             }
             if (id == 17) {

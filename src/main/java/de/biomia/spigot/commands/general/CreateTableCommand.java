@@ -45,7 +45,7 @@ public class CreateTableCommand extends BiomiaCommand {
                             "`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, " +
                             "PRIMARY KEY (`key`) );", MySQL.Databases.stats_db);
                 }
-                sender.sendMessage("§cAlle Tabellen erfolgreich erstellt!");
+                sender.sendMessage("00A7cAlle Tabellen erfolgreich erstellt!");
                 break;
             case "s":
             case "stat":

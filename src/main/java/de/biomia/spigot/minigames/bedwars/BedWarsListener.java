@@ -278,7 +278,7 @@ public class BedWarsListener extends GameHandler {
                             return;
                         }
                         bt.destroyBed();
-                        Bukkit.broadcastMessage(bt.getColorcode() + ">>§7Das Bett von " + bt.getColorcode() + "Team " + bt.getTeamname() + "§7 wurde zerstört.");
+                        Bukkit.broadcastMessage(bt.getColorcode() + ">>00A77Das Bett von " + bt.getColorcode() + "Team " + bt.getTeamname() + "00A77 wurde zerst00f6rt.");
                         e.setDropItems(false);
                         return;
                     }
@@ -292,6 +292,5 @@ public class BedWarsListener extends GameHandler {
     @EventHandler
     public void onRespawnNoOverload(PlayerRespawnEvent e) {
         e.getPlayer().getInventory().clear();
-        //TODO Loop?
     }
 }

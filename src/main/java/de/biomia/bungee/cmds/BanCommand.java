@@ -64,7 +64,7 @@ public class BanCommand extends Command {
 
         if (sender.hasPermission("biomia.ban.temp")) {
 
-            TextComponent comp = new TextComponent("\u00A77Der Spieler §c" + targetName + " §7wurde von§b " + bp.getName() + " §7für§c " + Time.toText(sec) + " §7wegen§b " + grund + " §7gebannt!");
+            TextComponent comp = new TextComponent("\u00A77Der Spieler 00A7c" + targetName + " 00A77wurde von00A7b " + bp.getName() + " 00A77f00dcr00A7c " + Time.toText(sec) + " 00A77wegen00A7b " + grund + " 00A77gebannt!");
             for (ProxiedPlayer p : BungeeCord.getInstance().getPlayers()) {
                 if (p.hasPermission("biomia.ban.getmessages"))
                     p.sendMessage(comp);
@@ -77,7 +77,7 @@ public class BanCommand extends Command {
 
             ProxiedPlayer p = BungeeCord.getInstance().getPlayer(targetName);
             if (p != null)
-                p.disconnect(new TextComponent("\u00A77Du wurdest wegen\u00A7c " + grund + " \u00A77für " + Time.toText(sec) + " \u00A77gebannt."));
+                p.disconnect(new TextComponent("\u00A77Du wurdest wegen\u00A7c " + grund + " \u00A77f00dcr " + Time.toText(sec) + " \u00A77gebannt."));
 
             MySQL.executeUpdate("INSERT INTO `BanList`(`biomiaID`, `Grund`, `timestamp`, `l\u00e4nge`, `permanent`, von) VALUES ("
                     + biomiaID + ", '" + grund + "', " + System.currentTimeMillis() / 1000 + ", " + sec + ", false, " + bp.getBiomiaPlayerID() + ")", MySQL.Databases.biomia_db);

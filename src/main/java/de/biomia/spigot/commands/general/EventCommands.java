@@ -88,7 +88,7 @@ public class EventCommands extends BiomiaCommand {
             //Schnitzel
             if (schnitzelEventOn) {
                 if (getName().equals("schnitzel") && biomiaPlayer.isSrStaff()) {
-                    ItemStack is = ItemCreator.itemCreate(Material.BROWN_GLAZED_TERRACOTTA, "§eSchnitzel");
+                    ItemStack is = ItemCreator.itemCreate(Material.BROWN_GLAZED_TERRACOTTA, "00A7eSchnitzel");
                     p.getLocation().getWorld().dropItem(p.getLocation(), is);
                 }
             }
