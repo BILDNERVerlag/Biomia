@@ -2,6 +2,7 @@ package de.biomia.spigot.minigames;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.Main;
 import de.biomia.spigot.listeners.servers.BiomiaListener;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.versus.Versus;
@@ -28,6 +29,12 @@ public class WaitingLobbyListener extends BiomiaListener {
     @EventHandler
     public void onJoin_(PlayerJoinEvent e) {
         if (isVersus) {
+
+            Bukkit.getOnlinePlayers().forEach(each -> {
+                if (!each.equals(e.getPlayer()) && Biomia.getBiomiaPlayer(e.getPlayer()).getTeam() != null)
+                    each.hidePlayer(Main.getPlugin(), e.getPlayer());
+            });
+
             Versus.getInstance().getManager().moveToLobby(e.getPlayer(), true);
         }
     }

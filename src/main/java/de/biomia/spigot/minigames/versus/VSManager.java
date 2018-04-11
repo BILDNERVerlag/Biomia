@@ -79,6 +79,7 @@ public class VSManager implements Listener {
         bp.setGetDamage(false);
         bp.setDamageEntitys(false);
         Scoreboards.setTabList(p, true, false);
+        Bukkit.getOnlinePlayers().forEach(all -> p.showPlayer(Main.getPlugin(), all));
     }
 
     public void setInventory(Player p) {

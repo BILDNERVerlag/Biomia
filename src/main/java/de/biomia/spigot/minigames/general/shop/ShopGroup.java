@@ -17,7 +17,7 @@ public class ShopGroup {
     private int invSize = 36;
     private Inventory inv = null;
 
-    public ShopGroup(ChatColor chatColor, String name, ItemStack icon) {
+    ShopGroup(ChatColor chatColor, String name, ItemStack icon) {
         this.color = chatColor;
         this.name = name;
         this.icon = icon;
