@@ -4,6 +4,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
 import de.biomia.spigot.server.quests.QuestEvents.AddCoinEvent;
 import de.biomia.spigot.server.quests.QuestEvents.GiveItemEvent;
+import de.biomia.spigot.server.quests.QuestEvents.TakeItemEvent;
 import de.biomia.spigot.server.quests.general.DialogMessage;
 import de.biomia.spigot.server.quests.general.Quest;
 import de.biomia.spigot.server.quests.general.QuestPlayer;
@@ -88,8 +89,9 @@ public class GehAngeln implements Listener {
         afterQuesting = new DialogMessage(q, pari).setInhalt(
                 "Endlich! Nun kann die ganze Familie zum Essen kommen! Hier, die hab ich vor einiger Zeit aus dem Wasser gezogen! Aber ich wei\u00df nicht, was ich damit anfangen soll. Vielleicht kannst du sie gebrauchen.");
 
-        afterQuesting.addEvent(new AddCoinEvent(150));
-        afterQuesting.addEvent(new GiveItemEvent(Material.BONE, 14));
+        afterQuesting.addEvent(new AddCoinEvent(150))
+                .addEvent(new TakeItemEvent(Material.RAW_FISH, 10))
+                .addEvent(new GiveItemEvent(Material.BONE, 14));
 
         afterQuesting.finish();
 

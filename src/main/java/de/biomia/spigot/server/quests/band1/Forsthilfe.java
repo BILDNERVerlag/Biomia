@@ -1,5 +1,6 @@
 package de.biomia.spigot.server.quests.band1;
 
+import de.biomia.spigot.server.quests.QuestEvents.AddCoinEvent;
 import de.biomia.universal.Time;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
@@ -97,7 +98,7 @@ public class Forsthilfe implements Listener {
         // with item
         comeBackWithItem = new DialogMessage(q, npc)
                 .setInhalt("Du hast zehn St\u00fcck Setzlinge? Kann ich die haben? Das ist ja wunderbar! Vielen Dank!");
-        comeBackWithItem.addEvent(new TakeItemEvent(Material.SAPLING, 10));
+        comeBackWithItem.addEvent(new TakeItemEvent(Material.SAPLING, 10)).addEvent(new AddCoinEvent(150));
 
         // nach quest
         nachQuest = new DialogMessage(q, npc).setInhalt(
