@@ -4,10 +4,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.messages.SkyWarsMessages;
-import de.biomia.spigot.minigames.GameMode;
-import de.biomia.spigot.minigames.GameTeam;
-import de.biomia.spigot.minigames.GameType;
-import de.biomia.spigot.minigames.TeamColor;
+import de.biomia.spigot.minigames.*;
 import de.biomia.spigot.minigames.general.kits.KitManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -75,17 +72,17 @@ public class Scoreboards {
     }
 
     // InGame
-    public static void setInGameScoreboard(Player p, GameType type) {
+    public static void setInGameScoreboard(Player p, GameInstance instance) {
         Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
 
         Objective o = sb.registerNewObjective("aaa", "bbb");
-        setDisplayName(type, o);
+        setDisplayName(instance.getType(), o);
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         GameTeam gameTeam = Biomia.getBiomiaPlayer(p).getTeam();
         Team team;
 
-        switch (type) {
+        switch (instance.getType()) {
             default:
             case BED_WARS:
             case BED_WARS_VS:
@@ -122,8 +119,8 @@ public class Scoreboards {
             sb.registerNewTeam(color.name()).setPrefix(color.getColorcode());
         }
 
-        for (Player pl : Bukkit.getOnlinePlayers()) {
-            sb.getTeam(Biomia.getBiomiaPlayer(pl).getTeam().getColor().name()).addEntry(pl.getName());
+        for (BiomiaPlayer bp : instance.getPlayers()) {
+            sb.getTeam(bp.getTeam().getColor().name()).addEntry(bp.getName());
         }
         p.setScoreboard(sb);
     }

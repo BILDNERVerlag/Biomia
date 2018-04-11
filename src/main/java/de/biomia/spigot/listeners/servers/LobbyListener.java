@@ -207,18 +207,12 @@ public class LobbyListener extends BiomiaListener {
                             || e.getClickedBlock().getType() == Material.LEVER || e.getClickedBlock().getType() == Material.FENCE_GATE)
                         e.setCancelled(true);
                 }
-                if (!Biomia.getBiomiaPlayer(e.getPlayer()).canBuild()) {
-                    e.setCancelled(true);
-                }
-
+                if (!Biomia.getBiomiaPlayer(e.getPlayer()).canBuild()) e.setCancelled(true);
                 if (e.getClickedBlock().getType() == Material.CHEST) { /*only chests in the beach house become mystery chests*/
                     try {
                         if (e.getClickedBlock().getLocation().distance(new Location(Bukkit.getWorld("LobbyBiomia"), 605, 68, 363)) < 10) {
-
                             e.setCancelled(true);
-
                             BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-
                             int coins = bp.getCoins();
                             if (coins >= 1000) {
                                 bp.takeCoins(1000);
@@ -258,7 +252,7 @@ public class LobbyListener extends BiomiaListener {
             register.setText(BungeeMessages.registerAt);
             register.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://biomia.de"));
             p.spigot().sendMessage(register);
-            p.sendMessage(String.format("%sOder sp00e4ter mit %s/register",Messages.COLOR_MAIN,Messages.COLOR_SUB));
+            p.sendMessage(String.format("%sOder sp00e4ter mit %s/register", Messages.COLOR_MAIN, Messages.COLOR_SUB));
         }
     }
 
