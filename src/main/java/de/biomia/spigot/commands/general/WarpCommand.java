@@ -8,6 +8,7 @@ import de.biomia.universal.Messages;
 import de.biomia.universal.MySQL;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -171,6 +172,9 @@ public class WarpCommand extends BiomiaCommand {
                 break;
             default:
                 return locations;
+        }
+        if (p.getWorld().getName().contains("nether") || p.getWorld().getName().contains("end")) {
+            p.sendMessage(Messages.PREFIX + "\u00A7cWarps sind im Nether und im End nicht erlaubt.");
         }
         locations.put("spawn", new WarpLocation(p.getWorld().getSpawnLocation(), Biomia.getServerInstance().getServerType().name()));
         return locations;
