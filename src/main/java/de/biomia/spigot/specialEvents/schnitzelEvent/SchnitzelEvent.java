@@ -37,10 +37,8 @@ public class SchnitzelEvent extends BiomiaServer {
     public static HashMap<String, MonsterPunkte> mobsKilled = new HashMap<>();
     public static HashMap<String, Integer> booksHighScore = new HashMap<>();
     public static HashMap<String, Integer> schnitzelHighScore = new HashMap<>();
-
     private static HashMap<String, ArrayList<String>> foundBooks = new HashMap<>();
     private static HashMap<String, ArrayList<String>> foundSchnitzel = new HashMap<>();
-
     private static String placeholder = "00A7700A7m---";
 
     public SchnitzelEvent() {
@@ -62,16 +60,13 @@ public class SchnitzelEvent extends BiomiaServer {
         spawn.getWorld().setGameRuleValue("randomTickSpeed", "0");
         spawn.getWorld().setDifficulty(Difficulty.NORMAL);
 
-
         for (Map.Entry<Integer, Integer> entry : BiomiaStat.SchnitzelMonsterKilled.getTop(-1, null).entrySet()) {
             OfflineBiomiaPlayer bp = Biomia.getOfflineBiomiaPlayer(entry.getKey());
             int i = BiomiaStat.SchnitzelDiedByMonster.get(bp.getBiomiaPlayerID(), null);
             mobsKilled.put(bp.getName(), new MonsterPunkte(bp, entry.getValue() - i));
         }
 
-
         BiomiaStat.SchnitzelFound.getBiomiaIDSWhereValueIsX(schnitzelMap.size(), null).forEach(each -> {
-
             OfflineBiomiaPlayer bp = Biomia.getOfflineBiomiaPlayer(each);
 
             Date first = BiomiaStat.SchnitzelFound.getFirstIncrementDate(bp);
@@ -83,7 +78,6 @@ public class SchnitzelEvent extends BiomiaServer {
         });
 
         BiomiaStat.BooksFound.getBiomiaIDSWhereValueIsX(secretBookMap.size(), null).forEach(each -> {
-
             OfflineBiomiaPlayer bp = Biomia.getOfflineBiomiaPlayer(each);
 
             Date first = BiomiaStat.SchnitzelFound.getFirstIncrementDate(bp);
@@ -92,11 +86,8 @@ public class SchnitzelEvent extends BiomiaServer {
             int duration = ((int) last.getTime() / 1000) - ((int) first.getTime() / 1000);
 
             booksHighScore.put(bp.getName(), duration);
-
         });
-
         initScoreboard();
-
     }
 
     @Override

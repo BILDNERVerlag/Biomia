@@ -24,7 +24,8 @@ public abstract class BiomiaServer {
         initCommands();
     }
 
-    public abstract void stop();
+    public void stop() {
+    }
 
     protected void initListeners() {
         Bukkit.getPluginManager().registerEvents(new ReportListener(), Main.getPlugin());

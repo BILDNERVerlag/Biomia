@@ -106,7 +106,8 @@ public class GameTeam {
             if (mode.canStop()) {
                 mode.stop();
             }
-        TeamSwitcher.getTeamSwitcher(mode);
+        if (!mode.getInstance().getType().isVersus())
+            TeamSwitcher.getTeamSwitcher(mode);
     }
 
     public Location getHome() {

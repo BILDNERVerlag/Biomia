@@ -105,11 +105,9 @@ public class BedWarsListener extends GameHandler {
     @SuppressWarnings("deprecation")
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-
         if (e.getWhoClicked() instanceof Player) {
             Player p = (Player) e.getWhoClicked();
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-
             if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
                 ItemStack iStack = e.getCurrentItem();
                 if (e.getInventory().getName().equals(BedWarsMessages.shopInventory)) {
@@ -120,7 +118,7 @@ public class BedWarsListener extends GameHandler {
                             return;
                         }
                     }
-                } else if (e.getClickedInventory().getName().equals(mode.getTeamSwitcher().getName())) {
+                } else if (mode.getTeamSwitcher() != null && e.getClickedInventory().getName().equals(mode.getTeamSwitcher().getName())) {
                     mode.getTeamFromData(e.getCurrentItem().getData().getData()).join(bp);
                     e.setCancelled(true);
                     p.closeInventory();
@@ -212,8 +210,7 @@ public class BedWarsListener extends GameHandler {
     @EventHandler
     public void onInteract(PlayerInteractEntityEvent e) {
         Player p = e.getPlayer();
-
-        if (e.getRightClicked() instanceof Villager || e.getRightClicked() instanceof ArmorStand) {
+        if (e.getRightClicked() instanceof Villager || e.getRightClicked() instanceof ArmorStand)
             if (e.getRightClicked().getCustomName().equals("Shop")) {
                 e.setCancelled(true);
                 Bukkit.getPluginManager().callEvent(new BedWarsUseShopEvent(Biomia.getBiomiaPlayer(p), e.getRightClicked() instanceof Villager, mode));
@@ -223,7 +220,6 @@ public class BedWarsListener extends GameHandler {
                 p.openInventory(Shop.getInventory());
                 ((BedWars) mode).handlerMap.get(e.getRightClicked().getUniqueId()).add(p);
             }
-        }
     }
 
     @EventHandler
@@ -256,15 +252,12 @@ public class BedWarsListener extends GameHandler {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
-
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-
         if (WaitingLobbyListener.inLobbyOrSpectator(bp) || !bp.canBuild()) {
             e.setCancelled(true);
             e.getPlayer().sendMessage(BedWarsMessages.cantDestroyThisBlock);
             return;
         }
-
         if (destroyableBlocks.contains(e.getBlock())) {
             destroyableBlocks.remove(e.getBlock());
         } else if (e.getBlock().getType() == Material.BED_BLOCK) {
@@ -278,7 +271,7 @@ public class BedWarsListener extends GameHandler {
                             return;
                         }
                         bt.destroyBed();
-                        Bukkit.broadcastMessage(bt.getColorcode() + ">>00A77Das Bett von " + bt.getColorcode() + "Team " + bt.getTeamname() + "00A77 wurde zerst00f6rt.");
+                        Bukkit.broadcastMessage(bt.getColorcode() + ">>\u00A77Das Bett von " + bt.getColorcode() + "Team " + bt.getTeamname() + "\u00A77 wurde zerst\u00f6rt.");
                         e.setDropItems(false);
                         return;
                     }

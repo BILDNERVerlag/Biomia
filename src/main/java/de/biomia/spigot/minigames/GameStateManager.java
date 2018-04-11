@@ -134,7 +134,7 @@ public class GameStateManager {
                 bp.setDamageEntitys(true);
                 bp.setGetDamage(true);
                 bp.getPlayer().setGameMode(org.bukkit.GameMode.SURVIVAL);
-                Scoreboards.setInGameScoreboard(bp.getPlayer(), getMode().getInstance().getType());
+                Scoreboards.setInGameScoreboard(bp.getPlayer(), getMode().getInstance());
                 bp.getPlayer().getInventory().clear();
                 bp.getPlayer().setFlying(false);
                 bp.getPlayer().setAllowFlight(false);
@@ -183,6 +183,7 @@ public class GameStateManager {
             if (!getMode().getInstance().getType().isVersus()) {
                 new BukkitRunnable() {
                     int i = 15;
+
                     @Override
                     public void run() {
                         if (i == 0) {

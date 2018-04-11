@@ -5,6 +5,7 @@ import de.biomia.spigot.Main;
 import de.biomia.spigot.general.cosmetics.Cosmetic.Group;
 import net.minecraft.server.v1_12_R1.EntityInsentient;
 import net.minecraft.server.v1_12_R1.PathEntity;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftEntity;
 import org.bukkit.entity.Creature;
@@ -16,18 +17,19 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.Random;
+import java.util.UUID;
 
 public class CosmeticPetItem extends CosmeticItem {
 
     private final EntityType type;
-    private static final HashMap<BiomiaPlayer, Entity> pets = new HashMap<>();
+    private static final HashMap<BiomiaPlayer, UUID> pets = new HashMap<>();
 
     public static boolean isOwner(BiomiaPlayer bp, Entity pet) {
-        return pets.containsKey(bp) && (pets.get(bp) == pet);
+        return pets.containsKey(bp) && (pets.get(bp).equals(pet.getUniqueId()));
     }
 
     public static boolean isPet(Entity e) {
-        return pets.containsValue(e);
+        return pets.containsValue(e.getUniqueId());
     }
 
     public CosmeticPetItem(int id, String name, ItemStack is, Commonness c, EntityType type) {
@@ -38,8 +40,8 @@ public class CosmeticPetItem extends CosmeticItem {
     @Override
     public void remove(BiomiaPlayer bp) {
         if (pets.containsKey(bp)) {
-            Entity e = pets.get(bp);
-            e.remove();
+            Entity e = Bukkit.getEntity(pets.get(bp));
+            if (e != null) e.remove();
             pets.remove(bp);
         }
     }
@@ -51,9 +53,8 @@ public class CosmeticPetItem extends CosmeticItem {
         Entity entity = p.getWorld().spawnEntity(p.getLocation(), type);
         entity.setCustomName("\u00A78" + p.getName() + "'s Haustier");
         entity.setCustomNameVisible(true);
-        pets.put(bp, entity);
+        pets.put(bp, entity.getUniqueId());
         entity.addPassenger(p);
-
         new BukkitRunnable() {
             @Override
             public void run() {

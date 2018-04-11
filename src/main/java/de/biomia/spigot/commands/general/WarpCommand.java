@@ -45,6 +45,10 @@ public class WarpCommand extends BiomiaCommand {
                     return true;
                 }
                 args[0] = args[0].toLowerCase();
+                if (args[0].equals("spawn")) {
+                    p.sendMessage("\u00A7cDu darfst deinen Warp nicht \u00A7b'spawn' \u00A7cnennen.");
+                    return true;
+                }
                 int verbleibendeWarps = bp.getPremiumLevel() + 3 - playerWarpLocations.size();
                 if (bp.isStaff()) verbleibendeWarps += 2;
                 if (bp.isOwnerOrDev()) verbleibendeWarps += 6;
