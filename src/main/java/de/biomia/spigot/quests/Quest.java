@@ -102,5 +102,5 @@ class QuestListener implements Listener {
 }
 
 enum Band {
-    Band1, Band2;
+    Band1, Band2
 }

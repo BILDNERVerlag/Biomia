@@ -1,11 +1,8 @@
 package de.biomia.universal;
 
-import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
-
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Properties;
-import java.util.concurrent.Executor;
 
 public abstract class MySQL {
 

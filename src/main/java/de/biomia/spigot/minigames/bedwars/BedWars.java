@@ -6,7 +6,6 @@ import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.minigames.*;
 import de.biomia.spigot.minigames.general.SpawnItems;
-import de.biomia.spigot.minigames.general.TeamSwitcher;
 import de.biomia.spigot.minigames.general.shop.Shop;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

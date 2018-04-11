@@ -17,8 +17,6 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.*;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
-import java.util.logging.Level;
-
 public class WaitingLobbyListener extends BiomiaListener {
 
     private final boolean isVersus;

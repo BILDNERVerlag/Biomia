@@ -2,7 +2,6 @@ package de.biomia.spigot.commands.general;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.configs.Config;
 import de.biomia.spigot.specialEvents.easterEvent.EasterEvent;
@@ -79,6 +78,7 @@ public class EventCommands extends BiomiaCommand {
                     }
                 }
                 if (getName().equals("addeggs") && p.hasPermission("biomia.event.addeggs")) {
+                    //noinspection StatementWithEmptyBody
                     if (args.length >= 2) {
                         //Main.getEvent().addEggs(Biomia.getOfflineBiomiaPlayer(args[0]).getBiomiaPlayerID(), Integer.valueOf(args[1]));
                     }

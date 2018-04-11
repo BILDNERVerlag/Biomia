@@ -1,7 +1,6 @@
 package de.biomia.spigot.server.quests.QuestEvents;
 
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.server.quests.general.QuestPlayer;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

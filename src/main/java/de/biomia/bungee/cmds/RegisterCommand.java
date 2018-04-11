@@ -2,12 +2,10 @@ package de.biomia.bungee.cmds;
 
 import de.biomia.bungee.BungeeBiomia;
 import de.biomia.bungee.OfflineBungeeBiomiaPlayer;
-import de.biomia.bungee.events.ChannelListener;
 import de.biomia.bungee.msg.BungeeMessages;
 import de.biomia.universal.Messages;
 import de.biomia.universal.MySQL;
 import de.biomia.universal.Ranks;
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
