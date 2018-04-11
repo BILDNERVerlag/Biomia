@@ -24,9 +24,7 @@ public abstract class BiomiaServer {
         initCommands();
     }
 
-    public void stop() {
-        Bukkit.getOnlinePlayers().forEach(each -> each.kickPlayer(""));
-    }
+    public abstract void stop();
 
     protected void initListeners() {
         Bukkit.getPluginManager().registerEvents(new ReportListener(), Main.getPlugin());

@@ -65,6 +65,7 @@ public class PlayerBan {
             bp.getPlayer().sendMessage("\u00A7bBitte gib den Grund in den Chat ein!");
         } else {
             this.reason = reason;
+            ReportListener.waitForBanReason.remove(bp);
             ReportListener.waitForIsPermBan.put(bp, this);
             openIsPermInv();
         }
