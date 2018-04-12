@@ -46,31 +46,32 @@ public class SkyWarsHandler extends GameHandler {
     }
 
     @EventHandler
-    public void onProjectileHit(ProjectileHitEvent event) {
-        if (event.getEntityType() != EntityType.SNOWBALL) {
-            if (event.getEntityType() != EntityType.EGG) {
+    public void onProjectileHit(ProjectileHitEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getHitEntity().getWorld())) return;
+        if (e.getEntityType() != EntityType.SNOWBALL) {
+            if (e.getEntityType() != EntityType.EGG) {
                 return;
             }
         }
-        Projectile projectile = event.getEntity();
+        Projectile projectile = e.getEntity();
         ProjectileSource shooter = projectile.getShooter();
         if (shooter == null) {
             return;
         }
         if ((shooter instanceof Player)) {
-            if (!(event.getHitEntity() instanceof Damageable)) {
+            if (!(e.getHitEntity() instanceof Damageable)) {
                 return;
             }
             Player pShooter = (Player) shooter;
             pShooter.playSound(pShooter.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10, 1);
 
             if (projectile.getCustomName() != null && projectile.getCustomName().equals(SkyWarsItemNames.oneHitSnowball)) {
-                ((Damageable) event.getHitEntity()).damage(0.5D, pShooter);
-                ((Damageable) event.getHitEntity()).setHealth(0);
-                ((Damageable) event.getHitEntity()).damage(0.5D, pShooter);
+                ((Damageable) e.getHitEntity()).damage(0.5D, pShooter);
+                ((Damageable) e.getHitEntity()).setHealth(0);
+                ((Damageable) e.getHitEntity()).damage(0.5D, pShooter);
             } else if (projectile.getCustomName().equals(SkyWarsItemNames.gummipfeil)) {
                 projectile.remove();
-                ((Damageable) event.getHitEntity()).damage(0.1D, pShooter);
+                ((Damageable) e.getHitEntity()).damage(0.1D, pShooter);
             }
         }
     }
@@ -78,7 +79,7 @@ public class SkyWarsHandler extends GameHandler {
     @SuppressWarnings("deprecation")
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-
+        if (!mode.getInstance().getWorld().equals(e.getWhoClicked().getWorld())) return;
         if (e.getWhoClicked() instanceof Player) {
             Player p = (Player) e.getWhoClicked();
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
@@ -148,6 +149,7 @@ public class SkyWarsHandler extends GameHandler {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         super.onPlayerInteract(e);
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
@@ -235,6 +237,7 @@ public class SkyWarsHandler extends GameHandler {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         if (mode.getInstance().containsPlayer(Biomia.getBiomiaPlayer(e.getPlayer())) && mode.getStateManager().getActualGameState() == GameStateManager.GameState.WAITING_FOR_START) {
             e.setCancelled(true);
         }
