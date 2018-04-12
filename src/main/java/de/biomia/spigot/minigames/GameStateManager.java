@@ -164,10 +164,8 @@ public class GameStateManager {
 
         @Override
         void start() {
-            for (Player p : Bukkit.getOnlinePlayers()) {
+            for (Player p : getMode().getInstance().getWorld().getPlayers()) {
                 BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-                if (!getMode().getInstance().getWorld().equals(p.getWorld()))
-                    continue;
                 bp.setBuild(false);
                 bp.setDamageEntitys(false);
                 bp.setGetDamage(false);

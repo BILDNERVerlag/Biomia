@@ -18,6 +18,7 @@ import org.bukkit.Sound;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -109,35 +110,35 @@ public class SkyWarsListener extends GameHandler {
                     }
                     if (kit != null) {
                         switch (name) {
-                        case SkyWarsItemNames.purchaseKit:
-                            p.closeInventory();
-                            KitManager kitManager = KitManager.getManager(bp);
-                            if (kitManager.buy(kit)) {
-                                kitManager.selectSkyWarsKit(kit);
-                                p.sendMessage(SkyWarsMessages.youChoseKit.replace("%k", kit.getName()));
-                            }
-                            e.setCancelled(true);
-                            break;
-                        case SkyWarsItemNames.selectKit:
-                            final ArrayList<Kit> kits = KitManager.getManager(bp).getAvailableKits();
-                            if (kits.contains(kit)) {
+                            case SkyWarsItemNames.purchaseKit:
                                 p.closeInventory();
-                                if (!KitManager.getManager(bp).selectSkyWarsKit(kit)) {
-                                    p.sendMessage(SkyWarsMessages.kitAlreadyChosen);
-                                } else {
+                                KitManager kitManager = KitManager.getManager(bp);
+                                if (kitManager.buy(kit)) {
+                                    kitManager.selectSkyWarsKit(kit);
                                     p.sendMessage(SkyWarsMessages.youChoseKit.replace("%k", kit.getName()));
                                 }
-                            } else {
-                                p.closeInventory();
-                                p.sendMessage(SkyWarsMessages.kitNotBought);
-                            }
-                            e.setCancelled(true);
-                            break;
-                        case SkyWarsItemNames.showKit:
-                            KitManager.getManager(bp).showInventory(kit);
-                            p.sendMessage(SkyWarsMessages.nowLookingAtKit.replace("%k", kit.getName()));
-                            e.setCancelled(true);
-                            break;
+                                e.setCancelled(true);
+                                break;
+                            case SkyWarsItemNames.selectKit:
+                                final ArrayList<Kit> kits = KitManager.getManager(bp).getAvailableKits();
+                                if (kits.contains(kit)) {
+                                    p.closeInventory();
+                                    if (!KitManager.getManager(bp).selectSkyWarsKit(kit)) {
+                                        p.sendMessage(SkyWarsMessages.kitAlreadyChosen);
+                                    } else {
+                                        p.sendMessage(SkyWarsMessages.youChoseKit.replace("%k", kit.getName()));
+                                    }
+                                } else {
+                                    p.closeInventory();
+                                    p.sendMessage(SkyWarsMessages.kitNotBought);
+                                }
+                                e.setCancelled(true);
+                                break;
+                            case SkyWarsItemNames.showKit:
+                                KitManager.getManager(bp).showInventory(kit);
+                                p.sendMessage(SkyWarsMessages.nowLookingAtKit.replace("%k", kit.getName()));
+                                e.setCancelled(true);
+                                break;
                         }
                     }
                 }
@@ -155,7 +156,7 @@ public class SkyWarsListener extends GameHandler {
 
                 String displayname = e.getItem().getItemMeta().getDisplayName();
                 switch (displayname) {
-                case SkyWarsItemNames.playerTracker:
+                    case SkyWarsItemNames.playerTracker:
                         if (e.getItem().getType() == Material.COMPASS) {
                             for (Entity entity : p.getNearbyEntities(500, 500, 500)) {
                                 if (entity instanceof Player) {
@@ -170,7 +171,7 @@ public class SkyWarsListener extends GameHandler {
                             }
                         }
                         break;
-                case SkyWarsItemNames.oneHitSnowball:
+                    case SkyWarsItemNames.oneHitSnowball:
                         if (e.getItem().getType() == Material.SNOW_BALL) {
                             if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                                 e.setCancelled(true);
@@ -181,7 +182,7 @@ public class SkyWarsListener extends GameHandler {
                             }
                         }
                         break;
-                case SkyWarsItemNames.gummibogen:
+                    case SkyWarsItemNames.gummibogen:
                         if (e.getItem().getType() == Material.BOW) {
                             e.setCancelled(true);
                             Projectile arrow = p.launchProjectile(Arrow.class);
@@ -190,9 +191,9 @@ public class SkyWarsListener extends GameHandler {
                             p.getInventory().remove(e.getItem());
                         }
                         break;
-                case SkyWarsItemNames.kitItemName:
-                    KitManager.getManager(bp).openKitMenu();
-                    break;
+                    case SkyWarsItemNames.kitItemName:
+                        KitManager.getManager(bp).openKitMenu();
+                        break;
                 }
             }
         }

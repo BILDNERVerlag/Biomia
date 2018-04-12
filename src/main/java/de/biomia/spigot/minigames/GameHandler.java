@@ -40,9 +40,9 @@ public abstract class GameHandler implements Listener {
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
     }
 
-    void unregister() {
-        HandlerList.unregisterAll(this);
-    }
+   protected void unregister() {
+       HandlerList.unregisterAll(this);
+   }
 
     @EventHandler
     public void onKill(GameKillEvent e) {

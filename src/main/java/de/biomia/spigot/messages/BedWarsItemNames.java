@@ -22,6 +22,4 @@ public class BedWarsItemNames {
     public static final String traenke = "Tr\u00e4nke";
     public static final String special = "Special";
 
-    //SHOP
-
 }

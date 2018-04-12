@@ -270,7 +270,7 @@ public class BedWarsListener extends GameHandler {
                     as.remove();
                     cancel();
                 }
-                as.setCustomName(String.format(BedWarsMessages.thirtySecondShopName, i));
+                as.setCustomName(String.format(BedWarsMessages.thirtySecondShopName, Messages.COLOR_MAIN, i));
                 i--;
             }
         }.runTaskTimer(Main.getPlugin(), 0, 20);
