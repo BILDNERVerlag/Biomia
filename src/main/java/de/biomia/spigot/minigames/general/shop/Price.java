@@ -1,6 +1,7 @@
 package de.biomia.spigot.minigames.general.shop;
 
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -27,15 +28,15 @@ public class Price {
         switch (getItemType()) {
             case BRONZE:
                 m = Material.CLAY_BRICK;
-                name = "\u00A7c" + getPrice() + " Bronze";
+                name = "\u00A7c" + getPrice() + " " + BedWarsItemNames.bronze;
                 break;
             case IRON:
                 m = Material.IRON_INGOT;
-                name = "\u00A77" + getPrice() + " Eisen";
+                name = "\u00A77" + getPrice() + " " + BedWarsItemNames.iron;
                 break;
             case GOLD:
                 m = Material.GOLD_INGOT;
-                name = "\u00A76" + getPrice() + " Gold";
+                name = "\u00A76" + getPrice() + " " + BedWarsItemNames.gold;
                 break;
             default:
                 break;

@@ -43,7 +43,7 @@ public class GameTeam {
 
     public void join(BiomiaPlayer bp) {
         if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.LOBBY) {
-            bp.sendMessage("\u00A7cDas Spiel hat bereits begonnen!");
+            bp.sendMessage(MinigamesMessages.gameAlreadyStarted);
             return;
         }
 

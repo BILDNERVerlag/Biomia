@@ -16,6 +16,7 @@ public class MinigamesMessages {
     public static final String chatMessageLobby = "%p\u00A77: \u00A7f%msg";
     // %t = TeamName
     public static final String joinedTeam = "%p ist Team %t beigetreten!";
+    public static final String gameAlreadyStarted = "\u00A7cDas Spiel hat bereits begonnen!";
     public static final String noFittingTeamParty = "\u00A7cEs konnt kein passendes Team gefunden werden, da die Partygr\u00F6\u00DFe die maximale Teamgr\u00F6\u00DFe \u00fcbersteigt!";
     public static final String noFittingTeamPlayer = "\u00A7cEs konnt kein passendes Team gefunden werden, da kein Team genug Platz hat!";
     public static final String serverFull = "\u00A7cDer Server ist bereits voll!";

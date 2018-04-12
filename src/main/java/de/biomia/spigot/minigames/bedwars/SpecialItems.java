@@ -47,7 +47,7 @@ class SpecialItems implements Listener {
             if (e.getClickedBlock() != null && e.getClickedBlock().getType() == Material.ENDER_CHEST) {
                 GameTeam t = mode.getTeamByTeamChests(e.getClickedBlock());
                 if (t != null) {
-                    Inventory inv = teamChests.computeIfAbsent(t, t1 -> Bukkit.createInventory(null, 27, "\u00A78Team Kiste: " + t1.getColorcode() + t1.getColor().translate()));
+                    Inventory inv = teamChests.computeIfAbsent(t, t1 -> Bukkit.createInventory(null, 27, "\u00A78Team-Kiste: " + t1.getColorcode() + t1.getColor().translate()));
                     e.setCancelled(true);
                     p.openInventory(inv);
                 }
@@ -102,7 +102,7 @@ class SpecialItems implements Listener {
 
     private void spawnVillager(Location loc) {
         Villager v = (Villager) loc.getWorld().spawnEntity(loc, EntityType.VILLAGER);
-        v.setCustomName("Shop");
+        v.setCustomName(BedWarsMessages.shopVillagerName);
         v.setCustomNameVisible(false);
         v.setProfession(Profession.FARMER);
         AttributeInstance attributes = ((CraftLivingEntity) v).getHandle()
@@ -231,7 +231,7 @@ class SpecialItems implements Listener {
             }.runTaskTimer(Main.getPlugin(), 0, 2);
 
         } else {
-            bp.sendMessage("\u00A7cDu bist in keinem Team!");
+            bp.sendMessage(BedWarsMessages.notInATeam);
         }
     }
 
@@ -250,7 +250,7 @@ class SpecialItems implements Listener {
                     as.remove();
                     cancel();
                 }
-                as.setCustomName("\u00A7c" + i + " Sekunden");
+                as.setCustomName(String.format(BedWarsMessages.thirtySecondShopName, i));
                 i--;
             }
         }.runTaskTimer(Main.getPlugin(), 0, 20);

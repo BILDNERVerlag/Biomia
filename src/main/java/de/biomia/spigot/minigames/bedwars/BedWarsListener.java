@@ -19,6 +19,7 @@ import de.biomia.spigot.minigames.general.shop.Shop;
 import de.biomia.spigot.minigames.general.shop.ShopGroup;
 import de.biomia.spigot.minigames.general.shop.ShopItem;
 import de.biomia.spigot.tools.ItemCreator;
+import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -219,7 +220,7 @@ public class BedWarsListener extends GameHandler {
     public void onInteract(PlayerInteractEntityEvent e) {
         Player p = e.getPlayer();
         if (e.getRightClicked() instanceof Villager || e.getRightClicked() instanceof ArmorStand)
-            if (e.getRightClicked().getCustomName().equals("Shop")) {
+            if (e.getRightClicked().getCustomName().equals(BedWarsMessages.shopVillagerName)) {
                 e.setCancelled(true);
                 Bukkit.getPluginManager().callEvent(new BedWarsUseShopEvent(Biomia.getBiomiaPlayer(p), e.getRightClicked() instanceof Villager, mode));
                 p.openInventory(Shop.getInventory());
@@ -279,7 +280,7 @@ public class BedWarsListener extends GameHandler {
                             return;
                         }
                         bt.destroyBed();
-                        Bukkit.broadcastMessage(bt.getColorcode() + ">>\u00A77Das Bett von " + bt.getColorcode() + "Team " + bt.getTeamname() + "\u00A77 wurde zerst\u00f6rt.");
+                        Bukkit.broadcastMessage(String.format(BedWarsMessages.bedWasDestroyed, bt.getColorcode(), Messages.COLOR_AUX, bt.getColorcode(), bt.getTeamname(), Messages.COLOR_AUX));
                         e.setDropItems(false);
                         return;
                     }
@@ -293,6 +294,6 @@ public class BedWarsListener extends GameHandler {
     @EventHandler
     public void onRespawnNoOverload(PlayerRespawnEvent e) {
         e.getPlayer().getInventory().clear();
-        //TODO: Loop
+        //TODO: Loop to clear inventory
     }
 }

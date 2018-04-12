@@ -96,10 +96,8 @@ public class LobbyListener extends BiomiaListener {
 
     @EventHandler
     public void onDamage(EntityDamageEvent e) {
-        if (e.getEntity() instanceof Player) {
-            e.setDamage(0);
-            e.setCancelled(true);
-        }
+        e.setDamage(0);
+        e.setCancelled(true);
     }
 
     @EventHandler

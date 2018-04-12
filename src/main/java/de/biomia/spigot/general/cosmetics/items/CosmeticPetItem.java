@@ -54,7 +54,7 @@ public class CosmeticPetItem extends CosmeticItem {
         entity.setCustomName("\u00A78" + p.getName() + "'s Haustier");
         entity.setCustomNameVisible(true);
         pets.put(bp, entity.getUniqueId());
-        entity.addPassenger(p);
+        //entity.addPassenger(p);
         new BukkitRunnable() {
             @Override
             public void run() {

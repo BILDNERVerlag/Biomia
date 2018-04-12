@@ -1,5 +1,6 @@
 package de.biomia.spigot.minigames.general;
 
+import de.biomia.spigot.messages.MinigamesItemNames;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.tools.ItemCreator;
@@ -15,7 +16,7 @@ public class TeamSwitcher {
         Inventory inv = mode.getTeamSwitcher();
 
         if (inv == null)
-            inv = Bukkit.createInventory(null, 9, "\u00A7cTeam \u00A7bw\u00e4hlen");
+            inv = Bukkit.createInventory(null, 9, MinigamesItemNames.teamWaehlerItem);
 
         int i = 0;
 

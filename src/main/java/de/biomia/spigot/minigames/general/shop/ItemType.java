@@ -1,5 +1,6 @@
 package de.biomia.spigot.minigames.general.shop;
 
+import de.biomia.spigot.messages.BedWarsItemNames;
 import org.bukkit.Material;
 
 public enum ItemType {
@@ -24,11 +25,11 @@ public enum ItemType {
         switch (type) {
             default:
             case BRONZE:
-                return "\u00A7cBronze";
+                return BedWarsItemNames.bronze;
             case IRON:
-                return "\u00A77Eisen";
+                return BedWarsItemNames.iron;
             case GOLD:
-                return "\u00A76Gold";
+                return BedWarsItemNames.gold;
         }
     }
 
