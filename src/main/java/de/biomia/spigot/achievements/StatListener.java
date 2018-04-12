@@ -178,12 +178,12 @@ public class StatListener implements Listener {
 
     @EventHandler
     public void onCoinAdd(CoinAddEvent e) {
-        BiomiaStat.CoinsAccumulated.increment(e.getBiomiaPlayer().getBiomiaPlayerID(), e.getAmount(), null);
+        BiomiaStat.CoinsAccumulated.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), e.getAmount(), null);
     }
 
     @EventHandler
     public void onCoinTake(CoinTakeEvent e) {
-        BiomiaStat.CoinsSpent.increment(e.getBiomiaPlayer().getBiomiaPlayerID(), e.getAmount(), null);
+        BiomiaStat.CoinsSpent.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), e.getAmount(), null);
     }
 
     @EventHandler
@@ -193,11 +193,11 @@ public class StatListener implements Listener {
 
         if (e.getMode().getInstance().getType() == GameType.BED_WARS) {
             if (!e.isFinalDeath())
-                BiomiaStat.BW_Deaths.increment(e.getBiomiaPlayer().getBiomiaPlayerID(), 1, e.getKiller() != null ? e.getKiller().getBiomiaPlayerID() + "" : nokiller);
+                BiomiaStat.BW_Deaths.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, e.getKiller() != null ? e.getKiller().getBiomiaPlayerID() + "" : nokiller);
             else
-                BiomiaStat.BW_FinalDeaths.increment(e.getBiomiaPlayer().getBiomiaPlayerID(), 1, e.getKiller() != null ? e.getKiller().getBiomiaPlayerID() + "" : nokiller);
+                BiomiaStat.BW_FinalDeaths.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, e.getKiller() != null ? e.getKiller().getBiomiaPlayerID() + "" : nokiller);
         } else {
-            BiomiaStat.SW_Deaths.increment(e.getBiomiaPlayer().getBiomiaPlayerID(), 1, e.getKiller() != null ? e.getKiller().getBiomiaPlayerID() + "" : nokiller);
+            BiomiaStat.SW_Deaths.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, e.getKiller() != null ? e.getKiller().getBiomiaPlayerID() + "" : nokiller);
         }
     }
 
@@ -205,38 +205,38 @@ public class StatListener implements Listener {
     public void onBedWarsKill(GameKillEvent e) {
         if (e.getMode().getInstance().getType() == GameType.BED_WARS) {
             if (!e.isFinalKill()) {
-                BiomiaStat.BW_FinalKills.increment(e.getBiomiaPlayer().getBiomiaPlayerID(), 1, e.getKilledPlayer().getBiomiaPlayerID() + "");
+                BiomiaStat.BW_FinalKills.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, e.getKilledPlayer().getBiomiaPlayerID() + "");
             } else {
-                BiomiaStat.BW_Kills.increment(e.getBiomiaPlayer().getBiomiaPlayerID(), 1, e.getKilledPlayer().getBiomiaPlayerID() + "");
+                BiomiaStat.BW_Kills.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, e.getKilledPlayer().getBiomiaPlayerID() + "");
             }
         } else {
-            BiomiaStat.SW_Kills.increment(e.getBiomiaPlayer().getBiomiaPlayerID(), 1, e.getKilledPlayer().getBiomiaPlayerID() + "");
+            BiomiaStat.SW_Kills.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, e.getKilledPlayer().getBiomiaPlayerID() + "");
         }
 
     }
 
     @EventHandler
     public void onBedWarsDestroyBedEvent(BedWarsDestroyBedEvent e) {
-        BiomiaStat.BW_DestroyedBeds.increment(e.getBiomiaPlayer().getBiomiaPlayerID(), 1, e.getTeamColor().name());
+        BiomiaStat.BW_DestroyedBeds.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, e.getTeamColor().name());
     }
 
     @EventHandler
     public void onBedWarsLeaveEvent(GameLeaveEvent e) {
         if (e.getMode().getInstance().getType() == GameType.BED_WARS) {
-            BiomiaStat.BW_Leaves.increment(e.getBiomiaPlayer().getBiomiaPlayerID(), 1, null);
+            BiomiaStat.BW_Leaves.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, null);
         } else {
-            BiomiaStat.SW_Leaves.increment(e.getBiomiaPlayer().getBiomiaPlayerID(), 1, null);
+            BiomiaStat.SW_Leaves.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, null);
         }
     }
 
     @EventHandler
     public void onBedWarsUseShopEvent(BedWarsUseShopEvent e) {
-        BiomiaStat.BW_ShopUsed.increment(e.getBiomiaPlayer().getBiomiaPlayerID(), 1, e.isVillager() + "");
+        BiomiaStat.BW_ShopUsed.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, e.isVillager() + "");
     }
 
     @EventHandler
     public void onBedWarsBuyShopItemEvent(BedWarsBuyItemEvent e) {
-        BiomiaStat.BW_ItemsBought.increment(e.getBiomiaPlayer().getBiomiaPlayerID(), e.getAmount(), e.getItem().getName());
+        BiomiaStat.BW_ItemsBought.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), e.getAmount(), e.getItem().getName());
     }
 
     @EventHandler
@@ -263,7 +263,7 @@ public class StatListener implements Listener {
     @EventHandler
     public void onSkyWarsOpenChestEvent(SkyWarsOpenChestEvent e) {
         if (e.isFirstOpen())
-            BiomiaStat.SW_ChestsOpened.increment(e.getBiomiaPlayer().getBiomiaPlayerID(), 1, e.getChestType().name());
+            BiomiaStat.SW_ChestsOpened.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, e.getChestType().name());
     }
 
     @EventHandler
@@ -283,7 +283,7 @@ public class StatListener implements Listener {
                 break;
         }
 
-        stat.increment(e.getBiomiaPlayer().getBiomiaPlayerID(), 1, e.getKit().getID() + "");
+        stat.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, e.getKit().getID() + "");
 
     }
 
@@ -318,7 +318,7 @@ public class StatListener implements Listener {
                 stat = BiomiaStat.ParticlesUsed;
                 break;
         }
-        stat.increment(e.getBiomiaPlayer().getBiomiaPlayerID(), 1, eventItem.getName());
+        stat.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, eventItem.getName());
     }
 
     @EventHandler

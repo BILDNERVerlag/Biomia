@@ -18,7 +18,7 @@ public class SkyWars extends GameMode {
 
     @Override
     protected GameHandler initHandler() {
-        return new SkyWarsListener(this);
+        return new SkyWarsHandler(this);
     }
 
     @Override

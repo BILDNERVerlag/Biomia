@@ -49,18 +49,19 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class BedWarsListener extends GameHandler {
+public class BedWarsHandler extends GameHandler {
 
     private final ArrayList<Block> destroyableBlocks = new ArrayList<>();
     private final HashMap<GameTeam, Inventory> teamChests = new HashMap<>();
 
-    BedWarsListener(BedWars mode) {
+    BedWarsHandler(BedWars mode) {
         super(mode);
     }
 
     @SuppressWarnings("deprecation")
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
@@ -194,7 +195,7 @@ public class BedWarsListener extends GameHandler {
                 }
                 if (l.getBlock().getType() == Material.AIR) {
                     l.getBlock().setType(Material.BRICK);
-                    ((BedWarsListener) mode.getHandler()).destroyableBlocks.add(l.getBlock());
+                    ((BedWarsHandler) mode.getHandler()).destroyableBlocks.add(l.getBlock());
                 }
             }
             l = start.getLocation();
@@ -289,7 +290,7 @@ public class BedWarsListener extends GameHandler {
                 if (loc.getBlock().getType() == Material.AIR) {
                     loc.getBlock().setType(Material.STAINED_GLASS);
                     loc.getBlock().setData((byte) 4);
-                    ((BedWarsListener) mode.getHandler()).destroyableBlocks.add(loc.getBlock());
+                    ((BedWarsHandler) mode.getHandler()).destroyableBlocks.add(loc.getBlock());
                 }
             }
             loc.subtract(0, 0, 3);
@@ -370,6 +371,7 @@ public class BedWarsListener extends GameHandler {
 
     @EventHandler
     public void onVillagerDamage(EntityDamageEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getEntity().getWorld())) return;
         if (e.getEntityType() == EntityType.VILLAGER) {
             e.setCancelled(true);
         }
@@ -377,7 +379,7 @@ public class BedWarsListener extends GameHandler {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
-
+        if (!mode.getInstance().getWorld().equals(e.getEntity().getWorld())) return;
         Player p = e.getEntity();
         Player killer = p.getKiller();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
@@ -403,6 +405,7 @@ public class BedWarsListener extends GameHandler {
 
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
 
         Location loc = ((BedWars) mode).starts.get(bp);
@@ -412,6 +415,7 @@ public class BedWarsListener extends GameHandler {
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         for (ArrayList uuid : ((BedWars) mode).handlerMap.values()) {
             uuid.remove(e.getPlayer());
         }
@@ -420,6 +424,7 @@ public class BedWarsListener extends GameHandler {
     @SuppressWarnings("deprecation")
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getWhoClicked().getWorld())) return;
         if (e.getWhoClicked() instanceof Player) {
             Player p = (Player) e.getWhoClicked();
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
@@ -499,7 +504,7 @@ public class BedWarsListener extends GameHandler {
                                                 first = false;
                                             } else if (first) {
                                                 String name = ItemType.getName(shopItem.getItemType());
-                                                p.sendMessage(BedWarsMessages.notEnoughItemsToPay.replace("%n", name));
+                                                p.sendMessage(BedWarsMessages.notEnoughItemsToPay.replace("$n", name));
                                                 return;
                                             } else {
                                                 return;
@@ -510,7 +515,7 @@ public class BedWarsListener extends GameHandler {
                                         p.getInventory().addItem(returnItem);
                                     } else {
                                         String name = ItemType.getName(shopItem.getItemType());
-                                        p.sendMessage(BedWarsMessages.notEnoughItemsToPay.replace("%n", name));
+                                        p.sendMessage(BedWarsMessages.notEnoughItemsToPay.replace("$n", name));
                                         return;
                                     }
                                 }
@@ -524,6 +529,7 @@ public class BedWarsListener extends GameHandler {
 
     @EventHandler
     public void onInventoryMove(InventoryInteractEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getWhoClicked().getWorld())) return;
         if (e.getInventory().getName().equals(BedWarsMessages.shopInventory))
             e.setCancelled(true);
         else for (ShopGroup group : Shop.getGroups()) {
@@ -535,6 +541,7 @@ public class BedWarsListener extends GameHandler {
 
     @EventHandler
     public void onInteract(PlayerInteractEntityEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         Player p = e.getPlayer();
         if (e.getRightClicked() instanceof Villager || e.getRightClicked() instanceof ArmorStand)
             if (e.getRightClicked().getCustomName().equals(BedWarsMessages.shopVillagerName)) {
@@ -550,6 +557,7 @@ public class BedWarsListener extends GameHandler {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
 
         if (WaitingLobbyListener.inLobbyOrSpectator(bp) || !bp.canBuild()) {
@@ -578,6 +586,7 @@ public class BedWarsListener extends GameHandler {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         if (WaitingLobbyListener.inLobbyOrSpectator(bp) || !bp.canBuild()) {
             e.setCancelled(true);

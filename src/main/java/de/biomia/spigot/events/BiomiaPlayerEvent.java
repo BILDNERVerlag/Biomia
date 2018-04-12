@@ -11,7 +11,7 @@ public abstract class BiomiaPlayerEvent extends Event {
         this.offlineBiomiaPlayer = offlineBiomiaPlayer;
     }
 
-    public OfflineBiomiaPlayer getBiomiaPlayer() {
+    public OfflineBiomiaPlayer getOfflineBiomiaPlayer() {
         return offlineBiomiaPlayer;
     }
 }

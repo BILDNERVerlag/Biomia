@@ -30,11 +30,11 @@ import org.bukkit.projectiles.ProjectileSource;
 
 import java.util.ArrayList;
 
-public class SkyWarsListener extends GameHandler {
+public class SkyWarsHandler extends GameHandler {
 
     private static final ItemStack kitItem = ItemCreator.itemCreate(Material.CHEST, SkyWarsItemNames.kitItemName);
 
-    SkyWarsListener(de.biomia.spigot.minigames.GameMode mode) {
+    SkyWarsHandler(de.biomia.spigot.minigames.GameMode mode) {
         super(mode);
     }
 

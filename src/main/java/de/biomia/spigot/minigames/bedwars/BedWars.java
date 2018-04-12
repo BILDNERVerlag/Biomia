@@ -17,7 +17,7 @@ public class BedWars extends GameMode {
 
     @Override
     protected GameHandler initHandler() {
-        return new BedWarsListener(this);
+        return new BedWarsHandler(this);
     }
 
     @Override

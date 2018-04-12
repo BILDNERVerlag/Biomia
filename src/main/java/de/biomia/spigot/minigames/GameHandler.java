@@ -40,18 +40,23 @@ public abstract class GameHandler implements Listener {
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
     }
 
-   protected void unregister() {
-       HandlerList.unregisterAll(this);
-   }
+    protected void unregister() {
+        HandlerList.unregisterAll(this);
+    }
 
     @EventHandler
     public void onKill(GameKillEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getKilledPlayer().getPlayer().getWorld())) return;
         if (e.isFinalKill())
-            GameRewards.KILL.giveReward(e.getBiomiaPlayer().getBiomiaPlayer(), e.getMode().getInstance());
+            GameRewards.KILL.giveReward(e.getOfflineBiomiaPlayer().getBiomiaPlayer(), e.getMode().getInstance());
     }
 
     @EventHandler
     public void onWin(GameEndEvent e) {
+
+        BiomiaPlayer bp = e.getWinner().stream().findFirst().orElse(null);
+
+        if (bp == null || !mode.getInstance().getWorld().equals(bp.getPlayer().getWorld())) return;
         e.getWinner().forEach(each -> {
             GameRewards.WIN.giveReward(each, e.getMode().getInstance());
             GameRewards.PLAYED.giveReward(each, e.getMode().getInstance());
@@ -60,12 +65,14 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onPlayed(GameLeaveEvent e) {
-        GameRewards.PLAYED.giveReward(e.getBiomiaPlayer().getBiomiaPlayer(), e.getMode().getInstance());
+        if (!mode.getInstance().getWorld().equals(e.getOfflineBiomiaPlayer().getBiomiaPlayer().getPlayer().getWorld()))
+            return;
+        GameRewards.PLAYED.giveReward(e.getOfflineBiomiaPlayer().getBiomiaPlayer(), e.getMode().getInstance());
     }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         if (mode.getInstance().getType().isVersus())
             return;
 
@@ -106,6 +113,7 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onHit(EntityDamageByEntityEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getEntity().getWorld())) return;
         if (e.getDamager() instanceof Player && e.getEntity() instanceof Player) {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getEntity());
             BiomiaPlayer damager = Biomia.getBiomiaPlayer((Player) e.getDamager());
@@ -117,6 +125,7 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         GameTeam team = bp.getTeam();
@@ -168,6 +177,7 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         if (e.getFrom().equals(mode.getInstance().getWorld())) {
             mode.getInstance().removePlayer(bp);
@@ -182,6 +192,7 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onDisconnect(PlayerQuitEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         mode.getInstance().removePlayer(bp);
         if (bp.getTeam() != null)
@@ -194,6 +205,7 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
             if (e.getTo().getBlockY() <= 0) {
                 e.getPlayer().setHealth(0);
@@ -205,6 +217,7 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onRespawn(PlayerRespawnEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
 
@@ -221,6 +234,7 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractAtEntityEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME)
             e.setCancelled(true);
@@ -243,7 +257,7 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
-
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         Player p = e.getPlayer();
         if (e.getItem() != null) {
             if (e.getItem().hasItemMeta() && e.getItem().getItemMeta().hasDisplayName()) {
@@ -264,7 +278,7 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
-
+        if (!mode.getInstance().getWorld().equals(e.getEntity().getWorld())) return;
         Player p = e.getEntity();
         Player killer = p.getKiller();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
@@ -287,6 +301,7 @@ public abstract class GameHandler implements Listener {
     @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.HIGHEST)
     public void cancelInvClick(InventoryClickEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getWhoClicked().getWorld())) return;
         BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getWhoClicked());
         if (WaitingLobbyListener.inLobbyOrSpectator(bp) && e.getCurrentItem() != null && !bp.canBuild()) {
             e.setCancelled(true);

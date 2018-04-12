@@ -150,14 +150,12 @@ public class QuestListener extends BiomiaListener {
     @EventHandler
     public void onLeaveBreak(LeavesDecayEvent e) {
         if (e.getBlock().getLocation().distance(new Location(Bukkit.getWorld("Quests"), 283, 69, -234)) <= 40) {
-
             Location loc = e.getBlock().getLocation();
             Block b = e.getBlock();
             @SuppressWarnings("deprecation")
             byte data = b.getData();
             Material material = b.getType();
             e.setCancelled(false);
-
             new BukkitRunnable() {
                 @SuppressWarnings("deprecation")
                 @Override
@@ -185,7 +183,6 @@ public class QuestListener extends BiomiaListener {
 
     private void replace(int durationInSeconds, Location loc, byte data, Material material) {
         new BukkitRunnable() {
-
             @SuppressWarnings("deprecation")
             @Override
             public void run() {
