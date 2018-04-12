@@ -60,7 +60,6 @@ public class GameTeam {
             }
             team.leave(bp);
         }
-        bp.getPlayer().getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, MinigamesItemNames.teamWaehlerItem, getColordata()));
         bp.setTeam(this);
 
         for (BiomiaPlayer pl : getPlayers()) {
@@ -71,6 +70,7 @@ public class GameTeam {
 
         if (!mode.getInstance().getType().isVersus()) {
             Scoreboards.lobbySB.getTeam(color.name()).addEntry(bp.getName());
+            bp.getPlayer().getInventory().setItem(4, ItemCreator.itemCreate(Material.WOOL, MinigamesItemNames.teamWaehlerItem, getColordata()));
             TeamSwitcher.getTeamSwitcher(mode);
         }
     }
