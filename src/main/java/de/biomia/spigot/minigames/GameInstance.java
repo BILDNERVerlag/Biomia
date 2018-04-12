@@ -35,7 +35,7 @@ public class GameInstance {
         this.mapDisplayName = mapDisplayName;
         this.world = new WorldCreator(mapName).createWorld();
         world.setGameRuleValue("announceAdvancements", "false");
-        world.setGameRuleValue("keepInventory", "false");
+        world.setGameRuleValue("keepInventory", "true");
         MinigamesConfig.mapName = mapDisplayName;
 
         switch (type) {
