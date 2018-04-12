@@ -110,9 +110,8 @@ public class VSManager implements Listener {
     public void onInteract(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-        ItemStack is = e.getItem();
-
-        if (is != null && is.getType() != Material.AIR) {
+        if (e.hasItem()) {
+            ItemStack is = e.getItem();
             if (is.hasItemMeta() && is.getItemMeta().hasDisplayName()) {
                 switch (is.getItemMeta().getDisplayName()) {
                     case "\u00A7cEinstellungen":

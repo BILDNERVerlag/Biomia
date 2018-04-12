@@ -1,13 +1,10 @@
 package de.biomia.spigot.minigames.bedwars;
 
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.minigames.*;
 import de.biomia.spigot.minigames.general.SpawnItems;
-import de.biomia.spigot.minigames.general.shop.Shop;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -71,10 +68,7 @@ public class BedWars extends GameMode {
                 super.stop();
             }
         });
-
         super.start();
-        Shop.init();
-        Bukkit.getPluginManager().registerEvents(new SpecialItems(this), Main.getPlugin());
     }
 
     public GameTeam getTeamByTeamChests(Block block) {
