@@ -41,7 +41,6 @@ import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
@@ -383,7 +382,7 @@ public class BedWarsListener extends GameHandler {
         Player killer = p.getKiller();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         GameTeam team = bp.getTeam();
-        e.setKeepInventory(false);
+        e.getEntity().getInventory().clear();
         if (!mode.isSpectator(bp)) {
             if (!((BedWarsTeam) team).hasBed()) {
                 e.setDeathMessage(MinigamesMessages.playerDiedFinally.replace("%p", team.getColorcode() + p.getName()));
@@ -607,11 +606,5 @@ public class BedWarsListener extends GameHandler {
         } else {
             e.setCancelled(true);
         }
-    }
-
-    @EventHandler
-    public void onRespawnNoOverload(PlayerRespawnEvent e) {
-        e.getPlayer().getInventory().clear();
-        //TODO: Loop to clear inventory
     }
 }
