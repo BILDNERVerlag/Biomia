@@ -76,19 +76,19 @@ public class ReportListener implements Listener {
 
             switch (i) {
                 case 11:
-                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7dJahre");
+                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7bJahre");
                     break;
                 case 12:
-                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7dMonate");
+                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7bMonate");
                     break;
                 case 13:
-                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7dTage");
+                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7bTage");
                     break;
                 case 14:
-                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7dStunden");
+                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7bStunden");
                     break;
                 case 15:
-                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7dMinuten");
+                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7bMinuten");
                     break;
                 default:
                     b = false;

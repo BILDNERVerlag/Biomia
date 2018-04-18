@@ -34,7 +34,7 @@ class ReporterInventoryOfPlayer implements Listener {
         this.master = master;
         this.biomiaIDReportedPlayer = biomiaIDReportedPlayer;
         String nameReportedPlayer = Biomia.getOfflineBiomiaPlayer(biomiaIDReportedPlayer).getName();
-        inv = Bukkit.createInventory(null, 27, "\u00A7d" + nameReportedPlayer + "'s Report Profile");
+        inv = Bukkit.createInventory(null, 27, "\u00A7b" + nameReportedPlayer + "'s Report Profile");
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
     }
 

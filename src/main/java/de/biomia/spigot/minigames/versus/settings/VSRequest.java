@@ -79,16 +79,16 @@ public class VSRequest {
     }
 
     public void accept() {
-        leader.getPlayer().sendMessage("\u00A7cDer Spieler \u00A7d" + bp2.getPlayer().getName() + " \u00A7chat die Herausforderung angenommen!");
-        bp2.getPlayer().sendMessage("\u00A7cDu hast die Herausforderung von \u00A7d" + leader.getPlayer().getName() + " \u00A7cangenommen!");
+        leader.getPlayer().sendMessage("\u00A7cDer Spieler \u00A7b" + bp2.getPlayer().getName() + " \u00A7chat die Herausforderung angenommen!");
+        bp2.getPlayer().sendMessage("\u00A7cDu hast die Herausforderung von \u00A7b" + leader.getPlayer().getName() + " \u00A7cangenommen!");
         startServer();
         gameInstance.getGameMode().start();
         remove();
     }
 
     public void decline() {
-        leader.getPlayer().sendMessage("\u00A7cDer Spieler \u00A7d" + bp2.getPlayer().getName() + " \u00A7chat die Herausforderung abgelehnt!");
-        bp2.getPlayer().sendMessage("\u00A7cDu hast die Herausforderung von \u00A7d" + leader.getPlayer().getName() + " \u00A7cabgelehnt!");
+        leader.getPlayer().sendMessage("\u00A7cDer Spieler \u00A7b" + bp2.getPlayer().getName() + " \u00A7chat die Herausforderung abgelehnt!");
+        bp2.getPlayer().sendMessage("\u00A7cDu hast die Herausforderung von \u00A7b" + leader.getPlayer().getName() + " \u00A7cabgelehnt!");
         remove();
     }
 

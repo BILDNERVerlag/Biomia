@@ -26,7 +26,7 @@ public enum TeamColor {
             case GREEN:
                 return "\u00A72";
             case PURPLE:
-                return "\u00A7d";
+                return "\u00A7b";
             case RED:
                 return "\u00A7c";
             default:

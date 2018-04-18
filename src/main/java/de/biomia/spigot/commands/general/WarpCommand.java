@@ -8,7 +8,6 @@ import de.biomia.universal.Messages;
 import de.biomia.universal.MySQL;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -54,7 +53,7 @@ public class WarpCommand extends BiomiaCommand {
                 if (bp.isStaff()) verbleibendeWarps += 2;
                 if (bp.isOwnerOrDev()) verbleibendeWarps += 6;
 
-                if (playerWarpLocations.size() >= bp.getPremiumLevel() + 3) {
+                if (verbleibendeWarps <= 0) {
                     p.sendMessage("\u00A7cDu hast bereits die \u00A7bmaximale \u00A7cAnzahl Warps erreicht.");
                     p.sendMessage("\u00A7cBenutze \u00A77/\u00A7cdelwarp \u00A77<\u00A7cName\u00A77> \u00A7bum Warps zu l\u00f6schen \u00A7coder hol dir einen unserer Premiumr00e4nge und unterst00dctze damit den Server.");
                     return true;

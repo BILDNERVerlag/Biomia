@@ -74,7 +74,7 @@ public class CosmeticCommand extends BiomiaCommand {
                                         ItemStack is = p.getInventory().getItemInMainHand();
 
                                         ItemMeta meta = is.getItemMeta();
-                                        meta.setDisplayName("\u00A7d" + name);
+                                        meta.setDisplayName("\u00A7b" + name);
                                         is.setItemMeta(meta);
                                         ItemStack gadgetItem = is.clone();
                                         meta.setLore(Arrays.asList(ChatColor.translateAlternateColorCodes('&',

@@ -42,7 +42,7 @@ public class Lobby extends BiomiaServer {
         Bukkit.setDefaultGameMode(GameMode.ADVENTURE);
         initPortals();
         initNavigator();
-        lobbySwitcher = Bukkit.createInventory(null, 27, "\u00A7dLobby Switcher");
+        lobbySwitcher = Bukkit.createInventory(null, 27, "\u00A7bLobby Switcher");
         new BukkitRunnable() {
             @Override
             public void run() {

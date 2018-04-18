@@ -375,12 +375,12 @@ public class QuestCommands extends BiomiaCommand {
                     deaktiviert.append("\u00A72<\u00A7a").append(n.getName()).append("\u00A72>\u00A7a, ");
             }
         }
-        Bukkit.broadcastMessage("\u00A7dAI aktiviert f\u00fcr:");
+        Bukkit.broadcastMessage("\u00A7bAI aktiviert f\u00fcr:");
         if (aktiviert.length() >= 2)
             Bukkit.broadcastMessage("\u00A72{" + aktiviert.substring(0, aktiviert.length() - 2) + "\u00A72 }");
         else
             Bukkit.broadcastMessage("\u00A72{ }");
-        Bukkit.broadcastMessage("\u00A7dAI deaktiviert f\u00fcr:");
+        Bukkit.broadcastMessage("\u00A7bAI deaktiviert f\u00fcr:");
         if (deaktiviert.length() >= 2)
             Bukkit.broadcastMessage("\u00A72{" + deaktiviert.substring(0, deaktiviert.length() - 2) + "\u00A72 }");
         else
@@ -579,13 +579,13 @@ public class QuestCommands extends BiomiaCommand {
             // send info messages
             sender.sendMessage("");
             sender.sendMessage(QuestMessages.dividerLine);
-            sender.sendMessage("\u00A7d\u00A7l" + q.getDisplayName());
+            sender.sendMessage("\u00A7b\u00A7l" + q.getDisplayName());
             if (q.getInfoText() == null)
                 sender.sendMessage(QuestMessages.noInformationAboutThisQuest);
             else
                 sender.sendMessage("\u00A7a" + q.getInfoText());
             sender.sendMessage("");
-            sender.sendMessage("\u00A7d" + QuestMessages.involvedNPCs);
+            sender.sendMessage("\u00A7b" + QuestMessages.involvedNPCs);
             StringBuilder s = new StringBuilder();
             for (NPC n : q.getNpcs()) {
                 if (!n.getName().equals(""))

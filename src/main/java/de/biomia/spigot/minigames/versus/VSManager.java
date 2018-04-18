@@ -51,7 +51,7 @@ public class VSManager implements Listener {
 
         ItemStack bedwarsSettingItem = ItemCreator.itemCreate(Material.BED, "\u00A7cBedWars");
         ItemStack skywarsSettingItem = ItemCreator.itemCreate(Material.GRASS, "\u00A7aSkyWars");
-//        ItemStack kitPvPSettingItem = ItemCreator.itemCreate(Material.IRON_SWORD, "\u00A7dKitPvP");
+//        ItemStack kitPvPSettingItem = ItemCreator.itemCreate(Material.IRON_SWORD, "\u00A7bKitPvP");
 
         VSGroup bedwars = main.registerDeaktivatableGroup(GameType.BED_WARS_VS, bedwarsSettingItem, "\u00A7cBedWars", 6, 0, true);
         VSGroup bedwarsMaps = bedwars.registerGroup(GameType.BED_WARS_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
@@ -62,7 +62,7 @@ public class VSManager implements Listener {
         skywarsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.SMOOTH_BRICK, (byte) 2), 100, 0, true, skywarsMaps, "Ruins"));
         skywars.registerGroup(GameType.SKY_WARS_VS, SkyWarsItemNames.kitItem, SkyWarsItemNames.kitItemName, 1);
 
-//        VSGroup kitpvp = main.registerDeaktivatableGroup(GameType.KIT_PVP_VS, kitPvPSettingItem, "\u00A7dKitPvP", 4, 0, true);
+//        VSGroup kitpvp = main.registerDeaktivatableGroup(GameType.KIT_PVP_VS, kitPvPSettingItem, "\u00A7bKitPvP", 4, 0, true);
 //        VSGroup kitpvpsMaps = kitpvp.registerGroup(GameType.KIT_PVP_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
 //        kitpvpsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, kitpvpsMaps, "Map1"));
     }
@@ -141,7 +141,7 @@ public class VSManager implements Listener {
                             if (request != null)
                                 request.decline();
                             else
-                                p.sendMessage("\u00A7cDu hast keine Herausforderung von \u00A7d" + p1.getName() + "\u00A7c die du ablehnen kannst!");
+                                p.sendMessage("\u00A7cDu hast keine Herausforderung von \u00A7b" + p1.getName() + "\u00A7c die du ablehnen kannst!");
                             e.setCancelled(true);
                         }
                     } else if (e.getRightClicked() instanceof Villager) {

@@ -29,7 +29,7 @@ class ScrolableReportInventory implements Listener {
 
     ScrolableReportInventory(BiomiaPlayer bp) {
         this.bp = bp;
-        inv = Bukkit.createInventory(null, 27, "\u00A7dUnbearbeitete Reports");
+        inv = Bukkit.createInventory(null, 27, "\u00A7bUnbearbeitete Reports");
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
     }
 

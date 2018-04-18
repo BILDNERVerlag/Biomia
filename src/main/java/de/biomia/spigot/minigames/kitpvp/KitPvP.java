@@ -21,7 +21,7 @@ public class KitPvP extends GameMode {
 
     @Override
     protected GameHandler initHandler() {
-        return null;
+        return new KitPVPHandler(this);
     }
 
     @Override

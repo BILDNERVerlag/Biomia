@@ -225,7 +225,7 @@ public class EasterEvent implements Listener {
                         if (eggsRemaining == 1) {
                             e.getPlayer().sendMessage("\u00A7c\u00A7lEin\u00A7r\u00A7c besonderes Ei hast du noch nicht gefunden! Finde es und erhalte eine rieeesige Belohnung!");
                         } else {
-                            e.getPlayer().sendMessage("\u00A7cDer Osterhase hat noch \u00A7d" + eggsRemaining + " \u00A7cweitere besondere Eier versteckt! Findest du sie?");
+                            e.getPlayer().sendMessage("\u00A7cDer Osterhase hat noch \u00A7b" + eggsRemaining + " \u00A7cweitere besondere Eier versteckt! Findest du sie?");
                         }
                     }
                 } else {

@@ -159,7 +159,7 @@ public class LobbyListener extends BiomiaListener {
                         && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7cNavigator"))) {
                     pl.openInventory(((Lobby) Biomia.getServerInstance()).getNavigator());
                 } else if ((itemstack.getType().equals(Material.NETHER_STAR)
-                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7dLobby Switcher"))) {
+                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7bLobby Switcher"))) {
                     pl.openInventory(((Lobby) Biomia.getServerInstance()).getLobbySwitcher());
                 } else if ((itemstack.getType().equals(Material.FIREBALL)
                         && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7cSilent Lobby:\u00A78 Off"))) {
@@ -295,7 +295,7 @@ public class LobbyListener extends BiomiaListener {
                             pl.closeInventory();
                             break;
                     }
-                } else if (ie.getClickedInventory().getName().equals("\u00A7dLobby Switcher"))
+                } else if (ie.getClickedInventory().getName().equals("\u00A7bLobby Switcher"))
                     for (ServerObject so : TimoCloudAPI.getUniversalInstance().getServerGroup(BiomiaServerType.Lobby.name())
                             .getServers())
                         if (itemName.contains(so.getName()))
