@@ -13,7 +13,7 @@ import de.biomia.spigot.messages.manager.ActionBar;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.GameTeam;
-import de.biomia.spigot.minigames.WaitingLobbyListener;
+import de.biomia.spigot.minigames.WarteLobbyListener;
 import de.biomia.spigot.minigames.general.ColorType;
 import de.biomia.spigot.minigames.general.Dead;
 import de.biomia.spigot.minigames.general.shop.ItemType;
@@ -560,7 +560,7 @@ public class BedWarsHandler extends GameHandler {
         if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
 
-        if (WaitingLobbyListener.inLobbyOrSpectator(bp) || !bp.canBuild()) {
+        if (WarteLobbyListener.inLobbyOrSpectator(bp) || !bp.canBuild()) {
             e.setCancelled(true);
             e.getPlayer().sendMessage(BedWarsMessages.cantPlaceBlock);
             return;
@@ -588,7 +588,7 @@ public class BedWarsHandler extends GameHandler {
     public void onBlockBreak(BlockBreakEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        if (WaitingLobbyListener.inLobbyOrSpectator(bp) || !bp.canBuild()) {
+        if (WarteLobbyListener.inLobbyOrSpectator(bp) || !bp.canBuild()) {
             e.setCancelled(true);
             e.getPlayer().sendMessage(BedWarsMessages.cantDestroyThisBlock);
             return;

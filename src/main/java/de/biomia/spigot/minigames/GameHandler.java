@@ -183,7 +183,7 @@ public abstract class GameHandler implements Listener {
             mode.getInstance().removePlayer(bp);
             if (bp.getTeam() != null)
                 bp.getTeam().leave(bp);
-            if (!WaitingLobbyListener.inLobbyOrSpectator(bp)) {
+            if (!WarteLobbyListener.inLobbyOrSpectator(bp)) {
                 Bukkit.getPluginManager().callEvent(new GameLeaveEvent(bp, mode));
                 mode.getInstance().getPlayers().forEach(each -> each.sendMessage(bp.getTeam().getColorcode() + e.getPlayer().getName() + MinigamesMessages.leftTheGame));
             }
@@ -197,7 +197,7 @@ public abstract class GameHandler implements Listener {
         mode.getInstance().removePlayer(bp);
         if (bp.getTeam() != null)
             bp.getTeam().leave(bp);
-        if (!WaitingLobbyListener.inLobbyOrSpectator(bp)) {
+        if (!WarteLobbyListener.inLobbyOrSpectator(bp)) {
             Bukkit.getPluginManager().callEvent(new GameLeaveEvent(bp, mode));
             e.setQuitMessage(bp.getTeam().getColorcode() + e.getPlayer().getName() + MinigamesMessages.leftTheGame);
         }
@@ -303,7 +303,7 @@ public abstract class GameHandler implements Listener {
     public void cancelInvClick(InventoryClickEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getWhoClicked().getWorld())) return;
         BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getWhoClicked());
-        if (WaitingLobbyListener.inLobbyOrSpectator(bp) && e.getCurrentItem() != null && !bp.canBuild()) {
+        if (WarteLobbyListener.inLobbyOrSpectator(bp) && e.getCurrentItem() != null && !bp.canBuild()) {
             e.setCancelled(true);
             e.setCursor(new ItemStack(Material.AIR));
         }

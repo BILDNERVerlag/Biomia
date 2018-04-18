@@ -18,11 +18,11 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.*;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
-public class WaitingLobbyListener extends BiomiaListener {
+public class WarteLobbyListener extends BiomiaListener {
 
     private final boolean isVersus;
 
-    public WaitingLobbyListener(boolean isVersus) {
+    public WarteLobbyListener(boolean isVersus) {
         this.isVersus = isVersus;
     }
 

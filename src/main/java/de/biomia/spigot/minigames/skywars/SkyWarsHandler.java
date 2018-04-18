@@ -7,7 +7,7 @@ import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameStateManager;
-import de.biomia.spigot.minigames.WaitingLobbyListener;
+import de.biomia.spigot.minigames.WarteLobbyListener;
 import de.biomia.spigot.minigames.general.chests.Chests;
 import de.biomia.spigot.minigames.general.kits.Kit;
 import de.biomia.spigot.minigames.general.kits.KitManager;
@@ -18,7 +18,6 @@ import org.bukkit.Sound;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -230,7 +229,7 @@ public class SkyWarsHandler extends GameHandler {
             }
         }
 
-        if (!(bp.canBuild()) && WaitingLobbyListener.inLobbyOrSpectator(bp)) {
+        if (!(bp.canBuild()) && WarteLobbyListener.inLobbyOrSpectator(bp)) {
             e.setCancelled(true);
         }
     }

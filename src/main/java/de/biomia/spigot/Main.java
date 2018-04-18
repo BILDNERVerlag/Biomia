@@ -15,7 +15,7 @@ import de.biomia.spigot.general.reportsystem.ReportSQL;
 import de.biomia.spigot.listeners.ChannelListener;
 import de.biomia.spigot.listeners.servers.BauServerListener;
 import de.biomia.spigot.minigames.GameInstance;
-import de.biomia.spigot.minigames.WaitingLobbyListener;
+import de.biomia.spigot.minigames.WarteLobbyListener;
 import de.biomia.spigot.minigames.general.chests.Items;
 import de.biomia.spigot.minigames.versus.Versus;
 import de.biomia.spigot.server.demoserver.Weltenlabor;
@@ -108,7 +108,7 @@ public class Main extends JavaPlugin {
                     @Override
                     protected void initListeners() {
                         super.initListeners();
-                        Bukkit.getPluginManager().registerEvents(new WaitingLobbyListener(false), Main.getPlugin());
+                        Bukkit.getPluginManager().registerEvents(new WarteLobbyListener(false), Main.getPlugin());
                     }
                 });
                 new GameInstance(BED_WARS, MinigamesConfig.getMapName(), MinigamesConfig.getMapName(), MinigamesConfig.getTeamAmount(), MinigamesConfig.getTeamSize()).getGameMode().start();
@@ -125,7 +125,7 @@ public class Main extends JavaPlugin {
                     @Override
                     protected void initListeners() {
                         super.initListeners();
-                        Bukkit.getPluginManager().registerEvents(new WaitingLobbyListener(false), Main.getPlugin());
+                        Bukkit.getPluginManager().registerEvents(new WarteLobbyListener(false), Main.getPlugin());
                     }
                 });
                 Items.init();
