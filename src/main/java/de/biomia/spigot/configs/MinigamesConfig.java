@@ -11,13 +11,13 @@ import org.bukkit.entity.Entity;
 import java.util.HashMap;
 import java.util.UUID;
 
-public abstract class MinigamesConfig extends Config {
+public class MinigamesConfig extends Config {
 
     public static String mapName = null;
 
     private final GameMode mode;
 
-    MinigamesConfig(GameMode mode) {
+    public MinigamesConfig(GameMode mode) {
         this.mode = mode;
     }
 
@@ -27,10 +27,9 @@ public abstract class MinigamesConfig extends Config {
 
     private static String getSaveTeamPath(String settingName, TeamColor team, GameType type) {
         return String.format("%s.%s.%s.%s.", type.getDisplayName(), mapName, team.name(), settingName);
-
     }
 
-    String getSavePath(String settingName) {
+    private String getSavePath(String settingName) {
         return String.format("%s.%s.%s.", mode.getInstance().getType().getDisplayName(), mapName, settingName);
     }
 
@@ -57,7 +56,6 @@ public abstract class MinigamesConfig extends Config {
     public Location getSpawnLocation(TeamColor team, GameInstance instance) {
         return getLocation(team, instance, "Spawnpoint");
     }
-
 
     private static void addLoc(Location loc, String savePath) {
         double x = loc.getBlockX();

@@ -1,10 +1,7 @@
 package de.biomia.spigot.minigames.kitpvp;
 
 import de.biomia.spigot.configs.MinigamesConfig;
-import de.biomia.spigot.minigames.GameHandler;
-import de.biomia.spigot.minigames.GameInstance;
-import de.biomia.spigot.minigames.GameMode;
-import de.biomia.spigot.minigames.TeamColor;
+import de.biomia.spigot.minigames.*;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -17,6 +14,13 @@ public class KitPvP extends GameMode {
 
     @Override
     public void start() {
+        getStateManager().setInGameState(new GameStateManager.InGameState(this) {
+            @Override
+            public void start() {
+                getMode().getInstance().getPlayers().forEach(each -> KitPVPManager.getMainKit(each).setToPlayerInventory());
+                super.start();
+            }
+        });
     }
 
     @Override
@@ -31,6 +35,6 @@ public class KitPvP extends GameMode {
 
     @Override
     protected MinigamesConfig initConfig() {
-        return null;
+        return new MinigamesConfig(this);
     }
 }

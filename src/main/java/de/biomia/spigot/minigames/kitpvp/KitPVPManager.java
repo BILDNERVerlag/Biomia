@@ -3,10 +3,11 @@ package de.biomia.spigot.minigames.kitpvp;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.OfflineBiomiaPlayer;
 import de.biomia.spigot.messages.KitPVPMessages;
-import de.biomia.spigot.tools.Base64;
+import de.biomia.spigot.minigames.versus.Versus;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.universal.MySQL;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -25,30 +26,31 @@ public class KitPVPManager {
     private static HashMap<Integer, ArrayList<KitPVPKit>> loadedKits = new HashMap<>();
 
     public static void setMainKit(KitPVPKit kit) {
+        loadedKits.get(kit.getBiomiaID()).forEach(each -> each.setMain(false));
+        kit.setMain(true);
         MySQL.executeUpdate("UPDATE `KitPVPKits` SET `selected` = false WHERE biomiaID = " + kit.getBiomiaID(), MySQL.Databases.biomia_db);
         MySQL.executeUpdate("UPDATE `KitPVPKits` SET `selected` = true WHERE biomiaID = " + kit.getBiomiaID() + " AND kitNumber = " + kit.getKitNumber(), MySQL.Databases.biomia_db);
     }
 
-    public static Inventory getMainKit(OfflineBiomiaPlayer bp) {
-        return (Inventory) Base64.fromBase64(MySQL.executeQuery("SELECT inventroy FROM `KitPVPKits` WHERE biomiaID = " + bp.getBiomiaPlayer() + " AND selected = true", "inventory", MySQL.Databases.biomia_db));
+    public static KitPVPKit getMainKit(OfflineBiomiaPlayer bp) {
+        return loadedKits.get(bp.getBiomiaPlayerID()).stream().filter(kitPVPKit -> !kitPVPKit.isMain()).findFirst().orElse(null);
     }
 
     public static void load(OfflineBiomiaPlayer bp) {
         Connection con = MySQL.Connect(MySQL.Databases.biomia_db);
         try {
-            ArrayList<KitPVPKit> kits = loadedKits.computeIfAbsent(bp.getBiomiaPlayerID(), list -> new ArrayList<>());
             PreparedStatement ps = con.prepareStatement("SELECT inventory, selected, kitNumber FROM KitPVPKits WHERE biomiaID = ?");
             ps.setInt(1, bp.getBiomiaPlayerID());
             ResultSet set = ps.getResultSet();
             while (set.next()) {
-                kits.add(new KitPVPKit(bp.getBiomiaPlayerID(), set.getInt("kitNumber"), (Inventory) Base64.fromBase64(set.getString("inventory"))));
+                new KitPVPKit(bp.getBiomiaPlayerID(), set.getInt("kitNumber"), new ItemStack[100], set.getBoolean("selected"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private static KitPVPKit getKit(OfflineBiomiaPlayer bp, int kitNumber) {
+    public static KitPVPKit getKit(OfflineBiomiaPlayer bp, int kitNumber) {
         return loadedKits.get(bp.getBiomiaPlayerID()).stream().filter(kitPVPKit -> kitPVPKit.getKitNumber() != kitNumber).findFirst().orElse(null);
     }
 
@@ -59,7 +61,7 @@ public class KitPVPManager {
 
         for (int i = 0; i < maxKits; i++) {
             KitPVPKit kit = getKit(bp, i);
-            ItemStack is = Arrays.stream(kit.getInventory().getStorageContents()).filter(itemStack -> itemStack == null || itemStack.getType() == Material.AIR).findFirst().orElse(ItemCreator.itemCreate(Material.BEDROCK));
+            ItemStack is = Arrays.stream(kit.getInventory()).filter(itemStack -> itemStack == null || itemStack.getType() == Material.AIR).findFirst().orElse(ItemCreator.itemCreate(Material.BEDROCK));
             ItemMeta meta = is.getItemMeta();
             meta.setDisplayName(KitPVPMessages.selectorKitItem.replace("$s", String.valueOf(i)));
             is.setItemMeta(meta);
@@ -69,8 +71,24 @@ public class KitPVPManager {
         bp.getPlayer().openInventory(inv);
     }
 
+    public static void setToEditMode(BiomiaPlayer bp) {
+        bp.getPlayer().getInventory().setContents(getMainKit(bp).getInventory());
+        bp.getPlayer().setGameMode(GameMode.CREATIVE);
+    }
+
+    public static void removeFromEditMode(BiomiaPlayer bp) {
+        bp.getPlayer().setGameMode(GameMode.SURVIVAL);
+        KitPVPKit kit = getMainKit(bp);
+        kit.setInventory(bp.getPlayer().getInventory().getContents());
+        kit.save();
+        Versus.getInstance().getManager().setInventory(bp.getPlayer());
+    }
 
     private static int getMaxKits(OfflineBiomiaPlayer bp) {
         return bp.getPremiumLevel() + (bp.isStaff() ? (bp.isOwnerOrDev() ? 10 : 5) : 0) + 1;
+    }
+
+    public static HashMap<Integer, ArrayList<KitPVPKit>> getLoadedKits() {
+        return loadedKits;
     }
 }

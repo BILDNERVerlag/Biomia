@@ -1,22 +1,28 @@
 package de.biomia.spigot.minigames.kitpvp;
 
+import de.biomia.spigot.Biomia;
 import de.biomia.spigot.tools.Base64;
 import de.biomia.universal.MySQL;
-import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
 
 public class KitPVPKit {
 
     private final int biomiaID;
     private final int kitNumber;
-    private Inventory inventory;
+    private ItemStack[] inventory;
+    private boolean isMainKit;
 
-    public KitPVPKit(int biomiaID, int kitNumber, Inventory inventory) {
-        this.kitNumber = kitNumber;
+    public KitPVPKit(int biomiaID, int kitNumber, ItemStack[] inventory, boolean isMainKit) {
         this.biomiaID = biomiaID;
+        this.kitNumber = kitNumber;
+        this.isMainKit = isMainKit;
         this.inventory = inventory;
+        KitPVPManager.getLoadedKits().computeIfAbsent(biomiaID, list -> new ArrayList<>()).add(this);
     }
 
-    public Inventory getInventory() {
+    public ItemStack[] getInventory() {
         return inventory;
     }
 
@@ -34,5 +40,21 @@ public class KitPVPKit {
         else {
             MySQL.executeUpdate("INSERT INTO KitPVPKits (`biomiaID`, `kitNumber`, `inventory`, `selected`) VALUES (" + biomiaID + "," + kitNumber + ",'" + Base64.toBase64(inventory) + "'," + (kitNumber == 0) + ")", MySQL.Databases.biomia_db);
         }
+    }
+
+    public void setMain(boolean main) {
+        this.isMainKit = main;
+    }
+
+    public boolean isMain() {
+        return isMainKit;
+    }
+
+    public void setInventory(ItemStack[] inventory) {
+        this.inventory = inventory;
+    }
+
+    public void setToPlayerInventory() {
+        Biomia.getOfflineBiomiaPlayer(biomiaID).getBiomiaPlayer().getPlayer().getInventory().setContents(getInventory());
     }
 }

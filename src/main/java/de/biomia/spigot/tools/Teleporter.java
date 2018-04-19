@@ -1,5 +1,6 @@
 package de.biomia.spigot.tools;
 
+import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
 import org.bukkit.Bukkit;
@@ -12,11 +13,7 @@ import java.util.ArrayList;
 
 public class Teleporter {
 
-    private static final TeleportListener listener;
-
-    static {
-        listener = new TeleportListener();
-    }
+    private static final TeleportListener listener = new TeleportListener();
 
     private final Location from;
     private final Location to;
@@ -25,6 +22,7 @@ public class Teleporter {
     private boolean inverted;
     private final BiomiaServerType serverType;
     private final Location location;
+    private final TeleportExecutor teleportExecutor;
 
     public Teleporter(Location from, Location to, Location backTeleport, BiomiaServerType serverType) {
         this.from = from;
@@ -34,6 +32,7 @@ public class Teleporter {
         this.backTeleport = backTeleport;
         listener.addTeleporter(this);
         this.location = null;
+        teleportExecutor = null;
     }
 
     public Teleporter(Location from, Location to, Location destinationLocation) {
@@ -44,6 +43,18 @@ public class Teleporter {
         listener.addTeleporter(this);
         this.backTeleport = null;
         this.serverType = null;
+        teleportExecutor = null;
+    }
+
+    public Teleporter(Location from, Location to, TeleportExecutor teleportExecutor) {
+        this.from = from;
+        this.to = to;
+        dest = Destination.LOCATION;
+        listener.addTeleporter(this);
+        this.location = null;
+        this.backTeleport = null;
+        this.serverType = null;
+        this.teleportExecutor = teleportExecutor;
     }
 
     public void setInverted() {
@@ -78,8 +89,12 @@ public class Teleporter {
         return location;
     }
 
+    public TeleportExecutor getTeleportExecutor() {
+        return teleportExecutor;
+    }
+
     public enum Destination {
-        SERVER_GROUP, LOCATION
+        SERVER_GROUP, LOCATION, EXECUTION
     }
 }
 
@@ -107,21 +122,23 @@ class TeleportListener implements Listener {
             double y = e.getTo().getY();
             double z = e.getTo().getZ();
 
-            if ((from.getX() <= x) && (x <= to.getX()) && (from.getY() <= y) && (y <= to.getY()) && (from.getZ() <= z) && (z <= to.getZ())) {
+            double x2 = e.getFrom().getX();
+            double y2 = e.getFrom().getY();
+            double z2 = e.getFrom().getZ();
 
+            if ((from.getX() <= x) && (x <= to.getX()) && (from.getY() <= y) && (y <= to.getY()) && (from.getZ() <= z) && (z <= to.getZ())) {
                 if (!e.getTo().getWorld().equals(eachTeleporter.getFrom().getWorld()) || eachTeleporter.isInverted())
                     return;
-
-                if (eachTeleporter.getDestination() == Teleporter.Destination.SERVER_GROUP) {
+                if ((from.getX() > x2) || (x2 > to.getX()) || (from.getY() > y2) || (y2 > to.getY()) || (from.getZ() > z2) || (z2 > to.getZ()))
+                    if (eachTeleporter.getDestination() == Teleporter.Destination.SERVER_GROUP) {
                     e.getPlayer().teleport(eachTeleporter.getBackTeleport());
                     PlayerToServerConnector.connectToRandom(e.getPlayer(), eachTeleporter.getServerType());
-                } else {
-                    e.getPlayer().teleport(eachTeleporter.getLocation());
-                }
-
-            } else if (e.getTo().getWorld().equals(eachTeleporter.getFrom().getWorld()) && eachTeleporter.isInverted()) {
+                    } else if (eachTeleporter.getDestination() == Teleporter.Destination.LOCATION)
+                        e.getPlayer().teleport(eachTeleporter.getLocation());
+                    else
+                        eachTeleporter.getTeleportExecutor().execute(Biomia.getBiomiaPlayer(e.getPlayer()));
+            } else if (e.getTo().getWorld().equals(eachTeleporter.getFrom().getWorld()) && eachTeleporter.isInverted())
                 e.getPlayer().teleport(eachTeleporter.getLocation());
-            }
         });
 
     }

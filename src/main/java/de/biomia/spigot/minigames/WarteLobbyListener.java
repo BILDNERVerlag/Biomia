@@ -4,8 +4,13 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.listeners.servers.BiomiaListener;
+import de.biomia.spigot.messages.KitPVPMessages;
 import de.biomia.spigot.messages.MinigamesMessages;
+import de.biomia.spigot.minigames.kitpvp.KitPVPKit;
+import de.biomia.spigot.minigames.kitpvp.KitPVPManager;
 import de.biomia.spigot.minigames.versus.Versus;
+import de.biomia.spigot.tools.TeleportExecutor;
+import de.biomia.spigot.tools.Teleporter;
 import de.biomia.universal.Ranks;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -15,6 +20,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
@@ -24,6 +30,20 @@ public class WarteLobbyListener extends BiomiaListener {
 
     public WarteLobbyListener(boolean isVersus) {
         this.isVersus = isVersus;
+        if (isVersus) {
+            new Teleporter(new Location(Bukkit.getWorld("Spawn"), 0, 0, 0), new Location(Bukkit.getWorld("Spawn"), 0, 0, 0), new TeleportExecutor() {
+                @Override
+                public void execute(BiomiaPlayer bp) {
+                    KitPVPManager.removeFromEditMode(bp);
+                }
+            });
+            new Teleporter(new Location(Bukkit.getWorld("Spawn"), 0, 0, 0), new Location(Bukkit.getWorld("Spawn"), 0, 0, 0), new TeleportExecutor() {
+                @Override
+                public void execute(BiomiaPlayer bp) {
+                    KitPVPManager.setToEditMode(bp);
+                }
+            }).setInverted();
+        }
     }
 
     @EventHandler
@@ -36,7 +56,46 @@ public class WarteLobbyListener extends BiomiaListener {
             });
 
             Versus.getInstance().getManager().moveToLobby(e.getPlayer(), true);
+            KitPVPManager.load(Biomia.getBiomiaPlayer(e.getPlayer()));
         }
+    }
+
+    @EventHandler
+    public void onInvClick(InventoryClickEvent e) {
+        if (e.getClickedInventory().getName().equals(KitPVPMessages.selectorInventory)) {
+            if (e.getCurrentItem() != null) {
+                int kitNum = Integer.valueOf(e.getCurrentItem().getItemMeta().getDisplayName().replace(KitPVPMessages.selectorKitItem.replace("$x", ""), ""));
+                BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getWhoClicked());
+                KitPVPKit kit = KitPVPManager.getKit(bp, kitNum);
+                if (kit == null)
+                    kit = new KitPVPKit(bp.getBiomiaPlayerID(), kitNum, e.getWhoClicked().getInventory().getContents(), true);
+                KitPVPManager.setMainKit(kit);
+            }
+        }
+    }
+
+    private static final double x = 0;
+    private static final double z = 0;
+
+    @EventHandler
+    public void onMove(PlayerMoveEvent e) {
+
+        if (!isVersus)
+            return;
+
+        double xTo = e.getTo().getX();
+        double zTo = e.getTo().getZ();
+
+        double xFrom = e.getFrom().getX();
+        double zFrom = e.getFrom().getZ();
+
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
+
+        if (xFrom < x && xTo >= x && zFrom < z && zTo >= z) {
+        } else if (xFrom > x && xTo <= x && zFrom > z && zTo <= z) {
+            KitPVPManager.removeFromEditMode(bp);
+        }
+
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
