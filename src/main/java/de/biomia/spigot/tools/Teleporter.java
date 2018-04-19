@@ -49,7 +49,7 @@ public class Teleporter {
     public Teleporter(Location from, Location to, TeleportExecutor teleportExecutor) {
         this.from = from;
         this.to = to;
-        dest = Destination.LOCATION;
+        dest = Destination.EXECUTION;
         listener.addTeleporter(this);
         this.location = null;
         this.backTeleport = null;
