@@ -93,8 +93,8 @@ public class VSManager implements Listener {
     }
 
     private void addToQueue(BiomiaPlayer bp) {
-        WarteschlangenManager.add(bp);
         ActionBar.sendActionBar("\u00A7cDu bist der Warteschlange beigetretten!", bp.getPlayer());
+        WarteschlangenManager.add(bp);
     }
 
     private void removeFromQueue(BiomiaPlayer bp) {
