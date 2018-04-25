@@ -49,12 +49,10 @@ public class WarteLobbyListener extends BiomiaListener {
     @EventHandler
     public void onJoin_(PlayerJoinEvent e) {
         if (isVersus) {
-
             Bukkit.getOnlinePlayers().forEach(each -> {
                 if (!each.equals(e.getPlayer()) && Biomia.getBiomiaPlayer(each).getTeam() != null)
                     each.hidePlayer(Main.getPlugin(), e.getPlayer());
             });
-
             Versus.getInstance().getManager().moveToLobby(e.getPlayer(), true);
             KitPVPManager.load(Biomia.getBiomiaPlayer(e.getPlayer()));
         }
@@ -62,40 +60,14 @@ public class WarteLobbyListener extends BiomiaListener {
 
     @EventHandler
     public void onInvClick(InventoryClickEvent e) {
-        if (e.getClickedInventory().getName().equals(KitPVPMessages.selectorInventory)) {
-            if (e.getCurrentItem() != null) {
-                int kitNum = Integer.valueOf(e.getCurrentItem().getItemMeta().getDisplayName().replace(KitPVPMessages.selectorKitItem.replace("$x", ""), ""));
-                BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getWhoClicked());
-                KitPVPKit kit = KitPVPManager.getKit(bp, kitNum);
-                if (kit == null)
-                    kit = new KitPVPKit(bp.getBiomiaPlayerID(), kitNum, e.getWhoClicked().getInventory().getContents(), true);
-                KitPVPManager.setMainKit(kit);
-            }
+        if (e.getClickedInventory().getName().equals(KitPVPMessages.selectorInventory) && e.getCurrentItem() != null) {
+            int kitNum = Integer.valueOf(e.getCurrentItem().getItemMeta().getDisplayName().replace(KitPVPMessages.selectorKitItem.replace("$x", ""), ""));
+            BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getWhoClicked());
+            KitPVPKit kit = KitPVPManager.getKit(bp, kitNum);
+            if (kit == null)
+                kit = new KitPVPKit(bp.getBiomiaPlayerID(), kitNum, e.getWhoClicked().getInventory().getContents(), true);
+            KitPVPManager.setMainKit(kit);
         }
-    }
-
-    private static final double x = 0;
-    private static final double z = 0;
-
-    @EventHandler
-    public void onMove(PlayerMoveEvent e) {
-
-        if (!isVersus)
-            return;
-
-        double xTo = e.getTo().getX();
-        double zTo = e.getTo().getZ();
-
-        double xFrom = e.getFrom().getX();
-        double zFrom = e.getFrom().getZ();
-
-        BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-
-        if (xFrom < x && xTo >= x && zFrom < z && zTo >= z) {
-        } else if (xFrom > x && xTo <= x && zFrom > z && zTo <= z) {
-            KitPVPManager.removeFromEditMode(bp);
-        }
-
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
