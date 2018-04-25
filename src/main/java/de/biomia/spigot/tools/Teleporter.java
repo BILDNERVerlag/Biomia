@@ -137,7 +137,7 @@ class TeleportListener implements Listener {
                         e.getPlayer().teleport(eachTeleporter.getLocation());
                     else
                         eachTeleporter.getTeleportExecutor().execute(Biomia.getBiomiaPlayer(e.getPlayer()));
-            } else if (e.getTo().getWorld().equals(eachTeleporter.getFrom().getWorld()) && eachTeleporter.isInverted())
+            } else if ((from.getX() > x) && (x > to.getX()) && (from.getY() > y) && (y > to.getY()) && (from.getZ() > z) && (z > to.getZ()) && e.getTo().getWorld().equals(eachTeleporter.getFrom().getWorld()) && eachTeleporter.isInverted())
                 e.getPlayer().teleport(eachTeleporter.getLocation());
         });
 
