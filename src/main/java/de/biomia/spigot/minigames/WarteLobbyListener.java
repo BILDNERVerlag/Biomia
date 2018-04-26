@@ -32,14 +32,14 @@ public class WarteLobbyListener extends BiomiaListener {
     public WarteLobbyListener(boolean isVersus) {
         this.isVersus = isVersus;
         if (isVersus) {
-            new Teleporter(new Location(Bukkit.getWorld("Spawn"), -13, 113, -6), new Location(Bukkit.getWorld("Spawn"), -51, 200, -44), new TeleportExecutor() {
+            new Teleporter(new Location(Bukkit.getWorld("Spawn"), -51, 100, -44), new Location(Bukkit.getWorld("Spawn"), -13, 200, -6), new TeleportExecutor() {
                 @Override
                 public void execute(BiomiaPlayer bp) {
                     Bukkit.broadcastMessage("execute remove!");
                     KitPVPManager.removeFromEditMode(bp);
                 }
             });
-            new Teleporter(new Location(Bukkit.getWorld("Spawn"), -13, 113, -6), new Location(Bukkit.getWorld("Spawn"), -51, 200, -44), new TeleportExecutor() {
+            new Teleporter(new Location(Bukkit.getWorld("Spawn"), -51, 100, -44), new Location(Bukkit.getWorld("Spawn"), -13, 200, -6), new TeleportExecutor() {
                 @Override
                 public void execute(BiomiaPlayer bp) {
                     Bukkit.broadcastMessage("execute set!");

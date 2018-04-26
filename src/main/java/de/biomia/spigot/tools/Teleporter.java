@@ -115,31 +115,27 @@ class TeleportListener implements Listener {
 
         teleporters.forEach(eachTeleporter -> {
 
-            Location from = eachTeleporter.getFrom();
-            Location to = eachTeleporter.getTo();
+            if (!e.getTo().getWorld().equals(eachTeleporter.getFrom().getWorld()))
+                return;
 
-            double x = e.getTo().getX();
-            double y = e.getTo().getY();
-            double z = e.getTo().getZ();
+            boolean isFromInside = isInside(e.getFrom(), eachTeleporter), isToInside = isInside(e.getTo(), eachTeleporter);
 
-            double x2 = e.getFrom().getX();
-            double y2 = e.getFrom().getY();
-            double z2 = e.getFrom().getZ();
-
-            if ((from.getX() <= x) && (x <= to.getX()) && (from.getY() <= y) && (y <= to.getY()) && (from.getZ() <= z) && (z <= to.getZ())) {
-                if (!e.getTo().getWorld().equals(eachTeleporter.getFrom().getWorld()) || eachTeleporter.isInverted())
-                    return;
-                if ((from.getX() > x2) || (x2 > to.getX()) || (from.getY() > y2) || (y2 > to.getY()) || (from.getZ() > z2) || (z2 > to.getZ()))
-                    if (eachTeleporter.getDestination() == Teleporter.Destination.SERVER_GROUP) {
+            if ((isToInside && !isFromInside && !eachTeleporter.isInverted()) || (!isToInside && isFromInside && eachTeleporter.isInverted())) {
+                if (eachTeleporter.getDestination() == Teleporter.Destination.SERVER_GROUP) {
                     e.getPlayer().teleport(eachTeleporter.getBackTeleport());
                     PlayerToServerConnector.connectToRandom(e.getPlayer(), eachTeleporter.getServerType());
-                    } else if (eachTeleporter.getDestination() == Teleporter.Destination.LOCATION)
-                        e.getPlayer().teleport(eachTeleporter.getLocation());
-                    else
-                        eachTeleporter.getTeleportExecutor().execute(Biomia.getBiomiaPlayer(e.getPlayer()));
-            } else if ((from.getX() > x) && (x > to.getX()) && (from.getY() > y) && (y > to.getY()) && (from.getZ() > z) && (z > to.getZ()) && e.getTo().getWorld().equals(eachTeleporter.getFrom().getWorld()) && eachTeleporter.isInverted())
-                e.getPlayer().teleport(eachTeleporter.getLocation());
+                } else if (eachTeleporter.getDestination() == Teleporter.Destination.LOCATION)
+                    e.getPlayer().teleport(eachTeleporter.getLocation());
+                else if (eachTeleporter.getDestination() == Teleporter.Destination.EXECUTION)
+                    eachTeleporter.getTeleportExecutor().execute(Biomia.getBiomiaPlayer(e.getPlayer()));
+            }
         });
 
+    }
+
+    public boolean isInside(Location loc, Teleporter teleporter) {
+        return ((loc.getX() > teleporter.getFrom().getX() && loc.getX() < teleporter.getTo().getX()) &&
+                (loc.getY() > teleporter.getFrom().getY() && loc.getY() < teleporter.getTo().getY()) &&
+                (loc.getZ() > teleporter.getFrom().getZ() && loc.getZ() < teleporter.getTo().getZ()));
     }
 }
