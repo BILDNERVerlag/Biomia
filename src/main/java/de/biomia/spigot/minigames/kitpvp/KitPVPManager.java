@@ -61,7 +61,7 @@ public class KitPVPManager {
     public static void openSelectorInventory(BiomiaPlayer bp) {
 
         int maxKits = getMaxKits(bp);
-        Inventory inv = Bukkit.createInventory(null, (int) Math.ceil(getMaxKits(bp) / 9) * 9, KitPVPMessages.selectorInventory);
+        Inventory inv = Bukkit.createInventory(null, (int) (Math.ceil((double) maxKits / (double) 9) * 9), KitPVPMessages.selectorInventory);
         for (int i = 0; i < maxKits; i++) {
             KitPVPKit kit = getKit(bp, i);
             ItemStack is = kit != null ? Arrays.stream(kit.getInventory()).filter(itemStack -> itemStack == null || itemStack.getType() == Material.AIR).findFirst().orElse(ItemCreator.itemCreate(Material.GLASS)) : ItemCreator.itemCreate(Material.BEDROCK);
@@ -70,7 +70,6 @@ public class KitPVPManager {
             is.setItemMeta(meta);
             inv.setItem(i + 1, is);
         }
-
         bp.getPlayer().openInventory(inv);
     }
 
