@@ -133,7 +133,7 @@ class TeleportListener implements Listener {
 
     }
 
-    public boolean isInside(Location loc, Teleporter teleporter) {
+    private boolean isInside(Location loc, Teleporter teleporter) {
         return ((loc.getX() > teleporter.getFrom().getX() && loc.getX() < teleporter.getTo().getX()) &&
                 (loc.getY() > teleporter.getFrom().getY() && loc.getY() < teleporter.getTo().getY()) &&
                 (loc.getZ() > teleporter.getFrom().getZ() && loc.getZ() < teleporter.getTo().getZ()));

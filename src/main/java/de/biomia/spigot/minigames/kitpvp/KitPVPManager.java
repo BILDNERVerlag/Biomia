@@ -74,6 +74,7 @@ public class KitPVPManager {
     }
 
     public static void setToEditMode(BiomiaPlayer bp) {
+        bp.getPlayer().getInventory().clear();
         bp.getPlayer().getInventory().setContents(getMainKit(bp).getInventory());
         bp.getPlayer().setGameMode(GameMode.CREATIVE);
     }

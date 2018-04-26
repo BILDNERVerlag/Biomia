@@ -35,17 +35,15 @@ public class WarteLobbyListener extends BiomiaListener {
             new Teleporter(new Location(Bukkit.getWorld("Spawn"), -51, 100, -44), new Location(Bukkit.getWorld("Spawn"), -13, 200, -6), new TeleportExecutor() {
                 @Override
                 public void execute(BiomiaPlayer bp) {
-                    Bukkit.broadcastMessage("execute remove!");
                     KitPVPManager.removeFromEditMode(bp);
                 }
-            });
+            }).setInverted();
             new Teleporter(new Location(Bukkit.getWorld("Spawn"), -51, 100, -44), new Location(Bukkit.getWorld("Spawn"), -13, 200, -6), new TeleportExecutor() {
                 @Override
                 public void execute(BiomiaPlayer bp) {
-                    Bukkit.broadcastMessage("execute set!");
                     KitPVPManager.setToEditMode(bp);
                 }
-            }).setInverted();
+            });
         }
     }
 
