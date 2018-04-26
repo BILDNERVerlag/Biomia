@@ -55,10 +55,7 @@ public class KitPVPManager {
 
     public static KitPVPKit getKit(OfflineBiomiaPlayer bp, int kitNumber) {
         ArrayList<KitPVPKit> list = loadedKits.get(bp.getBiomiaPlayerID());
-        KitPVPKit kit = list != null ? loadedKits.get(bp.getBiomiaPlayerID()).stream().filter(kitPVPKit -> kitPVPKit.getKitNumber() != kitNumber).findFirst().orElse(new KitPVPKit(bp.getBiomiaPlayerID(), kitNumber, new ItemStack[50], false)) : new KitPVPKit(bp.getBiomiaPlayerID(), kitNumber, new ItemStack[50], false);
-        if (kitNumber == 0 && getMainKit(bp) == null)
-            kit.setMain(true);
-        return kit;
+        return list != null ? loadedKits.get(bp.getBiomiaPlayerID()).stream().filter(kitPVPKit -> kitPVPKit.getKitNumber() != kitNumber).findFirst().orElse(null) : null;
     }
 
     public static void openSelectorInventory(BiomiaPlayer bp) {
@@ -67,7 +64,7 @@ public class KitPVPManager {
         Inventory inv = Bukkit.createInventory(null, (int) Math.ceil(getMaxKits(bp) / 9) * 9, KitPVPMessages.selectorInventory);
         for (int i = 0; i < maxKits; i++) {
             KitPVPKit kit = getKit(bp, i);
-            ItemStack is = Arrays.stream(kit.getInventory()).filter(itemStack -> itemStack == null || itemStack.getType() == Material.AIR).findFirst().orElse(ItemCreator.itemCreate(Material.BEDROCK));
+            ItemStack is = kit != null ? Arrays.stream(kit.getInventory()).filter(itemStack -> itemStack == null || itemStack.getType() == Material.AIR).findFirst().orElse(ItemCreator.itemCreate(Material.GLASS)) : ItemCreator.itemCreate(Material.BEDROCK);
             ItemMeta meta = is.getItemMeta();
             meta.setDisplayName(KitPVPMessages.selectorKitItem.replace("$s", String.valueOf(i)));
             is.setItemMeta(meta);
