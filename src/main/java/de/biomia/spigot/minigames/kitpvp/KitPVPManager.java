@@ -66,9 +66,9 @@ public class KitPVPManager {
             KitPVPKit kit = getKit(bp, i);
             ItemStack is = kit != null ? Arrays.stream(kit.getInventory()).filter(itemStack -> itemStack == null || itemStack.getType() == Material.AIR).findFirst().orElse(ItemCreator.itemCreate(Material.GLASS)) : ItemCreator.itemCreate(Material.BEDROCK);
             ItemMeta meta = is.getItemMeta();
-            meta.setDisplayName(KitPVPMessages.selectorKitItem.replace("$s", String.valueOf(i)));
+            meta.setDisplayName(KitPVPMessages.selectorKitItem.replace("$x", String.valueOf(i)));
             is.setItemMeta(meta);
-            inv.setItem(i + 1, is);
+            inv.setItem(i, is);
         }
         bp.getPlayer().openInventory(inv);
     }
