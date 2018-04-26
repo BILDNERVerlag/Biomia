@@ -14,6 +14,7 @@ import de.biomia.spigot.tools.Teleporter;
 import de.biomia.universal.Ranks;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -60,13 +61,14 @@ public class WarteLobbyListener extends BiomiaListener {
 
     @EventHandler
     public void onInvClick(InventoryClickEvent e) {
-        if (e.getClickedInventory().getName().equals(KitPVPMessages.selectorInventory) && e.getCurrentItem() != null) {
-            int kitNum = Integer.valueOf(e.getCurrentItem().getItemMeta().getDisplayName().replace(KitPVPMessages.selectorKitItem.replace("$x", ""), ""));
+        if (e.getClickedInventory().getName().equals(KitPVPMessages.selectorInventory) && e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
+            int kitNum = Integer.valueOf(e.getCurrentItem().getItemMeta().getDisplayName().replace(KitPVPMessages.selectorKitItem.replace("$x", ""), "")) - 1;
             BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getWhoClicked());
             KitPVPKit kit = KitPVPManager.getKit(bp, kitNum);
             if (kit == null)
                 kit = new KitPVPKit(bp.getBiomiaPlayerID(), kitNum, e.getWhoClicked().getInventory().getContents(), true);
             KitPVPManager.setMainKit(kit);
+            e.setCancelled(true);
         }
     }
 
