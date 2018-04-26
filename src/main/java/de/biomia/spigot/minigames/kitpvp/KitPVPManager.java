@@ -41,7 +41,7 @@ public class KitPVPManager {
         try {
             PreparedStatement ps = con.prepareStatement("SELECT inventory, selected, kitNumber FROM KitPVPKits WHERE biomiaID = ?");
             ps.setInt(1, bp.getBiomiaPlayerID());
-            ResultSet set = ps.getResultSet();
+            ResultSet set = ps.executeQuery();
             while (set.next()) {
                 new KitPVPKit(bp.getBiomiaPlayerID(), set.getInt("kitNumber"), new ItemStack[100], set.getBoolean("selected"));
             }

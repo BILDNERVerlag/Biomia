@@ -59,7 +59,8 @@ public class VSGroupInventory implements Listener {
     private void interactAtItemBySlot(int slot) {
 
         if (slot == backItemSlot) {
-            group.getMainGroup().getInventory(bp).openInventory();
+            if (group.getMainGroup() != null)
+                group.getMainGroup().getInventory(bp).openInventory();
             return;
         }
 
