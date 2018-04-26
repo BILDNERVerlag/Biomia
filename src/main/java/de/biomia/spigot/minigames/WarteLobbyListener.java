@@ -69,6 +69,7 @@ public class WarteLobbyListener extends BiomiaListener {
                 kit = new KitPVPKit(bp.getBiomiaPlayerID(), kitNum, e.getWhoClicked().getInventory().getContents(), true);
             KitPVPManager.setMainKit(kit);
             e.setCancelled(true);
+            e.getWhoClicked().closeInventory();
         }
     }
 
