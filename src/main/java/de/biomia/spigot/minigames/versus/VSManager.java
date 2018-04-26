@@ -51,7 +51,7 @@ public class VSManager implements Listener {
 
         ItemStack bedwarsSettingItem = ItemCreator.itemCreate(Material.BED, "\u00A7cBedWars");
         ItemStack skywarsSettingItem = ItemCreator.itemCreate(Material.GRASS, "\u00A7aSkyWars");
-//        ItemStack kitPvPSettingItem = ItemCreator.itemCreate(Material.IRON_SWORD, "\u00A7bKitPvP");
+        ItemStack kitPvPSettingItem = ItemCreator.itemCreate(Material.IRON_SWORD, "\u00A7bKitPvP");
 
         VSGroup bedwars = main.registerDeaktivatableGroup(GameType.BED_WARS_VS, bedwarsSettingItem, "\u00A7cBedWars", 6, 0, true);
         VSGroup bedwarsMaps = bedwars.registerGroup(GameType.BED_WARS_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
@@ -62,9 +62,9 @@ public class VSManager implements Listener {
         skywarsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.SMOOTH_BRICK, (byte) 2), 100, 0, true, skywarsMaps, "Ruins"));
         skywars.registerGroup(GameType.SKY_WARS_VS, SkyWarsItemNames.kitItem, SkyWarsItemNames.kitItemName, 1);
 
-//        VSGroup kitpvp = main.registerDeaktivatableGroup(GameType.KIT_PVP_VS, kitPvPSettingItem, "\u00A7bKitPvP", 4, 0, true);
-//        VSGroup kitpvpsMaps = kitpvp.registerGroup(GameType.KIT_PVP_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
-//        kitpvpsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, kitpvpsMaps, "Map1"));
+        VSGroup kitpvp = main.registerDeaktivatableGroup(GameType.KIT_PVP_VS, kitPvPSettingItem, "\u00A7bKitPvP", 4, 0, true);
+        VSGroup kitpvpsMaps = kitpvp.registerGroup(GameType.KIT_PVP_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
+        kitpvpsMaps.registerSetting(new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, kitpvpsMaps, "Map1"));
     }
 
     public void moveToLobby(Player p, boolean onSpawn) {
