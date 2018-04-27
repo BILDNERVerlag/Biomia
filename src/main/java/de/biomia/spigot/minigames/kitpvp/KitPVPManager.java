@@ -70,7 +70,7 @@ public class KitPVPManager {
         Inventory inv = Bukkit.createInventory(null, (int) (Math.ceil((double) maxKits / (double) 9) * 9), KitPVPMessages.selectorInventory);
         for (int i = 0; i < maxKits; i++) {
             KitPVPKit kit = getKit(bp, i);
-            ItemStack is = kit != null ? Arrays.stream(kit.getInventory()).filter(itemStack -> itemStack == null || itemStack.getType() == Material.AIR).findFirst().orElse(ItemCreator.itemCreate(Material.GLASS)) : ItemCreator.itemCreate(Material.BEDROCK);
+            ItemStack is = Arrays.stream(kit.getInventory()).filter(itemStack -> itemStack == null || itemStack.getType() == Material.AIR).findFirst().orElse(ItemCreator.itemCreate(Material.BEDROCK));
             ItemMeta meta = is.getItemMeta();
             meta.setDisplayName(KitPVPMessages.selectorKitItem.replace("$x", String.valueOf(i + 1)));
             is.setItemMeta(meta);
