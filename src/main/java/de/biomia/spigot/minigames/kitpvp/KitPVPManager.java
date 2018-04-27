@@ -42,12 +42,15 @@ public class KitPVPManager {
             ArrayList<KitPVPKit> list = loadedKits.get(bp.getBiomiaPlayerID());
             if (list != null)
                 list.clear();
+            else
+                list = loadedKits.put(bp.getBiomiaPlayerID(), new ArrayList<>());
             PreparedStatement ps = con.prepareStatement("SELECT inventory, selected, kitNumber FROM KitPVPKits WHERE biomiaID = ?");
             ps.setInt(1, bp.getBiomiaPlayerID());
             ResultSet set = ps.executeQuery();
-            while (set.next()) {
-                new KitPVPKit(bp.getBiomiaPlayerID(), set.getInt("kitNumber"), new ItemStack[100], set.getBoolean("selected"));
-            }
+            while (set.next())
+                new KitPVPKit(bp.getBiomiaPlayerID(), set.getInt("kitNumber"), new ItemStack[50], set.getBoolean("selected"));
+            if (list.isEmpty() || getMainKit(bp) == null)
+                setMainKit(getKit(bp, 0));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -55,7 +58,10 @@ public class KitPVPManager {
 
     public static KitPVPKit getKit(OfflineBiomiaPlayer bp, int kitNumber) {
         ArrayList<KitPVPKit> list = loadedKits.get(bp.getBiomiaPlayerID());
-        return list != null ? loadedKits.get(bp.getBiomiaPlayerID()).stream().filter(kitPVPKit -> kitPVPKit.getKitNumber() != kitNumber).findFirst().orElse(null) : null;
+        KitPVPKit kit = list != null ? loadedKits.get(bp.getBiomiaPlayerID()).stream().filter(kitPVPKit -> kitPVPKit.getKitNumber() != kitNumber).findFirst().orElse(null) : null;
+        if (kit == null)
+            kit = new KitPVPKit(bp.getBiomiaPlayerID(), kitNumber, new ItemStack[50], false);
+        return kit;
     }
 
     public static void openSelectorInventory(BiomiaPlayer bp) {

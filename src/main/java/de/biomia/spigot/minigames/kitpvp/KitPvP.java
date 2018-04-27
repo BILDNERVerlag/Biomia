@@ -17,8 +17,8 @@ public class KitPvP extends GameMode {
         getStateManager().setInGameState(new GameStateManager.InGameState(this) {
             @Override
             public void start() {
-                getMode().getInstance().getPlayers().forEach(each -> KitPVPManager.getMainKit(each).setToPlayerInventory());
                 super.start();
+                getMode().getInstance().getPlayers().forEach(each -> KitPVPManager.getMainKit(each).setToPlayerInventory());
             }
         });
     }

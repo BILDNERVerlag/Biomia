@@ -126,11 +126,7 @@ public class GameStateManager {
                 TimoCloudAPI.getBukkitInstance().getThisServer().setState(GameState.INGAME.name());
             getMode().getInstance().setPlayersOnStart();
             for (BiomiaPlayer bp : getMode().getInstance().getPlayers()) {
-                Bukkit.getOnlinePlayers().forEach(all -> bp.getPlayer().hidePlayer(Main.getPlugin(), all));
-                for (BiomiaPlayer p2 : getMode().getInstance().getPlayers()) {
-                    bp.getPlayer().showPlayer(Main.getPlugin(), p2.getPlayer());
-                }
-
+                Bukkit.getOnlinePlayers().stream().filter(o -> getMode().getInstance().getPlayers().contains(Biomia.getBiomiaPlayer(o))).forEach(all -> bp.getPlayer().hidePlayer(Main.getPlugin(), all));
                 bp.setDamageEntitys(true);
                 bp.setGetDamage(true);
                 bp.getPlayer().setGameMode(org.bukkit.GameMode.SURVIVAL);

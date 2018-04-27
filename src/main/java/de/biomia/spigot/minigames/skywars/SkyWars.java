@@ -52,8 +52,8 @@ public class SkyWars extends GameMode {
         getStateManager().setInGameState(new GameStateManager.InGameState(this) {
             @Override
             public void start() {
-                getMode().getInstance().getPlayers().forEach(bp -> KitManager.getManager(bp).setKitInventory());
                 super.start();
+                getMode().getInstance().getPlayers().forEach(bp -> KitManager.getManager(bp).setKitInventory());
             }
         });
     }

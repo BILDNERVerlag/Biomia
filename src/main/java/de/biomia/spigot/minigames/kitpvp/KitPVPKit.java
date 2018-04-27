@@ -17,9 +17,10 @@ public class KitPVPKit {
     public KitPVPKit(int biomiaID, int kitNumber, ItemStack[] inventory, boolean isMainKit) {
         this.biomiaID = biomiaID;
         this.kitNumber = kitNumber;
-        this.isMainKit = isMainKit;
         this.inventory = inventory;
+        this.isMainKit = false;
         KitPVPManager.getLoadedKits().computeIfAbsent(biomiaID, list -> new ArrayList<>()).add(this);
+        KitPVPManager.setMainKit(this);
     }
 
     public ItemStack[] getInventory() {
