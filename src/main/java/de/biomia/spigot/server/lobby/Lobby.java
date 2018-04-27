@@ -113,7 +113,7 @@ public class Lobby extends BiomiaServer {
         new Teleporter(new Location(lobby, 459, 124, 341), new Location(lobby, 460, 125, 342), backTeleportationQuests, BiomiaServerType.Quest);
 
         // Freebuild
-        new Teleporter(new Location(lobby, 552, 97, 290), new Location(lobby, 553, 98, 291), new Location(lobby, 556.5, 96, 292.5, -90, 0), BiomiaServerType.Freebuild);
+        new Teleporter(new Location(lobby, 552, 96, 290), new Location(lobby, 553, 98, 291), new Location(lobby, 556.5, 96, 292.5, -90, 0), BiomiaServerType.Freebuild);
         // FarmWelt
         // new Teleporter(new Location(lobby, 552, 97, 294), new Location(lobby, 553, 98, 295), new Location(lobby, 556.5, 96, 292.5, -90, 0), "FarmServer");
 

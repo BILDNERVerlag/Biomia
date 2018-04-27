@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Optional;
 
 public class KitPVPManager {
 
@@ -33,7 +34,7 @@ public class KitPVPManager {
     }
 
     public static KitPVPKit getMainKit(OfflineBiomiaPlayer bp) {
-        return loadedKits.get(bp.getBiomiaPlayerID()).stream().filter(kitPVPKit -> !kitPVPKit.isMain()).findFirst().orElse(null);
+        return loadedKits.get(bp.getBiomiaPlayerID()).stream().filter(KitPVPKit::isMain).findFirst().orElse(null);
     }
 
     public static void load(OfflineBiomiaPlayer bp) {
@@ -55,19 +56,18 @@ public class KitPVPManager {
 
     public static KitPVPKit getKit(OfflineBiomiaPlayer bp, int kitNumber) {
         ArrayList<KitPVPKit> list = loadedKits.get(bp.getBiomiaPlayerID());
-        KitPVPKit kit = list != null ? loadedKits.get(bp.getBiomiaPlayerID()).stream().filter(kitPVPKit -> kitPVPKit.getKitNumber() != kitNumber).findFirst().orElse(null) : null;
+        KitPVPKit kit = list != null ? loadedKits.get(bp.getBiomiaPlayerID()).stream().filter(kitPVPKit -> kitPVPKit.getKitNumber() == kitNumber).findFirst().orElse(null) : null;
         if (kit == null)
             kit = new KitPVPKit(bp.getBiomiaPlayerID(), kitNumber, new ItemStack[41], false);
         return kit;
     }
 
     public static void openSelectorInventory(BiomiaPlayer bp) {
-
         double maxKits = getMaxKits(bp);
         Inventory inv = Bukkit.createInventory(null, (int) (Math.ceil(maxKits / 9) * 9), KitPVPMessages.selectorInventory);
         for (int i = 0; i < maxKits; i++) {
             KitPVPKit kit = getKit(bp, i);
-            ItemStack is = Arrays.stream(kit.getInventory()).filter(itemStack -> itemStack == null || itemStack.getType() == Material.AIR).findFirst().orElse(ItemCreator.itemCreate(Material.BEDROCK));
+            ItemStack is = Arrays.stream(kit.getInventory()).filter(itemStack -> itemStack != null && itemStack.getType() != Material.AIR).findFirst().orElse(ItemCreator.itemCreate(Material.BEDROCK));
             ItemMeta meta = is.getItemMeta();
             meta.setDisplayName(KitPVPMessages.selectorKitItem.replace("$x", String.valueOf(i + 1)));
             is.setItemMeta(meta);

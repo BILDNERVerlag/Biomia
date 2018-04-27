@@ -27,7 +27,7 @@ class WarteschlangenManager {
             allBackWard.add(bps.get(i));
 
         try {
-            allBackWard.forEach(all -> allBackWard.stream().filter(all::equals).forEach(all1 -> {
+            allBackWard.forEach(all -> allBackWard.stream().filter(all1 -> !all1.equals(all)).forEach(all1 -> {
                 VSRequest request = new VSRequest(all, all1);
                 if (request.hasSameSettings()) {
                     request.startServer();

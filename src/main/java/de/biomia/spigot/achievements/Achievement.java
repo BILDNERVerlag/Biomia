@@ -5,6 +5,8 @@ import java.util.ArrayList;
 @SuppressWarnings("SameParameterValue")
 public class Achievement {
 
+    //TODO: Neben das Inventar geklickt D:
+
     //ATTRIBUTES
 
     private final BiomiaAchievement achievement;
