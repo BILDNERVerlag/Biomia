@@ -62,7 +62,7 @@ public class WarteLobbyListener extends BiomiaListener {
 
     @EventHandler
     public void onInvClick(InventoryClickEvent e) {
-        if (e.getClickedInventory().getName().equals(KitPVPMessages.selectorInventory) && e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
+        if (e.getClickedInventory() != null && e.getClickedInventory().getName().equals(KitPVPMessages.selectorInventory) && e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
             int kitNum = Integer.valueOf(e.getCurrentItem().getItemMeta().getDisplayName().replace(KitPVPMessages.selectorKitItem.replace("$x", ""), "")) - 1;
             BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getWhoClicked());
             KitPVPKit kit = KitPVPManager.getKit(bp, kitNum);
