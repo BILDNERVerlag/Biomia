@@ -3,6 +3,7 @@ package de.biomia.spigot.minigames.versus.settings;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameType;
+import de.biomia.spigot.minigames.kitpvp.KitPvP;
 import de.biomia.spigot.minigames.versus.Versus;
 import de.biomia.universal.Messages;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -101,6 +102,10 @@ public class VSRequest {
         gameInstance.registerPlayer(leader);
         gameInstance.registerPlayer(bp2);
         Versus.getInstance().getManager().getRequests().put(gameInstance, this);
+
+        if (gameInstance.getType() == GameType.KIT_PVP_VS)
+            ((KitPvP) gameInstance.getGameMode()).setLeader(leader);
+
     }
 
     public boolean hasSameSettings() {

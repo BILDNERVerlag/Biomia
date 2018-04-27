@@ -1,5 +1,6 @@
 package de.biomia.spigot.minigames.kitpvp;
 
+import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.minigames.*;
 
@@ -12,13 +13,19 @@ public class KitPvP extends GameMode {
         super(instance);
     }
 
+    private KitPVPKit pvpKit;
+
+    public void setLeader(BiomiaPlayer bp) {
+        this.pvpKit = KitPVPManager.getMainKit(bp);
+    }
+
     @Override
     public void start() {
         getStateManager().setInGameState(new GameStateManager.InGameState(this) {
             @Override
             public void start() {
                 super.start();
-                getMode().getInstance().getPlayers().forEach(each -> KitPVPManager.getMainKit(each).setToPlayerInventory());
+                getMode().getInstance().getPlayers().forEach(each -> pvpKit.setToPlayerInventory());
             }
         });
     }

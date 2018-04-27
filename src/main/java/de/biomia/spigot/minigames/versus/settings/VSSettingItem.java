@@ -5,6 +5,7 @@ import de.biomia.spigot.minigames.versus.Versus;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class VSSettingItem {
 
@@ -29,6 +30,12 @@ public class VSSettingItem {
         this.name = name;
 
         VSSettings.putSettingItem(group.getMode(), ID, this);
+    }
+
+    public void setAsMap() {
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName("§c" + name);
+        item.setItemMeta(meta);
     }
 
     public void inverse(BiomiaPlayer bp, VSGroupInventory inv) {
