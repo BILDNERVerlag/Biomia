@@ -5,8 +5,6 @@ import de.biomia.spigot.tools.Base64;
 import de.biomia.universal.MySQL;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-
 public class KitPVPKit {
 
     private final int biomiaID;
@@ -19,7 +17,8 @@ public class KitPVPKit {
         this.kitNumber = kitNumber;
         this.inventory = inventory;
         this.isMainKit = false;
-        KitPVPManager.getLoadedKits().computeIfAbsent(biomiaID, list -> new ArrayList<>()).add(this);
+        KitPVPManager.getLoadedKits().get(biomiaID).add(this);
+        if (isMainKit)
         KitPVPManager.setMainKit(this);
     }
 

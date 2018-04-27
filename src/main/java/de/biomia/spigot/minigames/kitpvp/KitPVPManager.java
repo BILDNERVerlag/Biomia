@@ -39,11 +39,8 @@ public class KitPVPManager {
     public static void load(OfflineBiomiaPlayer bp) {
         Connection con = MySQL.Connect(MySQL.Databases.biomia_db);
         try {
-            ArrayList<KitPVPKit> list = loadedKits.get(bp.getBiomiaPlayerID());
-            if (list != null)
-                list.clear();
-            else
-                list = loadedKits.put(bp.getBiomiaPlayerID(), new ArrayList<>());
+            ArrayList<KitPVPKit> list = loadedKits.computeIfAbsent(bp.getBiomiaPlayerID(), array -> new ArrayList<>());
+            list.clear();
             PreparedStatement ps = con.prepareStatement("SELECT inventory, selected, kitNumber FROM KitPVPKits WHERE biomiaID = ?");
             ps.setInt(1, bp.getBiomiaPlayerID());
             ResultSet set = ps.executeQuery();
