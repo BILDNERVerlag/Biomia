@@ -5,7 +5,6 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.events.game.GameDeathEvent;
-import de.biomia.spigot.events.game.GameEndEvent;
 import de.biomia.spigot.events.game.GameKillEvent;
 import de.biomia.spigot.events.game.GameLeaveEvent;
 import de.biomia.spigot.messages.MinigamesItemNames;
@@ -42,32 +41,6 @@ public abstract class GameHandler implements Listener {
 
     protected void unregister() {
         HandlerList.unregisterAll(this);
-    }
-
-    @EventHandler
-    public void onKill(GameKillEvent e) {
-        if (!mode.getInstance().getWorld().equals(e.getKilledPlayer().getPlayer().getWorld())) return;
-        if (e.isFinalKill())
-            GameRewards.KILL.giveReward(e.getOfflineBiomiaPlayer().getBiomiaPlayer(), e.getMode().getInstance());
-    }
-
-    @EventHandler
-    public void onWin(GameEndEvent e) {
-
-        BiomiaPlayer bp = e.getWinner().stream().findFirst().orElse(null);
-
-        if (bp == null || !mode.getInstance().getWorld().equals(bp.getPlayer().getWorld())) return;
-        e.getWinner().forEach(each -> {
-            GameRewards.WIN.giveReward(each, e.getMode().getInstance());
-            GameRewards.PLAYED.giveReward(each, e.getMode().getInstance());
-        });
-    }
-
-    @EventHandler
-    public void onPlayed(GameLeaveEvent e) {
-        if (!mode.getInstance().getWorld().equals(e.getOfflineBiomiaPlayer().getBiomiaPlayer().getPlayer().getWorld()))
-            return;
-        GameRewards.PLAYED.giveReward(e.getOfflineBiomiaPlayer().getBiomiaPlayer(), e.getMode().getInstance());
     }
 
     @EventHandler

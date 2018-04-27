@@ -23,17 +23,18 @@ public enum GameRewards {
         int tempCoins = instance.getType().isVersus() ? versusCoins : coins;
 
         switch (this) {
-        case PLAYED:
-            //TODO add
-            //tempCoins *= instance.getPlayedTime() / 60;
-            break;
-        case WIN:
-            tempCoins *= instance.getPlayersOnStart();
-            break;
-        default:
-            break;
+            case PLAYED:
+                //TODO add
+                //tempCoins *= instance.getPlayedTime() / 60;
+                break;
+            case WIN:
+                tempCoins *= instance.getPlayersOnStart();
+                break;
+            default:
+                break;
         }
 
         bp.addCoins(tempCoins, true);
     }
 }
+

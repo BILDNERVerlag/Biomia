@@ -45,6 +45,7 @@ public class WarteLobbyListener extends BiomiaListener {
                 }
             });
         }
+        Bukkit.getPluginManager().registerEvents(new GameRewardHandler(), Main.getPlugin());
     }
 
     @EventHandler

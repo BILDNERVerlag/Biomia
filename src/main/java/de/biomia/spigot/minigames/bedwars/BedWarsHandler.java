@@ -132,16 +132,24 @@ public class BedWarsHandler extends GameHandler {
         e.getEntity().getInventory().clear();
         if (!mode.isSpectator(bp)) {
             if (!((BedWarsTeam) team).hasBed()) {
+                if (killer == null) {
+                    Bukkit.getPluginManager().callEvent(new GameDeathEvent(bp, null, true, mode));
+                } else {
+                    BiomiaPlayer bpKiller = Biomia.getBiomiaPlayer(killer);
+                    Bukkit.getPluginManager().callEvent(new GameKillEvent(bpKiller, bp, true, mode));
+                    Bukkit.getPluginManager().callEvent(new GameDeathEvent(bp, bpKiller, true, mode));
+                }
                 e.setDeathMessage(MinigamesMessages.playerDiedFinally.replace("%p", team.getColorcode() + p.getName()));
                 team.setDead(bp);
-                Bukkit.getPluginManager().callEvent(new GameDeathEvent(bp, Biomia.getBiomiaPlayer(killer), true, mode));
             } else {
                 if (killer == null) {
+                    Bukkit.getPluginManager().callEvent(new GameDeathEvent(bp, null, true, mode));
                     e.setDeathMessage(MinigamesMessages.playerDied.replace("%p", team.getColorcode() + p.getName()));
                 } else {
                     BiomiaPlayer bpKiller = Biomia.getBiomiaPlayer(killer);
+                    Bukkit.getPluginManager().callEvent(new GameKillEvent(bpKiller, bp, true, mode));
+                    Bukkit.getPluginManager().callEvent(new GameDeathEvent(bp, bpKiller, true, mode));
                     e.setDeathMessage(String.format(MinigamesMessages.playerKilledByPlayer, team.getColorcode() + p.getName(), bpKiller.getTeam().getColorcode() + killer.getName()));
-                    Bukkit.getPluginManager().callEvent(new GameKillEvent(bpKiller, bp, false, mode));
                 }
             }
             Dead.respawn(p);
