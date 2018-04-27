@@ -63,11 +63,10 @@ public class KitPVPManager {
 
     public static void openSelectorInventory(BiomiaPlayer bp) {
 
-        double maxKits = getMaxKits(bp);
-        Inventory inv = Bukkit.createInventory(null, (int) (Math.ceil(maxKits / 9) * 9), KitPVPMessages.selectorInventory);
-        for (int i = 0; i < maxKits; i++) {
+        Inventory inv = Bukkit.createInventory(null, 9, KitPVPMessages.selectorInventory);
+        for (int i = 0; i < 4; i++) {
             KitPVPKit kit = getKit(bp, i);
-            ItemStack is = Arrays.stream(kit.getInventory()).filter(itemStack -> itemStack == null || itemStack.getType() == Material.AIR).findFirst().orElse(ItemCreator.itemCreate(Material.BEDROCK));
+            ItemStack is = i > getMaxKits(bp) ? Arrays.stream(kit.getInventory()).filter(itemStack -> itemStack == null || itemStack.getType() == Material.AIR).findFirst().orElse(ItemCreator.itemCreate(Material.BEDROCK)) : ItemCreator.itemCreate(Material.BARRIER);
             ItemMeta meta = is.getItemMeta();
             meta.setDisplayName(KitPVPMessages.selectorKitItem.replace("$x", String.valueOf(i + 1)));
             is.setItemMeta(meta);
@@ -91,7 +90,7 @@ public class KitPVPManager {
     }
 
     private static int getMaxKits(OfflineBiomiaPlayer bp) {
-        return bp.getPremiumLevel() + (bp.isStaff() ? (bp.isOwnerOrDev() ? 10 : 5) : 0) + 1;
+        return bp.getPremiumLevel() + (bp.isStaff() ? (bp.isOwnerOrDev() ? 4 : 3) : 0) + 1;
     }
 
     public static HashMap<Integer, ArrayList<KitPVPKit>> getLoadedKits() {
