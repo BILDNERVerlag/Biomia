@@ -84,6 +84,7 @@ public class GameStateManager {
             this.countDown = new CountDown(mode);
         }
 
+        @Override
         public void start() {
             if (!getMode().getInstance().getType().isVersus()) {
                 Scoreboards.initLobbySB(getMode());
@@ -99,6 +100,7 @@ public class GameStateManager {
             }
         }
 
+        @Override
         public void stop() {
             getMode().setAllToTeams();
             getMode().getStateManager().getInGameState().start();
@@ -119,6 +121,7 @@ public class GameStateManager {
             super(mode);
         }
 
+        @Override
         public void start() {
             getMode().getStateManager().setActualGameState(GameState.INGAME);
 
@@ -126,7 +129,7 @@ public class GameStateManager {
                 TimoCloudAPI.getBukkitInstance().getThisServer().setState(GameState.INGAME.name());
             getMode().getInstance().setPlayersOnStart();
             for (BiomiaPlayer bp : getMode().getInstance().getPlayers()) {
-                Bukkit.getOnlinePlayers().stream().filter(o -> getMode().getInstance().getPlayers().contains(Biomia.getBiomiaPlayer(o))).forEach(all -> bp.getPlayer().hidePlayer(Main.getPlugin(), all));
+                Bukkit.getOnlinePlayers().stream().filter(o -> !getMode().getInstance().getPlayers().contains(Biomia.getBiomiaPlayer(o))).forEach(all -> bp.getPlayer().hidePlayer(Main.getPlugin(), all));
                 bp.setDamageEntitys(true);
                 bp.setGetDamage(true);
                 bp.getPlayer().setGameMode(org.bukkit.GameMode.SURVIVAL);
@@ -135,7 +138,6 @@ public class GameStateManager {
                 bp.getPlayer().setFlying(false);
                 bp.getPlayer().setAllowFlight(false);
                 bp.setBuild(true);
-
                 bp.getPlayer().setFallDistance(0);
                 bp.getPlayer().teleport(bp.getTeam().getHome());
                 bp.sendMessage(MinigamesMessages.explainMessages);
@@ -145,6 +147,7 @@ public class GameStateManager {
             Scoreboards.initSpectatorSB(getMode());
         }
 
+        @Override
         public void stop() {
             Bukkit.getPluginManager().callEvent(new GameEndEvent(getMode()));
             getMode().getStateManager().setActualGameState(GameState.END);
