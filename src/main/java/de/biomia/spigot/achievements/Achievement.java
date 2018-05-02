@@ -21,10 +21,7 @@ public class Achievement {
         this.achievement = achievement;
         this.targetValue = targetValue;
         this.displayName = displayName;
-
-        if (!BiomiaAchievement.stats.containsKey(stat)) {
-            BiomiaAchievement.stats.put(stat, new ArrayList<>());
-        }
+        if (!BiomiaAchievement.stats.containsKey(stat)) BiomiaAchievement.stats.put(stat, new ArrayList<>());
         BiomiaAchievement.stats.get(stat).add(this);
     }
 
