@@ -48,13 +48,14 @@ public class CosmeticPetItem extends CosmeticItem {
 
     @Override
     public void use(BiomiaPlayer bp) {
+        super.use(bp);
         remove(bp);
         Player p = bp.getPlayer();
         Entity entity = p.getWorld().spawnEntity(p.getLocation(), type);
         entity.setCustomName("\u00A78" + p.getName() + "'s Haustier");
         entity.setCustomNameVisible(true);
         pets.put(bp, entity.getUniqueId());
-        //entity.addPassenger(p);
+        entity.addPassenger(p);
         new BukkitRunnable() {
             @Override
             public void run() {

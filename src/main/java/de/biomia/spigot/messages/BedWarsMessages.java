@@ -14,6 +14,6 @@ public class BedWarsMessages {
     public static final String bedWasDestroyed = "%s>>%sDas Bett von %sTeam %s%s wurde zerst\u00f6rt.";
     public static final String notInATeam = String.format("%sDu bist in keinem Team!", Messages.COLOR_MAIN);
     public static final String shopVillagerName ="Shop";
-    public static final String thirtySecondShopName = "%s%s Sekunden";
+    public static final String thirtySecondShopName = "%s%s Sekunden " + shopVillagerName;
 
 }

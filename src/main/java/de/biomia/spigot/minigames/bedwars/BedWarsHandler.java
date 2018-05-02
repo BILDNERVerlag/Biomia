@@ -117,7 +117,7 @@ public class BedWarsHandler extends GameHandler {
     @EventHandler
     public void onVillagerDamage(EntityDamageEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getEntity().getWorld())) return;
-        if (e.getEntityType() == EntityType.VILLAGER) {
+        if (e.getEntityType() == EntityType.VILLAGER || e.getEntityType() == EntityType.ARMOR_STAND) {
             e.setCancelled(true);
         }
     }
@@ -296,15 +296,14 @@ public class BedWarsHandler extends GameHandler {
     public void onInteract(PlayerInteractEntityEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         Player p = e.getPlayer();
-        if (e.getRightClicked() instanceof Villager || e.getRightClicked() instanceof ArmorStand)
-            if (e.getRightClicked().getCustomName().equals(BedWarsMessages.shopVillagerName)) {
+        boolean isArmorStand = false;
+        if (e.getRightClicked() instanceof Villager || (isArmorStand = e.getRightClicked() instanceof ArmorStand))
+            if (e.getRightClicked().getCustomName().contains(BedWarsMessages.shopVillagerName)) {
                 e.setCancelled(true);
                 Bukkit.getPluginManager().callEvent(new BedWarsUseShopEvent(Biomia.getBiomiaPlayer(p), e.getRightClicked() instanceof Villager, mode));
                 p.openInventory(Shop.getInventory());
-            } else if (e.getRightClicked().getCustomName().contains("Sekunden")) {
-                e.setCancelled(true);
-                p.openInventory(Shop.getInventory());
-                ((BedWars) mode).handlerMap.get(e.getRightClicked().getUniqueId()).add(p);
+                if (isArmorStand)
+                    ((BedWars) mode).handlerMap.get(e.getRightClicked().getUniqueId()).add(p);
             }
     }
 

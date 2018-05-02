@@ -97,7 +97,7 @@ public abstract class BiomiaListener implements Listener {
             e.setCancelled(true);
     }
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public final void onSendMessage(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
