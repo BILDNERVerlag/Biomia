@@ -7,7 +7,6 @@ import de.biomia.spigot.commands.minigames.BWCommand;
 import de.biomia.spigot.commands.minigames.SWCommand;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.general.cosmetics.Cosmetic;
-import de.biomia.spigot.general.cosmetics.Cosmetic.Group;
 import de.biomia.spigot.general.cosmetics.CosmeticGroup;
 import de.biomia.spigot.general.cosmetics.gadgets.GadgetIniter;
 import de.biomia.spigot.general.cosmetics.particles.ParticleIniter;
@@ -72,6 +71,14 @@ public class Main extends JavaPlugin {
             case TestLobby:
             case Lobby:
                 Biomia.setServerInstance(new Lobby(groupName));
+                GadgetIniter.init();
+                ParticleIniter.init();
+                Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.HEADS, ItemCreator.itemCreate(Material.SKULL_ITEM, "\u00A7cHeads")));
+                Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.PETS, ItemCreator.itemCreate(Material.MONSTER_EGG, "\u00A7bPets")));
+                Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.GADGETS, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM, "\u00A7bGadgets")));
+                Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.PARTICLES, ItemCreator.itemCreate(Material.BLAZE_POWDER, "\u00A73Particles")));
+                Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.SUITS, ItemCreator.itemCreate(Material.GOLD_CHESTPLATE, "\u00A75Suits")));
+                Bukkit.getOnlinePlayers().forEach(each -> Cosmetic.load(Biomia.getBiomiaPlayer(each)));
                 break;
             case TestServer:
             case TestQuest:
@@ -140,19 +147,8 @@ public class Main extends JavaPlugin {
         }
 
         ReportSQL.getAllReports();
-        Bukkit.getOnlinePlayers().forEach(each -> Cosmetic.load(Biomia.getBiomiaPlayer(each)));
-        GadgetIniter.init();
-        ParticleIniter.init();
         Achievement.init();
         Bukkit.getPluginManager().registerEvents(new StatListener(), this);
-
-        Cosmetic.initGroup(new CosmeticGroup(Group.HEADS, ItemCreator.itemCreate(Material.SKULL_ITEM, "\u00A7cHeads")));
-        Cosmetic.initGroup(new CosmeticGroup(Group.PETS, ItemCreator.itemCreate(Material.MONSTER_EGG, "\u00A7bPets")));
-        Cosmetic.initGroup(new CosmeticGroup(Group.GADGETS, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM, "\u00A7bGadgets")));
-        Cosmetic.initGroup(new CosmeticGroup(Group.PARTICLES, ItemCreator.itemCreate(Material.BLAZE_POWDER, "\u00A73Particles")));
-        Cosmetic.initGroup(new CosmeticGroup(Group.SUITS, ItemCreator.itemCreate(Material.GOLD_CHESTPLATE, "\u00A75Suits")));
-
-
         Biomia.getServerInstance().start();
 
     }
