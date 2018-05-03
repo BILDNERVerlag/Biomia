@@ -38,6 +38,7 @@ public enum BiomiaStat {
     Q_accepted, Q_returned, Q_NPCTalks, Q_CoinsEarned, Q_Kills, Q_Deaths,
     Bau_PlotsClaimed, Bau_PlotsReset,
     FB_CBClaimed, FB_CBUnclaimed, FB_ItemsBought, FB_ItemsSold, FB_WarpsUsed,
+    MySQLConnections,
 
     //Events
 

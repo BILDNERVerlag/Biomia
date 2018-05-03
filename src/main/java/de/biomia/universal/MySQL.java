@@ -1,5 +1,8 @@
 package de.biomia.universal;
 
+import de.biomia.spigot.Biomia;
+import de.biomia.spigot.achievements.BiomiaStat;
+
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Properties;
@@ -31,7 +34,6 @@ public abstract class MySQL {
     }
 
     private static Connection newConnection(Databases db) throws SQLException, ClassNotFoundException {
-
         Properties properties = new Properties();
         properties.setProperty("user", "biomia");
         properties.setProperty("password", "O78s3SObra0QzDZh");
@@ -43,6 +45,7 @@ public abstract class MySQL {
         String dbName = db.name();
         String dbPort = "3306";
         String dbHost = "89.163.160.106";
+        BiomiaStat.MySQLConnections.increment(0, 1, Biomia.getServerInstance().getServerType().name() + ", " + db.name());
         return DriverManager.getConnection("jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName, properties);
     }
 
