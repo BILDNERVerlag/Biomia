@@ -31,7 +31,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandMap;
 import org.bukkit.craftbukkit.v1_12_R1.CraftServer;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import static de.biomia.spigot.minigames.GameType.BED_WARS;
@@ -67,23 +66,6 @@ public class Main extends JavaPlugin {
         Bukkit.getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new PlayerToServerConnector());
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BiomiaChannel");
         Bukkit.getMessenger().registerIncomingPluginChannel(this, "BiomiaChannel", new ChannelListener());
-
-        ReportSQL.getAllReports();
-
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            Cosmetic.load(Biomia.getBiomiaPlayer(p));
-        }
-
-        GadgetIniter.init();
-        ParticleIniter.init();
-        Achievement.init();
-        Bukkit.getPluginManager().registerEvents(new StatListener(), this);
-
-        Cosmetic.initGroup(new CosmeticGroup(Group.HEADS, ItemCreator.itemCreate(Material.SKULL_ITEM, "\u00A7cHeads")));
-        Cosmetic.initGroup(new CosmeticGroup(Group.PETS, ItemCreator.itemCreate(Material.MONSTER_EGG, "\u00A7bPets")));
-        Cosmetic.initGroup(new CosmeticGroup(Group.GADGETS, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM, "\u00A7bGadgets")));
-        Cosmetic.initGroup(new CosmeticGroup(Group.PARTICLES, ItemCreator.itemCreate(Material.BLAZE_POWDER, "\u00A73Particles")));
-        Cosmetic.initGroup(new CosmeticGroup(Group.SUITS, ItemCreator.itemCreate(Material.GOLD_CHESTPLATE, "\u00A75Suits")));
 
         BiomiaServerType groupName = BiomiaServerType.valueOf(((DedicatedServer) ((CraftServer) Bukkit.getServer()).getServer()).propertyManager.properties.getProperty("server-name").split("-")[0]);
         switch (groupName) {
@@ -156,6 +138,20 @@ public class Main extends JavaPlugin {
                 Biomia.setServerInstance(new SchnitzelEvent());
                 break;
         }
+
+        ReportSQL.getAllReports();
+        Bukkit.getOnlinePlayers().forEach(each -> Cosmetic.load(Biomia.getBiomiaPlayer(each)));
+        GadgetIniter.init();
+        ParticleIniter.init();
+        Achievement.init();
+        Bukkit.getPluginManager().registerEvents(new StatListener(), this);
+
+        Cosmetic.initGroup(new CosmeticGroup(Group.HEADS, ItemCreator.itemCreate(Material.SKULL_ITEM, "\u00A7cHeads")));
+        Cosmetic.initGroup(new CosmeticGroup(Group.PETS, ItemCreator.itemCreate(Material.MONSTER_EGG, "\u00A7bPets")));
+        Cosmetic.initGroup(new CosmeticGroup(Group.GADGETS, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM, "\u00A7bGadgets")));
+        Cosmetic.initGroup(new CosmeticGroup(Group.PARTICLES, ItemCreator.itemCreate(Material.BLAZE_POWDER, "\u00A73Particles")));
+        Cosmetic.initGroup(new CosmeticGroup(Group.SUITS, ItemCreator.itemCreate(Material.GOLD_CHESTPLATE, "\u00A75Suits")));
+
 
         Biomia.getServerInstance().start();
 
