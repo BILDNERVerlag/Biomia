@@ -33,7 +33,7 @@ public abstract class MySQL {
     private static Connection newConnection(Databases db) throws SQLException, ClassNotFoundException {
 
         Properties properties = new Properties();
-        properties.setProperty("user", "biomia_usertest");
+        properties.setProperty("user", "biomia");
         properties.setProperty("password", "O78s3SObra0QzDZh");
         properties.setProperty("useSSL", "true");
         properties.setProperty("autoReconnect", "true");
