@@ -37,7 +37,7 @@
         <dependency>
             <groupId>cloud.timo.TimoCloud</groupId>
             <artifactId>TimoCloud-API</artifactId>
-            <version>LATEST</version>
+            <version>5.2.0</version>
         </dependency>
         <dependency>
             <groupId>net.citizensnpcs</groupId>
