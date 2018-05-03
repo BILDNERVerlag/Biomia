@@ -3,15 +3,9 @@ package de.biomia.spigot.minigames.kitpvp;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.messages.BedWarsMessages;
-import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameMode;
-import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.WarteLobbyListener;
-import de.biomia.spigot.minigames.bedwars.BedWarsTeam;
-import de.biomia.universal.Messages;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -52,23 +46,6 @@ class KitPVPHandler extends GameHandler {
         }
         if (destroyableBlocks.contains(e.getBlock())) {
             destroyableBlocks.remove(e.getBlock());
-        } else if (e.getBlock().getType() == Material.BED_BLOCK) {
-            for (GameTeam gt : mode.getTeams()) {
-                if (gt instanceof BedWarsTeam) {
-                    BedWarsTeam bt = ((BedWarsTeam) gt);
-                    if (bt.getBed().contains(e.getBlock())) {
-                        if (bt.equals(bp.getTeam())) {
-                            e.getPlayer().sendMessage(MinigamesMessages.destroyOwnBed);
-                            e.setCancelled(true);
-                            return;
-                        }
-                        bt.destroyBed();
-                        Bukkit.broadcastMessage(String.format(BedWarsMessages.bedWasDestroyed, bt.getColorcode(), Messages.COLOR_AUX, bt.getColorcode(), bt.getTeamname(), Messages.COLOR_AUX));
-                        e.setDropItems(false);
-                        return;
-                    }
-                }
-            }
         } else {
             e.setCancelled(true);
         }

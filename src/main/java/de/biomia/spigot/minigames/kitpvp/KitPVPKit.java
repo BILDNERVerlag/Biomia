@@ -1,6 +1,7 @@
 package de.biomia.spigot.minigames.kitpvp;
 
 import de.biomia.spigot.Biomia;
+import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.tools.Base64;
 import de.biomia.universal.MySQL;
 import org.bukkit.inventory.ItemStack;
@@ -54,7 +55,7 @@ public class KitPVPKit {
         this.inventory = inventory;
     }
 
-    public void setToPlayerInventory() {
-        Biomia.getOfflineBiomiaPlayer(biomiaID).getBiomiaPlayer().getPlayer().getInventory().setContents(getInventory());
+    public void setToPlayerInventory(BiomiaPlayer bp) {
+        bp.getPlayer().getInventory().setContents(getInventory());
     }
 }

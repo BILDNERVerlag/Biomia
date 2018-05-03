@@ -13,10 +13,10 @@ public class KitPvP extends GameMode {
         super(instance);
     }
 
-    private KitPVPKit pvpKit;
+    private KitPVPKit gameKit;
 
-    public void setLeader(BiomiaPlayer bp) {
-        this.pvpKit = KitPVPManager.getMainKit(bp);
+    public void setGameKit(BiomiaPlayer bp) {
+        this.gameKit = KitPVPManager.getMainKit(bp);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class KitPvP extends GameMode {
             @Override
             public void start() {
                 super.start();
-                getMode().getInstance().getPlayers().forEach(each -> pvpKit.setToPlayerInventory());
+                getMode().getInstance().getPlayers().forEach(gameKit::setToPlayerInventory);
             }
         });
     }

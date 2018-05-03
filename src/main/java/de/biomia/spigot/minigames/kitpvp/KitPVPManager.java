@@ -33,7 +33,7 @@ public class KitPVPManager {
     }
 
     public static KitPVPKit getMainKit(OfflineBiomiaPlayer bp) {
-        return loadedKits.get(bp.getBiomiaPlayerID()).stream().filter(kitPVPKit -> !kitPVPKit.isMain()).findFirst().orElse(null);
+        return loadedKits.get(bp.getBiomiaPlayerID()).stream().filter(kitPVPKit -> !kitPVPKit.isMain()).findFirst().orElse(getKit(bp, 0));
     }
 
     public static void load(OfflineBiomiaPlayer bp) {

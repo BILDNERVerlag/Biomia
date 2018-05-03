@@ -104,7 +104,7 @@ public class VSRequest {
         Versus.getInstance().getManager().getRequests().put(gameInstance, this);
 
         if (gameInstance.getType() == GameType.KIT_PVP_VS)
-            ((KitPvP) gameInstance.getGameMode()).setLeader(leader);
+            ((KitPvP) gameInstance.getGameMode()).setGameKit(leader);
 
     }
 
