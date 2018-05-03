@@ -6,6 +6,7 @@ import de.biomia.spigot.achievements.BiomiaStat;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class MySQL {
 
@@ -49,11 +50,13 @@ public abstract class MySQL {
     }
 
     public static Connection Connect(Databases db) {
+
+        AtomicBoolean b = new AtomicBoolean(false);
+
         Connection connection = connections.computeIfAbsent(db, con -> {
             try {
-                Connection conn = newConnection(db);
-                BiomiaStat.MySQLConnections.increment(0, 1, Biomia.getServerInstance().getServerType().name() + ", " + db.name());
-                return conn;
+                b.set(true);
+                return newConnection(db);
             } catch (ClassNotFoundException e) {
                 System.out.println("Driver Not Found");
             } catch (SQLException e) {
@@ -64,13 +67,16 @@ public abstract class MySQL {
         try {
             if (connection == null || connection.isClosed()) {
                 connection = newConnection(db);
-                BiomiaStat.MySQLConnections.increment(0, 1, Biomia.getServerInstance().getServerType().name() + ", " + db.name() + ", RECONNECT!");
                 connections.put(db, connection);
+                BiomiaStat.MySQLConnections.increment(0, 1, Biomia.getServerInstance().getServerType().name() + ", " + db.name() + ", RECONNECT!");
             }
         } catch (ClassNotFoundException e) {
             System.out.println("Driver Not Found");
         } catch (SQLException e) {
             handleSQLException(e);
+        }
+        if (b.get()) {
+            BiomiaStat.MySQLConnections.increment(0, 1, Biomia.getServerInstance().getServerType().name() + ", " + db.name());
         }
         return connection;
     }
