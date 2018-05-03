@@ -45,14 +45,15 @@ public abstract class MySQL {
         String dbName = db.name();
         String dbPort = "3306";
         String dbHost = "89.163.160.106";
-        BiomiaStat.MySQLConnections.increment(0, 1, Biomia.getServerInstance().getServerType().name() + ", " + db.name());
         return DriverManager.getConnection("jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName, properties);
     }
 
     public static Connection Connect(Databases db) {
         Connection connection = connections.computeIfAbsent(db, con -> {
             try {
-                return newConnection(db);
+                Connection conn = newConnection(db);
+                BiomiaStat.MySQLConnections.increment(0, 1, Biomia.getServerInstance().getServerType().name() + ", " + db.name());
+                return conn;
             } catch (ClassNotFoundException e) {
                 System.out.println("Driver Not Found");
             } catch (SQLException e) {
@@ -63,6 +64,7 @@ public abstract class MySQL {
         try {
             if (connection == null || connection.isClosed()) {
                 connection = newConnection(db);
+                BiomiaStat.MySQLConnections.increment(0, 1, Biomia.getServerInstance().getServerType().name() + ", " + db.name() + ", RECONNECT!");
                 connections.put(db, connection);
             }
         } catch (ClassNotFoundException e) {
