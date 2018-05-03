@@ -59,7 +59,7 @@ public class PlayerToServerConnector implements PluginMessageListener {
                 }
         }
 
-        List<ServerObject> servers = TimoCloudAPI.getUniversalInstance().getServerGroup(type.name()).getServers();
+        List<ServerObject> servers = TimoCloudAPI.getUniversalAPI().getServerGroup(type.name()).getServers();
 
         if (servers.size() > 1) {
             ServerObject random = servers.get(new Random().nextInt(servers.size() - 1));

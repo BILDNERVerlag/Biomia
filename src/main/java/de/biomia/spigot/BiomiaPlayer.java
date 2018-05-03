@@ -99,7 +99,7 @@ public class BiomiaPlayer extends OfflineBiomiaPlayer {
         List<PAFPlayer> onlineFriends = new ArrayList<>();
         for (PAFPlayer pafplayer : getFriends()) {
 
-            PlayerObject po = TimoCloudAPI.getUniversalInstance().getPlayer(pafplayer.getUniqueId());
+            PlayerObject po = TimoCloudAPI.getUniversalAPI().getPlayer(pafplayer.getUniqueId());
             if (po != null && po.isOnline()) {
                 onlineFriends.add(pafplayer);
             }

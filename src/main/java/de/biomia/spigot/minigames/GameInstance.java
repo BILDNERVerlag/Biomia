@@ -59,7 +59,7 @@ public class GameInstance {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    TimoCloudAPI.getBukkitInstance().getThisServer().setExtra(String.format("\u00A7b%d \u00A77x \u00A7c%d", teamAmount, teamSize));
+                    TimoCloudAPI.getBukkitAPI().getThisServer().setExtra(String.format("\u00A7b%d \u00A77x \u00A7c%d", teamAmount, teamSize));
                 }
             }.runTaskLater(Main.getPlugin(), 15);
     }

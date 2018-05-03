@@ -296,10 +296,10 @@ public class LobbyListener extends BiomiaListener {
                             break;
                     }
                 } else if (ie.getClickedInventory().getName().equals("\u00A7bLobby Switcher"))
-                    for (ServerObject so : TimoCloudAPI.getUniversalInstance().getServerGroup(BiomiaServerType.Lobby.name())
+                    for (ServerObject so : TimoCloudAPI.getUniversalAPI().getServerGroup(BiomiaServerType.Lobby.name())
                             .getServers())
                         if (itemName.contains(so.getName()))
-                            if (!so.getName().equals(TimoCloudAPI.getBukkitInstance().getThisServer().getName()))
+                            if (!so.getName().equals(TimoCloudAPI.getBukkitAPI().getThisServer().getName()))
                                 PlayerToServerConnector.connect(pl, so.getName());
                             else
                                 pl.sendMessage("\u00A7cDu bist schon auf dieser Lobby!");

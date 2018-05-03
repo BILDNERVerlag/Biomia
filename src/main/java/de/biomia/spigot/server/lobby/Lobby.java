@@ -46,7 +46,7 @@ public class Lobby extends BiomiaServer {
         new BukkitRunnable() {
             @Override
             public void run() {
-                ServerObject serverObject = TimoCloudAPI.getBukkitInstance().getThisServer();
+                ServerObject serverObject = TimoCloudAPI.getBukkitAPI().getThisServer();
                 ArrayList<ServerObject> lobbyServer = new ArrayList<>(
                         serverObject.getGroup().getServers());
                 lobbyServer.sort(Comparator.comparing(ServerObject::getName));

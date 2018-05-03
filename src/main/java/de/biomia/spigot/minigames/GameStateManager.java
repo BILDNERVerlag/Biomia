@@ -92,7 +92,7 @@ public class GameStateManager {
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        TimoCloudAPI.getBukkitInstance().getThisServer().setExtra(String.format(MinigamesMessages.mapSize, MinigamesConfig.getTeamAmount() + "", MinigamesConfig.getTeamSize() + ""));
+                        TimoCloudAPI.getBukkitAPI().getThisServer().setExtra(String.format(MinigamesMessages.mapSize, MinigamesConfig.getTeamAmount() + "", MinigamesConfig.getTeamSize() + ""));
                     }
                 }.runTaskLater(Main.getPlugin(), 20);
             } else {
@@ -126,7 +126,7 @@ public class GameStateManager {
             getMode().getStateManager().setActualGameState(GameState.INGAME);
 
             if (!getMode().getInstance().getType().isVersus())
-                TimoCloudAPI.getBukkitInstance().getThisServer().setState(GameState.INGAME.name());
+                TimoCloudAPI.getBukkitAPI().getThisServer().setState(GameState.INGAME.name());
             getMode().getInstance().setPlayersOnStart();
             for (BiomiaPlayer bp : getMode().getInstance().getPlayers()) {
                 Bukkit.getOnlinePlayers().stream().filter(o -> !getMode().getInstance().getPlayers().contains(Biomia.getBiomiaPlayer(o))).forEach(all -> bp.getPlayer().hidePlayer(Main.getPlugin(), all));
