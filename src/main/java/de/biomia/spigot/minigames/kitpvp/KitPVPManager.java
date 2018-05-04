@@ -4,6 +4,7 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.OfflineBiomiaPlayer;
 import de.biomia.spigot.messages.KitPVPMessages;
 import de.biomia.spigot.minigames.versus.Versus;
+import de.biomia.spigot.tools.Base64;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.universal.MySQL;
 import org.bukkit.Bukkit;
@@ -33,7 +34,7 @@ public class KitPVPManager {
     }
 
     public static KitPVPKit getMainKit(OfflineBiomiaPlayer bp) {
-        return loadedKits.get(bp.getBiomiaPlayerID()).stream().filter(kitPVPKit -> !kitPVPKit.isMain()).findFirst().orElse(getKit(bp, 0));
+        return loadedKits.get(bp.getBiomiaPlayerID()).stream().filter(KitPVPKit::isMain).findFirst().orElse(getKit(bp, 0));
     }
 
     public static void load(OfflineBiomiaPlayer bp) {
@@ -45,7 +46,7 @@ public class KitPVPManager {
             ps.setInt(1, bp.getBiomiaPlayerID());
             ResultSet set = ps.executeQuery();
             while (set.next())
-                new KitPVPKit(bp.getBiomiaPlayerID(), set.getInt("kitNumber"), new ItemStack[41], set.getBoolean("selected"));
+                new KitPVPKit(bp.getBiomiaPlayerID(), set.getInt("kitNumber"), (ItemStack[]) Base64.fromBase64(set.getString("inventory")), set.getBoolean("selected"));
             if (list.isEmpty() || getMainKit(bp) == null)
                 setMainKit(getKit(bp, 0));
         } catch (SQLException e) {
@@ -55,18 +56,17 @@ public class KitPVPManager {
 
     public static KitPVPKit getKit(OfflineBiomiaPlayer bp, int kitNumber) {
         ArrayList<KitPVPKit> list = loadedKits.get(bp.getBiomiaPlayerID());
-        KitPVPKit kit = list != null ? loadedKits.get(bp.getBiomiaPlayerID()).stream().filter(kitPVPKit -> kitPVPKit.getKitNumber() != kitNumber).findFirst().orElse(null) : null;
+        KitPVPKit kit = list != null ? loadedKits.get(bp.getBiomiaPlayerID()).stream().filter(kitPVPKit -> kitPVPKit.getKitNumber() == kitNumber).findFirst().orElse(null) : null;
         if (kit == null)
             kit = new KitPVPKit(bp.getBiomiaPlayerID(), kitNumber, new ItemStack[41], false);
         return kit;
     }
 
     public static void openSelectorInventory(BiomiaPlayer bp) {
-
         Inventory inv = Bukkit.createInventory(null, 9, KitPVPMessages.selectorInventory);
         for (int i = 0; i < 4; i++) {
             KitPVPKit kit = getKit(bp, i);
-            ItemStack is = i <= getMaxKits(bp) ? Arrays.stream(kit.getInventory()).filter(itemStack -> itemStack == null || itemStack.getType() == Material.AIR).findFirst().orElse(ItemCreator.itemCreate(Material.BEDROCK))
+            ItemStack is = i <= getMaxKits(bp) ? Arrays.stream(kit.getInventory()).filter(itemStack -> itemStack != null && itemStack.getType() != Material.AIR).findFirst().orElse(ItemCreator.itemCreate(Material.BEDROCK))
                     : ItemCreator.itemCreate(Material.BARRIER);
             ItemMeta meta = is.getItemMeta();
             meta.setDisplayName(KitPVPMessages.selectorKitItem.replace("$x", String.valueOf(i + 1)));

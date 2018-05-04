@@ -150,8 +150,9 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent e) {
-        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
+        if (!mode.getInstance().containsPlayer(bp))
+            return;
         if (e.getFrom().equals(mode.getInstance().getWorld())) {
             mode.getInstance().removePlayer(bp);
             if (bp.getTeam() != null)

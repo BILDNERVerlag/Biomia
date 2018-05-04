@@ -28,6 +28,7 @@ public class KitPvP extends GameMode {
                 getMode().getInstance().getPlayers().forEach(gameKit::setToPlayerInventory);
             }
         });
+        super.start();
     }
 
     @Override

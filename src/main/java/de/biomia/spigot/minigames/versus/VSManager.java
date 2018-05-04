@@ -18,6 +18,7 @@ import de.biomia.spigot.minigames.versus.settings.VSSettingItem;
 import de.biomia.spigot.minigames.versus.settings.VSSettings;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.WorldCopy;
+import de.biomia.universal.Messages;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
@@ -98,13 +99,17 @@ public class VSManager implements Listener {
     }
 
     private void addToQueue(BiomiaPlayer bp) {
-        ActionBar.sendActionBar("\u00A7cDu bist der Warteschlange beigetretten!", bp.getPlayer());
+        if (WarteschlangenManager.contains(bp)) {
+            ActionBar.sendActionBar(String.format("%sDu bist bereits in der Warteschlange.", Messages.COLOR_MAIN), bp.getPlayer());
+            return;
+        }
+        ActionBar.sendActionBar(String.format("%sDu bist der Warteschlange beigetreten!", Messages.COLOR_AUX), bp.getPlayer());
         WarteschlangenManager.add(bp);
     }
 
     private void removeFromQueue(BiomiaPlayer bp) {
         WarteschlangenManager.remove(bp);
-        ActionBar.sendActionBar("\u00A7cDu hast die Warteschlange verlassen!", bp.getPlayer());
+        ActionBar.sendActionBar(String.format("%sDu hast die Warteschlange verlassen!", Messages.COLOR_AUX), bp.getPlayer());
     }
 
     public VSSettings getSettings(BiomiaPlayer bp) {

@@ -3,6 +3,7 @@ package de.biomia.spigot.minigames.general;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.messages.BedWarsMessages;
+import de.biomia.spigot.messages.KitPVPMessages;
 import de.biomia.spigot.messages.SkyWarsMessages;
 import de.biomia.spigot.minigames.*;
 import de.biomia.spigot.minigames.general.kits.KitManager;
@@ -141,6 +142,9 @@ public class Scoreboards {
             case SKY_WARS:
             case SKY_WARS_VS:
                 o.setDisplayName(SkyWarsMessages.skywars);
+                break;
+            case KIT_PVP_VS:
+                o.setDisplayName(KitPVPMessages.kitpvp);
                 break;
         }
 

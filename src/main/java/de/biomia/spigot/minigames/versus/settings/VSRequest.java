@@ -9,6 +9,7 @@ import de.biomia.universal.Messages;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -83,7 +84,6 @@ public class VSRequest {
         leader.getPlayer().sendMessage("\u00A7cDer Spieler \u00A7b" + bp2.getPlayer().getName() + " \u00A7chat die Herausforderung angenommen!");
         bp2.getPlayer().sendMessage("\u00A7cDu hast die Herausforderung von \u00A7b" + leader.getPlayer().getName() + " \u00A7cangenommen!");
         startServer();
-        gameInstance.getGameMode().start();
         remove();
     }
 
@@ -105,7 +105,7 @@ public class VSRequest {
 
         if (gameInstance.getType() == GameType.KIT_PVP_VS)
             ((KitPvP) gameInstance.getGameMode()).setGameKit(leader);
-
+        gameInstance.getGameMode().start();
     }
 
     public boolean hasSameSettings() {
@@ -169,4 +169,5 @@ public class VSRequest {
     private GameType getModus() {
         return mode;
     }
+
 }
