@@ -15,7 +15,7 @@ public class CoinsCommand extends BiomiaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
 
         BiomiaPlayer p = Biomia.getBiomiaPlayer((Player) sender);
 
@@ -39,7 +39,7 @@ public class CoinsCommand extends BiomiaCommand {
                             target = Biomia.getOfflineBiomiaPlayer(args[1]);
                         } else {
                             sender.sendMessage("\u00A7cBitte gib eine \u00A7bZahl \u00A7cein\u00A77!");
-                            return true;
+                            return;
                         }
                     }
 
@@ -47,7 +47,7 @@ public class CoinsCommand extends BiomiaCommand {
                         case "take":
                             if (target.getCoins() < coins) {
                                 sender.sendMessage(Messages.PREFIX + "\u00A7cDer Spieler " + target.getName() + " kann keinen negativen Betrag besitzen!");
-                                return true;
+                                return;
                             } else {
                                 target.takeCoins(coins);
                                 sender.sendMessage(Messages.PREFIX + "\u00A77Dem Spieler" + target.getName() + " wurden \u00A7b" + coins + " \u00A77BC genommen!");
@@ -63,12 +63,11 @@ public class CoinsCommand extends BiomiaCommand {
                         case "get":
                             break;
                         default:
-                            return true;
+                            return;
                     }
                     sender.sendMessage(Messages.PREFIX + "\u00A77Der Spieler " + target.getName() + " besitzt jetzt \u00A7b" + target.getCoins() + " \u00A77BC's!");
                 }
             }
         }
-        return true;
     }
 }

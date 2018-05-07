@@ -18,7 +18,7 @@ public class RankCommand extends BiomiaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
 
         if (sender.hasPermission("biomia.setrank")) {
             if (args.length == 2) {
@@ -42,7 +42,6 @@ public class RankCommand extends BiomiaCommand {
             }
 
         }
-        return false;
     }
 
 }

@@ -21,7 +21,7 @@ public class SWCommand extends BiomiaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
 
         if (sender instanceof Player) {
             Player p = (Player) sender;
@@ -38,7 +38,7 @@ public class SWCommand extends BiomiaCommand {
                                     teams = Integer.parseInt(args[2]);
                                 } catch (NumberFormatException e) {
                                     Bukkit.broadcastMessage("\u00A7c/sw setup <SpielerProTeam> <Teams> <MapName>");
-                                    return true;
+                                    return;
                                 }
                                 String name = args[3];
                                 Config.getConfig().set("Name", name);
@@ -54,7 +54,7 @@ public class SWCommand extends BiomiaCommand {
                             if (args.length >= 2) {
                                 SkyWarsConfig.addSpawnLocation(p.getLocation(), TeamColor.valueOf(args[1]), GameType.SKY_WARS);
                                 sender.sendMessage("Spawnpoint wurde hinzugef\u00fcgt!");
-                                return true;
+                                return;
                             }
                         case "addchest":
                             if (args.length >= 2) {
@@ -90,6 +90,5 @@ public class SWCommand extends BiomiaCommand {
                 }
             }
         }
-        return false;
     }
 }

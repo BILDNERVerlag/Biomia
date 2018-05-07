@@ -12,24 +12,19 @@ public class HeadCommand extends BiomiaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
 
         if (sender instanceof Player) {
             Player p = (Player) sender;
             if (args.length >= 1) {
                 if (args.length >= 2) {
                     p.getInventory().addItem(ItemCreator.headWithSkin(args[0], args[1]));
-                    return true;
                 } else {
                     p.getInventory().addItem(ItemCreator.headWithSkin(args[0]));
-                    return true;
                 }
             } else {
                 sender.sendMessage("/head <skinname> (itemname)");
             }
-
         }
-        return true;
     }
-
 }

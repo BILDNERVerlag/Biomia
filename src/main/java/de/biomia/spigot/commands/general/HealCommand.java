@@ -12,23 +12,20 @@ public class HealCommand extends BiomiaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
 
         if (!sender.hasPermission("biomia.heal")) {
             sender.sendMessage(Messages.NO_PERM);
-            return true;
+            return;
         }
 
         if (!(sender instanceof Player)) {
             sender.sendMessage("\u00A7cNur Spieler k\u00F6nnen sich heilen!");
-            return true;
+            return;
         }
 
         Player p = (Player) sender;
         p.setHealth(p.getHealthScale());
         sender.sendMessage("\u00A7bDu wurdest vollst\u00e4ndig geheilt!");
-
-        return true;
     }
-
 }

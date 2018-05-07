@@ -20,7 +20,7 @@ public class Checkpoint extends BiomiaCommand {
     private static final HashMap<BiomiaPlayer, CheckpointRunnable> checkPoints = new HashMap<>();
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
 
         BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) sender);
 
@@ -51,7 +51,6 @@ public class Checkpoint extends BiomiaCommand {
                 bp.sendMessage("00A7cZu Checkpoint teleportiert00A77!");
             }
         }
-        return true;
     }
 
     public static void startSave(BiomiaPlayer bp) {

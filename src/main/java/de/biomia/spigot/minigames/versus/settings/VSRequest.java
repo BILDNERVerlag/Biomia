@@ -9,7 +9,6 @@ import de.biomia.universal.Messages;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -25,11 +24,9 @@ public class VSRequest {
     private GameType mode;
     private BiomiaPlayer leader;
     private BiomiaPlayer bp2;
-    private GameInstance gameInstance;
     private boolean cancelRequest = false;
 
     public VSRequest(BiomiaPlayer leader, BiomiaPlayer bp) {
-
         if (leader.equals(bp)) {
             leader.getPlayer().sendMessage("\u00A7cDu kannst dir nicht selbst eine Anfrage schicken!");
             cancelRequest = true;
@@ -98,7 +95,7 @@ public class VSRequest {
     }
 
     public void startServer() {
-        gameInstance = new GameInstance(mode, mapName, Versus.getInstance().getManager().copyWorld(mode, id, mapName).getName(), 2, 1);
+        GameInstance gameInstance = new GameInstance(mode, mapName, Versus.getInstance().getManager().copyWorld(mode, id, mapName).getName(), 2, 1);
         gameInstance.registerPlayer(leader);
         gameInstance.registerPlayer(bp2);
         Versus.getInstance().getManager().getRequests().put(gameInstance, this);

@@ -17,7 +17,7 @@ public class VSCommands extends BiomiaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
 
         if (sender instanceof Player) {
             Player p = (Player) sender;
@@ -32,8 +32,7 @@ public class VSCommands extends BiomiaCommand {
                     BiomiaPlayer bparg = Biomia.getBiomiaPlayer(parg);
                     if (VSRequest.hasRequestSended(bparg, bp)) {
                         VSRequest request = VSRequest.getRequest(bparg);
-                        if (request == null)
-                            return true;
+                        if (request == null) return;
                         switch (getName()) {
                             case "accept":
                                 request.accept();
@@ -64,6 +63,5 @@ public class VSCommands extends BiomiaCommand {
             } else
                 sender.sendMessage("Bitte nutze /" + getName() + " <Spielername>");
         }
-        return true;
     }
 }

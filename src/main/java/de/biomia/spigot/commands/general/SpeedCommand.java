@@ -13,13 +13,13 @@ public class SpeedCommand extends BiomiaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
         // fly command, first argument is flight speed on a scale from 1-10, second
         // (optional) argument is another player
 
         if (!sender.hasPermission("biomia.speed")) {
             sender.sendMessage(Messages.NO_PERM);
-            return true;
+            return;
         }
 
         Player p = (Player) sender;
@@ -58,8 +58,6 @@ public class SpeedCommand extends BiomiaCommand {
         } else {
             sender.sendMessage("\u00A7c/speed <0.1 - 0.9 (0.2 ist Standard)> [Spieler]");
         }
-
-        return false;
     }
 
     // returns a corresponding speed to a value from 0-10 (1 is default speed)

@@ -16,7 +16,7 @@ public class ReportCommand extends BiomiaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
 
         if (args.length >= 1) {
             if (sender instanceof Player) {
@@ -32,9 +32,5 @@ public class ReportCommand extends BiomiaCommand {
         } else {
             ReportManager.openReportMenu((Player) sender);
         }
-
-        return true;
-
     }
-
 }

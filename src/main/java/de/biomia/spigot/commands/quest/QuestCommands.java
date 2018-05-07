@@ -27,7 +27,10 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class QuestCommands extends BiomiaCommand {
 
@@ -172,7 +175,7 @@ public class QuestCommands extends BiomiaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
 
         long startTime = System.currentTimeMillis();
         if (sender instanceof Player) {
@@ -260,8 +263,6 @@ public class QuestCommands extends BiomiaCommand {
         if (logTime)
             Bukkit.broadcastMessage("\u00A78\u00A7kzzz\u00A7r\u00A77Methodenzeit:\u00A78\u00A7kzz\u00A7r\u00A77"
                     + elapsedTime + "ms\u00A78\u00A7kzzz");
-
-        return true;
     }
 
     private void respawnCommand(CommandSender sender, QuestPlayer qp) {

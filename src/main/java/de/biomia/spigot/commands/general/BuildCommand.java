@@ -15,7 +15,7 @@ public class BuildCommand extends BiomiaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
         if (sender.hasPermission("biomia.build." + Biomia.getServerInstance().getServerType().name()) || sender.hasPermission("biomia.build.*")) {
             BiomiaPlayer bp;
             if (args.length == 0) {
@@ -23,7 +23,7 @@ public class BuildCommand extends BiomiaCommand {
                     bp = Biomia.getBiomiaPlayer((Player) sender);
                 else {
                     sender.sendMessage(Messages.NO_PLAYER);
-                    return true;
+                    return;
                 }
             } else {
                 Player p = Bukkit.getPlayer(args[0]);
@@ -31,7 +31,7 @@ public class BuildCommand extends BiomiaCommand {
                     bp = Biomia.getBiomiaPlayer(p);
                 else {
                     sender.sendMessage(Messages.NOT_ONLINE);
-                    return true;
+                    return;
                 }
             }
             if (!bp.canBuild()) {
@@ -52,6 +52,6 @@ public class BuildCommand extends BiomiaCommand {
         } else
             sender.sendMessage(Messages.NO_PERM);
 
-        return true;
+        return;
     }
 }

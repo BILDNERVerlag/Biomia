@@ -13,8 +13,7 @@ public class KitPVPCommand extends BiomiaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
         KitPVPManager.openSelectorInventory(Biomia.getBiomiaPlayer((Player) sender));
-        return true;
     }
 }

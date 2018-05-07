@@ -1,5 +1,6 @@
 package de.biomia.spigot.commands.general;
 
+import de.biomia.spigot.Biomia;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.universal.Messages;
 import org.bukkit.command.CommandSender;
@@ -12,16 +13,12 @@ public class EatCommand extends BiomiaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
-
-        if (!sender.hasPermission("biomia.eat")) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
+        if (!Biomia.getBiomiaPlayer((Player) sender).isSrStaff()) {
             sender.sendMessage(Messages.NO_PERM);
-            return true;
+            return;
         }
-
-        Player p = (Player) sender;
-        p.setFoodLevel(10);
-        return true;
+        ((Player) sender).setFoodLevel(20);
     }
 
 }

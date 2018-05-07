@@ -1,6 +1,7 @@
 package de.biomia.spigot.commands.general;
 
 import de.biomia.spigot.Biomia;
+import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.general.reportsystem.ReportManager;
 import org.bukkit.command.CommandSender;
@@ -12,11 +13,10 @@ public class SeeReportsCommand extends BiomiaCommand {
         super("seereports");
     }
 
-    public boolean execute(CommandSender sender, String label, String[] args) {
-        if (sender.hasPermission("biomia.reports.seereports") || sender.hasPermission("biomia.*")) {
-            ReportManager.openScrollableInventory(Biomia.getBiomiaPlayer((Player) sender));
-        }
-        return true;
+    public void onCommand(CommandSender sender, String label, String[] args) {
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) sender);
+        if (bp.isModerator() || bp.isSrStaff())
+            ReportManager.openScrollableInventory(bp);
     }
 
 }

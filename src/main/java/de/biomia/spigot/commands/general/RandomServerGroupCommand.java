@@ -15,7 +15,7 @@ public class RandomServerGroupCommand extends BiomiaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
 
         if (sender.hasPermission("biomia.*")) {
 
@@ -25,14 +25,13 @@ public class RandomServerGroupCommand extends BiomiaCommand {
                 } else if (sender instanceof Player) {
                     PlayerToServerConnector.connectToRandom((Player) sender, BiomiaServerType.valueOf(args[0]));
                 } else {
-                    sender.sendMessage("Nutze /randomServerGroup <Gruppe> [Player]");
+                    sender.sendMessage("Nutze /rsg <Gruppe> [Player]");
                 }
             } else {
-                sender.sendMessage("Nutze /randomServerGroup <Gruppe> [Player]");
+                sender.sendMessage("Nutze /rsg <Gruppe> [Player]");
             }
         } else {
             sender.sendMessage(Messages.NO_PERM);
         }
-        return true;
     }
 }

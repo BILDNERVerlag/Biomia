@@ -2,7 +2,8 @@ package de.biomia.spigot.commands.general;
 
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.commands.BiomiaCommand;
-import de.biomia.spigot.general.cosmetics.*;
+import de.biomia.spigot.general.cosmetics.Cosmetic;
+import de.biomia.spigot.general.cosmetics.MysteryChest;
 import de.biomia.spigot.general.cosmetics.items.*;
 import de.biomia.spigot.general.cosmetics.items.CosmeticItem.Commonness;
 import de.biomia.spigot.tools.ItemCreator;
@@ -22,7 +23,7 @@ public class CosmeticCommand extends BiomiaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
 
         if (sender instanceof Player) {
             Player p = (Player) sender;
@@ -186,6 +187,5 @@ public class CosmeticCommand extends BiomiaCommand {
                 }
             }
         }
-        return false;
     }
 }

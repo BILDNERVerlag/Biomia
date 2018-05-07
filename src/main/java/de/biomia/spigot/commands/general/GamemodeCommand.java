@@ -14,7 +14,7 @@ public class GamemodeCommand extends BiomiaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
 
         if (sender instanceof Player) {
             if (sender.hasPermission("biomia.gamemode")) {
@@ -65,6 +65,5 @@ public class GamemodeCommand extends BiomiaCommand {
                 }
             }
         }
-        return true;
     }
 }

@@ -23,7 +23,7 @@ public class BWCommand extends BiomiaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
 
         if (sender instanceof Player) {
             Player p = (Player) sender;
@@ -54,7 +54,7 @@ public class BWCommand extends BiomiaCommand {
                                     break;
                                 default:
                                     p.sendMessage("Schau auf einen verf\u00fcgbaren Block!");
-                                    return true;
+                                    return;
                             }
                             p.sendMessage("Spawner hinzugef\u00fcgt!");
                             break;
@@ -84,7 +84,7 @@ public class BWCommand extends BiomiaCommand {
                                     teams = Integer.parseInt(args[2]);
                                 } catch (NumberFormatException e) {
                                     sender.sendMessage("\u00A77/\u00A7bsw setup \u00A77<\u00A7bSpielerProTeam\u00A77> <\u00A7bTeams\u00A77> <\u00A7bMapName\u00A77>");
-                                    return true;
+                                    return;
                                 }
                                 String name = args[3];
                                 Config.getConfig().set("Name", name);
@@ -108,6 +108,5 @@ public class BWCommand extends BiomiaCommand {
                 }
             }
         }
-        return false;
     }
 }

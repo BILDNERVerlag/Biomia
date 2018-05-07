@@ -26,7 +26,7 @@ public class EventCommands extends BiomiaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
 
         if (sender instanceof Player) {
             Player p = (Player) sender;
@@ -40,7 +40,7 @@ public class EventCommands extends BiomiaCommand {
                         Entity entity = p.getNearbyEntities(1, 5, 1).get(0);
                         if (entity == null) {
                             sender.sendMessage("Stell dich in die N\u00fche eines Entities");
-                            return true;
+                            return;
                         }
                         switch (args[0].toLowerCase()) {
                             case "add":
@@ -93,6 +93,5 @@ public class EventCommands extends BiomiaCommand {
                 }
             }
         }
-        return true;
     }
 }

@@ -5,6 +5,7 @@ import de.biomia.spigot.Main;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.configs.DemoConfig;
 import de.biomia.spigot.server.demoserver.Weltenlabor;
+import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -17,15 +18,14 @@ public class BauWerkCommand extends BiomiaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String arg2, String[] args) {
+    public void onCommand(CommandSender sender, String arg2, String[] args) {
 
         if (sender.hasPermission("biomia.createBauwerk")) {
 
             if (args.length == 0) {
-                sender.sendMessage("\u00A7cBitte nutze:");
-                sender.sendMessage("");
-                sender.sendMessage("\u00A7c/bauwerk add \u00A77oder \u00A7c/bau remove");
-                return true;
+                sender.sendMessage(String.format("%sBitte nutze:", Messages.COLOR_MAIN));
+                sender.sendMessage(String.format("%s/bauwerk add %soder %s/bauwerk remove", Messages.COLOR_MAIN, Messages.COLOR_AUX, Messages.COLOR_MAIN));
+                return;
             }
 
             switch (args[0].toLowerCase()) {
@@ -41,14 +41,14 @@ public class BauWerkCommand extends BiomiaCommand {
                                 m = Material.valueOf(args[3]);
                             } catch (Exception e) {
                                 p.sendMessage("\u00A7cBitte gib ein verf\u00fcgbares Material ein!");
-                                return true;
+                                return;
                             }
 
                             try {
                                 seite = Integer.valueOf(args[1]);
                             } catch (NumberFormatException e) {
                                 p.sendMessage("\u00A7cBitte gib eine Zahl als Seite ein!");
-                                return true;
+                                return;
                             }
 
                             DemoConfig.addObjekt(seite, name, p.getLocation(), m);
@@ -75,7 +75,5 @@ public class BauWerkCommand extends BiomiaCommand {
                     break;
             }
         }
-        return true;
     }
-
 }

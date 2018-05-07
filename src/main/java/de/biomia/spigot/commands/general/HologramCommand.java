@@ -1,9 +1,8 @@
 package de.biomia.spigot.commands.general;
 
+import de.biomia.spigot.Biomia;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.tools.Hologram;
-import de.biomia.spigot.tools.ItemCreator;
-import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -14,10 +13,10 @@ public class HologramCommand extends BiomiaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
 
         if (sender instanceof Player) {
-            if (sender.hasPermission("biomia.holograms")) {
+            if (Biomia.getBiomiaPlayer((Player) sender).isSrStaff()) {
                 Player p = (Player) sender;
                 if (args.length >= 1) {
                     if (args[0].equalsIgnoreCase("create")) {
@@ -34,15 +33,10 @@ public class HologramCommand extends BiomiaCommand {
                             sender.sendMessage(
                                     "\u00A7cFalls du mehr Zeilen willst, nutze \u00A7a' % ' \u00A7cum die Zeile zu trennen");
                         }
-                    } else if (args[0].equalsIgnoreCase("remove")) {
-                        p.getInventory().addItem(ItemCreator.itemCreate(Material.ARMOR_STAND, "\u00A7cHologram remover"));
                     }
-                } else {
+                } else
                     sender.sendMessage("\u00A7c/hologram create <String>");
-                    sender.sendMessage("\u00A7c/hologram remove");
-                }
             }
         }
-        return true;
     }
 }

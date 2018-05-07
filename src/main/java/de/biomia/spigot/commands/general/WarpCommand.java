@@ -28,8 +28,8 @@ public class WarpCommand extends BiomiaCommand {
                 BiomiaServerType.Freebuild, BiomiaServerType.FreebuildFarm, BiomiaServerType.Quest, BiomiaServerType.TestQuest));
     }
 
-    public boolean execute(CommandSender sender, String label, String[] args) {
-        if (!(sender instanceof Player)) return true;
+    public void onCommand(CommandSender sender, String label, String[] args) {
+        if (!(sender instanceof Player)) return;
 
         Player p = (Player) sender;
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
@@ -42,12 +42,12 @@ public class WarpCommand extends BiomiaCommand {
             case "setwarp":
                 if (args.length < 1) {
                     sendWarpInstructions(p);
-                    return true;
+                    return;
                 }
                 args[0] = args[0].toLowerCase();
                 if (args[0].equals("spawn")) {
                     p.sendMessage("\u00A7cDu darfst deinen Warp nicht \u00A7b'spawn' \u00A7cnennen.");
-                    return true;
+                    return;
                 }
                 int verbleibendeWarps = bp.getPremiumLevel() + 3 - playerWarpLocations.size();
                 if (bp.isStaff()) verbleibendeWarps += 2;
@@ -56,11 +56,11 @@ public class WarpCommand extends BiomiaCommand {
                 if (verbleibendeWarps <= 0) {
                     p.sendMessage("\u00A7cDu hast bereits die \u00A7bmaximale \u00A7cAnzahl Warps erreicht.");
                     p.sendMessage("\u00A7cBenutze \u00A77/\u00A7cdelwarp \u00A77<\u00A7cName\u00A77> \u00A7bum Warps zu l\u00f6schen \u00A7coder hol dir einen unserer Premiumr00e4nge und unterst00dctze damit den Server.");
-                    return true;
+                    return;
                 }
                 if (!allowedGroups.contains(Biomia.getServerInstance().getServerType())) {
                     p.sendMessage("\u00A7cEigene Warps sind auf diesem Server (\u00A7b" + Biomia.getServerInstance().getServerType().name() + "\u00A7c) nicht erlaubt.");
-                    return true;
+                    return;
                 }
                 MySQL.executeUpdate("INSERT INTO Warps (`x`, `y`, `z`, `yaw`, `pitch`, `groupname`, `worldname`, `name`, `biomiaPlayerID`) VALUES (" +
                         ploc.getBlockX() + "," +
@@ -83,7 +83,7 @@ public class WarpCommand extends BiomiaCommand {
             case "warp":
                 if (!allowedGroups.contains(Biomia.getServerInstance().getServerType())) {
                     p.sendMessage("\u00A7cWarps sind auf diesem Server (\u00A7b" + Biomia.getServerInstance().getServerType().name() + "\u00A7c) nicht erlaubt.");
-                    return true;
+                    return;
                 }
                 if (args.length < 1) {
                     if (playerWarpLocations.isEmpty()) {
@@ -92,7 +92,7 @@ public class WarpCommand extends BiomiaCommand {
                         p.sendMessage(Messages.PREFIX + "\u00A7cGib einen deiner Warps an!");
                         sendWarpList(p, playerWarpLocations, publicWarpLocations);
                     }
-                    return true;
+                    return;
                 }
                 if (playerWarpLocations.containsKey(args[0]) || publicWarpLocations.containsKey(args[0])) {
                     WarpLocation wLoc = playerWarpLocations.get(args[0]);
@@ -112,7 +112,7 @@ public class WarpCommand extends BiomiaCommand {
             case "delwarp":
                 if (args.length < 1) {
                     p.sendMessage("\u00A77/\u00A7cdelwarp \u00A77<\u00A7cName\u00A77> \u00A7bum Warps zu l\u00f6schen");
-                    return true;
+                    return;
                 }
                 if (playerWarpLocations.containsKey(args[0])) {
                     MySQL.executeUpdate("DELETE FROM `Warps` WHERE biomiaPlayerID = " + Biomia.getBiomiaPlayer(p).getBiomiaPlayerID() + " AND name = '" + args[0].toLowerCase() + "'", MySQL.Databases.biomia_db);
@@ -123,7 +123,6 @@ public class WarpCommand extends BiomiaCommand {
             default:
                 break;
         }
-        return true;
     }
 
     private void sendWarpInstructions(Player p) {

@@ -55,6 +55,7 @@ public enum BiomiaStat {
             new BiomiaIDCantBeMinusOneException().printStackTrace();
             return;
         }
+        if (increment == 0) return;
         int value = get(biomiaID, comment) + increment;
         MySQL.executeUpdate("INSERT INTO `" + this.name() + "`(biomiaID, value, inc" + (comment != null ? ", comment" : "") + ") VALUES (" + biomiaID + ", " + value + ", " + increment + (comment != null ? ", '" + comment + "'" : "") + ")", MySQL.Databases.stats_db);
         BiomiaAchievement.checkForAchievementUnlocks(this, biomiaID, value);
