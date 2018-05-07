@@ -46,8 +46,7 @@ public abstract class GameHandler implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
-        if (mode.getInstance().getType().isVersus())
-            return;
+        if (mode.getInstance().getType().isVersus()) return;
 
         Player p = e.getPlayer();
         p.getInventory().clear();

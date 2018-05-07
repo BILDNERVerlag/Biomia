@@ -14,6 +14,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +32,8 @@ public abstract class GameMode {
     private final GameStateManager stateManager = new GameStateManager(this);
     private GameHandler handler;
     private final HashMap<TeamColor, Entity> joiner = new HashMap<>();
+    private BukkitTask counter;
+    private int playedTime = 0;
 
     protected GameMode(GameInstance instance) {
         this.instance = instance;
@@ -39,53 +42,26 @@ public abstract class GameMode {
         initTeams();
     }
 
-    public GameTeam getTeamFromData(short data) {
-        for (GameTeam te : teams) {
-            if (te.getColordata() == data) {
-                return te;
-            }
-        }
-        return null;
-    }
-
-    public void registerTeam(GameTeam team) {
-        teams.add(team);
-    }
-
     public void start() {
         stateManager.getLobbyState().start();
         TeamSwitcher.getTeamSwitcher(this);
         config.loadTeamJoiner(initTeamJoiner());
+        counter = new BukkitRunnable() {
+            @Override
+            public void run() {
+                playedTime++;
+            }
+        }.runTaskTimer(Main.getPlugin(), 20, 20);
     }
 
     public void stop() {
-        handler.unregister();
+        counter.cancel();
         stateManager.getInGameState().stop();
+        handler.unregister();
     }
 
-    public GameStateManager getStateManager() {
-        return stateManager;
-    }
-
-    public GameInstance getInstance() {
-        return instance;
-    }
-
-    public boolean canStop() {
-        int teamsWhoLive = 0;
-        for (GameTeam team : getTeams()) {
-            for (BiomiaPlayer players : team.getPlayers()) {
-                if (team.lives(players)) {
-                    teamsWhoLive++;
-                    break;
-                }
-            }
-        }
-        return teamsWhoLive <= 1;
-    }
-
-    public ArrayList<GameTeam> getTeams() {
-        return teams;
+    public void registerTeam(GameTeam team) {
+        teams.add(team);
     }
 
     public void setAllToTeams() {
@@ -142,8 +118,80 @@ public abstract class GameMode {
         }.runTaskLater(Main.getPlugin(), 20);
     }
 
+    public void setTeamSwitcher(Inventory teamSwitcher) {
+        this.teamSwitcher = teamSwitcher;
+    }
+
+    private void setConfig() {
+        this.config = initConfig();
+    }
+
+    private void setHandler() {
+        this.handler = initHandler();
+    }
+
+    public GameTeam getTeamFromData(short data) {
+        for (GameTeam te : teams) {
+            if (te.getColordata() == data) {
+                return te;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<GameTeam> getTeams() {
+        return teams;
+    }
+
     public Inventory getTeamSwitcher() {
         return teamSwitcher;
+    }
+
+    public GameStateManager getStateManager() {
+        return stateManager;
+    }
+
+    public GameInstance getInstance() {
+        return instance;
+    }
+
+    public MinigamesConfig getConfig() {
+        return config;
+    }
+
+    public HashMap<TeamColor, Entity> getJoiner() {
+        return joiner;
+    }
+
+    public static Location getSpawn(boolean isVersus) {
+        if (isVersus)
+            return versusSpawn;
+        return spawn;
+    }
+
+    public GameHandler getHandler() {
+        return handler;
+    }
+
+    public int getPlayedTime() {
+        return playedTime;
+    }
+
+    public boolean canStop() {
+        int teamsWhoLive = 0;
+        for (GameTeam team : getTeams()) {
+            for (BiomiaPlayer players : team.getPlayers()) {
+                if (team.lives(players)) {
+                    teamsWhoLive++;
+                    break;
+                }
+            }
+        }
+        return teamsWhoLive <= 1;
+    }
+
+    public boolean isSpectator(BiomiaPlayer bp) {
+        return !getInstance().containsPlayer(bp) && !(bp.getTeam() != null && bp.getTeam().lives(bp)) && bp.getPlayer().getWorld().equals(getInstance().getWorld());
     }
 
     private void initTeams() {
@@ -168,39 +216,9 @@ public abstract class GameMode {
         }
     }
 
-    protected abstract MinigamesConfig initConfig();
-
-    public MinigamesConfig getConfig() {
-        return config;
-    }
-
-    private void setConfig() {
-        this.config = initConfig();
-    }
-
     protected abstract GameHandler initHandler();
 
     protected abstract HashMap<TeamColor, UUID> initTeamJoiner();
 
-    private void setHandler() {
-        this.handler = initHandler();
-    }
-
-    public HashMap<TeamColor, Entity> getJoiner() {
-        return joiner;
-    }
-
-    public static Location getSpawn(boolean isVersus) {
-        if (isVersus)
-            return versusSpawn;
-        return spawn;
-    }
-
-    public GameHandler getHandler() {
-        return handler;
-    }
-
-    public boolean isSpectator(BiomiaPlayer bp) {
-        return !getInstance().containsPlayer(bp) && !(bp.getTeam() != null && bp.getTeam().lives(bp)) && bp.getPlayer().getWorld().equals(getInstance().getWorld());
-    }
+    protected abstract MinigamesConfig initConfig();
 }

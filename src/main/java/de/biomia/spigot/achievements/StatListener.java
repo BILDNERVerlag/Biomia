@@ -196,7 +196,7 @@ public class StatListener implements Listener {
                 BiomiaStat.BW_Deaths.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, e.getKiller() != null ? e.getKiller().getBiomiaPlayerID() + "" : nokiller);
             else
                 BiomiaStat.BW_FinalDeaths.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, e.getKiller() != null ? e.getKiller().getBiomiaPlayerID() + "" : nokiller);
-        } else {
+        } else if (e.getMode().getInstance().getType() == GameType.SKY_WARS) {
             BiomiaStat.SW_Deaths.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, e.getKiller() != null ? e.getKiller().getBiomiaPlayerID() + "" : nokiller);
         }
     }
@@ -209,10 +209,9 @@ public class StatListener implements Listener {
             } else {
                 BiomiaStat.BW_Kills.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, e.getKilledPlayer().getBiomiaPlayerID() + "");
             }
-        } else {
+        } else if (e.getMode().getInstance().getType() == GameType.SKY_WARS) {
             BiomiaStat.SW_Kills.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, e.getKilledPlayer().getBiomiaPlayerID() + "");
         }
-
     }
 
     @EventHandler
@@ -224,7 +223,7 @@ public class StatListener implements Listener {
     public void onBedWarsLeaveEvent(GameLeaveEvent e) {
         if (e.getMode().getInstance().getType() == GameType.BED_WARS) {
             BiomiaStat.BW_Leaves.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, null);
-        } else {
+        } else if (e.getMode().getInstance().getType() == GameType.SKY_WARS) {
             BiomiaStat.SW_Leaves.increment(e.getOfflineBiomiaPlayer().getBiomiaPlayerID(), 1, null);
         }
     }

@@ -15,8 +15,10 @@ public class TeamSwitcher {
 
         Inventory inv = mode.getTeamSwitcher();
 
-        if (inv == null)
+        if (inv == null) {
             inv = Bukkit.createInventory(null, 9, MinigamesItemNames.teamWaehlerItem);
+            mode.setTeamSwitcher(inv);
+        }
 
         int i = 0;
 

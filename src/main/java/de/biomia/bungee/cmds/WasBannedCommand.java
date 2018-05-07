@@ -16,7 +16,6 @@ public class WasBannedCommand extends Command {
         super(name);
     }
 
-
     @Override
     public void execute(CommandSender sender, String[] args) {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) sender);

@@ -131,26 +131,18 @@ public class BedWarsHandler extends GameHandler {
         GameTeam team = bp.getTeam();
         e.getEntity().getInventory().clear();
         if (!mode.isSpectator(bp)) {
+            BiomiaPlayer bpKiller = Biomia.getBiomiaPlayer(killer);
+            Bukkit.getPluginManager().callEvent(new GameDeathEvent(bp, bpKiller, true, mode));
+            if (killer != null)
+                Bukkit.getPluginManager().callEvent(new GameKillEvent(bpKiller, bp, true, mode));
             if (!((BedWarsTeam) team).hasBed()) {
-                if (killer == null) {
-                    Bukkit.getPluginManager().callEvent(new GameDeathEvent(bp, null, true, mode));
-                } else {
-                    BiomiaPlayer bpKiller = Biomia.getBiomiaPlayer(killer);
-                    Bukkit.getPluginManager().callEvent(new GameKillEvent(bpKiller, bp, true, mode));
-                    Bukkit.getPluginManager().callEvent(new GameDeathEvent(bp, bpKiller, true, mode));
-                }
                 e.setDeathMessage(MinigamesMessages.playerDiedFinally.replace("%p", team.getColorcode() + p.getName()));
                 team.setDead(bp);
             } else {
-                if (killer == null) {
-                    Bukkit.getPluginManager().callEvent(new GameDeathEvent(bp, null, true, mode));
+                if (killer == null)
                     e.setDeathMessage(MinigamesMessages.playerDied.replace("%p", team.getColorcode() + p.getName()));
-                } else {
-                    BiomiaPlayer bpKiller = Biomia.getBiomiaPlayer(killer);
-                    Bukkit.getPluginManager().callEvent(new GameKillEvent(bpKiller, bp, true, mode));
-                    Bukkit.getPluginManager().callEvent(new GameDeathEvent(bp, bpKiller, true, mode));
+                else
                     e.setDeathMessage(String.format(MinigamesMessages.playerKilledByPlayer, team.getColorcode() + p.getName(), bpKiller.getTeam().getColorcode() + killer.getName()));
-                }
             }
             Dead.respawn(p);
         }
