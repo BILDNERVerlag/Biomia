@@ -38,6 +38,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.*;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -297,6 +298,11 @@ public class BedWarsHandler extends GameHandler {
                 if (isArmorStand)
                     ((BedWars) mode).handlerMap.get(e.getRightClicked().getUniqueId()).add(p);
             }
+    }
+
+    @EventHandler
+    public void onInteractAt(PlayerInteractAtEntityEvent e) {
+        if (e.getRightClicked().getType() == EntityType.ARMOR_STAND) onInteract(e);
     }
 
     @EventHandler

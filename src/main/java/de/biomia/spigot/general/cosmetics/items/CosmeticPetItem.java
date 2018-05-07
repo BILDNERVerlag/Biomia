@@ -41,7 +41,10 @@ public class CosmeticPetItem extends CosmeticItem {
     public void remove(BiomiaPlayer bp) {
         if (pets.containsKey(bp)) {
             Entity e = Bukkit.getEntity(pets.get(bp));
-            if (e != null) e.remove();
+            if (e != null) {
+                e.eject();
+                e.remove();
+            }
             pets.remove(bp);
         }
     }

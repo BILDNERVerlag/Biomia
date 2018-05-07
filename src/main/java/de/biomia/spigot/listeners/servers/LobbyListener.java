@@ -116,6 +116,7 @@ public class LobbyListener extends BiomiaListener {
 
     @EventHandler
     public void stopCreepers(EntityExplodeEvent e) {
+        e.setCancelled(true);
         e.blockList().clear();
     }
 
@@ -202,7 +203,9 @@ public class LobbyListener extends BiomiaListener {
                     if (e.getClickedBlock().getType() == Material.DAYLIGHT_DETECTOR
                             || e.getClickedBlock().getType() == Material.DAYLIGHT_DETECTOR_INVERTED
                             || e.getClickedBlock().getType() == Material.WOOD_BUTTON
-                            || e.getClickedBlock().getType() == Material.LEVER || e.getClickedBlock().getType() == Material.FENCE_GATE)
+                            || e.getClickedBlock().getType() == Material.LEVER
+                            || e.getClickedBlock().getType() == Material.FENCE_GATE
+                            || e.getClickedBlock().getType() == Material.TRAP_DOOR)
                         e.setCancelled(true);
                 }
                 if (!Biomia.getBiomiaPlayer(e.getPlayer()).canBuild()) e.setCancelled(true);

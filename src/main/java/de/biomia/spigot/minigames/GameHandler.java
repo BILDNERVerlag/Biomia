@@ -95,7 +95,7 @@ public abstract class GameHandler implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onChat(AsyncPlayerChatEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         Player p = e.getPlayer();
@@ -103,6 +103,7 @@ public abstract class GameHandler implements Listener {
         GameTeam team = bp.getTeam();
         String msg = e.getMessage();
         String format;
+        if (e.isCancelled()) return;
         e.setCancelled(true);
         if (p.hasPermission("biomia.coloredchat"))
             msg = ChatColor.translateAlternateColorCodes('&', e.getMessage());
@@ -213,7 +214,6 @@ public abstract class GameHandler implements Listener {
             e.setCancelled(true);
         if (e.getRightClicked() instanceof ArmorStand) {
             for (GameTeam allteams : mode.getTeams()) {
-
                 Entity entity = mode.getJoiner().get(allteams.getColor());
                 if (e.getRightClicked().equals(entity)) {
                     allteams.join(bp);
