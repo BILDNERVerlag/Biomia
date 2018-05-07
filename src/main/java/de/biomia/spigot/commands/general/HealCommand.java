@@ -1,5 +1,6 @@
 package de.biomia.spigot.commands.general;
 
+import de.biomia.spigot.Biomia;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.universal.Messages;
 import org.bukkit.command.CommandSender;
@@ -14,13 +15,14 @@ public class HealCommand extends BiomiaCommand {
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
 
-        if (!sender.hasPermission("biomia.heal")) {
-            sender.sendMessage(Messages.NO_PERM);
-            return;
-        }
 
         if (!(sender instanceof Player)) {
             sender.sendMessage("\u00A7cNur Spieler k\u00F6nnen sich heilen!");
+            return;
+        }
+
+        if (!Biomia.getBiomiaPlayer((Player) sender).isSrStaff()) {
+            sender.sendMessage(Messages.NO_PERM);
             return;
         }
 

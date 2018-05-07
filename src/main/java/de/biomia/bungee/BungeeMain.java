@@ -4,8 +4,6 @@ import de.biomia.bungee.cmds.*;
 import de.biomia.bungee.events.ChannelListener;
 import de.biomia.bungee.events.Login;
 import de.biomia.bungee.msg.Broadcasts;
-import de.biomia.bungee.specialEvents.Winter;
-import de.biomia.bungee.specialEvents.WinterEvent;
 import de.biomia.bungee.var.BanManager;
 import de.biomia.bungee.var.Bans;
 import de.biomia.universal.MySQL;
@@ -136,8 +134,6 @@ public class BungeeMain extends Plugin {
 
     @Override
     public void onDisable() {
-//        BungeeCord.getInstance().getPlayers().forEach(each -> each.disconnect(restart));
-
         MySQL.closeConnections();
         allThreads.forEach(Thread::interrupt);
     }
@@ -156,9 +152,6 @@ public class BungeeMain extends Plugin {
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new BiomiaCommand("biomia"));
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new WorkloadCommand("workload"));
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new BroadcastCommand("broadcast"));
-
-        if (WinterEvent.isEnabled)
-            ProxyServer.getInstance().getPluginManager().registerCommand(this, new Winter("winterwinner"));
     }
 
     private void registerEvents() {

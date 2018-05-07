@@ -57,7 +57,7 @@ public class Login implements Listener {
 
         isLobbyServerOnline = false;
 
-        TimoCloudAPI.getUniversalInstance().getServerGroup(BiomiaServerType.Lobby.name()).getServers().forEach(each -> {
+        TimoCloudAPI.getUniversalAPI().getServerGroup(BiomiaServerType.Lobby.name()).getServers().forEach(each -> {
             if (each.getState().equalsIgnoreCase("ONLINE")) {
                 isLobbyServerOnline = true;
             }
@@ -152,7 +152,7 @@ public class Login implements Listener {
             }
         }
         if (ModusCommand.wartungsModus) {
-            if (!pp.hasPermission("biomia.join")) {
+            if (!bp.isSrStaff()) {
                 TextComponent msg = new TextComponent(wartungsmodus);
                 pp.disconnect(msg);
                 evt.setCancelled(true);

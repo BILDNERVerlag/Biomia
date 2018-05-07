@@ -41,9 +41,11 @@ public class ChannelListener implements Listener {
                 comp.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/gtp " + playerName));
 
                 BungeeCord.getInstance().getPlayers().forEach(each -> {
-                    if (each.hasPermission("biomia.reports.cansee") || each.hasPermission("biomia.*")) {
+
+                    OfflineBungeeBiomiaPlayer bp = BungeeBiomia.getOfflineBiomiaPlayer(each.getName());
+
+                    if (bp.isSrStaff())
                         each.sendMessage(comp);
-                    }
                 });
             } else if (subchannel.equals("BanTimeReason")) {
 

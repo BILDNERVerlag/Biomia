@@ -9,6 +9,7 @@ import de.biomia.spigot.server.lobby.LobbyScoreboard;
 import de.biomia.universal.Ranks;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 public class RankCommand extends BiomiaCommand {
@@ -20,7 +21,7 @@ public class RankCommand extends BiomiaCommand {
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
 
-        if (sender.hasPermission("biomia.setrank")) {
+        if (sender instanceof Player && Biomia.getBiomiaPlayer((Player) sender).isOwnerOrDev() || sender instanceof ConsoleCommandSender) {
             if (args.length == 2) {
                 try {
                     Ranks toSet = Ranks.valueOf(args[1]);

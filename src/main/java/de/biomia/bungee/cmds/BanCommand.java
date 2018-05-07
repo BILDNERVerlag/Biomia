@@ -66,7 +66,7 @@ public class BanCommand extends Command {
 
             TextComponent comp = new TextComponent("\u00A77Der Spieler \u00A7c" + targetName + " \u00A77wurde von\u00A7b " + bp.getName() + " \u00A77f\u00dcr\u00A7c " + Time.toText(sec) + " \u00A77wegen\u00A7b " + grund + " \u00A77gebannt!");
             for (ProxiedPlayer p : BungeeCord.getInstance().getPlayers()) {
-                if (p.hasPermission("biomia.ban.getmessages"))
+                if (BungeeBiomia.getOfflineBiomiaPlayer(p.getName()).isSrStaff())
                     p.sendMessage(comp);
             }
 

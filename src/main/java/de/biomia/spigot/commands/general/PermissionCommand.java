@@ -5,6 +5,7 @@ import de.biomia.spigot.OfflineBiomiaPlayer;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.universal.Messages;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class PermissionCommand extends BiomiaCommand {
 
@@ -14,7 +15,7 @@ public class PermissionCommand extends BiomiaCommand {
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
-        if (sender.hasPermission("biomia.setpermission")) {
+        if (Biomia.getBiomiaPlayer((Player) sender).isOwnerOrDev()) {
             if (args.length >= 3) {
                 OfflineBiomiaPlayer user = Biomia.getOfflineBiomiaPlayer(args[1]);
                 if (args[0].equalsIgnoreCase("add")) {

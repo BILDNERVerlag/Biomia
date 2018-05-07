@@ -120,7 +120,7 @@ public abstract class BiomiaListener implements Listener {
 
         e.setFormat(bp.getRank().getPrefix() + "%s\u00A77: \u00A7f%s");
 
-        if (p.hasPermission("biomia.coloredchat")) {
+        if (bp.isSrStaff()) {
             e.setMessage(ChatColor.translateAlternateColorCodes('&', e.getMessage()));
         }
     }

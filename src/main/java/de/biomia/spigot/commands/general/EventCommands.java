@@ -72,12 +72,13 @@ public class EventCommands extends BiomiaCommand {
 
             //Ostern
             if (easterEventOn) {
-                if (getName().equals("givereward") && p.hasPermission("biomia.event.givereward")) {
+                if (getName().equals("givereward") && biomiaPlayer.isOwnerOrDev()) {
                     if (args.length >= 1) {
                         EasterEvent.giveReward(Biomia.getOfflineBiomiaPlayer(args[0]));
-                    }
+                    } else
+                        EasterEvent.giveReward(biomiaPlayer);
                 }
-                if (getName().equals("addeggs") && p.hasPermission("biomia.event.addeggs")) {
+                if (getName().equals("addeggs") && biomiaPlayer.isOwnerOrDev()) {
                     //noinspection StatementWithEmptyBody
                     if (args.length >= 2) {
                         //Main.getEvent().addEggs(Biomia.getOfflineBiomiaPlayer(args[0]).getBiomiaPlayerID(), Integer.valueOf(args[1]));
@@ -87,7 +88,7 @@ public class EventCommands extends BiomiaCommand {
 
             //Schnitzel
             if (schnitzelEventOn) {
-                if (getName().equals("schnitzel") && biomiaPlayer.isSrStaff()) {
+                if (getName().equals("schnitzel") && biomiaPlayer.isOwnerOrDev()) {
                     ItemStack is = ItemCreator.itemCreate(Material.BROWN_GLAZED_TERRACOTTA, "00A7eSchnitzel");
                     p.getLocation().getWorld().dropItem(p.getLocation(), is);
                 }
