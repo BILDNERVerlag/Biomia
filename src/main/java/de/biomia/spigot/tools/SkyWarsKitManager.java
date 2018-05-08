@@ -15,13 +15,11 @@ import java.util.Objects;
 public class SkyWarsKitManager {
 
     public static void addKit(BiomiaPlayer biomiaPlayer, int kitID, int... months) {
-        MySQL.executeUpdate("Insert into SkyWarsKits (`biomiaID`, `kitID`, `available`) values ("
-                + biomiaPlayer.getBiomiaPlayerID() + ", " + kitID + ", '" + Arrays.toString(months) + "')", MySQL.Databases.biomia_db);
+        MySQL.executeUpdate(String.format("Insert into SkyWarsKits (`biomiaID`, `kitID`, `available`) values (%d, %d, '%s')", biomiaPlayer.getBiomiaPlayerID(), kitID, Arrays.toString(months)), MySQL.Databases.biomia_db);
     }
 
     public static boolean addKit(BiomiaPlayer biomiaPlayer, int kitID) {
-        return MySQL.executeUpdate("Insert into SkyWarsKits (`biomiaID`, `kitID`) values ("
-                + biomiaPlayer.getBiomiaPlayerID() + ", " + kitID + ")", MySQL.Databases.biomia_db);
+        return MySQL.executeUpdate(String.format("Insert into SkyWarsKits (`biomiaID`, `kitID`) values (%d, %d)", biomiaPlayer.getBiomiaPlayerID(), kitID), MySQL.Databases.biomia_db);
     }
 
     public static ArrayList<Integer> getAvailableKits(BiomiaPlayer biomiaPlayer) {
@@ -48,14 +46,14 @@ public class SkyWarsKitManager {
     }
 
     public static int getLastSelectedKit(BiomiaPlayer bp) {
-        return MySQL.executeQuerygetint("SELECT kitID FROM `LSSkyWarsKit` WHERE biomiaID = " + bp.getBiomiaPlayerID(), "kitID", MySQL.Databases.biomia_db);
+        return MySQL.executeQuerygetint(String.format("SELECT kitID FROM `LSSkyWarsKit` WHERE biomiaID = %d", bp.getBiomiaPlayerID()), "kitID", MySQL.Databases.biomia_db);
     }
 
     public static void setLastSelectedKit(BiomiaPlayer bp, int kitID) {
-        if (MySQL.executeQuery("SELECT * FROM `LSSkyWarsKit` WHERE biomiaID = " + bp.getBiomiaPlayerID(), "kitID", MySQL.Databases.biomia_db) != null)
-            MySQL.executeUpdate("UPDATE LSSkyWarsKit SET `kitID` = " + kitID + " WHERE biomiaID = " + bp.getBiomiaPlayerID(), MySQL.Databases.biomia_db);
+        if (MySQL.executeQuery(String.format("SELECT * FROM `LSSkyWarsKit` WHERE biomiaID = %d", bp.getBiomiaPlayerID()), "kitID", MySQL.Databases.biomia_db) != null)
+            MySQL.executeUpdate(String.format("UPDATE LSSkyWarsKit SET `kitID` = %d WHERE biomiaID = %d", kitID, bp.getBiomiaPlayerID()), MySQL.Databases.biomia_db);
         else
-            MySQL.executeUpdate("INSERT INTO `LSSkyWarsKit` (biomiaID,kitID) Values(" + bp.getBiomiaPlayerID() + ", " + kitID + ")", MySQL.Databases.biomia_db);
+            MySQL.executeUpdate(String.format("INSERT INTO `LSSkyWarsKit` (biomiaID,kitID) Values(%d, %d)", bp.getBiomiaPlayerID(), kitID), MySQL.Databases.biomia_db);
     }
 
 

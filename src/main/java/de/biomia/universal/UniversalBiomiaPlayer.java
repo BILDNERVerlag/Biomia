@@ -4,6 +4,9 @@ import me.lucko.luckperms.LuckPerms;
 import me.lucko.luckperms.api.LuckPermsApi;
 import me.lucko.luckperms.api.User;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.UUID;
 
 public abstract class UniversalBiomiaPlayer {
@@ -66,6 +69,45 @@ public abstract class UniversalBiomiaPlayer {
     protected void stopCoinBoost() {
         MySQL.executeUpdate("DELETE FROM `CoinBoost` WHERE BiomiaPlayer = " + biomiaID, MySQL.Databases.biomia_db);
     }
+
+    protected final int getBoostInPercent() {
+        int prozent = 100;
+        try {
+            PreparedStatement ps = MySQL.Connect(MySQL.Databases.biomia_db).prepareStatement("SELECT `percent`, `until` FROM `CoinBoost` WHERE BiomiaPlayer = ?");
+            ps.setInt(1, getBiomiaPlayerID());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                long until = rs.getLong("until");
+                if (System.currentTimeMillis() / 1000 > until) {
+                    prozent = rs.getInt("percent");
+                } else {
+                    stopCoinBoost();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return prozent;
+        }
+        return prozent;
+    }
+
+    public void takeCoins(int coins) {
+        int actualCoins = getCoins();
+        if (actualCoins < coins && isOnline())
+            sendMessage(String.format("%s%sDu hast nicht genug BC! Dir fehlen noch %s%d%s BC!", Messages.PREFIX, Messages.COLOR_MAIN, Messages.COLOR_SUB, actualCoins - coins, Messages.COLOR_MAIN));
+        setCoins(actualCoins - coins);
+    }
+
+    public void addCoins(int coins, boolean enableBoost) {
+        setCoins(getCoins() + coins);
+        if (isOnline()) {
+            sendMessage(String.format("%sDu erhältst %s%d%s BC!", Messages.COLOR_SUB, Messages.COLOR_AUX, coins, Messages.COLOR_SUB));
+        }
+    }
+
+    public abstract boolean isOnline();
+
+    public abstract void sendMessage(String message);
 
     // GETTERS AND SETTERS
 

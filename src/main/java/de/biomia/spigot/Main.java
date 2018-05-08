@@ -75,7 +75,7 @@ public class Main extends JavaPlugin {
                 ParticleIniter.init();
                 Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.HEADS, ItemCreator.itemCreate(Material.SKULL_ITEM, "\u00A7cHeads")));
                 Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.PETS, ItemCreator.itemCreate(Material.MONSTER_EGG, "\u00A7bPets")));
-                Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.GADGETS, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM, "\u00A7bGadgets")));
+                Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.GADGETS, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM, "\u00A72Gadgets")));
                 Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.PARTICLES, ItemCreator.itemCreate(Material.BLAZE_POWDER, "\u00A73Particles")));
                 Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.SUITS, ItemCreator.itemCreate(Material.GOLD_CHESTPLATE, "\u00A75Suits")));
                 Bukkit.getOnlinePlayers().forEach(each -> Cosmetic.load(Biomia.getBiomiaPlayer(each)));

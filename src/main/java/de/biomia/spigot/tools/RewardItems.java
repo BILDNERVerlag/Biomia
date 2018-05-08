@@ -22,9 +22,7 @@ public class RewardItems {
         } else if (serverType.equals(BiomiaServerType.Freebuild)) {
             tablename = "FreebuildItems";
         }
-
-        MySQL.executeUpdate("Insert into " + tablename + " (`BiomiaPlayer`, `Item`) values ("
-                + biomiaPlayer.getBiomiaPlayerID() + ", '" + Base64.toBase64(itemStack) + "')", MySQL.Databases.quests_db);
+        MySQL.executeUpdate(String.format("Insert into %s (`BiomiaPlayer`, `Item`) values (%d, '%s')", tablename, biomiaPlayer.getBiomiaPlayerID(), Base64.toBase64(itemStack)), MySQL.Databases.quests_db);
     }
 
     public static void giveItems(BiomiaPlayer biomiaPlayer, BiomiaServerType serverType) {
@@ -36,14 +34,13 @@ public class RewardItems {
         }
         Connection con = MySQL.Connect(MySQL.Databases.quests_db);
         try {
-            PreparedStatement ps = Objects.requireNonNull(con).prepareStatement("Select Item from " + tablename + " where BiomiaPlayer = ?");
+            PreparedStatement ps = Objects.requireNonNull(con).prepareStatement(String.format("Select Item from %s where BiomiaPlayer = ?", tablename));
             ps.setInt(1, biomiaPlayer.getBiomiaPlayerID());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 String base64Item = rs.getString("Item");
                 new GiveItemEvent((ItemStack) Base64.fromBase64(base64Item)).executeEvent(biomiaPlayer);
-                MySQL.executeUpdate("DELETE FROM `" + tablename + "` WHERE `BiomiaPlayer`= " + biomiaPlayer.getBiomiaPlayerID()
-                        + " AND `Item` = '" + base64Item + "'", MySQL.Databases.quests_db);
+                MySQL.executeUpdate(String.format("DELETE FROM `%s` WHERE `BiomiaPlayer`= %d AND `Item` = '%s'", tablename, biomiaPlayer.getBiomiaPlayerID(), base64Item), MySQL.Databases.quests_db);
             }
         } catch (SQLException e) {
             e.printStackTrace();
