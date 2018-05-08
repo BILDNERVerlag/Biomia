@@ -21,81 +21,30 @@ public class GTPCommand extends Command {
             ProxiedPlayer pp = (ProxiedPlayer) sender;
             if (pp.hasPermission("biomia.bungeeteleport") || pp.hasPermission("biomia.*")) {
 
-                switch (args.length) {
-                    case 1: {
-
-                        ProxiedPlayer to = BungeeCord.getInstance().getPlayer(args[0]);
-
-                        if (to != null) {
-
-                            if (!pp.getServer().getInfo().equals(to.getServer().getInfo()))
-                                pp.connect(to.getServer().getInfo());
-
-                            Thread thread = new Thread(() -> {
-
-                                try {
-                                    Thread.sleep(2500);
-                                } catch (InterruptedException ignored) {
-                                }
-                                ChannelListener.teleport(pp.getName(), to.getName(), to.getServer().getInfo());
-
-                            });
-                            thread.start();
-                            BungeeMain.allThreads.add(thread);
-                        } else {
-                            sender.sendMessage(new TextComponent(Messages.NOT_ONLINE));
-                        }
-
-                        break;
-                    }
-                    case 2: {
-
-                        ProxiedPlayer from = BungeeCord.getInstance().getPlayer(args[0]);
-                        ProxiedPlayer to = BungeeCord.getInstance().getPlayer(args[1]);
-
-                        if (from != null && to != null) {
-                            if (!from.getServer().getInfo().equals(to.getServer().getInfo()))
-                                from.connect(to.getServer().getInfo());
-                            Thread thread = new Thread(() -> {
-
-                                try {
-                                    Thread.sleep(2500);
-                                } catch (InterruptedException ignored) {
-                                }
-                                ChannelListener.teleport(pp.getName(), to.getName(), to.getServer().getInfo());
-
-                            });
-                            thread.start();
-                            BungeeMain.allThreads.add(thread);
-                        } else {
-                            sender.sendMessage(new TextComponent(Messages.NOT_ONLINE));
-                        }
-                        break;
-                    }
-                    default:
-                        sender.sendMessage(new TextComponent("\u00A7cBitte nutze \u00A7b/gtp <Spieler> [Spieler]"));
-                        break;
+                if (args.length == 0) {
+                    sender.sendMessage(new TextComponent("\u00A7cBitte nutze \u00A7b/gtp <Spieler> [Spieler]"));
+                    return;
                 }
 
-            } else {
-                sender.sendMessage(new TextComponent(Messages.NO_PERM));
-            }
-        } else {
-            if (args.length == 2) {
-
-                ProxiedPlayer from = BungeeCord.getInstance().getPlayer(args[0]);
-                ProxiedPlayer to = BungeeCord.getInstance().getPlayer(args[1]);
+                ProxiedPlayer from = args.length > 1 ? BungeeCord.getInstance().getPlayer(args[0]) : pp;
+                ProxiedPlayer to = BungeeCord.getInstance().getPlayer(args.length > 1 ? args[1] : args[0]);
 
                 if (from != null && to != null) {
-                    if (!from.getServer().getInfo().equals(to.getServer().getInfo()))
+                    if (!from.getServer().equals(to.getServer()))
                         from.connect(to.getServer().getInfo());
-                    ChannelListener.teleport(from.getName(), to.getName(), to.getServer().getInfo());
+
+                    Thread thread = new Thread(() -> {
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException ignored) {
+                        }
+                        ChannelListener.teleport(pp.getName(), to.getName(), to.getServer().getInfo());
+                    });
+                    thread.start();
+                    BungeeMain.allThreads.add(thread);
                 } else {
                     sender.sendMessage(new TextComponent(Messages.NOT_ONLINE));
                 }
-
-            } else {
-                sender.sendMessage(new TextComponent("\u00A7cBitte nutze \u00A7b/gtp <Spieler> [Spieler]"));
             }
         }
     }
