@@ -20,10 +20,10 @@ import java.util.Date;
 
 public class SecretBook {
 
-    private ItemStack is;
+    private final ItemStack is;
     private Location loc;
     private final int id;
-    private String name;
+    private final String name;
     private Event event;
 
     private static int bookCount = 1;

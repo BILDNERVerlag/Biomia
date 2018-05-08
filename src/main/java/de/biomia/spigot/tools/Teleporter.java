@@ -121,13 +121,18 @@ class TeleportListener implements Listener {
             boolean isFromInside = isInside(e.getFrom(), eachTeleporter), isToInside = isInside(e.getTo(), eachTeleporter);
 
             if ((isToInside && !isFromInside && !eachTeleporter.isInverted()) || (!isToInside && isFromInside && eachTeleporter.isInverted())) {
-                if (eachTeleporter.getDestination() == Teleporter.Destination.SERVER_GROUP) {
-                    e.getPlayer().teleport(eachTeleporter.getBackTeleport());
-                    PlayerToServerConnector.connectToRandom(e.getPlayer(), eachTeleporter.getServerType());
-                } else if (eachTeleporter.getDestination() == Teleporter.Destination.LOCATION)
-                    e.getPlayer().teleport(eachTeleporter.getLocation());
-                else if (eachTeleporter.getDestination() == Teleporter.Destination.EXECUTION)
-                    eachTeleporter.getTeleportExecutor().execute(Biomia.getBiomiaPlayer(e.getPlayer()));
+                switch (eachTeleporter.getDestination()) {
+                    case SERVER_GROUP:
+                        e.getPlayer().teleport(eachTeleporter.getBackTeleport());
+                        PlayerToServerConnector.connectToRandom(e.getPlayer(), eachTeleporter.getServerType());
+                        break;
+                    case LOCATION:
+                        e.getPlayer().teleport(eachTeleporter.getLocation());
+                        break;
+                    case EXECUTION:
+                        eachTeleporter.getTeleportExecutor().execute(Biomia.getBiomiaPlayer(e.getPlayer()));
+                        break;
+                }
             }
         });
 

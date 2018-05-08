@@ -80,7 +80,7 @@ public class Checkpoint extends BiomiaCommand {
 
 class CheckpointRunnable extends BukkitRunnable {
 
-    private BiomiaPlayer bp;
+    private final BiomiaPlayer bp;
     private Location lastLoc = null;
 
     private int lastTeleport = 0;

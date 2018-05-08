@@ -1,4 +1,4 @@
-package de.biomia.spigot.general.reportsystem;
+package de.biomia.universal;
 
 public enum Grund {
     FLYHACK, NOSLOWDOWN, KILLAURA, SPEEDHACK, SONSTIGER_HACK, SPAMMING, TROLLING, GRIEFING, BELEIDIGUNG, ANDERER_GRUND;

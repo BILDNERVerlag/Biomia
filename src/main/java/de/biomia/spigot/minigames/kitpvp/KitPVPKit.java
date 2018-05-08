@@ -1,6 +1,5 @@
 package de.biomia.spigot.minigames.kitpvp;
 
-import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.tools.Base64;
 import de.biomia.universal.MySQL;

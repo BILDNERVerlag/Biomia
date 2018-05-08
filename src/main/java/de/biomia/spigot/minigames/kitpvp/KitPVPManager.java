@@ -24,7 +24,7 @@ import java.util.HashMap;
 
 public class KitPVPManager {
 
-    private static HashMap<Integer, ArrayList<KitPVPKit>> loadedKits = new HashMap<>();
+    private static final HashMap<Integer, ArrayList<KitPVPKit>> loadedKits = new HashMap<>();
 
     public static void setMainKit(KitPVPKit kit) {
         loadedKits.get(kit.getBiomiaID()).forEach(each -> each.setMain(false));

@@ -96,7 +96,7 @@ public class WinterEvent {
     }
 
 
-    static void randomWin(int day) {
+    private static void randomWin(int day) {
         int bioid = pickRandomWinner();
         addBiomiaPlayerToWinner(bioid, day);
     }

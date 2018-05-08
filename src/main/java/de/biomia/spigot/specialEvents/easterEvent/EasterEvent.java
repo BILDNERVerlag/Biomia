@@ -125,7 +125,7 @@ public class EasterEvent implements Listener {
         HeadCreator.setSkullUrl(specialEggName, specialEggLocation.getBlock());
     }
 
-    public void removeAllEggs() {
+    private void removeAllEggs() {
         //despawn eggs
         blocks.forEach(each -> {
             if (each.getType() == Material.SKULL)

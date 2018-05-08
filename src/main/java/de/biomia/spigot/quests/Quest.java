@@ -14,7 +14,7 @@ import org.bukkit.event.Listener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class Quest {
+abstract class Quest {
 
     //TODO: neues questsystem weiterentwickeln
 
@@ -23,7 +23,7 @@ public abstract class Quest {
     je einer tabelle speichern
      */
 
-    private ArrayList<NPC> npcs = new ArrayList<>();
+    private final ArrayList<NPC> npcs = new ArrayList<>();
 
     private int questID;
     private Band band;
@@ -89,7 +89,7 @@ public abstract class Quest {
 
 class QuestListener implements Listener {
 
-    private static ArrayList<Quest> quests = new ArrayList<>();
+    private static final ArrayList<Quest> quests = new ArrayList<>();
 
     @EventHandler
     public static void onInteract(NPCRightClickEvent e) {

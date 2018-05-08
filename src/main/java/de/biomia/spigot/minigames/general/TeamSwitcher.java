@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class TeamSwitcher {
 
-    public static Inventory getTeamSwitcher(GameMode mode) {
+    public static void getTeamSwitcher(GameMode mode) {
 
         Inventory inv = mode.getTeamSwitcher();
 
@@ -67,7 +67,6 @@ public class TeamSwitcher {
                 }
                 break;
         }
-        return inv;
 
     }
 }

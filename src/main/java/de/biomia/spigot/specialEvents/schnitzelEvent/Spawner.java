@@ -5,7 +5,7 @@ import org.bukkit.entity.EntityType;
 
 import java.util.ArrayList;
 
-public class Spawner {
+class Spawner {
 
     private static final ArrayList<Spawner> monsterSpawner = new ArrayList<>();
 

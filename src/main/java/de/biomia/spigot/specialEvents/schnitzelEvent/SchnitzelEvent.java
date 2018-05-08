@@ -37,9 +37,9 @@ public class SchnitzelEvent extends BiomiaServer {
     public static HashMap<String, MonsterPunkte> mobsKilled = new HashMap<>();
     public static HashMap<String, Integer> booksHighScore = new HashMap<>();
     public static HashMap<String, Integer> schnitzelHighScore = new HashMap<>();
-    private static HashMap<String, ArrayList<String>> foundBooks = new HashMap<>();
-    private static HashMap<String, ArrayList<String>> foundSchnitzel = new HashMap<>();
-    private static String placeholder = "00A7700A7m---";
+    private static final HashMap<String, ArrayList<String>> foundBooks = new HashMap<>();
+    private static final HashMap<String, ArrayList<String>> foundSchnitzel = new HashMap<>();
+    private static final String placeholder = "00A7700A7m---";
 
     public SchnitzelEvent() {
         super(BiomiaServerType.Event_Schnitzeljagd);
@@ -419,7 +419,7 @@ public class SchnitzelEvent extends BiomiaServer {
         return spawn;
     }
 
-    private static Scoreboard sb = Scoreboards.getMainScoreboard();
+    private static final Scoreboard sb = Scoreboards.getMainScoreboard();
     private static Team schnitzelHS, bookHS, mobHS, schnitzelHSName, bookHSName, mobHSName;
 
     private static void initScoreboard() {
@@ -446,7 +446,7 @@ public class SchnitzelEvent extends BiomiaServer {
         schnitzelHSName = sb.registerNewTeam("schnitzelHSName");
         bookHS = sb.registerNewTeam("bookHS");
         bookHSName = sb.registerNewTeam("bookHSName");
-
+        //TODO replace with §
         mobHS.setPrefix("00A7r 00A7r 00A7r 00A7r");
         schnitzelHS.setPrefix("00A7r 00A7r 00A7r 00A7r");
         bookHS.setPrefix("00A7r 00A7r 00A7r 00A7r");
@@ -477,7 +477,7 @@ public class SchnitzelEvent extends BiomiaServer {
     }
 
     public static void reloadSBSchnitzel() {
-        schnitzelHighScore = sortByValue(schnitzelHighScore, false);
+        schnitzelHighScore = sortByValue(schnitzelHighScore);
         String name = getFirstName(schnitzelHighScore);
         String integer = getFirstInt(schnitzelHighScore);
 
@@ -486,7 +486,7 @@ public class SchnitzelEvent extends BiomiaServer {
     }
 
     public static void reloadSBBooks() {
-        booksHighScore = sortByValue(booksHighScore, false);
+        booksHighScore = sortByValue(booksHighScore);
         String name = getFirstName(booksHighScore);
         String integer = getFirstInt(booksHighScore);
 
@@ -502,18 +502,12 @@ public class SchnitzelEvent extends BiomiaServer {
         return map.values().stream().findFirst().map(Object::toString).orElse(null);
     }
 
-    private static <K, V extends Comparable<? super V>> HashMap<K, V> sortByValue(Map<K, V> map, boolean invert) {
+    private static <K, V extends Comparable<? super V>> HashMap<K, V> sortByValue(Map<K, V> map) {
         List<Map.Entry<K, V>> list = new ArrayList<>(map.entrySet());
-        if (invert)
-            list.sort(Comparator.comparing(Map.Entry<K, V>::getValue).reversed());
-        else
-            list.sort(Comparator.comparing(Map.Entry<K, V>::getValue));
-
+        list.sort(Comparator.comparing(Map.Entry<K, V>::getValue));
         HashMap<K, V> result = new LinkedHashMap<>();
-        for (Map.Entry<K, V> entry : list) {
+        for (Map.Entry<K, V> entry : list)
             result.put(entry.getKey(), entry.getValue());
-        }
-
         return result;
     }
 

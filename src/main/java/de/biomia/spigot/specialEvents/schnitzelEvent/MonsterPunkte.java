@@ -13,51 +13,51 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 
-public class MonsterPunkte {
+class MonsterPunkte {
 
-    public static ItemStack backpack = ItemCreator.itemCreate(Material.CHEST, "00A7cRucksack");
+    public static final ItemStack backpack = ItemCreator.itemCreate(Material.CHEST, "00A7cRucksack");
 
-    private static ItemStack helmetLVL1 = ItemCreator.itemCreate(Material.LEATHER_HELMET);
-    private static ItemStack helmetLVL2 = ItemCreator.itemCreate(Material.GOLD_HELMET);
-    private static ItemStack helmetLVL3 = ItemCreator.itemCreate(Material.IRON_HELMET);
-    private static ItemStack helmetLVL4 = ItemCreator.itemCreate(Material.DIAMOND_HELMET);
-    private static ItemStack helmetLVL5 = ItemCreator.itemCreate(Material.DIAMOND_HELMET);
-    private static ItemStack helmetLVL6 = ItemCreator.itemCreate(Material.DIAMOND_HELMET);
-    private static ItemStack helmetLVL7 = ItemCreator.itemCreate(Material.DIAMOND_HELMET);
+    private static final ItemStack helmetLVL1 = ItemCreator.itemCreate(Material.LEATHER_HELMET);
+    private static final ItemStack helmetLVL2 = ItemCreator.itemCreate(Material.GOLD_HELMET);
+    private static final ItemStack helmetLVL3 = ItemCreator.itemCreate(Material.IRON_HELMET);
+    private static final ItemStack helmetLVL4 = ItemCreator.itemCreate(Material.DIAMOND_HELMET);
+    private static final ItemStack helmetLVL5 = ItemCreator.itemCreate(Material.DIAMOND_HELMET);
+    private static final ItemStack helmetLVL6 = ItemCreator.itemCreate(Material.DIAMOND_HELMET);
+    private static final ItemStack helmetLVL7 = ItemCreator.itemCreate(Material.DIAMOND_HELMET);
 
-    private static ItemStack bootsLVL1 = ItemCreator.itemCreate(Material.LEATHER_BOOTS);
-    private static ItemStack bootsLVL2 = ItemCreator.itemCreate(Material.CHAINMAIL_BOOTS);
-    private static ItemStack bootsLVL3 = ItemCreator.itemCreate(Material.IRON_BOOTS);
-    private static ItemStack bootsLVL4 = ItemCreator.itemCreate(Material.DIAMOND_BOOTS);
-    private static ItemStack bootsLVL5 = ItemCreator.itemCreate(Material.DIAMOND_BOOTS);
-    private static ItemStack bootsLVL6 = ItemCreator.itemCreate(Material.DIAMOND_BOOTS);
-    private static ItemStack bootsLVL7 = ItemCreator.itemCreate(Material.DIAMOND_BOOTS);
+    private static final ItemStack bootsLVL1 = ItemCreator.itemCreate(Material.LEATHER_BOOTS);
+    private static final ItemStack bootsLVL2 = ItemCreator.itemCreate(Material.CHAINMAIL_BOOTS);
+    private static final ItemStack bootsLVL3 = ItemCreator.itemCreate(Material.IRON_BOOTS);
+    private static final ItemStack bootsLVL4 = ItemCreator.itemCreate(Material.DIAMOND_BOOTS);
+    private static final ItemStack bootsLVL5 = ItemCreator.itemCreate(Material.DIAMOND_BOOTS);
+    private static final ItemStack bootsLVL6 = ItemCreator.itemCreate(Material.DIAMOND_BOOTS);
+    private static final ItemStack bootsLVL7 = ItemCreator.itemCreate(Material.DIAMOND_BOOTS);
 
-    private static ItemStack leggingsLVL1 = ItemCreator.itemCreate(Material.LEATHER_LEGGINGS);
-    private static ItemStack leggingsLVL2 = ItemCreator.itemCreate(Material.GOLD_LEGGINGS);
-    private static ItemStack leggingsLVL3 = ItemCreator.itemCreate(Material.IRON_LEGGINGS);
-    private static ItemStack leggingsLVL4 = ItemCreator.itemCreate(Material.IRON_LEGGINGS);
-    private static ItemStack leggingsLVL5 = ItemCreator.itemCreate(Material.DIAMOND_LEGGINGS);
-    private static ItemStack leggingsLVL6 = ItemCreator.itemCreate(Material.DIAMOND_LEGGINGS);
-    private static ItemStack leggingsLVL7 = ItemCreator.itemCreate(Material.DIAMOND_LEGGINGS);
+    private static final ItemStack leggingsLVL1 = ItemCreator.itemCreate(Material.LEATHER_LEGGINGS);
+    private static final ItemStack leggingsLVL2 = ItemCreator.itemCreate(Material.GOLD_LEGGINGS);
+    private static final ItemStack leggingsLVL3 = ItemCreator.itemCreate(Material.IRON_LEGGINGS);
+    private static final ItemStack leggingsLVL4 = ItemCreator.itemCreate(Material.IRON_LEGGINGS);
+    private static final ItemStack leggingsLVL5 = ItemCreator.itemCreate(Material.DIAMOND_LEGGINGS);
+    private static final ItemStack leggingsLVL6 = ItemCreator.itemCreate(Material.DIAMOND_LEGGINGS);
+    private static final ItemStack leggingsLVL7 = ItemCreator.itemCreate(Material.DIAMOND_LEGGINGS);
 
-    private static ItemStack chestplateLVL1 = ItemCreator.itemCreate(Material.LEATHER_CHESTPLATE);
-    private static ItemStack chestplateLVL2 = ItemCreator.itemCreate(Material.CHAINMAIL_CHESTPLATE);
-    private static ItemStack chestplateLVL3 = ItemCreator.itemCreate(Material.IRON_CHESTPLATE);
-    private static ItemStack chestplateLVL4 = ItemCreator.itemCreate(Material.IRON_CHESTPLATE);
-    private static ItemStack chestplateLVL5 = ItemCreator.itemCreate(Material.DIAMOND_CHESTPLATE);
-    private static ItemStack chestplateLVL6 = ItemCreator.itemCreate(Material.DIAMOND_CHESTPLATE);
-    private static ItemStack chestplateLVL7 = ItemCreator.itemCreate(Material.DIAMOND_CHESTPLATE);
+    private static final ItemStack chestplateLVL1 = ItemCreator.itemCreate(Material.LEATHER_CHESTPLATE);
+    private static final ItemStack chestplateLVL2 = ItemCreator.itemCreate(Material.CHAINMAIL_CHESTPLATE);
+    private static final ItemStack chestplateLVL3 = ItemCreator.itemCreate(Material.IRON_CHESTPLATE);
+    private static final ItemStack chestplateLVL4 = ItemCreator.itemCreate(Material.IRON_CHESTPLATE);
+    private static final ItemStack chestplateLVL5 = ItemCreator.itemCreate(Material.DIAMOND_CHESTPLATE);
+    private static final ItemStack chestplateLVL6 = ItemCreator.itemCreate(Material.DIAMOND_CHESTPLATE);
+    private static final ItemStack chestplateLVL7 = ItemCreator.itemCreate(Material.DIAMOND_CHESTPLATE);
 
-    private static ItemStack weaponLVL1 = ItemCreator.itemCreate(Material.IRON_SPADE);
-    private static ItemStack weaponLVL2 = ItemCreator.itemCreate(Material.STONE_SWORD);
-    private static ItemStack weaponLVL3 = ItemCreator.itemCreate(Material.IRON_AXE);
-    private static ItemStack weaponLVL4 = ItemCreator.itemCreate(Material.IRON_SWORD);
-    private static ItemStack weaponLVL5 = ItemCreator.itemCreate(Material.DIAMOND_AXE);
-    private static ItemStack weaponLVL6 = ItemCreator.itemCreate(Material.DIAMOND_SWORD);
-    private static ItemStack weaponLVL7 = ItemCreator.itemCreate(Material.DIAMOND_SWORD);
-    private static ItemStack weapon_bow = ItemCreator.itemCreate(Material.BOW);
-    private static ItemStack weapon_arrow = ItemCreator.itemCreate(Material.ARROW);
+    private static final ItemStack weaponLVL1 = ItemCreator.itemCreate(Material.IRON_SPADE);
+    private static final ItemStack weaponLVL2 = ItemCreator.itemCreate(Material.STONE_SWORD);
+    private static final ItemStack weaponLVL3 = ItemCreator.itemCreate(Material.IRON_AXE);
+    private static final ItemStack weaponLVL4 = ItemCreator.itemCreate(Material.IRON_SWORD);
+    private static final ItemStack weaponLVL5 = ItemCreator.itemCreate(Material.DIAMOND_AXE);
+    private static final ItemStack weaponLVL6 = ItemCreator.itemCreate(Material.DIAMOND_SWORD);
+    private static final ItemStack weaponLVL7 = ItemCreator.itemCreate(Material.DIAMOND_SWORD);
+    private static final ItemStack weapon_bow = ItemCreator.itemCreate(Material.BOW);
+    private static final ItemStack weapon_arrow = ItemCreator.itemCreate(Material.ARROW);
 
     static {
 

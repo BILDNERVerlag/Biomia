@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 
-public class SchnitzelListener extends BiomiaListener {
+class SchnitzelListener extends BiomiaListener {
 
     private static final ItemStack bread = ItemCreator.itemCreate(Material.BREAD, "00A7cBauern Brot");
 

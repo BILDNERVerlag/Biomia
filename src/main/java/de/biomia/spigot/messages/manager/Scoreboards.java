@@ -9,7 +9,7 @@ import org.bukkit.scoreboard.Team;
 
 public class Scoreboards {
 
-    private static Scoreboard main = Bukkit.getScoreboardManager().getNewScoreboard();
+    private static final Scoreboard main = Bukkit.getScoreboardManager().getNewScoreboard();
 
     static {
         initScoreboard(main);

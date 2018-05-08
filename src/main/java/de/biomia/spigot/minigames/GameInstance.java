@@ -20,7 +20,7 @@ import java.util.logging.Level;
 public class GameInstance {
 
     private final GameType type;
-    private World world;
+    private final World world;
     private GameMode gameMode;
     private final ArrayList<BiomiaPlayer> players = new ArrayList<>();
     private final int teamSize;

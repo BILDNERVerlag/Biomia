@@ -18,7 +18,7 @@ public abstract class UniversalBiomiaPlayer {
     private String name;
     private UUID uuid;
 
-    protected UniversalBiomiaPlayer(int biomiaID, String name, UUID uuid) {
+    private UniversalBiomiaPlayer(int biomiaID, String name, UUID uuid) {
         if (biomiaID == -1) {
             new BiomiaIDCantBeMinusOneException().printStackTrace();
         }
@@ -66,7 +66,7 @@ public abstract class UniversalBiomiaPlayer {
                 + "," + percent + "," + timeinseconds + (System.currentTimeMillis() / 1000) + ")", MySQL.Databases.biomia_db);
     }
 
-    protected void stopCoinBoost() {
+    private void stopCoinBoost() {
         MySQL.executeUpdate("DELETE FROM `CoinBoost` WHERE BiomiaPlayer = " + biomiaID, MySQL.Databases.biomia_db);
     }
 
@@ -105,9 +105,9 @@ public abstract class UniversalBiomiaPlayer {
         }
     }
 
-    public abstract boolean isOnline();
+    protected abstract boolean isOnline();
 
-    public abstract void sendMessage(String message);
+    protected abstract void sendMessage(String message);
 
     // GETTERS AND SETTERS
 

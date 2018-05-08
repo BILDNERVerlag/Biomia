@@ -10,7 +10,7 @@ public enum Ranks {
     Developer(2),
     Admin(1), Owner(0);
 
-    private int level;
+    private final int level;
 
     Ranks(int id) {
         this.level = id;

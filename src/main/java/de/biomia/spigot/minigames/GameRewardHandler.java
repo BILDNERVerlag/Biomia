@@ -6,7 +6,7 @@ import de.biomia.spigot.events.game.GameKillEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-public class GameRewardHandler implements Listener {
+class GameRewardHandler implements Listener {
     @EventHandler
     public void onKill(GameKillEvent e) {
         if (e.isFinalKill())

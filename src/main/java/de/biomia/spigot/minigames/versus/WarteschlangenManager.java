@@ -2,10 +2,7 @@ package de.biomia.spigot.minigames.versus;
 
 import de.biomia.bungee.events.BreakException;
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.messages.manager.ActionBar;
 import de.biomia.spigot.minigames.versus.settings.VSRequest;
-import de.biomia.universal.Messages;
-import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 import java.util.Collections;

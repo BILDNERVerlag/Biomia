@@ -26,7 +26,6 @@ public class Login implements Listener {
 
     public static TextComponent MOTD;
 
-    private static boolean isLobbyServerOnline;
     private final TextComponent wartungsmodus = new TextComponent(String.format("%sDer Server ist im Wartungsmodus.\n%sBitte versuche es in einer Weile erneut!", Messages.COLOR_MAIN, Messages.COLOR_SUB));
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -51,7 +50,7 @@ public class Login implements Listener {
             WinterEvent.isWinner(bp);
         }
 
-        isLobbyServerOnline = TimoCloudAPI.getUniversalAPI().getServerGroup(BiomiaServerType.Lobby.name()).getServers().stream().anyMatch(serverObject -> serverObject.getState().equalsIgnoreCase("ONLINE"));
+        boolean isLobbyServerOnline = TimoCloudAPI.getUniversalAPI().getServerGroup(BiomiaServerType.Lobby.name()).getServers().stream().anyMatch(serverObject -> serverObject.getState().equalsIgnoreCase("ONLINE"));
 
         if (!isLobbyServerOnline) {
             pp.disconnect(new TextComponent("\u00A7cDer Server startet gerade!"));

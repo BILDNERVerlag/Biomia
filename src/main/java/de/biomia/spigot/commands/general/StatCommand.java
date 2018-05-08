@@ -62,31 +62,35 @@ public class StatCommand extends BiomiaCommand {
                         sender.sendMessage("\u00A77" + args[1] + " \u00A7cist kein erlaubter Stat.");
                         return;
                     }
-                    if (args.length == 2) {
-                        value = 1;
-                        biomiaPlayer = Biomia.getBiomiaPlayer((Player) sender);
-                        playerName = sender.getName();
-                    } else if (args.length == 3) {
-                        try {
-                            value = Integer.parseInt(args[1]);
-                        } catch (NumberFormatException e) {
-                            sender.sendMessage("\u00A77" + args[2] + " \u00A7cist keine erlaubte Zahl.");
+                    switch (args.length) {
+                        case 2:
+                            value = 1;
+                            biomiaPlayer = Biomia.getBiomiaPlayer((Player) sender);
+                            playerName = sender.getName();
+                            break;
+                        case 3:
+                            try {
+                                value = Integer.parseInt(args[1]);
+                            } catch (NumberFormatException e) {
+                                sender.sendMessage("\u00A77" + args[2] + " \u00A7cist keine erlaubte Zahl.");
+                                return;
+                            }
+                            biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[2]);
+                            playerName = args[2];
+                            break;
+                        case 4:
+                            try {
+                                value = Integer.parseInt(args[2]);
+                            } catch (NumberFormatException e) {
+                                sender.sendMessage("\u00A77" + args[2] + " \u00A7cist keine erlaubte Zahl.");
+                                return;
+                            }
+                            biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[3]);
+                            playerName = args[3];
+                            break;
+                        default:
+                            sendError(sender);
                             return;
-                        }
-                        biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[2]);
-                        playerName = args[2];
-                    } else if (args.length == 4) {
-                        try {
-                            value = Integer.parseInt(args[2]);
-                        } catch (NumberFormatException e) {
-                            sender.sendMessage("\u00A77" + args[2] + " \u00A7cist keine erlaubte Zahl.");
-                            return;
-                        }
-                        biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[3]);
-                        playerName = args[3];
-                    } else {
-                        sendError(sender);
-                        return;
                     }
                     if (biomiaPlayer.getBiomiaPlayerID() != -1) {
                         stat.increment(biomiaPlayer.getBiomiaPlayerID(), value, null);

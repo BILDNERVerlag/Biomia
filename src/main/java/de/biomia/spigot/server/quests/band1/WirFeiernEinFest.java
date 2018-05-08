@@ -26,7 +26,7 @@ public class WirFeiernEinFest implements Listener {
     private DialogMessage comeBackWithFireworks;
     private DialogMessage comeBackWithoutFireworks;
     private DialogMessage nachQuest;
-    private Location habilLoc = new Location(Bukkit.getWorld("Quests"), 111, 72, -278, 0, 0);
+    private final Location habilLoc = new Location(Bukkit.getWorld("Quests"), 111, 72, -278, 0, 0);
 
     public WirFeiernEinFest() {
         q.setInfoText("Habil ist an der Organisation eines großen Dorffestes beteiligt, und obwohl er für das Feuerwerk zustündig ist, hat er noch keine Raketen. Vielleicht kannst du welche auftreiben, drei Stück sollten genügen.");

@@ -41,7 +41,7 @@ public class GameStateManager {
         this.inGameState = inGameState;
     }
 
-    public void setActualGameState(GameState actualGameState) {
+    private void setActualGameState(GameState actualGameState) {
         this.actualGameState = actualGameState;
     }
 

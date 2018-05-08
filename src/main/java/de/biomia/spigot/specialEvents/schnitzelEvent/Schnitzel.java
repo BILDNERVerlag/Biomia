@@ -19,7 +19,7 @@ public class Schnitzel {
 
     public final static String name = "00A7cSchnitzel 00A77#00A7b%s";
 
-    private ItemStack is;
+    private final ItemStack is;
     private Location loc;
     private final int id;
 

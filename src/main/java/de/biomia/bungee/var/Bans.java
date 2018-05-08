@@ -2,10 +2,10 @@ package de.biomia.bungee.var;
 
 public class Bans {
 
-    private int biomiaID;
-    private String grund;
-    private boolean perm;
-    private int bis;
+    private final int biomiaID;
+    private final String grund;
+    private final boolean perm;
+    private final int bis;
     private final int von;
     private final int timestamp;
 
