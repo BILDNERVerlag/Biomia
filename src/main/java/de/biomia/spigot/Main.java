@@ -24,12 +24,14 @@ import de.biomia.spigot.server.quests.Quests;
 import de.biomia.spigot.specialEvents.schnitzelEvent.SchnitzelEvent;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.PlayerToServerConnector;
+import de.biomia.spigot.tools.VoidWorldGenerator;
 import de.biomia.universal.MySQL;
 import net.minecraft.server.v1_12_R1.DedicatedServer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandMap;
 import org.bukkit.craftbukkit.v1_12_R1.CraftServer;
+import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import static de.biomia.spigot.minigames.GameType.BED_WARS;
@@ -39,9 +41,24 @@ public class Main extends JavaPlugin {
 
     private static Main plugin;
     private static CommandMap commandMap;
+    private static VoidWorldGenerator voidWorldGenerator = new VoidWorldGenerator();
 
     public static Main getPlugin() {
         return plugin;
+    }
+
+    @Override
+    public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
+        switch (Biomia.getServerInstance().getServerType()) {
+            case Quest:
+            case TestFreebuild:
+            case BauServer:
+            case Freebuild:
+            case TestQuest:
+                return super.getDefaultWorldGenerator(worldName, id);
+            default:
+                return voidWorldGenerator;
+        }
     }
 
     public static void registerCommand(BiomiaCommand biomiaCommand) {
