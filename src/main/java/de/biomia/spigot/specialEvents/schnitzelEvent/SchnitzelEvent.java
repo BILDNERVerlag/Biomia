@@ -446,7 +446,7 @@ public class SchnitzelEvent extends BiomiaServer {
         schnitzelHSName = sb.registerNewTeam("schnitzelHSName");
         bookHS = sb.registerNewTeam("bookHS");
         bookHSName = sb.registerNewTeam("bookHSName");
-        //TODO replace with §
+        //TODO replace with real §
         mobHS.setPrefix("00A7r 00A7r 00A7r 00A7r");
         schnitzelHS.setPrefix("00A7r 00A7r 00A7r 00A7r");
         bookHS.setPrefix("00A7r 00A7r 00A7r 00A7r");

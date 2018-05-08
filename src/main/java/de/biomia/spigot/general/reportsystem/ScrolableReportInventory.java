@@ -55,7 +55,6 @@ class ScrolableReportInventory implements Listener {
                             new ReporterInventoryOfPlayer(bp, Biomia.getOfflineBiomiaPlayer(name).getBiomiaPlayerID(), this).openInventory();
                         } else {
                             banInformationInv = new InformationInventory(bp, Biomia.getOfflineBiomiaPlayer(name).getBiomiaPlayerID());
-                            banInformationInv.openInventory();
                         }
                     } else if (e.getClick().isLeftClick()) {
                         Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "sendbungee gtp " + bp.getPlayer().getName() + " " + name);

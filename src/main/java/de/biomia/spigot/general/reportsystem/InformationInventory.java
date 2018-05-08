@@ -21,16 +21,13 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 
-class InformationInventory {
+public class InformationInventory {
 
     private final Inventory inv;
     private final int biomiaID;
-    private final BiomiaPlayer bp;
 
-    //TODO add Command to show better
-    InformationInventory(BiomiaPlayer bp, int biomiaID) {
+    public InformationInventory(BiomiaPlayer bp, int biomiaID) {
         String name = Biomia.getOfflineBiomiaPlayer(biomiaID).getName();
-        this.bp = bp;
         this.biomiaID = biomiaID;
         this.inv = Bukkit.createInventory(null, 27, "\u00A7cInformationen über " + name);
 
@@ -158,14 +155,11 @@ class InformationInventory {
         inv.setItem(23, ItemCreator.itemCreate(Material.STAINED_GLASS, "\u00A7aReport Fertigstellen", (short) 14));
 
         inv.setItem(26, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, "\u00A7cZurück"));
+        bp.getPlayer().openInventory(inv);
     }
 
     public int getBiomiaID() {
         return biomiaID;
-    }
-
-    public void openInventory() {
-        bp.getPlayer().openInventory(inv);
     }
 
     public Inventory getInventory() {

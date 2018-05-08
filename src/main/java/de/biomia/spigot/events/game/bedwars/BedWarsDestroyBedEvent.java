@@ -11,7 +11,6 @@ public class BedWarsDestroyBedEvent extends BiomiaPlayerGameEvent {
     private static final HandlerList list = new HandlerList();
     private final TeamColor teamcolor;
 
-    //TODO: aufrufen
     public BedWarsDestroyBedEvent(BiomiaPlayer destroyer, TeamColor teamcolor, GameMode mode) {
         super(destroyer, mode);
         this.teamcolor = teamcolor;

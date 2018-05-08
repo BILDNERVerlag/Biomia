@@ -5,6 +5,7 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.events.game.GameDeathEvent;
 import de.biomia.spigot.events.game.GameKillEvent;
+import de.biomia.spigot.events.game.bedwars.BedWarsDestroyBedEvent;
 import de.biomia.spigot.events.game.bedwars.BedWarsUseShopEvent;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
@@ -103,6 +104,7 @@ public class BedWarsHandler extends GameHandler {
                             e.setCancelled(true);
                             return;
                         }
+                        Bukkit.getPluginManager().callEvent(new BedWarsDestroyBedEvent(bp, gt.getColor(), mode));
                         bt.destroyBed();
                         Bukkit.broadcastMessage(String.format(BedWarsMessages.bedWasDestroyed, bt.getColorcode(), Messages.COLOR_AUX, bt.getColorcode(), bt.getTeamname(), Messages.COLOR_AUX));
                         e.setDropItems(false);

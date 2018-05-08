@@ -44,6 +44,7 @@ public abstract class BiomiaServer {
         registerCommand(new HeadCommand());
         registerCommand(new HealCommand());
         registerCommand(new HologramCommand());
+        registerCommand(new InformationCommand());
         registerCommand(new PermissionCommand());
         registerCommand(new RankCommand());
         registerCommand(new SpeedCommand());
