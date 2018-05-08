@@ -162,7 +162,7 @@ public class ReportListener implements Listener {
                             }
                         }
                         break;
-                    case "\u00A7cL\u00fcnge":
+                    case "\u00A7cLünge":
                         e.setCancelled(true);
                         if (!waitForSetTime.containsKey(bp))
                             return;

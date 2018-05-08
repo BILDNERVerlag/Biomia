@@ -9,12 +9,8 @@ import de.biomia.bungee.specialEvents.WinterEvent;
 import de.biomia.bungee.var.BanManager;
 import de.biomia.bungee.var.Bans;
 import de.biomia.spigot.BiomiaServerType;
-import de.biomia.universal.MySQL;
-import de.biomia.universal.SkinValue;
-import de.biomia.universal.Time;
-import de.biomia.universal.UniversalBiomiaPlayer;
+import de.biomia.universal.*;
 import net.md_5.bungee.BungeeCord;
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ServerPing;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -31,7 +27,7 @@ public class Login implements Listener {
     public static TextComponent MOTD;
 
     private static boolean isLobbyServerOnline;
-    private final TextComponent wartungsmodus = new TextComponent(ChatColor.AQUA + "Der Server ist im Wartungsmodus.\n" + ChatColor.RED + "Bitte versuche es in einer Weile erneut!");
+    private final TextComponent wartungsmodus = new TextComponent(String.format("%sDer Server ist im Wartungsmodus.\n%sBitte versuche es in einer Weile erneut!", Messages.COLOR_MAIN, Messages.COLOR_SUB));
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(ServerConnectEvent evt) {
@@ -41,11 +37,11 @@ public class Login implements Listener {
 
 
         if (UniversalBiomiaPlayer.getBiomiaPlayerID(pp.getUniqueId()) == -1) {
-            MySQL.executeUpdate("INSERT INTO `BiomiaPlayer` (`uuid`, `name`) VALUES ('" + pp.getUniqueId().toString() + "','" + pp.getName() + "')", MySQL.Databases.biomia_db);
+            MySQL.executeUpdate(String.format("INSERT INTO `BiomiaPlayer` (`uuid`, `name`) VALUES ('%s','%s')", pp.getUniqueId().toString(), pp.getName()), MySQL.Databases.biomia_db);
             bp = BungeeBiomia.getOfflineBiomiaPlayer(pp.getUniqueId());
-            MySQL.executeUpdate("INSERT INTO `BiomiaCoins` (`ID`, `coins`) VALUES (" + bp.getBiomiaPlayerID() + ", 0)", MySQL.Databases.biomia_db);
+            MySQL.executeUpdate(String.format("INSERT INTO `BiomiaCoins` (`ID`, `coins`) VALUES (%d, 0)", bp.getBiomiaPlayerID()), MySQL.Databases.biomia_db);
         } else {
-            MySQL.executeUpdate("UPDATE `BiomiaPlayer` SET `name`='" + pp.getName() + "' WHERE uuid = '" + pp.getUniqueId().toString() + "'", MySQL.Databases.biomia_db);
+            MySQL.executeUpdate(String.format("UPDATE `BiomiaPlayer` SET `name`='%s' WHERE uuid = '%s'", pp.getName(), pp.getUniqueId().toString()), MySQL.Databases.biomia_db);
             bp = BungeeBiomia.getOfflineBiomiaPlayer(pp.getUniqueId());
         }
 
@@ -55,13 +51,7 @@ public class Login implements Listener {
             WinterEvent.isWinner(bp);
         }
 
-        isLobbyServerOnline = false;
-
-        TimoCloudAPI.getUniversalAPI().getServerGroup(BiomiaServerType.Lobby.name()).getServers().forEach(each -> {
-            if (each.getState().equalsIgnoreCase("ONLINE")) {
-                isLobbyServerOnline = true;
-            }
-        });
+        isLobbyServerOnline = TimoCloudAPI.getUniversalAPI().getServerGroup(BiomiaServerType.Lobby.name()).getServers().stream().anyMatch(serverObject -> serverObject.getState().equalsIgnoreCase("ONLINE"));
 
         if (!isLobbyServerOnline) {
             pp.disconnect(new TextComponent("\u00A7cDer Server startet gerade!"));
@@ -85,14 +75,14 @@ public class Login implements Listener {
             if (bp.getBiomiaPlayerID() == eachBan.getBiomiaID()) {
                 if (eachBan.isPerm()) {
                     pp.disconnect(new TextComponent(
-                            "\u00A7cDu wurdest von der Biomia Tec. f\u00fcr immmer verbannt!\n\n\u00A7cMit freundlichen Gr\u00fc\u00dfen, dein \u00A75Bio\u00A72mia\u00A77 Tec.\u00A7c Team!"));
+                            "\u00A7cDu wurdest von der Biomia Tec. für immmer verbannt!\n\n\u00A7cMit freundlichen Grüßen, dein \u00A75Bio\u00A72mia\u00A77 Tec.\u00A7c Team!"));
                     evt.setCancelled(true);
                 } else {
                     if (eachBan.getBis() > System.currentTimeMillis() / 1000) {
                         pp.disconnect(new TextComponent(
                                 "\u00A7cDu wurdest von der Biomia Tec. verbannt!\nZeit bis du wieder eine Chance hast, auf unserem Netzwerk zu spielen:\n\u00A7e"
                                         + Time.toText((int) (eachBan.getBis() - System.currentTimeMillis() / 1000))
-                                        + "\n\n\u00A7cMit freundlichen Gr\u00fc\u00dfen, dein \u00A75Bio\u00A72mia\u00A77 Tec.\u00A7c Team!"));
+                                        + "\n\n\u00A7cMit freundlichen Grüßen, dein \u00A75Bio\u00A72mia\u00A77 Tec.\u00A7c Team!"));
                         evt.setCancelled(true);
                     } else {
                         unbans.add(eachBan);
@@ -135,7 +125,7 @@ public class Login implements Listener {
             for (ProxiedPlayer ppl : lvl1) {
                 if (i < 20) {
                     ppl.disconnect(new TextComponent(
-                            "\u00A7cDu wurdest gekickt, um einem Spieler mit einem h\u00f6heren Rang Platz zu machen.\n\u00A75Kauf dir Premium auf \n\u00A72www.biomia.de\n\u00A75um nicht mehr gekickt zu werden!"));
+                            "\u00A7cDu wurdest gekickt, um einem Spieler mit einem höheren Rang Platz zu machen.\n\u00A75Kauf dir Premium auf \n\u00A72www.biomia.de\n\u00A75um nicht mehr gekickt zu werden!"));
                     i++;
                 } else
                     break;
@@ -144,7 +134,7 @@ public class Login implements Listener {
                 for (ProxiedPlayer ppl : lvl2) {
                     if (i < 20) {
                         ppl.disconnect(new TextComponent(
-                                "\u00A7cDu wurdest gekickt, um einem Spieler mit einem h\u00f6heren Rang Platz zu machen.\n\u00A75Kauf dir Premium auf \n\u00A72www.biomia.de\n\u00A75um nicht mehr gekickt zu werden!"));
+                                "\u00A7cDu wurdest gekickt, um einem Spieler mit einem höheren Rang Platz zu machen.\n\u00A75Kauf dir Premium auf \n\u00A72www.biomia.de\n\u00A75um nicht mehr gekickt zu werden!"));
                         i++;
                     } else
                         break;

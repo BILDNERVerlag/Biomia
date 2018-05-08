@@ -68,14 +68,14 @@ public enum TeamColor {
             case ORANGE:
                 return "Orange";
             case GREEN:
-                return "Gr\u00fcn";
+                return "Grün";
             case PURPLE:
                 return "Lila";
             case RED:
                 return "Rot";
             default:
             case WHITE:
-                return "Wei\u00df";
+                return "Weiß";
             case YELLOW:
                 return "Gelb";
         }

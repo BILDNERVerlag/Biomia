@@ -16,42 +16,36 @@ public class BuildCommand extends BiomiaCommand {
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
-        if (sender.hasPermission("biomia.build." + Biomia.getServerInstance().getServerType().name()) || sender.hasPermission("biomia.build.*")) {
-            BiomiaPlayer bp;
-            if (args.length == 0) {
-                if (sender instanceof Player)
-                    bp = Biomia.getBiomiaPlayer((Player) sender);
-                else {
-                    sender.sendMessage(Messages.NO_PLAYER);
-                    return;
-                }
-            } else {
-                Player p = Bukkit.getPlayer(args[0]);
-                if (p != null)
-                    bp = Biomia.getBiomiaPlayer(p);
-                else {
-                    sender.sendMessage(Messages.NOT_ONLINE);
-                    return;
-                }
-            }
-            if (!bp.canBuild()) {
-                bp.setBuild(true);
-                bp.getPlayer().sendMessage("\u00A7aDu kannst nun bauen!");
-                if (sender.equals(bp.getPlayer())) {
-                    sender.sendMessage("\u00A7aDer Spieler \u00A76" + bp.getPlayer().getName() + " \u00A7akann nun bauen!");
-                }
 
-            } else {
-                bp.setBuild(false);
-                bp.getPlayer().sendMessage("\u00A7cDu kannst nun nicht mehr bauen!");
-                if (!sender.equals(bp.getPlayer())) {
-                    sender.sendMessage("\u00A7cDer Spieler \u00A76" + bp.getPlayer().getName() + " \u00A7ckann nun nicht mehr bauen!");
-                }
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) sender);
 
-            }
-        } else
+        if (!bp.isSrStaff()) {
             sender.sendMessage(Messages.NO_PERM);
+            return;
+        }
 
-        return;
+        if (args.length > 0) {
+            Player p = Bukkit.getPlayer(args[0]);
+            if (p != null)
+                bp = Biomia.getBiomiaPlayer(p);
+            else {
+                sender.sendMessage(Messages.NOT_ONLINE);
+                return;
+            }
+        }
+        if (!bp.canBuild()) {
+            bp.setBuild(true);
+            bp.sendMessage(String.format("%sDu kannst nun bauen!", Messages.COLOR_SUB));
+            if (sender.equals(bp.getPlayer())) {
+                sender.sendMessage(String.format("%sDer Spieler %s%s%s kann nun bauen!", Messages.COLOR_SUB, Messages.COLOR_MAIN, bp.getName(), Messages.COLOR_SUB));
+            }
+        } else {
+            bp.setBuild(false);
+            bp.sendMessage(String.format("%sDu kannst nun nicht mehr bauen!", Messages.COLOR_MAIN));
+            if (!sender.equals(bp.getPlayer())) {
+                sender.sendMessage(String.format("%sDer Spieler %s%s%s kann nun nicht mehr bauen!", Messages.COLOR_MAIN, Messages.COLOR_SUB, bp.getName(), Messages.COLOR_MAIN));
+            }
+
+        }
     }
 }

@@ -100,7 +100,7 @@ class ScrolableReportInventory implements Listener {
 
     private void setNext() {
         if (next == null)
-            next = ItemCreator.itemCreate(Material.BLAZE_ROD, "\u00A7aN\u00e4chste Seite");
+            next = ItemCreator.itemCreate(Material.BLAZE_ROD, "\u00A7aNächste Seite");
         inv.setItem(inv.getSize() - 3, next);
     }
 

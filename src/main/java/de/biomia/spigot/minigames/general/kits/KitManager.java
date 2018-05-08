@@ -52,7 +52,7 @@ public class KitManager {
         standartKit.addItem(0, ItemCreator.itemCreate(Material.IRON_SWORD));
         standartKit.addItem(1, ItemCreator.itemCreate(Material.IRON_PICKAXE));
         standartKit.addItem(2, ItemCreator.itemCreate(Material.IRON_AXE));
-        standartKit.setDescription(Arrays.asList("Die gute alte", "Standardausr\u00fcstung"));
+        standartKit.setDescription(Arrays.asList("Die gute alte", "Standardausrüstung"));
         standardKit = standartKit;
 
 
@@ -196,7 +196,7 @@ public class KitManager {
 
         // WinterEvent Kit 1
         Kit eismeister = new Kit("Eismeister", 20171, 0, new ItemStack(Material.PACKED_ICE), false);
-        // Plattenspieler + Schallplatte mit ruhiger, ann\u00fcherend weihnachtlicher Musik
+        // Plattenspieler + Schallplatte mit ruhiger, annüherend weihnachtlicher Musik
         ItemStack schallplatte = ItemCreator.itemCreate(Material.RECORD_5);
         ItemStack plattenspieler = ItemCreator.itemCreate(Material.JUKEBOX);
         // etwas eis
@@ -206,13 +206,13 @@ public class KitManager {
         ice2.setAmount(16);
         ItemStack ice3 = ItemCreator.itemCreate(Material.SNOW_BLOCK);
         ice2.setAmount(16);
-        // schneefarbene r\u00fcstung
+        // schneefarbene rüstung
         ItemStack winter_hat = ItemCreator.itemCreate(Material.LEATHER_HELMET, "Eishelm");
         LeatherArmorMeta hatMeta = (LeatherArmorMeta) winter_hat.getItemMeta();
         hatMeta.setColor(Color.fromRGB(219, 255, 255));
         winter_hat.setItemMeta(hatMeta);
         winter_hat.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 1);
-        ItemStack winter_chest = ItemCreator.itemCreate(Material.LEATHER_CHESTPLATE, "Eisr\u00fcstung");
+        ItemStack winter_chest = ItemCreator.itemCreate(Material.LEATHER_CHESTPLATE, "Eisrüstung");
         LeatherArmorMeta chestMeta = (LeatherArmorMeta) winter_chest.getItemMeta();
         chestMeta.setColor(Color.fromRGB(219, 255, 255));
         winter_chest.setItemMeta(chestMeta);
@@ -239,7 +239,7 @@ public class KitManager {
 
         // WinterEvent Kit 2
         Kit weihnachtself = new Kit("Weihnachtself", 20172, 0, new ItemStack(Material.SNOW_BALL), false);
-        // weihnachtselfenr\u00fcstung
+        // weihnachtselfenrüstung
         ItemStack elfen_hat = ItemCreator.itemCreate(Material.LEATHER_HELMET, "Hut des Weihnachtselfs");
         LeatherArmorMeta elfenHatMeta = (LeatherArmorMeta) elfen_hat.getItemMeta();
         elfenHatMeta.setColor(Color.fromRGB(179, 0, 12));

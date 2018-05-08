@@ -54,7 +54,7 @@ public class MysteryChest {
         int i = new Random().nextInt(items.size());
         CosmeticItem item = items.get(i);
 
-        Inventory inv = Bukkit.createInventory(null, 27, "\u00A74Mysteri\u00f6se Box \u00A78- \u00A74Dein Gewinn:");
+        Inventory inv = Bukkit.createInventory(null, 27, "\u00A74Mysteriöse Box \u00A78- \u00A74Dein Gewinn:");
         ItemStack itemStack = item.getItem();
 
         int menge = -1;

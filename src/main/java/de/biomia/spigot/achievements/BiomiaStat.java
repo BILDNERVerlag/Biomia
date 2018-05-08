@@ -57,7 +57,7 @@ public enum BiomiaStat {
         }
         if (increment == 0) return;
         int value = get(biomiaID, comment) + increment;
-        MySQL.executeUpdate("INSERT INTO `" + this.name() + "`(biomiaID, value, inc" + (comment != null ? ", comment" : "") + ") VALUES (" + biomiaID + ", " + value + ", " + increment + (comment != null ? ", '" + comment + "'" : "") + ")", MySQL.Databases.stats_db);
+        MySQL.executeUpdate(String.format("INSERT INTO `%s`(biomiaID, value, inc%s) VALUES (%d, %d, %d%s)", this.name(), comment != null ? ", comment" : "", biomiaID, value, increment, comment != null ? ", '" + comment + "'" : ""), MySQL.Databases.stats_db);
         BiomiaAchievement.checkForAchievementUnlocks(this, biomiaID, value);
     }
 
@@ -68,7 +68,7 @@ public enum BiomiaStat {
         Connection con = MySQL.Connect(MySQL.Databases.stats_db);
         if (con != null) {
             try {
-                PreparedStatement statement = con.prepareStatement("SELECT biomiaID, value FROM ( SELECT biomiaID, COUNT(`value`) AS value FROM " + name() + " GROUP BY biomiaID ) as l WHERE value = ? " + (comment != null ? ("AND comment = '" + comment + "'") : "") + " ORDER BY biomiaID DESC");
+                PreparedStatement statement = con.prepareStatement(String.format("SELECT biomiaID, value FROM ( SELECT biomiaID, COUNT(`value`) AS value FROM %s GROUP BY biomiaID ) as l WHERE value = ? %s ORDER BY biomiaID DESC", name(), comment != null ? ("AND comment = '" + comment + "'") : ""));
                 statement.setInt(1, x);
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()) {
@@ -89,7 +89,7 @@ public enum BiomiaStat {
         Connection con = MySQL.Connect(MySQL.Databases.stats_db);
         if (con != null) {
             try {
-                PreparedStatement statement = con.prepareStatement("SELECT biomiaID, COUNT(`value`) AS value FROM " + this.name() + (comment == null ? "" : ("WHERE comment = '" + comment + "'")) + " GROUP BY biomiaID ORDER BY value DESC " + (topX != -1 ? "LIMIT " + topX : ""));
+                PreparedStatement statement = con.prepareStatement(String.format("SELECT biomiaID, COUNT(`value`) AS value FROM %s%s GROUP BY biomiaID ORDER BY value DESC %s", this.name(), comment == null ? "" : ("WHERE comment = '" + comment + "'"), topX != -1 ? "LIMIT " + topX : ""));
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()) {
                     leaderboard.put(rs.getInt("biomiaID"), rs.getInt("value"));
@@ -104,7 +104,7 @@ public enum BiomiaStat {
     }
 
     public int get(int biomiaID, String comment) {
-        int out = MySQL.executeQuerygetint("SELECT MAX(`value`) AS value FROM `" + name() + "` where biomiaID = " + biomiaID + (comment != null ? " AND comment = '" + comment + "'" : ""), "value", MySQL.Databases.stats_db);
+        int out = MySQL.executeQuerygetint(String.format("SELECT MAX(`value`) AS value FROM `%s` where biomiaID = %d%s", name(), biomiaID, comment != null ? " AND comment = '" + comment + "'" : ""), "value", MySQL.Databases.stats_db);
         return out == -1 ? 0 : out;
     }
 
@@ -115,7 +115,7 @@ public enum BiomiaStat {
         int minValue = 0, minInc = 0, maxValue = 0;
         if (con != null) {
             try {
-                PreparedStatement statement = con.prepareStatement("SELECT `value`, `inc` FROM `" + name() + "` where biomiaID = ? AND `timestamp` >= TIMESTAMPADD(" + datetime_expr + ",-?,NOW())");
+                PreparedStatement statement = con.prepareStatement(String.format("SELECT `value`, `inc` FROM `%s` where biomiaID = ? AND `timestamp` >= TIMESTAMPADD(%s,-?,NOW())", name(), datetime_expr));
                 statement.setInt(1, biomiaID);
                 statement.setInt(2, amount);
                 ResultSet rs = statement.executeQuery();
@@ -142,7 +142,7 @@ public enum BiomiaStat {
         Connection con = MySQL.Connect(MySQL.Databases.stats_db);
         if (con != null) {
             try {
-                PreparedStatement statement = con.prepareStatement("SELECT timestamp FROM " + name() + " Where biomiaID = ?");
+                PreparedStatement statement = con.prepareStatement(String.format("SELECT timestamp FROM %s Where biomiaID = ?", name()));
                 statement.setInt(1, bp.getBiomiaPlayerID());
                 ResultSet rs = statement.executeQuery();
                 if (rs.next())
@@ -161,7 +161,7 @@ public enum BiomiaStat {
         Connection con = MySQL.Connect(MySQL.Databases.stats_db);
         if (con != null) {
             try {
-                PreparedStatement statement = con.prepareStatement("SELECT timestamp FROM " + name() + " Where biomiaID = ? ORDER BY timestamp DESC");
+                PreparedStatement statement = con.prepareStatement(String.format("SELECT timestamp FROM %s Where biomiaID = ? ORDER BY timestamp DESC", name()));
                 statement.setInt(1, bp.getBiomiaPlayerID());
                 ResultSet rs = statement.executeQuery();
                 if (rs.next())
@@ -180,7 +180,7 @@ public enum BiomiaStat {
         Connection con = MySQL.Connect(MySQL.Databases.stats_db);
         if (con != null)
             try {
-                PreparedStatement statement = con.prepareStatement("SELECT `comment`, COUNT(`value`) as value FROM " + name() + " WHERE biomiaID = ? GROUP BY `comment`");
+                PreparedStatement statement = con.prepareStatement(String.format("SELECT `comment`, COUNT(`value`) as value FROM %s WHERE biomiaID = ? GROUP BY `comment`", name()));
                 statement.setInt(1, biomiaID);
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()) {

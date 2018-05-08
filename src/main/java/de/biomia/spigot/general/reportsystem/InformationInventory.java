@@ -32,7 +32,7 @@ class InformationInventory {
         String name = Biomia.getOfflineBiomiaPlayer(biomiaID).getName();
         this.bp = bp;
         this.biomiaID = biomiaID;
-        this.inv = Bukkit.createInventory(null, 27, "\u00A7cInformationen \u00fcber " + name);
+        this.inv = Bukkit.createInventory(null, 27, "\u00A7cInformationen über " + name);
 
         int level = ReportSQL.getLevel(biomiaID);
         int bans = 0;
@@ -157,7 +157,7 @@ class InformationInventory {
         inv.setItem(21, ItemCreator.itemCreate(Material.STAINED_GLASS, "\u00A7cReport Entfernen", (short) 5));
         inv.setItem(23, ItemCreator.itemCreate(Material.STAINED_GLASS, "\u00A7aReport Fertigstellen", (short) 14));
 
-        inv.setItem(26, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, "\u00A7cZur\u00fcck"));
+        inv.setItem(26, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, "\u00A7cZurück"));
     }
 
     public int getBiomiaID() {

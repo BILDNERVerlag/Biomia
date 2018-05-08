@@ -17,7 +17,7 @@ public class HealCommand extends BiomiaCommand {
 
 
         if (!(sender instanceof Player)) {
-            sender.sendMessage("\u00A7cNur Spieler k\u00F6nnen sich heilen!");
+            sender.sendMessage("\u00A7cNur Spieler können sich heilen!");
             return;
         }
 
@@ -28,6 +28,6 @@ public class HealCommand extends BiomiaCommand {
 
         Player p = (Player) sender;
         p.setHealth(p.getHealthScale());
-        sender.sendMessage("\u00A7bDu wurdest vollst\u00e4ndig geheilt!");
+        sender.sendMessage("\u00A7bDu wurdest vollständig geheilt!");
     }
 }

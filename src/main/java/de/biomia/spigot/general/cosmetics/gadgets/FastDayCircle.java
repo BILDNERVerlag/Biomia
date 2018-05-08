@@ -14,7 +14,7 @@ class FastDayCircle implements GadgetListener {
     public void execute(BiomiaPlayer bp, CosmeticGadgetItem item) {
 
         if (isRunning) {
-            bp.getPlayer().sendMessage("\u00A7cDer Tag-Beschleuniger l\u00e4uft bereits!");
+            bp.getPlayer().sendMessage("\u00A7cDer Tag-Beschleuniger läuft bereits!");
             return;
         }
         isRunning = true;

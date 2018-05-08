@@ -32,7 +32,7 @@ public class Wasserholen implements Listener {
 
     public Wasserholen() {
         q.setInfoText(
-                "Elsa bittet dich nicht darum, im n\u00e4chsten Schneek\u00f6niginnenwettbewerb f\u00fcr sie abzustimmen, sondern m\u00f6chte lediglich, dass du ihr drei volle Eimer Wasser bringst.");
+                "Elsa bittet dich nicht darum, im nächsten Schneeköniginnenwettbewerb für sie abzustimmen, sondern möchte lediglich, dass du ihr drei volle Eimer Wasser bringst.");
 
         elsa = q.createNPC(EntityType.PLAYER, "Elsa");
         Location loc = new Location(Bukkit.getWorld("Quests"), 104.5, 73, -268.5, 180, 0);
@@ -76,8 +76,8 @@ public class Wasserholen implements Listener {
         // start dl
         dialog_Start = new DialogMessage(q, elsa).setInhalt("Brian und Falto sind schon wieder verschwunden."
                 + " Ich muss diese Unruhestifter finden und hab keine Zeit um Wasser zu holen."
-                + " Du wirst das f\u00fcr mich erledigen."
-                + " Hier hast du ein paar Eimer. Die m\u00fcssen alle bis zum Rand voll werden!");
+                + " Du wirst das für mich erledigen."
+                + " Hier hast du ein paar Eimer. Die müssen alle bis zum Rand voll werden!");
         dialog_Start.addPlayerToQuest();
         dialog_Start.updatePlayerState(States.STATUS1);
         dialog_Start.addEvent(new GiveItemEvent(Material.BUCKET, 3)).addEvent(wasserErlaubt);
@@ -87,7 +87,7 @@ public class Wasserholen implements Listener {
 
         // w water
         withWater = new DialogMessage(q, elsa).setInhalt(
-                "Die beiden Jungs sind noch immer verschwunden. Na warte, wenn sie nach Hause kommen, werde ich ihnen dieses Wasser \u00fcber den Kopf sch\u00fctten! Danke f\u00fcr deine M\u00fche, als Belohnung darfst du einen der Eimer behalten.");
+                "Die beiden Jungs sind noch immer verschwunden. Na warte, wenn sie nach Hause kommen, werde ich ihnen dieses Wasser über den Kopf schütten! Danke für deine Mühe, als Belohnung darfst du einen der Eimer behalten.");
         withWater.addEvent(new TakeItemEvent(Material.WATER_BUCKET, 3)).addEvent(new GiveItemEvent(Material.BUCKET, 1))
                 .addEvent(new AddCoinEvent(150)).addEvent(wasserVerbot).finish();
 

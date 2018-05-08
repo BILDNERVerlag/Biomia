@@ -182,7 +182,7 @@ public class EasterEvent implements Listener {
                     BiomiaStat.SpecialEggsFound.increment(bp.getBiomiaPlayerID(), 1, Biomia.getServerInstance().getServerType().name());
                     int specialEggsFoundEverywhere = BiomiaStat.SpecialEggsFound.get(bp.getBiomiaPlayerID(), null);
                     if (specialEggsFoundEverywhere == specialEggsAmount) {
-                        e.getPlayer().sendMessage("\u00A7cDu hast \u00A7lalle\u00A7r\u00A7c besonderen Eier gefunden! Daf\u00fcr erh\u00e4ltst du:");
+                        e.getPlayer().sendMessage("\u00A7cDu hast \u00A7lalle\u00A7r\u00A7c besonderen Eier gefunden! Dafür erhältst du:");
                     } else {
                         e.getPlayer().sendMessage("\u00A7cDu hast das 00A7b" + specialEggsFoundEverywhere + ".00A7c 00A7bbesondere Ei 00A7cgefunden!");
                         bp.addCoins(500, false);

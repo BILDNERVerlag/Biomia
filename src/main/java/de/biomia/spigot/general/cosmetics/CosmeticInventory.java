@@ -95,7 +95,7 @@ class CosmeticInventory implements Listener {
 
     private void setNext() {
         if (next == null)
-            next = ItemCreator.itemCreate(Material.BLAZE_ROD, "\u00A7aN\u00e4chste Seite");
+            next = ItemCreator.itemCreate(Material.BLAZE_ROD, "\u00A7aNächste Seite");
         inv.setItem(inv.getSize() - 3, next);
     }
 
@@ -107,7 +107,7 @@ class CosmeticInventory implements Listener {
 
     private void setHome() {
         if (home == null)
-            home = ItemCreator.itemCreate(Material.GOLDEN_CARROT, "\u00A7aZur\u00fcck");
+            home = ItemCreator.itemCreate(Material.GOLDEN_CARROT, "\u00A7aZurück");
         inv.setItem(inv.getSize() - 9, home);
     }
 

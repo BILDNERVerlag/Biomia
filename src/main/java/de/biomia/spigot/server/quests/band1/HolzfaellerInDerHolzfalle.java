@@ -31,7 +31,7 @@ public class HolzfaellerInDerHolzfalle implements Listener {
 
     public HolzfaellerInDerHolzfalle() {
         q.setInfoText(
-                "Ein Forscher ist der Ansicht, dass es zu viele B\u00e4ume in der Gegend gibt. Du sollst ein paar davon f\u00e4llen und ihm dann 64 Holzst\u00fccke der selben Sorte als Beweis zeigen.");
+                "Ein Forscher ist der Ansicht, dass es zu viele Bäume in der Gegend gibt. Du sollst ein paar davon fällen und ihm dann 64 Holzstücke der selben Sorte als Beweis zeigen.");
         q.setDisplayName("Kein Brett vorm Kopf");
         String npcName = "Logan";
         npc = q.createNPC(EntityType.PLAYER, npcName);
@@ -77,27 +77,27 @@ public class HolzfaellerInDerHolzfalle implements Listener {
     private void initDialog() {
         // start dl
         startDialog = new DialogMessage(q, npc);
-        startDialog.setInhalt("Oh nein, oh nein... Wer h\u00e4tte so etwas gedacht?");
+        startDialog.setInhalt("Oh nein, oh nein... Wer hätte so etwas gedacht?");
         startDialog.setFortsetzung("Was ist denn los?").setFortsetzung("(Da halte ich mich am besten raus!)");
         startDialog.setNext(
-                "Was los ist? Willst du das wirklich wissen? Wir haben ein gewaltiges Problem, das ist los! Es gibt zu viele B\u00e4ume!",
+                "Was los ist? Willst du das wirklich wissen? Wir haben ein gewaltiges Problem, das ist los! Es gibt zu viele Bäume!",
                 0, npc);
         startDialog.setNext("Mir wird schon noch irgendwas einfallen... ", 1, npc);
         startDialog.getNext(0).setFortsetzung("Kann ich helfen?").setFortsetzung("Wie kann das sein?");
         startDialog.getNext(0).setNext(
-                "Hilf-\u00e4h-wie bitte? Du w\u00fcrdest mir helfen? Nat\u00fcrlich! F\u00e4ll einfach ein paar B\u00e4ume, und dann komm mit 64 Baumst\u00e4mmen von der selben Sorte wieder und du kannst dir bei mir eine Belohnung abholen!",
+                "Hilf-äh-wie bitte? Du würdest mir helfen? Natürlich! Fäll einfach ein paar Bäume, und dann komm mit 64 Baumstämmen von der selben Sorte wieder und du kannst dir bei mir eine Belohnung abholen!",
                 0, npc);
         startDialog.getNext(0).setNext(
-                "Nunja, ich habe komplizierte Berechnungen angestellt, die Anzahl der K\u00fche durch unsere H\u00f6he \u00fcber dem Meeresspiegel multipliziert.. Wie auch immer. Hilfst du mir, B\u00e4ume zu f\u00e4llen? Wenn du 64 Bl\u00f6cke f\u00e4llst, sollte das vorerst gen\u00fcgen.",
+                "Nunja, ich habe komplizierte Berechnungen angestellt, die Anzahl der Kühe durch unsere Höhe über dem Meeresspiegel multipliziert.. Wie auch immer. Hilfst du mir, Bäume zu fällen? Wenn du 64 Blöcke fällst, sollte das vorerst genügen.",
                 1, npc);
         startDialog.getNext(0).getNext(0).setFortsetzung("Jap, mache ich!").setFortsetzung("Ein ander Mal vielleicht!");
         startDialog.getNext(0).getNext(1).setFortsetzung("Jap, mache ich!").setFortsetzung("Ein ander Mal vielleicht!");
         startDialog.getNext(0).getNext(0).setNext(
-                "Super! Komm wieder, wenn du alles hast! Ach ja - und bitte leg dich auf eine bestimmte Holzsorte fest. Bei so vielen unterschiedlichen Sorten f\u00e4llt mir das Nachz\u00e4hlen immer so schwer...",
+                "Super! Komm wieder, wenn du alles hast! Ach ja - und bitte leg dich auf eine bestimmte Holzsorte fest. Bei so vielen unterschiedlichen Sorten fällt mir das Nachzählen immer so schwer...",
                 0, npc).addPlayerToQuest();
         startDialog.getNext(0).getNext(0).setNext("Oh... Schade. Aber ich verstehe schon. Bis dann!", 1, npc);
         startDialog.getNext(0).getNext(1).setNext(
-                "Super! Komm wieder, wenn du alles hast! Ach ja - und bitte leg dich auf eine bestimmte Holzsorte fest. Bei so vielen unterschiedlichen Sorten f\u00e4llt mir das Nachz\u00e4hlen immer so schwer...",
+                "Super! Komm wieder, wenn du alles hast! Ach ja - und bitte leg dich auf eine bestimmte Holzsorte fest. Bei so vielen unterschiedlichen Sorten fällt mir das Nachzählen immer so schwer...",
                 0, npc).addPlayerToQuest();
         startDialog.getNext(0).getNext(1).setNext("Oh... Schade. Aber ich verstehe schon. Bis dann!", 1, npc);
 
@@ -107,13 +107,13 @@ public class HolzfaellerInDerHolzfalle implements Listener {
 
         // comeback w
         comeBackWithItem = new DialogMessage(q, npc).setInhalt(
-                "So! Du hast es also tats\u00e4chlich hinter dich gebracht! Gro\u00dfartig! Vielen Dank, dankesch\u00f6n!");
+                "So! Du hast es also tatsächlich hinter dich gebracht! Großartig! Vielen Dank, dankeschön!");
         comeBackWithItem.addEvent(new AddCoinEvent(250));
         comeBackWithItem.finish();
 
         // nach quest
         nachQuest = new DialogMessage(q, npc).setInhalt(
-                "Oh, du bists! Danke dir nochmal f\u00fcr die Hilfe mit dem Holz! Ich dachte schon, es k\u00e4me alle Hilfe zu sp\u00e4t!");
+                "Oh, du bists! Danke dir nochmal für die Hilfe mit dem Holz! Ich dachte schon, es käme alle Hilfe zu spät!");
     }
 
 }

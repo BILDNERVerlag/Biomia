@@ -78,7 +78,7 @@ public class Reward {
             case Coins_Boost:
                 biomiaPlayer.giveBoost(200, 86400);
                 biomiaPlayer.getPlayer().sendMessage("\u00A7424 Stunden doppelte Coins auf alles!");
-                biomiaPlayer.getPlayer().sendMessage("\u00A74(au\u00DFer Tiernahrung)");
+                biomiaPlayer.getPlayer().sendMessage("\u00A74(außer Tiernahrung)");
                 break;
             case Ingame_Coins:
                 biomiaPlayer.addCoins(3000, false);
@@ -87,7 +87,7 @@ public class Reward {
             case QuestWelt_Items:
                 ItemStack is = null;
                 biomiaPlayer.getPlayer()
-                        .sendMessage("\u00A74Ein Item f\u00fcr die Quest Welt! Schau es dir direkt in der Quest Welt an!");
+                        .sendMessage("\u00A74Ein Item für die Quest Welt! Schau es dir direkt in der Quest Welt an!");
                 switch (id) {
                     case 0:
                         is = ItemCreator.itemCreate(Material.LEATHER_HELMET, "Hut des Weihnachtselfen");
@@ -141,7 +141,7 @@ public class Reward {
                     RewardItems.addItem(biomiaPlayer, is, BiomiaServerType.Quest);
                 break;
             case Shop_Gutschein:
-                biomiaPlayer.getPlayer().sendMessage("\u00A74Einen 5€ Gutschein f\u00fcr den BILDNER-Verlag Online Shop!");
+                biomiaPlayer.getPlayer().sendMessage("\u00A74Einen 5€ Gutschein für den BILDNER-Verlag Online Shop!");
                 biomiaPlayer.getPlayer().sendMessage("\u00A74(Mindestbestellwert 10€)");
 
                 switch (id) {
@@ -159,7 +159,7 @@ public class Reward {
                 }
                 break;
             case SkyWars_Kit:
-                biomiaPlayer.getPlayer().sendMessage("\u00A74Ein SkyWars Kit! Schau direkt nach was f\u00fcr ein Kit es ist!");
+                biomiaPlayer.getPlayer().sendMessage("\u00A74Ein SkyWars Kit! Schau direkt nach was für ein Kit es ist!");
                 biomiaPlayer.getPlayer().sendMessage("\u00A74Info: Du kannst das Kit nur im EventCommands benutzen!");
                 switch (id) {
                     case 0:

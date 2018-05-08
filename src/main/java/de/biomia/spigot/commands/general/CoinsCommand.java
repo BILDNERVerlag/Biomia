@@ -17,16 +17,16 @@ public class CoinsCommand extends BiomiaCommand {
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
 
-        BiomiaPlayer p = Biomia.getBiomiaPlayer((Player) sender);
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) sender);
 
         if (args.length == 0)
-            sender.sendMessage(Messages.PREFIX + "\u00A77Du besitzt \u00A7b" + p.getCoins() + " \u00A77BC's!");
+            sender.sendMessage(String.format("%s%sDu besitzt %s%d%s BC's!", Messages.PREFIX, Messages.COLOR_MAIN, Messages.COLOR_SUB, bp.getCoins(), Messages.COLOR_MAIN));
 
-        if (p.getPlayer().hasPermission("biomia.coins")) {
+        if (bp.isSrStaff()) {
             if (args.length >= 1) {
                 String arg1 = args[0].toLowerCase();
                 if (args.length >= 2) {
-                    OfflineBiomiaPlayer target = p;
+                    OfflineBiomiaPlayer target = bp;
 
                     if (args.length >= 3)
                         target = Biomia.getOfflineBiomiaPlayer(args[2]);
@@ -38,7 +38,7 @@ public class CoinsCommand extends BiomiaCommand {
                         if (arg1.equals("get")) {
                             target = Biomia.getOfflineBiomiaPlayer(args[1]);
                         } else {
-                            sender.sendMessage("\u00A7cBitte gib eine \u00A7bZahl \u00A7cein\u00A77!");
+                            sender.sendMessage(String.format("%sBitte gib eine Zahl ein!", Messages.COLOR_MAIN));
                             return;
                         }
                     }
@@ -46,11 +46,11 @@ public class CoinsCommand extends BiomiaCommand {
                     switch (arg1) {
                         case "take":
                             if (target.getCoins() < coins) {
-                                sender.sendMessage(Messages.PREFIX + "\u00A7cDer Spieler " + target.getName() + " kann keinen negativen Betrag besitzen!");
+                                sender.sendMessage(String.format("%s%sDer Spieler %s%s%s kann keinen negativen Betrag besitzen!", Messages.PREFIX, Messages.COLOR_MAIN, Messages.COLOR_SUB, target.getName(), Messages.COLOR_MAIN));
                                 return;
                             } else {
                                 target.takeCoins(coins);
-                                sender.sendMessage(Messages.PREFIX + "\u00A77Dem Spieler" + target.getName() + " wurden \u00A7b" + coins + " \u00A77BC genommen!");
+                                sender.sendMessage(String.format("%s%sDem Spieler %s%s%s wurden %s%d%s BC genomen!", Messages.PREFIX, Messages.COLOR_MAIN, Messages.COLOR_SUB, target.getName(), Messages.COLOR_MAIN, Messages.COLOR_SUB, coins, Messages.COLOR_MAIN));
                             }
                             break;
                         case "set":
@@ -58,14 +58,14 @@ public class CoinsCommand extends BiomiaCommand {
                             break;
                         case "add":
                             target.addCoins(coins, false);
-                            sender.sendMessage(Messages.PREFIX + "\u00A77" + target.getName() + " wurden \u00A7b" + coins + " \u00A77BC hinzugef\u00fcgt!");
+                            sender.sendMessage(String.format("%s%sDem Spieler %s%s%s wurden %s%d%s BC hinzugefügt!", Messages.PREFIX, Messages.COLOR_MAIN, Messages.COLOR_SUB, target.getName(), Messages.COLOR_MAIN, Messages.COLOR_SUB, coins, Messages.COLOR_MAIN));
                             break;
                         case "get":
                             break;
                         default:
                             return;
                     }
-                    sender.sendMessage(Messages.PREFIX + "\u00A77Der Spieler " + target.getName() + " besitzt jetzt \u00A7b" + target.getCoins() + " \u00A77BC's!");
+                    sender.sendMessage(String.format("%s%sDer Spieler %s%s%s besitzt jetzt %s%d%s BC", Messages.PREFIX, Messages.COLOR_MAIN, Messages.COLOR_SUB, target.getName(), Messages.COLOR_MAIN, Messages.COLOR_SUB, coins, Messages.COLOR_MAIN));
                 }
             }
         }

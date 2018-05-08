@@ -47,7 +47,7 @@ public class EventCommands extends BiomiaCommand {
                                 if (args.length == 2) {
                                     WinterTag.bindCalendarDayToEntity(Integer.valueOf(args[1]), entity.getUniqueId());
                                     sender.sendMessage("Entity mit der uuid " + entity.getUniqueId().toString()
-                                            + " wurde hinzugef\u00fcgt zu Tag " + args[1] + "!");
+                                            + " wurde hinzugefügt zu Tag " + args[1] + "!");
                                 } else
                                     sender.sendMessage("/calendar add <Tag>");
 
@@ -56,7 +56,7 @@ public class EventCommands extends BiomiaCommand {
                                 if (args.length == 2) {
                                     Config.getConfig().set("Calendar." + args[1], null);
                                     saveConfig();
-                                    sender.sendMessage("Entities f\u00fcr den Tag " + args[1] + " wurden gel\u00F6scht!");
+                                    sender.sendMessage("Entities für den Tag " + args[1] + " wurden gelöscht!");
                                 } else
                                     sender.sendMessage("/calendar remove <Tag>");
 

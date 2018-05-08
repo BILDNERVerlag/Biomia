@@ -19,7 +19,7 @@ public class HelpCommand extends Command {
         TextComponent biomia = new TextComponent(ChatColor.GRAY + "/" + ChatColor.AQUA + "biomia " + ChatColor.RED + "um Links und die IP von unserem TS zu sehen!");
         biomia.setClickEvent(new ClickEvent(Action.SUGGEST_COMMAND, "/biomia"));
 
-        TextComponent hub = new TextComponent(ChatColor.GRAY + "/" + ChatColor.AQUA + "hub " + ChatColor.RED + "um zur Lobby zur\u00fcckzukehren");
+        TextComponent hub = new TextComponent(ChatColor.GRAY + "/" + ChatColor.AQUA + "hub " + ChatColor.RED + "um zur Lobby zurückzukehren");
         hub.setClickEvent(new ClickEvent(Action.SUGGEST_COMMAND, "/hub"));
 
         TextComponent register = new TextComponent(ChatColor.GRAY + "/" + ChatColor.AQUA + "register " + ChatColor.RED + "um dich zu registrieren");

@@ -38,7 +38,7 @@ public enum BiomiaAchievement {
      * falls ein Achievement unlocked wird (ansonsten false).
      */
     private static boolean unlock(BiomiaAchievement bA, int biomiaID) {
-        return MySQL.executeUpdate("INSERT INTO `" + bA.toString() + "` (`ID`) VALUES (" + biomiaID + ")", MySQL.Databases.achiev_db);
+        return MySQL.executeUpdate(String.format("INSERT INTO `%s` (`ID`) VALUES (%d)", bA.toString(), biomiaID), MySQL.Databases.achiev_db);
     }
 
     public static void logSwitch() {

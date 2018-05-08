@@ -35,7 +35,7 @@ public class BWCommand extends BiomiaCommand {
                         case "addloc":
                             if (args.length >= 2) {
                                 BedWarsConfig.addSpawnLocation(p.getLocation(), TeamColor.valueOf(args[1]), GameType.BED_WARS);
-                                sender.sendMessage("Spawnpoint wurde hinzugef\u00fcgt!");
+                                sender.sendMessage("Spawnpoint wurde hinzugefügt!");
                             } else
                                 sender.sendMessage("/bedwars addloc team");
                             break;
@@ -53,10 +53,10 @@ public class BWCommand extends BiomiaCommand {
                                     BedWarsConfig.addSpawnerLocations(l, ItemType.GOLD);
                                     break;
                                 default:
-                                    p.sendMessage("Schau auf einen verf\u00fcgbaren Block!");
+                                    p.sendMessage("Schau auf einen verfügbaren Block!");
                                     return;
                             }
-                            p.sendMessage("Spawner hinzugef\u00fcgt!");
+                            p.sendMessage("Spawner hinzugefügt!");
                             break;
                         case "villager":
                             p.getInventory().addItem(ItemCreator.itemCreate(Material.MONSTER_EGG, BedWarsItemNames.villagerSpawner));
@@ -68,7 +68,7 @@ public class BWCommand extends BiomiaCommand {
 
                                 if (blockFoot.getType() == Material.BED_BLOCK && blockHead.getType() == Material.BED_BLOCK) {
                                     BedWarsConfig.addBedsLocations(blockHead.getLocation(), blockFoot.getLocation(), TeamColor.valueOf(args[1]));
-                                    Bukkit.broadcastMessage("\u00A7cBett hinzugef\u00fcgt!");
+                                    Bukkit.broadcastMessage("\u00A7cBett hinzugefügt!");
                                 } else
                                     p.sendMessage(BedWarsMessages.blocksMustBeBeds);
                             } else
@@ -97,14 +97,14 @@ public class BWCommand extends BiomiaCommand {
                             break;
                     }
                 } else {
-                    sender.sendMessage("\u00A7c/bedwars setup (Setup f\u00fcr BedWars-Map)");
-                    sender.sendMessage("\u00A7c/bedwars addloc (F\u00fcgt einen Spawnpunkt hinzu)");
+                    sender.sendMessage("\u00A7c/bedwars setup (Setup für BedWars-Map)");
+                    sender.sendMessage("\u00A7c/bedwars addloc (Fügt einen Spawnpunkt hinzu)");
                     sender.sendMessage("\u00A7c/bedwars removelocs (Entfernt alle Spawnpunkte)");
                     sender.sendMessage("\u00A7c/bedwars deleteallsigns (Entfernt alle Schilder)");
-                    sender.sendMessage("\u00A7c/bedwars getTeamjoinersetter (Gibt den Teamjoinersetter zur\u00fcck)");
-                    sender.sendMessage("\u00A7c/bedwars getbedsetter (Gibt den Bedsetter zur\u00fcck)");
-                    sender.sendMessage("\u00A7c/bedwars getSpawner (Gibt alle Verf\u00fcgbaren Spawner zur\u00fcck)");
-                    sender.sendMessage("\u00A7c/bedwars villager (Gibt einen Villager Spawner zur\u00fcck)");
+                    sender.sendMessage("\u00A7c/bedwars getTeamjoinersetter (Gibt den Teamjoinersetter zurück)");
+                    sender.sendMessage("\u00A7c/bedwars getbedsetter (Gibt den Bedsetter zurück)");
+                    sender.sendMessage("\u00A7c/bedwars getSpawner (Gibt alle Verfügbaren Spawner zurück)");
+                    sender.sendMessage("\u00A7c/bedwars villager (Gibt einen Villager Spawner zurück)");
                 }
             }
         }

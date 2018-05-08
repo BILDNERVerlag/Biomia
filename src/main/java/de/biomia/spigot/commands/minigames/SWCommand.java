@@ -53,7 +53,7 @@ public class SWCommand extends BiomiaCommand {
                         case "addloc":
                             if (args.length >= 2) {
                                 SkyWarsConfig.addSpawnLocation(p.getLocation(), TeamColor.valueOf(args[1]), GameType.SKY_WARS);
-                                sender.sendMessage("Spawnpoint wurde hinzugef\u00fcgt!");
+                                sender.sendMessage("Spawnpoint wurde hinzugefügt!");
                                 return;
                             }
                         case "addchest":
@@ -64,12 +64,12 @@ public class SWCommand extends BiomiaCommand {
                                         case "g":
                                         case "good":
                                             SkyWarsConfig.addChestLocation(l, SkyWarsOpenChestEvent.ChestType.GoodChest);
-                                            sender.sendMessage("Bessere Kiste hinzugef\u00fcgt!");
+                                            sender.sendMessage("Bessere Kiste hinzugefügt!");
                                             break;
                                         case "n":
                                         case "normal":
                                             SkyWarsConfig.addChestLocation(l, SkyWarsOpenChestEvent.ChestType.NormalChest);
-                                            sender.sendMessage("Normale Kiste hinzugef\u00fcgt!");
+                                            sender.sendMessage("Normale Kiste hinzugefügt!");
                                             break;
                                         default:
                                             sender.sendMessage("/sw addchest <normal/good>");
@@ -84,9 +84,9 @@ public class SWCommand extends BiomiaCommand {
                             break;
                     }
                 } else {
-                    sender.sendMessage("\u00A7c/sw setup (Setup f\u00fcr SkyWars-Map)");
-                    sender.sendMessage("\u00A7c/sw addloc (F\u00fcgt einen Spawnpunkt hinzu)");
-                    sender.sendMessage("\u00A7c/sw addchest (F\u00fcgt eine Kiste hinzu)");
+                    sender.sendMessage("\u00A7c/sw setup (Setup für SkyWars-Map)");
+                    sender.sendMessage("\u00A7c/sw addloc (Fügt einen Spawnpunkt hinzu)");
+                    sender.sendMessage("\u00A7c/sw addchest (Fügt eine Kiste hinzu)");
                 }
             }
         }

@@ -34,7 +34,7 @@ public class ModusCommand extends Command {
                     } else if (switcher.toLowerCase().equals("off")) {
                         wartungsModus = false;
                         setModus(false);
-                        BungeeCord.getInstance().broadcast(new TextComponent("\u00A7cDer Server ist nicht l\u00e4nger im \u00A7bWartungsmodus\u00A7c!"));
+                        BungeeCord.getInstance().broadcast(new TextComponent("\u00A7cDer Server ist nicht länger im \u00A7bWartungsmodus\u00A7c!"));
                     }
                 } else
                     pp.sendMessage(new TextComponent("\u00A7c/modus <on | off>"));

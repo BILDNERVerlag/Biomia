@@ -38,7 +38,7 @@ class WinterEvent implements Listener {
                     }
                 } else if (getDay() < day)
                     e.getPlayer()
-                            .sendMessage("\u00A74Heute hab ich leider nichts f\u00fcr dich... komm doch am " + day + ". wieder!");
+                            .sendMessage("\u00A74Heute hab ich leider nichts für dich... komm doch am " + day + ". wieder!");
                 else
                     e.getPlayer().sendMessage(
                             "\u00A74Noch so einer der wieder zu spät kommt... ich war schon am " + day + ". dran!");

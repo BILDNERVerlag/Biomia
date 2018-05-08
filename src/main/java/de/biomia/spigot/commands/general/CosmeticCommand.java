@@ -1,6 +1,7 @@
 package de.biomia.spigot.commands.general;
 
 import de.biomia.spigot.Biomia;
+import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.general.cosmetics.Cosmetic;
 import de.biomia.spigot.general.cosmetics.MysteryChest;
@@ -27,11 +28,11 @@ public class CosmeticCommand extends BiomiaCommand {
 
         if (sender instanceof Player) {
             Player p = (Player) sender;
-            if (p.hasPermission("biomia.cosmetics")) {
+            BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
+            if (bp.isOwnerOrDev()) {
                 if (args.length >= 1) {
                     if (args[0].equalsIgnoreCase("add")) {
                         if (args.length >= 2) {
-
                             switch (args[1].toLowerCase()) {
                                 case "head":
                                     if (args.length >= 6) {

@@ -2,11 +2,11 @@ package de.biomia.spigot.messages;
 
 public class QuestMessages {
 
-    public static final String woodFarmEnter = "\u00A76Du betrittst den Farmbereich f\u00fcr Holz";
-    public static final String woodFarmLeave = "\u00A76Du verl\u00e4sst den Farmbereich f\u00fcr Holz";
+    public static final String woodFarmEnter = "\u00A76Du betrittst den Farmbereich für Holz";
+    public static final String woodFarmLeave = "\u00A76Du verlässt den Farmbereich für Holz";
 
-    public static final String cobbleFarmEnter = "\u00A76Du betrittst den Farmbereich f\u00fcr Bruchstein";
-    public static final String cobbleFarmLeave = "\u00A76Du verl\u00e4sst den Farmbereich f\u00fcr Bruchstein";
+    public static final String cobbleFarmEnter = "\u00A76Du betrittst den Farmbereich für Bruchstein";
+    public static final String cobbleFarmLeave = "\u00A76Du verlässt den Farmbereich für Bruchstein";
 
     public static final String tryingToRemoveQuest = "\u00A7bVersuche Quest zu entfernen...";
     public static final String tryingToRemoveAllQuests = "\u00A7bVersuche alle aktiven und abgeschlossenen Quests zu entfernen...";
@@ -22,7 +22,7 @@ public class QuestMessages {
     public static final String dividerLine = "\u00A78------------------------------------";
 
     public static final String allNPCsAligned = "\u00A7aAlle \u00A7b%n \u00A7aNPCs erfolgreich aufgereiht!";
-    public static final String bookFilled = "\u00A7aTagebuch erfolgreich aufgef\u00fcllt!";
+    public static final String bookFilled = "\u00A7aTagebuch erfolgreich aufgefüllt!";
     public static final String aiON = "\u00A74<<NPC-KI \u00A7cAKTIVIERT\u00A74!>>";
     public static final String aiOFF = "\u00A74<<NPC-KI \u00A7cDEAKTIVIERT\u00A74!>>";
 
