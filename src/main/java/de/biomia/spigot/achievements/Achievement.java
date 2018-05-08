@@ -12,7 +12,7 @@ public class Achievement {
     private final BiomiaAchievement achievement;
     private final int targetValue;
     private final String displayName;
-    private String description = "Leider ist keine Beschreibung vorhanden. Beschwer dich am besten bei den Admins.";
+    private String description = "Leider ist keine Beschreibung vorhanden. Beschwer dich am besten bei den Developer.";
     private String comment = null;
 
     //CONSTRUCTORS
