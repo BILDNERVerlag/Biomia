@@ -6,6 +6,7 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
+import de.biomia.universal.Messages;
 import de.biomia.universal.MySQL;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ClickEvent.Action;
@@ -45,13 +46,12 @@ public class PlayerToServerConnector implements PluginMessageListener {
 
         if (type.name().contains("Weltenlabor")) {
             ArrayList<String> list = executeQuery(
-                    "Select code from CodesFuerRaenge where rangEingeloestFuerPlayeruuid = '" + p.getUniqueId() + "'");
+                    String.format("Select code from CodesFuerRaenge where rangEingeloestFuerPlayeruuid = '%s'", p.getUniqueId()));
             if (list != null)
                 if (type.name().contains("1")) {
                     if (!list.contains("krs522tpr8a")) {
-                        p.sendMessage(
-                                "\u00A7cNur Spieler die das entsprechende Buch besitzen k\u00A7nnen der jeweiligen Welt beitreten");
-                        TextComponent text = new TextComponent("\u00A78>\u00A75F\u00fcr mehr Infos hier klicken!\u00A78<");
+                        p.sendMessage(String.format("%sNur Spieler die das entsprechende Buch besitzen können der jeweiligen Welt beitreten", Messages.COLOR_MAIN));
+                        TextComponent text = new TextComponent(String.format("%s>%sFür mehr Infos hier klicken!%s<", Messages.COLOR_AUX, Messages.COLOR_SUB, Messages.COLOR_AUX));
                         text.setClickEvent(new ClickEvent(Action.OPEN_URL, "https://biomia.bildnerverlag.de/forum/topic/id/18-code-eingabe"));
                         p.spigot().sendMessage(text);
                         return;
@@ -104,10 +104,8 @@ public class PlayerToServerConnector implements PluginMessageListener {
             Player to = Bukkit.getPlayer(in.readUTF());
             if (to != null && from != null) {
                 from.teleport(to);
-                from.sendMessage("\u00A7aDu wurdest zu \u00A76" + to.getName() + " \u00A7ateleportiert!");
+                from.sendMessage(String.format("%sDu wurdest zu %s%s %steleportiert!", Messages.COLOR_MAIN, Messages.COLOR_SUB, to.getName(), Messages.COLOR_MAIN));
             }
-
         }
     }
-
 }
