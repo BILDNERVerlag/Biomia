@@ -60,7 +60,7 @@ public class ReportListener implements Listener {
 
     public static void openSetTimeInventory(BiomiaPlayer biomiaPlayer) {
 
-        Inventory inv = Bukkit.createInventory(null, 27, "\u00A7cL\u00fcnge");
+        Inventory inv = Bukkit.createInventory(null, 27, "\u00A7cLänge");
 
         int i = 0;
 
@@ -123,7 +123,7 @@ public class ReportListener implements Listener {
             Inventory clickedInventory = e.getClickedInventory();
             if (clickedInventory != null)
                 switch (clickedInventory.getName()) {
-                    case "\u00A7eREPORT MEN\u00fc":
+                    case "\u00A7eREPORT MENÜ":
                         if (e.getCurrentItem() != null)
                             if (e.getCurrentItem().hasItemMeta())
                                 if (e.getCurrentItem().getItemMeta().getDisplayName().equals("\u00A7cBug")) {

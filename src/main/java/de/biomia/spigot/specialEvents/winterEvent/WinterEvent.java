@@ -33,7 +33,7 @@ class WinterEvent implements Listener {
                     if (WinterTag.hasOpened(Biomia.getBiomiaPlayer(e.getPlayer()), day)) {
                         e.getPlayer().sendMessage("\u00A74Warst du heute nicht schonmal da?");
                     } else {
-                        e.getPlayer().sendMessage("\u00A74Hoho! Sch\u00F6n dass du vorbei schaust!");
+                        e.getPlayer().sendMessage("\u00A74Hoho! Schön dass du vorbei schaust!");
                         openCalendar(Biomia.getBiomiaPlayer(e.getPlayer()), day);
                     }
                 } else if (getDay() < day)
@@ -41,7 +41,7 @@ class WinterEvent implements Listener {
                             .sendMessage("\u00A74Heute hab ich leider nichts f\u00fcr dich... komm doch am " + day + ". wieder!");
                 else
                     e.getPlayer().sendMessage(
-                            "\u00A74Noch so einer der wieder zu sp\u00fct kommt... ich war schon am " + day + ". dran!");
+                            "\u00A74Noch so einer der wieder zu spät kommt... ich war schon am " + day + ". dran!");
             }
         }
     }

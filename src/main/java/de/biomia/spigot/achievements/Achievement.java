@@ -18,11 +18,7 @@ public class Achievement {
     //CONSTRUCTORS
 
     private Achievement(BiomiaAchievement achievement, BiomiaStat stat, int targetValue, String displayName) {
-        this.achievement = achievement;
-        this.targetValue = targetValue;
-        this.displayName = displayName;
-        if (!BiomiaAchievement.stats.containsKey(stat)) BiomiaAchievement.stats.put(stat, new ArrayList<>());
-        BiomiaAchievement.stats.get(stat).add(this);
+        this(achievement, stat, targetValue, displayName, null);
     }
 
     private Achievement(BiomiaAchievement achievement, BiomiaStat stat, int targetValue, String displayName, String comment) {
@@ -30,11 +26,7 @@ public class Achievement {
         this.targetValue = targetValue;
         this.displayName = displayName;
         this.comment = comment;
-
-        if (!BiomiaAchievement.stats.containsKey(stat)) {
-            BiomiaAchievement.stats.put(stat, new ArrayList<>());
-        }
-        BiomiaAchievement.stats.get(stat).add(this);
+        BiomiaAchievement.stats.computeIfAbsent(stat, biomiaStat -> new ArrayList<>()).add(this);
     }
 
     //METHODS
@@ -42,8 +34,8 @@ public class Achievement {
     public static void init() {
         new Achievement(BiomiaAchievement.VerdieneFuenftausendCoins, BiomiaStat.CoinsAccumulated, 5000, "Sparfuchs")
                 .setDescription("Verdiene insgesamt mindestens 5000 BC.");
-        new Achievement(BiomiaAchievement.OeffneZehnTruhen, BiomiaStat.ChestsOpened, 10, "Truhen\u00f6ffner")
-                .setDescription("\u00d6ffne zehn Truhen.");
+        new Achievement(BiomiaAchievement.OeffneZehnTruhen, BiomiaStat.ChestsOpened, 10, "Truhenöffner")
+                .setDescription("Öffne zehn Truhen.");
         new Achievement(BiomiaAchievement.Nimm20Fallschaden, BiomiaStat.HealthLost, 20, "Aua Aua", "FALL")
                 .setDescription("Nimm 20 Fallschaden.");
     }

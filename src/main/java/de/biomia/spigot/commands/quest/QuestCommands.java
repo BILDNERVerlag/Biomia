@@ -283,7 +283,7 @@ public class QuestCommands extends BiomiaCommand {
                 + "\u00A76/report\u00A7a-Funktion, damit das Problem behandelt werden kann.");
         p.sendMessage("\u00A77\u00A7oJede Benutzung des Notfall-Resets wird verzeichnet. Den "
                 + "Notfall-Reset zu missbrauchen - auf welche Art auch immer - "
-                + "stellt einen Regelversto\u00df dar und kann mit einem tempor\u00e4ren "
+                + "stellt einen Regelversto\u00df dar und kann mit einem temporären "
                 + "oder permanenten Bann bestraft werden.");
     }
 

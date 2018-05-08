@@ -39,7 +39,7 @@ public class EventCommands extends BiomiaCommand {
 
                         Entity entity = p.getNearbyEntities(1, 5, 1).get(0);
                         if (entity == null) {
-                            sender.sendMessage("Stell dich in die N\u00fche eines Entities");
+                            sender.sendMessage("Stell dich in die Nähe eines Entities");
                             return;
                         }
                         switch (args[0].toLowerCase()) {

@@ -23,7 +23,7 @@ public class ReportCommand extends BiomiaCommand {
                 ((Player) sender).openInventory(ReportManager.grund);
                 OfflineBiomiaPlayer bp = Biomia.getOfflineBiomiaPlayer(args[0]);
                 if (bp.getBiomiaPlayerID() == -1)
-                    sender.sendMessage("00A7cDieser Spieler war noch niw Online!");
+                    sender.sendMessage(String.format("%sDieser Spieler war noch nie Online!", Messages.COLOR_MAIN));
                 else
                     new PlayerReport(Biomia.getBiomiaPlayer((Player) sender), bp);
             } else {

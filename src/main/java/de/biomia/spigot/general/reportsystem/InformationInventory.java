@@ -66,9 +66,9 @@ class InformationInventory {
                     wann.set(Calendar.SECOND, timestemp);
 
                     if (perm)
-                        meta.setLore(Arrays.asList("", "\u00A7r\u00A7bWann: \u00A7c" + df.format(wann.getTime()), "\u00A7r\u00A7bGrund: \u00A7c" + reason, "\u00A7r\u00A7bGebannt von: \u00A7c" + Biomia.getOfflineBiomiaPlayer(von).getName(), "\u00A7r\u00A7bTempor\u00fcr: \u00A7cNein", "\u00A7r\u00A7bWurde Entbannt: \u00A7c" + (!wurdeEntbannt ? "Nein" : "Ja")));
+                        meta.setLore(Arrays.asList("", "\u00A7r\u00A7bWann: \u00A7c" + df.format(wann.getTime()), "\u00A7r\u00A7bGrund: \u00A7c" + reason, "\u00A7r\u00A7bGebannt von: \u00A7c" + Biomia.getOfflineBiomiaPlayer(von).getName(), "\u00A7r\u00A7bTemporär: \u00A7cNein", "\u00A7r\u00A7bWurde Entbannt: \u00A7c" + (!wurdeEntbannt ? "Nein" : "Ja")));
                     else
-                        meta.setLore(Arrays.asList("", "\u00A7r\u00A7bWann: \u00A7c" + df.format(wann.getTime()), "\u00A7r\u00A7bBis: \u00A7c" + df.format(bis.getTime()), "\u00A7r\u00A7bGrund: \u00A7c" + reason, "\u00A7r\u00A7bGebannt von: \u00A7c" + Biomia.getOfflineBiomiaPlayer(von).getName(), "\u00A7r\u00A7bTempor\u00fcr: \u00A7cJa", "\u00A7r\u00A7bWurde Entbannt: \u00A7c" + (!wurdeEntbannt ? "Nein" : "Ja")));
+                        meta.setLore(Arrays.asList("", "\u00A7r\u00A7bWann: \u00A7c" + df.format(wann.getTime()), "\u00A7r\u00A7bBis: \u00A7c" + df.format(bis.getTime()), "\u00A7r\u00A7bGrund: \u00A7c" + reason, "\u00A7r\u00A7bGebannt von: \u00A7c" + Biomia.getOfflineBiomiaPlayer(von).getName(), "\u00A7r\u00A7bTemporär: \u00A7cJa", "\u00A7r\u00A7bWurde Entbannt: \u00A7c" + (!wurdeEntbannt ? "Nein" : "Ja")));
 
                     if (wurdeEntbannt) {
                         meta.getLore().add("\u00A7r\u00A7bEntbannt von: \u00A7c" + Biomia.getOfflineBiomiaPlayer(entbanntVon).getName());
@@ -111,9 +111,9 @@ class InformationInventory {
                     wann.set(Calendar.SECOND, timestamp);
 
                     if (perm) {
-                        meta.setLore(Arrays.asList("", "\u00A7r\u00A7bWann: \u00A7c" + df.format(wann.getTime()), "\u00A7r\u00A7bGrund: \u00A7c" + reason, "\u00A7r\u00A7bGebannt von: \u00A7c" + Biomia.getOfflineBiomiaPlayer(von).getName(), "\u00A7r\u00A7bTempor\u00fcr: \u00A7cNein", ""));
+                        meta.setLore(Arrays.asList("", "\u00A7r\u00A7bWann: \u00A7c" + df.format(wann.getTime()), "\u00A7r\u00A7bGrund: \u00A7c" + reason, "\u00A7r\u00A7bGebannt von: \u00A7c" + Biomia.getOfflineBiomiaPlayer(von).getName(), "\u00A7r\u00A7bTemporär: \u00A7cNein", ""));
                     } else {
-                        meta.setLore(Arrays.asList("", "\u00A7r\u00A7bWann: \u00A7c" + df.format(wann.getTime()), "\u00A7r\u00A7bBis: \u00A7c" + df.format(bis.getTime()), "\u00A7r\u00A7bGrund: \u00A7c" + reason, "\u00A7r\u00A7bGebannt von: \u00A7c" + Biomia.getOfflineBiomiaPlayer(von).getName(), "\u00A7r\u00A7bTempor\u00fcr: \u00A7cJa", ""));
+                        meta.setLore(Arrays.asList("", "\u00A7r\u00A7bWann: \u00A7c" + df.format(wann.getTime()), "\u00A7r\u00A7bBis: \u00A7c" + df.format(bis.getTime()), "\u00A7r\u00A7bGrund: \u00A7c" + reason, "\u00A7r\u00A7bGebannt von: \u00A7c" + Biomia.getOfflineBiomiaPlayer(von).getName(), "\u00A7r\u00A7bTemporär: \u00A7cJa", ""));
                     }
                     is.setItemMeta(meta);
                 }
