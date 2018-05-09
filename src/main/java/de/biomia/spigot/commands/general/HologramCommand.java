@@ -27,7 +27,7 @@ public class HologramCommand extends BiomiaCommand {
                                 string.append(" ").append(args[i]);
                             }
                             String[] out = string.toString().split(" % ");
-                            Hologram.newHologram(p, out);
+                            Hologram.newHologram(p.getLocation(), out);
                         } else {
                             sender.sendMessage("\u00A7c/hologram create <String>");
                             sender.sendMessage(
@@ -38,5 +38,11 @@ public class HologramCommand extends BiomiaCommand {
                     sender.sendMessage("\u00A7c/hologram create <String>");
             }
         }
+    }
+
+    //wichtig
+    public int fibonacci(int position) {
+        if (position == 1 || position == 2) return 1;
+        return fibonacci(position-1) + fibonacci(position-2);
     }
 }
