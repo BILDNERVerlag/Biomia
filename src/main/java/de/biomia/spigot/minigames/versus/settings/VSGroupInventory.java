@@ -3,8 +3,10 @@ package de.biomia.spigot.minigames.versus.settings;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
+import de.biomia.spigot.messages.KitPVPMessages;
 import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.minigames.general.kits.KitManager;
+import de.biomia.spigot.minigames.kitpvp.KitPVPManager;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -68,6 +70,8 @@ public class VSGroupInventory implements Listener {
             if (g.getSlot() == slot) {
                 if (g.getTitle().equals(SkyWarsItemNames.kitItemName))
                     KitManager.getManager(bp).openKitMenu();
+                if (g.getTitle().equals(KitPVPMessages.kitItemName))
+                    KitPVPManager.openSelectorInventory(bp);
                 else
                     g.getInventory(bp).openInventory();
                 return;

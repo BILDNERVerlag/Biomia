@@ -31,20 +31,6 @@ public class WarteLobbyListener extends BiomiaListener {
 
     public WarteLobbyListener(boolean isVersus) {
         this.isVersus = isVersus;
-        if (isVersus) {
-            new Teleporter(new Location(Bukkit.getWorld("Spawn"), -51, 100, -44), new Location(Bukkit.getWorld("Spawn"), -13, 200, -6), new TeleportExecutor() {
-                @Override
-                public void execute(BiomiaPlayer bp) {
-                    KitPVPManager.removeFromEditMode(bp);
-                }
-            }).setInverted();
-            new Teleporter(new Location(Bukkit.getWorld("Spawn"), -51, 100, -44), new Location(Bukkit.getWorld("Spawn"), -13, 200, -6), new TeleportExecutor() {
-                @Override
-                public void execute(BiomiaPlayer bp) {
-                    KitPVPManager.setToEditMode(bp);
-                }
-            });
-        }
         Bukkit.getPluginManager().registerEvents(new GameRewardHandler(), Main.getPlugin());
     }
 

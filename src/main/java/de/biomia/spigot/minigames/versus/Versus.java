@@ -1,5 +1,6 @@
 package de.biomia.spigot.minigames.versus;
 
+import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.BiomiaServer;
 import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
@@ -9,7 +10,13 @@ import de.biomia.spigot.commands.minigames.SWCommand;
 import de.biomia.spigot.commands.minigames.versus.VSCommands;
 import de.biomia.spigot.minigames.WarteLobbyListener;
 import de.biomia.spigot.minigames.general.chests.Items;
+import de.biomia.spigot.minigames.kitpvp.KitPVPManager;
+import de.biomia.spigot.tools.TeleportExecutor;
+import de.biomia.spigot.tools.Teleporter;
+import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 
 public class Versus extends BiomiaServer {
 
@@ -31,6 +38,24 @@ public class Versus extends BiomiaServer {
         instance = this;
         manager = new VSManager();
         Items.init();
+        World duell = Bukkit.getWorld("Spawn");
+        //sets gamemode when entering temple
+        new Teleporter(new Location(duell, -51, 100, -37.5), new Location(duell, -13, 200, -6), new TeleportExecutor() {
+            @Override
+            public void execute(BiomiaPlayer bp) {
+                KitPVPManager.setToEditMode(bp);
+            }
+        });
+        new Teleporter(new Location(duell, -51, 100, -37.5), new Location(duell, -13, 200, -6), new TeleportExecutor() {
+            @Override
+            public void execute(BiomiaPlayer bp) {
+                KitPVPManager.removeFromEditMode(bp);
+                bp.getPlayer().sendMessage(String.format("%sDein Kit wurde gespeichert.", Messages.COLOR_MAIN));
+            }
+        }).setInverted();
+        //teleporters
+        new Teleporter(new Location(duell, -41, 83.5, -101), new Location(duell, -38, 86, -100), new Location(duell, -36.5, 105, -40.5, -90, 0));
+        new Teleporter(new Location(duell, -38, 105, -42), new Location(duell, -37, 105, -39), new Location(duell, -39.5, 84, -101.5, -180, 0));
     }
 
     @Override

@@ -3,6 +3,7 @@ package de.biomia.spigot.minigames.versus;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
+import de.biomia.spigot.messages.KitPVPMessages;
 import de.biomia.spigot.messages.SkyWarsItemNames;
 import de.biomia.spigot.messages.SkyWarsMessages;
 import de.biomia.spigot.messages.manager.ActionBar;
@@ -70,6 +71,7 @@ public class VSManager implements Listener {
         VSGroup kitpvp = main.registerDeaktivatableGroup(GameType.KIT_PVP_VS, kitPvPSettingItem, "\u00A7bKitPvP", 4, 0, true);
         VSGroup kitpvpsMaps = kitpvp.registerGroup(GameType.KIT_PVP_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
         kitpvpsMaps.registerSetting(map = new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, kitpvpsMaps, "Temple"));
+        kitpvp.registerGroup(GameType.KIT_PVP_VS, SkyWarsItemNames.kitItem, KitPVPMessages.kitItemName, 1);
         map.setAsMap();
     }
 
