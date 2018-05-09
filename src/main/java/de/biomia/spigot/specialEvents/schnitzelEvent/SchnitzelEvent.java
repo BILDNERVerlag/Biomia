@@ -27,7 +27,7 @@ import java.util.*;
 
 public class SchnitzelEvent extends BiomiaServer {
 
-    private static final String backpackName = "00A7cBackpack";
+    private static final String backpackName = "§cBackpack";
     private static ItemStack book;
     private static SchnitzelEvent instance;
     private static final HashMap<Integer, Schnitzel> schnitzelMap = new HashMap<>();
@@ -39,7 +39,7 @@ public class SchnitzelEvent extends BiomiaServer {
     public static HashMap<String, Integer> schnitzelHighScore = new HashMap<>();
     private static final HashMap<String, ArrayList<String>> foundBooks = new HashMap<>();
     private static final HashMap<String, ArrayList<String>> foundSchnitzel = new HashMap<>();
-    private static final String placeholder = "00A7700A7m---";
+    private static final String placeholder = "§7§m---";
 
     public SchnitzelEvent() {
         super(BiomiaServerType.Event_Schnitzeljagd);
@@ -223,37 +223,37 @@ public class SchnitzelEvent extends BiomiaServer {
         World world = spawn.getWorld();
 
         //tempel
-        secretBook = new SecretBook("00A7cBIO00A7bMIA 00A77| 00A7cWeltenlabor#2");
+        secretBook = new SecretBook("§cBIO§bMIA §7| §cWeltenlabor#2");
         secretBook.setDescription("Es liegt tief im Tempel", "unter dem Urwald,", "du hast es schon bald.");
         secretBook.setLocation(new Location(world, 122.5, 60.2, 671.5));
         secretBook.spawn();
 
         //lavasee
-        secretBook = new SecretBook("00A7cBIO00A7bMIA 00A77| 00A7cDas geheime Buch");
+        secretBook = new SecretBook("§cBIO§bMIA §7| §cDas geheime Buch");
         secretBook.setDescription("Balancier 00dcber die Magma", "(das hier ist kein Manga!)");
         secretBook.setLocation(new Location(world, 361.5, 16.2, 322.5));
         secretBook.spawn();
 
         //00dcber der br00dccke
-        secretBook = new SecretBook("00A7cBIO00A7bMIA 00A77| 00A7cDas Obsidian-Gef00e4ngnis");
+        secretBook = new SecretBook("§cBIO§bMIA §7| §cDas Obsidian-Gef00e4ngnis");
         secretBook.setDescription("Manchmal f00dchrt ein Umweg", "zum Ziel!", "Besonders auf Br00dccken!");
         secretBook.setLocation(new Location(world, 210, 25.2, 403));
         secretBook.spawn();
 
         //jnr im see
-        secretBook = new SecretBook("00A7cBIO00A7bMIA 00A77| 00A7cDas Labyrinth des Todes");
+        secretBook = new SecretBook("§cBIO§bMIA §7| §cDas Labyrinth des Todes");
         secretBook.setDescription("Inmitten des dunklen Sees", "Pass auf, dass sicher du stehst!");
         secretBook.setLocation(new Location(world, 218.5, 25.2, 260.5));
         secretBook.spawn();
 
         //totenkopf-lava-ding
-        secretBook = new SecretBook("00A7cBIO00A7bMIA 00A77| 00A7cWeltenlabor#1");
+        secretBook = new SecretBook("§cBIO§bMIA §7| §cWeltenlabor#1");
         secretBook.setDescription("Zwischen den Knochentoren", "Ist leicht alles verloren.");
         secretBook.setLocation(new Location(world, 520, 17.2, 390.5));
         secretBook.spawn();
 
         //unter br00dccke
-        secretBook = new SecretBook("00A7cBIO00A7bMIA 00A77| 00A7cDas Handbuch");
+        secretBook = new SecretBook("§cBIO§bMIA §7| §cDas Handbuch");
         secretBook.setDescription("Unter der zerbrochenen Br00dccke", "Auf dass es dir gl00dccke!");
         secretBook.setLocation(new Location(world, 264, 5.2, 414));
         secretBook.spawn();
@@ -309,7 +309,7 @@ public class SchnitzelEvent extends BiomiaServer {
             if (!foundSchnitzel.contains(each.getID() + "")) {
                 item.setType(Material.STONE);
                 ItemMeta meta = item.getItemMeta();
-                meta.setDisplayName("00A77???");
+                meta.setDisplayName("§7???");
                 item.setItemMeta(meta);
             }
             inv.setItem(each.getSlot(), item);
@@ -320,7 +320,7 @@ public class SchnitzelEvent extends BiomiaServer {
             ItemStack item = each.getItem().clone();
             if (!foundBooks.contains(each.getID() + "")) {
                 ItemMeta meta = item.getItemMeta();
-                meta.setDisplayName("00A77???");
+                meta.setDisplayName("§7???");
                 item.setItemMeta(meta);
                 item.setType(Material.STONE_PLATE);
             }
@@ -349,7 +349,7 @@ public class SchnitzelEvent extends BiomiaServer {
     @SuppressWarnings("unchecked")
     public static ItemStack getInfoBook() {
         if (book == null) {
-            book = ItemCreator.itemCreate(Material.WRITTEN_BOOK, "00A7bHandbuch der Schnitzelj00e4ger");
+            book = ItemCreator.itemCreate(Material.WRITTEN_BOOK, "§bHandbuch der Schnitzelj00e4ger");
             BookMeta bookMeta = (BookMeta) book.getItemMeta();
             List<IChatBaseComponent> pages;
             try {
@@ -361,11 +361,11 @@ public class SchnitzelEvent extends BiomiaServer {
             }
 
             TextComponent textComp3 = new TextComponent(
-                    "00A7lSchnitzeljagd!00A7f\n\n" +
-                            "00A71Sammle Schnitzel und B00dccher00A7r, " +
+                    "§lSchnitzeljagd!§f\n\n" +
+                            "§1Sammle Schnitzel und B00dccher§r, " +
                             "sei einer der ersten um dir Preise " +
                             "zu sichern!\n\n" +
-                            "00A71T00f6te Monster00A7r! Je mehr Monster " +
+                            "§1T00f6te Monster§r! Je mehr Monster " +
                             "du t00f6test, umso besser wird " +
                             "deine Ausr00dcstung!"
             );
@@ -373,38 +373,38 @@ public class SchnitzelEvent extends BiomiaServer {
             pages.add(page3);
 
             TextComponent textComp1 = new TextComponent(
-                    "00A7lCheckpoints:00A7f\n" +
+                    "§lCheckpoints:§f\n" +
                             "Alle 2 Minuten wird\n" +
                             "automatisch ein\n" +
                             "Checkpoint (Spawnpunkt)\n" +
                             "auf deine aktuelle\n" +
                             "Position gesetzt.\n" +
-                            "00A71/checkpoint00A7r f00dcr TP\n" +
+                            "§1/checkpoint§r f00dcr TP\n" +
                             "zum letzten Checkpoint\n" +
-                            "00A71/checkpoint set00A7r Setze\n" +
+                            "§1/checkpoint set§r Setze\n" +
                             "den Checkpoint manuell");
             //TextComponent textComp2 = new TextComponent("\n\nINFO TEXT HINZUF00dcGEN!");
             //textComp1.addExtra(textComp2);
             IChatBaseComponent page = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(textComp1));
             pages.add(page);
             TextComponent textComp2 = new TextComponent(
-                    "00A7lPreise:00A7f\n" +
+                    "§lPreise:§f\n" +
                             "Die Hauptpreise gehen je an die besten Spieler in jeder Kategorie:\n" +
                             "-Meiste Monsterpunkte\n" +
-                            " 00A71Roccat Gaming Maus00A7r\n" +
+                            " §1Roccat Gaming Maus§r\n" +
                             "-Am schnellsten alle Schnitzel gefunden\n" +
-                            " 00A711 XBox Controller00A7r\n" +
+                            " §11 XBox Controller§r\n" +
                             "-Am schnellsten alle B00dccher gefunden\n" +
-                            " 00A71alle Biomia-B00dccher"
+                            " §1alle Biomia-B00dccher"
             );
             IChatBaseComponent page2 = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(textComp2));
             pages.add(page2);
             TextComponent textComp4 = new TextComponent(
                     "2. Pl00e4tze:\n" +
-                            " 00A71Biomia Band 1 +\n" +
-                            " 00A71Biomia-Tasse00A7r\n" +
+                            " §1Biomia Band 1 +\n" +
+                            " §1Biomia-Tasse§r\n" +
                             "3. Pl00e4tze:\n" +
-                            " 00A71Biomia Weltenlabor#200A7r\n\n" +
+                            " §1Biomia Weltenlabor#2§r\n\n" +
                             "Viel Spa00df w00dcnscht\n" +
                             "das BIOMIA-Team!"
             );
@@ -425,20 +425,20 @@ public class SchnitzelEvent extends BiomiaServer {
     private static void initScoreboard() {
         Objective o = sb.registerNewObjective("aaa", "bbb");
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
-        o.setDisplayName("\u00A7cBIO\u00A7bMIA");
+        o.setDisplayName("§cBIO§bMIA");
         o.getScore(" ").setScore(13);
-        o.getScore("\u00A7cMonsterpunkte:").setScore(12);
-        o.getScore("\u00A7c\u00A7b").setScore(11);
-        o.getScore("\u00A7a").setScore(10);
-        o.getScore("\u00A7b").setScore(9);
-        o.getScore("\u00A7cSchnitzel:").setScore(8);
-        o.getScore("\u00A7f\u00A7b").setScore(7);
-        o.getScore("\u00A71").setScore(6);
-        o.getScore("\u00A72").setScore(5);
-        o.getScore("\u00A7cB00dccher:").setScore(4);
-        o.getScore("\u00A7r\u00A7b").setScore(3);
-        o.getScore("\u00A73").setScore(2);
-        o.getScore("\u00A7l").setScore(1);
+        o.getScore("§cMonsterpunkte:").setScore(12);
+        o.getScore("§c§b").setScore(11);
+        o.getScore("§a").setScore(10);
+        o.getScore("§b").setScore(9);
+        o.getScore("§cSchnitzel:").setScore(8);
+        o.getScore("§f§b").setScore(7);
+        o.getScore("§1").setScore(6);
+        o.getScore("§2").setScore(5);
+        o.getScore("§cB00dccher:").setScore(4);
+        o.getScore("§r§b").setScore(3);
+        o.getScore("§3").setScore(2);
+        o.getScore("§l").setScore(1);
 
         mobHS = sb.registerNewTeam("mobsHS");
         mobHSName = sb.registerNewTeam("mobsHSName");
@@ -446,21 +446,20 @@ public class SchnitzelEvent extends BiomiaServer {
         schnitzelHSName = sb.registerNewTeam("schnitzelHSName");
         bookHS = sb.registerNewTeam("bookHS");
         bookHSName = sb.registerNewTeam("bookHSName");
-        //TODO replace with real §
-        mobHS.setPrefix("00A7r 00A7r 00A7r 00A7r");
-        schnitzelHS.setPrefix("00A7r 00A7r 00A7r 00A7r");
-        bookHS.setPrefix("00A7r 00A7r 00A7r 00A7r");
+        mobHS.setPrefix("§r §r §r §r");
+        schnitzelHS.setPrefix("§r §r §r §r");
+        bookHS.setPrefix("§r §r §r §r");
 
-        mobHSName.addEntry("\u00A7c\u00A7b");
-        mobHSName.setPrefix("00A77#00A7c1 ");
-        schnitzelHSName.addEntry("\u00A7f\u00A7b");
-        schnitzelHSName.setPrefix("00A77#00A7c1 ");
-        bookHSName.addEntry("\u00A7r\u00A7b");
-        bookHSName.setPrefix("00A77#00A7c1 ");
+        mobHSName.addEntry("§c§b");
+        mobHSName.setPrefix("§7#§c1 ");
+        schnitzelHSName.addEntry("§f§b");
+        schnitzelHSName.setPrefix("§7#§c1 ");
+        bookHSName.addEntry("§r§b");
+        bookHSName.setPrefix("§7#§c1 ");
 
-        mobHS.addEntry("\u00A7a");
-        schnitzelHS.addEntry("\u00A71");
-        bookHS.addEntry("\u00A73");
+        mobHS.addEntry("§a");
+        schnitzelHS.addEntry("§1");
+        bookHS.addEntry("§3");
 
         reloadSBBooks();
         reloadSBSchnitzel();
@@ -469,8 +468,8 @@ public class SchnitzelEvent extends BiomiaServer {
             public void run() {
                 mobsKilled = sortMonsterPoints(mobsKilled);
 
-                mobHS.setPrefix(mobsKilled.isEmpty() ? "00A7700A7m---" : "00A77" + mobsKilled.values().stream().findFirst().map(MonsterPunkte::getPoints).orElse(null));
-                mobHSName.setSuffix(mobsKilled.isEmpty() ? "00A7700A7m---" : mobsKilled.values().stream().findFirst().map(MonsterPunkte::getName).orElse(null));
+                mobHS.setPrefix(mobsKilled.isEmpty() ? "§7§m---" : "§7" + mobsKilled.values().stream().findFirst().map(MonsterPunkte::getPoints).orElse(null));
+                mobHSName.setSuffix(mobsKilled.isEmpty() ? "§7§m---" : mobsKilled.values().stream().findFirst().map(MonsterPunkte::getName).orElse(null));
             }
         }.runTaskTimer(Main.getPlugin(), 0, 20 * 5);
 
@@ -482,7 +481,7 @@ public class SchnitzelEvent extends BiomiaServer {
         String integer = getFirstInt(schnitzelHighScore);
 
         schnitzelHSName.setSuffix(name == null ? placeholder : name);
-        schnitzelHS.setPrefix(integer == null ? placeholder : "00A77" + Time.toFromatString("HH:mm:ss", Integer.valueOf(integer)));
+        schnitzelHS.setPrefix(integer == null ? placeholder : "§7" + Time.toFromatString("HH:mm:ss", Integer.valueOf(integer)));
     }
 
     public static void reloadSBBooks() {
@@ -491,7 +490,7 @@ public class SchnitzelEvent extends BiomiaServer {
         String integer = getFirstInt(booksHighScore);
 
         bookHSName.setSuffix(name == null ? placeholder : name);
-        bookHS.setPrefix(integer == null ? placeholder : "00A77" + Time.toFromatString("HH:mm:ss", Integer.valueOf(integer)));
+        bookHS.setPrefix(integer == null ? placeholder : "§7" + Time.toFromatString("HH:mm:ss", Integer.valueOf(integer)));
     }
 
     public static String getFirstName(HashMap<String, Integer> map) {
