@@ -84,16 +84,17 @@ public class Lobby extends BiomiaServer {
     private void initNavigator() {
         navigator = Bukkit.createInventory(null, 27, "\u00A7cNavigator");
         // First Line
-        navigator.setItem(2, ItemCreator.itemCreate(Material.WORKBENCH, "\u00A76Bau Welt"));
+        navigator.setItem(2, ItemCreator.itemCreate(Material.BRICK, "\u00A76Bau Welt"));
         navigator.setItem(4, ItemCreator.itemCreate(Material.DRAGON_EGG, "\u00A75Quests"));
         navigator.setItem(6, ItemCreator.itemCreate(Material.THIN_GLASS, "\u00A7eDemo Welt", Short.valueOf("3")));
         // Second Line
-        navigator.setItem(12, ItemCreator.itemCreate(Material.MAGMA_CREAM, "\u00A7cSpawn"));
-        navigator.setItem(14, ItemCreator.itemCreate(Material.IRON_SWORD, "\u00A76Freebuild Welt"));
+        navigator.setItem(11, ItemCreator.itemCreate(Material.CHEST, "\u00A75Mysteriöse Box"));
+        navigator.setItem(13, ItemCreator.itemCreate(Material.MAGMA_CREAM, "\u00A7cSpawn"));
+        navigator.setItem(15, ItemCreator.itemCreate(Material.IRON_PICKAXE, "\u00A76Freebuild Welt"));
         // Third Line
         navigator.setItem(20, ItemCreator.itemCreate(Material.BED, "\u00A74BedWars"));
-        navigator.setItem(22, ItemCreator.itemCreate(Material.CHEST, "\u00A75Mysteriöse Box"));
-        navigator.setItem(24, ItemCreator.itemCreate(Material.GRASS, "\u00A7bSkyWars"));
+        navigator.setItem(22, ItemCreator.itemCreate(Material.GRASS, "\u00A7bSkyWars"));
+        navigator.setItem(24, ItemCreator.itemCreate(Material.IRON_SWORD, "\u00A7aDuell"));
     }
 
     private void initPortals() {
@@ -107,7 +108,6 @@ public class Lobby extends BiomiaServer {
 
         Location backTeleportationQuests = new Location(lobby, 480.5, 123, 359.5, 90, 0);
 
-        // Quests
         new Teleporter(new Location(lobby, 446, 124, 359), new Location(lobby, 447, 125, 361), backTeleportationQuests, BiomiaServerType.Quest);
         new Teleporter(new Location(lobby, 459, 124, 377), new Location(lobby, 460, 125, 378), backTeleportationQuests, BiomiaServerType.Quest);
         new Teleporter(new Location(lobby, 459, 124, 341), new Location(lobby, 460, 125, 342), backTeleportationQuests, BiomiaServerType.Quest);
@@ -121,6 +121,8 @@ public class Lobby extends BiomiaServer {
         new Teleporter(new Location(lobby, 459.5, 71, 264), new Location(lobby, 460, 73, 269), new Location(Bukkit.getWorld("SkywarsSignlobby"), 370.5, 82, 264.5, 70, 0));
         // BedWars
         new Teleporter(new Location(lobby, 459.5, 71, 252), new Location(lobby, 460, 73, 257), new Location(Bukkit.getWorld("BedwarsSignlobby"), 370.5, 82, 264.5, 70, 0));
+        // Versus
+        new Teleporter(new Location(lobby, 459.5, 71, 240), new Location(lobby, 460, 73, 245), new Location(lobby, 461.5, 70, 244, -90, 0), BiomiaServerType.Duell);
 
         // Grenzen nach außen
         new Teleporter(new Location(Bukkit.getWorld("BedwarsSignlobby"), 0, -1000, 0), new Location(Bukkit.getWorld("BedwarsSignlobby"), 800, 1000, 1024), new Location(Bukkit.getWorld("BedwarsSignlobby"), 370.5, 82, 264.5, 70, 0)).setInverted();

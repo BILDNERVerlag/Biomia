@@ -17,10 +17,15 @@ import de.biomia.spigot.minigames.versus.settings.VSGroup;
 import de.biomia.spigot.minigames.versus.settings.VSRequest;
 import de.biomia.spigot.minigames.versus.settings.VSSettingItem;
 import de.biomia.spigot.minigames.versus.settings.VSSettings;
+import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.WorldCopy;
 import de.biomia.universal.Messages;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.chat.ComponentSerializer;
+import net.minecraft.server.v1_12_R1.IChatBaseComponent;
 import org.bukkit.*;
+import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftMetaBook;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
@@ -30,15 +35,17 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class VSManager implements Listener {
 
     private final HashMap<BiomiaPlayer, VSSettings> settings = new HashMap<>();
     private final HashMap<GameInstance, VSRequest> requests = new HashMap<>();
-    private final ItemStack toChallangeItem = ItemCreator.itemCreate(Material.DIAMOND_SWORD, "\u00A7cHerausforderer");
+    private final ItemStack challengeItem = ItemCreator.itemCreate(Material.DIAMOND_SWORD, "\u00A7cHerausforderer");
     private final ItemStack settingItem = ItemCreator.itemCreate(Material.REDSTONE, "\u00A7cEinstellungen");
     private VSGroup main;
 
@@ -93,7 +100,70 @@ public class VSManager implements Listener {
     public void setInventory(Player p) {
         p.getInventory().clear();
         p.getInventory().setItem(2, settingItem);
-        p.getInventory().setItem(6, toChallangeItem);
+        p.getInventory().setItem(6, challengeItem);
+        giveBook(p);
+        BackToLobby.getLobbyItem(p, 8);
+    }
+
+
+    @SuppressWarnings("unchecked")
+    private void giveBook(Player p) {
+        ItemStack book = ItemCreator.itemCreate(Material.WRITTEN_BOOK);
+        BookMeta bookMeta = (BookMeta) (book.getItemMeta());
+        List<IChatBaseComponent> pages;
+        // Referenz auf die Liste der Buchseiten holen
+        try {
+            pages = (List<IChatBaseComponent>) CraftMetaBook.class.getDeclaredField("pages").get(bookMeta);
+            pages.clear();
+        } catch (ReflectiveOperationException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        // Seiten befuellen
+        TextComponent page0 = new TextComponent("Willkommen auf dem Duell-Server der " + Messages.BIOMIA + "-Tec! " +
+                "Hier kannst du in den Modi \u00A7cSkyWars\u00A7r, \u00A7cBedWars\u00A7r und \u00A7cKitPVP\u00A7r einzeln gegeneinander antreten.\n\n" +
+                "\u00A7c\u00A7nKitPVP:\n" +
+                "Zwei Spieler kämpfen mit identischen Kits gegeneinander.");
+        IChatBaseComponent pageZero = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(page0));
+
+        TextComponent page1 = new TextComponent("\u00A7c\u00A7nEinstellungen:\n\n");
+        page1.addExtra(new TextComponent("In den Einstellungen kannst du dir aus- " +
+                "suchen, welche Spielmodi du gerne " +
+                "spielen würdest.\n" +
+                "Außerdem kannst du dort auch " +
+                "die Maps und dein Kit auswählen."));
+        IChatBaseComponent pageFirst = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(page1));
+
+        TextComponent page2 = new TextComponent("\u00A7c\u00A7nWarteschlange:\n\n");
+        page2.addExtra(new TextComponent("Um der Warteschlange " +
+                "beizutreten, musst du " +
+                "nur mit dem Dorfbe- " +
+                "wohner reden. " +
+                "Sobald jemand anderes bei- " +
+                "tritt, der die selben Einstellungen " +
+                "hat wie du (also genau die selben " +
+                "Spielmodi spielen will), geht das Spiel " +
+                "auch schon los!\n\n"));
+        IChatBaseComponent pageSecond = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(page2));
+
+        TextComponent page3 = new TextComponent("\u00A7c\u00A7nSchwert:\n\n");
+        page3.addExtra(new TextComponent("Mit dem Schwert kannst du andere " +
+                "Spieler manuell herausfordern. Wenn \u00A7ldu\u00A7r " +
+                "herausgefordert wirst, kannst du durch " +
+                "Klick auf die Nachricht annehmen."));
+        IChatBaseComponent pageThird = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(page3));
+
+        pages.add(pageZero);
+        pages.add(pageFirst);
+        pages.add(pageSecond);
+        pages.add(pageThird);
+
+        // Buch-Itemstack updaten
+        bookMeta.setTitle("\u00A7cHandbuch");
+        bookMeta.setAuthor("BIOMIA-Team");
+        book.setItemMeta(bookMeta);
+        p.getInventory().setItem(0, book);
     }
 
     private void openMainInventory(BiomiaPlayer bp) {
@@ -141,7 +211,8 @@ public class VSManager implements Listener {
         Player p = e.getPlayer();
         BiomiaPlayer hitter = Biomia.getBiomiaPlayer(p);
         ItemStack is = p.getInventory().getItemInMainHand();
-
+        if (e.getRightClicked() instanceof Villager)
+            e.setCancelled(true);
         if (is != null && is.getType() != Material.AIR) {
             if (is.hasItemMeta()) {
                 if (is.getItemMeta().getDisplayName().equals("\u00A7cHerausforderer")) {

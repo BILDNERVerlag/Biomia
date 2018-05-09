@@ -23,11 +23,6 @@
       <w>acht</w>
       <w>achtung</w>
       <w>addeggs</w>
-      <w>ändert</w>
-      <w>entfernt</w>
-      <w>für</w>
-      <w>gebuch</w>
-      <w>gecrashed</w>
       <w>aioff</w>
       <w>aion</w>
       <w>aitoggle</w>
@@ -583,6 +578,7 @@
       <w>förster</w>
       <w>führt</w>
       <w>füllen</w>
+      <w>für</w>
       <w>gaget</w>
       <w>gamemode</w>
       <w>ganz</w>
@@ -597,7 +593,9 @@
       <w>gebracht</w>
       <w>gebrauchen</w>
       <w>gebrochen</w>
+      <w>gebuch</w>
       <w>geburtstag</w>
+      <w>gecrashed</w>
       <w>gedacht</w>
       <w>gedauert</w>
       <w>gefallen</w>
@@ -1748,6 +1746,7 @@
       <w>zwischen</w>
       <w>zühlt</w>
       <w>ändern</w>
+      <w>ändert</w>
       <w>öffentliche</w>
       <w>öffne</w>
       <w>öfter</w>

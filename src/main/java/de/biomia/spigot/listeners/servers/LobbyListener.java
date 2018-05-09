@@ -297,6 +297,10 @@ public class LobbyListener extends BiomiaListener {
                             pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 560, 96, 290, 80, 0));
                             pl.closeInventory();
                             break;
+                        case "\u00A7aDuell":
+                            pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 465, 70, 243, 93, -10));
+                            pl.closeInventory();
+                            break;
                     }
                 } else if (ie.getClickedInventory().getName().equals("\u00A7bLobby Switcher"))
                     for (ServerObject so : TimoCloudAPI.getUniversalAPI().getServerGroup(BiomiaServerType.Lobby.name())

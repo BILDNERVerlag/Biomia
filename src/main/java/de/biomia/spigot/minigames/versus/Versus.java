@@ -11,6 +11,7 @@ import de.biomia.spigot.commands.minigames.versus.VSCommands;
 import de.biomia.spigot.minigames.WarteLobbyListener;
 import de.biomia.spigot.minigames.general.chests.Items;
 import de.biomia.spigot.minigames.kitpvp.KitPVPManager;
+import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.TeleportExecutor;
 import de.biomia.spigot.tools.Teleporter;
 import de.biomia.universal.Messages;
@@ -40,13 +41,13 @@ public class Versus extends BiomiaServer {
         Items.init();
         World duell = Bukkit.getWorld("Spawn");
         //sets gamemode when entering temple
-        new Teleporter(new Location(duell, -51, 100, -37.5), new Location(duell, -13, 200, -6), new TeleportExecutor() {
+        new Teleporter(new Location(duell, -51, 113, -42.5), new Location(duell, -13, 200, -6), new TeleportExecutor() {
             @Override
             public void execute(BiomiaPlayer bp) {
                 KitPVPManager.setToEditMode(bp);
             }
         });
-        new Teleporter(new Location(duell, -51, 100, -37.5), new Location(duell, -13, 200, -6), new TeleportExecutor() {
+        new Teleporter(new Location(duell, -51, 113, -42.5), new Location(duell, -13, 200, -6), new TeleportExecutor() {
             @Override
             public void execute(BiomiaPlayer bp) {
                 KitPVPManager.removeFromEditMode(bp);
