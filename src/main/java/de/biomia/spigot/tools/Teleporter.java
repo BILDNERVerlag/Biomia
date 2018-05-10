@@ -100,7 +100,7 @@ public class Teleporter {
 
 class TeleportListener implements Listener {
 
-    private final ArrayList<Teleporter> teleporters = new ArrayList<>();
+    private static final ArrayList<Teleporter> teleporters = new ArrayList<>();
 
     TeleportListener() {
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
@@ -108,6 +108,10 @@ class TeleportListener implements Listener {
 
     public void addTeleporter(Teleporter teleporter) {
         teleporters.add(teleporter);
+    }
+
+    public static void removeTeleporter(Teleporter teleporter) {
+        teleporters.remove(teleporter);
     }
 
     @EventHandler

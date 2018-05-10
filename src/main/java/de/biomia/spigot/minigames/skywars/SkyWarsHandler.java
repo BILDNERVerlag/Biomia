@@ -186,9 +186,12 @@ public class SkyWarsHandler extends GameHandler {
                     case SkyWarsItemNames.gummibogen:
                         if (e.getItem().getType() == Material.BOW) {
                             e.setCancelled(true);
-                            Projectile arrow = p.launchProjectile(Arrow.class);
+                            Arrow arrow = p.launchProjectile(Arrow.class);
                             arrow.setCustomName(SkyWarsItemNames.gummipfeil);
                             arrow.setShooter(p);
+                            arrow.setKnockbackStrength(0);
+                            arrow.setCritical(false);
+                            arrow.setPickupStatus(Arrow.PickupStatus.DISALLOWED);
                             p.getInventory().remove(e.getItem());
                         }
                         break;

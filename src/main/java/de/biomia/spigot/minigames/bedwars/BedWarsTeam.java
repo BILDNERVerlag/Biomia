@@ -14,7 +14,7 @@ public class BedWarsTeam extends GameTeam {
 
     public BedWarsTeam(TeamColor color, GameMode mode) {
         super(color, mode);
-        bed = ((BedWarsConfig) mode.getConfig()).loadBeds(mode.getInstance(), this);
+        bed = ((BedWarsConfig) mode.getConfig()).loadBeds(this);
     }
 
     private boolean hasBed = true;

@@ -7,6 +7,7 @@ import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.bedwars.BedWarsTeam;
 import de.biomia.spigot.minigames.general.TeamSwitcher;
+import de.biomia.spigot.minigames.parrot.ParrotTeam;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -14,7 +15,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,14 +25,13 @@ public abstract class GameMode {
 
     private static final Location spawn = new Location(Bukkit.getWorld("Spawn"), 0.5, 75, -0.5, 45, 0);
     private static final Location versusSpawn = new Location(Bukkit.getWorld("Spawn"), -34.5, 85, -113.5, 0, 0);
-    private MinigamesConfig config;
+    protected MinigamesConfig config;
     private Inventory teamSwitcher;
     private final GameInstance instance;
     private final ArrayList<GameTeam> teams = new ArrayList<>();
     private final GameStateManager stateManager = new GameStateManager(this);
     private GameHandler handler;
     private final HashMap<TeamColor, Entity> joiner = new HashMap<>();
-    private BukkitTask counter;
     private int playedTime = 0;
 
     protected GameMode(GameInstance instance) {
@@ -46,16 +45,18 @@ public abstract class GameMode {
         stateManager.getLobbyState().start();
         TeamSwitcher.getTeamSwitcher(this);
         config.loadTeamJoiner(initTeamJoiner());
-        counter = new BukkitRunnable() {
+        new BukkitRunnable() {
             @Override
             public void run() {
-                playedTime++;
+                if (getStateManager().getActualGameState() == GameStateManager.GameState.INGAME)
+                    playedTime++;
+                else
+                    cancel();
             }
         }.runTaskTimer(Main.getPlugin(), 20, 20);
     }
 
     public void stop() {
-        counter.cancel();
         stateManager.getInGameState().stop();
         handler.unregister();
     }
@@ -210,6 +211,8 @@ public abstract class GameMode {
                 case SKY_WARS:
                     new GameTeam(colors, this);
                     break;
+                case PARROT:
+                    new ParrotTeam(colors, this);
             }
 
 

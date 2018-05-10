@@ -4,6 +4,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.messages.KitPVPMessages;
+import de.biomia.spigot.messages.ParrotMessages;
 import de.biomia.spigot.messages.SkyWarsMessages;
 import de.biomia.spigot.minigames.*;
 import de.biomia.spigot.minigames.general.kits.KitManager;
@@ -145,6 +146,8 @@ public class Scoreboards {
                 break;
             case KIT_PVP_VS:
                 o.setDisplayName(KitPVPMessages.kitpvp);
+            case PARROT:
+                o.setDisplayName(ParrotMessages.parrot);
                 break;
         }
 

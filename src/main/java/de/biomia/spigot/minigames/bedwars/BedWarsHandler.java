@@ -24,13 +24,10 @@ import de.biomia.spigot.minigames.general.shop.ShopItem;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.Particles;
 import de.biomia.universal.Messages;
-import net.minecraft.server.v1_12_R1.AttributeInstance;
 import net.minecraft.server.v1_12_R1.EnumParticle;
-import net.minecraft.server.v1_12_R1.GenericAttributes;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftLivingEntity;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
@@ -334,20 +331,13 @@ public class BedWarsHandler extends GameHandler {
 
             switch (displayname) {
                 case BedWarsItemNames.warper:
-                    if (((BedWars) mode).starts.get(bp) == null) {
+                    if (((BedWars) mode).starts.get(bp) == null)
                         warpHome(bp, e.getItem());
-                    }
                     break;
                 case BedWarsItemNames.wand:
                     e.setCancelled(true);
                     if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)
                         buildProtectionWall(p);
-                    break;
-                case BedWarsItemNames.villagerSpawner:
-                    if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                        spawnVillager(e.getClickedBlock().getLocation().add(0.5, 1, 0.5));
-                        e.setCancelled(true);
-                    }
                     break;
                 case BedWarsItemNames.shortShop:
                     e.setCancelled(true);
@@ -374,16 +364,6 @@ public class BedWarsHandler extends GameHandler {
             if (!mode.getInstance().containsPlayer(bp) || mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME)
                 e.setCancelled(true);
         }
-    }
-
-    private void spawnVillager(Location loc) {
-        Villager v = (Villager) loc.getWorld().spawnEntity(loc, EntityType.VILLAGER);
-        v.setCustomName(BedWarsMessages.shopVillagerName);
-        v.setCustomNameVisible(false);
-        v.setProfession(Villager.Profession.FARMER);
-        AttributeInstance attributes = ((CraftLivingEntity) v).getHandle()
-                .getAttributeInstance(GenericAttributes.MOVEMENT_SPEED);
-        attributes.setValue(0);
     }
 
     private static BlockFace getDirection(Player p) {
@@ -576,7 +556,7 @@ public class BedWarsHandler extends GameHandler {
         if (t != null) {
             is.setAmount(is.getAmount() - 1);
             Sheep sheep = (Sheep) p.getWorld().spawnEntity(p.getLocation().add(0, 1, 0), EntityType.SHEEP);
-            sheep.setColor(DyeColor.valueOf(t.getTeamname()));
+            sheep.setColor(DyeColor.valueOf(t.getColor().name()));
             ArrayList<Entity> entities = new ArrayList<>(sheep.getNearbyEntities(300, 100, 300));
             for (Entity entity : entities) {
                 if (entities instanceof Player) {
@@ -586,7 +566,6 @@ public class BedWarsHandler extends GameHandler {
                         sheep.setTarget(target);
                         new BukkitRunnable() {
                             int i = 0;
-
                             @Override
                             public void run() {
                                 if (entity.getLocation().distance(target.getLocation()) <= 4 || i == 15) {

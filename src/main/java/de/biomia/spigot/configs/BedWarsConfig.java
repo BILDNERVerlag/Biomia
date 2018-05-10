@@ -30,21 +30,21 @@ public class BedWarsConfig extends MinigamesConfig {
         addLocation(foot, team, "Beds.Foot", GameType.BED_WARS);
     }
 
-    public ArrayList<Block> loadBeds(GameInstance instance, GameTeam t) {
+    public ArrayList<Block> loadBeds(GameTeam t) {
 
-        Location l1 = getLocation(t.getColor(), instance, "Beds.Foot");
-        Location l2 = getLocation(t.getColor(), instance, "Beds.Head");
+        Location l1 = getLocation(t.getColor(), "Beds.Foot");
+        Location l2 = getLocation(t.getColor(), "Beds.Head");
 
         return new ArrayList<>(Arrays.asList(l1.getBlock(), l2.getBlock()));
     }
 
-    public HashMap<ItemType, ArrayList<Location>> loadSpawner(GameInstance instance) {
+    public HashMap<ItemType, ArrayList<Location>> loadSpawner() {
 
         HashMap<ItemType, ArrayList<Location>> spawner = new HashMap<>();
 
         for (ItemType itemType : ItemType.values()) {
             for (int i = 1; i <= getConfig().getInt("lastID." + itemType.name()); i++) {
-                Location spawnerLoc = getLocation(instance, "Spawner." + itemType.name() + "." + i).add(0, 1.1, 0);
+                Location spawnerLoc = getLocation("Spawner." + itemType.name() + "." + i).add(0, 1.1, 0);
                 while (spawnerLoc.getBlock().getType() != Material.AIR)
                     spawnerLoc = spawnerLoc.subtract(0, 1, 0);
                 spawner.computeIfAbsent(itemType, list -> new ArrayList<>()).add(spawnerLoc);

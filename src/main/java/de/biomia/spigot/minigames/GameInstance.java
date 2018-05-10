@@ -6,6 +6,7 @@ import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.minigames.bedwars.BedWars;
 import de.biomia.spigot.minigames.kitpvp.KitPvP;
+import de.biomia.spigot.minigames.parrot.Parrot;
 import de.biomia.spigot.minigames.skywars.SkyWars;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
@@ -39,21 +40,24 @@ public class GameInstance {
         MinigamesConfig.mapName = mapDisplayName;
 
         switch (type) {
-        case KIT_PVP_VS:
-            gameMode = new KitPvP(this);
-            break;
-        case BED_WARS_VS:
-        case BED_WARS:
-            gameMode = new BedWars(this);
-            break;
-        case SKY_WARS_VS:
-        case SKY_WARS:
-            gameMode = new SkyWars(this);
-            break;
-        default:
-            Bukkit.getLogger().log(Level.SEVERE, "GameType does not exist!");
-            new Exception().printStackTrace();
-            break;
+            case KIT_PVP_VS:
+                gameMode = new KitPvP(this);
+                break;
+            case BED_WARS_VS:
+            case BED_WARS:
+                gameMode = new BedWars(this);
+                break;
+            case SKY_WARS_VS:
+            case SKY_WARS:
+                gameMode = new SkyWars(this);
+                break;
+            case PARROT:
+                gameMode = new Parrot(this);
+
+            default:
+                Bukkit.getLogger().log(Level.SEVERE, "GameType does not exist!");
+                new Exception().printStackTrace();
+                break;
         }
         if (!type.isVersus())
             new BukkitRunnable() {

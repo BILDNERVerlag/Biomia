@@ -23,7 +23,7 @@ public class Chests {
     private final ArrayList<Location> openedChests = new ArrayList<>();
 
     public Chests(GameMode skyWars) {
-        HashMap<SkyWarsOpenChestEvent.ChestType, ArrayList<Block>> chestsFromConfig = ((SkyWarsConfig) skyWars.getConfig()).loadChestsFromConfig(skyWars.getInstance());
+        HashMap<SkyWarsOpenChestEvent.ChestType, ArrayList<Block>> chestsFromConfig = ((SkyWarsConfig) skyWars.getConfig()).loadChestsFromConfig();
 
         fillNormalChests(chestsFromConfig.get(SkyWarsOpenChestEvent.ChestType.NormalChest));
         fillGoodChests(chestsFromConfig.get(SkyWarsOpenChestEvent.ChestType.GoodChest));

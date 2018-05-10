@@ -24,7 +24,7 @@ public class GameTeam {
     protected GameTeam(TeamColor color, GameMode mode) {
         this.players = new HashMap<>();
         this.color = color;
-        this.home = mode.getConfig().getSpawnLocation(color, mode.getInstance());
+        this.home = mode.getConfig().getSpawnLocation(color);
         this.mode = mode;
         mode.registerTeam(this);
     }

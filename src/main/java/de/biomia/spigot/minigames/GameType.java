@@ -1,7 +1,7 @@
 package de.biomia.spigot.minigames;
 
 public enum GameType {
-    BED_WARS_VS, SKY_WARS_VS, KIT_PVP_VS, BED_WARS, SKY_WARS;
+    BED_WARS_VS, SKY_WARS_VS, KIT_PVP_VS, BED_WARS, SKY_WARS, PARROT;
 
     public String getDisplayName() {
         switch (this) {
@@ -13,6 +13,8 @@ public enum GameType {
                 return "SkyWars";
             case KIT_PVP_VS:
                 return "KitPVP";
+            case PARROT:
+                return "Parrot";
             default:
                 return "";
         }

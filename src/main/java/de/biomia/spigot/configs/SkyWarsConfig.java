@@ -1,7 +1,6 @@
 package de.biomia.spigot.configs;
 
 import de.biomia.spigot.events.game.skywars.SkyWarsOpenChestEvent;
-import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameType;
 import org.bukkit.Location;
@@ -26,7 +25,7 @@ public class SkyWarsConfig extends MinigamesConfig {
         saveConfig();
     }
 
-    public HashMap<SkyWarsOpenChestEvent.ChestType, ArrayList<Block>> loadChestsFromConfig(GameInstance instance) {
+    public HashMap<SkyWarsOpenChestEvent.ChestType, ArrayList<Block>> loadChestsFromConfig() {
 
         HashMap<SkyWarsOpenChestEvent.ChestType, ArrayList<Block>> map = new HashMap<>();
 
@@ -35,7 +34,7 @@ public class SkyWarsConfig extends MinigamesConfig {
             ArrayList<Block> list = new ArrayList<>();
             map.put(type, list);
             for (int i = 1; i <= getConfig().getInt(lastID); i++)
-                list.add(getLocation(instance, "Chests." + type.name() + "." + i).getBlock());
+                list.add(getLocation("Chests." + type.name() + "." + i).getBlock());
         }
         return map;
     }

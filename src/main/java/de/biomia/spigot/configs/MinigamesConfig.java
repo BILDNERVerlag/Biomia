@@ -1,6 +1,5 @@
 package de.biomia.spigot.configs;
 
-import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.TeamColor;
@@ -15,7 +14,7 @@ public class MinigamesConfig extends Config {
 
     public static String mapName = null;
 
-    private final GameMode mode;
+    protected final GameMode mode;
 
     public MinigamesConfig(GameMode mode) {
         this.mode = mode;
@@ -53,8 +52,8 @@ public class MinigamesConfig extends Config {
         addLocation(loc, team, "Spawnpoint", type);
     }
 
-    public Location getSpawnLocation(TeamColor team, GameInstance instance) {
-        return getLocation(team, instance, "Spawnpoint");
+    public Location getSpawnLocation(TeamColor team) {
+        return getLocation(team, "Spawnpoint");
     }
 
     private static void addLoc(Location loc, String savePath) {
@@ -78,7 +77,7 @@ public class MinigamesConfig extends Config {
         saveConfig();
     }
 
-    Location getLocation(GameInstance instance, String settingName) {
+    Location getLocation(String settingName) {
 
         String savePath = getSavePath(settingName);
 
@@ -87,10 +86,10 @@ public class MinigamesConfig extends Config {
         double z = getConfig().getDouble(savePath + "Z");
         float ya = getConfig().getInt(savePath + "Yaw");
 
-        return new Location(instance.getWorld(), x, y, z, ya, 0);
+        return new Location(mode.getInstance().getWorld(), x, y, z, ya, 0);
     }
 
-    Location getLocation(TeamColor color, GameInstance instance, String settingName) {
+    Location getLocation(TeamColor color, String settingName) {
 
         String savePath = getSaveTeamPath(settingName, color);
 
@@ -99,7 +98,7 @@ public class MinigamesConfig extends Config {
         double z = getConfig().getDouble(savePath + "Z");
         float ya = getConfig().getInt(savePath + "Yaw");
 
-        return new Location(instance.getWorld(), x, y, z, ya, 0);
+        return new Location(mode.getInstance().getWorld(), x, y, z, ya, 0);
     }
 
     public void loadTeamJoiner(HashMap<TeamColor, UUID> teamJoiner) {

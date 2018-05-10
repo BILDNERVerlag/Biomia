@@ -32,6 +32,14 @@
             <id>TimoCloud-API</id>
             <url>https://maven.timo.cloud/repository/TimoCloud-API/</url>
         </repository>
+        <repository>
+            <id>fawe-repo</id>
+            <url>http://ci.athion.net/job/FastAsyncWorldEdit/ws/mvn/</url>
+        </repository>
+        <repository>
+            <id>worldedit-repo</id>
+            <url>http://maven.sk89q.com/artifactory/repo</url>
+        </repository>
     </repositories>
     <dependencies>
         <dependency>
@@ -63,6 +71,16 @@
             <groupId>de.simonsator</groupId>
             <artifactId>BungeecordPartyAndFriends</artifactId>
             <version>LATEST</version>
+        </dependency>
+        <dependency>
+            <groupId>com.boydti</groupId>
+            <artifactId>fawe-api</artifactId>
+            <version>16.08.28-f2d54e6-252</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sk89q.worldedit</groupId>
+            <artifactId>worldedit-bukkit</artifactId>
+            <version>6.1.5</version>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
