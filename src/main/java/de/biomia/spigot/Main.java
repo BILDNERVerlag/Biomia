@@ -13,9 +13,12 @@ import de.biomia.spigot.general.cosmetics.particles.ParticleIniter;
 import de.biomia.spigot.general.reportsystem.ReportSQL;
 import de.biomia.spigot.listeners.ChannelListener;
 import de.biomia.spigot.listeners.servers.BauServerListener;
+import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.GameInstance;
+import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.WarteLobbyListener;
 import de.biomia.spigot.minigames.general.chests.Items;
+import de.biomia.spigot.minigames.parrot.Parrot;
 import de.biomia.spigot.minigames.versus.Versus;
 import de.biomia.spigot.server.demoserver.Weltenlabor;
 import de.biomia.spigot.server.freebuild.Freebuild;
@@ -35,6 +38,7 @@ import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import static de.biomia.spigot.minigames.GameType.BED_WARS;
+import static de.biomia.spigot.minigames.GameType.PARROT;
 import static de.biomia.spigot.minigames.GameType.SKY_WARS;
 
 public class Main extends JavaPlugin {
@@ -158,8 +162,15 @@ public class Main extends JavaPlugin {
                     }
                 });
                 break;
-            case Event_Schnitzeljagd:
-                Biomia.setServerInstance(new SchnitzelEvent());
+            case Parrot:
+                Biomia.setServerInstance(new BiomiaServer(groupName) {
+                    @Override
+                    protected void initListeners() {
+                        super.initListeners();
+                        Bukkit.getPluginManager().registerEvents(new WarteLobbyListener(false), Main.getPlugin());
+                    }
+                });
+                new GameInstance(PARROT, MinigamesConfig.getMapName(), MinigamesConfig.getMapName(), MinigamesConfig.getTeamAmount(), MinigamesConfig.getTeamSize()).getGameMode().start();
                 break;
         }
 

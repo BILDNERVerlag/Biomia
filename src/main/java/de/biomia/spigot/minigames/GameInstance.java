@@ -53,7 +53,7 @@ public class GameInstance {
                 break;
             case PARROT:
                 gameMode = new Parrot(this);
-
+                break;
             default:
                 Bukkit.getLogger().log(Level.SEVERE, "GameType does not exist!");
                 new Exception().printStackTrace();

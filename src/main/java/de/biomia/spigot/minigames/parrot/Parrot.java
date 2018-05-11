@@ -1,7 +1,7 @@
 package de.biomia.spigot.minigames.parrot;
 
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.spigot.configs.ParrotConifg;
+import de.biomia.spigot.configs.ParrotConfig;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
@@ -21,12 +21,8 @@ public class Parrot extends GameMode {
         super(instance);
 
         TeleportExecutor executor = new TeleportExecutor() {
-
-
             @Override
-            public void execute(BiomiaPlayer bp) {
-
-            }
+            public void execute(BiomiaPlayer bp) {/*TODO*/}
         };
     }
 
@@ -41,7 +37,8 @@ public class Parrot extends GameMode {
     }
 
     @Override
-    protected ParrotConifg initConfig() {
-        return new ParrotConifg(this);
+    protected ParrotConfig initConfig() {
+        return new ParrotConfig(this);
     }
+
 }

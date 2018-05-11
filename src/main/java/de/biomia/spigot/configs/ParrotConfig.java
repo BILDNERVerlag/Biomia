@@ -9,9 +9,9 @@ import de.biomia.spigot.minigames.TeamColor;
 import org.bukkit.Location;
 
 
-public class ParrotConifg extends MinigamesConfig {
+public class ParrotConfig extends MinigamesConfig {
 
-    public ParrotConifg(GameMode mode) {
+    public ParrotConfig(GameMode mode) {
         super(mode);
     }
 

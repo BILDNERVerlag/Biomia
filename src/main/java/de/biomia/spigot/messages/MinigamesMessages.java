@@ -3,8 +3,8 @@ package de.biomia.spigot.messages;
 import de.biomia.universal.Messages;
 
 public class MinigamesMessages {
-    @SuppressWarnings("MalformedFormatString") /* %t = CountDown */
-    public static final String restartCountDown = String.format("%sRestart in %s%t %sSekunden!", Messages.COLOR_AUX, Messages.COLOR_SUB, Messages.COLOR_AUX);
+    @SuppressWarnings("MalformedFormatString") /* $t = CountDown */
+    public static final String restartCountDown = String.format("%sRestart in %s$t %sSekunden!", Messages.COLOR_AUX, Messages.COLOR_SUB, Messages.COLOR_AUX);
     public static final String lobbyCountDown = Messages.PREFIX + "\u00A77Start in \u00A7b%t \u00A77Sekunden!";
     public static final String mapSize = "\u00A7b%s \u00A77x \u00A7c%s";
     public static final String notEnoughPlayerToStart = Messages.PREFIX + "\u00A7cZu wenig Spieler! Warte auf weitere...";
