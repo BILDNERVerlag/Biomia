@@ -229,6 +229,24 @@ public abstract class GameHandler implements Listener {
     }
 
     @EventHandler
+    public void onInventoryClick(InventoryClickEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getWhoClicked().getWorld())) return;
+        if (e.getWhoClicked() instanceof Player) {
+            Player p = (Player) e.getWhoClicked();
+            BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
+            if (e.getCurrentItem() != null) {
+                if (e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().hasDisplayName()) {
+                    if (e.getClickedInventory().getName().equals(mode.getTeamSwitcher().getName())) {
+                        mode.getTeamFromData(e.getCurrentItem().getData().getData()).join(bp);
+                        e.setCancelled(true);
+                        p.closeInventory();
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         if (e.getItem() != null) {

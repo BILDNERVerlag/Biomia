@@ -87,13 +87,6 @@ public class SkyWarsHandler extends GameHandler {
                 if (e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().hasDisplayName()) {
                     String name = e.getCurrentItem().getItemMeta().getDisplayName();
 
-                    if (e.getClickedInventory().getName().equals(mode.getTeamSwitcher().getName())) {
-                        mode.getTeamFromData(e.getCurrentItem().getData().getData()).join(bp);
-                        e.setCancelled(true);
-                        p.closeInventory();
-                        return;
-                    }
-
                     Kit kit = null;
                     String invName = e.getInventory().getName();
                     for (Kit allKits : KitManager.allKits.values()) {

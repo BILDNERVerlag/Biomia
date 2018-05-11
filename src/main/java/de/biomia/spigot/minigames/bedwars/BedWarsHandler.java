@@ -183,10 +183,6 @@ public class BedWarsHandler extends GameHandler {
                             return;
                         }
                     }
-                } else if (mode.getTeamSwitcher() != null && e.getClickedInventory().getName().equals(mode.getTeamSwitcher().getName())) {
-                    mode.getTeamFromData(e.getCurrentItem().getData().getData()).join(bp);
-                    e.setCancelled(true);
-                    p.closeInventory();
                 } else {
                     for (ShopGroup group : Shop.getGroups()) {
                         if (e.getClickedInventory().getName().equals(group.getFullName())) {
