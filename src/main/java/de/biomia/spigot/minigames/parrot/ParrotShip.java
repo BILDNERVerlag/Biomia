@@ -37,6 +37,10 @@ public class ParrotShip {
         Bukkit.getOnlinePlayers().forEach(bossBar::addPlayer);
     }
 
+    public BossBar getBossBar() {
+        return bossBar;
+    }
+
     public void update() {
         int actualBlocks = region.getArea() - session.countBlock(region, Collections.singleton(0));
         int destroyedBlocks = shipBlocks - actualBlocks;

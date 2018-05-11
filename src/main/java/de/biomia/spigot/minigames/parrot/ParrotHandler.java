@@ -18,6 +18,7 @@ import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 
@@ -25,6 +26,13 @@ class ParrotHandler extends GameHandler {
 
     ParrotHandler(GameMode mode) {
         super(mode);
+    }
+
+    @Override
+    public void onJoin(PlayerJoinEvent e) {
+        super.onJoin(e);
+        mode.getTeams().stream().map(team -> ((ParrotTeam) team).getShip()).forEach(parrotShip -> parrotShip.getBossBar().addPlayer(e.getPlayer()));
+
     }
 
     @Override

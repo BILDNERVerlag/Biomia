@@ -188,7 +188,7 @@ public abstract class GameMode {
                 }
             }
         }
-        return teamsWhoLive <= 1;
+        return teamsWhoLive <= 1 && getStateManager().getActualGameState() == GameStateManager.GameState.INGAME;
     }
 
     public boolean isSpectator(BiomiaPlayer bp) {

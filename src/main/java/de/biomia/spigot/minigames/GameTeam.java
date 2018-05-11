@@ -103,9 +103,8 @@ public class GameTeam {
         bp.setTeam(null);
         players.remove(bp);
         if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.LOBBY)
-            if (mode.canStop()) {
+            if (mode.canStop())
                 mode.stop();
-            }
         if (!mode.getInstance().getType().isVersus())
             TeamSwitcher.getTeamSwitcher(mode);
     }
