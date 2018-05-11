@@ -6,6 +6,7 @@ import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.TeamColor;
+import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.boss.BarColor;
@@ -29,8 +30,13 @@ public class ParrotShip {
         session = new EditSessionBuilder(team.getMode().getInstance().getWorld().getName()).fastmode(true).build();
         this.bossBar = Bukkit.createBossBar("", team.getColor() == TeamColor.RED ? BarColor.RED : BarColor.BLUE, BarStyle.SEGMENTED_20); // in 5% steps
         bossBar.setProgress(1);
+        setName();
         bossBar.setVisible(true);
         shipBlocks = region.getArea() - session.countBlock(region, Collections.singleton(0));
+    }
+
+    private void setName() {
+        bossBar.setTitle(team.getColor().getColorcode() + "Schiff " + team.getColor().translate() + Messages.COLOR_AUX + ": " + team.getColor().getColorcode() + bossBar.getProgress() * 100 + "%");
     }
 
     public void setPlayersToBossBar() {
@@ -48,10 +54,12 @@ public class ParrotShip {
         if (destroyedBlocks > shipBlocks * 0.6D) {
             bossBar.setProgress(0);
             team.getPlayers().forEach(team::setDead);
-        } else if (destroyedBlocks >= 0)
+        } else if (destroyedBlocks >= 0) {
             // destroyedBlocks / 0.6 to set the destroyed blocks from 60% to 100%
             // 1 - x to fit the increase | 0 = destroyed | 1 = not-destroyed
             bossBar.setProgress(1 - destroyedBlocks / 0.6D / shipBlocks);
+            setName();
+        }
 
     }
 
