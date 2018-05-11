@@ -75,7 +75,7 @@ public abstract class GameHandler implements Listener {
 
             bp.getPlayer().setLevel(mode.getStateManager().getLobbyState().getCountDown());
 
-            Bukkit.broadcastMessage(bp.isPremium() ? "\u00A76" : "\u00A77" + p.getName() + MinigamesMessages.joinedTheGame);
+            Bukkit.broadcastMessage((bp.isPremium() ? "\u00A76" : "\u00A77") + p.getName() + MinigamesMessages.joinedTheGame);
 
             mode.partyJoin(bp);
             Scoreboards.setLobbyScoreboard(p);
