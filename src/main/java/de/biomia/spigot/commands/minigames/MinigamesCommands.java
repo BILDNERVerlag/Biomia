@@ -44,11 +44,11 @@ public class MinigamesCommands extends BiomiaCommand {
                 break;
             case "addloc":
             case "al":
-                if (args.length >= 1) {
-                    BedWarsConfig.addSpawnLocation(p.getLocation(), TeamColor.valueOf(args[0]), GameType.BED_WARS);
+                if (args.length >= 2) {
+                    BedWarsConfig.addSpawnLocation(p.getLocation(), TeamColor.valueOf(args[1]), GameType.valueOf(args[0]));
                     sender.sendMessage("Spawnpoint wurde hinzugefügt!");
                 } else
-                    sender.sendMessage(String.format("/%s team", label));
+                    sender.sendMessage(String.format("/%s gametype team", label));
                 break;
             case "setup":
                 if (args.length >= 3) {
