@@ -37,6 +37,11 @@ public class GameInstance {
         this.world = new WorldCreator(mapName).createWorld();
         world.setGameRuleValue("announceAdvancements", "false");
         world.setGameRuleValue("keepInventory", "true");
+        world.setTime(6000);
+        world.setGameRuleValue("doDaylightCycle", "false");
+        world.setThundering(false);
+        world.setStorm(false);
+        world.setGameRuleValue("doWeatherCycle", "false");
         MinigamesConfig.mapName = mapDisplayName;
 
         switch (type) {
