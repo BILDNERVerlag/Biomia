@@ -9,6 +9,7 @@ import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.messages.ParrotItemNames;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameMode;
+import de.biomia.spigot.minigames.GameStateManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -31,8 +32,8 @@ class ParrotHandler extends GameHandler {
     @Override
     public void onJoin(PlayerJoinEvent e) {
         super.onJoin(e);
-        mode.getTeams().stream().map(team -> ((ParrotTeam) team).getShip()).forEach(parrotShip -> parrotShip.getBossBar().addPlayer(e.getPlayer()));
-
+        if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME)
+            mode.getTeams().stream().map(team -> ((ParrotTeam) team).getShip()).forEach(parrotShip -> parrotShip.getBossBar().addPlayer(e.getPlayer()));
     }
 
     @Override
