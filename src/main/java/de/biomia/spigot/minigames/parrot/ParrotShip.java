@@ -27,24 +27,33 @@ public class ParrotShip {
         this.region = region;
         this.team = team;
         session = new EditSessionBuilder(team.getMode().getInstance().getWorld().getName()).fastmode(true).build();
-
         this.bossBar = Bukkit.createBossBar("", team.getColor() == TeamColor.RED ? BarColor.RED : BarColor.BLUE, BarStyle.SEGMENTED_20); // in 5% steps
         bossBar.setProgress(1);
+        bossBar.setVisible(true);
         team.getPlayers().forEach(biomiaPlayer -> bossBar.addPlayer(biomiaPlayer.getPlayer()));
         shipBlocks = region.getArea() - session.countBlock(region, Collections.singleton(0));
+        Bukkit.broadcastMessage(region.getArea() + " area");
+        Bukkit.broadcastMessage(session.countBlock(region, Collections.singleton(0)) + " air blocks");
+        Bukkit.broadcastMessage(shipBlocks + " shipblocks");
     }
 
     public void update() {
+        Bukkit.broadcastMessage("updating...");
         int actualBlocks = region.getArea() - session.countBlock(region, Collections.singleton(0));
         int destroyedBlocks = shipBlocks - actualBlocks;
 
         if (destroyedBlocks > shipBlocks * 0.6D) {
+            Bukkit.broadcastMessage("losed!");
             bossBar.setProgress(0);
             team.getPlayers().forEach(team::setDead);
-        } else if (shipBlocks - actualBlocks >= 0)
+        } else if (destroyedBlocks >= 0) {
+            Bukkit.broadcastMessage(shipBlocks - actualBlocks + ">= 0");
+            Bukkit.broadcastMessage(1 - destroyedBlocks / 0.6D / shipBlocks + "");
             // destroyedBlocks / 0.6 to set the destroyed blocks from 60% to 100%
             // 1 - x to fit the increase | 0 = destroyed | 1 = not-destroyed
             bossBar.setProgress(1 - destroyedBlocks / 0.6D / shipBlocks);
+        }
+        Bukkit.broadcastMessage("end");
     }
 
     public boolean containsRegionLocation(Location location) {
