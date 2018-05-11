@@ -3,10 +3,7 @@ package de.biomia.spigot.minigames.parrot;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.configs.ParrotConfig;
 import de.biomia.spigot.messages.ParrotItemNames;
-import de.biomia.spigot.minigames.GameHandler;
-import de.biomia.spigot.minigames.GameInstance;
-import de.biomia.spigot.minigames.GameMode;
-import de.biomia.spigot.minigames.TeamColor;
+import de.biomia.spigot.minigames.*;
 import de.biomia.spigot.server.quests.QuestEvents.GiveItemEvent;
 import de.biomia.spigot.server.quests.QuestEvents.TakeItemEvent;
 import de.biomia.spigot.tools.TeleportExecutor;
@@ -37,6 +34,14 @@ public class Parrot extends GameMode {
                 new TakeItemEvent(Material.BOW, ParrotItemNames.explosionBow, 1).executeEvent(bp);
             }
         };
+
+        getStateManager().setInGameState(new GameStateManager.InGameState(this) {
+            @Override
+            public void start() {
+                super.start();
+                getMode().getTeams().stream().map(team -> ((ParrotTeam) team).getShip()).forEach(ParrotShip::setPlayersToBossBar);
+            }
+        });
 
         teleportersMap.put(new Teleporter(new Location(instance.getWorld(), -23, 75, -49), new Location(instance.getWorld(), -20, 77, -46), goInside), false);
         teleportersMap.put(new Teleporter(new Location(instance.getWorld(), -23, 75, -49), new Location(instance.getWorld(), -20, 77, -46), goOutside).setInverted(), false);

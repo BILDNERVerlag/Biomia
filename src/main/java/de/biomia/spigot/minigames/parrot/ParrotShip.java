@@ -30,11 +30,14 @@ public class ParrotShip {
         this.bossBar = Bukkit.createBossBar("", team.getColor() == TeamColor.RED ? BarColor.RED : BarColor.BLUE, BarStyle.SEGMENTED_20); // in 5% steps
         bossBar.setProgress(1);
         bossBar.setVisible(true);
-        team.getPlayers().forEach(biomiaPlayer -> bossBar.addPlayer(biomiaPlayer.getPlayer()));
         shipBlocks = region.getArea() - session.countBlock(region, Collections.singleton(0));
         Bukkit.broadcastMessage(region.getArea() + " area");
         Bukkit.broadcastMessage(session.countBlock(region, Collections.singleton(0)) + " air blocks");
         Bukkit.broadcastMessage(shipBlocks + " shipblocks");
+    }
+
+    public void setPlayersToBossBar() {
+        team.getPlayers().forEach(biomiaPlayer -> bossBar.addPlayer(biomiaPlayer.getPlayer()));
     }
 
     public void update() {
