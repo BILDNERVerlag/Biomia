@@ -9,13 +9,12 @@ import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.messages.ParrotItemNames;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameMode;
-import de.biomia.spigot.minigames.GameTeam;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
@@ -47,25 +46,13 @@ class ParrotHandler extends GameHandler {
     }
 
     @EventHandler
-    public void onBlockDestroy(EntityExplodeEvent e) {
-        for (GameTeam team : mode.getTeams()) {
-            ParrotShip parrotShip = ((ParrotTeam) team).getShip();
-            if (e.blockList().stream().anyMatch(block -> parrotShip.containsRegionLocation(block.getLocation()))) {
-                parrotShip.update();
-                return;
-            }
-        }
+    public void onBlockDestroy(BlockExplodeEvent e) {
+        mode.getTeams().stream().map(team -> ((ParrotTeam) team).getShip()).filter(parrotShip -> parrotShip.containsRegionLocation(e.getBlock().getLocation())).findFirst().ifPresent(ParrotShip::update);
     }
 
     @EventHandler
     public void onBlockDestroy(BlockBreakEvent e) {
-        for (GameTeam team : mode.getTeams()) {
-            ParrotShip parrotShip = ((ParrotTeam) team).getShip();
-            if (parrotShip.containsRegionLocation(e.getBlock().getLocation())) {
-                parrotShip.update();
-                return;
-            }
-        }
+        mode.getTeams().stream().map(team -> ((ParrotTeam) team).getShip()).filter(parrotShip -> parrotShip.containsRegionLocation(e.getBlock().getLocation())).findFirst().ifPresent(ParrotShip::update);
     }
 
     @EventHandler
