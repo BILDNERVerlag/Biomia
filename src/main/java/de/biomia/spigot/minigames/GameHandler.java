@@ -178,7 +178,6 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
-        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME && mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) {
             if (e.getTo().getBlockY() <= 0) {
                 e.getPlayer().setHealth(0);
