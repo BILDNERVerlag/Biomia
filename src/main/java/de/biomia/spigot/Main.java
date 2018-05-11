@@ -13,18 +13,14 @@ import de.biomia.spigot.general.cosmetics.particles.ParticleIniter;
 import de.biomia.spigot.general.reportsystem.ReportSQL;
 import de.biomia.spigot.listeners.ChannelListener;
 import de.biomia.spigot.listeners.servers.BauServerListener;
-import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.GameInstance;
-import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.WarteLobbyListener;
 import de.biomia.spigot.minigames.general.chests.Items;
-import de.biomia.spigot.minigames.parrot.Parrot;
 import de.biomia.spigot.minigames.versus.Versus;
 import de.biomia.spigot.server.demoserver.Weltenlabor;
 import de.biomia.spigot.server.freebuild.Freebuild;
 import de.biomia.spigot.server.lobby.Lobby;
 import de.biomia.spigot.server.quests.Quests;
-import de.biomia.spigot.specialEvents.schnitzelEvent.SchnitzelEvent;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.PlayerToServerConnector;
 import de.biomia.spigot.tools.VoidWorldGenerator;
@@ -37,9 +33,7 @@ import org.bukkit.craftbukkit.v1_12_R1.CraftServer;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import static de.biomia.spigot.minigames.GameType.BED_WARS;
-import static de.biomia.spigot.minigames.GameType.PARROT;
-import static de.biomia.spigot.minigames.GameType.SKY_WARS;
+import static de.biomia.spigot.minigames.GameType.*;
 
 public class Main extends JavaPlugin {
 

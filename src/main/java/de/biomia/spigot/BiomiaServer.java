@@ -1,6 +1,7 @@
 package de.biomia.spigot;
 
 import de.biomia.spigot.commands.general.*;
+import de.biomia.spigot.commands.minigames.MinigamesCommands;
 import de.biomia.spigot.listeners.CosmeticListener;
 import de.biomia.spigot.listeners.ReportListener;
 import org.bukkit.Bukkit;
@@ -33,6 +34,10 @@ public abstract class BiomiaServer {
     }
 
     protected void initCommands() {
+        if (serverType.isMinigame()) {
+            registerCommand(new MinigamesCommands("addloc", "al"));
+            registerCommand(new MinigamesCommands("setup"));
+        }
         registerCommand(new RandomServerGroupCommand());
         registerCommand(new CosmeticCommand());
         registerCommand(new BuildCommand());

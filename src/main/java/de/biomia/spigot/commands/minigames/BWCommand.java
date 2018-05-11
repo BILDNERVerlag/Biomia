@@ -2,11 +2,8 @@ package de.biomia.spigot.commands.minigames;
 
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.configs.BedWarsConfig;
-import de.biomia.spigot.configs.Config;
-import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.BedWarsMessages;
-import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.spigot.minigames.general.shop.ItemType;
 import de.biomia.spigot.tools.ItemCreator;
@@ -24,7 +21,6 @@ public class BWCommand extends BiomiaCommand {
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
-
         if (sender instanceof Player) {
             Player p = (Player) sender;
             if (p.hasPermission("biomia.bedwars")) {
@@ -32,13 +28,6 @@ public class BWCommand extends BiomiaCommand {
 
                     args[0] = args[0].toLowerCase();
                     switch (args[0]) {
-                        case "addloc":
-                            if (args.length >= 2) {
-                                BedWarsConfig.addSpawnLocation(p.getLocation(), TeamColor.valueOf(args[1]), GameType.BED_WARS);
-                                sender.sendMessage("Spawnpoint wurde hinzugefügt!");
-                            } else
-                                sender.sendMessage("/bedwars addloc team");
-                            break;
                         case "addspawner":
                             Location l = p.getTargetBlock(null, 100).getLocation();
 
@@ -72,38 +61,14 @@ public class BWCommand extends BiomiaCommand {
                                 } else
                                     p.sendMessage(BedWarsMessages.blocksMustBeBeds);
                             } else
-                                sender.sendMessage("/bedwars addbed mapDisplayName teamID");
+                                sender.sendMessage("/bedwars addbed teamName");
                             break;
                         default:
                             break;
-                        case "setup":
-                            if (args.length >= 4) {
-                                int spielerProTeam, teams;
-                                try {
-                                    spielerProTeam = Integer.parseInt(args[1]);
-                                    teams = Integer.parseInt(args[2]);
-                                } catch (NumberFormatException e) {
-                                    sender.sendMessage("\u00A77/\u00A7bsw setup \u00A77<\u00A7bSpielerProTeam\u00A77> <\u00A7bTeams\u00A77> <\u00A7bMapName\u00A77>");
-                                    return;
-                                }
-                                String name = args[3];
-                                Config.getConfig().set("Name", name);
-                                MinigamesConfig.mapName = name;
-                                Config.getConfig().set("TeamSize", spielerProTeam);
-                                Config.getConfig().set("NumberOfTeams", teams);
-                                Config.saveConfig();
-                            } else
-                                sender.sendMessage("\u00A77/\u00A7bsw setup \u00A77<\u00A7bSpielerProTeam\u00A77> <\u00A7bTeams\u00A77> <\u00A7bMapName\u00A77>");
-                            break;
                     }
                 } else {
-                    sender.sendMessage("\u00A7c/bedwars setup (Setup für BedWars-Map)");
-                    sender.sendMessage("\u00A7c/bedwars addloc (Fügt einen Spawnpunkt hinzu)");
-                    sender.sendMessage("\u00A7c/bedwars removelocs (Entfernt alle Spawnpunkte)");
-                    sender.sendMessage("\u00A7c/bedwars deleteallsigns (Entfernt alle Schilder)");
-                    sender.sendMessage("\u00A7c/bedwars getTeamjoinersetter (Gibt den Teamjoinersetter zurück)");
-                    sender.sendMessage("\u00A7c/bedwars getbedsetter (Gibt den Bedsetter zurück)");
-                    sender.sendMessage("\u00A7c/bedwars getSpawner (Gibt alle Verfügbaren Spawner zurück)");
+                    sender.sendMessage("\u00A7c/bedwars addspawner (Fügt Spawner hinzu)");
+                    sender.sendMessage("\u00A7c/bedwars addbed (Fügt Betten hinzu)");
                     sender.sendMessage("\u00A7c/bedwars villager (Gibt einen Villager Spawner zurück)");
                 }
             }
