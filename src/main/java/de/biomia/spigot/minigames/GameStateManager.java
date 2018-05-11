@@ -124,7 +124,6 @@ public class GameStateManager {
         @Override
         public void start() {
             getMode().getStateManager().setActualGameState(GameState.INGAME);
-
             if (!getMode().getInstance().getType().isVersus())
                 TimoCloudAPI.getBukkitAPI().getThisServer().setState(GameState.INGAME.name());
             getMode().getInstance().setPlayersOnStart();
@@ -139,6 +138,7 @@ public class GameStateManager {
                 bp.getPlayer().setAllowFlight(false);
                 bp.setBuild(true);
                 bp.getPlayer().setFallDistance(0);
+                Bukkit.broadcastMessage("Team " + bp.getTeam().getColor().name() + bp.getTeam().getHome().toString());
                 bp.getPlayer().teleport(bp.getTeam().getHome());
                 bp.sendMessage(MinigamesMessages.explainMessages);
             }
