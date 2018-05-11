@@ -30,6 +30,7 @@ class ParrotHandler extends GameHandler {
     }
 
     @Override
+    @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         super.onJoin(e);
         if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME)
@@ -37,6 +38,7 @@ class ParrotHandler extends GameHandler {
     }
 
     @Override
+    @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getEntity().getWorld())) return;
         Player p = e.getEntity();
