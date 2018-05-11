@@ -1,11 +1,17 @@
 package de.biomia.spigot.commands.minigames;
 
+import com.boydti.fawe.object.FawePlayer;
+import com.sk89q.worldedit.Vector;
+import com.sk89q.worldedit.regions.Region;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.configs.Config;
 import de.biomia.spigot.configs.MinigamesConfig;
+import de.biomia.spigot.configs.ParrotConfig;
 import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.TeamColor;
+import de.biomia.universal.Messages;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -21,6 +27,25 @@ public class MinigamesCommands extends BiomiaCommand {
         Player p = (Player) sender;
 
         switch (label) {
+
+            case "addship":
+                Region region = FawePlayer.wrap(p.getName()).getSelection();
+
+                if (region == null) {
+                    p.sendMessage(String.format("%sBitte wähle zuerst einen Bereich aus! %s(//wand)", Messages.COLOR_MAIN, Messages.COLOR_SUB));
+                    return;
+                }
+
+                Vector pos1 = region.getMinimumPoint();
+                Vector pos2 = region.getMinimumPoint();
+
+                if (args.length < 1) {
+                    p.sendMessage(String.format("%sBitte nutze: %s/addship teamName", Messages.COLOR_MAIN, Messages.COLOR_SUB));
+                    return;
+                }
+                TeamColor color = TeamColor.valueOf(args[0].toUpperCase());
+                ParrotConfig.addShip(new Location(null, pos1.getX(), pos1.getY(), pos1.getZ()), new Location(null, pos2.getX(), pos2.getY(), pos2.getZ()), color);
+                break;
             case "addloc":
             case "al":
                 if (args.length >= 1) {
