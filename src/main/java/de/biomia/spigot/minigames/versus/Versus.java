@@ -43,13 +43,13 @@ public class Versus extends BiomiaServer {
         Items.init();
         World duell = Bukkit.getWorld("Spawn");
         //sets gamemode when entering temple
-        new Teleporter(new Location(duell, -51, 113, -42.5), new Location(duell, -13, 200, -6), new TeleportExecutor() {
+        new Teleporter(new Location(duell, -51, 113, -43), new Location(duell, -13, 200, -6), new TeleportExecutor() {
             @Override
             public void execute(BiomiaPlayer bp, Teleporter teleporter) {
                 KitPVPManager.setToEditMode(bp);
             }
         });
-        new Teleporter(new Location(duell, -51, 113, -42.5), new Location(duell, -13, 200, -6), new TeleportExecutor() {
+        new Teleporter(new Location(duell, -51, 113, -43), new Location(duell, -13, 200, -6), new TeleportExecutor() {
             @Override
             public void execute(BiomiaPlayer bp, Teleporter teleporter) {
                 KitPVPManager.removeFromEditMode(bp);
