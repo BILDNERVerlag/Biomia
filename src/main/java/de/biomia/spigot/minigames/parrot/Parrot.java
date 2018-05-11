@@ -3,7 +3,6 @@ package de.biomia.spigot.minigames.parrot;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.configs.ParrotConfig;
 import de.biomia.spigot.messages.ParrotItemNames;
-import de.biomia.spigot.messages.ParrotMessages;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
@@ -29,18 +28,12 @@ public class Parrot extends GameMode {
         TeleportExecutor goInside = new TeleportExecutor() {
             @Override
             public void execute(BiomiaPlayer bp, Teleporter teleporter) {
-                if (teleportersMap.get(teleporter)) {
-                    bp.sendMessage(ParrotMessages.alreadyInUse);
-                    return;
-                }
-                teleportersMap.put(teleporter, true);
                 new GiveItemEvent(Material.BOW, ParrotItemNames.explosionBow, 1).executeEvent(bp);
             }
         };
         TeleportExecutor goOutside = new TeleportExecutor() {
             @Override
             public void execute(BiomiaPlayer bp, Teleporter teleporter) {
-                teleportersMap.put(teleporter, false);
                 new TakeItemEvent(Material.BOW, ParrotItemNames.explosionBow, 1).executeEvent(bp);
             }
         };
