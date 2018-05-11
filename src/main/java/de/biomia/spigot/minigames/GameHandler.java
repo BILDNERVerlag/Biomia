@@ -45,7 +45,6 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         if (mode.getInstance().getType().isVersus()) return;
 
         Player p = e.getPlayer();
@@ -230,7 +229,6 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-        if (!mode.getInstance().getWorld().equals(e.getWhoClicked().getWorld())) return;
         if (e.getWhoClicked() instanceof Player) {
             Player p = (Player) e.getWhoClicked();
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);

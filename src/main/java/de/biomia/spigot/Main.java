@@ -4,6 +4,7 @@ import de.biomia.spigot.achievements.Achievement;
 import de.biomia.spigot.achievements.StatListener;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.commands.minigames.BWCommand;
+import de.biomia.spigot.commands.minigames.MinigamesCommands;
 import de.biomia.spigot.commands.minigames.SWCommand;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.general.cosmetics.Cosmetic;
@@ -162,6 +163,11 @@ public class Main extends JavaPlugin {
                     protected void initListeners() {
                         super.initListeners();
                         Bukkit.getPluginManager().registerEvents(new WarteLobbyListener(false), Main.getPlugin());
+                    }
+                    @Override
+                    protected void initCommands() {
+                        super.initCommands();
+                        registerCommand(new MinigamesCommands("addship"));
                     }
                 });
                 new GameInstance(PARROT, MinigamesConfig.getMapName(), MinigamesConfig.getMapName(), MinigamesConfig.getTeamAmount(), MinigamesConfig.getTeamSize()).getGameMode().start();
