@@ -27,18 +27,14 @@ public class MinigamesCommands extends BiomiaCommand {
         Player p = (Player) sender;
 
         switch (label) {
-
             case "addship":
                 Region region = FawePlayer.wrap(p.getName()).getSelection();
-
                 if (region == null) {
                     p.sendMessage(String.format("%sBitte wähle zuerst einen Bereich aus! %s(//wand)", Messages.COLOR_MAIN, Messages.COLOR_SUB));
                     return;
                 }
-
                 Vector pos1 = region.getMinimumPoint();
-                Vector pos2 = region.getMinimumPoint();
-
+                Vector pos2 = region.getMaximumPoint();
                 if (args.length < 1) {
                     p.sendMessage(String.format("%sBitte nutze: %s/addship teamName", Messages.COLOR_MAIN, Messages.COLOR_SUB));
                     return;
@@ -49,7 +45,7 @@ public class MinigamesCommands extends BiomiaCommand {
             case "addloc":
             case "al":
                 if (args.length >= 1) {
-                    BedWarsConfig.addSpawnLocation(p.getLocation(), TeamColor.valueOf(args[1]), GameType.BED_WARS);
+                    BedWarsConfig.addSpawnLocation(p.getLocation(), TeamColor.valueOf(args[0]), GameType.BED_WARS);
                     sender.sendMessage("Spawnpoint wurde hinzugefügt!");
                 } else
                     sender.sendMessage(String.format("/%s team", label));
