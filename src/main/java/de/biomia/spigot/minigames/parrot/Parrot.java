@@ -3,6 +3,7 @@ package de.biomia.spigot.minigames.parrot;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.configs.ParrotConfig;
 import de.biomia.spigot.messages.ParrotItemNames;
+import de.biomia.spigot.messages.ParrotMessages;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameInstance;
 import de.biomia.spigot.minigames.GameMode;
@@ -14,43 +15,46 @@ import de.biomia.spigot.tools.Teleporter;
 import org.bukkit.Location;
 import org.bukkit.Material;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
 public class Parrot extends GameMode {
 
 
-    private final ArrayList<Teleporter> teleporters = new ArrayList<>();
+    private final HashMap<Teleporter, Boolean> teleportersMap = new HashMap<>();
 
     public Parrot(GameInstance instance) {
         super(instance);
 
         TeleportExecutor goInside = new TeleportExecutor() {
             @Override
-            public void execute(BiomiaPlayer bp) {
+            public void execute(BiomiaPlayer bp, Teleporter teleporter) {
+                if (teleportersMap.get(teleporter)) {
+                    bp.sendMessage(ParrotMessages.alreadyInUse);
+                    return;
+                }
+                teleportersMap.put(teleporter, true);
                 new GiveItemEvent(Material.BOW, ParrotItemNames.explosionBow, 1).executeEvent(bp);
             }
         };
         TeleportExecutor goOutside = new TeleportExecutor() {
             @Override
-            public void execute(BiomiaPlayer bp) {
+            public void execute(BiomiaPlayer bp, Teleporter teleporter) {
+                teleportersMap.put(teleporter, false);
                 new TakeItemEvent(Material.BOW, ParrotItemNames.explosionBow, 1).executeEvent(bp);
             }
         };
 
-        //TODO make smarter (with one class)
+        teleportersMap.put(new Teleporter(new Location(instance.getWorld(), -23, 75, -49), new Location(instance.getWorld(), -20, 77, -46), goInside), false);
+        teleportersMap.put(new Teleporter(new Location(instance.getWorld(), -23, 75, -49), new Location(instance.getWorld(), -20, 77, -46), goOutside).setInverted(), false);
 
-        teleporters.add(new Teleporter(new Location(instance.getWorld(), -23, 75, -49), new Location(instance.getWorld(), -20, 77, -46), goInside));
-        teleporters.add(new Teleporter(new Location(instance.getWorld(), -23, 75, -49), new Location(instance.getWorld(), -20, 77, -46), goOutside).setInverted());
-
-        teleporters.add(new Teleporter(new Location(instance.getWorld(), 68, 75, -49), new Location(instance.getWorld(), 65, 77, -46), goInside));
-        teleporters.add(new Teleporter(new Location(instance.getWorld(), 68, 75, -49), new Location(instance.getWorld(), 65, 77, -46), goOutside).setInverted());
+        teleportersMap.put(new Teleporter(new Location(instance.getWorld(), 68, 75, -49), new Location(instance.getWorld(), 65, 77, -46), goInside), false);
+        teleportersMap.put(new Teleporter(new Location(instance.getWorld(), 68, 75, -49), new Location(instance.getWorld(), 65, 77, -46), goOutside).setInverted(), false);
     }
 
     @Override
     public void stop() {
-        teleporters.forEach(Teleporter::removeTeleporter);
+        teleportersMap.keySet().forEach(Teleporter::removeTeleporter);
         super.stop();
     }
 

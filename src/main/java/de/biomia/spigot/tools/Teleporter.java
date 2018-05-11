@@ -135,7 +135,7 @@ class TeleportListener implements Listener {
                         e.getPlayer().teleport(eachTeleporter.getLocation());
                         break;
                     case EXECUTION:
-                        eachTeleporter.getTeleportExecutor().execute(Biomia.getBiomiaPlayer(e.getPlayer()));
+                        eachTeleporter.getTeleportExecutor().execute(Biomia.getBiomiaPlayer(e.getPlayer()), eachTeleporter);
                         break;
                 }
             }

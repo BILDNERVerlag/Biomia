@@ -11,7 +11,6 @@ import de.biomia.spigot.commands.minigames.versus.VSCommands;
 import de.biomia.spigot.minigames.WarteLobbyListener;
 import de.biomia.spigot.minigames.general.chests.Items;
 import de.biomia.spigot.minigames.kitpvp.KitPVPManager;
-import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.Hologram;
 import de.biomia.spigot.tools.TeleportExecutor;
 import de.biomia.spigot.tools.Teleporter;
@@ -46,13 +45,13 @@ public class Versus extends BiomiaServer {
         //sets gamemode when entering temple
         new Teleporter(new Location(duell, -51, 113, -42.5), new Location(duell, -13, 200, -6), new TeleportExecutor() {
             @Override
-            public void execute(BiomiaPlayer bp) {
+            public void execute(BiomiaPlayer bp, Teleporter teleporter) {
                 KitPVPManager.setToEditMode(bp);
             }
         });
         new Teleporter(new Location(duell, -51, 113, -42.5), new Location(duell, -13, 200, -6), new TeleportExecutor() {
             @Override
-            public void execute(BiomiaPlayer bp) {
+            public void execute(BiomiaPlayer bp, Teleporter teleporter) {
                 KitPVPManager.removeFromEditMode(bp);
                 bp.getPlayer().sendMessage(String.format("%sDein Kit wurde gespeichert.", Messages.COLOR_MAIN));
             }
