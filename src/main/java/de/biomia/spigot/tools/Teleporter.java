@@ -57,8 +57,9 @@ public class Teleporter {
         this.teleportExecutor = teleportExecutor;
     }
 
-    public void setInverted() {
+    public Teleporter setInverted() {
         this.inverted = true;
+        return this;
     }
 
     public boolean isInverted() {
@@ -96,11 +97,15 @@ public class Teleporter {
     public enum Destination {
         SERVER_GROUP, LOCATION, EXECUTION
     }
+
+    public static void removeTeleporter(Teleporter teleporter) {
+        TeleportListener.teleporters.remove(teleporter);
+    }
 }
 
 class TeleportListener implements Listener {
 
-    private static final ArrayList<Teleporter> teleporters = new ArrayList<>();
+    protected static final ArrayList<Teleporter> teleporters = new ArrayList<>();
 
     TeleportListener() {
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
@@ -108,10 +113,6 @@ class TeleportListener implements Listener {
 
     public void addTeleporter(Teleporter teleporter) {
         teleporters.add(teleporter);
-    }
-
-    public static void removeTeleporter(Teleporter teleporter) {
-        teleporters.remove(teleporter);
     }
 
     @EventHandler

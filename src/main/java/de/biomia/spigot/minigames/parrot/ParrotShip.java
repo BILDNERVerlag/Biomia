@@ -2,10 +2,12 @@ package de.biomia.spigot.minigames.parrot;
 
 import com.boydti.fawe.util.EditSessionBuilder;
 import com.sk89q.worldedit.EditSession;
+import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.TeamColor;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
@@ -32,7 +34,7 @@ public class ParrotShip {
         shipBlocks = region.getArea() - session.countBlock(region, Collections.singleton(0));
     }
 
-    public int getDestroyedBlocks() {
+    public void update() {
         int actualBlocks = region.getArea() - session.countBlock(region, Collections.singleton(0));
         int destroyedBlocks = shipBlocks - actualBlocks;
 
@@ -43,6 +45,9 @@ public class ParrotShip {
             // destroyedBlocks / 0.6 to set the destroyed blocks from 60% to 100%
             // 1 - x to fit the increase | 0 = destroyed | 1 = not-destroyed
             bossBar.setProgress(1 - destroyedBlocks / 0.6D / shipBlocks);
-        return destroyedBlocks;
+    }
+
+    public boolean containsRegionLocation(Location location) {
+        return region.contains(new Vector(location.getX(), location.getY(), location.getZ()));
     }
 }
