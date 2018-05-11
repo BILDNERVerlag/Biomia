@@ -174,7 +174,7 @@ public class GameStateManager {
 
                 if (getMode().getInstance().getType().isVersus())
                     Versus.getInstance().getManager().moveToLobby(p, false);
-                else
+                else if (getMode().getInstance().getType() != GameType.PARROT)
                     p.teleport(GameMode.getSpawn(false));
             }
             if (!getMode().getInstance().getType().isVersus()) {

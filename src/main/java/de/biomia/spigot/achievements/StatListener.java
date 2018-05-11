@@ -252,10 +252,10 @@ public class StatListener implements Listener {
     }
 
     @EventHandler
-    public void onBedWarsStart(GameStartEvent e) {
+    public void onGameStart(GameStartEvent e) {
         if (e.getMode().getInstance().getType() == GameType.BED_WARS) {
             e.getMode().getInstance().getPlayers().forEach(each -> BiomiaStat.BW_GamesPlayed.increment(each.getBiomiaPlayerID(), 1, each.getTeam().getColor().name()));
-        } else
+        } else if (e.getMode().getInstance().getType() == GameType.SKY_WARS)
             e.getMode().getInstance().getPlayers().forEach(each -> BiomiaStat.SW_GamesPlayed.increment(each.getBiomiaPlayerID(), 1, KitManager.getManager(each).getSelectedKit().getID() + ""));
     }
 
