@@ -24,7 +24,7 @@ public enum GameRewards {
 
         switch (this) {
             case PLAYED:
-                tempCoins *= instance.getGameMode().getPlayedTime() / 60;
+                tempCoins *= (double) instance.getGameMode().getPlayedTime() / 60D;
                 break;
             case WIN:
                 tempCoins *= instance.getPlayersOnStart();

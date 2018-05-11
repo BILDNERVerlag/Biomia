@@ -188,7 +188,7 @@ public class GameStateManager {
                             cancel();
                             return;
                         } else if (i == 15 || i == 10 || i <= 5)
-                            Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replaceAll("$t", i + ""));
+                            Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replace("$t", i + ""));
                         i--;
                     }
                 }.runTaskTimer(Main.getPlugin(), 0, 20);
