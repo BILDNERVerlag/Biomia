@@ -180,7 +180,7 @@ public abstract class GameHandler implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
-        if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
+        if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME && mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) {
             if (e.getTo().getBlockY() <= 0) {
                 e.getPlayer().setHealth(0);
                 Dead.respawn(e.getPlayer());
@@ -230,7 +230,6 @@ public abstract class GameHandler implements Listener {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
-        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         Player p = e.getPlayer();
         if (e.getItem() != null) {
             if (e.getItem().hasItemMeta() && e.getItem().getItemMeta().hasDisplayName()) {

@@ -9,21 +9,10 @@ import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.kitpvp.KitPVPKit;
 import de.biomia.spigot.minigames.kitpvp.KitPVPManager;
 import de.biomia.spigot.minigames.versus.Versus;
-import de.biomia.spigot.server.quests.general.Quest;
-import de.biomia.spigot.tools.BackToLobby;
-import de.biomia.spigot.tools.ItemCreator;
-import de.biomia.spigot.tools.TeleportExecutor;
-import de.biomia.spigot.tools.Teleporter;
-import de.biomia.universal.Messages;
 import de.biomia.universal.Ranks;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.chat.ComponentSerializer;
-import net.minecraft.server.v1_12_R1.IChatBaseComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftMetaBook;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -32,12 +21,7 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.BookMeta;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class WarteLobbyListener extends BiomiaListener {
 
