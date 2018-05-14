@@ -11,11 +11,17 @@ import de.biomia.spigot.tools.Teleporter;
 import org.bukkit.Location;
 import org.bukkit.Material;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
 public class Parrot extends GameMode {
 
+    private ArrayList<ParrotCanonPoint> points = new ArrayList<>();
+
+    public ArrayList<ParrotCanonPoint> getPoints() {
+        return points;
+    }
 
     private final HashMap<Teleporter, Boolean> teleportersMap = new HashMap<>();
 
@@ -48,6 +54,7 @@ public class Parrot extends GameMode {
 
         teleportersMap.put(new Teleporter(new Location(instance.getWorld(), 68, 75, -49), new Location(instance.getWorld(), 65, 77, -46), goInside), false);
         teleportersMap.put(new Teleporter(new Location(instance.getWorld(), 68, 75, -49), new Location(instance.getWorld(), 65, 77, -46), goOutside).setInverted(), false);
+
     }
 
     @Override

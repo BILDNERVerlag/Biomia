@@ -11,10 +11,12 @@ import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
 import org.bukkit.Bukkit;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -58,12 +60,17 @@ class ParrotHandler extends GameHandler {
 
     @EventHandler
     public void onBlockDestroy(BlockExplodeEvent e) {
-        mode.getTeams().stream().map(team -> ((ParrotTeam) team).getShip()).filter(parrotShip -> parrotShip.containsRegionLocation(e.getBlock().getLocation())).findFirst().ifPresent(ParrotShip::update);
+        handleBlock(e.getBlock());
     }
 
     @EventHandler
     public void onBlockDestroy(BlockBreakEvent e) {
-        mode.getTeams().stream().map(team -> ((ParrotTeam) team).getShip()).filter(parrotShip -> parrotShip.containsRegionLocation(e.getBlock().getLocation())).findFirst().ifPresent(ParrotShip::update);
+        handleBlock(e.getBlock());
+    }
+
+    @EventHandler
+    public void onBlockDestroy(BlockBurnEvent e) {
+        e.setCancelled(true);
     }
 
     @EventHandler
@@ -94,4 +101,14 @@ class ParrotHandler extends GameHandler {
             }
         }
     }
+
+    private void handleBlock(Block b) {
+        ((Parrot) mode).getPoints().forEach(parrotCanonPoint -> {
+            if (parrotCanonPoint.getLocation().distance(b.getLocation()) < 1) {
+                parrotCanonPoint.setDestroyed();
+            }
+        });
+        mode.getTeams().stream().map(team -> ((ParrotTeam) team).getShip()).filter(parrotShip -> parrotShip.containsRegionLocation(b.getLocation())).findFirst().ifPresent(ParrotShip::update);
+    }
+
 }
