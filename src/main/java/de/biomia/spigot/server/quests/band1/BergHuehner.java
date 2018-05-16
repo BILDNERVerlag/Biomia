@@ -136,4 +136,5 @@ public class BergHuehner implements Listener {
                 .setInhalt("Am liebsten würde ich jeden Tag einen Kuchen backen. Komm doch morgen wieder.");
     }
 
+
 }
