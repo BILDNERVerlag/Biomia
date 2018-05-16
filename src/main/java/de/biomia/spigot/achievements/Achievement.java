@@ -5,8 +5,6 @@ import java.util.ArrayList;
 @SuppressWarnings("SameParameterValue")
 public class Achievement {
 
-    //TODO: Neben das Inventar geklickt D:
-
     //ATTRIBUTES
 
     private final BiomiaAchievement achievement;
@@ -38,6 +36,7 @@ public class Achievement {
                 .setDescription("Öffne zehn Truhen.");
         new Achievement(BiomiaAchievement.Nimm20Fallschaden, BiomiaStat.HealthLost, 20, "Aua Aua", "FALL")
                 .setDescription("Nimm 20 Fallschaden.");
+        //Idee: Neben das Inventar geklickt-Achievement
     }
 
     //SETTER AND GETTER

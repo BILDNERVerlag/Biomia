@@ -63,7 +63,7 @@ public abstract class GameHandler implements Listener {
             mode.getInstance().registerPlayer(Biomia.getBiomiaPlayer(e.getPlayer()));
             p.teleport(GameMode.getSpawn(false));
 
-            if (p.hasPermission("biomia.minigames.start")) {
+            if (bp.isSrStaff()) {
                 if (mode.getInstance().getType() == GameType.SKY_WARS)
                     p.getInventory().setItem(1, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, MinigamesItemNames.startItem));
                 else
@@ -104,7 +104,7 @@ public abstract class GameHandler implements Listener {
         String format;
         if (e.isCancelled()) return;
         e.setCancelled(true);
-        if (p.hasPermission("biomia.coloredchat"))
+        if (bp.isPremium() || bp.isStaff())
             msg = ChatColor.translateAlternateColorCodes('&', e.getMessage());
 
         if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {

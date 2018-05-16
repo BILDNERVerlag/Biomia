@@ -23,7 +23,6 @@ public class GamemodeCommand extends BiomiaCommand {
             return;
         }
 
-        if (sender instanceof Player) {
             if (args.length >= 1) {
 
                 GameMode gameMode = null;
@@ -65,7 +64,6 @@ public class GamemodeCommand extends BiomiaCommand {
                 } else {
                     p.sendMessage("\u00A77/\u00A7bgm \u00A77<\u00A7bGameMode\u00A77> [\u00A7bSpieler\u00A77]");
                 }
-            }
         }
     }
 }

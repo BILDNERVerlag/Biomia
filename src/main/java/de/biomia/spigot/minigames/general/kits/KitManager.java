@@ -299,7 +299,7 @@ public class KitManager {
 
         // Add Kits with Permission
         for (Kit allKits : allKits.values()) {
-            if (!availableKits.contains(allKits) && (bp.getPlayer().hasPermission("biomia.sw.kit." + allKits.getName()) || bp.getPlayer().hasPermission("biomia.sw.kit.*")))
+            if (!availableKits.contains(allKits) && bp.isOwnerOrDev())
                 availableKits.add(allKits);
             if (allKits.getID() == kitID && availableKits.contains(allKits))
                 selectedKit = allKits;

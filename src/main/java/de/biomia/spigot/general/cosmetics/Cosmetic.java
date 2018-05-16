@@ -103,7 +103,7 @@ public class Cosmetic {
 
         HashMap<Integer, Integer> hm = new HashMap<>();
 
-        if (bp.getPlayer().hasPermission("biomia.cosmetics.*")) {
+        if (bp.isOwnerOrDev()) {
             for (int id : items.keySet()) {
                 hm.put(id, -1);
             }

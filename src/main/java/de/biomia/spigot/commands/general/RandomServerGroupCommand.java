@@ -23,14 +23,8 @@ public class RandomServerGroupCommand extends BiomiaCommand {
             return;
         }
 
-        if (args.length != 0) {
-            if (args.length > 1) {
-                PlayerToServerConnector.connectToRandom(Bukkit.getPlayer(args[1]), BiomiaServerType.valueOf(args[0]));
-            } else if (sender instanceof Player) {
-                PlayerToServerConnector.connectToRandom((Player) sender, BiomiaServerType.valueOf(args[0]));
-            } else {
-                sender.sendMessage("Nutze /rsg <Gruppe> [Player]");
-            }
+        if (args.length > 1) {
+            PlayerToServerConnector.connectToRandom(Bukkit.getPlayer(args[1]), BiomiaServerType.valueOf(args[0]));
         } else {
             sender.sendMessage("Nutze /rsg <Gruppe> [Player]");
         }
