@@ -64,7 +64,7 @@ class ParrotHandler extends GameHandler {
     @EventHandler
     public void onBlockDestroy(BlockExplodeEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getBlock().getWorld())) return;
-        if (handleBlock(e.getBlock(), false) != null) {
+        if (handleBlock(e.getBlock()) != null) {
             e.setCancelled(true);
         }
     }
@@ -72,7 +72,7 @@ class ParrotHandler extends GameHandler {
     @EventHandler
     public void onBlockDestroy(BlockBreakEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getBlock().getWorld())) return;
-        ParrotCanonPoint point = handleBlock(e.getBlock(), true);
+        ParrotCanonPoint point = handleBlock(e.getBlock());
         if (point != null)
             point.setDestroyed();
     }
@@ -129,7 +129,7 @@ class ParrotHandler extends GameHandler {
         }
     }
 
-    private ParrotCanonPoint handleBlock(Block b, boolean fromHand) {
+    private ParrotCanonPoint handleBlock(Block b) {
         ParrotCanonPoint point = ((Parrot) mode).getPoints().stream().filter(parrotCanonPoint -> parrotCanonPoint.getLocation().distance(b.getLocation()) < 1).findFirst().orElse(null);
         mode.getTeams().stream().map(team -> ((ParrotTeam) team).getShip()).filter(parrotShip -> parrotShip.containsRegionLocation(b.getLocation())).findFirst().ifPresent(ParrotShip::update);
         return point;
