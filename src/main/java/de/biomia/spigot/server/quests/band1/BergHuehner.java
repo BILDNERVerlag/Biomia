@@ -135,5 +135,4 @@ public class BergHuehner implements Listener {
         nachQuest = new DialogMessage(q, tom)
                 .setInhalt("Am liebsten würde ich jeden Tag einen Kuchen backen. Komm doch morgen wieder.");
     }
-
 }
