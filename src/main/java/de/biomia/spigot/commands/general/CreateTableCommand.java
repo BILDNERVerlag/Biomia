@@ -16,7 +16,7 @@ public class CreateTableCommand extends BiomiaCommand {
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
-        if (sender instanceof Player && !Biomia.getBiomiaPlayer((Player) sender).isSrStaff()) {
+        if (!Biomia.getBiomiaPlayer((Player) sender).isSrStaff()) {
             sender.sendMessage(Messages.NO_PERM);
             return;
         }

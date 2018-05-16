@@ -20,40 +20,33 @@ public class TrollCommand extends BiomiaCommand {
         super(name);
     }
 
-    @Deprecated
-    public boolean execute(CommandSender sender, String label, String[] args) {
+    public void onCommand(CommandSender sender, String label, String[] args) {
 
-        if (sender instanceof Player) {
-            Player p = (Player) sender;
-            BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-
-            if (getName().equalsIgnoreCase("troll")) {
-                if (sender.hasPermission("biomia.trollmod")) {
-                    if (bp.isInTrollmode()) {
-                        bp.setTrollmode(false);
-                        sender.sendMessage("\u00A7cDu bist nun nicht mehr im Trollmodus");
-                    } else {
-                        bp.setTrollmode(true);
-                        sender.sendMessage("\u00A7aDu bist nun im Trollmodus");
-                    }
-                } else {
-                    sender.sendMessage(Messages.NO_PERM);
-                }
-            } else if (getName().equalsIgnoreCase("crash")) {
-                if (args.length >= 1) {
-                    Player target = Bukkit.getPlayer(args[0]);
-
-                    if (bp.isInTrollmode()) {
-                        crashPlayer(target);
-                        sender.sendMessage("\u00A7aDu hast den Spieler\u00A7c " + target.getName() + " \u00A7agecrashed!");
-                    } else sender.sendMessage("\u00A7cDu bist nicht im Trollmodus!");
-                }
-            }
-
-        } else {
-            sender.sendMessage(Messages.NO_PLAYER);
+        Player p = (Player) sender;
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
+        if (!bp.isOwnerOrDev()) {
+            sender.sendMessage(Messages.NO_PERM);
+            return;
         }
-        return false;
+
+        if (getName().equalsIgnoreCase("troll")) {
+            if (bp.isInTrollmode()) {
+                bp.setTrollmode(false);
+                sender.sendMessage("\u00A7cDu bist nun nicht mehr im Trollmodus");
+            } else {
+                bp.setTrollmode(true);
+                sender.sendMessage("\u00A7aDu bist nun im Trollmodus");
+            }
+        } else if (getName().equalsIgnoreCase("crash")) {
+            if (args.length >= 1) {
+                Player target = Bukkit.getPlayer(args[0]);
+
+                if (bp.isInTrollmode()) {
+                    crashPlayer(target);
+                    sender.sendMessage("\u00A7aDu hast den Spieler\u00A7c " + target.getName() + " \u00A7agecrashed!");
+                } else sender.sendMessage("\u00A7cDu bist nicht im Trollmodus!");
+            }
+        }
     }
 
     private void crashPlayer(Player p) {

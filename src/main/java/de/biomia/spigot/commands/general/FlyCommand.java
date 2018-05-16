@@ -16,10 +16,11 @@ public class FlyCommand extends BiomiaCommand {
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
 
-        if (!Biomia.getBiomiaPlayer((Player) sender).isSrStaff())
-            sender.sendMessage(Messages.NO_PERM);
-
         Player p = (Player) sender;
+        if (!Biomia.getBiomiaPlayer(p).isSrStaff()) {
+            sender.sendMessage(Messages.NO_PERM);
+            return;
+        }
 
         if (args.length > 0) {
             if ((p = Bukkit.getPlayer(args[0])) == null) {

@@ -177,100 +177,82 @@ public class QuestCommands extends BiomiaCommand {
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
 
-        long startTime = System.currentTimeMillis();
-        if (sender instanceof Player) {
+        Player p = (Player) sender;
+        QuestPlayer qp = Biomia.getQuestPlayer(p);
 
-            Player p = (Player) sender;
-            QuestPlayer qp = Biomia.getQuestPlayer(p);
-
-            // COMMANDS FOR ALL PLAYERS
-            switch (args[0].toLowerCase()) {
-                case "list":
-                    qlistCommand(sender);
-                    break;
-                case "tagebuch":
-                    qTagebuchCommand(p, qp);
-                    break;
-                case "info":
-                    qInfoCommand(sender, args, p);
-                    break;
-                case "help":
-                    qhelpCommand(sender);
-                    break;
-                case "stats":
-                    qstatCommand(sender, qp, args);
-                    break;
-                case "respawn":
-                    respawnCommand(sender, qp);
-                    break;
-                case "updatebook":
-                    qupdatebookCommand(qp);
-                    break;
-                case "reset":
-                    qresetCommand(p, qp);
-                    break;
-                default:
-                    qCommand(args, p, qp);
-                    break;
-            }
-
-            // COMMANDS FOR PLAYERS WITH SPECIAL PERMISSIONS
-            if (sender.hasPermission("biomia.quests.*")) {
-                switch (args[0].toLowerCase()) {
-                    case "r":
-                        qrCommand(sender, args, qp);
-                        break;
-                    case "align":
-                        qalignCommand(sender);
-                        break;
-                    case "restore":
-                        qrestoreCommand();
-                        break;
-                    case "aion":
-                        aionCommand();
-                        break;
-                    case "aioff":
-                        aioffCommand();
-                        break;
-                    case "aitoggle":
-                        aitoggleCommand();
-                        break;
-                    case "filldiary":
-                        qfilldiaryCommand(sender, qp);
-                        break;
-                    case "log":
-                        logTime = !logTime;
-                        sender.sendMessage(
-                                "\u00A78\u00A7kzzz\u00A7r\u00A76Logging-Schalter betätigt.\u00A78\u00A7kzzz");
-                        break;
-                    case "test":
-                        Bukkit.dispatchCommand(sender,
-                                "summon wither_skeleton ~ ~1 ~ {ArmorItems:[{},{},{id:\"minecraft:leather_chestplate\",Count:1b,tag:{display:{color:0}}},"
-                                        + "{id:\"minecraft:leather_helmet\",Count:1b,tag:{display:{color:0}}}],"
-                                        + "HandItems:[{id:\"minecraft:iron_hoe\",Count:1b},{}],ActiveEffects:[{Id:14,Amplifier:0,Duration:20000,ShowParticles:0b}]}");
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-        } else {
-            sender.sendMessage(Messages.NO_PLAYER);
+        // COMMANDS FOR ALL PLAYERS
+        switch (args[0].toLowerCase()) {
+            case "list":
+                qlistCommand(sender);
+                break;
+            case "tagebuch":
+                qTagebuchCommand(p, qp);
+                break;
+            case "info":
+                qInfoCommand(sender, args, p);
+                break;
+            case "help":
+                qhelpCommand(sender);
+                break;
+            case "stats":
+                qstatCommand(sender, qp, args);
+                break;
+            case "respawn":
+                respawnCommand(sender, qp);
+                break;
+            case "updatebook":
+                qupdatebookCommand(qp);
+                break;
+            case "reset":
+                qresetCommand(p, qp);
+                break;
+            default:
+                qCommand(args, p, qp);
+                break;
         }
 
-        long stopTime = System.currentTimeMillis();
-        long elapsedTime = stopTime - startTime;
-        if (logTime)
-            Bukkit.broadcastMessage("\u00A78\u00A7kzzz\u00A7r\u00A77Methodenzeit:\u00A78\u00A7kzz\u00A7r\u00A77"
-                    + elapsedTime + "ms\u00A78\u00A7kzzz");
+        // COMMANDS FOR PLAYERS WITH SPECIAL PERMISSIONS
+        if (!Biomia.getBiomiaPlayer(p).isOwnerOrDev()) {
+            sender.sendMessage(Messages.NO_PERM);
+            return;
+        }
+
+        switch (args[0].toLowerCase()) {
+            case "r":
+                qrCommand(sender, args, qp);
+                break;
+            case "align":
+                qalignCommand(sender);
+                break;
+            case "restore":
+                qrestoreCommand();
+                break;
+            case "aion":
+                aionCommand();
+                break;
+            case "aioff":
+                aioffCommand();
+                break;
+            case "aitoggle":
+                aitoggleCommand();
+                break;
+            case "filldiary":
+                qfilldiaryCommand(sender, qp);
+                break;
+            case "test":
+                Bukkit.dispatchCommand(sender,
+                        "summon wither_skeleton ~ ~1 ~ {ArmorItems:[{},{},{id:\"minecraft:leather_chestplate\",Count:1b,tag:{display:{color:0}}},"
+                                + "{id:\"minecraft:leather_helmet\",Count:1b,tag:{display:{color:0}}}],"
+                                + "HandItems:[{id:\"minecraft:iron_hoe\",Count:1b},{}],ActiveEffects:[{Id:14,Amplifier:0,Duration:20000,ShowParticles:0b}]}");
+                break;
+        }
     }
 
     private void respawnCommand(CommandSender sender, QuestPlayer qp) {
-        if (sender instanceof Player)
-            if (qp.getDialog() == null) {
-                Player p = ((Player) sender);
-                p.setHealth(0);
-            }
+        if (qp.getDialog() == null) {
+            Player p = ((Player) sender);
+            p.setHealth(0);
+        }
     }
 
     private void qresetCommand(Player p, QuestPlayer qp) {
@@ -328,22 +310,20 @@ public class QuestCommands extends BiomiaCommand {
      */
     private void qhelpCommand(CommandSender sender) {
         sender.sendMessage("\u00A78------------\u00A76QuestCommands\u00A78-----------");
-        if (sender.hasPermission("biomia.quests")) {
-            sender.sendMessage("\u00A76/qalign \u00A7asammelt alle NPCs an einem best. Punkt.");
-            sender.sendMessage("\u00A76/qrestore \u00A7asendet alle NPCs wieder zurück.");
-            sender.sendMessage("\u00A76/qr [NAME] \u00A7aum dich aus coins zu entfernen.");
-        }
         sender.sendMessage("\u00A76/qlist \u00A7aum alle deine coins aufzulisten.");
         sender.sendMessage("\u00A76/qstats \u00A7afür Infos zu deinem Questfortschritt.");
         sender.sendMessage("\u00A76/qinfo <NAME> \u00A7afür Infos zu einer bestimmten Quest");
         sender.sendMessage("\u00A76/tagebuch \u00A7aum ein neues Tagebuch zu erhalten.");
-        if (sender.hasPermission("biomia.quests")) {
-            sender.sendMessage("\u00A78--------\u00A7cExperimentelle QuestCommands\u00A78--------");
+        if (Biomia.getBiomiaPlayer((Player) sender).isOwnerOrDev()) {
+            sender.sendMessage("\u00A78--------\u00A7cDev Commands\u00A78--------");
             sender.sendMessage(
                     "\u00A7c\u00A7lAchtung! \u00A7r\u00A7cKönnen bei unpräziser Nutzung unvorhergesehene Konsequenzen herbeiführen."
                             + " Benutze sie nur, wenn du wirklich weißt, was du tust.");
             sender.sendMessage("\u00A7c/aion \u00A7aNPC-AI an.  \u00A7c/aioff \u00A7aNPC-AI aus.");
             sender.sendMessage("\u00A7c/aitoggle \u00A7aschält NPC-AI an bzw. aus.");
+            sender.sendMessage("\u00A76/qalign \u00A7asammelt alle NPCs an einem best. Punkt.");
+            sender.sendMessage("\u00A76/qrestore \u00A7asendet alle NPCs wieder zurück.");
+            sender.sendMessage("\u00A76/qr [NAME] \u00A7aum dich aus coins zu entfernen.");
         }
         sender.sendMessage("\u00A78------------------------------------");
 

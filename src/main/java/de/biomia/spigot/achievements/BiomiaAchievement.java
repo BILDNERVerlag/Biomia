@@ -41,8 +41,9 @@ public enum BiomiaAchievement {
         MySQL.executeUpdate(String.format("INSERT INTO `%s` (`ID`) VALUES (%d)", bA.toString(), biomiaID), MySQL.Databases.achiev_db);
     }
 
-    public static void logSwitch() {
+    public static boolean logSwitch() {
         log = !log;
+        return log;
     }
 
     public static boolean isLogging() {

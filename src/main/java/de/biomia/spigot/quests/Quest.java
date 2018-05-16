@@ -62,13 +62,12 @@ abstract class Quest {
         //TODO rename | should quests be reset?
         questID = MySQL.executeQuerygetint("SELECT id from `Quests` where name = '" + questName + "'",
                 "id", MySQL.Databases.quests_db);
-        if (questID == -1) {
+        if (questID == -1) /*quest not in database*/{
             MySQL.executeUpdate(
                     "INSERT INTO `Quests` (name, band) values ('" + questName + "', " + band + ")", MySQL.Databases.quests_db);
             questID = MySQL.executeQuerygetint(
                     "SELECT name, id from `Quests` where name = '" + questName + "'", "id", MySQL.Databases.quests_db);
         }
-        // else: Quest already in database
     }
 
     //GETTER and SETTER

@@ -3,6 +3,7 @@ package de.biomia.spigot.commands.minigames;
 import com.boydti.fawe.object.FawePlayer;
 import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.regions.Region;
+import de.biomia.spigot.Biomia;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.configs.Config;
@@ -25,6 +26,10 @@ public class MinigamesCommands extends BiomiaCommand {
     protected void onCommand(CommandSender sender, String label, String[] args) {
 
         Player p = (Player) sender;
+        if (!Biomia.getBiomiaPlayer(p).isOwnerOrDev()) {
+            sender.sendMessage(Messages.NO_PERM);
+            return;
+        }
 
         switch (label) {
             case "addship":

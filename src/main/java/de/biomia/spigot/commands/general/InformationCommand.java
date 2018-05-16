@@ -17,17 +17,21 @@ public class InformationCommand extends BiomiaCommand {
 
     @Override
     protected void onCommand(CommandSender sender, String label, String[] args) {
+
         BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) sender);
-        if (bp.isSrStaff()) {
-            if (args.length == 0) {
-                bp.sendMessage(String.format("/%s <Player>", label));
-            }
-            OfflineBiomiaPlayer target = Biomia.getOfflineBiomiaPlayer(args[0]);
-            if (target == null) {
-                bp.sendMessage(String.format("%s%s war noch nie Online!", Messages.COLOR_MAIN, args[0]));
-                return;
-            }
-            new InformationInventory(bp, target.getBiomiaPlayerID());
+        if (!bp.isSrStaff()) {
+            sender.sendMessage(Messages.NO_PERM);
+            return;
         }
+
+        if (args.length == 0) {
+            bp.sendMessage(String.format("/%s <Player>", label));
+        }
+        OfflineBiomiaPlayer target = Biomia.getOfflineBiomiaPlayer(args[0]);
+        if (target == null) {
+            bp.sendMessage(String.format("%s%s war noch nie Online!", Messages.COLOR_MAIN, args[0]));
+            return;
+        }
+        new InformationInventory(bp, target.getBiomiaPlayerID());
     }
 }

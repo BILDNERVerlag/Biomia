@@ -8,6 +8,7 @@ import de.biomia.universal.Messages;
 import de.biomia.universal.MySQL;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -29,8 +30,6 @@ public class WarpCommand extends BiomiaCommand {
     }
 
     public void onCommand(CommandSender sender, String label, String[] args) {
-        if (!(sender instanceof Player)) return;
-
         Player p = (Player) sender;
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         Location ploc = p.getLocation();
@@ -209,4 +208,37 @@ public class WarpCommand extends BiomiaCommand {
         return locations;
     }
 
+    private class WarpLocation {
+
+        private final String groupname;
+        private final Location loc;
+
+        WarpLocation(double x, double y, double z, float yaw, float pitch, String groupname, String worldname) {
+            loc = new Location(Bukkit.getWorld(worldname), x, y, z, yaw, pitch);
+            this.groupname = groupname;
+        }
+
+        WarpLocation(Location loc0, String groupname) {
+            loc = loc0;
+            this.groupname = groupname;
+        }
+
+        public Location getLocation() {
+            return loc;
+        }
+
+        public String toString() {
+            return loc.serialize().toString();
+        }
+
+        public String getWorldname() {
+            return loc.getWorld().getName();
+        }
+
+        public String getGroupname() {
+            return groupname;
+        }
+
+    }
 }
+
