@@ -2,7 +2,7 @@ package de.biomia.spigot.minigames.parrot;
 
 import com.boydti.fawe.util.EditSessionBuilder;
 import com.sk89q.worldedit.EditSession;
-import com.sk89q.worldedit.Vector;
+import com.sk89q.worldedit.bukkit.BukkitUtil;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.TeamColor;
@@ -56,14 +56,13 @@ public class ParrotShip {
             team.getPlayers().forEach(team::setDead);
         } else if (destroyedBlocks >= 0) {
             // destroyedBlocks / 0.6 to set the destroyed blocks from 60% to 100%
-            // 1 - x to fit the increase | 0 = destroyed | 1 = not-destroyed
+            // 1 - x to reverse the bar | 0 = destroyed | 1 = not-destroyed
             bossBar.setProgress(1 - destroyedBlocks / 0.6D / shipBlocks);
             setName();
         }
-
     }
 
     public boolean containsRegionLocation(Location location) {
-        return region.contains(new Vector(location.getX(), location.getY(), location.getZ()));
+        return region.contains(BukkitUtil.toVector(location));
     }
 }

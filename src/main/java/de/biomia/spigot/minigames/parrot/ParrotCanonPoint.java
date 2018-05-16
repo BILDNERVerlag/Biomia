@@ -27,8 +27,9 @@ public class ParrotCanonPoint {
         return armorStand;
     }
 
-    public void setDestroyed() {
 
+    public void setDestroyed() {
+        destroyed = true;
     }
 
     public boolean isDestroyed() {

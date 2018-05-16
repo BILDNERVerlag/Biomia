@@ -33,13 +33,14 @@ public class ParrotCanon {
     }
 
     public boolean fire() {
-
         long now = System.currentTimeMillis();
         if (now - lastShoot > 10 * 1000) { // TODO nachladezeit je nach level
             lastShoot = now;
             //TODO
-        }
-        return true;
+
+            return true;
+        } else
+            return false;
     }
 
     public void spawn(int level) {
