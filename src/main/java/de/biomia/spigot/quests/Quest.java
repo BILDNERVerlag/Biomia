@@ -14,6 +14,7 @@ import org.bukkit.event.Listener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@SuppressWarnings("all")
 abstract class Quest {
 
     //TODO: neues questsystem weiterentwickeln
@@ -86,6 +87,7 @@ abstract class Quest {
     }
 }
 
+@SuppressWarnings("all")
 class QuestListener implements Listener {
 
     private static final ArrayList<Quest> quests = new ArrayList<>();

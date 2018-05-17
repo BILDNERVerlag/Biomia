@@ -44,6 +44,7 @@ public class ItemCreator {
         return itemStack;
     }
 
+    @SuppressWarnings("deprecation")
     public static ItemStack headWithSkin(String name) {
         ItemStack s = itemCreate((short) SkullType.PLAYER.ordinal());
         SkullMeta meta = (SkullMeta) s.getItemMeta();

@@ -63,6 +63,7 @@ public class HeadCreator {
         return head;
     }
 
+    @SuppressWarnings("deprecation")
     public static void setSkullUrl(String code, Block block) {
 
         String url = "http://textures.minecraft.net/texture/" + code;

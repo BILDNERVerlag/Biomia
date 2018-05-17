@@ -234,6 +234,7 @@ public abstract class GameHandler implements Listener {
             if (e.getCurrentItem() != null) {
                 if (e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().hasDisplayName()) {
                     if (e.getClickedInventory().getName().equals(mode.getTeamSwitcher().getName())) {
+                        //noinspection deprecation
                         mode.getTeamFromData(e.getCurrentItem().getData().getData()).join(bp);
                         e.setCancelled(true);
                         p.closeInventory();
