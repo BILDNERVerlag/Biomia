@@ -25,8 +25,33 @@ public class Teleporter {
     private final TeleportExecutor teleportExecutor;
 
     public Teleporter(Location from, Location to, Location backTeleport, BiomiaServerType serverType) {
-        this.from = from;
-        this.to = to;
+
+        double x1, x2, y1, y2, z1, z2;
+
+        if (from.getX() < to.getX()) {
+            x1 = from.getX();
+            x2 = to.getX();
+        } else {
+            x1 = to.getX();
+            x2 = from.getX();
+        }
+        if (from.getY() < to.getY()) {
+            y1 = from.getY();
+            y2 = to.getY();
+        } else {
+            y1 = to.getY();
+            y2 = from.getY();
+        }
+        if (from.getZ() < to.getZ()) {
+            z1 = from.getZ();
+            z2 = to.getZ();
+        } else {
+            z1 = to.getZ();
+            z2 = from.getZ();
+        }
+
+        this.from = new Location(from.getWorld(), x1, y1, z1);
+        this.to = new Location(from.getWorld(), x2, y2, z2);
         dest = Destination.SERVER_GROUP;
         this.serverType = serverType;
         this.backTeleport = backTeleport;
@@ -36,8 +61,31 @@ public class Teleporter {
     }
 
     public Teleporter(Location from, Location to, Location destinationLocation) {
-        this.from = from;
-        this.to = to;
+        double x1, x2, y1, y2, z1, z2;
+
+        if (from.getX() < to.getX()) {
+            x1 = from.getX();
+            x2 = to.getX();
+        } else {
+            x1 = to.getX();
+            x2 = from.getX();
+        }
+        if (from.getY() < to.getY()) {
+            y1 = from.getY();
+            y2 = to.getY();
+        } else {
+            y1 = to.getY();
+            y2 = from.getY();
+        }
+        if (from.getZ() < to.getZ()) {
+            z1 = from.getZ();
+            z2 = to.getZ();
+        } else {
+            z1 = to.getZ();
+            z2 = from.getZ();
+        }
+        this.from = new Location(from.getWorld(), x1, y1, z1);
+        this.to = new Location(from.getWorld(), x2, y2, z2);
         dest = Destination.LOCATION;
         this.location = destinationLocation;
         listener.addTeleporter(this);
@@ -47,8 +95,32 @@ public class Teleporter {
     }
 
     public Teleporter(Location from, Location to, TeleportExecutor teleportExecutor) {
-        this.from = from;
-        this.to = to;
+        double x1, x2, y1, y2, z1, z2;
+
+        if (from.getX() < to.getX()) {
+            x1 = from.getX();
+            x2 = to.getX();
+        } else {
+            x1 = to.getX();
+            x2 = from.getX();
+        }
+        if (from.getY() < to.getY()) {
+            y1 = from.getY();
+            y2 = to.getY();
+        } else {
+            y1 = to.getY();
+            y2 = from.getY();
+        }
+        if (from.getZ() < to.getZ()) {
+            z1 = from.getZ();
+            z2 = to.getZ();
+        } else {
+            z1 = to.getZ();
+            z2 = from.getZ();
+        }
+
+        this.from = new Location(from.getWorld(), x1, y1, z1);
+        this.to = new Location(from.getWorld(), x2, y2, z2);
         dest = Destination.EXECUTION;
         listener.addTeleporter(this);
         this.location = null;

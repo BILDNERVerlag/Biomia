@@ -214,8 +214,6 @@ public abstract class GameMode {
                 case PARROT:
                     new ParrotTeam(colors, this);
             }
-
-
         }
     }
 
