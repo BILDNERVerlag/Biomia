@@ -40,7 +40,7 @@ public class Main extends JavaPlugin {
 
     private static Main plugin;
     private static CommandMap commandMap;
-    private static VoidWorldGenerator voidWorldGenerator = new VoidWorldGenerator();
+    private final static VoidWorldGenerator voidWorldGenerator = new VoidWorldGenerator();
 
     public static Main getPlugin() {
         return plugin;

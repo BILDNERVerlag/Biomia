@@ -39,14 +39,17 @@ public class CosmeticListener implements Listener {
 
                     if (!blocksMaterial.containsKey(b.getLocation())) {
                         blocksMaterial.put(b.getLocation(), b.getType());
+                        //noinspection deprecation
                         blocksData.put(b.getLocation(), b.getData());
                     }
                     b.setType(Material.CONCRETE);
+                    //noinspection deprecation
                     b.setData((byte) new Random().nextInt(16));
                     new BukkitRunnable() {
                         @Override
                         public void run() {
                             b.setType(blocksMaterial.get(b.getLocation()));
+                            //noinspection deprecation
                             b.setData(blocksData.get(b.getLocation()));
                         }
                     }.runTaskLater(Main.getPlugin(), 20 * 25);
