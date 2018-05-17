@@ -93,7 +93,7 @@ class ParrotHandler extends GameHandler {
         if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         if (e.getRightClicked() instanceof ArmorStand) {
             ((Parrot) mode).getPoints().forEach((ParrotCanonPoint parrotCanonPoint) -> {
-                if (e.getRightClicked().equals(parrotCanonPoint.getArmorStand())) {
+                if (e.getRightClicked().equals(parrotCanonPoint.getCanonier())) {
                     //TODO handle armorstands
                 }
             });

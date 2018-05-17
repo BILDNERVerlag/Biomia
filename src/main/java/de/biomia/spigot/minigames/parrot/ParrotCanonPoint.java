@@ -10,26 +10,27 @@ import org.bukkit.entity.EntityType;
 public class ParrotCanonPoint {
 
     public ParrotCanonPoint(Location location, GameTeam team) {
-        canon = new ParrotCanon(ParrotCanon.CanonType.CANON, team, this);
+        canon = new ParrotCanon(team, this);
         location.subtract(0, 1, 0).getBlock().setType(Material.ENDER_CHEST);
         canon.spawn(1);
-        armorStand = (ArmorStand) team.getMode().getInstance().getWorld().spawnEntity(location.add(0, 3, 0), EntityType.ARMOR_STAND);
-        armorStand.setGravity(false);
-        armorStand.setCustomName(ParrotItemNames.canonier);
+        canonier = (ArmorStand) team.getMode().getInstance().getWorld().spawnEntity(location.add(0, 3, 0), EntityType.ARMOR_STAND);
+        canonier.setGravity(false);
+        canonier.setCustomName(ParrotItemNames.canonier);
+        canonier.setCustomNameVisible(true);
     }
 
     private final Location location = null;
     private final ParrotCanon canon;
     private boolean destroyed;
-    private final ArmorStand armorStand;
+    private final ArmorStand canonier;
 
-    public ArmorStand getArmorStand() {
-        return armorStand;
+    public ArmorStand getCanonier() {
+        return canonier;
     }
-
 
     public void setDestroyed() {
         destroyed = true;
+        canonier.remove();
     }
 
     public boolean isDestroyed() {
