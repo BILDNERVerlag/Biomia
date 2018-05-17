@@ -6,7 +6,6 @@ import com.sk89q.worldedit.bukkit.BukkitUtil;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.TeamColor;
-import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.boss.BarColor;
@@ -36,7 +35,7 @@ public class ParrotShip {
     }
 
     private void setName() {
-        bossBar.setTitle(team.getColor().getColorcode() + "Schiff " + team.getColor().translate() + Messages.COLOR_AUX + ": " + team.getColor().getColorcode() + bossBar.getProgress() * 100 + "%");
+        bossBar.setTitle(team.getColor().getColorcode() + (double) (int) (bossBar.getProgress() * 10000) / 100 + "%");
     }
 
     public void setPlayersToBossBar() {

@@ -138,7 +138,6 @@ public class GameStateManager {
                 bp.getPlayer().setAllowFlight(false);
                 bp.setBuild(true);
                 bp.getPlayer().setFallDistance(0);
-                Bukkit.broadcastMessage("Team " + bp.getTeam().getColor().name() + bp.getTeam().getHome().toString());
                 bp.getPlayer().teleport(bp.getTeam().getHome());
                 bp.sendMessage(MinigamesMessages.explainMessages);
             }

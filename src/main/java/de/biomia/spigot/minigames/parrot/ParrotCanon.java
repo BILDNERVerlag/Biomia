@@ -8,8 +8,11 @@ import de.biomia.spigot.Main;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.universal.Messages;
+import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.TNTPrimed;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
@@ -41,7 +44,6 @@ public class ParrotCanon {
 
         setCooldown(0);
         setName();
-
     }
 
     public void setType(CanonType type) {
@@ -52,10 +54,11 @@ public class ParrotCanon {
         return level;
     }
 
-    public boolean fire() {
+    public void fire(Player p) {
         if (cooldown == 0) {
-            //TODO launch TNT
-
+            TNTPrimed tnt = (TNTPrimed) getShootHole().getWorld().spawnEntity(getShootHole(), EntityType.PRIMED_TNT);
+            tnt.setFuseTicks(20 * 6);
+            tnt.setVelocity(p.getEyeLocation().getDirection().setY(1.05D).multiply(8)); //TODO vector je nach canontype
             setCooldown(10); // TODO nachladezeit je nach level
             new BukkitRunnable() {
                 @Override
@@ -65,10 +68,8 @@ public class ParrotCanon {
                     else
                         setCooldown(getCooldown() - 1);
                 }
-            }.runTaskTimer(Main.getPlugin(), 20, 20);
-            return true;
-        } else
-            return false;
+            } .runTaskTimer(Main.getPlugin(), 20, 20);
+        }
     }
 
     private void setName() {
@@ -102,9 +103,58 @@ public class ParrotCanon {
 
 
         public String getName() {
-            //TODO
-            return "Text comes here";
+            switch (this) {
+                default:
+                case CANON:
+                    return "Standart Kanone";
+                case SNIPER:
+                    return "Sniper";
+                case BAZOOKA:
+                    return "Panzerfaust";
+                case SHOTGUN:
+                    return "Schrotflinte";
+                case AK_HALBAUTOMATIK:
+                    return "";
+            }
         }
-
     }
+
+    public Location getButton() {
+
+        //RED / BLUE beachten
+
+        switch (type) {
+            default:
+            case CANON:
+                return canonPoint.getLocation().clone().add(2, 1, 2);
+            case SNIPER:
+                return canonPoint.getLocation().clone().add(2, 1, 2);
+            case BAZOOKA:
+                return canonPoint.getLocation().clone().add(2, 1, 2);
+            case SHOTGUN:
+                return canonPoint.getLocation().clone().add(2, 1, 2);
+            case AK_HALBAUTOMATIK:
+                return canonPoint.getLocation().clone().add(2, 1, 2);
+        }
+    }
+
+    public Location getShootHole() {
+
+        //RED / BLUE beachten
+
+        switch (type) {
+            default:
+            case CANON:
+                return canonPoint.getLocation().clone().add(2, 1, 2);
+            case SNIPER:
+                return canonPoint.getLocation().clone().add(2, 1, 2);
+            case BAZOOKA:
+                return canonPoint.getLocation().clone().add(2, 1, 2);
+            case SHOTGUN:
+                return canonPoint.getLocation().clone().add(2, 1, 2);
+            case AK_HALBAUTOMATIK:
+                return canonPoint.getLocation().clone().add(2, 1, 2);
+        }
+    }
+
 }

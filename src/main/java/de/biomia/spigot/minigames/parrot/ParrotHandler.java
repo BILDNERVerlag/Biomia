@@ -11,6 +11,7 @@ import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Arrow;
@@ -19,14 +20,18 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
+
+import java.util.Arrays;
 
 class ParrotHandler extends GameHandler {
 
@@ -34,15 +39,13 @@ class ParrotHandler extends GameHandler {
         super(mode);
     }
 
-    @Override
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         super.onJoin(e);
         if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME)
-            mode.getTeams().stream().map(team -> ((ParrotTeam) team).getShip()).forEach(parrotShip -> parrotShip.getBossBar().addPlayer(e.getPlayer()));
+            mode.getTeams().stream().map(team -> ((ParrotTeam) team).getShip().getBossBar()).forEach(parrotShip -> parrotShip.addPlayer(e.getPlayer()));
     }
 
-    @Override
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getEntity().getWorld())) return;
@@ -64,21 +67,23 @@ class ParrotHandler extends GameHandler {
     @EventHandler
     public void onBlockDestroy(BlockExplodeEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getBlock().getWorld())) return;
-        if (handleBlock(e.getBlock()) != null) {
-            e.setCancelled(true);
-        }
+        handleBlocks(false, (Block[]) e.blockList().toArray());
+    }
+
+    @EventHandler
+    public void onBlockDestroy(EntityExplodeEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getLocation().getWorld())) return;
+        handleBlocks(false, (Block[]) e.blockList().toArray());
     }
 
     @EventHandler
     public void onBlockDestroy(BlockBreakEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getBlock().getWorld())) return;
-        ParrotCanonPoint point = handleBlock(e.getBlock());
-        if (point != null)
-            point.setDestroyed();
+        handleBlocks(true, e.getBlock());
     }
 
     @EventHandler
-    public void onBlockDestroy(BlockBurnEvent e) {
+    public void onBlockBurn(BlockBurnEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getBlock().getWorld())) return;
         e.setCancelled(true);
     }
@@ -97,7 +102,18 @@ class ParrotHandler extends GameHandler {
                     //TODO handle armorstands
                 }
             });
+        }
+    }
 
+    @EventHandler
+    public void onInteract(PlayerInteractEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
+        if (e.hasBlock() && (e.getClickedBlock().getType() == Material.STONE_BUTTON || e.getClickedBlock().getType() == Material.WOOD_BUTTON)) {
+            ((Parrot) mode).getPoints().forEach(canonPoint -> {
+                if (canonPoint.getCanon().getButton().getBlock().equals(e.getClickedBlock())) {
+                    canonPoint.getCanon().fire(e.getPlayer());
+                }
+            });
         }
     }
 
@@ -123,15 +139,27 @@ class ParrotHandler extends GameHandler {
             ItemStack is = p.getInventory().getItemInMainHand();
             if (is != null && is.hasItemMeta() && is.getItemMeta().getDisplayName().equals(ParrotItemNames.explosionBow)) {
                 Arrow arrow = (Arrow) e.getEntity();
-                if (arrow.hasMetadata("ExplosionArrow"))
-                    arrow.getLocation().getWorld().createExplosion(arrow.getLocation(), 1); //TODO Power anpassen
+                if (arrow.hasMetadata("ExplosionArrow")) {
+                    Block b = e.getHitBlock();
+                    if (b != null) {
+                        arrow.getLocation().getWorld().createExplosion(arrow.getLocation(), 0); //TODO Power anpassen
+                        b.setType(Material.AIR);
+                    }
+                }
             }
         }
     }
 
-    private ParrotCanonPoint handleBlock(Block b) {
-        ParrotCanonPoint point = ((Parrot) mode).getPoints().stream().filter(parrotCanonPoint -> parrotCanonPoint.getLocation().distance(b.getLocation()) < 1).findFirst().orElse(null);
-        mode.getTeams().stream().map(team -> ((ParrotTeam) team).getShip()).filter(parrotShip -> parrotShip.containsRegionLocation(b.getLocation())).findFirst().ifPresent(ParrotShip::update);
-        return point;
+    private void handleBlocks(boolean fromHand, Block... blocks) {
+        Arrays.asList(blocks).forEach(block -> {
+            ParrotCanonPoint point = ((Parrot) mode).getPoints().stream().filter(parrotCanonPoint -> parrotCanonPoint.getLocation().distance(block.getLocation()) < 1).findFirst().orElse(null);
+            if (point != null) {
+                if (!fromHand)
+                    return;
+                point.setDestroyed();
+            }
+            block.setType(Material.AIR);
+            mode.getTeams().stream().map(team -> ((ParrotTeam) team).getShip()).filter(parrotShip -> parrotShip.containsRegionLocation(block.getLocation())).findFirst().ifPresent(ParrotShip::update);
+        });
     }
 }
