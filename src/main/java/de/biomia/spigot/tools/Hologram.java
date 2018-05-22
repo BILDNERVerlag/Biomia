@@ -6,7 +6,8 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 
 public class Hologram {
-    public static void newHologram(Location loc, String[] s) {
+    public static ArmorStand[] newHologram(Location loc, String... s) {
+        ArmorStand[] armorStands = new ArmorStand[s.length];
         for (int i = 0; i < s.length; i++) {
             String string = s[i];
             ArmorStand armorStand = (ArmorStand) loc.getWorld().spawnEntity(new Location(loc.getWorld(), loc.getBlockX() + 0.5, loc.getBlockY() - (i * 0.225), loc.getBlockZ() + 0.5), EntityType.ARMOR_STAND);
@@ -14,6 +15,8 @@ public class Hologram {
             armorStand.setVisible(false);
             armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', string));
             armorStand.setCustomNameVisible(true);
+            armorStands[i] = armorStand;
         }
+        return armorStands;
     }
 }

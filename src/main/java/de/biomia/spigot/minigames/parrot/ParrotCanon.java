@@ -7,6 +7,7 @@ import com.sk89q.worldedit.math.transform.AffineTransform;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.TeamColor;
+import de.biomia.spigot.tools.Hologram;
 import de.biomia.universal.Messages;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
@@ -33,17 +34,9 @@ public class ParrotCanon {
         this.team = team;
         this.canonPoint = canonPoint;
 
-        cooldownArmorStand = (ArmorStand) canonPoint.getLocation().getWorld().spawnEntity(canonPoint.getLocation(), EntityType.ARMOR_STAND);
-        canonNameArmorStand = (ArmorStand) canonPoint.getLocation().getWorld().spawnEntity(canonPoint.getLocation(), EntityType.ARMOR_STAND);
-
-        cooldownArmorStand.setGravity(false);
-        canonNameArmorStand.setGravity(false);
-
-        cooldownArmorStand.setCustomNameVisible(true);
-        canonNameArmorStand.setCustomNameVisible(true);
-
-        cooldownArmorStand.setVisible(false);
-        canonNameArmorStand.setVisible(false);
+        ArmorStand[] stands = Hologram.newHologram(canonPoint.getLocation().clone().add(0.5, 2, 0.5), "", "");
+        canonNameArmorStand = stands[0];
+        cooldownArmorStand = stands[1];
 
         setCooldown(0);
         setName();
