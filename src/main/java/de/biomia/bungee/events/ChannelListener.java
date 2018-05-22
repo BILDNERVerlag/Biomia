@@ -4,7 +4,7 @@ import de.biomia.bungee.BungeeBiomia;
 import de.biomia.bungee.OfflineBungeeBiomiaPlayer;
 import de.biomia.bungee.cmds.BanCommand;
 import de.biomia.universal.Grund;
-import net.md_5.bungee.BungeeCord;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ClickEvent.Action;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -41,7 +41,7 @@ public class ChannelListener implements Listener {
                 TextComponent comp = new TextComponent("\u00A7bDer Spieler \u00A7c" + playerName + " \u00A7bwurde wegen \u00A7c" + Grund.toText(Grund.valueOf(grund)) + " \u00A7bvon \u00A7a" + reporterName + " \u00A7breportet!");
                 comp.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/gtp " + playerName));
 
-                BungeeCord.getInstance().getPlayers().forEach(each -> {
+                ProxyServer.getInstance().getPlayers().forEach(each -> {
 
                     OfflineBungeeBiomiaPlayer bp = BungeeBiomia.getOfflineBiomiaPlayer(each.getName());
 
@@ -59,9 +59,9 @@ public class ChannelListener implements Listener {
 
 
                 if (time == -1) {
-                    BanCommand.banPerm(BungeeCord.getInstance().getPlayer(playerName), idToBan, reason);
+                    BanCommand.banPerm(ProxyServer.getInstance().getPlayer(playerName), idToBan, reason);
                 } else {
-                    BanCommand.banTemp(BungeeCord.getInstance().getPlayer(playerName), idToBan, time, reason);
+                    BanCommand.banTemp(ProxyServer.getInstance().getPlayer(playerName), idToBan, time, reason);
                 }
 
             }

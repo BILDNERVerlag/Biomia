@@ -7,7 +7,6 @@ import de.biomia.bungee.msg.Broadcasts;
 import de.biomia.bungee.var.BanManager;
 import de.biomia.bungee.var.Bans;
 import de.biomia.universal.MySQL;
-import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -35,7 +34,7 @@ public class BungeeMain extends Plugin {
 
         plugin = this;
 
-        BungeeCord.getInstance().registerChannel("BiomiaChannel");
+        ProxyServer.getInstance().registerChannel("BiomiaChannel");
 
         BanManager.getAllBans();
         BanManager.getAllCachedBans();

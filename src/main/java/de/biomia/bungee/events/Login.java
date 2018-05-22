@@ -10,7 +10,7 @@ import de.biomia.bungee.var.BanManager;
 import de.biomia.bungee.var.Bans;
 import de.biomia.spigot.BiomiaServerType;
 import de.biomia.universal.*;
-import net.md_5.bungee.BungeeCord;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.ServerPing;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -98,7 +98,7 @@ public class Login implements Listener {
             ArrayList<ProxiedPlayer> lvl2 = new ArrayList<>();
 
             try {
-                BungeeCord.getInstance().getPlayers().forEach(each -> {
+                ProxyServer.getInstance().getPlayers().forEach(each -> {
 
                     int lvl;
                     try {
@@ -154,7 +154,7 @@ public class Login implements Listener {
     public void onPingEvent(ProxyPingEvent e) {
         int maxPlayers = e.getResponse().getPlayers().getMax();
         ServerPing ping = e.getResponse();
-        ping.setPlayers(new ServerPing.Players(maxPlayers, BungeeCord.getInstance().getOnlineCount() + BungeeMain.actualFakePlayers, new ServerPing.PlayerInfo[0]));
+        ping.setPlayers(new ServerPing.Players(maxPlayers, ProxyServer.getInstance().getOnlineCount() + BungeeMain.actualFakePlayers, new ServerPing.PlayerInfo[0]));
         ping.setDescriptionComponent(MOTD);
         e.setResponse(ping);
     }

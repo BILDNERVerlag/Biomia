@@ -1,9 +1,9 @@
 package de.biomia.bungee.cmds;
 
-import de.biomia.universal.MySQL;
 import de.biomia.universal.Messages;
-import net.md_5.bungee.BungeeCord;
+import de.biomia.universal.MySQL;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
@@ -27,14 +27,14 @@ public class ModusCommand extends Command {
                     if (switcher.toLowerCase().equals("on")) {
                         wartungsModus = true;
                         setModus(true);
-                        for (ProxiedPlayer p : BungeeCord.getInstance().getPlayers())
+                        for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers())
                             if (!p.hasPermission("biomia.join"))
                                 p.disconnect(new TextComponent("\u00A7cDer Server ist jetzt im \u00A7bWartungsmodus\u00A7c!"));
-                        BungeeCord.getInstance().broadcast(new TextComponent("\u00A7cDer Server ist jetzt im \u00A7bWartungsmodus\u00A7c!"));
+                        ProxyServer.getInstance().broadcast(new TextComponent("\u00A7cDer Server ist jetzt im \u00A7bWartungsmodus\u00A7c!"));
                     } else if (switcher.toLowerCase().equals("off")) {
                         wartungsModus = false;
                         setModus(false);
-                        BungeeCord.getInstance().broadcast(new TextComponent("\u00A7cDer Server ist nicht länger im \u00A7bWartungsmodus\u00A7c!"));
+                        ProxyServer.getInstance().broadcast(new TextComponent("\u00A7cDer Server ist nicht länger im \u00A7bWartungsmodus\u00A7c!"));
                     }
                 } else
                     pp.sendMessage(new TextComponent("\u00A7c/modus <on | off>"));

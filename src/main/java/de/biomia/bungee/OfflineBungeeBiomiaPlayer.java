@@ -1,7 +1,7 @@
 package de.biomia.bungee;
 
 import de.biomia.universal.UniversalBiomiaPlayer;
-import net.md_5.bungee.BungeeCord;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
@@ -33,7 +33,7 @@ public class OfflineBungeeBiomiaPlayer extends UniversalBiomiaPlayer {
 
     // GETTERS AND SETTERS
     public final ProxiedPlayer getProxiedPlayer() {
-        return BungeeCord.getInstance().getPlayer(getName());
+        return ProxyServer.getInstance().getPlayer(getName());
     }
 
     public boolean isOnline() {

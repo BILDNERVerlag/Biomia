@@ -4,8 +4,8 @@ import de.biomia.bungee.BungeeBiomia;
 import de.biomia.bungee.BungeeMain;
 import de.biomia.bungee.OfflineBungeeBiomiaPlayer;
 import de.biomia.universal.MySQL;
-import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 
 import java.sql.PreparedStatement;
@@ -25,7 +25,7 @@ public class Broadcasts {
                     ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
                         TextComponent text = new TextComponent(ChatColor.translateAlternateColorCodes('&', rs.getString("message")));
-                        BungeeCord.getInstance().getPlayers().forEach(each -> {
+                        ProxyServer.getInstance().getPlayers().forEach(each -> {
                             OfflineBungeeBiomiaPlayer bp = BungeeBiomia.getOfflineBiomiaPlayer(each.getName());
                             if (!bp.isStaff() && !bp.isYouTuber())
                                 each.sendMessage(text);

@@ -3,9 +3,9 @@ package de.biomia.bungee.cmds;
 import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import cloud.timo.TimoCloud.api.objects.ServerGroupObject;
 import cloud.timo.TimoCloud.api.objects.ServerObject;
-import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -59,7 +59,7 @@ public class BlistCommand extends Command {
                     component.addExtra("\u00A77] (\u00A7b" + serverObject.getOnlinePlayerCount() + "\u00A77): ");
 
                     boolean first = true;
-                    for (ProxiedPlayer pp : BungeeCord.getInstance().getServerInfo(serverObject.getName()).getPlayers()) {
+                    for (ProxiedPlayer pp : ProxyServer.getInstance().getServerInfo(serverObject.getName()).getPlayers()) {
                         if (!first) {
                             component.addExtra("\u00A77, ");
                         }
