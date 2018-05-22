@@ -42,6 +42,9 @@ public class ParrotCanon {
         cooldownArmorStand.setCustomNameVisible(true);
         canonNameArmorStand.setCustomNameVisible(true);
 
+        cooldownArmorStand.setVisible(false);
+        canonNameArmorStand.setVisible(false);
+
         setCooldown(0);
         setName();
     }

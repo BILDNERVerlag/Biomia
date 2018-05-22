@@ -35,7 +35,7 @@ public class ParrotShip {
     }
 
     private void setName() {
-        bossBar.setTitle(team.getColor().getColorcode() + (double) (int) (bossBar.getProgress() * 10000) / 100 + "%");
+        bossBar.setTitle(team.getColor().getColorcode() + (int) (bossBar.getProgress() * 10000) / 100D + "%");
     }
 
     public void setPlayersToBossBar() {

@@ -17,9 +17,7 @@ import org.bukkit.scoreboard.Team;
 
 public class Scoreboards {
 
-    // VersusLobbyListener
     public static final Scoreboard lobbySB = Bukkit.getScoreboardManager().getNewScoreboard();
-    // Spectator
     private static Scoreboard spectatorSB;
 
     public static void initLobbySB(GameMode mode) {
