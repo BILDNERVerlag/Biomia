@@ -48,14 +48,11 @@ public class CountDown {
                         if (getCountdown() == 45 || getCountdown() == 30 || getCountdown() == 20 || getCountdown() == 15
                                 || getCountdown() == 10 || (getCountdown() <= 5 && getCountdown() > 0)) {
                             Bukkit.broadcastMessage(MinigamesMessages.lobbyCountDown.replaceAll("%t", getCountdown() + ""));
-                            for (Player p : Bukkit.getOnlinePlayers()) {
-                                p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10, 2);
-                            }
+                            Bukkit.getOnlinePlayers().forEach(p -> p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10, 2));
                         }
 
                         if (getCountdown() > 0)
-                            for (Player p : Bukkit.getOnlinePlayers())
-                                p.setLevel(getCountdown());
+                            Bukkit.getOnlinePlayers().forEach(p -> p.setLevel(getCountdown() - 1));
                         setCountdown(getCountdown() - 1);
 
                     } else if (onlinePlayer > 0)

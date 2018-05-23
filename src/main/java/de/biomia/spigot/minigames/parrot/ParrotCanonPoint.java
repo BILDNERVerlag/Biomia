@@ -12,12 +12,13 @@ public class ParrotCanonPoint {
     ParrotCanonPoint(Location location, GameTeam team) {
         this.location = location;
         canon = new ParrotCanon(team, this);
-        location.subtract(0, 1, 0).getBlock().setType(Material.ENDER_CHEST);
-        canon.spawn(1);
-        canonier = (ArmorStand) team.getMode().getInstance().getWorld().spawnEntity(location.add(1, 0, 2), EntityType.ARMOR_STAND);
+        location.clone().subtract(0, 1, 0).getBlock().setType(Material.ENDER_CHEST);
+        canon.spawn();
+        canonier = (ArmorStand) team.getMode().getInstance().getWorld().spawnEntity(location.clone().add(1.5, 0, 2.5), EntityType.ARMOR_STAND);
         canonier.setGravity(false);
         canonier.setCustomName(ParrotItemNames.canonier);
         canonier.setCustomNameVisible(true);
+        ((Parrot) team.getMode()).registerPoint(this);
     }
 
     private Location location;

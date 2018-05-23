@@ -18,8 +18,8 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
+import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -67,23 +67,42 @@ class ParrotHandler extends GameHandler {
     @EventHandler
     public void onBlockDestroy(BlockExplodeEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getBlock().getWorld())) return;
-        handleBlocks(false, (Block[]) e.blockList().toArray());
+        handleBlocks(false, (Block[]) e.blockList().toArray(new Block[e.blockList().size()]));
+        e.blockList().clear();
+        e.setCancelled(true);
     }
 
     @EventHandler
     public void onBlockDestroy(EntityExplodeEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getLocation().getWorld())) return;
-        handleBlocks(false, (Block[]) e.blockList().toArray());
+
+        if (e.getEntity().hasMetadata("FromCannon")) {
+            e.getEntity().remove();
+            e.blockList().clear();
+            e.setCancelled(true);
+            int damage = e.getEntity().getMetadata("Damage").stream().findFirst().orElse(new FixedMetadataValue(Main.getPlugin(), 2)).asInt();
+            e.getLocation().getWorld().createExplosion(e.getLocation(), damage);
+            if (e.getEntity().getMetadata("isShotgun").stream().findFirst().orElse(new FixedMetadataValue(Main.getPlugin(), false)).asBoolean()) {
+
+                // TODO launch splitter
+
+            }
+        } else {
+            handleBlocks(false, (Block[]) e.blockList().toArray(new Block[e.blockList().size()]));
+            e.blockList().clear();
+            e.setCancelled(true);
+        }
     }
 
     @EventHandler
     public void onBlockDestroy(BlockBreakEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getBlock().getWorld())) return;
         handleBlocks(true, e.getBlock());
+        e.setCancelled(true);
     }
 
     @EventHandler
-    public void onBlockBurn(BlockBurnEvent e) {
+    public void onBlockBurn(BlockIgniteEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getBlock().getWorld())) return;
         e.setCancelled(true);
     }
@@ -109,11 +128,7 @@ class ParrotHandler extends GameHandler {
     public void onInteract(PlayerInteractEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         if (e.hasBlock() && (e.getClickedBlock().getType() == Material.STONE_BUTTON || e.getClickedBlock().getType() == Material.WOOD_BUTTON)) {
-            ((Parrot) mode).getPoints().forEach(canonPoint -> {
-                if (canonPoint.getCanon().getButton().getBlock().equals(e.getClickedBlock())) {
-                    canonPoint.getCanon().fire(e.getPlayer());
-                }
-            });
+            ((Parrot) mode).getPoints().stream().filter(canonPoint -> canonPoint.getCanon().getButton().getBlock().equals(e.getClickedBlock())).forEach(canonPoint -> canonPoint.getCanon().fire());
         }
     }
 
@@ -143,7 +158,8 @@ class ParrotHandler extends GameHandler {
                     Block b = e.getHitBlock();
                     if (b != null) {
                         arrow.getLocation().getWorld().createExplosion(arrow.getLocation(), 0); //TODO Power anpassen
-                        b.setType(Material.AIR);
+                        handleBlocks(false, b);
+                        arrow.remove();
                     }
                 }
             }

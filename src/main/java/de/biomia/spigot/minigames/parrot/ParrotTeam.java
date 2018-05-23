@@ -16,10 +16,10 @@ public class ParrotTeam extends GameTeam {
 
         switch (color) {
             case RED:
-                new ParrotCanonPoint(new Location(mode.getInstance().getWorld(), -16, 36, -25), this);
+                new ParrotCanonPoint(new Location(mode.getInstance().getWorld(), -17, 36, -25), this);
                 break;
             case BLUE:
-                new ParrotCanonPoint(new Location(mode.getInstance().getWorld(), 61, 36, -25), this);
+                new ParrotCanonPoint(new Location(mode.getInstance().getWorld(), 62, 36, -25), this);
                 break;
         }
 

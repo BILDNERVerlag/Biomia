@@ -6,10 +6,14 @@ import de.biomia.spigot.messages.ParrotItemNames;
 import de.biomia.spigot.minigames.*;
 import de.biomia.spigot.server.quests.QuestEvents.GiveItemEvent;
 import de.biomia.spigot.server.quests.QuestEvents.TakeItemEvent;
+import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.TeleportExecutor;
 import de.biomia.spigot.tools.Teleporter;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,27 +21,32 @@ import java.util.UUID;
 
 public class Parrot extends GameMode {
 
-    private ArrayList<ParrotCanonPoint> points = new ArrayList<>();
+    private static final ItemStack bow = ItemCreator.itemCreate(Material.BOW, ParrotItemNames.explosionBow);
 
-    public ArrayList<ParrotCanonPoint> getPoints() {
-        return points;
-    }
-
+    private final ArrayList<ParrotCanonPoint> points = new ArrayList<>();
     private final HashMap<Teleporter, Boolean> teleportersMap = new HashMap<>();
+
+    static {
+        bow.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
+        ItemMeta meta = bow.getItemMeta();
+        meta.setUnbreakable(true);
+        bow.setItemMeta(meta);
+    }
 
     public Parrot(GameInstance instance) {
         super(instance);
-
         TeleportExecutor goInside = new TeleportExecutor() {
             @Override
             public void execute(BiomiaPlayer bp, Teleporter teleporter) {
-                new GiveItemEvent(Material.BOW, ParrotItemNames.explosionBow, 1).executeEvent(bp);
+                new GiveItemEvent(Material.ARROW, 1).executeEvent(bp);
+                new GiveItemEvent(bow).executeEvent(bp);
             }
         };
         TeleportExecutor goOutside = new TeleportExecutor() {
             @Override
             public void execute(BiomiaPlayer bp, Teleporter teleporter) {
                 new TakeItemEvent(Material.BOW, ParrotItemNames.explosionBow, 1).executeEvent(bp);
+                new TakeItemEvent(Material.ARROW, 1).executeEvent(bp);
             }
         };
 
@@ -55,6 +64,14 @@ public class Parrot extends GameMode {
         teleportersMap.put(new Teleporter(new Location(instance.getWorld(), 68, 75, -49), new Location(instance.getWorld(), 65, 77, -46), goInside), false);
         teleportersMap.put(new Teleporter(new Location(instance.getWorld(), 68, 75, -49), new Location(instance.getWorld(), 65, 77, -46), goOutside).setInverted(), false);
 
+    }
+
+    public void registerPoint(ParrotCanonPoint parrotCanonPoint) {
+        points.add(parrotCanonPoint);
+    }
+
+    public ArrayList<ParrotCanonPoint> getPoints() {
+        return points;
     }
 
     @Override
