@@ -1,8 +1,9 @@
 package de.biomia.spigot.minigames.parrot;
 
 import de.biomia.spigot.messages.ParrotItemNames;
-import de.biomia.spigot.minigames.GameTeam;
+import de.biomia.spigot.messages.manager.Title;
 import de.biomia.spigot.minigames.TeamColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
@@ -10,7 +11,7 @@ import org.bukkit.entity.EntityType;
 
 public class ParrotCannonPoint {
 
-    ParrotCannonPoint(Location location, GameTeam team) {
+    ParrotCannonPoint(Location location, ParrotTeam team) {
         this.location = location;
         cannon = new ParrotCannon(team, this);
         location.clone().subtract(team.getColor() == TeamColor.RED ? -1 : 1, 1, 0).getBlock().setType(Material.ENDER_CHEST);
@@ -25,6 +26,7 @@ public class ParrotCannonPoint {
     private Location location;
     private final ParrotCannon cannon;
     private boolean destroyed;
+    private ParrotTeam team;
     private final ArmorStand cannonier;
 
     public ArmorStand getCannonier() {
@@ -35,6 +37,8 @@ public class ParrotCannonPoint {
         destroyed = true;
         cannonier.remove();
         cannon.setTimeToReload(0);
+        team.getShip().updateCannons();
+        Bukkit.getOnlinePlayers().forEach(player -> Title.sendTitel(String.format("%sEine Kanone von Team %s wurde zerstört", team.getColorcode(), team.getColor().translate()), player));
     }
 
     public boolean isDestroyed() {

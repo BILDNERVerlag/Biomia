@@ -10,7 +10,10 @@ import de.biomia.spigot.messages.ParrotItemNames;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
+import de.biomia.spigot.minigames.general.shop.ItemType;
+import de.biomia.spigot.minigames.general.shop.Price;
 import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
+import de.biomia.spigot.server.quests.QuestEvents.GiveItemEvent;
 import de.biomia.spigot.server.quests.QuestEvents.TakeItemEvent;
 import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
@@ -36,6 +39,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 class ParrotHandler extends GameHandler {
@@ -94,7 +98,9 @@ class ParrotHandler extends GameHandler {
     @EventHandler
     public void onBlockDestroy(BlockBreakEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getBlock().getWorld())) return;
-        handleBlocks(true, Collections.singletonList(e.getBlock()));
+        if (handleBlocks(true, Collections.singletonList(e.getBlock()))) {
+            new GiveItemEvent(new Price(ItemType.GOLD, 100).getPriceItem()).executeEvent(Biomia.getBiomiaPlayer(e.getPlayer()));
+        }
     }
 
     @EventHandler
@@ -317,20 +323,23 @@ class ParrotHandler extends GameHandler {
         return b;
     }
 
-    private void handleBlocks(boolean fromHand, List<Block> blocks) {
+    private boolean handleBlocks(boolean fromHand, List<Block> blocks) {
         AtomicInteger i = new AtomicInteger(0);
+        AtomicBoolean b = new AtomicBoolean(false);
         ArrayList<Block> copy = new ArrayList<>(blocks);
         copy.forEach(block -> {
             ParrotCannonPoint point = ((Parrot) mode).getPoints().stream().filter(parrotCannonPoint -> parrotCannonPoint.getLocation().clone().subtract(0, 1, 0).distance(block.getLocation()) <= 1 && block.getType() == Material.ENDER_CHEST).findFirst().orElse(null);
             if (point != null) {
-                if (!fromHand) {
-                    blocks.remove(block);
+                if (fromHand) {
+                    point.setDestroyed();
+                    b.set(true);
                     return;
                 }
-                point.setDestroyed();
+                blocks.remove(block);
             }
             if (i.incrementAndGet() == blocks.size())
                 mode.getTeams().stream().map(team -> ((ParrotTeam) team).getShip()).filter(parrotShip -> parrotShip.containsRegionLocation(block.getLocation())).findFirst().ifPresent(ParrotShip::update);
         });
+        return b.get();
     }
 }

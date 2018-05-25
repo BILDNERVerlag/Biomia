@@ -6,16 +6,19 @@ import com.sk89q.worldedit.bukkit.BukkitUtil;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.TeamColor;
+import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 public class ParrotShip {
 
+    private final ArrayList<ParrotCannonPoint> points = new ArrayList<>();
     private static int shipBlocks;
     private final CuboidRegion region;
     private final BossBar bossBar;
@@ -35,7 +38,13 @@ public class ParrotShip {
     }
 
     private void setName() {
-        bossBar.setTitle(team.getColor().getColorcode() + (int) (bossBar.getProgress() * 10000) / 100D + "%");
+        bossBar.setTitle(String.format("%s%s%% %s|%s %d/%d Kanonen",
+                team.getColor().getColorcode(),
+                (int) (bossBar.getProgress() * 10000) / 100D,
+                Messages.COLOR_AUX,
+                team.getColor().getColorcode(),
+                getPoints().size() - getDestroyedCannons(),
+                getPoints().size()));
     }
 
     public void setPlayersToBossBar() {
@@ -52,7 +61,8 @@ public class ParrotShip {
 
         if (destroyedBlocks > shipBlocks * 0.6D) {
             bossBar.setProgress(0);
-            team.getPlayers().forEach(team::setDead);
+            setName();
+            team.killAll();
         } else if (destroyedBlocks >= 0) {
             // destroyedBlocks / 0.6 to set the destroyed blocks from 60% to 100%
             // 1 - x to reverse the bar | 0 = destroyed | 1 = not-destroyed
@@ -63,5 +73,25 @@ public class ParrotShip {
 
     public boolean containsRegionLocation(Location location) {
         return region.contains(BukkitUtil.toVector(location));
+    }
+
+    private ArrayList<ParrotCannonPoint> getPoints() {
+        return points;
+    }
+
+    private int getDestroyedCannons() {
+        int destroyed = 0;
+        for (ParrotCannonPoint point : points) {
+            if (point.isDestroyed())
+                destroyed++;
+        }
+        return destroyed;
+    }
+
+    void updateCannons() {
+        if (getDestroyedCannons() == points.size()) {
+            team.killAll();
+            team.getMode().stop();
+        }
     }
 }

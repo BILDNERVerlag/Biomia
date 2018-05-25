@@ -5,7 +5,6 @@ import com.sk89q.worldedit.bukkit.BukkitUtil;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
 import com.sk89q.worldedit.math.transform.AffineTransform;
 import de.biomia.spigot.Main;
-import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.spigot.tools.Hologram;
 import de.biomia.universal.Messages;
@@ -26,7 +25,7 @@ import java.util.Random;
 public class ParrotCannon {
 
     private CannonType type = CannonType.CANNON;
-    private final GameTeam team;
+    private final ParrotTeam team;
     private final ParrotCannonPoint cannonPoint;
     private int timeToReload;
     private final ArmorStand cooldownArmorStand;
@@ -57,7 +56,7 @@ public class ParrotCannon {
     @Getter
     private CannonPitch actualPitch = CannonPitch.MIDDLE;
 
-    ParrotCannon(GameTeam team, ParrotCannonPoint cannonPoint) {
+    ParrotCannon(ParrotTeam team, ParrotCannonPoint cannonPoint) {
         this.team = team;
         this.cannonPoint = cannonPoint;
 

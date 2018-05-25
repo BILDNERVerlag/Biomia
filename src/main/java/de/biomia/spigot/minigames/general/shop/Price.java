@@ -12,7 +12,7 @@ public class Price {
     private final int price;
     private final ItemType itemType;
 
-    Price(ItemType itemType, int price) {
+    public Price(ItemType itemType, int price) {
         this.price = price;
         this.itemType = itemType;
     }
