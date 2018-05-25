@@ -42,12 +42,12 @@ public class ParrotCannon {
     @Setter
     private int actualCooldown = getCooldown();
     @Setter
-    private int actualDamage = 5;
+    private double actualDamage = 2.5;
     /**
-     * Between 0 and 1
+     * Between 0 and 10
      */
     @Setter
-    private double actualScattering = 0;
+    private int actualScattering = 0;
     @Setter
     private int actualBullets = getBullets();
     @Setter
@@ -85,10 +85,9 @@ public class ParrotCannon {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    if (timeToReload <= 0)
+                    setTimeToReload(getTimeToReload() - 1);
+                    if (getTimeToReload() <= 0)
                         cancel();
-                    else
-                        setTimeToReload(getTimeToReload() - 1);
                 }
             }.runTaskTimer(Main.getPlugin(), 20, 20);
 
@@ -283,7 +282,7 @@ public class ParrotCannon {
     }
 
     private Vector getActualScatteringVector() {
-        return new Vector().setZ((new Random().nextDouble() - .5) / 1.6 * actualScattering);
+        return new Vector().setZ((new Random().nextDouble() - .5) * (actualScattering / 10));
     }
 
     public enum CannonYaw {
@@ -390,17 +389,14 @@ public class ParrotCannon {
                         newValue = 4;
                         break;
                 }
-
-                if (newValue == actualBullets)
-                    return false;
+                if (newValue == actualBullets) return false;
                 actualBullets = newValue;
-
                 break;
             case DAMAGE:
                 //TODO
                 switch (type) {
                     default:
-                        newValue = 5;
+                        newValue = 4;
                         break;
                     case HALBAUTOMATIK:
                         newValue = 4;
@@ -409,13 +405,12 @@ public class ParrotCannon {
                         newValue = 3;
                         break;
                 }
-                if (newValue == actualDamage)
-                    return false;
+                if (newValue == actualDamage) return false;
                 actualDamage = newValue;
                 break;
             case SCATTERING:
                 //TODO
-                switch ((int) (actualScattering * 10)) {
+                switch (actualScattering) {
                     case 0:
                         newValue = 2;
                         break;
@@ -430,8 +425,7 @@ public class ParrotCannon {
                         newValue = 10;
                         break;
                 }
-                if (newValue == actualScattering)
-                    return false;
+                if (newValue == actualScattering) return false;
                 actualScattering = newValue;
                 break;
             case FAST_RELOAD:
@@ -448,8 +442,7 @@ public class ParrotCannon {
                         newValue = 5;
                         break;
                 }
-                if (newValue == actualCooldown)
-                    return false;
+                if (newValue == actualCooldown) return false;
                 actualCooldown = newValue;
                 break;
         }

@@ -30,6 +30,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import java.util.ArrayList;
@@ -80,14 +81,13 @@ class ParrotHandler extends GameHandler {
 
         if (e.getEntity().hasMetadata("FromCannon")) {
             e.setYield(0);
-            int damage = e.getEntity().getMetadata("Damage").stream().findFirst().orElse(new FixedMetadataValue(Main.getPlugin(), 2)).asInt();
-            e.getLocation().getWorld().createExplosion(e.getLocation(), damage);
+            double damage = e.getEntity().getMetadata("Damage").stream().findFirst().orElse(new FixedMetadataValue(Main.getPlugin(), 2)).asDouble();
+            e.getLocation().getWorld().createExplosion(e.getLocation(), (float) damage);
             if (e.getEntity().getMetadata("isShotgun").stream().findFirst().orElse(new FixedMetadataValue(Main.getPlugin(), false)).asBoolean()) {
                 // TODO launch splitter
             }
         } else {
             handleBlocks(false, e.blockList());
-            e.setCancelled(true);
         }
     }
 
@@ -95,7 +95,6 @@ class ParrotHandler extends GameHandler {
     public void onBlockDestroy(BlockBreakEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getBlock().getWorld())) return;
         handleBlocks(true, Collections.singletonList(e.getBlock()));
-        e.setCancelled(true);
     }
 
     @EventHandler
@@ -121,7 +120,7 @@ class ParrotHandler extends GameHandler {
     }
 
     @EventHandler
-    public void onInteractEntity(EntityDamageEvent e) {
+    public void onEntityDamage(EntityDamageEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getEntity().getWorld())) return;
         if (e.getEntity() instanceof ArmorStand) {
             if (((Parrot) mode).getPoints().stream().anyMatch(parrotCannonPoint -> e.getEntity().equals(parrotCannonPoint.getCannonier()))) {
@@ -163,8 +162,9 @@ class ParrotHandler extends GameHandler {
                 if (arrow.hasMetadata("ExplosionArrow")) {
                     Block b = e.getHitBlock();
                     if (b != null) {
-                        arrow.getLocation().getWorld().createExplosion(arrow.getLocation(), 0);
                         handleBlocks(false, Collections.singletonList(b));
+                        arrow.getLocation().getWorld().createExplosion(arrow.getLocation(), 0);
+                        b.setType(Material.AIR);
                         arrow.remove();
                     }
                 }
@@ -175,6 +175,8 @@ class ParrotHandler extends GameHandler {
     @EventHandler
     public void onClick(InventoryClickEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getWhoClicked().getWorld())) return;
+
+        if (e.getClickedInventory() instanceof PlayerInventory) return;
 
         ParrotCannonInventory inventory = ParrotCannonInventory.openInventories.get(Biomia.getBiomiaPlayer((Player) e.getWhoClicked()));
 
@@ -289,28 +291,30 @@ class ParrotHandler extends GameHandler {
                         return;
                 }
 
-                if (cannon.getType() == type || pay(bp, price)) return;
-
-                cannon.reset();
-                cannon.spawn();
+                if (cannon.getType() == type) {
+                    bp.sendMessage(String.format("%sDu hast diese Kanone bereits!", Messages.COLOR_MAIN));
+                    e.setCancelled(true);
+                    return;
+                } else if (pay(bp, price)) {
+                    cannon.reset();
+                    cannon.spawn();
+                }
             }
             e.setCancelled(true);
         }
     }
 
-    //TODO add messages
     private boolean pay(BiomiaPlayer bp, int gold) {
-        if (canPay(bp, gold)) {
-            bp.sendMessage(String.format("%sUpgrade erhalten", Messages.COLOR_MAIN));
-            new TakeItemEvent(Material.GOLD_INGOT, gold).executeEvent(bp);
-            return true;
-        }
-        bp.sendMessage(String.format("%sDu hast nicht genug Gold!", Messages.COLOR_MAIN));
-        return false;
+        if (!canPay(bp, gold)) return false;
+        bp.sendMessage(String.format("%sUpgrade erhalten", Messages.COLOR_MAIN));
+        new TakeItemEvent(Material.GOLD_INGOT, gold).executeEvent(bp);
+        return true;
     }
 
     private boolean canPay(BiomiaPlayer bp, int gold) {
-        return ItemConditions.hasItemInInventory(bp.getQuestPlayer(), Material.GOLD_INGOT, gold);
+        boolean b = ItemConditions.hasItemInInventory(bp.getQuestPlayer(), Material.GOLD_INGOT, gold);
+        if (!b) bp.sendMessage(String.format("%sDu hast nicht genug Gold!", Messages.COLOR_MAIN));
+        return b;
     }
 
     private void handleBlocks(boolean fromHand, List<Block> blocks) {
@@ -325,7 +329,6 @@ class ParrotHandler extends GameHandler {
                 }
                 point.setDestroyed();
             }
-            block.setType(Material.AIR);
             if (i.incrementAndGet() == blocks.size())
                 mode.getTeams().stream().map(team -> ((ParrotTeam) team).getShip()).filter(parrotShip -> parrotShip.containsRegionLocation(block.getLocation())).findFirst().ifPresent(ParrotShip::update);
         });
