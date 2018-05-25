@@ -236,20 +236,29 @@ class ParrotHandler extends GameHandler {
                     default:
                 }
             } else if (inventory instanceof ParrotCannonInventory.CannonSettingInventory) {
+                ParrotCannon.CannonUpgrade upgrade;
+                int price = 10; //TODO
                 switch (e.getSlot()) {
                     case 2:
+                        upgrade = ParrotCannon.CannonUpgrade.FAST_RELOAD;
                         break;
                     case 3:
+                        upgrade = ParrotCannon.CannonUpgrade.DAMAGE;
                         break;
                     case 4:
                         cannon.getDirectionSettingInventory().open(bp);
-                        break;
+                        return;
                     case 5:
+                        upgrade = ParrotCannon.CannonUpgrade.SCATTERING;
                         break;
                     case 6:
+                        upgrade = ParrotCannon.CannonUpgrade.BULLET;
                         break;
                     default:
+                        return;
                 }
+                if (canPay(bp, price) && cannon.upgrade(upgrade))
+                    pay(bp, price);
             } else {
 
                 ParrotCannon.CannonType type;
@@ -291,13 +300,17 @@ class ParrotHandler extends GameHandler {
 
     //TODO add messages
     private boolean pay(BiomiaPlayer bp, int gold) {
-        if (ItemConditions.hasItemInInventory(bp.getQuestPlayer(), Material.GOLD_INGOT, gold)) {
+        if (canPay(bp, gold)) {
             bp.sendMessage(String.format("%sUpgrade erhalten", Messages.COLOR_MAIN));
             new TakeItemEvent(Material.GOLD_INGOT, gold).executeEvent(bp);
             return true;
         }
         bp.sendMessage(String.format("%sDu hast nicht genug Gold!", Messages.COLOR_MAIN));
         return false;
+    }
+
+    private boolean canPay(BiomiaPlayer bp, int gold) {
+        return ItemConditions.hasItemInInventory(bp.getQuestPlayer(), Material.GOLD_INGOT, gold);
     }
 
     private void handleBlocks(boolean fromHand, List<Block> blocks) {

@@ -38,11 +38,11 @@ class ParrotCannonInventory {
 
         CannonSettingInventory(ParrotCannon cannon) {
             super(cannon, 9, "Einstellungen");
-            setItem(2, ItemCreator.itemCreate(Material.BARRIER));
-            setItem(3, ItemCreator.itemCreate(Material.BARRIER));
+            setItem(2, ItemCreator.itemCreate(Material.BARRIER, "faster reload"));
+            setItem(3, ItemCreator.itemCreate(Material.BARRIER, "more damage"));
             setItem(4, ItemCreator.itemCreate(Material.COMPASS));
-            setItem(5, ItemCreator.itemCreate(Material.BARRIER));
-            setItem(6, ItemCreator.itemCreate(Material.BARRIER));
+            setItem(5, ItemCreator.itemCreate(Material.BARRIER, "more scattering"));
+            setItem(6, ItemCreator.itemCreate(Material.BARRIER, "more bullets"));
         }
     }
 
