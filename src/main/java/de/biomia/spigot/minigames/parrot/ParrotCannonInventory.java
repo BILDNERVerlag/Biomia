@@ -38,11 +38,11 @@ class ParrotCannonInventory {
 
         CannonSettingInventory(ParrotCannon cannon) {
             super(cannon, 9, "Einstellungen");
-            setItem(2, ItemCreator.itemCreate(Material.BARRIER, "faster reload"));
-            setItem(3, ItemCreator.itemCreate(Material.BARRIER, "more damage"));
-            setItem(4, ItemCreator.itemCreate(Material.COMPASS));
-            setItem(5, ItemCreator.itemCreate(Material.BARRIER, "more scattering"));
-            setItem(6, ItemCreator.itemCreate(Material.BARRIER, "more bullets"));
+            setItem(2, ItemCreator.itemCreate(Material.FIREBALL, "Schneller neuladen"));
+            setItem(3, ItemCreator.itemCreate(Material.GOLD_SWORD, "Mehr Schaden"));
+            setItem(4, ItemCreator.itemCreate(Material.COMPASS, "Richtung wählen"));
+            setItem(5, ItemCreator.itemCreate(Material.LONG_GRASS, "Mehr Streuung"));
+            setItem(6, ItemCreator.itemCreate(Material.STONE_BUTTON, "Mehr Schuss"));
         }
     }
 
@@ -64,15 +64,15 @@ class ParrotCannonInventory {
         }
 
         protected void init() {
-            setItem(10, ItemCreator.itemCreate(Material.WOOL, (short) 14));
-            setItem(11, ItemCreator.itemCreate(Material.WOOL, (short) 1));
-            setItem(12, ItemCreator.itemCreate(Material.WOOL, (short) 4));
-            setItem(13, ItemCreator.itemCreate(Material.WOOL, (short) 1));
-            setItem(14, ItemCreator.itemCreate(Material.WOOL, (short) 14));
+            setItem(10, ItemCreator.itemCreate(Material.WOOL, "Stark Links", (short) 14));
+            setItem(11, ItemCreator.itemCreate(Material.WOOL, "Links", (short) 1));
+            setItem(12, ItemCreator.itemCreate(Material.WOOL, "Mittig", (short) 4));
+            setItem(13, ItemCreator.itemCreate(Material.WOOL, "Rechts", (short) 1));
+            setItem(14, ItemCreator.itemCreate(Material.WOOL, "Stark Rechts", (short) 14));
 
-            setItem(7, ItemCreator.itemCreate(Material.WOOL, (short) 14));
-            setItem(16, ItemCreator.itemCreate(Material.WOOL, (short) 1));
-            setItem(25, ItemCreator.itemCreate(Material.WOOL, (short) 4));
+            setItem(7, ItemCreator.itemCreate(Material.WOOL, "Lang", (short) 14));
+            setItem(16, ItemCreator.itemCreate(Material.WOOL, "Mittel", (short) 1));
+            setItem(25, ItemCreator.itemCreate(Material.WOOL, "Kurz", (short) 4));
 
             setItem(getCannon().getActualPitch().getSlot(), ItemCreator.itemCreate(Material.WOOL, (short) 5));
             setItem(getCannon().getActualYaw().getSlot(), ItemCreator.itemCreate(Material.WOOL, (short) 5));
@@ -82,8 +82,8 @@ class ParrotCannonInventory {
     static class CannonMainInventory extends ParrotCannonInventory {
         CannonMainInventory(ParrotCannon cannon) {
             super(cannon, 9, "Kanonier");
-            setItem(2, ItemCreator.itemCreate(Material.REDSTONE));
-            setItem(6, ItemCreator.itemCreate(Material.BOW));
+            setItem(2, ItemCreator.itemCreate(Material.REDSTONE, "Einstellunge"));
+            setItem(6, ItemCreator.itemCreate(Material.BOW, "Kanone ändern"));
         }
     }
 
@@ -91,11 +91,11 @@ class ParrotCannonInventory {
 
         CannonWeaponChangeInventory(ParrotCannon cannon) {
             super(cannon, 9, "Weapon Change");
-            setItem(2, ItemCreator.itemCreate(Material.IRON_SWORD, ""));
-            setItem(3, ItemCreator.itemCreate(Material.IRON_SWORD));
-            setItem(4, ItemCreator.itemCreate(Material.IRON_SWORD));
-            setItem(5, ItemCreator.itemCreate(Material.IRON_SWORD));
-            setItem(6, ItemCreator.itemCreate(Material.IRON_SWORD));
+            setItem(2, ItemCreator.itemCreate(Material.IRON_SWORD, ParrotCannon.CannonType.CANNON.getName()));
+            setItem(3, ItemCreator.itemCreate(Material.IRON_SWORD, ParrotCannon.CannonType.GRANATENWERFER.getName()));
+            setItem(4, ItemCreator.itemCreate(Material.IRON_SWORD, ParrotCannon.CannonType.PANZERFAUST.getName()));
+            setItem(5, ItemCreator.itemCreate(Material.IRON_SWORD, ParrotCannon.CannonType.HALBAUTOMATIK.getName()));
+            setItem(6, ItemCreator.itemCreate(Material.IRON_SWORD, ParrotCannon.CannonType.SCHROTFLINTE.getName()));
         }
     }
 }
