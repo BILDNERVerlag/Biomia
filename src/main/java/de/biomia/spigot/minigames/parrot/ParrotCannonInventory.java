@@ -64,15 +64,15 @@ class ParrotCannonInventory {
         }
 
         protected void init() {
-            setItem(10, ItemCreator.itemCreate(Material.WOOL, (short) 4));
-            setItem(11, ItemCreator.itemCreate(Material.WOOL, (short) 3));
-            setItem(12, ItemCreator.itemCreate(Material.WOOL, (short) 2));
-            setItem(13, ItemCreator.itemCreate(Material.WOOL, (short) 3));
-            setItem(14, ItemCreator.itemCreate(Material.WOOL, (short) 4));
+            setItem(10, ItemCreator.itemCreate(Material.WOOL, (short) 14));
+            setItem(11, ItemCreator.itemCreate(Material.WOOL, (short) 1));
+            setItem(12, ItemCreator.itemCreate(Material.WOOL, (short) 4));
+            setItem(13, ItemCreator.itemCreate(Material.WOOL, (short) 1));
+            setItem(14, ItemCreator.itemCreate(Material.WOOL, (short) 14));
 
-            setItem(7, ItemCreator.itemCreate(Material.WOOL, (short) 4));
-            setItem(16, ItemCreator.itemCreate(Material.WOOL, (short) 3));
-            setItem(25, ItemCreator.itemCreate(Material.WOOL, (short) 2));
+            setItem(7, ItemCreator.itemCreate(Material.WOOL, (short) 14));
+            setItem(16, ItemCreator.itemCreate(Material.WOOL, (short) 1));
+            setItem(25, ItemCreator.itemCreate(Material.WOOL, (short) 4));
 
             setItem(getCannon().getActualPitch().getSlot(), ItemCreator.itemCreate(Material.WOOL, (short) 5));
             setItem(getCannon().getActualYaw().getSlot(), ItemCreator.itemCreate(Material.WOOL, (short) 5));
