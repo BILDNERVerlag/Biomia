@@ -57,7 +57,7 @@ class ParrotCannonInventory {
         @Override
         public void open(BiomiaPlayer bp) {
             if (first) {
-                first = !first;
+                first = false;
                 init();
             }
             super.open(bp);
