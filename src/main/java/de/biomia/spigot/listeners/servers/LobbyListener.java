@@ -7,6 +7,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
+import de.biomia.spigot.general.cosmetics.Cosmetic;
 import de.biomia.spigot.general.cosmetics.MysteryChest;
 import de.biomia.spigot.listeners.LobbyInventoryManager;
 import de.biomia.spigot.server.lobby.Lobby;
@@ -258,12 +259,15 @@ public class LobbyListener extends BiomiaListener {
     }
 
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent ie) {
-        Player pl = (Player) ie.getWhoClicked();
-        if (ie.getClick().isLeftClick())
-            if (ie.getCurrentItem() != null && ie.getCurrentItem().hasItemMeta()) {
-                String itemName = ie.getCurrentItem().getItemMeta().getDisplayName();
-                if (ie.getClickedInventory().equals(((Lobby) Biomia.getServerInstance()).getNavigator())) {
+    public void onInventoryClick(InventoryClickEvent e) {
+        Player pl = (Player) e.getWhoClicked();
+        if (e.getClick().isLeftClick())
+            if (e.getCurrentItem() != null && e.getCurrentItem().hasItemMeta()) {
+
+                String itemName = e.getCurrentItem().getItemMeta().getDisplayName();
+                if (Cosmetic.getMainInventory().equals(e.getClickedInventory()) && Cosmetic.openGroupInventory(Biomia.getBiomiaPlayer((Player) e.getWhoClicked()), e.getCurrentItem().getItemMeta().getDisplayName())) {
+                    e.setCancelled(true);
+                } else if (e.getClickedInventory().equals(((Lobby) Biomia.getServerInstance()).getNavigator())) {
                     switch (itemName) {
                         case "\u00A76Bau Welt":
                             pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 551.5, 80, 285.5, -90, 0));
@@ -302,7 +306,7 @@ public class LobbyListener extends BiomiaListener {
                             pl.closeInventory();
                             break;
                     }
-                } else if (ie.getClickedInventory().getName().equals("\u00A7bLobby Switcher"))
+                } else if (e.getClickedInventory().getName().equals("\u00A7bLobby Switcher"))
                     for (ServerObject so : TimoCloudAPI.getUniversalAPI().getServerGroup(BiomiaServerType.Lobby.name())
                             .getServers())
                         if (itemName.contains(so.getName()))

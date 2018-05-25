@@ -23,8 +23,8 @@ public class Parrot extends GameMode {
 
     private static final ItemStack bow = ItemCreator.itemCreate(Material.BOW, ParrotItemNames.explosionBow);
 
-    private final ArrayList<ParrotCanonPoint> points = new ArrayList<>();
-    private final HashMap<Teleporter, Boolean> teleportersMap = new HashMap<>();
+    private final ArrayList<ParrotCannonPoint> points = new ArrayList<>();
+    private final ArrayList<Teleporter> teleportersMap = new ArrayList<>();
 
     static {
         bow.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
@@ -58,25 +58,26 @@ public class Parrot extends GameMode {
             }
         });
 
-        teleportersMap.put(new Teleporter(new Location(instance.getWorld(), -23, 75, -49), new Location(instance.getWorld(), -20, 77, -46), goInside), false);
-        teleportersMap.put(new Teleporter(new Location(instance.getWorld(), -23, 75, -49), new Location(instance.getWorld(), -20, 77, -46), goOutside).setInverted(), false);
+        teleportersMap.add(new Teleporter(new Location(instance.getWorld(), -23, 75, -49), new Location(instance.getWorld(), -20, 77, -46), goInside));
+        teleportersMap.add(new Teleporter(new Location(instance.getWorld(), -23, 75, -49), new Location(instance.getWorld(), -20, 77, -46), goOutside).setInverted());
 
-        teleportersMap.put(new Teleporter(new Location(instance.getWorld(), 68, 75, -49), new Location(instance.getWorld(), 65, 77, -46), goInside), false);
-        teleportersMap.put(new Teleporter(new Location(instance.getWorld(), 68, 75, -49), new Location(instance.getWorld(), 65, 77, -46), goOutside).setInverted(), false);
+        teleportersMap.add(new Teleporter(new Location(instance.getWorld(), 68, 75, -49), new Location(instance.getWorld(), 65, 77, -46), goInside));
+        teleportersMap.add(new Teleporter(new Location(instance.getWorld(), 68, 75, -49), new Location(instance.getWorld(), 65, 77, -46), goOutside).setInverted());
 
     }
 
-    public void registerPoint(ParrotCanonPoint parrotCanonPoint) {
-        points.add(parrotCanonPoint);
+    public void registerPoint(ParrotCannonPoint parrotCannonPoint) {
+        points.add(parrotCannonPoint);
     }
 
-    public ArrayList<ParrotCanonPoint> getPoints() {
+    public ArrayList<ParrotCannonPoint> getPoints() {
         return points;
     }
 
     @Override
     public void stop() {
-        teleportersMap.keySet().forEach(Teleporter::removeTeleporter);
+        teleportersMap.forEach(Teleporter::removeTeleporter);
+        teleportersMap.clear();
         super.stop();
     }
 
