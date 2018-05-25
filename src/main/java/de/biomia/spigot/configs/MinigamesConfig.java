@@ -14,7 +14,7 @@ public class MinigamesConfig extends Config {
 
     public static String mapName = null;
 
-    protected final GameMode mode;
+    final GameMode mode;
 
     public MinigamesConfig(GameMode mode) {
         this.mode = mode;

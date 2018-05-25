@@ -8,7 +8,7 @@ import org.bukkit.Location;
 
 public class ParrotTeam extends GameTeam {
 
-    private ParrotShip ship;
+    private final ParrotShip ship;
 
     public ParrotTeam(TeamColor color, GameMode mode) {
         super(color, mode);

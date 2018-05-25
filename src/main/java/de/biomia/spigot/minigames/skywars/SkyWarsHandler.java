@@ -11,6 +11,7 @@ import de.biomia.spigot.minigames.WarteLobbyListener;
 import de.biomia.spigot.minigames.general.chests.Chests;
 import de.biomia.spigot.minigames.general.kits.Kit;
 import de.biomia.spigot.minigames.general.kits.KitManager;
+import de.biomia.spigot.minigames.versus.VSManager;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -46,7 +47,8 @@ public class SkyWarsHandler extends GameHandler {
 
     @EventHandler
     public void onProjectileHit(ProjectileHitEvent e) {
-        if (!mode.getInstance().getWorld().equals(e.getHitEntity().getWorld())) return;
+        if (!mode.getInstance().getWorld().equals(e.getHitEntity().getWorld()))
+            return;
         if (e.getEntityType() != EntityType.SNOWBALL) {
             if (e.getEntityType() != EntityType.EGG) {
                 return;
@@ -79,69 +81,13 @@ public class SkyWarsHandler extends GameHandler {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getWhoClicked().getWorld())) return;
-        if (e.getWhoClicked() instanceof Player) {
-            Player p = (Player) e.getWhoClicked();
-            BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-
-            if (e.getCurrentItem() != null) {
-                if (e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().hasDisplayName()) {
-                    String name = e.getCurrentItem().getItemMeta().getDisplayName();
-
-                    Kit kit = null;
-                    String invName = e.getInventory().getName();
-                    for (Kit allKits : KitManager.allKits.values()) {
-                        if (invName.equals("Kits")) {
-                            if (name.equals(allKits.getDisplayName())) {
-                                p.openInventory(allKits.getSetupInv(p));
-                                return;
-                            }
-                        }
-                        if (invName.contains(allKits.getName())) {
-                            kit = allKits;
-                            break;
-                        }
-                    }
-                    if (kit != null) {
-                        switch (name) {
-                            case SkyWarsItemNames.purchaseKit:
-                                p.closeInventory();
-                                KitManager kitManager = KitManager.getManager(bp);
-                                if (kitManager.buy(kit)) {
-                                    kitManager.selectSkyWarsKit(kit);
-                                    p.sendMessage(SkyWarsMessages.youChoseKit.replace("%k", kit.getName()));
-                                }
-                                e.setCancelled(true);
-                                break;
-                            case SkyWarsItemNames.selectKit:
-                                final ArrayList<Kit> kits = KitManager.getManager(bp).getAvailableKits();
-                                if (kits.contains(kit)) {
-                                    p.closeInventory();
-                                    if (!KitManager.getManager(bp).selectSkyWarsKit(kit)) {
-                                        p.sendMessage(SkyWarsMessages.kitAlreadyChosen);
-                                    } else {
-                                        p.sendMessage(SkyWarsMessages.youChoseKit.replace("%k", kit.getName()));
-                                    }
-                                } else {
-                                    p.closeInventory();
-                                    p.sendMessage(SkyWarsMessages.kitNotBought);
-                                }
-                                e.setCancelled(true);
-                                break;
-                            case SkyWarsItemNames.showKit:
-                                KitManager.getManager(bp).showInventory(kit);
-                                p.sendMessage(SkyWarsMessages.nowLookingAtKit.replace("%k", kit.getName()));
-                                e.setCancelled(true);
-                                break;
-                        }
-                    }
-                }
-            }
-        }
+        VSManager.onInventoryClick(e);
     }
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
-        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld()))
+            return;
         super.onPlayerInteract(e);
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
@@ -198,7 +144,6 @@ public class SkyWarsHandler extends GameHandler {
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK) {
             if (e.getClickedBlock().getType() == Material.CHEST) {
 
-
                 Chest chest = (Chest) e.getClickedBlock().getState();
                 boolean firstOpen = false;
                 SkyWarsOpenChestEvent.ChestType chestType;
@@ -232,7 +177,8 @@ public class SkyWarsHandler extends GameHandler {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
-        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld()))
+            return;
         if (mode.getInstance().containsPlayer(Biomia.getBiomiaPlayer(e.getPlayer())) && mode.getStateManager().getActualGameState() == GameStateManager.GameState.WAITING_FOR_START) {
             e.setCancelled(true);
         }

@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 class ParrotCannonInventory {
 
-    protected static final HashMap<BiomiaPlayer, ParrotCannonInventory> openInventories = new HashMap<>();
+    static final HashMap<BiomiaPlayer, ParrotCannonInventory> openInventories = new HashMap<>();
 
     private final ParrotCannon cannon;
     private final Inventory inventory;
@@ -21,16 +21,16 @@ class ParrotCannonInventory {
         this.cannon = cannon;
     }
 
-    public void open(BiomiaPlayer bp) {
+    void open(BiomiaPlayer bp) {
         openInventories.put(bp, this);
         bp.getPlayer().openInventory(inventory);
     }
 
-    protected ParrotCannon getCannon() {
+    ParrotCannon getCannon() {
         return cannon;
     }
 
-    protected void setItem(int slot, ItemStack item) {
+    void setItem(int slot, ItemStack item) {
         inventory.setItem(slot, item);
     }
 
@@ -40,7 +40,7 @@ class ParrotCannonInventory {
             super(cannon, 9, "Einstellungen");
             setItem(2, ItemCreator.itemCreate(Material.FIREBALL, "Schneller neuladen"));
             setItem(3, ItemCreator.itemCreate(Material.GOLD_SWORD, "Mehr Schaden"));
-            setItem(4, ItemCreator.itemCreate(Material.COMPASS, "Richtung w‰hlen"));
+            setItem(4, ItemCreator.itemCreate(Material.COMPASS, "Richtung w√§hlen"));
             setItem(5, ItemCreator.itemCreate(Material.LONG_GRASS, "Mehr Streuung"));
             setItem(6, ItemCreator.itemCreate(Material.STONE_BUTTON, "Mehr Schuss"));
         }
@@ -51,7 +51,7 @@ class ParrotCannonInventory {
         boolean first = true;
 
         CannonDirectionSettingInventory(ParrotCannon cannon) {
-            super(cannon, 27, "Ausrichtung ‰ndern");
+            super(cannon, 27, "Ausrichtung √§ndern");
         }
 
         @Override
@@ -63,7 +63,7 @@ class ParrotCannonInventory {
             super.open(bp);
         }
 
-        protected void init() {
+        void init() {
             setItem(10, ItemCreator.itemCreate(Material.WOOL, "Stark Links", (short) 14));
             setItem(11, ItemCreator.itemCreate(Material.WOOL, "Links", (short) 1));
             setItem(12, ItemCreator.itemCreate(Material.WOOL, "Mittig", (short) 4));
@@ -83,7 +83,7 @@ class ParrotCannonInventory {
         CannonMainInventory(ParrotCannon cannon) {
             super(cannon, 9, "Kanonier");
             setItem(2, ItemCreator.itemCreate(Material.REDSTONE, "Einstellunge"));
-            setItem(6, ItemCreator.itemCreate(Material.BOW, "Kanone ‰ndern"));
+            setItem(6, ItemCreator.itemCreate(Material.BOW, "Kanone √§ndern"));
         }
     }
 

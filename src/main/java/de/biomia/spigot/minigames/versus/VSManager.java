@@ -105,7 +105,6 @@ public class VSManager implements Listener {
         BackToLobby.getLobbyItem(p, 8);
     }
 
-
     @SuppressWarnings("unchecked")
     private void giveBook(Player p) {
         ItemStack book = ItemCreator.itemCreate(Material.WRITTEN_BOOK);
@@ -274,7 +273,7 @@ public class VSManager implements Listener {
     }
 
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent e) {
+    public static void onInventoryClick(InventoryClickEvent e) {
 
         if (e.getWhoClicked() instanceof Player) {
             Player p = (Player) e.getWhoClicked();

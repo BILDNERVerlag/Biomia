@@ -30,14 +30,6 @@ public class ParrotCannon {
     private int timeToReload;
     private final ArmorStand cooldownArmorStand;
     private final ArmorStand cannonNameArmorStand;
-    @Getter
-    private final ParrotCannonInventory.CannonDirectionSettingInventory directionSettingInventory;
-    @Getter
-    private final ParrotCannonInventory.CannonMainInventory mainInventory;
-    @Getter
-    private final ParrotCannonInventory.CannonSettingInventory settingInventory;
-    @Getter
-    private final ParrotCannonInventory.CannonWeaponChangeInventory weaponChangeInventory;
     @Setter
     private int actualCooldown = getCooldown();
     @Setter
@@ -67,10 +59,10 @@ public class ParrotCannon {
         setTimeToReload(0);
         setName();
 
-        directionSettingInventory = new ParrotCannonInventory.CannonDirectionSettingInventory(this);
-        mainInventory = new ParrotCannonInventory.CannonMainInventory(this);
-        settingInventory = new ParrotCannonInventory.CannonSettingInventory(this);
-        weaponChangeInventory = new ParrotCannonInventory.CannonWeaponChangeInventory(this);
+        new ParrotCannonInventory.CannonDirectionSettingInventory(this);
+        new ParrotCannonInventory.CannonMainInventory(this);
+        new ParrotCannonInventory.CannonSettingInventory(this);
+        new ParrotCannonInventory.CannonWeaponChangeInventory(this);
     }
 
     public void setType(CannonType type) {
@@ -163,7 +155,7 @@ public class ParrotCannon {
 
     void setTimeToReload(int timeToReload) {
         this.timeToReload = timeToReload;
-        cooldownArmorStand.setCustomName(cannonPoint.isDestroyed() ? String.format("%sZerstört", Messages.COLOR_MAIN) :
+        cooldownArmorStand.setCustomName(cannonPoint.isDestroyed() ? String.format("%sZerstÃ¶rt", Messages.COLOR_MAIN) :
                 timeToReload == 0 ? String.format("%sBereit", Messages.COLOR_SUB) :
                         String.format("%sNachladen%s: %s%s", Messages.COLOR_MAIN, Messages.COLOR_AUX, Messages.COLOR_SUB, timeToReload));
     }
@@ -259,19 +251,19 @@ public class ParrotCannon {
             switch (this) {
                 default:
                 case CANNON:
-                    return "6-Pfünder";
+                    return "6-PfÃ¼nder";
                 case PANZERFAUST:
-                    return "12-Pfünder";
+                    return "12-PfÃ¼nder";
                 case SCHROTFLINTE:
                     return "Bombarde";
                 case GRANATENWERFER:
-                    return "Mörser";
+                    return "MÃ¶rser";
                 case HALBAUTOMATIK:
                     return "Drillings-Kanone";
             }
         }
 
-        public double getFuseTicks() {
+        double getFuseTicks() {
             switch (this) {
                 default:
                 case CANNON:
@@ -287,7 +279,8 @@ public class ParrotCannon {
     public enum CannonYaw {
 
         STRONG_LEFT, LEFT, STRAIGHT, RIGHT, STRONG_RIGHT;
-        public Vector toVector(TeamColor color) {
+
+        Vector toVector(TeamColor color) {
 
             double yaw;
             switch (this) {
@@ -308,7 +301,8 @@ public class ParrotCannon {
                     yaw = -.6;
                     break;
             }
-            if (color == TeamColor.RED) yaw *= -1;
+            if (color == TeamColor.RED)
+                yaw *= -1;
             return new Vector().setZ(yaw);
         }
 
@@ -334,7 +328,7 @@ public class ParrotCannon {
 
         SHORT, MIDDLE, LONG;
 
-        public Vector toVector(TeamColor color) {
+        Vector toVector(TeamColor color) {
 
             double pitch;
 
@@ -350,7 +344,8 @@ public class ParrotCannon {
                     pitch = 2.8;
                     break;
             }
-            if (color == TeamColor.BLUE) pitch *= -1;
+            if (color == TeamColor.BLUE)
+                pitch *= -1;
             return new Vector().setX(pitch);
         }
 
@@ -388,7 +383,8 @@ public class ParrotCannon {
                         newValue = 4;
                         break;
                 }
-                if (newValue == actualBullets) return false;
+                if (newValue == actualBullets)
+                    return false;
                 actualBullets = newValue;
                 break;
             case DAMAGE:
@@ -404,7 +400,8 @@ public class ParrotCannon {
                         newValue = 3;
                         break;
                 }
-                if (newValue == actualDamage) return false;
+                if (newValue == actualDamage)
+                    return false;
                 actualDamage = newValue;
                 break;
             case SCATTERING:
@@ -424,7 +421,8 @@ public class ParrotCannon {
                         newValue = 10;
                         break;
                 }
-                if (newValue == actualScattering) return false;
+                if (newValue == actualScattering)
+                    return false;
                 actualScattering = newValue;
                 break;
             case FAST_RELOAD:
@@ -441,7 +439,8 @@ public class ParrotCannon {
                         newValue = 5;
                         break;
                 }
-                if (newValue == actualCooldown) return false;
+                if (newValue == actualCooldown)
+                    return false;
                 actualCooldown = newValue;
                 break;
         }

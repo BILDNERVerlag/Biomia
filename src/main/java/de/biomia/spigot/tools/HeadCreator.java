@@ -26,10 +26,17 @@ public class HeadCreator {
         String url = "http://textures.minecraft.net/texture/" + SkinValue.getSkin(name);
 
         ItemStack head = new ItemStack(Material.SKULL_ITEM, (short) 3);
-        if (url.isEmpty()) return head;
+        if (url.isEmpty())
+            return head;
 
         SkullMeta headMeta = (SkullMeta) head.getItemMeta();
         GameProfile profile = getNonPlayerProfile(url);
+        getProfile(headMeta, profile);
+        head.setItemMeta(headMeta);
+        return head;
+    }
+
+    private static void getProfile(SkullMeta headMeta, GameProfile profile) {
         Field profileField;
         try {
             profileField = headMeta.getClass().getDeclaredField("profile");
@@ -38,8 +45,6 @@ public class HeadCreator {
         } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e1) {
             e1.printStackTrace();
         }
-        head.setItemMeta(headMeta);
-        return head;
     }
 
     public static ItemStack getSkull(ItemStack is, String value) {
@@ -47,18 +52,13 @@ public class HeadCreator {
         String url = "http://textures.minecraft.net/texture/" + value;
 
         ItemStack head = is == null ? new ItemStack(Material.SKULL_ITEM, (short) 3) : is;
-        if (url.isEmpty()) return head;
+        if (url.isEmpty())
+            return head;
 
         SkullMeta headMeta = (SkullMeta) head.getItemMeta();
         GameProfile profile = getNonPlayerProfile(url);
         Field profileField;
-        try {
-            profileField = headMeta.getClass().getDeclaredField("profile");
-            profileField.setAccessible(true);
-            profileField.set(headMeta, profile);
-        } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e1) {
-            e1.printStackTrace();
-        }
+        getProfile(headMeta, profile);
         head.setItemMeta(headMeta);
         return head;
     }

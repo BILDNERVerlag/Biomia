@@ -9,7 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 
-public class ParrotCannonPoint {
+class ParrotCannonPoint {
 
     ParrotCannonPoint(Location location, ParrotTeam team) {
         this.location = location;
@@ -23,7 +23,7 @@ public class ParrotCannonPoint {
         ((Parrot) team.getMode()).registerPoint(this);
     }
 
-    private Location location;
+    private final Location location;
     private final ParrotCannon cannon;
     private boolean destroyed;
     private ParrotTeam team;

@@ -3,6 +3,6 @@ package de.biomia.spigot.messages;
 import de.biomia.universal.Messages;
 
 public class ParrotItemNames {
-    public static String explosionBow = String.format("%sSchweres Geschütz", Messages.COLOR_MAIN);
-    public static String cannonier = "Kanonier";
+    public static final String explosionBow = String.format("%sSchweres GeschÃ¼tz", Messages.COLOR_MAIN);
+    public static final String cannonier = "Kanonier";
 }
