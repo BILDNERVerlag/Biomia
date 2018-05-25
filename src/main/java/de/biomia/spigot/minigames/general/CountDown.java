@@ -41,7 +41,6 @@ public class CountDown {
                                 p.setLevel(0);
                             }
                             mode.getStateManager().getLobbyState().stop();
-                            cancel();
                             return;
                         }
 

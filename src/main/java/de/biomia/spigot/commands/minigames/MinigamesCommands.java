@@ -9,6 +9,8 @@ import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.configs.Config;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.configs.ParrotConfig;
+import de.biomia.spigot.minigames.GameStateManager;
+import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.universal.Messages;
@@ -32,6 +34,19 @@ public class MinigamesCommands extends BiomiaCommand {
         }
 
         switch (label) {
+            case "start":
+                GameTeam team = Biomia.getBiomiaPlayer(p).getTeam();
+                if (team == null) {
+                    p.sendMessage("Bitte gehe in ein Team um das Spiel zu starten");
+                    return;
+                }
+                if (team.getMode().getStateManager().getActualGameState() != GameStateManager.GameState.LOBBY) {
+                    p.sendMessage("Das Spiel hat bereits gestartet!");
+                    return;
+                }
+                team.getMode().getStateManager().getLobbyState().stop();
+                p.sendMessage("Spiel startet!");
+                break;
             case "addship":
                 Region region = FawePlayer.wrap(p.getName()).getSelection();
                 if (region == null) {
