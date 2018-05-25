@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.scheduler.BukkitRunnable;
 
-class TNTCanon implements GadgetListener {
+class TNTCannon implements GadgetListener {
 
     @Override
     public void execute(BiomiaPlayer bp, CosmeticGadgetItem item) {

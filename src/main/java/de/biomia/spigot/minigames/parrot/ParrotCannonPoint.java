@@ -12,37 +12,37 @@ public class ParrotCannonPoint {
 
     ParrotCannonPoint(Location location, GameTeam team) {
         this.location = location;
-        canon = new ParrotCanon(team, this);
+        cannon = new ParrotCannon(team, this);
         location.clone().subtract(team.getColor() == TeamColor.RED ? -1 : 1, 1, 0).getBlock().setType(Material.ENDER_CHEST);
-        canon.spawn();
-        canonier = (ArmorStand) team.getMode().getInstance().getWorld().spawnEntity(location.clone().add(1.5, 0, 2.5), EntityType.ARMOR_STAND);
-        canonier.setGravity(false);
-        canonier.setCustomName(ParrotItemNames.canonier);
-        canonier.setCustomNameVisible(true);
+        cannon.spawn();
+        cannonier = (ArmorStand) team.getMode().getInstance().getWorld().spawnEntity(location.clone().add(1.5, 0, 2.5), EntityType.ARMOR_STAND);
+        cannonier.setGravity(false);
+        cannonier.setCustomName(ParrotItemNames.cannonier);
+        cannonier.setCustomNameVisible(true);
         ((Parrot) team.getMode()).registerPoint(this);
     }
 
     private Location location;
-    private final ParrotCanon canon;
+    private final ParrotCannon cannon;
     private boolean destroyed;
-    private final ArmorStand canonier;
+    private final ArmorStand cannonier;
 
-    public ArmorStand getCanonier() {
-        return canonier;
+    public ArmorStand getCannonier() {
+        return cannonier;
     }
 
     public void setDestroyed() {
         destroyed = true;
-        canonier.remove();
-        canon.setTimeToReload(0);
+        cannonier.remove();
+        cannon.setTimeToReload(0);
     }
 
     public boolean isDestroyed() {
         return destroyed;
     }
 
-    public ParrotCanon getCanon() {
-        return canon;
+    public ParrotCannon getcannon() {
+        return cannon;
     }
 
     public Location getLocation() {

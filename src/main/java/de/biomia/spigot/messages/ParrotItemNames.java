@@ -4,5 +4,5 @@ import de.biomia.universal.Messages;
 
 public class ParrotItemNames {
     public static String explosionBow = String.format("%sSchweres Geschütz", Messages.COLOR_MAIN);
-    public static String canonier = "Kanonier";
+    public static String cannonier = "Kanonier";
 }

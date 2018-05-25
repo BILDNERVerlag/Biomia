@@ -23,22 +23,22 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
-public class ParrotCanon {
+public class ParrotCannon {
 
-    private CannonType type = CannonType.CANON;
+    private CannonType type = CannonType.CANNON;
     private final GameTeam team;
     private final ParrotCannonPoint cannonPoint;
     private int timeToReload;
     private final ArmorStand cooldownArmorStand;
-    private final ArmorStand canonNameArmorStand;
+    private final ArmorStand cannonNameArmorStand;
     @Getter
-    private final ParrotCanonInventory.CannonDirectionSettingInventory directionSettingInventory;
+    private final ParrotCannonInventory.CannonDirectionSettingInventory directionSettingInventory;
     @Getter
-    private final ParrotCanonInventory.CannonMainInventory mainInventory;
+    private final ParrotCannonInventory.CannonMainInventory mainInventory;
     @Getter
-    private final ParrotCanonInventory.CannonSettingInventory settingInventory;
+    private final ParrotCannonInventory.CannonSettingInventory settingInventory;
     @Getter
-    private final ParrotCanonInventory.CannonWeaponChangeInventory weaponChangeInventory;
+    private final ParrotCannonInventory.CannonWeaponChangeInventory weaponChangeInventory;
     @Setter
     private int actualCooldown = getCooldown();
     @Setter
@@ -57,21 +57,21 @@ public class ParrotCanon {
     @Getter
     private CannonPitch actualPitch = CannonPitch.MIDDLE;
 
-    ParrotCanon(GameTeam team, ParrotCannonPoint cannonPoint) {
+    ParrotCannon(GameTeam team, ParrotCannonPoint cannonPoint) {
         this.team = team;
         this.cannonPoint = cannonPoint;
 
         ArmorStand[] stands = Hologram.newHologram(cannonPoint.getLocation().clone().add(.5, .5, .5), "", "");
-        canonNameArmorStand = stands[0];
+        cannonNameArmorStand = stands[0];
         cooldownArmorStand = stands[1];
 
         setTimeToReload(0);
         setName();
 
-        directionSettingInventory = new ParrotCanonInventory.CannonDirectionSettingInventory(this);
-        mainInventory = new ParrotCanonInventory.CannonMainInventory(this);
-        settingInventory = new ParrotCanonInventory.CannonSettingInventory(this);
-        weaponChangeInventory = new ParrotCanonInventory.CannonWeaponChangeInventory(this);
+        directionSettingInventory = new ParrotCannonInventory.CannonDirectionSettingInventory(this);
+        mainInventory = new ParrotCannonInventory.CannonMainInventory(this);
+        settingInventory = new ParrotCannonInventory.CannonSettingInventory(this);
+        weaponChangeInventory = new ParrotCannonInventory.CannonWeaponChangeInventory(this);
     }
 
     public void setType(CannonType type) {
@@ -99,7 +99,7 @@ public class ParrotCanon {
 
                 switch (type) {
                     default:
-                    case CANON:
+                    case CANNON:
                         vector.setY(1.05);
                         break;
                     case PANZERFAUST:
@@ -160,7 +160,7 @@ public class ParrotCanon {
     }
 
     private void setName() {
-        canonNameArmorStand.setCustomName(String.format("%s%s", Messages.COLOR_MAIN, type.getName()));
+        cannonNameArmorStand.setCustomName(String.format("%s%s", Messages.COLOR_MAIN, type.getName()));
     }
 
     void setTimeToReload(int timeToReload) {
@@ -202,7 +202,7 @@ public class ParrotCanon {
         int x = 0, y = 0, z = 0;
 
         switch (type) {
-            case CANON:
+            case CANNON:
                 x = -2;
                 z = 1;
                 y = 1;
@@ -231,7 +231,7 @@ public class ParrotCanon {
         int x = 0, y = 0, z = 0;
 
         switch (type) {
-            case CANON:
+            case CANNON:
                 x = -7;
                 y = 1;
                 break;
@@ -255,12 +255,12 @@ public class ParrotCanon {
     }
 
     public enum CannonType {
-        GRANATENWERFER, SCHROTFLINTE, PANZERFAUST, CANON, HALBAUTOMATIK;
+        GRANATENWERFER, SCHROTFLINTE, PANZERFAUST, CANNON, HALBAUTOMATIK;
 
         public String getName() {
             switch (this) {
                 default:
-                case CANON:
+                case CANNON:
                     return "6-Pfünder";
                 case PANZERFAUST:
                     return "12-Pfünder";
@@ -276,7 +276,7 @@ public class ParrotCanon {
         public double getFuseTicks() {
             switch (this) {
                 default:
-                case CANON:
+                case CANNON:
                     return 2.7;
             }
         }

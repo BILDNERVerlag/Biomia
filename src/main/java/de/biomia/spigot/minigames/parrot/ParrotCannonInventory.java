@@ -9,16 +9,16 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 
-class ParrotCanonInventory {
+class ParrotCannonInventory {
 
-    protected static final HashMap<BiomiaPlayer, ParrotCanonInventory> openInventories = new HashMap<>();
+    protected static final HashMap<BiomiaPlayer, ParrotCannonInventory> openInventories = new HashMap<>();
 
-    private final ParrotCanon canon;
+    private final ParrotCannon cannon;
     private final Inventory inventory;
 
-    ParrotCanonInventory(ParrotCanon canon, int size, String name) {
+    ParrotCannonInventory(ParrotCannon cannon, int size, String name) {
         inventory = Bukkit.createInventory(null, size, name);
-        this.canon = canon;
+        this.cannon = cannon;
     }
 
     public void open(BiomiaPlayer bp) {
@@ -26,18 +26,18 @@ class ParrotCanonInventory {
         bp.getPlayer().openInventory(inventory);
     }
 
-    protected ParrotCanon getCannon() {
-        return canon;
+    protected ParrotCannon getCannon() {
+        return cannon;
     }
 
     protected void setItem(int slot, ItemStack item) {
         inventory.setItem(slot, item);
     }
 
-    static class CannonSettingInventory extends ParrotCanonInventory {
+    static class CannonSettingInventory extends ParrotCannonInventory {
 
-        CannonSettingInventory(ParrotCanon canon) {
-            super(canon, 9, "Einstellungen");
+        CannonSettingInventory(ParrotCannon cannon) {
+            super(cannon, 9, "Einstellungen");
             setItem(2, ItemCreator.itemCreate(Material.BARRIER));
             setItem(3, ItemCreator.itemCreate(Material.BARRIER));
             setItem(4, ItemCreator.itemCreate(Material.COMPASS));
@@ -46,12 +46,12 @@ class ParrotCanonInventory {
         }
     }
 
-    static class CannonDirectionSettingInventory extends ParrotCanonInventory {
+    static class CannonDirectionSettingInventory extends ParrotCannonInventory {
 
         boolean first = true;
 
-        CannonDirectionSettingInventory(ParrotCanon canon) {
-            super(canon, 27, "Ausrichtung ändern");
+        CannonDirectionSettingInventory(ParrotCannon cannon) {
+            super(cannon, 27, "Ausrichtung ändern");
         }
 
         @Override
@@ -79,18 +79,18 @@ class ParrotCanonInventory {
         }
     }
 
-    static class CannonMainInventory extends ParrotCanonInventory {
-        CannonMainInventory(ParrotCanon canon) {
-            super(canon, 9, "Kanonier");
+    static class CannonMainInventory extends ParrotCannonInventory {
+        CannonMainInventory(ParrotCannon cannon) {
+            super(cannon, 9, "Kanonier");
             setItem(2, ItemCreator.itemCreate(Material.REDSTONE));
             setItem(6, ItemCreator.itemCreate(Material.BOW));
         }
     }
 
-    static class CannonWeaponChangeInventory extends ParrotCanonInventory {
+    static class CannonWeaponChangeInventory extends ParrotCannonInventory {
 
-        CannonWeaponChangeInventory(ParrotCanon canon) {
-            super(canon, 9, "Weapon Change");
+        CannonWeaponChangeInventory(ParrotCannon cannon) {
+            super(cannon, 9, "Weapon Change");
             setItem(2, ItemCreator.itemCreate(Material.IRON_SWORD, ""));
             setItem(3, ItemCreator.itemCreate(Material.IRON_SWORD));
             setItem(4, ItemCreator.itemCreate(Material.IRON_SWORD));

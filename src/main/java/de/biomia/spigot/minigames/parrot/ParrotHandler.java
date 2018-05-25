@@ -113,9 +113,9 @@ class ParrotHandler extends GameHandler {
     public void onInteractEntity(PlayerInteractEntityEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         if (e.getRightClicked() instanceof ArmorStand) {
-            ((Parrot) mode).getPoints().stream().filter(parrotCannonPoint -> e.getRightClicked().equals(parrotCannonPoint.getCanonier())).forEach(parrotCannonPoint -> {
+            ((Parrot) mode).getPoints().stream().filter(parrotCannonPoint -> e.getRightClicked().equals(parrotCannonPoint.getCannonier())).forEach(parrotCannonPoint -> {
                 e.setCancelled(true);
-                parrotCannonPoint.getCanon().getMainInventory().open(Biomia.getBiomiaPlayer(e.getPlayer()));
+                parrotCannonPoint.getcannon().getMainInventory().open(Biomia.getBiomiaPlayer(e.getPlayer()));
             });
         }
     }
@@ -124,7 +124,7 @@ class ParrotHandler extends GameHandler {
     public void onInteractEntity(EntityDamageEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getEntity().getWorld())) return;
         if (e.getEntity() instanceof ArmorStand) {
-            if (((Parrot) mode).getPoints().stream().anyMatch(parrotCannonPoint -> e.getEntity().equals(parrotCannonPoint.getCanonier()))) {
+            if (((Parrot) mode).getPoints().stream().anyMatch(parrotCannonPoint -> e.getEntity().equals(parrotCannonPoint.getCannonier()))) {
                 e.setCancelled(true);
             }
         }
@@ -134,7 +134,7 @@ class ParrotHandler extends GameHandler {
     public void onInteract(PlayerInteractEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         if (e.hasBlock() && (e.getClickedBlock().getType() == Material.STONE_BUTTON || e.getClickedBlock().getType() == Material.WOOD_BUTTON)) {
-            ((Parrot) mode).getPoints().stream().filter(canonPoint -> canonPoint.getCanon().getButton().getBlock().equals(e.getClickedBlock())).forEach(canonPoint -> canonPoint.getCanon().fire());
+            ((Parrot) mode).getPoints().stream().filter(cannonPoint -> cannonPoint.getcannon().getButton().getBlock().equals(e.getClickedBlock())).forEach(cannonPoint -> cannonPoint.getcannon().fire());
         }
     }
 
@@ -176,73 +176,73 @@ class ParrotHandler extends GameHandler {
     public void onClick(InventoryClickEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getWhoClicked().getWorld())) return;
 
-        ParrotCanonInventory inventory = ParrotCanonInventory.openInventories.get(Biomia.getBiomiaPlayer((Player) e.getWhoClicked()));
+        ParrotCannonInventory inventory = ParrotCannonInventory.openInventories.get(Biomia.getBiomiaPlayer((Player) e.getWhoClicked()));
 
         if (inventory != null) {
-            ParrotCanon canon = inventory.getCannon();
+            ParrotCannon cannon = inventory.getCannon();
             BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getWhoClicked());
 
-            if (inventory instanceof ParrotCanonInventory.CannonDirectionSettingInventory) {
+            if (inventory instanceof ParrotCannonInventory.CannonDirectionSettingInventory) {
 
-                ParrotCanon.CannonYaw yaw = null;
-                ParrotCanon.CannonPitch pitch = null;
+                ParrotCannon.CannonYaw yaw = null;
+                ParrotCannon.CannonPitch pitch = null;
 
                 switch (e.getSlot()) {
                     //YAW
                     case 10:
-                        yaw = ParrotCanon.CannonYaw.STRONG_LEFT;
+                        yaw = ParrotCannon.CannonYaw.STRONG_LEFT;
                         break;
                     case 11:
-                        yaw = ParrotCanon.CannonYaw.LEFT;
+                        yaw = ParrotCannon.CannonYaw.LEFT;
                         break;
                     case 12:
-                        yaw = ParrotCanon.CannonYaw.STRAIGHT;
+                        yaw = ParrotCannon.CannonYaw.STRAIGHT;
                         break;
                     case 13:
-                        yaw = ParrotCanon.CannonYaw.RIGHT;
+                        yaw = ParrotCannon.CannonYaw.RIGHT;
                         break;
                     case 14:
-                        yaw = ParrotCanon.CannonYaw.STRONG_RIGHT;
+                        yaw = ParrotCannon.CannonYaw.STRONG_RIGHT;
                         break;
                     //PITCH
                     case 7:
-                        pitch = ParrotCanon.CannonPitch.LONG;
+                        pitch = ParrotCannon.CannonPitch.LONG;
                         break;
                     case 16:
-                        pitch = ParrotCanon.CannonPitch.MIDDLE;
+                        pitch = ParrotCannon.CannonPitch.MIDDLE;
                         break;
                     case 25:
-                        pitch = ParrotCanon.CannonPitch.SHORT;
+                        pitch = ParrotCannon.CannonPitch.SHORT;
                         break;
                     default:
                         return;
                 }
 
                 if (yaw != null) {
-                    if (canon.getActualYaw() != yaw && pay(bp, 15))
-                        canon.setActualYaw(yaw);
-                } else if (canon.getActualPitch() != pitch && pay(bp, 10))
-                    canon.setActualPitch(pitch);
-                ((ParrotCanonInventory.CannonDirectionSettingInventory) inventory).init();
+                    if (cannon.getActualYaw() != yaw && pay(bp, 15))
+                        cannon.setActualYaw(yaw);
+                } else if (cannon.getActualPitch() != pitch && pay(bp, 10))
+                    cannon.setActualPitch(pitch);
+                ((ParrotCannonInventory.CannonDirectionSettingInventory) inventory).init();
 
-            } else if (inventory instanceof ParrotCanonInventory.CannonMainInventory) {
+            } else if (inventory instanceof ParrotCannonInventory.CannonMainInventory) {
                 switch (e.getSlot()) {
                     case 2:
-                        canon.getSettingInventory().open(bp);
+                        cannon.getSettingInventory().open(bp);
                         break;
                     case 6:
-                        canon.getWeaponChangeInventory().open(bp);
+                        cannon.getWeaponChangeInventory().open(bp);
                         break;
                     default:
                 }
-            } else if (inventory instanceof ParrotCanonInventory.CannonSettingInventory) {
+            } else if (inventory instanceof ParrotCannonInventory.CannonSettingInventory) {
                 switch (e.getSlot()) {
                     case 2:
                         break;
                     case 3:
                         break;
                     case 4:
-                        canon.getDirectionSettingInventory().open(bp);
+                        cannon.getDirectionSettingInventory().open(bp);
                         break;
                     case 5:
                         break;
@@ -252,38 +252,38 @@ class ParrotHandler extends GameHandler {
                 }
             } else {
 
-                ParrotCanon.CannonType type;
+                ParrotCannon.CannonType type;
                 int price;
 
                 switch (e.getSlot()) {
                     case 2:
-                        type = ParrotCanon.CannonType.CANON;
+                        type = ParrotCannon.CannonType.CANNON;
                         price = 0;
                         break;
                     case 3:
-                        type = ParrotCanon.CannonType.GRANATENWERFER;
+                        type = ParrotCannon.CannonType.GRANATENWERFER;
                         price = 200;
                         break;
                     case 4:
-                        type = ParrotCanon.CannonType.PANZERFAUST;
+                        type = ParrotCannon.CannonType.PANZERFAUST;
                         price = 180;
                         break;
                     case 5:
-                        type = ParrotCanon.CannonType.HALBAUTOMATIK;
+                        type = ParrotCannon.CannonType.HALBAUTOMATIK;
                         price = 150;
                         break;
                     case 6:
-                        type = ParrotCanon.CannonType.SCHROTFLINTE;
+                        type = ParrotCannon.CannonType.SCHROTFLINTE;
                         price = 200;
                         break;
                     default:
                         return;
                 }
 
-                if (canon.getType() == type || pay(bp, price)) return;
+                if (cannon.getType() == type || pay(bp, price)) return;
 
-                canon.reset();
-                canon.spawn();
+                cannon.reset();
+                cannon.spawn();
             }
             e.setCancelled(true);
         }
