@@ -47,6 +47,14 @@ public class ParrotCannon {
     @Setter
     @Getter
     private CannonPitch actualPitch = CannonPitch.MIDDLE;
+    @Getter
+    private final ParrotCannonInventory.CannonSettingInventory settingInventory;
+    @Getter
+    private final ParrotCannonInventory.CannonWeaponChangeInventory weaponChangeInventory;
+    @Getter
+    private final ParrotCannonInventory.CannonDirectionSettingInventory directionSettingInventory;
+    @Getter
+    private final ParrotCannonInventory.CannonMainInventory mainInventory;
 
     ParrotCannon(ParrotTeam team, ParrotCannonPoint cannonPoint) {
         this.team = team;
@@ -59,10 +67,10 @@ public class ParrotCannon {
         setTimeToReload(0);
         setName();
 
-        new ParrotCannonInventory.CannonDirectionSettingInventory(this);
-        new ParrotCannonInventory.CannonMainInventory(this);
-        new ParrotCannonInventory.CannonSettingInventory(this);
-        new ParrotCannonInventory.CannonWeaponChangeInventory(this);
+        directionSettingInventory = new ParrotCannonInventory.CannonDirectionSettingInventory(this);
+        mainInventory = new ParrotCannonInventory.CannonMainInventory(this);
+        settingInventory = new ParrotCannonInventory.CannonSettingInventory(this);
+        weaponChangeInventory = new ParrotCannonInventory.CannonWeaponChangeInventory(this);
     }
 
     public void setType(CannonType type) {
