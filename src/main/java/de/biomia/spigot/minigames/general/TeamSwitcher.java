@@ -32,9 +32,9 @@ public class TeamSwitcher {
                     }
 
                     if (i == 0)
-                        i += 2;
+                        i = 2;
                     else if (i == 2)
-                        i += 3;
+                        i = 6;
 
                     inv.setItem(i, itemstack);
                 }

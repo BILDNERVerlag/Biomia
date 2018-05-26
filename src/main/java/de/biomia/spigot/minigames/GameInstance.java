@@ -64,6 +64,7 @@ public class GameInstance {
                 new Exception().printStackTrace();
                 break;
         }
+        gameMode.initTeams();
         if (!type.isVersus())
             new BukkitRunnable() {
                 @Override

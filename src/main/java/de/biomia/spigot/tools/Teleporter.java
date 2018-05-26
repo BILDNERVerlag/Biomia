@@ -177,7 +177,7 @@ public class Teleporter {
 
 class TeleportListener implements Listener {
 
-    protected static final ArrayList<Teleporter> teleporters = new ArrayList<>();
+    static final ArrayList<Teleporter> teleporters = new ArrayList<>();
 
     TeleportListener() {
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());

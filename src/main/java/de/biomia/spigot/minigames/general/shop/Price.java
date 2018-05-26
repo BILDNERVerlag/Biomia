@@ -1,8 +1,11 @@
 package de.biomia.spigot.minigames.general.shop;
 
+import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.messages.BedWarsItemNames;
+import de.biomia.spigot.server.quests.QuestEvents.TakeItemEvent;
 import de.biomia.spigot.tools.ItemCreator;
+import net.minecraft.server.v1_12_R1.EntityShulker;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -12,7 +15,7 @@ public class Price {
     private final int price;
     private final ItemType itemType;
 
-    Price(ItemType itemType, int price) {
+    public Price(ItemType itemType, int price) {
         this.price = price;
         this.itemType = itemType;
     }
@@ -63,30 +66,10 @@ public class Price {
         }
         return i >= menge;
     }
-
-    private void takePriceFromInventory(Player p) {
-
-        int i = 0;
-
-        int menge = getPrice();
-        Material material = ItemType.toMaterial(getItemType());
-
-        for (ItemStack is : p.getInventory().getContents()) {
-            if (is != null)
-                if (is.getType() == material)
-                    if (is.getAmount() >= menge || is.getAmount() >= menge - i) {
-                        is.setAmount(is.getAmount() - (menge - i));
-                        return;
-                    } else {
-                        i += is.getAmount();
-                        is.setAmount(0);
-                    }
-        }
-    }
-
+    
     boolean take(BiomiaPlayer bp) {
         if (hasEnough(bp.getPlayer())) {
-            takePriceFromInventory(bp.getPlayer());
+            new TakeItemEvent(ItemType.toMaterial(getItemType()), getPrice()).executeEvent(bp);
             return true;
         }
         return false;

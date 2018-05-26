@@ -20,7 +20,7 @@ public class GadgetIniter {
         Switcher s = new Switcher();
         Bukkit.getPluginManager().registerEvents(s, Main.getPlugin());
         Cosmetic.addGagetListener(73, s);
-        Cosmetic.addGagetListener(74, new TNTCanon());
+        Cosmetic.addGagetListener(74, new TNTCannon());
         Cosmetic.addGagetListener(75, new Witch());
     }
 

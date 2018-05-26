@@ -64,7 +64,7 @@ public class Versus extends BiomiaServer {
         v.setCustomNameVisible(true);
         v.setProfession(Villager.Profession.FARMER);
         v.setAI(false);
-        Hologram.newHologram(new Location(duell, -39.5, 84, -100.5), new String[]{"§aZum Kit", "§aanpassen"});
+        Hologram.newHologram(new Location(duell, -39.5, 84, -100.5), "§aZum Kit", "§aanpassen");
     }
 
     @Override

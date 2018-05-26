@@ -109,6 +109,10 @@ public class GameTeam {
             TeamSwitcher.getTeamSwitcher(mode);
     }
 
+    public void killAll() {
+        getPlayers().forEach(this::setDead);
+    }
+
     public Location getHome() {
         return home;
     }

@@ -49,8 +49,10 @@ public class WarpCommand extends BiomiaCommand {
                     return;
                 }
                 int verbleibendeWarps = bp.getPremiumLevel() + 3 - playerWarpLocations.size();
-                if (bp.isStaff()) verbleibendeWarps += 2;
-                if (bp.isOwnerOrDev()) verbleibendeWarps += 6;
+                if (bp.isStaff())
+                    verbleibendeWarps += 2;
+                if (bp.isOwnerOrDev())
+                    verbleibendeWarps += 6;
 
                 if (verbleibendeWarps <= 0) {
                     p.sendMessage("\u00A7cDu hast bereits die \u00A7bmaximale \u00A7cAnzahl Warps erreicht.");
@@ -95,7 +97,8 @@ public class WarpCommand extends BiomiaCommand {
                 }
                 if (playerWarpLocations.containsKey(args[0]) || publicWarpLocations.containsKey(args[0])) {
                     WarpLocation wLoc = playerWarpLocations.get(args[0]);
-                    if (wLoc == null) wLoc = publicWarpLocations.get(args[0]);
+                    if (wLoc == null)
+                        wLoc = publicWarpLocations.get(args[0]);
                     Location targetLoc = wLoc.getLocation();
                     if (Biomia.getServerInstance().getServerType().name().equals(wLoc.getGroupname()) && p.getWorld().getName().equals(wLoc.getWorldname())) {
                         p.teleport(targetLoc);
@@ -133,27 +136,21 @@ public class WarpCommand extends BiomiaCommand {
     private void sendWarpList(Player p, HashMap<String, WarpLocation> playerWarpLocations0, HashMap<String, WarpLocation> publicWarpLocations0) {
         if (!playerWarpLocations0.isEmpty()) {
             p.sendMessage("\u00A7c Deine Warps:");
-            Iterator it = playerWarpLocations0.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry) it.next();
-                TextComponent msg = new TextComponent("\u00A77-\u00A7b" + pair.getKey() + " " + (pair.getValue()).toString());
-                msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/warp " + pair.getKey()));
-                p.spigot().sendMessage(msg);
-                //p.sendMessage("\u00A77-\u00A7b" + pair.getKey() + " " + (pair.getValue()).toString());
-                it.remove();
-            }
+            iterate(p, playerWarpLocations0.entrySet().iterator());
         }
         if (!publicWarpLocations0.isEmpty()) {
             p.sendMessage("\u00A7c÷ffentliche Warps:");
-            Iterator it2 = publicWarpLocations0.entrySet().iterator();
-            while (it2.hasNext()) {
-                Map.Entry pair = (Map.Entry) it2.next();
-                TextComponent msg = new TextComponent("\u00A77-\u00A7b" + pair.getKey() + " " + (pair.getValue()).toString());
-                msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/warp " + pair.getKey()));
-                p.spigot().sendMessage(msg);
-                //p.sendMessage("\u00A77-\u00A7b" + pair.getKey() + " " + (pair.getValue()).toString());
-                it2.remove();
-            }
+            iterate(p, publicWarpLocations0.entrySet().iterator());
+        }
+    }
+
+    private void iterate(Player p, Iterator it2) {
+        while (it2.hasNext()) {
+            Map.Entry pair = (Map.Entry) it2.next();
+            TextComponent msg = new TextComponent("\u00A77-\u00A7b" + pair.getKey() + " " + (pair.getValue()).toString());
+            msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/warp " + pair.getKey()));
+            p.spigot().sendMessage(msg);
+            //p.sendMessage("\u00A77-\u00A7b" + pair.getKey() + " " + (pair.getValue()).toString());
         }
     }
 
@@ -183,7 +180,7 @@ public class WarpCommand extends BiomiaCommand {
         HashMap<String, WarpLocation> locations = new HashMap<>();
         try {
             PreparedStatement ps = con.prepareStatement(
-                    "Select x,y,z,yaw,pitch,groupname,worldname,name from Warps where biomiaPlayerID = ?");
+                    "SELECT x,y,z,yaw,pitch,groupname,worldname,name FROM Warps WHERE biomiaPlayerID = ?");
             ps.setString(1, Biomia.getBiomiaPlayer(p).getBiomiaPlayerID() + "");
 
             ResultSet rs = ps.executeQuery();
@@ -223,7 +220,7 @@ public class WarpCommand extends BiomiaCommand {
             this.groupname = groupname;
         }
 
-        public Location getLocation() {
+        Location getLocation() {
             return loc;
         }
 
@@ -231,11 +228,11 @@ public class WarpCommand extends BiomiaCommand {
             return loc.serialize().toString();
         }
 
-        public String getWorldname() {
+        String getWorldname() {
             return loc.getWorld().getName();
         }
 
-        public String getGroupname() {
+        String getGroupname() {
             return groupname;
         }
 

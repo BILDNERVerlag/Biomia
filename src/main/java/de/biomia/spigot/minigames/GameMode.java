@@ -38,7 +38,6 @@ public abstract class GameMode {
         this.instance = instance;
         setConfig();
         setHandler();
-        initTeams();
     }
 
     public void start() {
@@ -195,7 +194,7 @@ public abstract class GameMode {
         return !getInstance().containsPlayer(bp) && !(bp.getTeam() != null && bp.getTeam().lives(bp)) && bp.getPlayer().getWorld().equals(getInstance().getWorld());
     }
 
-    private void initTeams() {
+    public void initTeams() {
 
         for (TeamColor colors : TeamColor.values()) {
             if (colors.getID() > getInstance().getTeamAmount())

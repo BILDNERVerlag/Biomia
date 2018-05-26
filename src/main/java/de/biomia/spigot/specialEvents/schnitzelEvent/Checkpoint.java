@@ -28,27 +28,27 @@ public class Checkpoint extends BiomiaCommand {
             if (args[0].equalsIgnoreCase("set")) {
                 CheckpointRunnable cp = checkPoints.get(bp);
                 if (cp.setLastSavedLocation()) {
-                    bp.sendMessage("00A7cCheckpoint manuell gespeichert00A77.");
+                    bp.sendMessage("\u00A7cCheckpoint manuell gespeichert\u00A77.");
                     if (stopSave(bp)) {
-                        bp.sendMessage("00A7cCheckpoint wird nun nicht mehr automatisch gespeichert00A77!");
-                        bp.sendMessage("00A7cF00dcr automatisches Speichern benutze 00A7b/checkpoint auto00A77!");
+                        bp.sendMessage("\u00A7cCheckpoint wird nun nicht mehr automatisch gespeichert\u00A77!");
+                        bp.sendMessage("\u00A7cF00dcr automatisches Speichern benutze \u00A7b/checkpoint auto\u00A77!");
                     }
                 } else {
-                    bp.sendMessage("00A7cCheckpoint wird weiterhin automatisch gespeichert00A77!");
+                    bp.sendMessage("\u00A7cCheckpoint wird weiterhin automatisch gespeichert\u00A77!");
                 }
             } else if (args[0].equalsIgnoreCase("auto") || args[0].equalsIgnoreCase("automatic")) {
                 startSave(bp);
-                bp.sendMessage("00A7cCheckpoint wird automatisch alle 00A7b2 00A7cMinuten gespeichert00A77.");
+                bp.sendMessage("\u00A7cCheckpoint wird automatisch alle \u00A7b2 \u00A7cMinuten gespeichert\u00A77.");
             } else {
-                bp.sendMessage("00A7c/checkpoint 00A77<00A7bset 00A77/ 00A7bauto00A77>");
+                bp.sendMessage("\u00A7c/checkpoint \u00A77<\u00A7bset \u00A77/ \u00A7bauto\u00A77>");
             }
         } else {
             Location loc = getLastSavedLocation(bp);
             if (loc == null) {
-                bp.sendMessage("00A7cDu kannst nur alle 00A7b30 00A7cSekunden zu deinem Checkpoint zur00dcckkehren00A77!");
+                bp.sendMessage("\u00A7cDu kannst nur alle \u00A7b30 \u00A7cSekunden zu deinem Checkpoint zur00dcckkehren\u00A77!");
             } else {
                 bp.getPlayer().teleport(loc);
-                bp.sendMessage("00A7cZu Checkpoint teleportiert00A77!");
+                bp.sendMessage("\u00A7cZu Checkpoint teleportiert\u00A77!");
             }
         }
     }
@@ -116,7 +116,7 @@ class CheckpointRunnable extends BukkitRunnable {
             this.lastLoc = bp.getPlayer().getLocation();
             return true;
         } else {
-            bp.sendMessage("00A7cDu kannst nur alle 00A7b30 00A7cSekunden deinen Checkpoint speichern00A77!");
+            bp.sendMessage("\u00A7cDu kannst nur alle \u00A7b30 \u00A7cSekunden deinen Checkpoint speichern\u00A77!");
             return false;
         }
     }

@@ -24,7 +24,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 
 /**
@@ -73,15 +72,6 @@ public abstract class BiomiaListener implements Listener {
     public final void onInteractEntity(PlayerInteractAtEntityEvent e) {
         if (CosmeticPetItem.isOwner(Biomia.getBiomiaPlayer(e.getPlayer()), e.getRightClicked())) {
             e.getRightClicked().addPassenger(e.getPlayer());
-        }
-    }
-
-    @EventHandler(priority = EventPriority.HIGH)
-    public final void onClick(InventoryClickEvent e) {
-        if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
-            if (Cosmetic.getMainInventory().equals(e.getClickedInventory()) && Cosmetic.openGroupInventory(Biomia.getBiomiaPlayer((Player) e.getWhoClicked()), e.getCurrentItem().getItemMeta().getDisplayName())) {
-                e.setCancelled(true);
-            }
         }
     }
 

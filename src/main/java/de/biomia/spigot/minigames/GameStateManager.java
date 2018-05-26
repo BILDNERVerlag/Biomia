@@ -102,6 +102,7 @@ public class GameStateManager {
 
         @Override
         public void stop() {
+            countDown.cancel();
             getMode().setAllToTeams();
             getMode().getStateManager().getInGameState().start();
         }

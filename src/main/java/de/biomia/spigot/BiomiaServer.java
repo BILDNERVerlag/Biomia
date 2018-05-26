@@ -37,6 +37,7 @@ public abstract class BiomiaServer {
         if (serverType.isMinigame()) {
             registerCommand(new MinigamesCommands("addloc", "al"));
             registerCommand(new MinigamesCommands("setup"));
+            registerCommand(new MinigamesCommands("start"));
         }
         registerCommand(new RandomServerGroupCommand());
         registerCommand(new CosmeticCommand());

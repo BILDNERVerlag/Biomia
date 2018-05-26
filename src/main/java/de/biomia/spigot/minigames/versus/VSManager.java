@@ -105,7 +105,6 @@ public class VSManager implements Listener {
         BackToLobby.getLobbyItem(p, 8);
     }
 
-
     @SuppressWarnings("unchecked")
     private void giveBook(Player p) {
         ItemStack book = ItemCreator.itemCreate(Material.WRITTEN_BOOK);
@@ -129,7 +128,7 @@ public class VSManager implements Listener {
 
         TextComponent page1 = new TextComponent("\u00A7c\u00A7nEinstellungen:\n\n");
         page1.addExtra(new TextComponent("In den Einstellungen kannst du dir aus- " +
-                "suchen, welche Spielmodi du gerne " +
+                "suchen, welche Spielmodus du gerne " +
                 "spielen würdest.\n" +
                 "Außerdem kannst du dort auch " +
                 "die Maps und dein Kit auswählen."));
@@ -138,12 +137,12 @@ public class VSManager implements Listener {
         TextComponent page2 = new TextComponent("\u00A7c\u00A7nWarteschlange:\n\n");
         page2.addExtra(new TextComponent("Um der Warteschlange " +
                 "beizutreten, musst du " +
-                "nur mit dem Dorfbe- " +
-                "wohner reden. " +
+                "nur den Dorfbewohner" +
+                "mit dem Schwert schlagen. " +
                 "Sobald jemand anderes bei- " +
                 "tritt, der die selben Einstellungen " +
                 "hat wie du (also genau die selben " +
-                "Spielmodi spielen will), geht das Spiel " +
+                "Spielmodus spielen will), geht das Spiel " +
                 "auch schon los!\n\n"));
         IChatBaseComponent pageSecond = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(page2));
 
@@ -274,7 +273,7 @@ public class VSManager implements Listener {
     }
 
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent e) {
+    public static void onInventoryClick(InventoryClickEvent e) {
 
         if (e.getWhoClicked() instanceof Player) {
             Player p = (Player) e.getWhoClicked();

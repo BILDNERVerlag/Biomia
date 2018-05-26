@@ -41,21 +41,19 @@ public class CountDown {
                                 p.setLevel(0);
                             }
                             mode.getStateManager().getLobbyState().stop();
-                            cancel();
                             return;
                         }
 
-                        if (getCountdown() == 45 || getCountdown() == 30 || getCountdown() == 20 || getCountdown() == 15
-                                || getCountdown() == 10 || (getCountdown() <= 5 && getCountdown() > 0)) {
-                            Bukkit.broadcastMessage(MinigamesMessages.lobbyCountDown.replaceAll("%t", getCountdown() + ""));
-                            for (Player p : Bukkit.getOnlinePlayers()) {
-                                p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10, 2);
-                            }
-                        }
+                        boolean send = getCountdown() == 45 || getCountdown() == 30 || getCountdown() == 20 || getCountdown() == 15
+                                || getCountdown() == 10 || (getCountdown() <= 5 && getCountdown() > 0);
 
-                        if (getCountdown() > 0)
-                            for (Player p : Bukkit.getOnlinePlayers())
-                                p.setLevel(getCountdown());
+                        if (send)
+                            Bukkit.broadcastMessage(MinigamesMessages.lobbyCountDown.replaceAll("%t", getCountdown() + ""));
+
+                        Bukkit.getOnlinePlayers().forEach(p -> {
+                            p.setLevel(getCountdown() + 1);
+                            if (send) p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10, 2);
+                        });
                         setCountdown(getCountdown() - 1);
 
                     } else if (onlinePlayer > 0)
