@@ -27,7 +27,7 @@ import java.util.logging.Level;
 
 class SchnitzelListener extends BiomiaListener {
 
-    private static final ItemStack bread = ItemCreator.itemCreate(Material.BREAD, "00A7cBauern Brot");
+    private static final ItemStack bread = ItemCreator.itemCreate(Material.BREAD, "\u00A7cBauern Brot");
 
     @EventHandler
     public void onItemPickUp(EntityPickupItemEvent e) {
@@ -124,7 +124,7 @@ class SchnitzelListener extends BiomiaListener {
     public void onRespawn(PlayerRespawnEvent e) {
         Location loc = Checkpoint.getLastSavedLocation(Biomia.getBiomiaPlayer(e.getPlayer()));
         if (loc == null) {
-            e.getPlayer().sendMessage("00A7cRespawn am Spawn, da du nur alle 00A7b30 00A7cSekunden zu deinem Checkpoint zur00dcckkehren kannst00A77!");
+            e.getPlayer().sendMessage("\u00A7cRespawn am Spawn, da du nur alle \u00A7b30 \u00A7cSekunden zu deinem Checkpoint zur00dcckkehren kannst\u00A77!");
             loc = SchnitzelEvent.getSpawn();
         }
         e.setRespawnLocation(loc);

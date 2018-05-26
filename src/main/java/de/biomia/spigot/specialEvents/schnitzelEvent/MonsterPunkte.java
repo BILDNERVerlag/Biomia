@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 class MonsterPunkte {
 
-    public static final ItemStack backpack = ItemCreator.itemCreate(Material.CHEST, "00A7cRucksack");
+    public static final ItemStack backpack = ItemCreator.itemCreate(Material.CHEST, "\u00A7cRucksack");
 
     private static final ItemStack helmetLVL1 = ItemCreator.itemCreate(Material.LEATHER_HELMET);
     private static final ItemStack helmetLVL2 = ItemCreator.itemCreate(Material.GOLD_HELMET);
@@ -137,7 +137,7 @@ class MonsterPunkte {
 
         if (boots != null) {
 
-            bp.sendMessage("00A7cLevel Up! 00A7bDu hast ein neues Inventar erhalten!");
+            bp.sendMessage("\u00A7cLevel Up! \u00A7bDu hast ein neues Inventar erhalten!");
 
             ItemMeta meta;
 

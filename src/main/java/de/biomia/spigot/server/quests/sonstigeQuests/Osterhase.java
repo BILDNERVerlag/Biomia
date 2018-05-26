@@ -28,7 +28,7 @@ public class Osterhase implements Listener {
 
     public Osterhase() {
         q = Biomia.getQuestManager().registerNewQuest("Osterhase", 99);
-        osterhase = q.createNPC(EntityType.RABBIT, "00A7cOsterhase");
+        osterhase = q.createNPC(EntityType.RABBIT, "\u00A7cOsterhase");
         Location locAaron = new Location(Bukkit.getWorld("LobbyBiomia"), 534.5, 71, 226.5, -145, 0);
         osterhase.spawn(locAaron);
 

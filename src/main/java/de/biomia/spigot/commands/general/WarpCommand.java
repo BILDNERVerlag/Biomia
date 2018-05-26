@@ -220,7 +220,7 @@ public class WarpCommand extends BiomiaCommand {
             this.groupname = groupname;
         }
 
-        public Location getLocation() {
+        Location getLocation() {
             return loc;
         }
 
@@ -228,11 +228,11 @@ public class WarpCommand extends BiomiaCommand {
             return loc.serialize().toString();
         }
 
-        public String getWorldname() {
+        String getWorldname() {
             return loc.getWorld().getName();
         }
 
-        public String getGroupname() {
+        String getGroupname() {
             return groupname;
         }
 

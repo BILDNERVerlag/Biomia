@@ -184,7 +184,7 @@ public class EasterEvent implements Listener {
                     if (specialEggsFoundEverywhere == specialEggsAmount) {
                         e.getPlayer().sendMessage("\u00A7cDu hast \u00A7lalle\u00A7r\u00A7c besonderen Eier gefunden! Dafür erhältst du:");
                     } else {
-                        e.getPlayer().sendMessage("\u00A7cDu hast das 00A7b" + specialEggsFoundEverywhere + ".00A7c 00A7bbesondere Ei 00A7cgefunden!");
+                        e.getPlayer().sendMessage("\u00A7cDu hast das \u00A7b" + specialEggsFoundEverywhere + ".\u00A7c \u00A7bbesondere Ei \u00A7cgefunden!");
                         bp.addCoins(500, false);
                         ItemStack is;
                         switch (Biomia.getServerInstance().getServerType()) {
@@ -258,7 +258,7 @@ public class EasterEvent implements Listener {
                     RewardItems.addItem(p, ItemCreator.itemCreate(Material.IRON_BLOCK), BiomiaServerType.Freebuild);
                     RewardItems.addItem(p, ItemCreator.itemCreate(Material.GOLDEN_APPLE), BiomiaServerType.Quest);
                     coinsToAdd += 250;
-                    osterhasenTalk = ("00A7cOsterhase00A77: 00A7bDu hast tats00e4chlich ein Ei gefunden! Als Belohnung bekommst du ein paar M00dcnzen und je eine Kleinigkeit auf dem Quest- und Freebuildserver.");
+                    osterhasenTalk = ("\u00A7cOsterhase\u00A77: \u00A7bDu hast tats00e4chlich ein Ei gefunden! Als Belohnung bekommst du ein paar M00dcnzen und je eine Kleinigkeit auf dem Quest- und Freebuildserver.");
                     quest_rewards.add("1x Goldener Apfel");
                     freebuild_rewards.add("1x Goldener Apfel");
                     break;
@@ -278,7 +278,7 @@ public class EasterEvent implements Listener {
                     RewardItems.addItem(p, ItemCreator.itemCreate(Material.RECORD_3), BiomiaServerType.Freebuild);
                     RewardItems.addItem(p, ItemCreator.itemCreate(Material.TOTEM), BiomiaServerType.Quest);
                     coinsToAdd += 300;
-                    osterhasenTalk = ("00A7cOsterhase00A77: 00A7bNoch mehr Eier! Viel Spa00df mit den Belohnungen!");
+                    osterhasenTalk = ("\u00A7cOsterhase\u00A77: \u00A7bNoch mehr Eier! Viel Spa00df mit den Belohnungen!");
                     freebuild_rewards.addAll(Arrays.asList("1x Jukebox", "3x Schallplatte"));
                     quest_rewards.add("1x Totem der Unsterblichkeit");
                     break;
@@ -295,7 +295,7 @@ public class EasterEvent implements Listener {
                     is.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4);
                     RewardItems.addItem(p, is, BiomiaServerType.Quest);
                     coinsToAdd += 400;
-                    osterhasenTalk = ("00A7cOsterhase00A77: 00A7bNoch mehr Eier! Viel Spa00df mit den Belohnungen!");
+                    osterhasenTalk = ("\u00A7cOsterhase\u00A77: \u00A7bNoch mehr Eier! Viel Spa00df mit den Belohnungen!");
                     quest_rewards.add("1x Farbklecks-Hut");
                     freebuild_rewards.add("16x Namensschild");
                     break;
@@ -313,7 +313,7 @@ public class EasterEvent implements Listener {
                     is.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4);
                     RewardItems.addItem(p, is, BiomiaServerType.Quest);
                     coinsToAdd += 500;
-                    osterhasenTalk = ("00A7cOsterhase00A77: 00A7bSchon 25 Eier gefunden! Viel Spa00df mit den Belohnungen!");
+                    osterhasenTalk = ("\u00A7cOsterhase\u00A77: \u00A7bSchon 25 Eier gefunden! Viel Spa00df mit den Belohnungen!");
                     quest_rewards.add("1x Farbklecks-Schuhe");
                     freebuild_rewards.add("64x B00dccherregal");
                     break;
@@ -330,7 +330,7 @@ public class EasterEvent implements Listener {
                     is.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4);
                     RewardItems.addItem(p, is, BiomiaServerType.Quest);
                     coinsToAdd += 750;
-                    osterhasenTalk = ("00A7cOsterhase00A77: 00A7bSchon 50 Eier, nicht schlecht! Die letzte Belohnung bekommst du aber nur, wenn du 100 findest!");
+                    osterhasenTalk = ("\u00A7cOsterhase\u00A77: \u00A7bSchon 50 Eier, nicht schlecht! Die letzte Belohnung bekommst du aber nur, wenn du 100 findest!");
                     quest_rewards.add("1x Farbklecks-Hose");
                     freebuild_rewards.add("9x Goldblock");
                     break;
@@ -346,7 +346,7 @@ public class EasterEvent implements Listener {
                     is.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 4);
                     RewardItems.addItem(p, is, BiomiaServerType.Quest);
                     coinsToAdd += 1000;
-                    osterhasenTalk = ("00A7cOsterhase00A77: 00A7bUff, jetzt hast du aber alle gro00dfen Belohnungen abgestaubt!");
+                    osterhasenTalk = ("\u00A7cOsterhase\u00A77: \u00A7bUff, jetzt hast du aber alle gro00dfen Belohnungen abgestaubt!");
                     quest_rewards.add("1x Farbklecks-Hemd");
                     freebuild_rewards.add("1x Beacon");
                     break;
@@ -358,7 +358,7 @@ public class EasterEvent implements Listener {
 
                         RewardItems.addItem(p, ItemCreator.itemCreate(Material.GOLDEN_APPLE), BiomiaServerType.Quest);
                         coinsToAdd += 250;
-                        osterhasenTalk = ("00A7cOsterhase00A77: b7Noch mehr Eier! Viel Spa00df mit den Belohnungen!");
+                        osterhasenTalk = ("\u00A7cOsterhase\u00A77: b7Noch mehr Eier! Viel Spa00df mit den Belohnungen!");
                         quest_rewards.add("1x Goldener Apfel");
                         freebuild_rewards.add("5x Diamanten");
                         break;
@@ -373,30 +373,30 @@ public class EasterEvent implements Listener {
             p.addCoins(coinsToAdd, false);
         }
         if (!quest_rewards.isEmpty()) {
-            p.sendMessage("00A7cBelohnungen f00dcr den Questserver:");
+            p.sendMessage("\u00A7cBelohnungen f00dcr den Questserver:");
             for (String s : quest_rewards) {
-                p.sendMessage(" 00A77" + s.replace("x ", " 00A77x00A7b "));
+                p.sendMessage(" \u00A77" + s.replace("x ", " \u00A77x\u00A7b "));
             }
         }
         if (!freebuild_rewards.isEmpty()) {
-            p.sendMessage("00A7cBelohnungen f00dcr den Freebuildserver:");
+            p.sendMessage("\u00A7cBelohnungen f00dcr den Freebuildserver:");
             for (String s : freebuild_rewards) {
-                p.sendMessage(" 00A77" + s.replace("x ", " 00A77x00A7b "));
+                p.sendMessage(" \u00A77" + s.replace("x ", " \u00A77x\u00A7b "));
             }
         }
         StringBuilder preisOutput = new StringBuilder();
         for (Integer i : preisliste) {
             if (!preisOutput.toString().equals("")) {
-                preisOutput.append("00A77, ");
+                preisOutput.append("\u00A77, ");
             }
             if (i <= eggsFound) {
-                preisOutput.append("00A77[00A7m").append(i).append("00A7r00A77]");
+                preisOutput.append("\u00A77[\u00A7m").append(i).append("\u00A7r\u00A77]");
             } else {
-                preisOutput.append("00A77[00A7b").append(i).append("00A77]00A7r");
+                preisOutput.append("\u00A77[\u00A7b").append(i).append("\u00A77]\u00A7r");
             }
         }
         if (!preisOutput.toString().equals("")) {
-            p.sendMessage("00A7cBen00f6tigte Ostereier 00A77(00A7cDu hast 00A7b" + eggsFound + "00A7c00A77):");
+            p.sendMessage("\u00A7cBen00f6tigte Ostereier \u00A77(\u00A7cDu hast \u00A7b" + eggsFound + "\u00A7c\u00A77):");
             p.sendMessage(preisOutput.toString());
         }
     }

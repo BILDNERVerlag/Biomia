@@ -69,23 +69,23 @@ public class SecretBook {
         if (!comments.contains(id + "")) {
             comments.add(id + "");
             BiomiaStat.BooksFound.increment(bp.getBiomiaPlayerID(), 1, id + "");
-            bp.sendMessage(Messages.PREFIX + "00A77Du hast das Buch " + name + " 00A77gefunden!");
+            bp.sendMessage(Messages.PREFIX + "\u00A77Du hast das Buch " + name + " \u00A77gefunden!");
             switch (id) {
                 case 1:
                     ItemStack itemStack = ItemCreator.itemCreate(Material.DIAMOND);
                     itemStack.setAmount(3);
                     RewardItems.addItem(bp, itemStack, BiomiaServerType.Freebuild);
-                    bp.sendMessage(Messages.PREFIX + "00A77Du erh00e4ltst 00A7c3 Diamanten! (Freebuildwelt)00A77!");
+                    bp.sendMessage(Messages.PREFIX + "\u00A77Du erh00e4ltst \u00A7c3 Diamanten! (Freebuildwelt)\u00A77!");
                     break;
                 case 2:
                     itemStack = ItemCreator.itemCreate(Material.GOLD_BLOCK);
                     RewardItems.addItem(bp, itemStack, BiomiaServerType.Freebuild);
-                    bp.sendMessage(Messages.PREFIX + "00A77Du erh00e4ltst 00A7ceinen Goldblock! (Freebuildwelt)00A77!");
+                    bp.sendMessage(Messages.PREFIX + "\u00A77Du erh00e4ltst \u00A7ceinen Goldblock! (Freebuildwelt)\u00A77!");
                     break;
                 case 3:
                     itemStack = ItemCreator.itemCreate(Material.LAPIS_BLOCK);
                     RewardItems.addItem(bp, itemStack, BiomiaServerType.Quest);
-                    bp.sendMessage(Messages.PREFIX + "00A77Du erh00e4ltst 00A7ceinen Lapisblock! (Freebuildwelt)00A77!");
+                    bp.sendMessage(Messages.PREFIX + "\u00A77Du erh00e4ltst \u00A7ceinen Lapisblock! (Freebuildwelt)\u00A77!");
                     break;
                 case 4:
                     bp.addCoins(400, false);
@@ -94,13 +94,13 @@ public class SecretBook {
                     itemStack = ItemCreator.itemCreate(Material.DIAMOND_SWORD);
                     itemStack.setAmount(1);
                     RewardItems.addItem(bp, itemStack, BiomiaServerType.Quest);
-                    bp.sendMessage(Messages.PREFIX + "00A77Du erh00e4ltst 00A7c1 Diamantschwert! (Questwelt)00A77!");
+                    bp.sendMessage(Messages.PREFIX + "\u00A77Du erh00e4ltst \u00A7c1 Diamantschwert! (Questwelt)\u00A77!");
                     break;
                 case 6:
                     itemStack = ItemCreator.itemCreate(Material.DIAMOND);
                     itemStack.setAmount(1);
                     RewardItems.addItem(bp, itemStack, BiomiaServerType.Quest);
-                    bp.sendMessage(Messages.PREFIX + "00A77Du erh00e4ltst 00A7c1 Totem der Unsterblichkeit! (Questwelt)00A77!");
+                    bp.sendMessage(Messages.PREFIX + "\u00A77Du erh00e4ltst \u00A7c1 Totem der Unsterblichkeit! (Questwelt)\u00A77!");
                     break;
                 default:
                     break;
@@ -113,10 +113,10 @@ public class SecretBook {
                 int duration = (int) ((System.currentTimeMillis() - date.getTime()) / 1000);
                 SchnitzelEvent.booksHighScore.put(bp.getName(), duration);
                 SchnitzelEvent.reloadSBBooks();
-                Bukkit.broadcastMessage("00A7c" + bp.getName() + " 00A7bhat alle 6 00A7bGeheimen B00dccher in 00A7c" + Time.toText(duration) + " 00A7bgefunden!");
+                Bukkit.broadcastMessage("\u00A7c" + bp.getName() + " \u00A7bhat alle 6 \u00A7bGeheimen B00dccher in \u00A7c" + Time.toText(duration) + " \u00A7bgefunden!");
 
                 if (SchnitzelEvent.getFirstName(SchnitzelEvent.booksHighScore).equals(bp.getName())) {
-                    Bukkit.broadcastMessage("00A7c" + bp.getName() + " 00A7bhat den Highscore gebrochen!");
+                    Bukkit.broadcastMessage("\u00A7c" + bp.getName() + " \u00A7bhat den Highscore gebrochen!");
                 }
 
             }
