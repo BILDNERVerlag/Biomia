@@ -330,6 +330,22 @@ public class ParrotCannon {
             }
         }
 
+        public String getName() {
+            switch (this) {
+                case STRONG_LEFT:
+                    return "Stark Links";
+                case LEFT:
+                    return "Links";
+                case STRAIGHT:
+                    return "Gerade";
+                case RIGHT:
+                    return "Rechts";
+                case STRONG_RIGHT:
+                    return "Stark Rechts";
+            }
+            return null;
+        }
+
     }
 
     public enum CannonPitch {
@@ -367,6 +383,18 @@ public class ParrotCannon {
                 case SHORT:
                     return 25;
             }
+        }
+
+        public String getName() {
+            switch (this) {
+                case SHORT:
+                    return "Kurz";
+                case MIDDLE:
+                    return "Mittel";
+                case LONG:
+                    return "Lang";
+            }
+            return null;
         }
     }
 

@@ -13,6 +13,7 @@ class ParrotCannonPoint {
 
     ParrotCannonPoint(Location location, ParrotTeam team) {
         this.location = location;
+        this.team = team;
         cannon = new ParrotCannon(team, this);
         location.clone().subtract(team.getColor() == TeamColor.RED ? -1 : 1, 1, 0).getBlock().setType(Material.ENDER_CHEST);
         cannon.spawn();
@@ -20,6 +21,8 @@ class ParrotCannonPoint {
         cannonier.setGravity(false);
         cannonier.setCustomName(ParrotItemNames.cannonier);
         cannonier.setCustomNameVisible(true);
+
+        team.getShip().registerPoint(this);
         ((Parrot) team.getMode()).registerPoint(this);
     }
 
@@ -38,7 +41,7 @@ class ParrotCannonPoint {
         cannonier.remove();
         cannon.setTimeToReload(0);
         team.getShip().updateCannons();
-        Bukkit.getOnlinePlayers().forEach(player -> Title.sendTitel(String.format("%sEine Kanone von Team %s wurde zerstˆrt", team.getColorcode(), team.getColor().translate()), player));
+        Bukkit.getOnlinePlayers().forEach(player -> Title.sendTitel(String.format("%sEine Kanone von Team %s wurde zerst√∂rt", team.getColorcode(), team.getColor().translate()), player));
     }
 
     public boolean isDestroyed() {

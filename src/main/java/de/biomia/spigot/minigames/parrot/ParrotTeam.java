@@ -12,6 +12,7 @@ public class ParrotTeam extends GameTeam {
 
     public ParrotTeam(TeamColor color, GameMode mode) {
         super(color, mode);
+        ship = new ParrotShip(((ParrotConfig) getMode().getConfig()).getShipRegion(color), this);
         switch (color) {
             case RED:
                 new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -17, 36, -25), this);
@@ -20,7 +21,7 @@ public class ParrotTeam extends GameTeam {
                 new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 62, 36, -25), this);
                 break;
         }
-        ship = new ParrotShip(((ParrotConfig) getMode().getConfig()).getShipRegion(color), this);
+        ship.initRegion();
     }
 
     public ParrotShip getShip() {

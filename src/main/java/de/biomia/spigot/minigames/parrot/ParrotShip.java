@@ -18,7 +18,7 @@ import java.util.Collections;
 
 public class ParrotShip {
 
-    private final ArrayList<ParrotCannonPoint> points = new ArrayList<>();
+    private final ArrayList<ParrotCannonPoint> shipPoints = new ArrayList<>();
     private static int shipBlocks;
     private final CuboidRegion region;
     private final BossBar bossBar;
@@ -34,6 +34,9 @@ public class ParrotShip {
         bossBar.setProgress(1);
         setName();
         bossBar.setVisible(true);
+    }
+
+    public void initRegion() {
         shipBlocks = region.getArea() - session.countBlock(region, Collections.singleton(0));
     }
 
@@ -43,8 +46,8 @@ public class ParrotShip {
                 (int) (bossBar.getProgress() * 10000) / 100D,
                 Messages.COLOR_AUX,
                 team.getColor().getColorcode(),
-                getPoints().size() - getDestroyedCannons(),
-                getPoints().size()));
+                getShipPoints().size() - getDestroyedCannons(),
+                getShipPoints().size()));
     }
 
     public void setPlayersToBossBar() {
@@ -75,13 +78,13 @@ public class ParrotShip {
         return region.contains(BukkitUtil.toVector(location));
     }
 
-    private ArrayList<ParrotCannonPoint> getPoints() {
-        return points;
+    private ArrayList<ParrotCannonPoint> getShipPoints() {
+        return shipPoints;
     }
 
     private int getDestroyedCannons() {
         int destroyed = 0;
-        for (ParrotCannonPoint point : points) {
+        for (ParrotCannonPoint point : shipPoints) {
             if (point.isDestroyed())
                 destroyed++;
         }
@@ -89,9 +92,13 @@ public class ParrotShip {
     }
 
     void updateCannons() {
-        if (getDestroyedCannons() == points.size()) {
+        if (getDestroyedCannons() == shipPoints.size()) {
             team.killAll();
             team.getMode().stop();
         }
+    }
+
+    public void registerPoint(ParrotCannonPoint parrotCannonPoint) {
+        shipPoints.add(parrotCannonPoint);
     }
 }

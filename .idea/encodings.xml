@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/src/main/java/de/biomia/spigot/Biomia.java" charset="ISO-8859-1" />
-    <file url="file://$PROJECT_DIR$/src/main/java/de/biomia/spigot/commands/general/WarpCommand.java" charset="ISO-8859-1" />
-    <file url="file://$PROJECT_DIR$/src/main/java/de/biomia/spigot/general/cosmetics/CosmeticInventory.java" charset="ISO-8859-1" />
-    <file url="file://$PROJECT_DIR$/src/main/java/de/biomia/spigot/minigames/parrot/ParrotCannonPoint.java" charset="ISO-8859-1" />
-    <file url="file://$PROJECT_DIR$/src/main/java/de/biomia/spigot/server/quests/general/DialogMessage.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/src/main/java/de/biomia/spigot/tools/VoidWorldGenerator.java" charset="ISO-8859-1" />
-    <file url="PROJECT" charset="ISO-8859-1" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

@@ -74,15 +74,15 @@ class ParrotCannonInventory {
             setItem(16, ItemCreator.itemCreate(Material.WOOL, "Mittel", (short) 1));
             setItem(25, ItemCreator.itemCreate(Material.WOOL, "Kurz", (short) 4));
 
-            setItem(getCannon().getActualPitch().getSlot(), ItemCreator.itemCreate(Material.WOOL, (short) 5));
-            setItem(getCannon().getActualYaw().getSlot(), ItemCreator.itemCreate(Material.WOOL, (short) 5));
+            setItem(getCannon().getActualPitch().getSlot(), ItemCreator.itemCreate(Material.WOOL, getCannon().getActualPitch().getName(), (short) 5));
+            setItem(getCannon().getActualYaw().getSlot(), ItemCreator.itemCreate(Material.WOOL, getCannon().getActualYaw().getName(), (short) 5));
         }
     }
 
     static class CannonMainInventory extends ParrotCannonInventory {
         CannonMainInventory(ParrotCannon cannon) {
             super(cannon, 9, "Kanonier");
-            setItem(2, ItemCreator.itemCreate(Material.REDSTONE, "Einstellunge"));
+            setItem(2, ItemCreator.itemCreate(Material.REDSTONE, "Einstellungen"));
             setItem(6, ItemCreator.itemCreate(Material.BOW, "Kanone ändern"));
         }
     }
