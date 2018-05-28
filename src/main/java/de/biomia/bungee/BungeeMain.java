@@ -6,6 +6,7 @@ import de.biomia.bungee.events.Login;
 import de.biomia.bungee.msg.Broadcasts;
 import de.biomia.bungee.var.BanManager;
 import de.biomia.bungee.var.Bans;
+import de.biomia.universal.Messages;
 import de.biomia.universal.MySQL;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -53,7 +54,7 @@ public class BungeeMain extends Plugin {
                         OfflineBungeeBiomiaPlayer obp = BungeeBiomia.getOfflineBiomiaPlayer(name);
                         obp.addCoins(bugRewardMoney, false);
                         if (obp.isOnline())
-                            obp.getProxiedPlayer().sendMessage(new TextComponent("§5Bug erfolgreich bearbeitet, du erhältst §2" + bugRewardMoney + " §5Coins!"));
+                            obp.getProxiedPlayer().sendMessage(new TextComponent(String.format("%sBug erfolgreich bearbeitet, du erhältst %s%d %sCoins!", Messages.COLOR_MAIN, Messages.COLOR_SUB, bugRewardMoney, Messages.COLOR_MAIN)));
                     }
                     BanManager.removeAllFinishedBugReports();
                 } catch (InterruptedException e) {

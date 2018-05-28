@@ -9,7 +9,6 @@ import de.biomia.spigot.server.quests.general.NPCManager;
 import de.biomia.spigot.server.quests.general.Quest;
 import de.biomia.spigot.server.quests.general.QuestPlayer;
 import de.biomia.universal.Messages;
-import net.citizensnpcs.api.ai.GoalController;
 import net.citizensnpcs.api.ai.goals.WanderGoal;
 import net.citizensnpcs.api.npc.NPC;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -28,9 +27,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class QuestCommands extends BiomiaCommand {
 
@@ -227,15 +224,6 @@ public class QuestCommands extends BiomiaCommand {
             case "restore":
                 qrestoreCommand();
                 break;
-            case "aion":
-                aionCommand();
-                break;
-            case "aioff":
-                aioffCommand();
-                break;
-            case "aitoggle":
-                aitoggleCommand();
-                break;
             case "filldiary":
                 qfilldiaryCommand(sender, qp);
                 break;
@@ -327,70 +315,6 @@ public class QuestCommands extends BiomiaCommand {
         }
         sender.sendMessage("§8------------------------------------");
 
-    }
-
-    private void aitoggleCommand() {
-        /*
-         * deactivates npc AI, but be wary that npcs still finish their current task.
-         * e.g. if an npc has found a destination location and you turn off the ai, the
-         * npc will still continue to walk until he's reached his destination.
-         */
-        StringBuilder aktiviert = new StringBuilder(" ");
-        StringBuilder deaktiviert = new StringBuilder(" ");
-        Set<NPC> npcs = new HashSet<>();
-        for (Quest q : Biomia.getQuestManager().getQuests()) {
-            npcs.addAll(q.getNpcs());
-        }
-        for (NPC n : npcs) {
-            GoalController gc = n.getDefaultGoalController();
-            if (gc.isPaused()) {
-                gc.setPaused(false);
-                n.getNavigator().getLocalParameters().speedModifier(0.8f);
-                gc.addBehavior(WanderGoal.createWithNPC(n), 3);
-                if (!n.getName().equals(""))
-                    aktiviert.append("§2<§a").append(n.getName()).append("§2>§a, ");
-            } else {
-                gc.cancelCurrentExecution();
-                gc.setPaused(true);
-                if (!n.getName().equals(""))
-                    deaktiviert.append("§2<§a").append(n.getName()).append("§2>§a, ");
-            }
-        }
-        Bukkit.broadcastMessage("§bAI aktiviert für:");
-        if (aktiviert.length() >= 2)
-            Bukkit.broadcastMessage("§2{" + aktiviert.substring(0, aktiviert.length() - 2) + "§2 }");
-        else
-            Bukkit.broadcastMessage("§2{ }");
-        Bukkit.broadcastMessage("§bAI deaktiviert für:");
-        if (deaktiviert.length() >= 2)
-            Bukkit.broadcastMessage("§2{" + deaktiviert.substring(0, deaktiviert.length() - 2) + "§2 }");
-        else
-            Bukkit.broadcastMessage("§2{ }");
-    }
-
-    private void aioffCommand() {
-        /*
-         * deactivates npc AI, but be wary that npcs still finish their current task.
-         * e.g. if an npc has found a destination location and you turn off the ai, the
-         * npc will still continue to walk until he's reached his destination.
-         */
-        for (Quest q : Biomia.getQuestManager().getQuests()) {
-            for (NPC n : q.getNpcs()) {
-                n.getDefaultGoalController().clear();
-            }
-        }
-        Bukkit.broadcastMessage(QuestMessages.aiOFF);
-    }
-
-    private void aionCommand() {
-        // activates npc AI
-        for (Quest q : Biomia.getQuestManager().getQuests()) {
-            for (NPC n : q.getNpcs()) {
-                n.getNavigator().getLocalParameters().speedModifier(0.8f);
-                n.getDefaultGoalController().addBehavior(WanderGoal.createWithNPC(n), 3);
-            }
-        }
-        Bukkit.broadcastMessage(QuestMessages.aiON);
     }
 
     private void qrestoreCommand() {

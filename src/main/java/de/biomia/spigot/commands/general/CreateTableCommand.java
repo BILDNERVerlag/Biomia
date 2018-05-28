@@ -38,10 +38,10 @@ public class CreateTableCommand extends BiomiaCommand {
                 case "achievements":
                 case "a":
                     MySQL.execute(String.format("CREATE TABLE IF NOT EXISTS %s (`ID` INT NOT NULL , `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`ID`))", args[1]), MySQL.Databases.achiev_db);
-                    sender.sendMessage(String.format("00A7cTabelle %s wurde erfolgreich in der Datenbank %s gespeichert.", args[1], MySQL.Databases.achiev_db.name()));
+                    sender.sendMessage(String.format("§cTabelle %s wurde erfolgreich in der Datenbank %s gespeichert.", args[1], MySQL.Databases.achiev_db.name()));
                     break;
                 default:
-                    sender.sendMessage(String.format("00A7cDas Argument 00A77%s00A7c ist ungültig. Benutze 00A77stat 00A7c/ 00A77statex00A7coder 00A77achiev00A7c.", args[0]));
+                    sender.sendMessage(String.format("§cDas Argument §7%s§c ist ungültig. Benutze §7stat §c/ §7statex§coder §7achiev§c.", args[0]));
             }
         } else {
             sender.sendMessage(String.format("%sInkorrekte Argument-Anzahl. Die korrekte Syntax lautet:", Messages.COLOR_MAIN));
@@ -51,6 +51,6 @@ public class CreateTableCommand extends BiomiaCommand {
 
     private static void createStatTable(String name, CommandSender sender) {
         MySQL.execute(String.format("CREATE TABLE IF NOT EXISTS %s (`key` INT NOT NULL AUTO_INCREMENT, `biomiaID` INT NOT NULL , `value` INT NOT NULL, `inc` INT NOT NULL, `comment` VARCHAR(36), `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`key`))", name), MySQL.Databases.stats_db);
-        sender.sendMessage(String.format("00A7cTabelle %s wurde erfolgreich in der Datenbank %s gespeichert.", name, MySQL.Databases.stats_db.name()));
+        sender.sendMessage(String.format("§cTabelle %s wurde erfolgreich in der Datenbank %s gespeichert.", name, MySQL.Databases.stats_db.name()));
     }
 }

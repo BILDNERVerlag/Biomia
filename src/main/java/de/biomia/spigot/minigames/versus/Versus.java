@@ -60,11 +60,11 @@ public class Versus extends BiomiaServer {
         new Teleporter(new Location(duell, -41, 83.5, -101), new Location(duell, -38, 86, -100), new Location(duell, -36.5, 105, -40.5, -90, 0));
         new Teleporter(new Location(duell, -38, 105, -42), new Location(duell, -37, 105, -39), new Location(duell, -39.5, 84, -101.5, -180, 0));
         Villager v = (Villager) duell.spawnEntity(new Location(duell, -30.5, 84, -101.5, -180, 0), EntityType.VILLAGER);
-        v.setCustomName("00A7aWarteschlange");
+        v.setCustomName("§aWarteschlange");
         v.setCustomNameVisible(true);
         v.setProfession(Villager.Profession.FARMER);
         v.setAI(false);
-        Hologram.newHologram(new Location(duell, -39.5, 84, -100.5), "00A7aZum Kit", "00A7aanpassen");
+        Hologram.newHologram(new Location(duell, -39.5, 84, -100.5), "§aZum Kit", "§aanpassen");
     }
 
     @Override

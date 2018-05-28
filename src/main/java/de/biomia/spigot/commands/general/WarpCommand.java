@@ -150,7 +150,6 @@ public class WarpCommand extends BiomiaCommand {
             TextComponent msg = new TextComponent("§7-§b" + pair.getKey() + " " + (pair.getValue()).toString());
             msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/warp " + pair.getKey()));
             p.spigot().sendMessage(msg);
-            //p.sendMessage("§7-§b" + pair.getKey() + " " + (pair.getValue()).toString());
         }
     }
 

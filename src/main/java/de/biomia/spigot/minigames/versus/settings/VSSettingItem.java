@@ -34,7 +34,7 @@ public class VSSettingItem {
 
     public void setAsMap() {
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("00A7c" + name);
+        meta.setDisplayName("§c" + name);
         item.setItemMeta(meta);
     }
 

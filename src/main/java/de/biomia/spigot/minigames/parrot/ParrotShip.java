@@ -32,18 +32,18 @@ public class ParrotShip {
         session = new EditSessionBuilder(team.getMode().getInstance().getWorld().getName()).fastmode(true).build();
         this.bossBar = Bukkit.createBossBar("", team.getColor() == TeamColor.RED ? BarColor.RED : BarColor.BLUE, BarStyle.SEGMENTED_20); // in 5% steps
         bossBar.setProgress(1);
-        setName();
-        bossBar.setVisible(true);
     }
 
     public void initRegion() {
         shipBlocks = region.getArea() - session.countBlock(region, Collections.singleton(0));
+        setName();
+        bossBar.setVisible(true);
     }
 
     private void setName() {
         bossBar.setTitle(String.format("%s%s%% %s|%s %d/%d Kanonen",
                 team.getColor().getColorcode(),
-                (int) (bossBar.getProgress() * 10000) / 100D,
+                String.valueOf((int) (bossBar.getProgress() * 10000) / 100D),
                 Messages.COLOR_AUX,
                 team.getColor().getColorcode(),
                 getShipPoints().size() - getDestroyedCannons(),
