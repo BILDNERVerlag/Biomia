@@ -64,12 +64,12 @@ public class ReportListener implements Listener {
 
     public static void openSetTimeInventory(BiomiaPlayer biomiaPlayer) {
 
-        Inventory inv = Bukkit.createInventory(null, 27, "\u00A7cL00e4nge");
+        Inventory inv = Bukkit.createInventory(null, 27, "§cLänge");
 
         int i = 0;
 
-        ItemStack plus = ItemCreator.itemCreate(Material.STAINED_GLASS, "\u00A7a+", (byte) 5);
-        ItemStack minus = ItemCreator.itemCreate(Material.STAINED_GLASS, "\u00A7c-", (byte) 14);
+        ItemStack plus = ItemCreator.itemCreate(Material.STAINED_GLASS, "§a+", (byte) 5);
+        ItemStack minus = ItemCreator.itemCreate(Material.STAINED_GLASS, "§c-", (byte) 14);
 
         boolean b;
 
@@ -80,19 +80,19 @@ public class ReportListener implements Listener {
 
             switch (i) {
                 case 11:
-                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7bJahre");
+                    is = ItemCreator.itemCreate(Material.WOOL, "§bJahre");
                     break;
                 case 12:
-                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7bMonate");
+                    is = ItemCreator.itemCreate(Material.WOOL, "§bMonate");
                     break;
                 case 13:
-                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7bTage");
+                    is = ItemCreator.itemCreate(Material.WOOL, "§bTage");
                     break;
                 case 14:
-                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7bStunden");
+                    is = ItemCreator.itemCreate(Material.WOOL, "§bStunden");
                     break;
                 case 15:
-                    is = ItemCreator.itemCreate(Material.WOOL, "\u00A7bMinuten");
+                    is = ItemCreator.itemCreate(Material.WOOL, "§bMinuten");
                     break;
                 default:
                     b = false;
@@ -101,13 +101,13 @@ public class ReportListener implements Listener {
                     } else if (i > 19 && i < 25) {
                         inv.setItem(i, minus);
                     } else if (i == 26) {
-                        inv.setItem(i, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, "\u00A7cFertig"));
+                        inv.setItem(i, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, "§cFertig"));
                     }
                     break;
             }
             if (b) {
                 ItemMeta meta = is.getItemMeta();
-                meta.setLore(Collections.singletonList("\u00A7c" + 0));
+                meta.setLore(Collections.singletonList("§c" + 0));
                 is.setItemMeta(meta);
                 inv.setItem(i, is);
             }
@@ -127,23 +127,23 @@ public class ReportListener implements Listener {
             Inventory clickedInventory = e.getClickedInventory();
             if (clickedInventory != null)
                 switch (clickedInventory.getName()) {
-                    case "\u00A7eREPORT MEN00dc":
+                    case "§eREPORT MENÜ":
                         if (e.getCurrentItem() != null)
                             if (e.getCurrentItem().hasItemMeta())
-                                if (e.getCurrentItem().getItemMeta().getDisplayName().equals("\u00A7cBug")) {
+                                if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§cBug")) {
                                     ReportManager.waitingForBugReason.add(p);
                                     p.sendMessage(
-                                            "\u00A76Du hast einen Bug gefunden? Dann gib einfach ein was das Problem ist! Wenn es ein richtiger Bug ist, bekommst du sogar eine Belohnung!");
+                                            "§6Du hast einen Bug gefunden? Dann gib einfach ein was das Problem ist! Wenn es ein richtiger Bug ist, bekommst du sogar eine Belohnung!");
                                     p.closeInventory();
 
-                                } else if (e.getCurrentItem().getItemMeta().getDisplayName().contains("\u00A7cSpieler")) {
+                                } else if (e.getCurrentItem().getItemMeta().getDisplayName().contains("§cSpieler")) {
                                     ReportManager.waitingForName.add(p);
                                     p.sendMessage(
-                                            "\u00A76Du willst einen Spieler reporten? Dann gib einfach seinen Namen ein!");
+                                            "§6Du willst einen Spieler reporten? Dann gib einfach seinen Namen ein!");
                                     p.closeInventory();
                                 }
                         break;
-                    case "\u00A7eGRUND":
+                    case "§eGRUND":
                         if (e.getCurrentItem() != null) {
                             e.setCancelled(true);
                             if (waitForBanReason.containsKey(bp)) {
@@ -157,7 +157,7 @@ public class ReportListener implements Listener {
                                         report.finish(grund.name());
                                         p.closeInventory();
                                         if (ReportSQL.addPlayerReport(report)) {
-                                            p.sendMessage("\u00A7aDer Spieler " + report.getReporteterBiomiaPlayer().getName()
+                                            p.sendMessage("§aDer Spieler " + report.getReporteterBiomiaPlayer().getName()
                                                     + " wurde erfolgreich reportet wegen: " + Grund.toText(grund));
                                         }
                                         return;
@@ -166,7 +166,7 @@ public class ReportListener implements Listener {
                             }
                         }
                         break;
-                    case "\u00A7cL00fcnge":
+                    case "§cLünge":
                         e.setCancelled(true);
                         if (!waitForSetTime.containsKey(bp))
                             return;
@@ -212,11 +212,11 @@ public class ReportListener implements Listener {
                                 is.setAmount(i);
 
                             ItemMeta meta = is.getItemMeta();
-                            meta.setLore(Collections.singletonList("\u00A7c" + i));
+                            meta.setLore(Collections.singletonList("§c" + i));
                             is.setItemMeta(meta);
                         }
                         break;
-                    case "\u00A7bPermanenter Ban?":
+                    case "§bPermanenter Ban?":
                         e.setCancelled(true);
                         if (!waitForIsPermBan.containsKey(bp))
                             return;

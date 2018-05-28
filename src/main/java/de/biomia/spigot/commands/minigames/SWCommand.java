@@ -34,19 +34,19 @@ public class SWCommand extends BiomiaCommand {
                                 case "g":
                                 case "good":
                                     SkyWarsConfig.addChestLocation(l, SkyWarsOpenChestEvent.ChestType.GoodChest);
-                                    sender.sendMessage("Bessere Kiste hinzugef00fcgt!");
+                                    sender.sendMessage("Bessere Kiste hinzugefügt!");
                                     break;
                                 case "n":
                                 case "normal":
                                     SkyWarsConfig.addChestLocation(l, SkyWarsOpenChestEvent.ChestType.NormalChest);
-                                    sender.sendMessage("Normale Kiste hinzugef00fcgt!");
+                                    sender.sendMessage("Normale Kiste hinzugefügt!");
                                     break;
                                 default:
                                     sender.sendMessage("/sw addchest <normal/good>");
                                     break;
                             }
                         } else {
-                            sender.sendMessage("\u00A7cSchau auf eine Kiste!");
+                            sender.sendMessage("§cSchau auf eine Kiste!");
                         }
                     } else {
                         sender.sendMessage("/sw addchest <normal/good>");
@@ -54,7 +54,7 @@ public class SWCommand extends BiomiaCommand {
                     break;
             }
         } else {
-            sender.sendMessage("\u00A7c/sw addchest <normal/good> (F00fcgt eine Kiste hinzu)");
+            sender.sendMessage("§c/sw addchest <normal/good> (Fügt eine Kiste hinzu)");
         }
     }
 }

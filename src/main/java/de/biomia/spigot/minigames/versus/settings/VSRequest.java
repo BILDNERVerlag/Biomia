@@ -28,7 +28,7 @@ public class VSRequest {
 
     public VSRequest(BiomiaPlayer leader, BiomiaPlayer bp) {
         if (leader.equals(bp)) {
-            leader.getPlayer().sendMessage("\u00A7cDu kannst dir nicht selbst eine Anfrage schicken!");
+            leader.getPlayer().sendMessage("§cDu kannst dir nicht selbst eine Anfrage schicken!");
             cancelRequest = true;
             return;
         }
@@ -61,32 +61,32 @@ public class VSRequest {
                 bp2.getPlayer().spigot().sendMessage(comp);
                 p.sendMessage(String.format("%sDu hast den Spieler %s%s%s herausgefordert!\n", Messages.COLOR_MAIN, Messages.COLOR_SUB, bp2.getName(), Messages.COLOR_MAIN));
             } else {
-                leader.getPlayer().sendMessage("\u00A7cDeine Einstellungen sind zu genau!");
+                leader.getPlayer().sendMessage("§cDeine Einstellungen sind zu genau!");
                 openRequests.remove(this);
             }
     }
 
     private boolean isInRunningRound() {
         if (leader.getTeam() != null) {
-            leader.getPlayer().sendMessage("\u00A7cDu bist bereits in einer Runde!");
+            leader.getPlayer().sendMessage("§cDu bist bereits in einer Runde!");
             return true;
         } else if (bp2.getTeam() != null) {
-            leader.getPlayer().sendMessage("\u00A7cDer Spieler ist bereits in einer Runde!");
+            leader.getPlayer().sendMessage("§cDer Spieler ist bereits in einer Runde!");
             return true;
         }
         return false;
     }
 
     public void accept() {
-        leader.getPlayer().sendMessage("\u00A7cDer Spieler \u00A7b" + bp2.getPlayer().getName() + " \u00A7chat die Herausforderung angenommen!");
-        bp2.getPlayer().sendMessage("\u00A7cDu hast die Herausforderung von \u00A7b" + leader.getPlayer().getName() + " \u00A7cangenommen!");
+        leader.getPlayer().sendMessage("§cDer Spieler §b" + bp2.getPlayer().getName() + " §chat die Herausforderung angenommen!");
+        bp2.getPlayer().sendMessage("§cDu hast die Herausforderung von §b" + leader.getPlayer().getName() + " §cangenommen!");
         startServer();
         remove();
     }
 
     public void decline() {
-        leader.getPlayer().sendMessage("\u00A7cDer Spieler \u00A7b" + bp2.getPlayer().getName() + " \u00A7chat die Herausforderung abgelehnt!");
-        bp2.getPlayer().sendMessage("\u00A7cDu hast die Herausforderung von \u00A7b" + leader.getPlayer().getName() + " \u00A7cabgelehnt!");
+        leader.getPlayer().sendMessage("§cDer Spieler §b" + bp2.getPlayer().getName() + " §chat die Herausforderung abgelehnt!");
+        bp2.getPlayer().sendMessage("§cDu hast die Herausforderung von §b" + leader.getPlayer().getName() + " §cabgelehnt!");
         remove();
     }
 

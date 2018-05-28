@@ -47,10 +47,10 @@ public class BWCommand extends BiomiaCommand {
                             BedWarsConfig.addSpawnerLocations(l, ItemType.GOLD);
                             break;
                         default:
-                            p.sendMessage("Schau auf einen verf00fcgbaren Block!");
+                            p.sendMessage("Schau auf einen verfügbaren Block!");
                             return;
                     }
-                    p.sendMessage("Spawner hinzugef00fcgt!");
+                    p.sendMessage("Spawner hinzugefügt!");
                     break;
                 case "villager":
                     p.getInventory().addItem(ItemCreator.itemCreate(Material.MONSTER_EGG, BedWarsItemNames.villagerSpawner));
@@ -62,7 +62,7 @@ public class BWCommand extends BiomiaCommand {
 
                         if (blockFoot.getType() == Material.BED_BLOCK && blockHead.getType() == Material.BED_BLOCK) {
                             BedWarsConfig.addBedsLocations(blockHead.getLocation(), blockFoot.getLocation(), TeamColor.valueOf(args[1]));
-                            Bukkit.broadcastMessage("\u00A7cBett hinzugef00fcgt!");
+                            Bukkit.broadcastMessage("§cBett hinzugefügt!");
                         } else
                             p.sendMessage(BedWarsMessages.blocksMustBeBeds);
                     } else
@@ -72,9 +72,9 @@ public class BWCommand extends BiomiaCommand {
                     break;
             }
         } else {
-            sender.sendMessage("\u00A7c/bedwars addspawner (F00fcgt Spawner hinzu)");
-            sender.sendMessage("\u00A7c/bedwars addbed (F00fcgt Betten hinzu)");
-            sender.sendMessage("\u00A7c/bedwars villager (Gibt einen Villager Spawner zur00fcck)");
+            sender.sendMessage("§c/bedwars addspawner (Fügt Spawner hinzu)");
+            sender.sendMessage("§c/bedwars addbed (Fügt Betten hinzu)");
+            sender.sendMessage("§c/bedwars villager (Gibt einen Villager Spawner zurück)");
         }
     }
 }

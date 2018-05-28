@@ -31,15 +31,15 @@ public class Price {
         switch (getItemType()) {
             case BRONZE:
                 m = Material.CLAY_BRICK;
-                name = "\u00A7c" + getPrice() + " " + BedWarsItemNames.bronze;
+                name = "§c" + getPrice() + " " + BedWarsItemNames.bronze;
                 break;
             case IRON:
                 m = Material.IRON_INGOT;
-                name = "\u00A77" + getPrice() + " " + BedWarsItemNames.iron;
+                name = "§7" + getPrice() + " " + BedWarsItemNames.iron;
                 break;
             case GOLD:
                 m = Material.GOLD_INGOT;
-                name = "\u00A76" + getPrice() + " " + BedWarsItemNames.gold;
+                name = "§6" + getPrice() + " " + BedWarsItemNames.gold;
                 break;
             default:
                 break;

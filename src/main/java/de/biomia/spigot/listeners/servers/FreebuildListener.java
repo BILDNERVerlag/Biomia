@@ -25,7 +25,7 @@ public class FreebuildListener extends BiomiaListener {
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         InventorySave.setInventory(p, BiomiaServerType.Freebuild);
-        p.sendMessage(Messages.PREFIX + "\u00A76Willkommen auf dem FreebuildServer, " + p.getName() + "!");
+        p.sendMessage(Messages.PREFIX + "§6Willkommen auf dem FreebuildServer, " + p.getName() + "!");
         RewardItems.giveItems(bp, BiomiaServerType.Freebuild);
         Scoreboards.setTabList(p, true, false);
         bp.setBuild(true);
@@ -53,7 +53,7 @@ public class FreebuildListener extends BiomiaListener {
                     PlayerToServerConnector.connectToRandom(p, BiomiaServerType.FreebuildFarm);
                 } else
                     p.sendMessage(
-                            "\u00A7cDas Portal zur Farmwelt ist offenbar noch nicht richtig ausgerichtet! Probier es am besten in ein paar Tagen erneut!");
+                            "§cDas Portal zur Farmwelt ist offenbar noch nicht richtig ausgerichtet! Probier es am besten in ein paar Tagen erneut!");
             } else if ((390 <= z) && (z <= 393)) {
                 // ZUR LOBBY
                 p.teleport(new Location(Bukkit.getWorld("world"), -198, 64, 391, 120, 0));

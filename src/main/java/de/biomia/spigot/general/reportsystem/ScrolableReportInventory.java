@@ -29,7 +29,7 @@ class ScrolableReportInventory implements Listener {
 
     ScrolableReportInventory(BiomiaPlayer bp) {
         this.bp = bp;
-        inv = Bukkit.createInventory(null, 27, "\u00A7bUnbearbeitete Reports");
+        inv = Bukkit.createInventory(null, 27, "§bUnbearbeitete Reports");
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
     }
 
@@ -66,12 +66,12 @@ class ScrolableReportInventory implements Listener {
                     int backItemSlotInBanInformation = 26;
                     if (e.getSlot() == backItemSlotInBanInformation) {
                         openInventory();
-                    } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("\u00A7cReport Entfernen")) {
+                    } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§cReport Entfernen")) {
                         ReportManager.removeReports(ReportManager.getReports(banInformationInv.getBiomiaID()));
-                    } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("\u00A7aReport Fertigstellen")) {
+                    } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§aReport Fertigstellen")) {
                         ReportManager.removeReports(ReportManager.getReports(banInformationInv.getBiomiaID()));
                         new PlayerBan(bp, banInformationInv.getBiomiaID());
-                    } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("\u00A7cBannen")) {
+                    } else if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§cBannen")) {
                         new PlayerBan(bp, banInformationInv.getBiomiaID());
                     }
                 }
@@ -99,13 +99,13 @@ class ScrolableReportInventory implements Listener {
 
     private void setNext() {
         if (next == null)
-            next = ItemCreator.itemCreate(Material.BLAZE_ROD, "\u00A7aN00e4chste Seite");
+            next = ItemCreator.itemCreate(Material.BLAZE_ROD, "§aNächste Seite");
         inv.setItem(inv.getSize() - 3, next);
     }
 
     private void setBack() {
         if (back == null)
-            back = ItemCreator.itemCreate(Material.STICK, "\u00A7aLetzte Seite");
+            back = ItemCreator.itemCreate(Material.STICK, "§aLetzte Seite");
         inv.setItem(inv.getSize() - 7, back);
     }
 
@@ -119,9 +119,9 @@ class ScrolableReportInventory implements Listener {
 
                 ids.add(playerReport.getReporteterBiomiaPlayer().getBiomiaPlayerID());
 
-                ItemStack stack = ItemCreator.headWithSkin(playerReport.getReporteterBiomiaPlayer().getName(), "\u00A7c" + playerReport.getReporteterBiomiaPlayer().getName());
+                ItemStack stack = ItemCreator.headWithSkin(playerReport.getReporteterBiomiaPlayer().getName(), "§c" + playerReport.getReporteterBiomiaPlayer().getName());
                 ItemMeta meta = stack.getItemMeta();
-                meta.setLore(Arrays.asList("", "\u00A7r\u00A7bReport Level: \u00A7c" + playerReport.getLevel(), "\u00A7r\u00A7bReportet von \u00A7c" + playerReport.getReporterBiomiaPlayer().getName(), "\u00A7r\u00A7bGrund: \u00A7c" + playerReport.getGrund(), ""));
+                meta.setLore(Arrays.asList("", "§r§bReport Level: §c" + playerReport.getLevel(), "§r§bReportet von §c" + playerReport.getReporterBiomiaPlayer().getName(), "§r§bGrund: §c" + playerReport.getGrund(), ""));
                 stack.setItemMeta(meta);
                 items.add(stack);
             }

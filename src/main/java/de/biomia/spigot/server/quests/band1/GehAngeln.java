@@ -29,7 +29,7 @@ public class GehAngeln implements Listener {
 
     public GehAngeln() {
         q.setInfoText(
-                "Der begeisterte Angler Pari m00f6chte gerne seine Familie mit gutem Fisch zum Abendessen 00fcberraschen, ist jedoch zu besch00e4ftigt, "
+                "Der begeisterte Angler Pari möchte gerne seine Familie mit gutem Fisch zum Abendessen überraschen, ist jedoch zu beschäftigt, "
                         + "um die Fische selbst zu holen. Dreimal darfst du raten, wer die 10 Fische an seiner Stelle holen soll.");
         q.setDisplayName("Geh Angeln!");
 
@@ -75,19 +75,19 @@ public class GehAngeln implements Listener {
     private void initDialog() {
         // start dl
         startDialog = new DialogMessage(q, pari).setInhalt(
-                "Wie geht es dir? Sch00f6nes Wetter, nicht wahr? Ideal zum Angeln. Ich w00fcrde gerne selber gehen, aber ich muss noch so viel erledigen. Und Angeln dauert immer so lange. Kannst du mir zehn rohen Fisch besorgen?");
-        startDialog.setFortsetzung("Daf00fcr habe ich keine Zeit.").setFortsetzung("Ich versuche mein Gl00fcck!");
-        startDialog.setNext("Schade. Komm wieder, wenn du es dir anders 00fcberlegst.", 0, pari);
+                "Wie geht es dir? Schönes Wetter, nicht wahr? Ideal zum Angeln. Ich würde gerne selber gehen, aber ich muss noch so viel erledigen. Und Angeln dauert immer so lange. Kannst du mir zehn rohen Fisch besorgen?");
+        startDialog.setFortsetzung("Dafür habe ich keine Zeit.").setFortsetzung("Ich versuche mein Glück!");
+        startDialog.setNext("Schade. Komm wieder, wenn du es dir anders überlegst.", 0, pari);
         startDialog.setNext("Na dann los!", 1, pari);
         startDialog.getNext(1).addPlayerToQuest();
 
         // while questing
         whileQuesting = new DialogMessage(q, pari).setInhalt(
-                "Es w00fcre nett, wenn du dich beeilen k00f6nntest. Ich brauche die Fische wirklich dringend!");
+                "Es würe nett, wenn du dich beeilen könntest. Ich brauche die Fische wirklich dringend!");
 
         // after questing
         afterQuesting = new DialogMessage(q, pari).setInhalt(
-                "Endlich! Nun kann die ganze Familie zum Essen kommen! Hier, die hab ich vor einiger Zeit aus dem Wasser gezogen! Aber ich wei00df nicht, was ich damit anfangen soll. Vielleicht kannst du sie gebrauchen.");
+                "Endlich! Nun kann die ganze Familie zum Essen kommen! Hier, die hab ich vor einiger Zeit aus dem Wasser gezogen! Aber ich weiß nicht, was ich damit anfangen soll. Vielleicht kannst du sie gebrauchen.");
 
         afterQuesting.addEvent(new AddCoinEvent(150))
                 .addEvent(new TakeItemEvent(Material.RAW_FISH, 10))
@@ -96,6 +96,6 @@ public class GehAngeln implements Listener {
         afterQuesting.finish();
 
         // nach quest
-        nachQuest = new DialogMessage(q, pari).setInhalt("Danke f00fcr die Hilfe damals!");
+        nachQuest = new DialogMessage(q, pari).setInhalt("Danke für die Hilfe damals!");
     }
 }

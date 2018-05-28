@@ -6,7 +6,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class BackToLobby {
 
-    private static final ItemStack backToLobbyItem = ItemCreator.itemCreate(Material.MAGMA_CREAM, "\u00A7cLobby");
+    private static final ItemStack backToLobbyItem = ItemCreator.itemCreate(Material.MAGMA_CREAM, "§cLobby");
 
     public static void getLobbyItem(Player p, int slot) {
         p.getInventory().setItem(slot, backToLobbyItem);

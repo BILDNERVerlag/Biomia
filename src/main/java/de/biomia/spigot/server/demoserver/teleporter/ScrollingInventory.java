@@ -28,7 +28,7 @@ public class ScrollingInventory implements Listener {
 
     public ScrollingInventory(Player player) {
         this.player = player;
-        inv = Bukkit.createInventory(null, 36, "\u00A7eW00e4hle dein Ziel!");
+        inv = Bukkit.createInventory(null, 36, "§eWähle dein Ziel!");
         this.items_per_side = 27;
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
     }
@@ -57,13 +57,13 @@ public class ScrollingInventory implements Listener {
 
     private void setNext() {
         if (next == null)
-            next = ItemCreator.itemCreate(Material.BLAZE_ROD, "\u00A7aN00e4chste Seite");
+            next = ItemCreator.itemCreate(Material.BLAZE_ROD, "§aNächste Seite");
         inv.setItem(inv.getSize() - 2, next);
     }
 
     private void setBack() {
         if (back == null)
-            back = ItemCreator.itemCreate(Material.STICK, "\u00A7aLetzte Seite");
+            back = ItemCreator.itemCreate(Material.STICK, "§aLetzte Seite");
         inv.setItem(inv.getSize() - 8, back);
     }
 

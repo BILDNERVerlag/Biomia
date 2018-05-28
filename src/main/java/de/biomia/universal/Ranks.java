@@ -19,53 +19,53 @@ public enum Ranks {
     public String getPrefix() {
         switch (this) {
             case Admin:
-                return "\u00A75Admin | ";
+                return "§5Admin | ";
             case Owner:
-                return "\u00A7cOwner | ";
+                return "§cOwner | ";
             case Developer:
-                return "\u00A7dDev | ";
+                return "§dDev | ";
             case Builder:
-                return "\u00A72Builder | ";
+                return "§2Builder | ";
             case YouTube:
-                return "\u00A74[\u00A70Y\u00A7fT\u00A74] | ";
+                return "§4[§0Y§fT§4] | ";
             case JrBuilder:
-                return "\u00A7aJrBuilder | ";
+                return "§aJrBuilder | ";
             case Moderator:
-                return "\u00A73Mod | ";
+                return "§3Mod | ";
             case SrBuilder:
-                return "\u00A72SrBuilder | ";
+                return "§2SrBuilder | ";
             case Supporter:
-                return "\u00A7bSup | ";
+                return "§bSup | ";
             case RegSpieler:
-                return "\u00A77";
+                return "§7";
             case PremiumAcht:
-                return "\u00A7eVIII | ";
+                return "§eVIII | ";
             case PremiumDrei:
-                return "\u00A7eIII | ";
+                return "§eIII | ";
             case PremiumEins:
-                return "\u00A7eI | ";
+                return "§eI | ";
             case PremiumFuenf:
-                return "\u00A7eV | ";
+                return "§eV | ";
             case PremiumNeun:
-                return "\u00A76IX | ";
+                return "§6IX | ";
             case PremiumVier:
-                return "\u00A7eIV | ";
+                return "§eIV | ";
             case PremiumZehn:
-                return "\u00A76X | ";
+                return "§6X | ";
             case PremiumZwei:
-                return "\u00A7eII | ";
+                return "§eII | ";
             case SrModerator:
-                return "\u00A79SrMod | ";
+                return "§9SrMod | ";
             case PremiumSechs:
-                return "\u00A7eVI | ";
+                return "§eVI | ";
             case UnregSpieler:
-                return "\u00A78";
+                return "§8";
             case PremiumSieben:
-                return "\u00A7eVII | ";
+                return "§eVII | ";
             case PixelBiest:
-                return "\u00A76PB | ";
+                return "§6PB | ";
             case TestAccount:
-                return "T\u00A7kX\u00A7rst | ";
+                return "T§kX§rst | ";
         }
         return "NoPrefix";
     }

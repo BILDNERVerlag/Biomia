@@ -45,7 +45,7 @@ public class Cosmetic {
     }
 
     private static void initMainInventory() {
-        inv = Bukkit.createInventory(null, 9, "\u00A75Cosmetics");
+        inv = Bukkit.createInventory(null, 9, "§5Cosmetics");
 
         int i = 0;
         for (Group g : Group.values()) {

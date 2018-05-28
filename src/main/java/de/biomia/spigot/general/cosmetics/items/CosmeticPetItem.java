@@ -55,7 +55,7 @@ public class CosmeticPetItem extends CosmeticItem {
         remove(bp);
         Player p = bp.getPlayer();
         Entity entity = p.getWorld().spawnEntity(p.getLocation(), type);
-        entity.setCustomName("\u00A78" + p.getName() + "'s Haustier");
+        entity.setCustomName("§8" + p.getName() + "'s Haustier");
         entity.setCustomNameVisible(true);
         pets.put(bp, entity.getUniqueId());
         entity.addPassenger(p);

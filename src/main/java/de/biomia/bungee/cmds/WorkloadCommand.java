@@ -27,9 +27,9 @@ public class WorkloadCommand extends Command {
             long freeMemory = runtime.freeMemory();
 
 
-            sb.append("\u00A7cfree memory: \u00A7b").append(format.format(freeMemory)).append("mb\n");
-            sb.append("\u00A7callocated memory: \u00A7b").append(format.format(allocatedMemory)).append("mb\n");
-            sb.append("\u00A7cmax memory: \u00A7b").append(format.format(maxMemory)).append("mb\n");
+            sb.append("§cfree memory: §b").append(format.format(freeMemory)).append("mb\n");
+            sb.append("§callocated memory: §b").append(format.format(allocatedMemory)).append("mb\n");
+            sb.append("§cmax memory: §b").append(format.format(maxMemory)).append("mb\n");
             sender.sendMessage(new TextComponent(sb.toString()));
         }
     }

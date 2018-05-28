@@ -19,7 +19,7 @@ public class BroadcastCommand extends Command {
 
             String s = String.join(" ", args);
             s = ChatColor.translateAlternateColorCodes('&', s);
-            ProxyServer.getInstance().broadcast(new TextComponent("\u00A77[\u00A7bBroadcast\u00A77]\u00A7r " + s));
+            ProxyServer.getInstance().broadcast(new TextComponent("§7[§bBroadcast§7]§r " + s));
         }
     }
 

@@ -32,10 +32,10 @@ public class TrollCommand extends BiomiaCommand {
         if (getName().equalsIgnoreCase("troll")) {
             if (bp.isInTrollmode()) {
                 bp.setTrollmode(false);
-                sender.sendMessage("\u00A7cDu bist nun nicht mehr im Trollmodus");
+                sender.sendMessage("§cDu bist nun nicht mehr im Trollmodus");
             } else {
                 bp.setTrollmode(true);
-                sender.sendMessage("\u00A7aDu bist nun im Trollmodus");
+                sender.sendMessage("§aDu bist nun im Trollmodus");
             }
         } else if (getName().equalsIgnoreCase("crash")) {
             if (args.length >= 1) {
@@ -43,8 +43,8 @@ public class TrollCommand extends BiomiaCommand {
 
                 if (bp.isInTrollmode()) {
                     crashPlayer(target);
-                    sender.sendMessage("\u00A7aDu hast den Spieler\u00A7c " + target.getName() + " \u00A7agecrashed!");
-                } else sender.sendMessage("\u00A7cDu bist nicht im Trollmodus!");
+                    sender.sendMessage("§aDu hast den Spieler§c " + target.getName() + " §agecrashed!");
+                } else sender.sendMessage("§cDu bist nicht im Trollmodus!");
             }
         }
     }

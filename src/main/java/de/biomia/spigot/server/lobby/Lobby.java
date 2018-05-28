@@ -42,7 +42,7 @@ public class Lobby extends BiomiaServer {
         Bukkit.setDefaultGameMode(GameMode.ADVENTURE);
         initPortals();
         initNavigator();
-        lobbySwitcher = Bukkit.createInventory(null, 27, "\u00A7bLobby Switcher");
+        lobbySwitcher = Bukkit.createInventory(null, 27, "§bLobby Switcher");
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -57,10 +57,10 @@ public class Lobby extends BiomiaServer {
                         amount = 1;
                     if (serverObject.getName().equalsIgnoreCase(so.getName()))
                         lobbySwitcher.setItem(i, ItemCreator
-                                .setAmount(ItemCreator.itemCreate(Material.SUGAR, "\u00A76" + so.getName()), amount));
+                                .setAmount(ItemCreator.itemCreate(Material.SUGAR, "§6" + so.getName()), amount));
                     else
                         lobbySwitcher.setItem(i, ItemCreator
-                                .setAmount(ItemCreator.itemCreate(Material.SULPHUR, "\u00A7e" + so.getName()), amount));
+                                .setAmount(ItemCreator.itemCreate(Material.SULPHUR, "§e" + so.getName()), amount));
                     i++;
                 }
             }
@@ -82,19 +82,19 @@ public class Lobby extends BiomiaServer {
     }
 
     private void initNavigator() {
-        navigator = Bukkit.createInventory(null, 27, "\u00A7cNavigator");
+        navigator = Bukkit.createInventory(null, 27, "§cNavigator");
         // First Line
-        navigator.setItem(2, ItemCreator.itemCreate(Material.BRICK, "\u00A76Bau Welt"));
-        navigator.setItem(4, ItemCreator.itemCreate(Material.DRAGON_EGG, "\u00A75Quests"));
-        navigator.setItem(6, ItemCreator.itemCreate(Material.THIN_GLASS, "\u00A7eDemo Welt", Short.valueOf("3")));
+        navigator.setItem(2, ItemCreator.itemCreate(Material.BRICK, "§6Bau Welt"));
+        navigator.setItem(4, ItemCreator.itemCreate(Material.DRAGON_EGG, "§5Quests"));
+        navigator.setItem(6, ItemCreator.itemCreate(Material.THIN_GLASS, "§eDemo Welt", Short.valueOf("3")));
         // Second Line
-        navigator.setItem(11, ItemCreator.itemCreate(Material.CHEST, "\u00A75Mysteri00f6se Box"));
-        navigator.setItem(13, ItemCreator.itemCreate(Material.MAGMA_CREAM, "\u00A7cSpawn"));
-        navigator.setItem(15, ItemCreator.itemCreate(Material.IRON_PICKAXE, "\u00A76Freebuild Welt"));
+        navigator.setItem(11, ItemCreator.itemCreate(Material.CHEST, "§5Mysteriöse Box"));
+        navigator.setItem(13, ItemCreator.itemCreate(Material.MAGMA_CREAM, "§cSpawn"));
+        navigator.setItem(15, ItemCreator.itemCreate(Material.IRON_PICKAXE, "§6Freebuild Welt"));
         // Third Line
-        navigator.setItem(20, ItemCreator.itemCreate(Material.BED, "\u00A74BedWars"));
-        navigator.setItem(22, ItemCreator.itemCreate(Material.GRASS, "\u00A7bSkyWars"));
-        navigator.setItem(24, ItemCreator.itemCreate(Material.IRON_SWORD, "\u00A7aDuell"));
+        navigator.setItem(20, ItemCreator.itemCreate(Material.BED, "§4BedWars"));
+        navigator.setItem(22, ItemCreator.itemCreate(Material.GRASS, "§bSkyWars"));
+        navigator.setItem(24, ItemCreator.itemCreate(Material.IRON_SWORD, "§aDuell"));
     }
 
     private void initPortals() {
@@ -124,7 +124,7 @@ public class Lobby extends BiomiaServer {
         // Versus
         new Teleporter(new Location(lobby, 459.5, 71, 240), new Location(lobby, 460, 73, 245), new Location(lobby, 461.5, 70, 244, -90, 0), BiomiaServerType.Duell);
 
-        // Grenzen nach au00dfen
+        // Grenzen nach außen
         new Teleporter(new Location(Bukkit.getWorld("BedwarsSignlobby"), 0, -1000, 0), new Location(Bukkit.getWorld("BedwarsSignlobby"), 800, 1000, 1024), new Location(Bukkit.getWorld("BedwarsSignlobby"), 370.5, 82, 264.5, 70, 0)).setInverted();
         new Teleporter(new Location(Bukkit.getWorld("SkywarsSignlobby"), 0, -1000, 0), new Location(Bukkit.getWorld("SkywarsSignlobby"), 800, 1000, 1024), new Location(Bukkit.getWorld("SkywarsSignlobby"), 370.5, 82, 264.5, 70, 0)).setInverted();
         new Teleporter(new Location(lobby, 360, -1000, 150), new Location(lobby, 800, 1000, 700), new Location(lobby, 534.5, 67.5, 193.5)).setInverted();

@@ -45,8 +45,8 @@ public class VSManager implements Listener {
 
     private final HashMap<BiomiaPlayer, VSSettings> settings = new HashMap<>();
     private final HashMap<GameInstance, VSRequest> requests = new HashMap<>();
-    private final ItemStack challengeItem = ItemCreator.itemCreate(Material.DIAMOND_SWORD, "\u00A7cHerausforderer");
-    private final ItemStack settingItem = ItemCreator.itemCreate(Material.REDSTONE, "\u00A7cEinstellungen");
+    private final ItemStack challengeItem = ItemCreator.itemCreate(Material.DIAMOND_SWORD, "§cHerausforderer");
+    private final ItemStack settingItem = ItemCreator.itemCreate(Material.REDSTONE, "§cEinstellungen");
     private VSGroup main;
 
     VSManager() {
@@ -56,27 +56,27 @@ public class VSManager implements Listener {
 
     private void init() {
 
-        main = new VSGroup(null, "\u00A7cEinstellungen", null, 0, false, null);
+        main = new VSGroup(null, "§cEinstellungen", null, 0, false, null);
 
-        ItemStack bedwarsSettingItem = ItemCreator.itemCreate(Material.BED, "\u00A7cBedWars");
-        ItemStack skywarsSettingItem = ItemCreator.itemCreate(Material.GRASS, "\u00A7aSkyWars");
-        ItemStack kitPvPSettingItem = ItemCreator.itemCreate(Material.IRON_SWORD, "\u00A7bKitPvP");
+        ItemStack bedwarsSettingItem = ItemCreator.itemCreate(Material.BED, "§cBedWars");
+        ItemStack skywarsSettingItem = ItemCreator.itemCreate(Material.GRASS, "§aSkyWars");
+        ItemStack kitPvPSettingItem = ItemCreator.itemCreate(Material.IRON_SWORD, "§bKitPvP");
 
         VSSettingItem map;
 
-        VSGroup bedwars = main.registerDeaktivatableGroup(GameType.BED_WARS_VS, bedwarsSettingItem, "\u00A7cBedWars", 6, 0, true);
-        VSGroup bedwarsMaps = bedwars.registerGroup(GameType.BED_WARS_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
+        VSGroup bedwars = main.registerDeaktivatableGroup(GameType.BED_WARS_VS, bedwarsSettingItem, "§cBedWars", 6, 0, true);
+        VSGroup bedwarsMaps = bedwars.registerGroup(GameType.BED_WARS_VS, ItemCreator.itemCreate(Material.PAPER, "§aMaps"), "§aMaps", 0);
         bedwarsMaps.registerSetting(map = new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, bedwarsMaps, "Mayaria"));
         map.setAsMap();
 
-        VSGroup skywars = main.registerDeaktivatableGroup(GameType.SKY_WARS_VS, skywarsSettingItem, "\u00A7aSkyWars", 2, 0, true);
-        VSGroup skywarsMaps = skywars.registerGroup(GameType.SKY_WARS_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
+        VSGroup skywars = main.registerDeaktivatableGroup(GameType.SKY_WARS_VS, skywarsSettingItem, "§aSkyWars", 2, 0, true);
+        VSGroup skywarsMaps = skywars.registerGroup(GameType.SKY_WARS_VS, ItemCreator.itemCreate(Material.PAPER, "§aMaps"), "§aMaps", 0);
         skywarsMaps.registerSetting(map = new VSSettingItem(ItemCreator.itemCreate(Material.SMOOTH_BRICK, (byte) 2), 100, 0, true, skywarsMaps, "Ruins"));
         skywars.registerGroup(GameType.SKY_WARS_VS, SkyWarsItemNames.kitItem, SkyWarsItemNames.kitItemName, 1);
         map.setAsMap();
 
-        VSGroup kitpvp = main.registerDeaktivatableGroup(GameType.KIT_PVP_VS, kitPvPSettingItem, "\u00A7bKitPvP", 4, 0, true);
-        VSGroup kitpvpsMaps = kitpvp.registerGroup(GameType.KIT_PVP_VS, ItemCreator.itemCreate(Material.PAPER, "\u00A7aMaps"), "\u00A7aMaps", 0);
+        VSGroup kitpvp = main.registerDeaktivatableGroup(GameType.KIT_PVP_VS, kitPvPSettingItem, "§bKitPvP", 4, 0, true);
+        VSGroup kitpvpsMaps = kitpvp.registerGroup(GameType.KIT_PVP_VS, ItemCreator.itemCreate(Material.PAPER, "§aMaps"), "§aMaps", 0);
         kitpvpsMaps.registerSetting(map = new VSSettingItem(ItemCreator.itemCreate(Material.FLOWER_POT_ITEM), 100, 0, true, kitpvpsMaps, "Temple"));
         kitpvp.registerGroup(GameType.KIT_PVP_VS, SkyWarsItemNames.kitItem, KitPVPMessages.kitItemName, 1);
         map.setAsMap();
@@ -121,20 +121,20 @@ public class VSManager implements Listener {
 
         // Seiten befuellen
         TextComponent page0 = new TextComponent("Willkommen auf dem Duell-Server der " + Messages.BIOMIA + "-Tec! " +
-                "Hier kannst du in den Modi \u00A7cSkyWars\u00A7r, \u00A7cBedWars\u00A7r und \u00A7cKitPVP\u00A7r einzeln gegeneinander antreten.\n\n" +
-                "\u00A7c\u00A7nKitPVP:\n" +
-                "Zwei Spieler k00e4mpfen mit identischen Kits gegeneinander.");
+                "Hier kannst du in den Modi §cSkyWars§r, §cBedWars§r und §cKitPVP§r einzeln gegeneinander antreten.\n\n" +
+                "§c§nKitPVP:\n" +
+                "Zwei Spieler kämpfen mit identischen Kits gegeneinander.");
         IChatBaseComponent pageZero = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(page0));
 
-        TextComponent page1 = new TextComponent("\u00A7c\u00A7nEinstellungen:\n\n");
+        TextComponent page1 = new TextComponent("§c§nEinstellungen:\n\n");
         page1.addExtra(new TextComponent("In den Einstellungen kannst du dir aus- " +
                 "suchen, welche Spielmodus du gerne " +
-                "spielen w00fcrdest.\n" +
-                "Au00dferdem kannst du dort auch " +
-                "die Maps und dein Kit ausw00e4hlen."));
+                "spielen würdest.\n" +
+                "Außerdem kannst du dort auch " +
+                "die Maps und dein Kit auswählen."));
         IChatBaseComponent pageFirst = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(page1));
 
-        TextComponent page2 = new TextComponent("\u00A7c\u00A7nWarteschlange:\n\n");
+        TextComponent page2 = new TextComponent("§c§nWarteschlange:\n\n");
         page2.addExtra(new TextComponent("Um der Warteschlange " +
                 "beizutreten, musst du " +
                 "nur den Dorfbewohner" +
@@ -146,9 +146,9 @@ public class VSManager implements Listener {
                 "auch schon los!\n\n"));
         IChatBaseComponent pageSecond = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(page2));
 
-        TextComponent page3 = new TextComponent("\u00A7c\u00A7nSchwert:\n\n");
+        TextComponent page3 = new TextComponent("§c§nSchwert:\n\n");
         page3.addExtra(new TextComponent("Mit dem Schwert kannst du andere " +
-                "Spieler manuell herausfordern. Wenn \u00A7ldu\u00A7r " +
+                "Spieler manuell herausfordern. Wenn §ldu§r " +
                 "herausgefordert wirst, kannst du durch " +
                 "Klick auf die Nachricht annehmen."));
         IChatBaseComponent pageThird = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(page3));
@@ -159,7 +159,7 @@ public class VSManager implements Listener {
         pages.add(pageThird);
 
         // Buch-Itemstack updaten
-        bookMeta.setTitle("\u00A7cHandbuch");
+        bookMeta.setTitle("§cHandbuch");
         bookMeta.setAuthor("BIOMIA-Team");
         book.setItemMeta(bookMeta);
         p.getInventory().setItem(0, book);
@@ -195,7 +195,7 @@ public class VSManager implements Listener {
             ItemStack is = e.getItem();
             if (is.hasItemMeta() && is.getItemMeta().hasDisplayName()) {
                 switch (is.getItemMeta().getDisplayName()) {
-                    case "\u00A7cEinstellungen":
+                    case "§cEinstellungen":
                         openMainInventory(bp);
                         break;
                     default:
@@ -214,7 +214,7 @@ public class VSManager implements Listener {
             e.setCancelled(true);
         if (is != null && is.getType() != Material.AIR) {
             if (is.hasItemMeta()) {
-                if (is.getItemMeta().getDisplayName().equals("\u00A7cHerausforderer")) {
+                if (is.getItemMeta().getDisplayName().equals("§cHerausforderer")) {
                     if (e.getRightClicked() instanceof Player) {
                         Player p1 = (Player) e.getRightClicked();
                         BiomiaPlayer hittedPlayer = Biomia.getBiomiaPlayer(p1);
@@ -223,7 +223,7 @@ public class VSManager implements Listener {
                             if (request != null)
                                 request.decline();
                             else
-                                p.sendMessage("\u00A7cDu hast keine Herausforderung von \u00A7b" + p1.getName() + "\u00A7c die du ablehnen kannst!");
+                                p.sendMessage("§cDu hast keine Herausforderung von §b" + p1.getName() + "§c die du ablehnen kannst!");
                             e.setCancelled(true);
                         }
                     } else if (e.getRightClicked() instanceof Villager) {
@@ -244,13 +244,13 @@ public class VSManager implements Listener {
 
             if (is != null && is.getType() != Material.AIR) {
                 if (is.hasItemMeta() && is.getItemMeta().hasDisplayName()) {
-                    if (is.getItemMeta().getDisplayName().equals("\u00A7cHerausforderer")) {
+                    if (is.getItemMeta().getDisplayName().equals("§cHerausforderer")) {
                         if (e.getEntity() instanceof Player) {
                             Player p1 = (Player) e.getEntity();
                             BiomiaPlayer hittedPlayer = Biomia.getBiomiaPlayer(p1);
 
                             if (VSRequest.hasRequestSended(hitter, hittedPlayer)) {
-                                hitter.getPlayer().sendMessage("\u00A7cDu hast dem Spieler bereits eine Anfrage geschickt!");
+                                hitter.getPlayer().sendMessage("§cDu hast dem Spieler bereits eine Anfrage geschickt!");
                             } else if (VSRequest.hasRequestSended(hittedPlayer, hitter)) {
                                 VSRequest request = VSRequest.getRequest(hittedPlayer);
                                 if (request != null) {

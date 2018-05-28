@@ -163,7 +163,7 @@ public class ParrotCannon {
 
     void setTimeToReload(int timeToReload) {
         this.timeToReload = timeToReload;
-        cooldownArmorStand.setCustomName(cannonPoint.isDestroyed() ? String.format("%sZerst00f6rt", Messages.COLOR_MAIN) :
+        cooldownArmorStand.setCustomName(cannonPoint.isDestroyed() ? String.format("%sZerstört", Messages.COLOR_MAIN) :
                 timeToReload == 0 ? String.format("%sBereit", Messages.COLOR_SUB) :
                         String.format("%sNachladen%s: %s%s", Messages.COLOR_MAIN, Messages.COLOR_AUX, Messages.COLOR_SUB, timeToReload));
     }
@@ -259,13 +259,13 @@ public class ParrotCannon {
             switch (this) {
                 default:
                 case CANNON:
-                    return "6-Pf00fcnder";
+                    return "6-Pfünder";
                 case PANZERFAUST:
-                    return "12-Pf00fcnder";
+                    return "12-Pfünder";
                 case SCHROTFLINTE:
                     return "Bombarde";
                 case GRANATENWERFER:
-                    return "M00f6rser";
+                    return "Mörser";
                 case HALBAUTOMATIK:
                     return "Drillings-Kanone";
             }

@@ -23,8 +23,8 @@ public class StatCommand extends BiomiaCommand {
         }
 
         if (args.length == 0) {
-            sender.sendMessage("\u00A7c/stat <increment/inc> <statName> [increment] [Spieler]");
-            sender.sendMessage("\u00A7c/stat <get> <statName> [Spieler]");
+            sender.sendMessage("§c/stat <increment/inc> <statName> [increment] [Spieler]");
+            sender.sendMessage("§c/stat <get> <statName> [Spieler]");
         } else if (args.length >= 2) {
 
             int value;
@@ -37,7 +37,7 @@ public class StatCommand extends BiomiaCommand {
                     try {
                         stat = BiomiaStat.valueOf(args[1]);
                     } catch (IllegalArgumentException e) {
-                        sender.sendMessage("\u00A77" + args[1] + " \u00A7cist kein erlaubter Stat.");
+                        sender.sendMessage("§7" + args[1] + " §cist kein erlaubter Stat.");
                         return;
                     }
                     if (args.length == 3)
@@ -47,7 +47,7 @@ public class StatCommand extends BiomiaCommand {
                     if (biomiaPlayer.getBiomiaPlayerID() != -1)
                         sender.sendMessage(stat.getComments(biomiaPlayer.getBiomiaPlayerID()).toString());
                     else {
-                        sender.sendMessage("\u00A7cDer Spieler \u00A77" + biomiaPlayer.getName() + " \u00A7cist nicht in der Datenbank vermerkt.");
+                        sender.sendMessage("§cDer Spieler §7" + biomiaPlayer.getName() + " §cist nicht in der Datenbank vermerkt.");
                         return;
                     }
                     break;
@@ -59,7 +59,7 @@ public class StatCommand extends BiomiaCommand {
                     try {
                         stat = BiomiaStat.valueOf(args[1]);
                     } catch (IllegalArgumentException e) {
-                        sender.sendMessage("\u00A77" + args[1] + " \u00A7cist kein erlaubter Stat.");
+                        sender.sendMessage("§7" + args[1] + " §cist kein erlaubter Stat.");
                         return;
                     }
                     switch (args.length) {
@@ -72,7 +72,7 @@ public class StatCommand extends BiomiaCommand {
                             try {
                                 value = Integer.parseInt(args[1]);
                             } catch (NumberFormatException e) {
-                                sender.sendMessage("\u00A77" + args[2] + " \u00A7cist keine erlaubte Zahl.");
+                                sender.sendMessage("§7" + args[2] + " §cist keine erlaubte Zahl.");
                                 return;
                             }
                             biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[2]);
@@ -82,7 +82,7 @@ public class StatCommand extends BiomiaCommand {
                             try {
                                 value = Integer.parseInt(args[2]);
                             } catch (NumberFormatException e) {
-                                sender.sendMessage("\u00A77" + args[2] + " \u00A7cist keine erlaubte Zahl.");
+                                sender.sendMessage("§7" + args[2] + " §cist keine erlaubte Zahl.");
                                 return;
                             }
                             biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[3]);
@@ -95,7 +95,7 @@ public class StatCommand extends BiomiaCommand {
                     if (biomiaPlayer.getBiomiaPlayerID() != -1) {
                         stat.increment(biomiaPlayer.getBiomiaPlayerID(), value, null);
                     } else {
-                        sender.sendMessage("\u00A7cDer Spieler \u00A77" + playerName + " \u00A7cist nicht in der Datenbank vermerkt.");
+                        sender.sendMessage("§cDer Spieler §7" + playerName + " §cist nicht in der Datenbank vermerkt.");
                         return;
                     }
                     break;
@@ -103,19 +103,19 @@ public class StatCommand extends BiomiaCommand {
                     try {
                         stat = BiomiaStat.valueOf(args[1]);
                     } catch (IllegalArgumentException e) {
-                        sender.sendMessage("\u00A77" + args[1] + " \u00A7cist kein erlaubter Stat.");
+                        sender.sendMessage("§7" + args[1] + " §cist kein erlaubter Stat.");
                         return;
                     }
                     if (args.length == 2) {
                         value = stat.get(Biomia.getBiomiaPlayer((Player) sender).getBiomiaPlayerID(), null);
-                        sender.sendMessage("\u00A77" + args[1] + " (" + sender.getName() + "): \u00A7a" + value);
+                        sender.sendMessage("§7" + args[1] + " (" + sender.getName() + "): §a" + value);
                     } else {
                         biomiaPlayer = Biomia.getOfflineBiomiaPlayer(args[2]);
                         value = stat.get(biomiaPlayer.getBiomiaPlayerID(), null);
                         if (value != -1) {
-                            sender.sendMessage("\u00A77" + args[1] + " (" + args[2] + "): \u00A7a" + value);
+                            sender.sendMessage("§7" + args[1] + " (" + args[2] + "): §a" + value);
                         } else {
-                            sender.sendMessage("\u00A7cDer Spieler \u00A77" + args[2] + " \u00A7cist nicht in der Datenbank vermerkt.");
+                            sender.sendMessage("§cDer Spieler §7" + args[2] + " §cist nicht in der Datenbank vermerkt.");
                         }
                     }
                     return;
@@ -138,17 +138,17 @@ public class StatCommand extends BiomiaCommand {
                     else
                         biomiaPlayer = Biomia.getBiomiaPlayer((Player) sender);
 
-                    sender.sendMessage("\u00A77" + args[1] + " (" + biomiaPlayer.getName() + ", " + dateString + "): \u00A7a" + stat.getLastX(biomiaPlayer.getBiomiaPlayerID(), daytime_expr, amount));
+                    sender.sendMessage("§7" + args[1] + " (" + biomiaPlayer.getName() + ", " + dateString + "): §a" + stat.getLastX(biomiaPlayer.getBiomiaPlayerID(), daytime_expr, amount));
                     return;
                 default:
                     sendError(sender);
                     return;
             }
-            sender.sendMessage("\u00A7aCommand erfolgreich ausgef00fchrt.");
+            sender.sendMessage("§aCommand erfolgreich ausgeführt.");
         }
     }
 
     private void sendError(CommandSender sender) {
-        sender.sendMessage("\u00A7cInkorrekte Command-Syntax. Benutze \u00A77/stat \u00A7cum die korrekte Syntax anzusehen.");
+        sender.sendMessage("§cInkorrekte Command-Syntax. Benutze §7/stat §cum die korrekte Syntax anzusehen.");
     }
 }

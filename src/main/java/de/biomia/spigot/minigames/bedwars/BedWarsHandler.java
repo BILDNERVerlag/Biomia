@@ -316,7 +316,7 @@ public class BedWarsHandler extends GameHandler {
             if (e.getClickedBlock() != null && e.getClickedBlock().getType() == Material.ENDER_CHEST) {
                 GameTeam t = ((BedWars) mode).getTeamByTeamChests(e.getClickedBlock());
                 if (t != null) {
-                    Inventory inv = teamChests.computeIfAbsent(t, t1 -> Bukkit.createInventory(null, 27, "\u00A78Team-Kiste: " + t1.getColorcode() + t1.getColor().translate()));
+                    Inventory inv = teamChests.computeIfAbsent(t, t1 -> Bukkit.createInventory(null, 27, "§8Team-Kiste: " + t1.getColorcode() + t1.getColor().translate()));
                     e.setCancelled(true);
                     p.openInventory(inv);
                 }
@@ -451,7 +451,7 @@ public class BedWarsHandler extends GameHandler {
                             is.setAmount(is.getAmount() - 1);
                         } else if (i <= 50) {
                             if (i % 10 == 0) {
-                                ActionBar.sendActionBarTime("\u00A76" + i / 10 + " Sekunden", bp.getPlayer(), 0, 10, 0);
+                                ActionBar.sendActionBarTime("§6" + i / 10 + " Sekunden", bp.getPlayer(), 0, 10, 0);
                                 for (Player allPlayer : Bukkit.getOnlinePlayers())
                                     allPlayer.playSound(allPlayer.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
                             }

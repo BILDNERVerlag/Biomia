@@ -69,9 +69,9 @@ public class WinterEvent {
         if (!wintereventwinner.isEmpty()) {
             for (int days : wintereventwinner) {
                 pp.sendMessage(new TextComponent(
-                        "\u00A7aGl00fcckwunsch! Du hast am \u00A74" + days + ". \u00A7aDezember beim Gewinnspiel gewonnen!"));
+                        "§aGlückwunsch! Du hast am §4" + days + ". §aDezember beim Gewinnspiel gewonnen!"));
                 pp.sendMessage(new TextComponent(
-                        "\u00A77Wir haben etwas f00fcr dich! Schicke eine e-mail an \u00A7cbusiness@biomia.de \u00A77mit folgendem Code:"));
+                        "§7Wir haben etwas für dich! Schicke eine e-mail an §cbusiness@biomia.de §7mit folgendem Code:"));
                 String code = "";
                 switch (days) {
                     case 3:
@@ -89,7 +89,7 @@ public class WinterEvent {
                     default:
                         break;
                 }
-                pp.sendMessage(new TextComponent("\u00A74" + code));
+                pp.sendMessage(new TextComponent("§4" + code));
             }
             removePlayerFromWinner(bp.getBiomiaPlayerID());
         }

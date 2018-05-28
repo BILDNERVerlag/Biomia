@@ -2,24 +2,24 @@ package de.biomia.spigot.messages;
 
 public class BedWarsItemNames {
 
-    public static final String bronze = "\u00A7cBronze";
-    public static final String iron = "\u00A77Eisen";
-    public static final String gold = "\u00A76Gold";
+    public static final String bronze = "§cBronze";
+    public static final String iron = "§7Eisen";
+    public static final String gold = "§6Gold";
 
-    public static final String villagerSpawner = "\u00A72Villager Spawner";
-    public static final String back = "\u00A7cZur00fcck";
-    public static final String teamChest = "\u00A75Team Kiste";
-    public static final String warper = "\u00A7cWarper";
-    public static final String wand = "\u00A7cSchutzwand";
-    public static final String rettungsPlattform = "\u00A7cRettungs Plattform";
-    public static final String shortShop = "\u00A7c30 Sekunden Shop";
+    public static final String villagerSpawner = "§2Villager Spawner";
+    public static final String back = "§cZurück";
+    public static final String teamChest = "§5Team Kiste";
+    public static final String warper = "§cWarper";
+    public static final String wand = "§cSchutzwand";
+    public static final String rettungsPlattform = "§cRettungs Plattform";
+    public static final String shortShop = "§c30 Sekunden Shop";
 
     public static final String baumaterialien = "Baumaterialien";
     public static final String waffen = "Waffen";
-    public static final String ruestung = "R00fcstung";
-    public static final String boegen = "B00f6gen";
+    public static final String ruestung = "Rüstung";
+    public static final String boegen = "Bögen";
     public static final String essen = "Essen";
-    public static final String traenke = "Tr00e4nke";
+    public static final String traenke = "Tränke";
     public static final String special = "Special";
 
 }

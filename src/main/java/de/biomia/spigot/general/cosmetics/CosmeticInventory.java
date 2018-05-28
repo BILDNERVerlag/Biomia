@@ -32,7 +32,7 @@ class CosmeticInventory implements Listener {
     CosmeticInventory(ArrayList<CosmeticItem> items, BiomiaPlayer bp) {
         this.bp = bp;
         this.cosmeticItems = items;
-        inv = Bukkit.createInventory(null, 27, "\u00A75Cosmetics");
+        inv = Bukkit.createInventory(null, 27, "§5Cosmetics");
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
     }
 
@@ -89,25 +89,25 @@ class CosmeticInventory implements Listener {
 
     private void setRemove() {
         if (remove == null)
-            remove = ItemCreator.itemCreate(Material.BARRIER, "\u00A7cEntfernen");
+            remove = ItemCreator.itemCreate(Material.BARRIER, "§cEntfernen");
         inv.setItem(inv.getSize() - 5, remove);
     }
 
     private void setNext() {
         if (next == null)
-            next = ItemCreator.itemCreate(Material.BLAZE_ROD, "\u00A7aN00e4chste Seite");
+            next = ItemCreator.itemCreate(Material.BLAZE_ROD, "§aNächste Seite");
         inv.setItem(inv.getSize() - 3, next);
     }
 
     private void setBack() {
         if (back == null)
-            back = ItemCreator.itemCreate(Material.STICK, "\u00A7aLetzte Seite");
+            back = ItemCreator.itemCreate(Material.STICK, "§aLetzte Seite");
         inv.setItem(inv.getSize() - 7, back);
     }
 
     private void setHome() {
         if (home == null)
-            home = ItemCreator.itemCreate(Material.GOLDEN_CARROT, "\u00A7aZur00fcck");
+            home = ItemCreator.itemCreate(Material.GOLDEN_CARROT, "§aZurück");
         inv.setItem(inv.getSize() - 9, home);
     }
 

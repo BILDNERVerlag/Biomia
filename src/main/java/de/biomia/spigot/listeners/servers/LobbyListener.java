@@ -158,15 +158,15 @@ public class LobbyListener extends BiomiaListener {
             ItemStack itemstack = pl.getInventory().getItemInMainHand();
             if (itemstack.hasItemMeta()) {
                 if ((itemstack.getType().equals(Material.COMPASS)
-                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7cNavigator"))) {
+                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("§cNavigator"))) {
                     pl.openInventory(((Lobby) Biomia.getServerInstance()).getNavigator());
                 } else if ((itemstack.getType().equals(Material.NETHER_STAR)
-                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7bLobby Switcher"))) {
+                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("§bLobby Switcher"))) {
                     pl.openInventory(((Lobby) Biomia.getServerInstance()).getLobbySwitcher());
                 } else if ((itemstack.getType().equals(Material.FIREBALL)
-                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7cSilent Lobby:\u00A78 Off"))) {
+                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("§cSilent Lobby:§8 Off"))) {
                     pl.getInventory().setItem(6,
-                            ItemCreator.itemCreate(Material.FIREWORK_CHARGE, "\u00A7aSilent Lobby:\u00A78 On"));
+                            ItemCreator.itemCreate(Material.FIREWORK_CHARGE, "§aSilent Lobby:§8 On"));
 
                     for (Player p : Bukkit.getOnlinePlayers()) {
                         p.hidePlayer(Main.getPlugin(), pl);
@@ -175,8 +175,8 @@ public class LobbyListener extends BiomiaListener {
                     ((Lobby) Biomia.getServerInstance()).getSilentLobby().add(pl);
 
                 } else if ((itemstack.getType().equals(Material.FIREWORK_CHARGE)
-                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7aSilent Lobby:\u00A78 On"))) {
-                    pl.getInventory().setItem(6, ItemCreator.itemCreate(Material.FIREBALL, "\u00A7cSilent Lobby:\u00A78 Off"));
+                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("§aSilent Lobby:§8 On"))) {
+                    pl.getInventory().setItem(6, ItemCreator.itemCreate(Material.FIREBALL, "§cSilent Lobby:§8 Off"));
                     for (Player p : Bukkit.getOnlinePlayers()) {
                         if (!((Lobby) Biomia.getServerInstance()).getSilentLobby().contains(p)) {
                             p.showPlayer(Main.getPlugin(), pl);
@@ -185,7 +185,7 @@ public class LobbyListener extends BiomiaListener {
                     }
                     ((Lobby) Biomia.getServerInstance()).getSilentLobby().remove(pl);
                 } else if ((itemstack.getType().equals(Material.CHEST)
-                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("\u00A7eCosmetics"))) {
+                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("§eCosmetics"))) {
                     de.biomia.spigot.general.cosmetics.Cosmetic.openMainInventory(Biomia.getBiomiaPlayer(pl));
                 }
             }
@@ -220,10 +220,10 @@ public class LobbyListener extends BiomiaListener {
                                 bp.takeCoins(1000);
                                 MysteryChest.open(bp);
                                 bp.getPlayer().sendMessage(Messages.PREFIX
-                                        + "\u00A7aGl00fcckwunsch! Dir wurden 1000 BC abgezogen und du hast ein neues kosmetisches Item erhalten!");
+                                        + "§aGlückwunsch! Dir wurden 1000 BC abgezogen und du hast ein neues kosmetisches Item erhalten!");
                             } else {
-                                bp.getPlayer().sendMessage(Messages.PREFIX + "\u00A7aDu hast nicht genug Geld. Dir fehlen noch "
-                                        + (1000 - coins) + "\u00A7aBC!");
+                                bp.getPlayer().sendMessage(Messages.PREFIX + "§aDu hast nicht genug Geld. Dir fehlen noch "
+                                        + (1000 - coins) + "§aBC!");
                             }
                         }
                     } catch (IllegalArgumentException ignored) {/*Location.distance throws IllegalArgs when the locations are on different worlds*/}
@@ -254,7 +254,7 @@ public class LobbyListener extends BiomiaListener {
             register.setText(BungeeMessages.registerAt);
             register.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://biomia.de"));
             p.spigot().sendMessage(register);
-            p.sendMessage(String.format("%sOder sp00e4ter mit %s/register", Messages.COLOR_MAIN, Messages.COLOR_SUB));
+            p.sendMessage(String.format("%sOder später mit %s/register", Messages.COLOR_MAIN, Messages.COLOR_SUB));
         }
     }
 
@@ -269,51 +269,51 @@ public class LobbyListener extends BiomiaListener {
                     e.setCancelled(true);
                 } else if (e.getClickedInventory().equals(((Lobby) Biomia.getServerInstance()).getNavigator())) {
                     switch (itemName) {
-                        case "\u00A76Bau Welt":
+                        case "§6Bau Welt":
                             pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 551.5, 80, 285.5, -90, 0));
                             pl.closeInventory();
                             break;
-                        case "\u00A7eDemo Welt":
+                        case "§eDemo Welt":
                             pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 512, 80, 354, -50, 8));
                             pl.closeInventory();
                             break;
-                        case "\u00A7cSpawn":
+                        case "§cSpawn":
                             pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 534.5, 67, 193.5));
                             pl.closeInventory();
                             break;
-                        case "\u00A75Quests":
+                        case "§5Quests":
                             pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 473.5, 123, 359.5, -90, 0));
                             pl.closeInventory();
                             break;
-                        case "\u00A7bSkyWars":
+                        case "§bSkyWars":
                             pl.teleport(new Location(Bukkit.getWorld("SkywarsSignlobby"), 370.5, 82, 264.5, 70, 0));
                             pl.closeInventory();
                             break;
-                        case "\u00A74BedWars":
+                        case "§4BedWars":
                             pl.teleport(new Location(Bukkit.getWorld("BedwarsSignlobby"), 370.5, 82, 264.5, 70, 0));
                             pl.closeInventory();
                             break;
-                        case "\u00A75Mysteri00f6se Box":
+                        case "§5Mysteriöse Box":
                             pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 605.5, 68, 358, 0, 0));
                             pl.closeInventory();
                             break;
-                        case "\u00A76Freebuild Welt":
+                        case "§6Freebuild Welt":
                             pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 560, 96, 290, 80, 0));
                             pl.closeInventory();
                             break;
-                        case "\u00A7aDuell":
+                        case "§aDuell":
                             pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 465, 70, 243, 93, -10));
                             pl.closeInventory();
                             break;
                     }
-                } else if (e.getClickedInventory().getName().equals("\u00A7bLobby Switcher"))
+                } else if (e.getClickedInventory().getName().equals("§bLobby Switcher"))
                     for (ServerObject so : TimoCloudAPI.getUniversalAPI().getServerGroup(BiomiaServerType.Lobby.name())
                             .getServers())
                         if (itemName.contains(so.getName()))
                             if (!so.getName().equals(TimoCloudAPI.getBukkitAPI().getThisServer().getName()))
                                 PlayerToServerConnector.connect(pl, so.getName());
                             else
-                                pl.sendMessage("\u00A7cDu bist schon auf dieser Lobby!");
+                                pl.sendMessage("§cDu bist schon auf dieser Lobby!");
             }
     }
 

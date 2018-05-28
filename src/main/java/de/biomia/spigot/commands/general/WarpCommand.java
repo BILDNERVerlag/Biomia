@@ -45,7 +45,7 @@ public class WarpCommand extends BiomiaCommand {
                 }
                 args[0] = args[0].toLowerCase();
                 if (args[0].equals("spawn")) {
-                    p.sendMessage("\u00A7cDu darfst deinen Warp nicht \u00A7b'spawn' \u00A7cnennen.");
+                    p.sendMessage("§cDu darfst deinen Warp nicht §b'spawn' §cnennen.");
                     return;
                 }
                 int verbleibendeWarps = bp.getPremiumLevel() + 3 - playerWarpLocations.size();
@@ -55,12 +55,12 @@ public class WarpCommand extends BiomiaCommand {
                     verbleibendeWarps += 6;
 
                 if (verbleibendeWarps <= 0) {
-                    p.sendMessage("\u00A7cDu hast bereits die \u00A7bmaximale \u00A7cAnzahl Warps erreicht.");
-                    p.sendMessage("\u00A7cBenutze \u00A77/\u00A7cdelwarp \u00A77<\u00A7cName\u00A77> \u00A7bum Warps zu l00f6schen \u00A7coder hol dir einen unserer Premiumr00e4nge und unterst\u00dctze damit den Server.");
+                    p.sendMessage("§cDu hast bereits die §bmaximale §cAnzahl Warps erreicht.");
+                    p.sendMessage("§cBenutze §7/§cdelwarp §7<§cName§7> §bum Warps zu löschen §coder hol dir einen unserer Premiumränge und unterstütze damit den Server.");
                     return;
                 }
                 if (!allowedGroups.contains(Biomia.getServerInstance().getServerType())) {
-                    p.sendMessage("\u00A7cEigene Warps sind auf diesem Server (\u00A7b" + Biomia.getServerInstance().getServerType().name() + "\u00A7c) nicht erlaubt.");
+                    p.sendMessage("§cEigene Warps sind auf diesem Server (§b" + Biomia.getServerInstance().getServerType().name() + "§c) nicht erlaubt.");
                     return;
                 }
                 MySQL.executeUpdate("INSERT INTO Warps (`x`, `y`, `z`, `yaw`, `pitch`, `groupname`, `worldname`, `name`, `biomiaPlayerID`) VALUES (" +
@@ -74,23 +74,23 @@ public class WarpCommand extends BiomiaCommand {
                         args[0] + "'," +
                         bp.getBiomiaPlayerID() +
                         ")", MySQL.Databases.biomia_db);
-                p.sendMessage("\u00A7cDu hast den Warp \u00A7b" + args[0] + "\u00A7c erfolgreich erstellt!");
+                p.sendMessage("§cDu hast den Warp §b" + args[0] + "§c erfolgreich erstellt!");
                 verbleibendeWarps--;
                 if (verbleibendeWarps <= 0)
-                    p.sendMessage("\u00A77Dies war dein letzter verbleibender Warppunkt.");
+                    p.sendMessage("§7Dies war dein letzter verbleibender Warppunkt.");
                 else
-                    p.sendMessage("\u00A77Verbleibende Warppunkte: " + verbleibendeWarps + " \u00A77(vom Rang abh00e4ngig)");
+                    p.sendMessage("§7Verbleibende Warppunkte: " + verbleibendeWarps + " §7(vom Rang abhängig)");
                 break;
             case "warp":
                 if (!allowedGroups.contains(Biomia.getServerInstance().getServerType())) {
-                    p.sendMessage("\u00A7cWarps sind auf diesem Server (\u00A7b" + Biomia.getServerInstance().getServerType().name() + "\u00A7c) nicht erlaubt.");
+                    p.sendMessage("§cWarps sind auf diesem Server (§b" + Biomia.getServerInstance().getServerType().name() + "§c) nicht erlaubt.");
                     return;
                 }
                 if (args.length < 1) {
                     if (playerWarpLocations.isEmpty()) {
                         sendWarpInstructions(p);
                     } else {
-                        p.sendMessage(Messages.PREFIX + "\u00A7cGib einen deiner Warps an!");
+                        p.sendMessage(Messages.PREFIX + "§cGib einen deiner Warps an!");
                         sendWarpList(p, playerWarpLocations, publicWarpLocations);
                     }
                     return;
@@ -103,24 +103,24 @@ public class WarpCommand extends BiomiaCommand {
                     if (Biomia.getServerInstance().getServerType().name().equals(wLoc.getGroupname()) && p.getWorld().getName().equals(wLoc.getWorldname())) {
                         p.teleport(targetLoc);
                     } else {
-                        p.sendMessage(Messages.PREFIX + "\u00A7cDu musst dich auf dem selben Server wie dein Warppunkt befinden. " +
-                                "(\u00A7b" + args[0] + "\u00A7c befindet sich auf \u00A7b" + wLoc.getGroupname() + "\u00A7c)");
+                        p.sendMessage(Messages.PREFIX + "§cDu musst dich auf dem selben Server wie dein Warppunkt befinden. " +
+                                "(§b" + args[0] + "§c befindet sich auf §b" + wLoc.getGroupname() + "§c)");
                         p.sendMessage("Du befindest dich auf " + Biomia.getServerInstance().getServerType().name() + ", Weltname: " + wLoc.getWorldname());
                     }
                 } else {
-                    p.sendMessage("\u00A7cDu hast keinen Warppunkt mit dem Namen \u00A7b" + args[0] + "\u00A7c!");
+                    p.sendMessage("§cDu hast keinen Warppunkt mit dem Namen §b" + args[0] + "§c!");
                 }
                 break;
             case "delwarp":
                 if (args.length < 1) {
-                    p.sendMessage("\u00A77/\u00A7cdelwarp \u00A77<\u00A7cName\u00A77> \u00A7bum Warps zu l00f6schen");
+                    p.sendMessage("§7/§cdelwarp §7<§cName§7> §bum Warps zu löschen");
                     return;
                 }
                 if (playerWarpLocations.containsKey(args[0])) {
                     MySQL.executeUpdate("DELETE FROM `Warps` WHERE biomiaPlayerID = " + Biomia.getBiomiaPlayer(p).getBiomiaPlayerID() + " AND name = '" + args[0].toLowerCase() + "'", MySQL.Databases.biomia_db);
-                    p.sendMessage("\u00A7cWarp \u00A7b" + args[0] + " \u00A7cwurde gel00f6scht.");
+                    p.sendMessage("§cWarp §b" + args[0] + " §cwurde gelöscht.");
                 } else {
-                    p.sendMessage("\u00A7cWarp \u00A7b" + args[0] + " \u00A7cwurde nicht gel00f6scht, denn er wurde nicht gefunden.");
+                    p.sendMessage("§cWarp §b" + args[0] + " §cwurde nicht gelöscht, denn er wurde nicht gefunden.");
                 }
             default:
                 break;
@@ -128,18 +128,18 @@ public class WarpCommand extends BiomiaCommand {
     }
 
     private void sendWarpInstructions(Player p) {
-        p.sendMessage("\u00A77/\u00A7cwarp \u00A77[\u00A7cZiel\u00A77] \u00A7bum zu warpen / Warps anzuzeigen");
-        p.sendMessage("\u00A77/\u00A7csetwarp \u00A77<\u00A7cName\u00A77> \u00A7bum Warps zu speichern");
-        p.sendMessage("\u00A77/\u00A7cdelwarp \u00A77<\u00A7cName\u00A77> \u00A7bum Warps zu l00f6schen");
+        p.sendMessage("§7/§cwarp §7[§cZiel§7] §bum zu warpen / Warps anzuzeigen");
+        p.sendMessage("§7/§csetwarp §7<§cName§7> §bum Warps zu speichern");
+        p.sendMessage("§7/§cdelwarp §7<§cName§7> §bum Warps zu löschen");
     }
 
     private void sendWarpList(Player p, HashMap<String, WarpLocation> playerWarpLocations0, HashMap<String, WarpLocation> publicWarpLocations0) {
         if (!playerWarpLocations0.isEmpty()) {
-            p.sendMessage("\u00A7c Deine Warps:");
+            p.sendMessage("§c Deine Warps:");
             iterate(p, playerWarpLocations0.entrySet().iterator());
         }
         if (!publicWarpLocations0.isEmpty()) {
-            p.sendMessage("\u00A7c00d6ffentliche Warps:");
+            p.sendMessage("§cÖffentliche Warps:");
             iterate(p, publicWarpLocations0.entrySet().iterator());
         }
     }
@@ -147,10 +147,10 @@ public class WarpCommand extends BiomiaCommand {
     private void iterate(Player p, Iterator it2) {
         while (it2.hasNext()) {
             Map.Entry pair = (Map.Entry) it2.next();
-            TextComponent msg = new TextComponent("\u00A77-\u00A7b" + pair.getKey() + " " + (pair.getValue()).toString());
+            TextComponent msg = new TextComponent("§7-§b" + pair.getKey() + " " + (pair.getValue()).toString());
             msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/warp " + pair.getKey()));
             p.spigot().sendMessage(msg);
-            //p.sendMessage("\u00A77-\u00A7b" + pair.getKey() + " " + (pair.getValue()).toString());
+            //p.sendMessage("§7-§b" + pair.getKey() + " " + (pair.getValue()).toString());
         }
     }
 
@@ -168,7 +168,7 @@ public class WarpCommand extends BiomiaCommand {
                 return locations;
         }
         if (p.getWorld().getName().contains("nether") || p.getWorld().getName().contains("end")) {
-            p.sendMessage(Messages.PREFIX + "\u00A7cWarps sind im Nether und im End nicht erlaubt.");
+            p.sendMessage(Messages.PREFIX + "§cWarps sind im Nether und im End nicht erlaubt.");
         }
         locations.put("spawn", new WarpLocation(p.getWorld().getSpawnLocation(), Biomia.getServerInstance().getServerType().name()));
         return locations;

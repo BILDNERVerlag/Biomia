@@ -33,8 +33,8 @@ public enum Time {
             if (vielfaches == 0)
                 continue;
             if (!firstRun)
-                output.append("\u00A77, ");
-            output.append(String.format("\u00A7c%s \u00A7b%s", vielfaches, vielfaches == 1 ? t.getEinzahl() : t.name()));
+                output.append("§7, ");
+            output.append(String.format("§c%s §b%s", vielfaches, vielfaches == 1 ? t.getEinzahl() : t.name()));
             i -= vielfaches * t.getSekunden();
             firstRun = false;
         }

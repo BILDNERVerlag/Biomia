@@ -33,12 +33,12 @@ public class HologramCommand extends BiomiaCommand {
                     String[] out = string.toString().split(" % ");
                     Hologram.newHologram(p.getLocation(), out);
                 } else {
-                    sender.sendMessage("\u00A7c/hologram create <String>");
+                    sender.sendMessage("§c/hologram create <String>");
                     sender.sendMessage(
-                            "\u00A7cFalls du mehr Zeilen willst, nutze \u00A7a' % ' \u00A7cum die Zeile zu trennen");
+                            "§cFalls du mehr Zeilen willst, nutze §a' % ' §cum die Zeile zu trennen");
                 }
             }
         } else
-            sender.sendMessage("\u00A7c/hologram create <String>");
+            sender.sendMessage("§c/hologram create <String>");
     }
 }

@@ -31,7 +31,7 @@ public class FinteMitTinte implements Listener {
 
     public FinteMitTinte() {
         q.setInfoText(
-                "Franz ist kreativ. Franz redet gerne in Reimen. Franz ist Autor. Franz hat keine Tinte. Hol sie ihm. Zehn Tintens00e4ckchen um genau zu sein.");
+                "Franz ist kreativ. Franz redet gerne in Reimen. Franz ist Autor. Franz hat keine Tinte. Hol sie ihm. Zehn Tintensäckchen um genau zu sein.");
         q.setDisplayName("Des Schreibers Crux");
         String npcName = "Frank Kazka";
         npc = q.createNPC(EntityType.PLAYER, npcName);
@@ -76,37 +76,37 @@ public class FinteMitTinte implements Listener {
         // start dl
         startDialog = new DialogMessage(q, npc);
         startDialog.setInhalt("(Schweigt dich an)");
-        startDialog.setFortsetzung("00c4h, hallo..? Nichts zu sagen?").setFortsetzung("(Davongehen)");
+        startDialog.setFortsetzung("Äh, hallo..? Nichts zu sagen?").setFortsetzung("(Davongehen)");
         startDialog.setNext(
-                "Hm? Oh, pardon! Mir war nicht bewusst, dass... Wie auch immer. Wo Worte selten sind, da haben sie am meisten Gewicht, wei00dft du?", 0, npc);
+                "Hm? Oh, pardon! Mir war nicht bewusst, dass... Wie auch immer. Wo Worte selten sind, da haben sie am meisten Gewicht, weißt du?", 0, npc);
         startDialog.setNext("(Blickt dir schweigend nach)", 1, npc);
         startDialog.getNext(0).setFortsetzung("...okay? Kann man dir irgendwie helfen?")
                 .setFortsetzung("Aaalles klar, na daaann bis bald!");
         startDialog.getNext(0).setNext(
-                "Helfen kann man mir allerdings! Wei00dft du, ich m00f6chte ein neues Buch verfassen, aber es scheint, mir ist die Tinte ausgegangen! Magst du mir vielleicht zehn Tintenbeutel besorgen?",
+                "Helfen kann man mir allerdings! Weißt du, ich möchte ein neues Buch verfassen, aber es scheint, mir ist die Tinte ausgegangen! Magst du mir vielleicht zehn Tintenbeutel besorgen?",
                 0, npc);
         startDialog.getNext(0).setNext("Auf Wiedersehen!", 1, npc);
         startDialog.getNext(0).getNext(0).setFortsetzung("Jap, mache ich!").setFortsetzung("Ein ander Mal vielleicht!");
         startDialog.getNext(0).getNext(0)
-                .setNext("Das klingt ja gro00dfartig! Komm einfach wieder zu mir, wenn du alle zehn hast!", 0, npc)
+                .setNext("Das klingt ja großartig! Komm einfach wieder zu mir, wenn du alle zehn hast!", 0, npc)
                 .addPlayerToQuest();
         startDialog.getNext(0).getNext(0)
                 .setNext("Auweh, auweh... Vielleicht sollte ich einfach Dreck statt Tinte benutzen...", 1, npc);
 
         // come back without item
         comeWithoutItem = new DialogMessage(q, npc).setInhalt(
-                "Gut Ding soll Weile haben, so sagt man zumindest... Auf meine Tinte will ich dennoch nicht viel l00e4nger warten! Falls du bisher noch nicht genug gefunden hast, solltest du dich vielleicht an die Tintenfische im Flu00df wenden, die haben bestimmt ein paar hilfreiche Infos f00fcr dich!");
+                "Gut Ding soll Weile haben, so sagt man zumindest... Auf meine Tinte will ich dennoch nicht viel länger warten! Falls du bisher noch nicht genug gefunden hast, solltest du dich vielleicht an die Tintenfische im Fluß wenden, die haben bestimmt ein paar hilfreiche Infos für dich!");
 
         // come back with item
         comeWithItem = new DialogMessage(q, npc)
-                .setInhalt("Meine Tinte ist da! Gro00dfartig! Vielen Dank! Hier, nimm das!");
+                .setInhalt("Meine Tinte ist da! Großartig! Vielen Dank! Hier, nimm das!");
         comeWithItem.addEvent(new TakeItemEvent(Material.INK_SACK, 10));
         comeWithItem.addEvent(new AddCoinEvent(250));
         comeWithItem.finish();
 
         // nach quest
         nachQuest = new DialogMessage(q, npc).setInhalt(
-                "Oh, du bists! Danke dir nochmal f00fcr die Hilfe mit dem Holz! Ich dachte schon, es sei aus mit meiner Tischlerei!");
+                "Oh, du bists! Danke dir nochmal für die Hilfe mit dem Holz! Ich dachte schon, es sei aus mit meiner Tischlerei!");
     }
 
 }

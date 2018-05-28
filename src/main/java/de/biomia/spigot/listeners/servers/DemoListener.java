@@ -32,7 +32,7 @@ public class DemoListener extends BiomiaListener {
         p.setGameMode(GameMode.SURVIVAL);
         Scoreboards.setTabList(p, true, false);
         BackToLobby.getLobbyItem(p, 8);
-        p.getInventory().setItem(0, ItemCreator.itemCreate(Material.CHEST, "\u00A7bTeleporter"));
+        p.getInventory().setItem(0, ItemCreator.itemCreate(Material.CHEST, "§bTeleporter"));
 
     }
 
@@ -72,7 +72,7 @@ public class DemoListener extends BiomiaListener {
     @EventHandler
     public void onInteract_(PlayerInteractEvent e) {
         if (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK))
-            if (e.getItem() != null && e.getItem().getItemMeta().getDisplayName().equals("\u00A7bTeleporter")) {
+            if (e.getItem() != null && e.getItem().getItemMeta().getDisplayName().equals("§bTeleporter")) {
 
                 ((Weltenlabor) Biomia.getServerInstance()).getScrollingInv().computeIfAbsent(Biomia.getBiomiaPlayer(e.getPlayer()), inv -> new ScrollingInventory(e.getPlayer())).openInventorry();
                 e.setCancelled(true);

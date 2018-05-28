@@ -11,13 +11,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class LobbyInventoryManager {
 
-    private final static ItemStack elytra = ItemCreator.itemCreate(Material.ELYTRA, "\u00A7bElytra");
-    private final static ItemStack bow = ItemCreator.itemCreate(Material.BOW, "\u00A74Teleport-Bogen");
-    private final static ItemStack compass = ItemCreator.itemCreate(Material.COMPASS, "\u00A7cNavigator");
-    private final static ItemStack silentItem = ItemCreator.itemCreate(Material.FIREBALL, "\u00A7cSilent Lobby:\u00A78 Off");
-    private final static ItemStack arrow = ItemCreator.itemCreate(Material.ARROW, "\u00A76Teleport-Pfeil");
-    private final static ItemStack serverSwitcher = ItemCreator.itemCreate(Material.NETHER_STAR, "\u00A7bLobby Switcher");
-    private final static ItemStack cosmeticItem = ItemCreator.itemCreate(Material.CHEST, "\u00A7eCosmetics");
+    private final static ItemStack elytra = ItemCreator.itemCreate(Material.ELYTRA, "§bElytra");
+    private final static ItemStack bow = ItemCreator.itemCreate(Material.BOW, "§4Teleport-Bogen");
+    private final static ItemStack compass = ItemCreator.itemCreate(Material.COMPASS, "§cNavigator");
+    private final static ItemStack silentItem = ItemCreator.itemCreate(Material.FIREBALL, "§cSilent Lobby:§8 Off");
+    private final static ItemStack arrow = ItemCreator.itemCreate(Material.ARROW, "§6Teleport-Pfeil");
+    private final static ItemStack serverSwitcher = ItemCreator.itemCreate(Material.NETHER_STAR, "§bLobby Switcher");
+    private final static ItemStack cosmeticItem = ItemCreator.itemCreate(Material.CHEST, "§eCosmetics");
 
     static {
 

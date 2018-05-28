@@ -29,7 +29,7 @@ public class WirFeiernEinFest implements Listener {
     private final Location habilLoc = new Location(Bukkit.getWorld("Quests"), 111, 72, -278, 0, 0);
 
     public WirFeiernEinFest() {
-        q.setInfoText("Habil ist an der Organisation eines gro00dfen Dorffestes beteiligt, und obwohl er f00fcr das Feuerwerk zust00fcndig ist, hat er noch keine Raketen. Vielleicht kannst du welche auftreiben, drei St00fcck sollten gen00fcgen.");
+        q.setInfoText("Habil ist an der Organisation eines großen Dorffestes beteiligt, und obwohl er für das Feuerwerk zustündig ist, hat er noch keine Raketen. Vielleicht kannst du welche auftreiben, drei Stück sollten genügen.");
         q.setDisplayName("Wir feiern ein Fest!");
         habil = q.createNPC(EntityType.PLAYER, "Habil");
         habil.spawn(habilLoc);
@@ -68,13 +68,13 @@ public class WirFeiernEinFest implements Listener {
     private void initDialog() {
 
         startDialog = new DialogMessage(q, habil).setInhalt(
-                "Hallo! Hast du schon geh00f6rt? Wir feiern gerade, dass unsere letzte Ernte so gut ausgefallen ist. Leider fehlt nocht etwas, was die Feier perfekt machen w00fcrde.");
-        startDialog.setFortsetzung("Kann ich euch helfen?").setFortsetzung("Kein Interesse! Tsch00fcss!");
-        startDialog.setNext("K00f6nntest du f00fcr uns ein paar Feuerwerksraketen bauen? Ich wollte schon immer mal"
+                "Hallo! Hast du schon gehört? Wir feiern gerade, dass unsere letzte Ernte so gut ausgefallen ist. Leider fehlt nocht etwas, was die Feier perfekt machen würde.");
+        startDialog.setFortsetzung("Kann ich euch helfen?").setFortsetzung("Kein Interesse! Tschüss!");
+        startDialog.setNext("Könntest du für uns ein paar Feuerwerksraketen bauen? Ich wollte schon immer mal"
                 + " welche davon sehen, wie sie bunte Lichter an den Himmel zaubern. "
                 + "Bisher hat es leider nie geklappt, weil sich niemand traut, gegen so viele Creeper "
                 + "anzutreten. Nur wenn man sie im Kampf besiegt, bekommt man genug Schwarzpulver"
-                + " daf00fcr. K00f6nntest du mir vielleicht, sagen wir, drei St00fcck besorgen? Also sei vorsichtig, wenn du dich auf den Weg machst! Wenn du die drei"
+                + " dafür. Könntest du mir vielleicht, sagen wir, drei Stück besorgen? Also sei vorsichtig, wenn du dich auf den Weg machst! Wenn du die drei"
                 + " Feuerwerksraketen hast, bring sie zu mir!", 0, habil);
 
         startDialog.setNext("Oh, okay... Ciao!", 1, habil);
@@ -86,8 +86,8 @@ public class WirFeiernEinFest implements Listener {
 
         // comeback w
         comeBackWithFireworks = new DialogMessage(q, habil).setInhalt("Unglaublich! Du musst ein wahrlich"
-                + " guter K00fcmpfer sein, wenn du so viele Creeper besiegt hast! Vielen Dank! Hier, "
-                + "als kleines Dankesch00f6n schenke ich dir mein Feuerzeug!" + "Wir freuen uns schon!");
+                + " guter Kümpfer sein, wenn du so viele Creeper besiegt hast! Vielen Dank! Hier, "
+                + "als kleines Dankeschön schenke ich dir mein Feuerzeug!" + "Wir freuen uns schon!");
         comeBackWithFireworks.addEvent(new TakeItemEvent(Material.FIREWORK, 3));
         comeBackWithFireworks.addEvent(new GiveItemEvent(Material.FLINT_AND_STEEL, 1));
         comeBackWithFireworks.addEvent(new AddCoinEvent(300));
@@ -97,6 +97,6 @@ public class WirFeiernEinFest implements Listener {
         comeBackWithFireworks.finish();
 
         // nach quest
-        nachQuest = new DialogMessage(q, habil).setInhalt("Gro00dfartiges Feuerwerk war das.");
+        nachQuest = new DialogMessage(q, habil).setInhalt("Großartiges Feuerwerk war das.");
     }
 }

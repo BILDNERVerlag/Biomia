@@ -2,20 +2,20 @@ package de.biomia.spigot.messages;
 
 public class SkyWarsMessages {
 
-    public static final String skywars = "\u00A7cSKY\u00A7bWARS";
+    public static final String skywars = "§cSKY§bWARS";
     // %k = Kit Name
-    public static final String demoInventory = "\u00A7cDemo Inventory: %kit";
-    public static final String kitPurchased = "\u00A7aGl00fcckwunsch, du hast das Kit %kit erworben!";
-    public static final String errorWhilePurchasing = "\u00A7cEntschuldigung, es ist ein Fehler aufgetreten! Dir wurde KEIN Geld abgezogen!";
-    public static final String notEnoughCoins = "\u00A7cDu hast nicht genug BC's um das Kit %k zu Kaufen!";
-    public static final String alreadyPurchased = "\u00A7cDu hast das Kit %k bereits gekauft!";
-    public static final String setupInventory = "\u00A7c%k";
-    public static final String missingCoins = "\u00A7cDir fehlen noch %c BC's!";
-    public static final String compassMessages = "\u00A75Der Spieler \u00A72%p \u00A75ist \u00A72%d \u00A75weit entfernt!";
+    public static final String demoInventory = "§cDemo Inventory: %kit";
+    public static final String kitPurchased = "§aGlückwunsch, du hast das Kit %kit erworben!";
+    public static final String errorWhilePurchasing = "§cEntschuldigung, es ist ein Fehler aufgetreten! Dir wurde KEIN Geld abgezogen!";
+    public static final String notEnoughCoins = "§cDu hast nicht genug BC's um das Kit %k zu Kaufen!";
+    public static final String alreadyPurchased = "§cDu hast das Kit %k bereits gekauft!";
+    public static final String setupInventory = "§c%k";
+    public static final String missingCoins = "§cDir fehlen noch %c BC's!";
+    public static final String compassMessages = "§5Der Spieler §2%p §5ist §2%d §5weit entfernt!";
 
-    public static final String youChoseKit = "\u00A75Du hast das Kit \u00A72%k \u00A75ausgew00e4hlt!";
-    public static final String kitAlreadyChosen = "\u00A7cDu hast das Kit bereits ausgew00e4hlt!";
-    public static final String kitNotBought = "\u00A75Du hast das Kit \u00A72nicht \u00A75gekauft!";
-    public static final String nowLookingAtKit = "\u00A75Du schaust nun das Kit \u00A72%k \u00A75an!";
+    public static final String youChoseKit = "§5Du hast das Kit §2%k §5ausgewählt!";
+    public static final String kitAlreadyChosen = "§cDu hast das Kit bereits ausgewählt!";
+    public static final String kitNotBought = "§5Du hast das Kit §2nicht §5gekauft!";
+    public static final String nowLookingAtKit = "§5Du schaust nun das Kit §2%k §5an!";
 
 }

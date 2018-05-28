@@ -50,7 +50,7 @@ public class MinigamesCommands extends BiomiaCommand {
             case "addship":
                 Region region = FawePlayer.wrap(p.getName()).getSelection();
                 if (region == null) {
-                    p.sendMessage(String.format("%sBitte w00e4hle zuerst einen Bereich aus! %s(//wand)", Messages.COLOR_MAIN, Messages.COLOR_SUB));
+                    p.sendMessage(String.format("%sBitte wähle zuerst einen Bereich aus! %s(//wand)", Messages.COLOR_MAIN, Messages.COLOR_SUB));
                     return;
                 }
                 Vector pos1 = region.getMinimumPoint();
@@ -66,7 +66,7 @@ public class MinigamesCommands extends BiomiaCommand {
             case "al":
                 if (args.length >= 2) {
                     BedWarsConfig.addSpawnLocation(p.getLocation(), TeamColor.valueOf(args[1]), GameType.valueOf(args[0]));
-                    sender.sendMessage("Spawnpoint wurde hinzugef00fcgt!");
+                    sender.sendMessage("Spawnpoint wurde hinzugefügt!");
                 } else
                     sender.sendMessage(String.format("/%s gametype team", label));
                 break;
@@ -77,7 +77,7 @@ public class MinigamesCommands extends BiomiaCommand {
                         spielerProTeam = Integer.parseInt(args[0]);
                         teams = Integer.parseInt(args[1]);
                     } catch (NumberFormatException e) {
-                        sender.sendMessage("\u00A77/\u00A7bsetup \u00A77<\u00A7bSpielerProTeam\u00A77> <\u00A7bTeams\u00A77> <\u00A7bMapName\u00A77>");
+                        sender.sendMessage("§7/§bsetup §7<§bSpielerProTeam§7> <§bTeams§7> <§bMapName§7>");
                         return;
                     }
                     String name = args[2];
@@ -87,7 +87,7 @@ public class MinigamesCommands extends BiomiaCommand {
                     Config.getConfig().set("NumberOfTeams", teams);
                     Config.saveConfig();
                 } else
-                    sender.sendMessage("\u00A77/\u00A7bsetup \u00A77<\u00A7bSpielerProTeam\u00A77> <\u00A7bTeams\u00A77> <\u00A7bMapName\u00A77>");
+                    sender.sendMessage("§7/§bsetup §7<§bSpielerProTeam§7> <§bTeams§7> <§bMapName§7>");
                 break;
         }
     }

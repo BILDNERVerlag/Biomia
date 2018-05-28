@@ -9,8 +9,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class VSSettingItem {
 
-    private static final ItemStack enabled = ItemCreator.itemCreate(Material.STAINED_GLASS, "\u00A7aAktiviert", (short) 5);
-    private static final ItemStack disabled = ItemCreator.itemCreate(Material.STAINED_GLASS, "\u00A7cDeaktiviert", (short) 14);
+    private static final ItemStack enabled = ItemCreator.itemCreate(Material.STAINED_GLASS, "§aAktiviert", (short) 5);
+    private static final ItemStack disabled = ItemCreator.itemCreate(Material.STAINED_GLASS, "§cDeaktiviert", (short) 14);
 
     private final int itemSlot;
     private final int settingSlot;

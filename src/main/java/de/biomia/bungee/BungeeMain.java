@@ -53,7 +53,7 @@ public class BungeeMain extends Plugin {
                         OfflineBungeeBiomiaPlayer obp = BungeeBiomia.getOfflineBiomiaPlayer(name);
                         obp.addCoins(bugRewardMoney, false);
                         if (obp.isOnline())
-                            obp.getProxiedPlayer().sendMessage(new TextComponent("\u00A75Bug erfolgreich bearbeitet, du erh00e4ltst \u00A72" + bugRewardMoney + " \u00A75Coins!"));
+                            obp.getProxiedPlayer().sendMessage(new TextComponent("§5Bug erfolgreich bearbeitet, du erhältst §2" + bugRewardMoney + " §5Coins!"));
                     }
                     BanManager.removeAllFinishedBugReports();
                 } catch (InterruptedException e) {

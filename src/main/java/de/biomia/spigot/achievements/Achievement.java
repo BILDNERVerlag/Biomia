@@ -32,8 +32,8 @@ public class Achievement {
     public static void init() {
         new Achievement(BiomiaAchievement.VerdieneFuenftausendCoins, BiomiaStat.CoinsAccumulated, 5000, "Sparfuchs")
                 .setDescription("Verdiene insgesamt mindestens 5000 BC.");
-        new Achievement(BiomiaAchievement.OeffneZehnTruhen, BiomiaStat.ChestsOpened, 10, "Truhen00f6ffner")
-                .setDescription("00d6ffne zehn Truhen.");
+        new Achievement(BiomiaAchievement.OeffneZehnTruhen, BiomiaStat.ChestsOpened, 10, "Truhenöffner")
+                .setDescription("Öffne zehn Truhen.");
         new Achievement(BiomiaAchievement.Nimm20Fallschaden, BiomiaStat.HealthLost, 20, "Aua Aua", "FALL")
                 .setDescription("Nimm 20 Fallschaden.");
         //Idee: Neben das Inventar geklickt-Achievement

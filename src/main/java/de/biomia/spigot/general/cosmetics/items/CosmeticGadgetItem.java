@@ -28,7 +28,7 @@ public class CosmeticGadgetItem extends CosmeticItem implements Listener {
                 try {
                     gadgetListener.execute(Biomia.getBiomiaPlayer(e.getPlayer()), this);
                 } catch (Exception ex) {
-                    e.getPlayer().sendMessage("\u00A7cListener wurde nicht gefunden!");
+                    e.getPlayer().sendMessage("§cListener wurde nicht gefunden!");
                     ex.printStackTrace();
                 }
     }

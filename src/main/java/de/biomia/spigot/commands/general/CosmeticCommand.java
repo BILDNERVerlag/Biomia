@@ -47,22 +47,22 @@ public class CosmeticCommand extends BiomiaCommand {
                                 StringBuilder sb = new StringBuilder();
                                 int i = 5;
                                 while (args.length > i) {
-                                    sb.append("\u00A7r").append(args[i]).append(" ");
+                                    sb.append("§r").append(args[i]).append(" ");
                                     i++;
                                 }
 
-                                ItemStack is = ItemCreator.headWithSkin(headName, "\u00A75" + name);
+                                ItemStack is = ItemCreator.headWithSkin(headName, "§5" + name);
                                 ItemStack head = is.clone();
 
                                 ItemMeta isMeta = is.getItemMeta();
                                 isMeta.setLore(Arrays.asList(ChatColor.translateAlternateColorCodes('&',
-                                        "\u00A7o\u00A74" + c.deutsch() + ";\u00A7r" + sb.toString()).split(";")));
+                                        "§o§4" + c.deutsch() + ";§r" + sb.toString()).split(";")));
                                 is.setItemMeta(isMeta);
 
                                 Cosmetic.addItemToDatabase(new CosmeticHeadItem(-1, name, is, c, head));
                             } else {
                                 p.sendMessage(
-                                        "\u00A75/\u00A72cosmetic add head <Head Name> <Name> <Commonness> <Description (split lines with ';')>");
+                                        "§5/§2cosmetic add head <Head Name> <Name> <Commonness> <Description (split lines with ';')>");
                             }
                             break;
                         case "gadget":
@@ -80,17 +80,17 @@ public class CosmeticCommand extends BiomiaCommand {
                                 ItemStack is = p.getInventory().getItemInMainHand();
 
                                 ItemMeta meta = is.getItemMeta();
-                                meta.setDisplayName("\u00A7b" + name);
+                                meta.setDisplayName("§b" + name);
                                 is.setItemMeta(meta);
                                 ItemStack gadgetItem = is.clone();
                                 meta.setLore(Arrays.asList(ChatColor.translateAlternateColorCodes('&',
-                                        "\u00A7o\u00A74" + c.deutsch() + ";\u00A7r" + sb.toString()).split(";")));
+                                        "§o§4" + c.deutsch() + ";§r" + sb.toString()).split(";")));
                                 is.setItemMeta(meta);
 
                                 Cosmetic.addItemToDatabase(new CosmeticGadgetItem(-1, name, is, c, gadgetItem));
                             } else {
                                 p.sendMessage(
-                                        "\u00A75/\u00A72cosmetic add gadget <Name> <Commonness> <Description (split lines with ';')>");
+                                        "§5/§2cosmetic add gadget <Name> <Commonness> <Description (split lines with ';')>");
                             }
                             break;
                         case "suit":
@@ -108,9 +108,9 @@ public class CosmeticCommand extends BiomiaCommand {
                                 ItemStack is = p.getInventory().getItemInMainHand();
 
                                 ItemMeta meta = is.getItemMeta();
-                                meta.setDisplayName("\u00A72" + name);
+                                meta.setDisplayName("§2" + name);
                                 meta.setLore(Arrays.asList(ChatColor.translateAlternateColorCodes('&',
-                                        "\u00A7o\u00A74" + c.deutsch() + ";\u00A7r" + sb.toString()).split(";")));
+                                        "§o§4" + c.deutsch() + ";§r" + sb.toString()).split(";")));
                                 is.setItemMeta(meta);
 
                                 CosmeticSuitItem item = new CosmeticSuitItem(-1, name, is, c);
@@ -122,7 +122,7 @@ public class CosmeticCommand extends BiomiaCommand {
                                 de.biomia.spigot.general.cosmetics.Cosmetic.addItemToDatabase(item);
                             } else {
                                 p.sendMessage(
-                                        "\u00A75/\u00A72cosmetic add suit <Name> <Commonness> <Description (split lines with ';')>");
+                                        "§5/§2cosmetic add suit <Name> <Commonness> <Description (split lines with ';')>");
                             }
                             break;
                         case "particle":
@@ -140,16 +140,16 @@ public class CosmeticCommand extends BiomiaCommand {
                                 ItemStack is = p.getInventory().getItemInMainHand();
 
                                 ItemMeta meta = is.getItemMeta();
-                                meta.setDisplayName("\u00A7b" + name);
+                                meta.setDisplayName("§b" + name);
                                 meta.setLore(Arrays.asList(ChatColor.translateAlternateColorCodes('&',
-                                        "\u00A7o\u00A74" + c.deutsch() + ";\u00A7r" + sb.toString()).split(";")));
+                                        "§o§4" + c.deutsch() + ";§r" + sb.toString()).split(";")));
                                 is.setItemMeta(meta);
 
                                 de.biomia.spigot.general.cosmetics.Cosmetic
                                         .addItemToDatabase(new CosmeticParticleItem(-1, name, is, c));
                             } else {
                                 p.sendMessage(
-                                        "\u00A75/\u00A72cosmetic add particle <Name> <Commonness> <Description (split lines with ';')>");
+                                        "§5/§2cosmetic add particle <Name> <Commonness> <Description (split lines with ';')>");
                             }
                             break;
                         case "pet":
@@ -168,16 +168,16 @@ public class CosmeticCommand extends BiomiaCommand {
                                 ItemStack is = p.getInventory().getItemInMainHand();
 
                                 ItemMeta meta = is.getItemMeta();
-                                meta.setDisplayName("\u00A74" + name);
+                                meta.setDisplayName("§4" + name);
                                 meta.setLore(Arrays.asList(ChatColor.translateAlternateColorCodes('&',
-                                        "\u00A7o\u00A74" + c.deutsch() + ";\u00A7r" + sb.toString()).split(";")));
+                                        "§o§4" + c.deutsch() + ";§r" + sb.toString()).split(";")));
                                 is.setItemMeta(meta);
 
                                 de.biomia.spigot.general.cosmetics.Cosmetic
                                         .addItemToDatabase(new CosmeticPetItem(-1, name, is, c, type));
                             } else {
                                 p.sendMessage(
-                                        "\u00A75/\u00A72cosmetic add pet <Name> <Commonness> <entitytype> <Description (split lines with ';')>");
+                                        "§5/§2cosmetic add pet <Name> <Commonness> <entitytype> <Description (split lines with ';')>");
                             }
                             break;
                         default:

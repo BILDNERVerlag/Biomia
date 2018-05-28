@@ -73,9 +73,9 @@ public abstract class CosmeticItem {
         public String deutsch() {
             switch (this) {
                 case VERY_COMMON:
-                    return "Sehr H00e4ufig";
+                    return "Sehr Häufig";
                 case COMMON:
-                    return "H00e4ufig";
+                    return "Häufig";
                 case RARE:
                     return "Selten";
                 case VERY_RARE:

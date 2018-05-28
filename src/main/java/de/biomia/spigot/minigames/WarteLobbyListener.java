@@ -142,7 +142,7 @@ public class WarteLobbyListener extends BiomiaListener {
                 return;
             message = MinigamesMessages.chatMessageLobby.replaceAll("%p", bp.getTeam().getColorcode() + bp.getName()).replaceAll("%msg", e.getMessage());
         } else {
-            message = MinigamesMessages.chatMessageLobby.replaceAll("%p", "\u00A77" + bp.getName()).replaceAll("%msg", e.getMessage());
+            message = MinigamesMessages.chatMessageLobby.replaceAll("%p", "§7" + bp.getName()).replaceAll("%msg", e.getMessage());
         }
         e.setCancelled(true);
         for (Player spec : Bukkit.getOnlinePlayers()) {

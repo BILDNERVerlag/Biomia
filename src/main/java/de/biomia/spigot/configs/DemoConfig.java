@@ -48,13 +48,13 @@ public class DemoConfig {
 
             if (config.getString(i + ".Name") != null && config.getString(i + ".Name").equalsIgnoreCase(name)) {
                 config.set(i + "", null);
-                Bukkit.broadcastMessage("\u00A7aObjekt entfernt!");
+                Bukkit.broadcastMessage("§aObjekt entfernt!");
                 Config.saveConfig();
                 return;
             }
 
         }
-        Bukkit.broadcastMessage("\u00A7cObjekt nicht gefunden!");
+        Bukkit.broadcastMessage("§cObjekt nicht gefunden!");
 
     }
 

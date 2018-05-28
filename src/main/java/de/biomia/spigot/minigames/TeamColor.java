@@ -18,22 +18,22 @@ public enum TeamColor {
 
         switch (this) {
             case BLACK:
-                return "\u00A70";
+                return "§0";
             case BLUE:
-                return "\u00A79";
+                return "§9";
             case ORANGE:
-                return "\u00A76";
+                return "§6";
             case GREEN:
-                return "\u00A72";
+                return "§2";
             case PURPLE:
-                return "\u00A7b";
+                return "§b";
             case RED:
-                return "\u00A7c";
+                return "§c";
             default:
             case WHITE:
-                return "\u00A7f";
+                return "§f";
             case YELLOW:
-                return "\u00A7e";
+                return "§e";
         }
     }
 
@@ -68,14 +68,14 @@ public enum TeamColor {
             case ORANGE:
                 return "Orange";
             case GREEN:
-                return "Gr00fcn";
+                return "Grün";
             case PURPLE:
                 return "Lila";
             case RED:
                 return "Rot";
             default:
             case WHITE:
-                return "Wei00df";
+                return "Weiß";
             case YELLOW:
                 return "Gelb";
         }

@@ -19,7 +19,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 public class AufDerSucheNachGlueck implements Listener {
-    private final Quest q = Biomia.getQuestManager().registerNewQuest("AufDerSucheNachGl00fcck", 1);
+    private final Quest q = Biomia.getQuestManager().registerNewQuest("AufDerSucheNachGlück", 1);
     private final NPC npc;
     private DialogMessage startDialog;
     private DialogMessage vorQuest;
@@ -29,8 +29,8 @@ public class AufDerSucheNachGlueck implements Listener {
 
     public AufDerSucheNachGlueck() {
         q.setInfoText(
-                "Lato ist vom Ungl00fcck verfolgt. Er m00f6chte dies 00e4ndern und bittet dich darum, ihm eine Hasenpfote zu beschaffen.");
-        q.setDisplayName("Suche nach Gl00fcck");
+                "Lato ist vom Unglück verfolgt. Er möchte dies ändern und bittet dich darum, ihm eine Hasenpfote zu beschaffen.");
+        q.setDisplayName("Suche nach Glück");
         npc = q.createNPC(EntityType.PLAYER, "Lato");
         Location loc = new Location(Bukkit.getWorld("Quests"), 139, 64, -235.5, 17, 0);
         npc.spawn(loc);
@@ -73,16 +73,16 @@ public class AufDerSucheNachGlueck implements Listener {
     private void initDialog() {
         // start dl
         startDialog = new DialogMessage(q, npc).setInhalt(
-                "Hallo, mein Freund! Kennst du auch solche Tage, an denen nichts klappt? Mir geht es schon l00e4nger so. Einfach nervig. Ich habe schon alles versucht, aber nichts hilft. Meine letzte Hoffnung ist eine Hasenpfote. Die soll angeblich die schlimmste Pechstr00e4hne verfliegen lassen. Willst du mir helfen?");
+                "Hallo, mein Freund! Kennst du auch solche Tage, an denen nichts klappt? Mir geht es schon länger so. Einfach nervig. Ich habe schon alles versucht, aber nichts hilft. Meine letzte Hoffnung ist eine Hasenpfote. Die soll angeblich die schlimmste Pechsträhne verfliegen lassen. Willst du mir helfen?");
         startDialog.setFortsetzung("Ja, mache ich!").setFortsetzung("Nein.")
-                .setNext("Vielen Dank! Wei00dft du denn 00fcberhaupt, wie man eine Hasenpfote bekommt?", 0, npc);
+                .setNext("Vielen Dank! Weißt du denn überhaupt, wie man eine Hasenpfote bekommt?", 0, npc);
         startDialog.setNext("Bitte hilf mir doch!", 1, npc);
-        startDialog.getNext(0).setFortsetzung("Ja, ich wei00df.").setFortsetzung("Nein.")
+        startDialog.getNext(0).setFortsetzung("Ja, ich weiß.").setFortsetzung("Nein.")
                 .setNext("Das ist gut. Wenn du mir die Hasenpfote bringst, bekommst du auch eine Belohnung von mir.", 0,
                         npc)
                 .addPlayerToQuest();
         startDialog.getNext(0).setNext(
-                "Du musst nur einen Hasen erledigen. Wenn du Gl00fcck hast, bekommst du dann die Hasenpfote. Aber pass auf! Hasen sind sehr schnell! Du sollst auch nicht leer ausgehen. Wenn du es schaffst, bekommst du von mir ein Geschenk.",
+                "Du musst nur einen Hasen erledigen. Wenn du Glück hast, bekommst du dann die Hasenpfote. Aber pass auf! Hasen sind sehr schnell! Du sollst auch nicht leer ausgehen. Wenn du es schaffst, bekommst du von mir ein Geschenk.",
                 1, npc).addPlayerToQuest();
 
         // without rabbit foot
@@ -100,15 +100,15 @@ public class AufDerSucheNachGlueck implements Listener {
         withRabbitFoot.finish();
 
         // vor quest
-        vorQuest = new DialogMessage(q, npc).setInhalt("Da bist du da wieder! Hast du es dir 00fcberlegt?");
+        vorQuest = new DialogMessage(q, npc).setInhalt("Da bist du da wieder! Hast du es dir überlegt?");
         vorQuest.setFortsetzung("Ja, ich mach es!").setFortsetzung("Nein.")
-                .setNext("Vielen Dank! Wei00dft du denn 00fcberhaupt, wie man eine Hasenpfote bekommt?", 0, npc);
+                .setNext("Vielen Dank! Weißt du denn überhaupt, wie man eine Hasenpfote bekommt?", 0, npc);
         vorQuest.setNext("Bitte hilf mir doch!", 1, npc);
         vorQuest.getNext(1).updatePlayerState(States.START);
-        vorQuest.getNext(0).setFortsetzung("Ja, ich wei00df").setFortsetzung("Nein").setNext(
+        vorQuest.getNext(0).setFortsetzung("Ja, ich weiß").setFortsetzung("Nein").setNext(
                 "Das ist gut. Wenn du mir die Hasenpfote bringst, bekommst du auch eine Belohnung von mir.", 0, npc);
         vorQuest.getNext(0).setNext(
-                "Du musst nur einen Hasen erledigen. Wenn du Gl00fcck hast, bekommst du dann die Hasenpfote. Aber pass auf! Hasen sind sehr schnell! Du sollst auch nicht leer ausgehen. Wenn du es schaffst, bekommst du von mir ein Geschenk.",
+                "Du musst nur einen Hasen erledigen. Wenn du Glück hast, bekommst du dann die Hasenpfote. Aber pass auf! Hasen sind sehr schnell! Du sollst auch nicht leer ausgehen. Wenn du es schaffst, bekommst du von mir ein Geschenk.",
                 1, npc).addPlayerToQuest();
         nachQuest = new DialogMessage(q, npc).setInhalt("Danke dir.");
     }

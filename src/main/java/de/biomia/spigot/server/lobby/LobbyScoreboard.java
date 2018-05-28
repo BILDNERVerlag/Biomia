@@ -20,25 +20,25 @@ public class LobbyScoreboard {
 
         Objective o = sb.registerNewObjective("aaa", "bbb");
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
-        o.setDisplayName("\u00A7cBIO\u00A7bMIA");
+        o.setDisplayName("§cBIO§bMIA");
         o.getScore(" ").setScore(10);
-        o.getScore("\u00A7cCoins:").setScore(9);
-        o.getScore("\u00A7c").setScore(8);
-        o.getScore("\u00A7a").setScore(7);
-        o.getScore("\u00A7cFreunde:").setScore(6);
-        o.getScore("\u00A7f").setScore(5);
-        o.getScore("\u00A71").setScore(4);
-        o.getScore("\u00A7cRank:").setScore(3);
-        o.getScore("\u00A7r").setScore(2);
-        o.getScore("\u00A7l").setScore(1);
+        o.getScore("§cCoins:").setScore(9);
+        o.getScore("§c").setScore(8);
+        o.getScore("§a").setScore(7);
+        o.getScore("§cFreunde:").setScore(6);
+        o.getScore("§f").setScore(5);
+        o.getScore("§1").setScore(4);
+        o.getScore("§cRank:").setScore(3);
+        o.getScore("§r").setScore(2);
+        o.getScore("§l").setScore(1);
 
         coins = sb.registerNewTeam("coins");
         freunde = sb.registerNewTeam("freunde");
         rank = sb.registerNewTeam("rank");
 
-        rank.addEntry("\u00A7r");
-        coins.addEntry("\u00A7c");
-        freunde.addEntry("\u00A7f");
+        rank.addEntry("§r");
+        coins.addEntry("§c");
+        freunde.addEntry("§f");
 
         new BukkitRunnable() {
             @Override
@@ -63,9 +63,9 @@ public class LobbyScoreboard {
         freunde = sb.getTeam("freunde");
         rank = sb.getTeam("rank");
 
-        rank.setPrefix("\u00A7b" + getGroupName(p));
-        coins.setPrefix("\u00A7b" + bp.getCoins());
-        freunde.setPrefix("\u00A7b" + bp.getOnlineFriends().size() + " \u00A77/ \u00A7b" + bp.getFriends().size());
+        rank.setPrefix("§b" + getGroupName(p));
+        coins.setPrefix("§b" + bp.getCoins());
+        freunde.setPrefix("§b" + bp.getOnlineFriends().size() + " §7/ §b" + bp.getFriends().size());
     }
 
     private static String getGroupName(Player p) {
@@ -85,7 +85,7 @@ public class LobbyScoreboard {
             case "vier":
                 rankName = "Premium IV";
                 break;
-            case "f\u00dcnf":
+            case "fünf":
                 rankName = "Premium V";
                 break;
             case "sechs":

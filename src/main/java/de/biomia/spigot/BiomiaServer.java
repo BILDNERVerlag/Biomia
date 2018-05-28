@@ -61,8 +61,6 @@ public abstract class BiomiaServer {
         registerCommand(new LogCommand());
         registerCommand(new TrollCommand("crash"));
         registerCommand(new TrollCommand("troll"));
-        registerCommand(new EventCommands("addeggs"));
-        registerCommand(new EventCommands("givereward"));
         registerCommand(new WarpCommand("setwarp"));
         registerCommand(new WarpCommand("warp"));
         registerCommand(new WarpCommand("delwarp"));

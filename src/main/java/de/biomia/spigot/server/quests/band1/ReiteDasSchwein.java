@@ -157,7 +157,7 @@ public class ReiteDasSchwein implements Listener {
                         qp.getPlayer().teleport(brian.getEntity().getLocation().add(2, 0, 0));
                     }
                 }
-                ActionBar.sendActionBar("\u00A7c" + zeitRennen, qp.getPlayer());
+                ActionBar.sendActionBar("§c" + zeitRennen, qp.getPlayer());
                 zeitRennen--;
 
                 if (zeitRennen == -1) {
@@ -245,10 +245,10 @@ public class ReiteDasSchwein implements Listener {
 
     private void initDialog() {
         startDialog = new DialogMessage(q, brian).setInhalt("Was wir hier machen? Wir reiten auf Schweinen.");
-        startDialog.setNext("Das macht total Spa00df.", 0, falto);
+        startDialog.setNext("Das macht total Spaß.", 0, falto);
         startDialog.getNext(0).setNext("Willst du auch mal? Bist du mutig genug dazu?", 0, brian);
 
-        startDialog.getNext(0).getNext(0).setFortsetzung("Nein danke, das ist mir viel zu bl00f6d.")
+        startDialog.getNext(0).getNext(0).setFortsetzung("Nein danke, das ist mir viel zu blöd.")
                 .setFortsetzung("Ich habe keine Angst!");
 
         startDialog.getNext(0).getNext(0).setNext("Von wegen, da hat jemand die Hosen voll!", 0, brian);
@@ -266,7 +266,7 @@ public class ReiteDasSchwein implements Listener {
 
         // geschafft
         geschafft = new DialogMessage(q, brian)
-                .setInhalt("Hm.. nicht schlecht! Du hast es tats00e4chlich geschafft!");
+                .setInhalt("Hm.. nicht schlecht! Du hast es tatsächlich geschafft!");
         geschafft.finish();
 
         // nicht geschafft
@@ -280,7 +280,7 @@ public class ReiteDasSchwein implements Listener {
 
         // schummler
         schummler = new DialogMessage(q, falto).setInhalt(
-                "Hey, du wolltest schummeln! Ich habs genau gesehen! W00e4hrend dem Rennen absteigen geht ja mal gar nicht!");
+                "Hey, du wolltest schummeln! Ich habs genau gesehen! Während dem Rennen absteigen geht ja mal gar nicht!");
         schummler.addEvent(new TakeItemEvent(Material.CARROT_STICK, 1));
         schummler.removePlayerFromQuest();
 

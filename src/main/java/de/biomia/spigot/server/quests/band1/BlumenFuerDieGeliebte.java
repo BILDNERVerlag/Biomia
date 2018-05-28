@@ -38,7 +38,7 @@ public class BlumenFuerDieGeliebte implements Listener {
 
     public BlumenFuerDieGeliebte() {
         q.setInfoText(
-                "Roman ist Hals 00fcber Kopf in Julchen verliebt. Weil er zu sch00fcchtern ist, um sie selbst anzusprechen, sollst du f00fcr seinen Schwarm eine rote Rose besorgen.");
+                "Roman ist Hals über Kopf in Julchen verliebt. Weil er zu schüchtern ist, um sie selbst anzusprechen, sollst du für seinen Schwarm eine rote Rose besorgen.");
         roman = q.createNPC(EntityType.PLAYER, "Roman");
         julchen = q.createNPC(EntityType.PLAYER, "Julchen");
         Location locRoman = new Location(Bukkit.getWorld("Quests"), 126, 70, -311, -22, 0);
@@ -130,7 +130,7 @@ public class BlumenFuerDieGeliebte implements Listener {
         nachJulchenKeineRose = new DialogMessage(q, roman)
                 .setInhalt("Du hast ihr die Rose gegeben? Super! Hier ist deine Belohnung! Und, was hat sie gesagt?")
                 .setFortsetzung("Sie hat ihr suuuper gefallen.").setFortsetzung("Also, naja...");
-        nachJulchenKeineRose.setNext("Oh? Das ist ja gro00dfartig! Vielen, vielen Dank!", 0, roman);
+        nachJulchenKeineRose.setNext("Oh? Das ist ja großartig! Vielen, vielen Dank!", 0, roman);
         nachJulchenKeineRose.setNext("Oh... Ich verstehe schon... Naja, danke trotzdem.", 1, roman);
 
         Event e = qp -> qp.getQuestPlayer().getMineableBlocks().remove(Material.RED_ROSE);
@@ -141,7 +141,7 @@ public class BlumenFuerDieGeliebte implements Listener {
         // nach julchen mit rose
         nachJulchenMitRose = new DialogMessage(q, roman)
                 .setInhalt("Oh, du hast sie noch? Hast du dich etwa nicht getraut, sie ihr zu geben?")
-                .setFortsetzung("Sie hat gesagt, sie h00e4tte lieber Schmuck und Edelsteine.");
+                .setFortsetzung("Sie hat gesagt, sie hätte lieber Schmuck und Edelsteine.");
         nachJulchenMitRose.setNext("...", 0, roman).setNext("...", 0, roman)
                 .setNext("Ich danke dir dennoch. Und ich hab dir eine Belohnung versprochen. Hier, nimm.", 0, roman)
 
@@ -155,13 +155,13 @@ public class BlumenFuerDieGeliebte implements Listener {
                 .setInhalt("Hey, du! Kannst du... mir bei einer Kleinigkeit helfen?")
                 .setFortsetzung("Klar, um was gehts?").setFortsetzung("Nein, keine Zeit");
         startDialogRoman.setNext(
-                "Naja, es geht um mein Julchen. Sie ist immer so abweisend zu mir, deshalb m00f6chte ich ihr Herz mit einer roten Rose erobern!",
+                "Naja, es geht um mein Julchen. Sie ist immer so abweisend zu mir, deshalb möchte ich ihr Herz mit einer roten Rose erobern!",
                 0, roman).setFortsetzung("Lass mich raten, ich soll dir so eine besorgen?")
                 .setFortsetzung("Gute Idee, aber ohne mich!");
         startDialogRoman.setNext("Oh... Naja, in Ordnung...", 1, roman);
 
         startDialogRoman.getNext(0).setNext(
-                "Du meldest dich freiwillig? Wunderbar! Dann beeil dich und komm schnell mit einer Rose zur00fcck!",
+                "Du meldest dich freiwillig? Wunderbar! Dann beeil dich und komm schnell mit einer Rose zurück!",
                 0, roman);
         startDialogRoman.getNext(0).setNext("Ach menno, so wird sie doch nie etwas mit mir unternehmen wollen...", 1,
                 roman);
@@ -171,31 +171,31 @@ public class BlumenFuerDieGeliebte implements Listener {
 
         // JULCHEN
         String aufWiedersehen = "Auf Wiedersehen!";
-        String werIstRoman = "Ach, nur einer aus dem Dorf. Ich hab seit L00e4ngerem das Gef00fchl, dass er ein Auge auf mich geworfen hat, aber er hat bisher noch nichts unternommen. Diese 00fcberm00e400dfige Sch00fcchternheit f00fchrt auf jeden Fall zu nichts...";
+        String werIstRoman = "Ach, nur einer aus dem Dorf. Ich hab seit Längerem das Gefühl, dass er ein Auge auf mich geworfen hat, aber er hat bisher noch nichts unternommen. Diese übermäßige Schüchternheit führt auf jeden Fall zu nichts...";
 
         startDialogJulchen = new DialogMessage(q, julchen)
-                .setInhalt("Ich h00e4tte sooo gern ein paar h00fcbsche Geschenke...")
+                .setInhalt("Ich hätte sooo gern ein paar hübsche Geschenke...")
                 .setFortsetzung("Bekommst du denn von niemandem welche?")
                 .setFortsetzung("Jedenfalls nicht von mir! Sorry!");
         startDialogJulchen.setNext(
-                "Naja, nur eben zum Geburtstag und so weiter... Aber ich h00e4tte eben gerne einfach so mal welche. Dann 00fcberraschen sie einen ja auch umso mehr.",
-                0, julchen).setFortsetzung("Was h00e4ttest du gerne?").setFortsetzung("Viel Gl00fcck dabei! Ciao!");
+                "Naja, nur eben zum Geburtstag und so weiter... Aber ich hätte eben gerne einfach so mal welche. Dann überraschen sie einen ja auch umso mehr.",
+                0, julchen).setFortsetzung("Was hättest du gerne?").setFortsetzung("Viel Glück dabei! Ciao!");
         startDialogJulchen
                 .setNext("Das hab ich eh nicht erwartet! Dieser faule Sack Roman sollte sich lieber mal aufraffen!", 1,
                         julchen)
                 .setFortsetzung("Soll ich ihm das ausrichten?").setFortsetzung("Roman? Wer ist Roman?")
                 .setFortsetzung("Nicht meine Angelegenheit. Bis bald!");
 
-        // was h00e4ttest du gern?
+        // was hättest du gern?
         startDialogJulchen.getNext(0).setNext(
-                "Ach, ich wei00df auch nicht... Irgendwas romantisches nat00fcrlich... Egal, darum geht es ja nicht, stimmts?",
-                0, julchen).setFortsetzung("Stimmt! Viel Gl00fcck noch, ciao!")
+                "Ach, ich weiß auch nicht... Irgendwas romantisches natürlich... Egal, darum geht es ja nicht, stimmts?",
+                0, julchen).setFortsetzung("Stimmt! Viel Glück noch, ciao!")
                 .setFortsetzung("Wer ist eigentlich dieser Roman?");
 
         startDialogJulchen.getNext(0).setNext(aufWiedersehen, 1, julchen);
         startDialogJulchen.getNext(0).getNext(0).setNext(aufWiedersehen, 0, julchen);
 
-        startDialogJulchen.getNext(1).setNext("Was? Nat00fcrlich nicht! Er soll von sich aus auf mich zukommen!", 0,
+        startDialogJulchen.getNext(1).setNext("Was? Natürlich nicht! Er soll von sich aus auf mich zukommen!", 0,
                 julchen);
         startDialogJulchen.getNext(1).setNext(werIstRoman, 1, julchen);
         startDialogJulchen.getNext(1).setNext(aufWiedersehen, 2, julchen);
@@ -204,7 +204,7 @@ public class BlumenFuerDieGeliebte implements Listener {
 
         // ohne rose
         comeBackWORose = new DialogMessage(q, roman).setInhalt(
-                "Wo bleibt die Rose f00fcr mein Julchen? Mach schneller, es geht um Liebe und Tod! Also.. haupts00e4chlich um ersteres.");
+                "Wo bleibt die Rose für mein Julchen? Mach schneller, es geht um Liebe und Tod! Also.. hauptsächlich um ersteres.");
 
         // mit rose
         comeBackWRose = new DialogMessage(q, roman).setInhalt(
@@ -215,24 +215,24 @@ public class BlumenFuerDieGeliebte implements Listener {
 
         // mehr aufmerksamkeit
         mehrAufmerksamkeit = new DialogMessage(q, julchen).setInhalt(
-                "Ach, dieser Roman... Wenn er mir doch nur etwas mehr Aufmerksamkeit schenken w00fcrde. Versteht er nicht, dass ich Schmuck und Geschenke will?");
+                "Ach, dieser Roman... Wenn er mir doch nur etwas mehr Aufmerksamkeit schenken würde. Versteht er nicht, dass ich Schmuck und Geschenke will?");
 
         // julchenRose
-        julchenRose = new DialogMessage(q, julchen).setInhalt("Oh, eine Rose? F00fcr mich?");
-        julchenRose.setFortsetzung("Ja, die ist von Roman, nur f00fcr dich!")
-                .setFortsetzung("Ja, hab ich extra f00fcr dich gepfl00fcckt!");
+        julchenRose = new DialogMessage(q, julchen).setInhalt("Oh, eine Rose? Für mich?");
+        julchenRose.setFortsetzung("Ja, die ist von Roman, nur für dich!")
+                .setFortsetzung("Ja, hab ich extra für dich gepflückt!");
         julchenRose.setNext(
-                "Dieser Holzkopf! Was soll ich denn mit einer Blume? Ich h00e4tte viel lieber Gold oder Edelsteine! Hier, bring ihm seine Rose wieder!",
+                "Dieser Holzkopf! Was soll ich denn mit einer Blume? Ich hätte viel lieber Gold oder Edelsteine! Hier, bring ihm seine Rose wieder!",
                 0, julchen);
         julchenRose.setNext(
-                "Oh, wof00fcr das? Nicht so wichtig, das ist richtig lieb von dir! Hier, du bekommst auch ein paar Kekse von mir!",
+                "Oh, wofür das? Nicht so wichtig, das ist richtig lieb von dir! Hier, du bekommst auch ein paar Kekse von mir!",
                 1, julchen);
-        julchenRose.getNext(1).addEvent(new GiveItemEvent(Material.COOKIE, "Keks mit Bl00fcmchen drauf", 16));
+        julchenRose.getNext(1).addEvent(new GiveItemEvent(Material.COOKIE, "Keks mit Blümchen drauf", 16));
         julchenRose.getNext(1).addEvent(new TakeItemEvent(Material.RED_ROSE, 1));
 
         // nachQuest
-        nachQuestRoman = new DialogMessage(q, roman).setInhalt("Danke f00fcr die Hilfe noch!");
-        nachQuestJulchen = new DialogMessage(q, roman).setInhalt("Danke f00fcr alles!");
+        nachQuestRoman = new DialogMessage(q, roman).setInhalt("Danke für die Hilfe noch!");
+        nachQuestJulchen = new DialogMessage(q, roman).setInhalt("Danke für alles!");
 
         // platzhalter
         platzhalter = new DialogMessage(q, julchen).setInhalt("XXX PLATZHALTER XXX");

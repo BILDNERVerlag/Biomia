@@ -22,7 +22,7 @@ public class GTPCommand extends Command {
             if (pp.hasPermission("biomia.bungeeteleport") || pp.hasPermission("biomia.*")) {
 
                 if (args.length == 0) {
-                    sender.sendMessage(new TextComponent("\u00A7cBitte nutze \u00A7b/gtp <Spieler> [Spieler]"));
+                    sender.sendMessage(new TextComponent("§cBitte nutze §b/gtp <Spieler> [Spieler]"));
                     return;
                 }
 

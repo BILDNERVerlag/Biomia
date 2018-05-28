@@ -41,7 +41,7 @@ public class CreateTableCommand extends BiomiaCommand {
                     sender.sendMessage(String.format("00A7cTabelle %s wurde erfolgreich in der Datenbank %s gespeichert.", args[1], MySQL.Databases.achiev_db.name()));
                     break;
                 default:
-                    sender.sendMessage(String.format("00A7cDas Argument 00A77%s00A7c ist ung00fcltig. Benutze 00A77stat 00A7c/ 00A77statex00A7coder 00A77achiev00A7c.", args[0]));
+                    sender.sendMessage(String.format("00A7cDas Argument 00A77%s00A7c ist ungültig. Benutze 00A77stat 00A7c/ 00A77statex00A7coder 00A77achiev00A7c.", args[0]));
             }
         } else {
             sender.sendMessage(String.format("%sInkorrekte Argument-Anzahl. Die korrekte Syntax lautet:", Messages.COLOR_MAIN));

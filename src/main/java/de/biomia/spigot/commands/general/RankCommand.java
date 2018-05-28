@@ -33,18 +33,18 @@ public class RankCommand extends BiomiaCommand {
                 Player p = Bukkit.getPlayer(args[0]);
                 BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
                 bp.setRank(toSet);
-                sender.sendMessage("\u00A7aDer Spieler " + args[0] + " ist nun " + args[1] + ".");
+                sender.sendMessage("§aDer Spieler " + args[0] + " ist nun " + args[1] + ".");
                 if (Biomia.getServerInstance().getServerType() == BiomiaServerType.Lobby) {
                     LobbyScoreboard.sendScoreboard(p);
                 } else
                     Scoreboards.setTabList(p, true, true);
             } catch (IllegalArgumentException ignored) {
-                sender.sendMessage("\u00A7cEs sind nur diese R00e4nge verf00fcgbar:");
+                sender.sendMessage("§cEs sind nur diese Ränge verfügbar:");
                 for (Ranks r : Ranks.values())
-                    sender.sendMessage("\u00A7c" + r.name());
+                    sender.sendMessage("§c" + r.name());
             }
         } else {
-            sender.sendMessage("\u00A7c/rank <Spieler> <Rank>");
+            sender.sendMessage("§c/rank <Spieler> <Rank>");
         }
 
     }

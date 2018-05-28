@@ -31,9 +31,9 @@ public class PermissionCommand extends BiomiaCommand {
                 sender.sendMessage(
                         String.format("%sDem Spieler %s%s%s wurde die Permission %s%s%s entfernt%s!", Messages.COLOR_MAIN, Messages.COLOR_SUB, args[1], Messages.COLOR_MAIN, Messages.COLOR_SUB, args[2], Messages.COLOR_MAIN, Messages.COLOR_AUX));
             } else
-                sender.sendMessage("\u00A7c/permission <add|remove> <Spieler> <Permission>");
+                sender.sendMessage("§c/permission <add|remove> <Spieler> <Permission>");
         } else
-            sender.sendMessage("\u00A7c/permission <add|remove> <Spieler> <Permission>");
+            sender.sendMessage("§c/permission <add|remove> <Spieler> <Permission>");
 
     }
 }

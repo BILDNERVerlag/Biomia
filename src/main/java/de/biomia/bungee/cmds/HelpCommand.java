@@ -19,7 +19,7 @@ public class HelpCommand extends Command {
         TextComponent biomia = new TextComponent(ChatColor.GRAY + "/" + ChatColor.AQUA + "biomia " + ChatColor.RED + "um Links und die IP von unserem TS zu sehen!");
         biomia.setClickEvent(new ClickEvent(Action.SUGGEST_COMMAND, "/biomia"));
 
-        TextComponent hub = new TextComponent(ChatColor.GRAY + "/" + ChatColor.AQUA + "hub " + ChatColor.RED + "um zur Lobby zur00fcckzukehren");
+        TextComponent hub = new TextComponent(ChatColor.GRAY + "/" + ChatColor.AQUA + "hub " + ChatColor.RED + "um zur Lobby zurückzukehren");
         hub.setClickEvent(new ClickEvent(Action.SUGGEST_COMMAND, "/hub"));
 
         TextComponent register = new TextComponent(ChatColor.GRAY + "/" + ChatColor.AQUA + "register " + ChatColor.RED + "um dich zu registrieren");
@@ -34,7 +34,7 @@ public class HelpCommand extends Command {
         TextComponent friend = new TextComponent(ChatColor.GRAY + "/" + ChatColor.AQUA + "friend " + ChatColor.RED + "um Freunde zu adden");
         friend.setClickEvent(new ClickEvent(Action.SUGGEST_COMMAND, "/friend"));
 
-        sender.sendMessage(new TextComponent("\u00A77\u00A7m-----------\u00A7r\u00A77[\u00A7cBiomia\u00A7bCommands\u00A77]\u00A7m-----------"));
+        sender.sendMessage(new TextComponent("§7§m-----------§r§7[§cBiomia§bCommands§7]§m-----------"));
         sender.sendMessage(new TextComponent(""));
         sender.sendMessage(friend);
         sender.sendMessage(hub);
@@ -43,6 +43,6 @@ public class HelpCommand extends Command {
         sender.sendMessage(register);
         sender.sendMessage(coins);
         sender.sendMessage(new TextComponent(""));
-        sender.sendMessage(new TextComponent("\u00A77\u00A7m-----------------------------------"));
+        sender.sendMessage(new TextComponent("§7§m-----------------------------------"));
     }
 }

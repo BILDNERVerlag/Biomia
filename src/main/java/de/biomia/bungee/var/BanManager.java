@@ -22,7 +22,7 @@ public class BanManager {
                 int biomiaID = rs.getInt("biomiaID");
                 String reason = rs.getString("Grund");
                 int timestamp = rs.getInt("timestamp");
-                int length = rs.getInt("l00e4nge");
+                int length = rs.getInt("länge");
                 boolean perm = rs.getBoolean("permanent");
                 int von = rs.getInt("von");
 

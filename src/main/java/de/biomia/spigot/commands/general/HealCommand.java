@@ -22,6 +22,6 @@ public class HealCommand extends BiomiaCommand {
         }
 
         p.setHealth(p.getHealthScale());
-        sender.sendMessage("\u00A7bDu wurdest vollst00e4ndig geheilt!");
+        sender.sendMessage("§bDu wurdest vollständig geheilt!");
     }
 }

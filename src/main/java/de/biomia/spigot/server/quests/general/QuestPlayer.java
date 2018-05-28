@@ -31,11 +31,11 @@ public class QuestPlayer {
     public QuestPlayer(BiomiaPlayer bp) {
         this.biomiaPlayer = bp;
         this.player = bp.getPlayer();
-        book = ItemCreator.itemCreate(Material.WRITTEN_BOOK, "\u00A7cT" +
+        book = ItemCreator.itemCreate(Material.WRITTEN_BOOK, "§cT" +
                 "agebuch");
         for (ItemStack is : player.getInventory().getContents()) {
             try {
-                if (is.getType() == Material.WRITTEN_BOOK && is.getItemMeta().getDisplayName().equals("\u00A7cTagebuch")) {
+                if (is.getType() == Material.WRITTEN_BOOK && is.getItemMeta().getDisplayName().equals("§cTagebuch")) {
                     return;
                 }
             } catch (NullPointerException e) {

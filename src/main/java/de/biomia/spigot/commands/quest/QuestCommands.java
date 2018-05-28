@@ -72,18 +72,18 @@ public class QuestCommands extends BiomiaCommand {
 
         // Seite(n) mit aktiven Quests befuellen
         if (activeQuests.isEmpty()) {
-            TextComponent output = new TextComponent("\u00A71\u00A7l\u00A7nAktive Quests:\n\n\n\u00A74(Noch keine!)");
+            TextComponent output = new TextComponent("§1§l§nAktive Quests:\n\n\n§4(Noch keine!)");
             IChatBaseComponent page = ChatSerializer.a(ComponentSerializer.toString(output));
             pages.add(page);
         } else {
             // Alle coins nacheinander auflisten, pro Quest je eine neue Zeile
-            TextComponent output = new TextComponent("\u00A71\u00A7l\u00A7nAktive Quests:\n\n\n");
+            TextComponent output = new TextComponent("§1§l§nAktive Quests:\n\n\n");
 
             TextComponent text;
 
             for (int i = 0; i < activeQuests.size(); i++) {
                 Quest q = activeQuests.get(i);
-                text = new TextComponent("\u00A74" + q.getDisplayName() + "\n");
+                text = new TextComponent("§4" + q.getDisplayName() + "\n");
                 text.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/q info " + q.getQuestName()));
                 output.addExtra(text);
 
@@ -102,18 +102,18 @@ public class QuestCommands extends BiomiaCommand {
         // Seite mit abgeschlossenen Quests befuellen
         if (finishedQuests.isEmpty()) {
             TextComponent output = new TextComponent(
-                    "\u00A71\u00A7l\u00A7nAbgeschlossene\n     \u00A71\u00A7l\u00A7nQuests:\n\n\u00A74(Noch keine!)");
+                    "§1§l§nAbgeschlossene\n     §1§l§nQuests:\n\n§4(Noch keine!)");
             IChatBaseComponent page = ChatSerializer.a(ComponentSerializer.toString(output));
             pages.add(page);
         } else {
             // Alle Quests nacheinander auflisten, pro Quest je eine neue Zeile
             TextComponent output = new TextComponent(
-                    "\u00A71\u00A7l\u00A7nAbgeschlossene\n     \u00A71\u00A7l\u00A7nQuests:\n\n");
+                    "§1§l§nAbgeschlossene\n     §1§l§nQuests:\n\n");
             TextComponent text;
 
             for (int i = 0; i < finishedQuests.size(); i++) {
                 Quest q = finishedQuests.get(i);
-                text = new TextComponent("\u00A72" + finishedQuests.get(i).getDisplayName() + "\n");
+                text = new TextComponent("§2" + finishedQuests.get(i).getDisplayName() + "\n");
                 text.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/q info " + q.getQuestName()));
                 output.addExtra(text);
 
@@ -130,20 +130,20 @@ public class QuestCommands extends BiomiaCommand {
             }
         }
         // Bonusseite befuellen (Optionen, Stats, etc)
-        TextComponent verschiedenesUeberschrift = new TextComponent("\u00A71\u00A7l\u00A7nVerschiedenes\n\n");
+        TextComponent verschiedenesUeberschrift = new TextComponent("§1§l§nVerschiedenes\n\n");
 
-        TextComponent statsButton = new TextComponent("\u00A79\u00A7l<Statistik>\n\n");
+        TextComponent statsButton = new TextComponent("§9§l<Statistik>\n\n");
         statsButton.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/q stats"));
         verschiedenesUeberschrift.addExtra(statsButton);
 
-        TextComponent respawnButton = new TextComponent("\u00A79\u00A7l<Respawn>\n\n");
+        TextComponent respawnButton = new TextComponent("§9§l<Respawn>\n\n");
         respawnButton.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/q respawn"));
         verschiedenesUeberschrift.addExtra(respawnButton);
 
         TextComponent resetButton = new TextComponent(
-                "\u00A7c\u00A7l<Notfall-Reset>\n\u00A7c\u00A7oKlicke hier nur, falls\n"
-                        + "\u00A7c\u00A7odu stecken bleibst,\n" + "\u00A7c\u00A7odich nichtmehr bewe-\n"
-                        + "\u00A7c\u00A7ogen kannst, etc.\n\n");
+                "§c§l<Notfall-Reset>\n§c§oKlicke hier nur, falls\n"
+                        + "§c§odu stecken bleibst,\n" + "§c§odich nichtmehr bewe-\n"
+                        + "§c§ogen kannst, etc.\n\n");
         resetButton.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/q reset"));
         verschiedenesUeberschrift.addExtra(resetButton);
 
@@ -160,10 +160,10 @@ public class QuestCommands extends BiomiaCommand {
         for (ItemStack is : p.getInventory().getContents()) {
             try {
                 if (is.getType() == Material.WRITTEN_BOOK
-                        && is.getItemMeta().getDisplayName().equals("\u00A7cTagebuch")) {
+                        && is.getItemMeta().getDisplayName().equals("§cTagebuch")) {
                     p.getInventory().setItem(i, qp.getBook());
                     // Spieler ueber Tagebuch-Update informieren
-                    ActionBar.sendActionBar("\u00A76Tagebuch wurde aktualisiert!", p);
+                    ActionBar.sendActionBar("§6Tagebuch wurde aktualisiert!", p);
                     return;
                 }
             } catch (Exception e) {
@@ -258,14 +258,14 @@ public class QuestCommands extends BiomiaCommand {
     private void qresetCommand(Player p, QuestPlayer qp) {
         p.setWalkSpeed(0.2f);
         qp.setDialog(null);
-        p.sendMessage("\u00A78------------------\u00A76Notfall-Reset-Info\u00A78------------------");
-        p.sendMessage("\u00A7aAlle deine Biomia-Einstellungen wurden wieder auf ihre "
-                + "Standardwerte zur00fcckgesetzt. Falls du denkst, dass es sich "
+        p.sendMessage("§8------------------§6Notfall-Reset-Info§8------------------");
+        p.sendMessage("§aAlle deine Biomia-Einstellungen wurden wieder auf ihre "
+                + "Standardwerte zurückgesetzt. Falls du denkst, dass es sich "
                 + "um ein weiterbestehendes Problem handelt, benutze bitte die "
-                + "\u00A76/report\u00A7a-Funktion, damit das Problem behandelt werden kann.");
-        p.sendMessage("\u00A77\u00A7oJede Benutzung des Notfall-Resets wird verzeichnet. Den "
+                + "§6/report§a-Funktion, damit das Problem behandelt werden kann.");
+        p.sendMessage("§7§oJede Benutzung des Notfall-Resets wird verzeichnet. Den "
                 + "Notfall-Reset zu missbrauchen - auf welche Art auch immer - "
-                + "stellt einen Regelversto00df dar und kann mit einem tempor00e4ren "
+                + "stellt einen Regelverstoß dar und kann mit einem temporären "
                 + "oder permanenten Bann bestraft werden.");
     }
 
@@ -277,7 +277,7 @@ public class QuestCommands extends BiomiaCommand {
             for (Quest q : Biomia.getQuestManager().getQuests()) {
                 questsProBand[q.getBand()]++;
             }
-            sender.sendMessage("\u00A78----------\u00A76Quest Stats & Info\u00A78----------");
+            sender.sendMessage("§8----------§6Quest Stats & Info§8----------");
             for (int i = 0; i < questsProBand.length; i++) {
                 int playerProgress = 0;
                 if (questsProBand[i] != 0) {
@@ -288,9 +288,9 @@ public class QuestCommands extends BiomiaCommand {
                             playerProgress++;
                         }
                     }
-                    sender.sendMessage("\u00A76Band " + i + ": \u00A7aFortschritt: "
+                    sender.sendMessage("§6Band " + i + ": §aFortschritt: "
                             + Math.round((double) playerProgress / (double) questsProBand[i] * 100) + "%"
-                            + "\n   \u00A77" + playerProgress + "/" + questsProBand[i]
+                            + "\n   §7" + playerProgress + "/" + questsProBand[i]
                             + " Quests erfolgreich abgeschlossen.");
                 }
             }
@@ -299,9 +299,9 @@ public class QuestCommands extends BiomiaCommand {
             try {
                 band = Integer.parseInt(args[1]);
             } catch (NumberFormatException e) {
-                sender.sendMessage("\u00A7c" + args[1] + " ist keine erlaubte Zahl.");
+                sender.sendMessage("§c" + args[1] + " ist keine erlaubte Zahl.");
             }
-            sender.sendMessage("\u00A76Band " + band + ": \u00A7aFortschritt: " + qp.getQuestPercentage(band) + "%");
+            sender.sendMessage("§6Band " + band + ": §aFortschritt: " + qp.getQuestPercentage(band) + "%");
         }
     }
 
@@ -309,23 +309,23 @@ public class QuestCommands extends BiomiaCommand {
      * Listet ALLE questserverspezifischen QuestCommands auf.
      */
     private void qhelpCommand(CommandSender sender) {
-        sender.sendMessage("\u00A78------------\u00A76QuestCommands\u00A78-----------");
-        sender.sendMessage("\u00A76/qlist \u00A7aum alle deine coins aufzulisten.");
-        sender.sendMessage("\u00A76/qstats \u00A7af00fcr Infos zu deinem Questfortschritt.");
-        sender.sendMessage("\u00A76/qinfo <NAME> \u00A7af00fcr Infos zu einer bestimmten Quest");
-        sender.sendMessage("\u00A76/tagebuch \u00A7aum ein neues Tagebuch zu erhalten.");
+        sender.sendMessage("§8------------§6QuestCommands§8-----------");
+        sender.sendMessage("§6/qlist §aum alle deine coins aufzulisten.");
+        sender.sendMessage("§6/qstats §afür Infos zu deinem Questfortschritt.");
+        sender.sendMessage("§6/qinfo <NAME> §afür Infos zu einer bestimmten Quest");
+        sender.sendMessage("§6/tagebuch §aum ein neues Tagebuch zu erhalten.");
         if (Biomia.getBiomiaPlayer((Player) sender).isOwnerOrDev()) {
-            sender.sendMessage("\u00A78--------\u00A7cDev Commands\u00A78--------");
+            sender.sendMessage("§8--------§cDev Commands§8--------");
             sender.sendMessage(
-                    "\u00A7c\u00A7lAchtung! \u00A7r\u00A7cK00f6nnen bei unpr00e4ziser Nutzung unvorhergesehene Konsequenzen herbeif00fchren."
-                            + " Benutze sie nur, wenn du wirklich wei00dft, was du tust.");
-            sender.sendMessage("\u00A7c/aion \u00A7aNPC-AI an.  \u00A7c/aioff \u00A7aNPC-AI aus.");
-            sender.sendMessage("\u00A7c/aitoggle \u00A7asch00e4lt NPC-AI an bzw. aus.");
-            sender.sendMessage("\u00A76/qalign \u00A7asammelt alle NPCs an einem best. Punkt.");
-            sender.sendMessage("\u00A76/qrestore \u00A7asendet alle NPCs wieder zur00fcck.");
-            sender.sendMessage("\u00A76/qr [NAME] \u00A7aum dich aus coins zu entfernen.");
+                    "§c§lAchtung! §r§cKönnen bei unpräziser Nutzung unvorhergesehene Konsequenzen herbeiführen."
+                            + " Benutze sie nur, wenn du wirklich weißt, was du tust.");
+            sender.sendMessage("§c/aion §aNPC-AI an.  §c/aioff §aNPC-AI aus.");
+            sender.sendMessage("§c/aitoggle §aschält NPC-AI an bzw. aus.");
+            sender.sendMessage("§6/qalign §asammelt alle NPCs an einem best. Punkt.");
+            sender.sendMessage("§6/qrestore §asendet alle NPCs wieder zurück.");
+            sender.sendMessage("§6/qr [NAME] §aum dich aus coins zu entfernen.");
         }
-        sender.sendMessage("\u00A78------------------------------------");
+        sender.sendMessage("§8------------------------------------");
 
     }
 
@@ -348,24 +348,24 @@ public class QuestCommands extends BiomiaCommand {
                 n.getNavigator().getLocalParameters().speedModifier(0.8f);
                 gc.addBehavior(WanderGoal.createWithNPC(n), 3);
                 if (!n.getName().equals(""))
-                    aktiviert.append("\u00A72<\u00A7a").append(n.getName()).append("\u00A72>\u00A7a, ");
+                    aktiviert.append("§2<§a").append(n.getName()).append("§2>§a, ");
             } else {
                 gc.cancelCurrentExecution();
                 gc.setPaused(true);
                 if (!n.getName().equals(""))
-                    deaktiviert.append("\u00A72<\u00A7a").append(n.getName()).append("\u00A72>\u00A7a, ");
+                    deaktiviert.append("§2<§a").append(n.getName()).append("§2>§a, ");
             }
         }
-        Bukkit.broadcastMessage("\u00A7bAI aktiviert f00fcr:");
+        Bukkit.broadcastMessage("§bAI aktiviert für:");
         if (aktiviert.length() >= 2)
-            Bukkit.broadcastMessage("\u00A72{" + aktiviert.substring(0, aktiviert.length() - 2) + "\u00A72 }");
+            Bukkit.broadcastMessage("§2{" + aktiviert.substring(0, aktiviert.length() - 2) + "§2 }");
         else
-            Bukkit.broadcastMessage("\u00A72{ }");
-        Bukkit.broadcastMessage("\u00A7bAI deaktiviert f00fcr:");
+            Bukkit.broadcastMessage("§2{ }");
+        Bukkit.broadcastMessage("§bAI deaktiviert für:");
         if (deaktiviert.length() >= 2)
-            Bukkit.broadcastMessage("\u00A72{" + deaktiviert.substring(0, deaktiviert.length() - 2) + "\u00A72 }");
+            Bukkit.broadcastMessage("§2{" + deaktiviert.substring(0, deaktiviert.length() - 2) + "§2 }");
         else
-            Bukkit.broadcastMessage("\u00A72{ }");
+            Bukkit.broadcastMessage("§2{ }");
     }
 
     private void aioffCommand() {
@@ -422,23 +422,23 @@ public class QuestCommands extends BiomiaCommand {
         for (Quest q : (Biomia.getQuestPlayer((Player) sender)).getActiveQuests()) {
             if (q == null)
                 continue;
-            temp.append("\u00A72<\u00A7a").append(q.getDisplayName()).append("\u00A72>, ");
+            temp.append("§2<§a").append(q.getDisplayName()).append("§2>, ");
         }
         if (!temp.toString().equals(""))
-            sender.sendMessage("\u00A72{" + temp.substring(0, temp.length() - 2) + "\u00A72}");
+            sender.sendMessage("§2{" + temp.substring(0, temp.length() - 2) + "§2}");
         else
-            sender.sendMessage("\u00A72{ }");
+            sender.sendMessage("§2{ }");
         temp = new StringBuilder();
         sender.sendMessage(QuestMessages.finishedQuests);
         for (Quest q : (Biomia.getQuestPlayer((Player) sender)).getFinishedQuests()) {
             if (q == null)
                 continue;
-            temp.append("\u00A72<\u00A7a").append(q.getDisplayName()).append("\u00A72>, ");
+            temp.append("§2<§a").append(q.getDisplayName()).append("§2>, ");
         }
         if (!temp.toString().equals(""))
-            sender.sendMessage("\u00A72{" + temp.substring(0, temp.length() - 2) + "\u00A72}");
+            sender.sendMessage("§2{" + temp.substring(0, temp.length() - 2) + "§2}");
         else
-            sender.sendMessage("\u00A72{ }");
+            sender.sendMessage("§2{ }");
     }
 
     private void qrCommand(CommandSender sender, String[] args, QuestPlayer qp) {
@@ -496,7 +496,7 @@ public class QuestCommands extends BiomiaCommand {
 
                 break;
             default:
-                sender.sendMessage("\u00A7c/qr <Quest>");
+                sender.sendMessage("§c/qr <Quest>");
                 break;
         }
         qp.updateBook();
@@ -540,7 +540,7 @@ public class QuestCommands extends BiomiaCommand {
         // gives a diary
         for (ItemStack is : p.getInventory().getContents()) {
             if (is != null && is.getType() == Material.WRITTEN_BOOK
-                    && is.getItemMeta().getDisplayName().equals("\u00A7cTagebuch")) {
+                    && is.getItemMeta().getDisplayName().equals("§cTagebuch")) {
                 p.sendMessage(QuestMessages.alreadyHaveABook);
                 return;
             }
@@ -560,31 +560,31 @@ public class QuestCommands extends BiomiaCommand {
             // send info messages
             sender.sendMessage("");
             sender.sendMessage(QuestMessages.dividerLine);
-            sender.sendMessage("\u00A7b\u00A7l" + q.getDisplayName());
+            sender.sendMessage("§b§l" + q.getDisplayName());
             if (q.getInfoText() == null)
                 sender.sendMessage(QuestMessages.noInformationAboutThisQuest);
             else
-                sender.sendMessage("\u00A7a" + q.getInfoText());
+                sender.sendMessage("§a" + q.getInfoText());
             sender.sendMessage("");
-            sender.sendMessage("\u00A7b" + QuestMessages.involvedNPCs);
+            sender.sendMessage("§b" + QuestMessages.involvedNPCs);
             StringBuilder s = new StringBuilder();
             for (NPC n : q.getNpcs()) {
                 if (!n.getName().equals(""))
-                    s.append("\u00A7a").append(n.getName()).append(", ");
+                    s.append("§a").append(n.getName()).append(", ");
             }
             if (s.toString().equals(""))
-                s = new StringBuilder("\u00A7aKeine.");
+                s = new StringBuilder("§aKeine.");
             else
                 s = new StringBuilder(s.substring(0, s.length() - 2));
             sender.sendMessage(s.toString());
             sender.sendMessage(QuestMessages.dividerLine);
             if (Biomia.getBiomiaPlayer(p).isStaff()) {
-                sender.sendMessage("\u00A78ID=" + q.getQuestID() + ", \u00A78Cooldown=" + q.getCooldown()
-                        + "s, \u00A78Repeatable=" + q.isRepeatable());
+                sender.sendMessage("§8ID=" + q.getQuestID() + ", §8Cooldown=" + q.getCooldown()
+                        + "s, §8Repeatable=" + q.isRepeatable());
                 sender.sendMessage(QuestMessages.dividerLine);
             }
         } else {
-            sender.sendMessage("\u00A7c/qinfo <QuestName>");
+            sender.sendMessage("§c/qinfo <QuestName>");
         }
     }
 

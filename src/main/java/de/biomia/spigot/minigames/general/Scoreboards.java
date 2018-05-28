@@ -28,26 +28,26 @@ public class Scoreboards {
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         o.getScore(" ").setScore(7);
-        o.getScore("\u00A7cMap:").setScore(6);
-        o.getScore("\u00A7c").setScore(5);
-        o.getScore("\u00A7a").setScore(4);
-        o.getScore("\u00A7cTeams:").setScore(3);
-        o.getScore("\u00A7f").setScore(2);
-        o.getScore("\u00A71").setScore(1);
+        o.getScore("§cMap:").setScore(6);
+        o.getScore("§c").setScore(5);
+        o.getScore("§a").setScore(4);
+        o.getScore("§cTeams:").setScore(3);
+        o.getScore("§f").setScore(2);
+        o.getScore("§1").setScore(1);
 
         Team map = lobbySB.registerNewTeam("map");
         Team teams = lobbySB.registerNewTeam("teams");
 
-        map.addEntry("\u00A7c");
-        teams.addEntry("\u00A7f");
+        map.addEntry("§c");
+        teams.addEntry("§f");
 
-        map.setPrefix("\u00A7b" + mode.getInstance().getMapDisplayName());
-        teams.setPrefix("\u00A7b" + mode.getInstance().getTeamAmount() + " \u00A77x " + "\u00A7b" + mode.getInstance().getTeamSize());
+        map.setPrefix("§b" + mode.getInstance().getMapDisplayName());
+        teams.setPrefix("§b" + mode.getInstance().getTeamAmount() + " §7x " + "§b" + mode.getInstance().getTeamSize());
 
         for (GameTeam t : mode.getTeams()) {
             lobbySB.registerNewTeam(t.getColor().name()).setPrefix(t.getColorcode());
         }
-        lobbySB.registerNewTeam("xnoteam").setPrefix("\u00A77");
+        lobbySB.registerNewTeam("xnoteam").setPrefix("§7");
 
     }
 
@@ -56,7 +56,7 @@ public class Scoreboards {
             spectatorSB = Bukkit.getScoreboardManager().getNewScoreboard();
             for (GameTeam t : mode.getTeams())
                 spectatorSB.registerNewTeam(t.getColor().name()).setPrefix(t.getColorcode());
-            spectatorSB.registerNewTeam("spectator").setPrefix("\u00A77\u00A7o");
+            spectatorSB.registerNewTeam("spectator").setPrefix("§7§o");
         }
         for (Player pl : Bukkit.getOnlinePlayers()) {
             BiomiaPlayer bp = Biomia.getBiomiaPlayer(pl);
@@ -87,30 +87,30 @@ public class Scoreboards {
             case BED_WARS:
             case BED_WARS_VS:
                 o.getScore(" ").setScore(3);
-                o.getScore("\u00A7cTeam:").setScore(2);
-                o.getScore("\u00A7c").setScore(1);
+                o.getScore("§cTeam:").setScore(2);
+                o.getScore("§c").setScore(1);
 
                 team = sb.registerNewTeam("team");
-                team.addEntry("\u00A7c");
+                team.addEntry("§c");
                 team.setPrefix(gameTeam.getColorcode() + gameTeam.getColor().translate());
                 break;
             case SKY_WARS:
             case SKY_WARS_VS:
                 o.getScore(" ").setScore(7);
-                o.getScore("\u00A7cKit:").setScore(6);
-                o.getScore("\u00A7c").setScore(5);
-                o.getScore("\u00A7a").setScore(4);
-                o.getScore("\u00A7cTeam:").setScore(3);
-                o.getScore("\u00A7f").setScore(2);
-                o.getScore("\u00A71").setScore(1);
+                o.getScore("§cKit:").setScore(6);
+                o.getScore("§c").setScore(5);
+                o.getScore("§a").setScore(4);
+                o.getScore("§cTeam:").setScore(3);
+                o.getScore("§f").setScore(2);
+                o.getScore("§1").setScore(1);
 
                 Team kit = sb.registerNewTeam("kitname");
                 team = sb.registerNewTeam("team");
 
-                kit.addEntry("\u00A7c");
-                team.addEntry("\u00A7f");
+                kit.addEntry("§c");
+                team.addEntry("§f");
 
-                kit.setPrefix("\u00A7b" + KitManager.getManager(Biomia.getBiomiaPlayer(p)).getSelectedKit().getName());
+                kit.setPrefix("§b" + KitManager.getManager(Biomia.getBiomiaPlayer(p)).getSelectedKit().getName());
                 team.setPrefix(gameTeam.getColorcode() + gameTeam.getColor().translate());
                 break;
         }

@@ -34,7 +34,7 @@ class ReporterInventoryOfPlayer implements Listener {
         this.master = master;
         this.biomiaIDReportedPlayer = biomiaIDReportedPlayer;
         String nameReportedPlayer = Biomia.getOfflineBiomiaPlayer(biomiaIDReportedPlayer).getName();
-        inv = Bukkit.createInventory(null, 27, "\u00A7b" + nameReportedPlayer + "'s Report Profile");
+        inv = Bukkit.createInventory(null, 27, "§b" + nameReportedPlayer + "'s Report Profile");
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
     }
 
@@ -76,19 +76,19 @@ class ReporterInventoryOfPlayer implements Listener {
 
     private void setNext() {
         if (next == null)
-            next = ItemCreator.itemCreate(Material.BLAZE_ROD, "\u00A7aN00e4chste Seite");
+            next = ItemCreator.itemCreate(Material.BLAZE_ROD, "§aNächste Seite");
         inv.setItem(inv.getSize() - 3, next);
     }
 
     private void setBack() {
         if (back == null)
-            back = ItemCreator.itemCreate(Material.STICK, "\u00A7aLetzte Seite");
+            back = ItemCreator.itemCreate(Material.STICK, "§aLetzte Seite");
         inv.setItem(inv.getSize() - 7, back);
     }
 
     private void setHome() {
         if (home == null)
-            home = ItemCreator.itemCreate(Material.GOLDEN_CARROT, "\u00A7aZur00fcck");
+            home = ItemCreator.itemCreate(Material.GOLDEN_CARROT, "§aZurück");
         inv.setItem(inv.getSize() - 9, home);
     }
 
@@ -98,7 +98,7 @@ class ReporterInventoryOfPlayer implements Listener {
         for (PlayerReport playerReport : ReportSQL.getAllReportsOf(biomiaIDReportedPlayer)) {
             String reporter = playerReport.getReporterBiomiaPlayer().getName();
 
-            ItemStack stack = ItemCreator.headWithSkin(reporter, "\u00A7c" + reporter);
+            ItemStack stack = ItemCreator.headWithSkin(reporter, "§c" + reporter);
             ItemMeta meta = stack.getItemMeta();
             meta.setLore(Arrays.asList("", "Grund: " + playerReport.getGrund(), ""));
             stack.setItemMeta(meta);

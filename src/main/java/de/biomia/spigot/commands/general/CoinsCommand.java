@@ -62,7 +62,7 @@ public class CoinsCommand extends BiomiaCommand {
                         break;
                     case "add":
                         target.addCoins(coins, false);
-                        sender.sendMessage(String.format("%s%sDem Spieler %s%s%s wurden %s%d%s BC hinzugef00fcgt!", Messages.PREFIX, Messages.COLOR_MAIN, Messages.COLOR_SUB, target.getName(), Messages.COLOR_MAIN, Messages.COLOR_SUB, coins, Messages.COLOR_MAIN));
+                        sender.sendMessage(String.format("%s%sDem Spieler %s%s%s wurden %s%d%s BC hinzugefügt!", Messages.PREFIX, Messages.COLOR_MAIN, Messages.COLOR_SUB, target.getName(), Messages.COLOR_MAIN, Messages.COLOR_SUB, coins, Messages.COLOR_MAIN));
                         break;
                     case "get":
                         break;

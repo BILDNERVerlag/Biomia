@@ -36,8 +36,8 @@ public abstract class BiomiaListener implements Listener {
     public final void onJoin(PlayerJoinEvent e) {
         e.setJoinMessage(null);
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        HeaderAndFooter.sendHeaderAndFooter(e.getPlayer(), "\n\u00A7cBIO\u00A7bMIA\n",
-                "\u00A7cWebsite: \u00A7bwww.biomia.de\n\u00A7cTS: \u00A7bts.biomia.de");
+        HeaderAndFooter.sendHeaderAndFooter(e.getPlayer(), "\n§cBIO§bMIA\n",
+                "§cWebsite: §bwww.biomia.de\n§cTS: §bts.biomia.de");
         Cosmetic.load(bp);
     }
 
@@ -96,7 +96,7 @@ public abstract class BiomiaListener implements Listener {
             ReportManager.waitingForBugReason.remove(p);
             e.setCancelled(true);
             ReportSQL.addBugReport(p, e.getMessage());
-            p.sendMessage("\u00A7cDanke f00fcr deinen Bug Report! \u00A7bWir werden den Bug so schnell wie m00f6glich beheben!");
+            p.sendMessage("§cDanke für deinen Bug Report! §bWir werden den Bug so schnell wie möglich beheben!");
         } else if (ReportManager.waitingForName.contains(p)) {
             ReportManager.waitingForName.remove(p);
             e.setCancelled(true);
@@ -108,7 +108,7 @@ public abstract class BiomiaListener implements Listener {
             ReportManager.waitForCostumReason.remove(bp);
         }
 
-        e.setFormat(bp.getRank().getPrefix() + "%s\u00A77: \u00A7f%s");
+        e.setFormat(bp.getRank().getPrefix() + "%s§7: §f%s");
 
         if (bp.isSrStaff()) {
             e.setMessage(ChatColor.translateAlternateColorCodes('&', e.getMessage()));

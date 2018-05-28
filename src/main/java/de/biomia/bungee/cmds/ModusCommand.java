@@ -29,15 +29,15 @@ public class ModusCommand extends Command {
                         setModus(true);
                         for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers())
                             if (!p.hasPermission("biomia.join"))
-                                p.disconnect(new TextComponent("\u00A7cDer Server ist jetzt im \u00A7bWartungsmodus\u00A7c!"));
-                        ProxyServer.getInstance().broadcast(new TextComponent("\u00A7cDer Server ist jetzt im \u00A7bWartungsmodus\u00A7c!"));
+                                p.disconnect(new TextComponent("§cDer Server ist jetzt im §bWartungsmodus§c!"));
+                        ProxyServer.getInstance().broadcast(new TextComponent("§cDer Server ist jetzt im §bWartungsmodus§c!"));
                     } else if (switcher.toLowerCase().equals("off")) {
                         wartungsModus = false;
                         setModus(false);
-                        ProxyServer.getInstance().broadcast(new TextComponent("\u00A7cDer Server ist nicht l00e4nger im \u00A7bWartungsmodus\u00A7c!"));
+                        ProxyServer.getInstance().broadcast(new TextComponent("§cDer Server ist nicht länger im §bWartungsmodus§c!"));
                     }
                 } else
-                    pp.sendMessage(new TextComponent("\u00A7c/modus <on | off>"));
+                    pp.sendMessage(new TextComponent("§c/modus <on | off>"));
             } else {
                 pp.sendMessage(new TextComponent(Messages.NO_PERM));
             }
