@@ -19,7 +19,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 public class Kuerbissuche implements Listener {
-    private final Quest q = Biomia.getQuestManager().registerNewQuest("Kürbissuche", 1);
+    private final Quest q = Biomia.getQuestManager().registerNewQuest("K00fcrbissuche", 1);
     private final NPC korbinian;
     private DialogMessage startDialog;
     private DialogMessage comeBackWPumpkin;
@@ -28,7 +28,7 @@ public class Kuerbissuche implements Listener {
 
     public Kuerbissuche() {
         q.setInfoText(
-                "Korbinian ist bereits voll mit den Vorbereitungen für das nächste Halloween-Event beschäftigt und benötigt einen Kürbis, um eine gruselige Laterne daraus zu machen.");
+                "Korbinian ist bereits voll mit den Vorbereitungen f00fcr das n00e4chste Halloween-Event besch00e4ftigt und ben00f6tigt einen K00fcrbis, um eine gruselige Laterne daraus zu machen.");
         korbinian = q.createNPC(EntityType.PLAYER, "Korbinian");
         Location loc = new Location(Bukkit.getWorld("Quests"), 97.5, 70, -305.5, -60, 0);
         korbinian.spawn(loc);
@@ -69,10 +69,10 @@ public class Kuerbissuche implements Listener {
     private void initDialog() {
         // start dl
         startDialog = new DialogMessage(q, korbinian)
-                .setInhalt("He, du da! Kannst du einen Kürbis für mich auftreiben?!");
-        startDialog.setFortsetzung("Okay, ich mache es.").setFortsetzung("Was springt für mich dabei raus?");
+                .setInhalt("He, du da! Kannst du einen K00fcrbis f00fcr mich auftreiben?!");
+        startDialog.setFortsetzung("Okay, ich mache es.").setFortsetzung("Was springt f00fcr mich dabei raus?");
         startDialog.setNext(
-                "Das wird super! Ich kann es kaum abwarten, meine eigene Kürbislaterne in den Händen zu halten!",
+                "Das wird super! Ich kann es kaum abwarten, meine eigene K00fcrbislaterne in den H00e4nden zu halten!",
                 0, korbinian);
         startDialog.setNext("Naja, irgendwas werde ich schon finden, das ich dir als Belohnung andrehen kann, nicht?",
                 1, korbinian).setFortsetzung("Na gut...").setFortsetzung("Nein!");
@@ -89,11 +89,11 @@ public class Kuerbissuche implements Listener {
         startDialog.getNext(1).getNext(0).addPlayerToQuest();
 
         // wo pumpkin
-        comeBackWOPumpkin = new DialogMessage(q, korbinian).setInhalt("Wo bleibt mein Kürbis?");
+        comeBackWOPumpkin = new DialogMessage(q, korbinian).setInhalt("Wo bleibt mein K00fcrbis?");
 
         // w pumpkin
         comeBackWPumpkin = new DialogMessage(q, korbinian)
-                .setInhalt("Oh, was für ein Prachtexexmplar! Sehr gut, jetzt verschwinde!");
+                .setInhalt("Oh, was f00fcr ein Prachtexexmplar! Sehr gut, jetzt verschwinde!");
         comeBackWPumpkin.addEvent(new TakeItemEvent(Material.PUMPKIN, 1));
         comeBackWPumpkin.addEvent(qp -> {
             qp.getQuestPlayer().removeMineableBlock(Material.PUMPKIN);
@@ -107,6 +107,6 @@ public class Kuerbissuche implements Listener {
 
         // nach quest
         nachQuest = new DialogMessage(q, korbinian).setInhalt(
-                "Ich bin so stolz auf den großartigen Kürbis, den du mir besorgt hast. Danke nochmal!");
+                "Ich bin so stolz auf den gro00dfartigen K00fcrbis, den du mir besorgt hast. Danke nochmal!");
     }
 }

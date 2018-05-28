@@ -30,7 +30,7 @@ public class Forsthilfe implements Listener {
     public Forsthilfe() {
         String npcName = "Forsen";
         q.setInfoText(npcName
-                + ", der Förster, möchte, dass du ihm dabei hilfst, den Wald wieder auszuweiten. Er bittet dich deshalb darum, ihm einige Setzlinge zu besorgen. Zehn sollten genügen.");
+                + ", der F00f6rster, m00f6chte, dass du ihm dabei hilfst, den Wald wieder auszuweiten. Er bittet dich deshalb darum, ihm einige Setzlinge zu besorgen. Zehn sollten gen00fcgen.");
         npc = q.createNPC(EntityType.PLAYER, npcName);
         Location npcLoc = new Location(Bukkit.getWorld("Quests"), 118.305, 71, -300, 92, 28);
         npc.spawn(npcLoc);
@@ -73,22 +73,22 @@ public class Forsthilfe implements Listener {
         startDialog = new DialogMessage(q, npc);
         startDialog
                 .setInhalt("Oh, hallo! Bist du neu hier in der Gegend? Ich bin " + npc.getName()
-                        + ", der Förster! Sag, könntest du mir einen Gefallen tun?")
+                        + ", der F00f6rster! Sag, k00f6nntest du mir einen Gefallen tun?")
                 .setFortsetzung("Um was gehts denn?").setFortsetzung("Ein ander Mal!");
         startDialog.setNext(
-                "Nunja, die Setzlinge werden langsam knapp! Könntest du mir, sagen wir.. 10 Stück bringen?",
+                "Nunja, die Setzlinge werden langsam knapp! K00f6nntest du mir, sagen wir.. 10 St00fcck bringen?",
                 0, npc);
         startDialog.setNext("Naja, verstehe schon. Melde dich, wenn du Zeit hast.", 1, npc);
         startDialog.getNext(0).setFortsetzung("Kein Problem!").setFortsetzung("Keine Zeit!");
         startDialog.getNext(0).setNext(
-                "Vielen, vielen Dank! Ich hoffe, das macht dir nicht zu viel aus, du bist wahrscheinlich ja eh öfter mal im Holzfarmgebiet unterwegs, nehm ich an...",
+                "Vielen, vielen Dank! Ich hoffe, das macht dir nicht zu viel aus, du bist wahrscheinlich ja eh 00f6fter mal im Holzfarmgebiet unterwegs, nehm ich an...",
                 0, npc).setFortsetzung("Bis dann!").setFortsetzung("Holzfarmgebiet?").addPlayerToQuest();
         startDialog.getNext(0).setNext(
-                "Kein Problem, das nehme ich dir nicht übel! Aber falls du es dir doch noch einmal anders überlegen solltest, melde dich ruhig bei mir!",
+                "Kein Problem, das nehme ich dir nicht 00fcbel! Aber falls du es dir doch noch einmal anders 00fcberlegen solltest, melde dich ruhig bei mir!",
                 1, npc);
         startDialog.getNext(0).getNext(0).setNext("Wir sehen uns!", 0, npc);
         startDialog.getNext(0).getNext(0).setNext(
-                "Oh, das kennst du nicht? Das ist ein kleines Gebiet im Osten des Dorfes, wo es erlaubt ist, Büume zu füllen. Ich dachte, wenn du nach Setzlingen suchst, bist du dort richtig aufgehoben. Also, viel Glück!",
+                "Oh, das kennst du nicht? Das ist ein kleines Gebiet im Osten des Dorfes, wo es erlaubt ist, B00fcume zu f00fcllen. Ich dachte, wenn du nach Setzlingen suchst, bist du dort richtig aufgehoben. Also, viel Gl00fcck!",
                 1, npc);
 
         // without item
@@ -97,12 +97,12 @@ public class Forsthilfe implements Listener {
 
         // with item
         comeBackWithItem = new DialogMessage(q, npc)
-                .setInhalt("Du hast zehn Stück Setzlinge? Kann ich die haben? Das ist ja wunderbar! Vielen Dank!");
+                .setInhalt("Du hast zehn St00fcck Setzlinge? Kann ich die haben? Das ist ja wunderbar! Vielen Dank!");
         comeBackWithItem.addEvent(new TakeItemEvent(Material.SAPLING, 10)).addEvent(new AddCoinEvent(150));
 
         // nach quest
         nachQuest = new DialogMessage(q, npc).setInhalt(
-                "Dank meiner unermüdlichen Arbeit, gehen dir nie die Büume im Holzfarmgebiet aus! Ist das nicht wunderbar?");
+                "Dank meiner unerm00fcdlichen Arbeit, gehen dir nie die B00fcume im Holzfarmgebiet aus! Ist das nicht wunderbar?");
     }
 
 }

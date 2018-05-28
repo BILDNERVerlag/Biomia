@@ -144,7 +144,7 @@ public class StatCommand extends BiomiaCommand {
                     sendError(sender);
                     return;
             }
-            sender.sendMessage("\u00A7aCommand erfolgreich ausgeführt.");
+            sender.sendMessage("\u00A7aCommand erfolgreich ausgef00fchrt.");
         }
     }
 

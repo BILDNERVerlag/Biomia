@@ -32,8 +32,8 @@ public class Wiederaufbau implements Listener {
 
     public Wiederaufbau() {
         q.setInfoText(
-                "Der pflichtbewusste Bürger Jonathan sorgt sich, dass das Dorf nicht gut genug gegen Monsterangriffe gerüstet ist. Er "
-                        + "möchte die Verteidigungslinien stärken und braucht dazu 32 Bruchstein.");
+                "Der pflichtbewusste B00fcrger Jonathan sorgt sich, dass das Dorf nicht gut genug gegen Monsterangriffe ger00fcstet ist. Er "
+                        + "m00f6chte die Verteidigungslinien st00e4rken und braucht dazu 32 Bruchstein.");
         String npcName = "Jonathan";
         npc = q.createNPC(EntityType.PLAYER, npcName);
         Location npcLoc = new Location(Bukkit.getWorld("Quests"), 96.5, 73, -268.5, 160, 0);
@@ -76,20 +76,20 @@ public class Wiederaufbau implements Listener {
     private void initDialog() {
         startDialog = new DialogMessage(q, npc);
         startDialog.setInhalt(
-                "Hmm.. Es kommt mir fast so vor, als würden die Zombies und Skelette von Tag zu Tag weniger werden... Vielleicht ist jetzt der richtige Zeitpunkt, um ein bisschen mit dem Wiederaufbau unseres Dorfes anzufangen?");
+                "Hmm.. Es kommt mir fast so vor, als w00fcrden die Zombies und Skelette von Tag zu Tag weniger werden... Vielleicht ist jetzt der richtige Zeitpunkt, um ein bisschen mit dem Wiederaufbau unseres Dorfes anzufangen?");
         startDialog.setFortsetzung("Wiederaufbau? War hier etwa mal mehr?").setFortsetzung("Klingt zu anstrengend.");
         startDialog.setNext(
-                "Was für eine Frage! Erst vor ein paar Jahren noch haben sich von hier auf Felder erstreckt, so weit das Auge nur reichte! Und naja, es war auch einfach ein bisschen mehr los. Damals wohnten noch mehr Leute hier.",
+                "Was f00fcr eine Frage! Erst vor ein paar Jahren noch haben sich von hier auf Felder erstreckt, so weit das Auge nur reichte! Und naja, es war auch einfach ein bisschen mehr los. Damals wohnten noch mehr Leute hier.",
                 0, npc);
-        startDialog.setNext("Wie bitte? Dafür wirst du dir ja wohl wirklich Zeit nehmen können... Grrmpf...",
+        startDialog.setNext("Wie bitte? Daf00fcr wirst du dir ja wohl wirklich Zeit nehmen k00f6nnen... Grrmpf...",
                 1, npc);
         startDialog.getNext(0).setFortsetzung("Was genau hast du jetzt vor?")
-                .setFortsetzung("Brauchst du dafür Geld?");
+                .setFortsetzung("Brauchst du daf00fcr Geld?");
         startDialog.getNext(0).setNext(
-                "Naja, ich möchte zumindest mal damit anfangen, unsere Felder wieder auf Vordermann zu bringen! Könntest du, sagen wir.. 32 Bruchstein besorgen?",
+                "Naja, ich m00f6chte zumindest mal damit anfangen, unsere Felder wieder auf Vordermann zu bringen! K00f6nntest du, sagen wir.. 32 Bruchstein besorgen?",
                 0, npc);
         startDialog.getNext(0).setNext(
-                "Was? Nein, äh, also schon - aber nein, schon gut. Wichtiger ist brauchbares Baumaterial. Könntest du mir - sagen wir mal - zwei Stacks Bruchstein bringen?",
+                "Was? Nein, 00e4h, also schon - aber nein, schon gut. Wichtiger ist brauchbares Baumaterial. K00f6nntest du mir - sagen wir mal - zwei Stacks Bruchstein bringen?",
                 1, npc);
         startDialog.getNext(0).getNext(0).setFortsetzung("Jap, mache ich!").setFortsetzung("Ein ander Mal vielleicht!");
         startDialog.getNext(0).getNext(1).setFortsetzung("Jap, mache ich!").setFortsetzung("Ein ander Mal vielleicht!");
@@ -100,7 +100,7 @@ public class Wiederaufbau implements Listener {
 
         // comeback wo
         comeBackWithoutItem = new DialogMessage(q, npc).setInhalt(
-                "Bitte beeil dich mit dem Bruchstein! Der Winter naht und die Nächte sind kalt und voller Schrecken!");
+                "Bitte beeil dich mit dem Bruchstein! Der Winter naht und die N00e4chte sind kalt und voller Schrecken!");
 
         // comeback w
         comeBackWithItem = new DialogMessage(q, npc)
@@ -110,7 +110,7 @@ public class Wiederaufbau implements Listener {
 
         // nach quest
         nachQuest = new DialogMessage(q, npc).setInhalt(
-                "Vielen, vielen Dank nochmal für die Hilfe mit all den Steinen! Das hat uns allen wirklich den Allerwertesten gerettet!");
+                "Vielen, vielen Dank nochmal f00fcr die Hilfe mit all den Steinen! Das hat uns allen wirklich den Allerwertesten gerettet!");
     }
 
 }

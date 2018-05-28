@@ -123,15 +123,15 @@ public class VSManager implements Listener {
         TextComponent page0 = new TextComponent("Willkommen auf dem Duell-Server der " + Messages.BIOMIA + "-Tec! " +
                 "Hier kannst du in den Modi \u00A7cSkyWars\u00A7r, \u00A7cBedWars\u00A7r und \u00A7cKitPVP\u00A7r einzeln gegeneinander antreten.\n\n" +
                 "\u00A7c\u00A7nKitPVP:\n" +
-                "Zwei Spieler kämpfen mit identischen Kits gegeneinander.");
+                "Zwei Spieler k00e4mpfen mit identischen Kits gegeneinander.");
         IChatBaseComponent pageZero = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(page0));
 
         TextComponent page1 = new TextComponent("\u00A7c\u00A7nEinstellungen:\n\n");
         page1.addExtra(new TextComponent("In den Einstellungen kannst du dir aus- " +
                 "suchen, welche Spielmodus du gerne " +
-                "spielen würdest.\n" +
-                "Außerdem kannst du dort auch " +
-                "die Maps und dein Kit auswählen."));
+                "spielen w00fcrdest.\n" +
+                "Au00dferdem kannst du dort auch " +
+                "die Maps und dein Kit ausw00e4hlen."));
         IChatBaseComponent pageFirst = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(page1));
 
         TextComponent page2 = new TextComponent("\u00A7c\u00A7nWarteschlange:\n\n");

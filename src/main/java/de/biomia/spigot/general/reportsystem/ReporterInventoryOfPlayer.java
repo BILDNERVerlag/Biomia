@@ -76,7 +76,7 @@ class ReporterInventoryOfPlayer implements Listener {
 
     private void setNext() {
         if (next == null)
-            next = ItemCreator.itemCreate(Material.BLAZE_ROD, "\u00A7aNächste Seite");
+            next = ItemCreator.itemCreate(Material.BLAZE_ROD, "\u00A7aN00e4chste Seite");
         inv.setItem(inv.getSize() - 3, next);
     }
 
@@ -88,7 +88,7 @@ class ReporterInventoryOfPlayer implements Listener {
 
     private void setHome() {
         if (home == null)
-            home = ItemCreator.itemCreate(Material.GOLDEN_CARROT, "\u00A7aZurück");
+            home = ItemCreator.itemCreate(Material.GOLDEN_CARROT, "\u00A7aZur00fcck");
         inv.setItem(inv.getSize() - 9, home);
     }
 

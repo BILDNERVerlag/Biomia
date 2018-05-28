@@ -74,14 +74,14 @@ public class Login implements Listener {
             if (bp.getBiomiaPlayerID() == eachBan.getBiomiaID()) {
                 if (eachBan.isPerm()) {
                     pp.disconnect(new TextComponent(
-                            "\u00A7cDu wurdest von der Biomia Tec. für immmer verbannt!\n\n\u00A7cMit freundlichen Grüßen, dein \u00A75Bio\u00A72mia\u00A77 Tec.\u00A7c Team!"));
+                            "\u00A7cDu wurdest von der Biomia Tec. f00fcr immmer verbannt!\n\n\u00A7cMit freundlichen Gr00fc00dfen, dein \u00A75Bio\u00A72mia\u00A77 Tec.\u00A7c Team!"));
                     evt.setCancelled(true);
                 } else {
                     if (eachBan.getBis() > System.currentTimeMillis() / 1000) {
                         pp.disconnect(new TextComponent(
                                 "\u00A7cDu wurdest von der Biomia Tec. verbannt!\nZeit bis du wieder eine Chance hast, auf unserem Netzwerk zu spielen:\n\u00A7e"
                                         + Time.toText((int) (eachBan.getBis() - System.currentTimeMillis() / 1000))
-                                        + "\n\n\u00A7cMit freundlichen Grüßen, dein \u00A75Bio\u00A72mia\u00A77 Tec.\u00A7c Team!"));
+                                        + "\n\n\u00A7cMit freundlichen Gr00fc00dfen, dein \u00A75Bio\u00A72mia\u00A77 Tec.\u00A7c Team!"));
                         evt.setCancelled(true);
                     } else {
                         unbans.add(eachBan);
@@ -124,7 +124,7 @@ public class Login implements Listener {
             for (ProxiedPlayer ppl : lvl1) {
                 if (i < 20) {
                     ppl.disconnect(new TextComponent(
-                            "\u00A7cDu wurdest gekickt, um einem Spieler mit einem höheren Rang Platz zu machen.\n\u00A75Kauf dir Premium auf \n\u00A72www.biomia.de\n\u00A75um nicht mehr gekickt zu werden!"));
+                            "\u00A7cDu wurdest gekickt, um einem Spieler mit einem h00f6heren Rang Platz zu machen.\n\u00A75Kauf dir Premium auf \n\u00A72www.biomia.de\n\u00A75um nicht mehr gekickt zu werden!"));
                     i++;
                 } else
                     break;
@@ -133,7 +133,7 @@ public class Login implements Listener {
                 for (ProxiedPlayer ppl : lvl2) {
                     if (i < 20) {
                         ppl.disconnect(new TextComponent(
-                                "\u00A7cDu wurdest gekickt, um einem Spieler mit einem höheren Rang Platz zu machen.\n\u00A75Kauf dir Premium auf \n\u00A72www.biomia.de\n\u00A75um nicht mehr gekickt zu werden!"));
+                                "\u00A7cDu wurdest gekickt, um einem Spieler mit einem h00f6heren Rang Platz zu machen.\n\u00A75Kauf dir Premium auf \n\u00A72www.biomia.de\n\u00A75um nicht mehr gekickt zu werden!"));
                         i++;
                     } else
                         break;

@@ -40,7 +40,7 @@ class ParrotCannonInventory {
             super(cannon, 9, "Einstellungen");
             setItem(2, ItemCreator.itemCreate(Material.FIREBALL, "Schneller neuladen"));
             setItem(3, ItemCreator.itemCreate(Material.GOLD_SWORD, "Mehr Schaden"));
-            setItem(4, ItemCreator.itemCreate(Material.COMPASS, "Richtung wählen"));
+            setItem(4, ItemCreator.itemCreate(Material.COMPASS, "Richtung w00e4hlen"));
             setItem(5, ItemCreator.itemCreate(Material.LONG_GRASS, "Mehr Streuung"));
             setItem(6, ItemCreator.itemCreate(Material.STONE_BUTTON, "Mehr Schuss"));
         }
@@ -51,7 +51,7 @@ class ParrotCannonInventory {
         boolean first = true;
 
         CannonDirectionSettingInventory(ParrotCannon cannon) {
-            super(cannon, 27, "Ausrichtung ändern");
+            super(cannon, 27, "Ausrichtung 00e4ndern");
         }
 
         @Override
@@ -83,7 +83,7 @@ class ParrotCannonInventory {
         CannonMainInventory(ParrotCannon cannon) {
             super(cannon, 9, "Kanonier");
             setItem(2, ItemCreator.itemCreate(Material.REDSTONE, "Einstellungen"));
-            setItem(6, ItemCreator.itemCreate(Material.BOW, "Kanone ändern"));
+            setItem(6, ItemCreator.itemCreate(Material.BOW, "Kanone 00e4ndern"));
         }
     }
 

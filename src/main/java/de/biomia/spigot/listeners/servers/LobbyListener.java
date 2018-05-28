@@ -220,7 +220,7 @@ public class LobbyListener extends BiomiaListener {
                                 bp.takeCoins(1000);
                                 MysteryChest.open(bp);
                                 bp.getPlayer().sendMessage(Messages.PREFIX
-                                        + "\u00A7aGlückwunsch! Dir wurden 1000 BC abgezogen und du hast ein neues kosmetisches Item erhalten!");
+                                        + "\u00A7aGl00fcckwunsch! Dir wurden 1000 BC abgezogen und du hast ein neues kosmetisches Item erhalten!");
                             } else {
                                 bp.getPlayer().sendMessage(Messages.PREFIX + "\u00A7aDu hast nicht genug Geld. Dir fehlen noch "
                                         + (1000 - coins) + "\u00A7aBC!");
@@ -293,7 +293,7 @@ public class LobbyListener extends BiomiaListener {
                             pl.teleport(new Location(Bukkit.getWorld("BedwarsSignlobby"), 370.5, 82, 264.5, 70, 0));
                             pl.closeInventory();
                             break;
-                        case "\u00A75Mysteriöse Box":
+                        case "\u00A75Mysteri00f6se Box":
                             pl.teleport(new Location(Bukkit.getWorld("LobbyBiomia"), 605.5, 68, 358, 0, 0));
                             pl.closeInventory();
                             break;

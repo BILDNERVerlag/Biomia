@@ -96,7 +96,7 @@ public abstract class BiomiaListener implements Listener {
             ReportManager.waitingForBugReason.remove(p);
             e.setCancelled(true);
             ReportSQL.addBugReport(p, e.getMessage());
-            p.sendMessage("\u00A7cDanke für deinen Bug Report! \u00A7bWir werden den Bug so schnell wie möglich beheben!");
+            p.sendMessage("\u00A7cDanke f00fcr deinen Bug Report! \u00A7bWir werden den Bug so schnell wie m00f6glich beheben!");
         } else if (ReportManager.waitingForName.contains(p)) {
             ReportManager.waitingForName.remove(p);
             e.setCancelled(true);

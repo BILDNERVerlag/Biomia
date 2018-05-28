@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 public class RitterGoldFuss implements Listener {
 
-    private final Quest q = Biomia.getQuestManager().registerNewQuest("Goldfuß1", 1);
+    private final Quest q = Biomia.getQuestManager().registerNewQuest("Goldfu00df1", 1);
     private final NPC goldfuss;
     private DialogMessage startDialogArmor;
     private DialogMessage startDialogNoArmor;
@@ -38,9 +38,9 @@ public class RitterGoldFuss implements Listener {
 
     public RitterGoldFuss() {
         q.setInfoText(
-                "In der Nähe des Dorfes triffst du einen Ritter mit golden glänzenden Latschen. Er möchte, dass du ihm im Kampf gegen die Kreaturen der Nacht unterstützt und ihm als Beweis 32 Stück verdorbenes Fleisch präsentierst.");
-        q.setDisplayName("Ritter Goldfuß");
-        goldfuss = q.createNPC(EntityType.PLAYER, "Ritter Goldfuß");
+                "In der N00e4he des Dorfes triffst du einen Ritter mit golden gl00e4nzenden Latschen. Er m00f6chte, dass du ihm im Kampf gegen die Kreaturen der Nacht unterst00fctzt und ihm als Beweis 32 St00fcck verdorbenes Fleisch pr00e4sentierst.");
+        q.setDisplayName("Ritter Goldfu00df");
+        goldfuss = q.createNPC(EntityType.PLAYER, "Ritter Goldfu00df");
         Location loc = new Location(Bukkit.getWorld("Quests"), 156, 70, -318, -130, 0);
         goldfuss.spawn(loc);
 
@@ -101,10 +101,10 @@ public class RitterGoldFuss implements Listener {
         // start dl
         // with Armor
         startDialogArmor = new DialogMessage(q, goldfuss).setInhalt(
-                "Seid gegrüßt, tapferer Recke! Wärt Ihr so freundlich mir mit eurer Hilfe beizustehen?");
+                "Seid gegr00fc00dft, tapferer Recke! W00e4rt Ihr so freundlich mir mit eurer Hilfe beizustehen?");
         startDialogArmor.setFortsetzung("Um was geht es denn?").setFortsetzung("Nein, keine Zeit.");
         startDialogArmor.setNext(
-                "Mein Name ist Ritter Goldfuß und es ist meine Aufgabe diese Lande von der Monsterplage zu befreien! Seid Ihr dabei geht mit auf Monsterjagd?",
+                "Mein Name ist Ritter Goldfu00df und es ist meine Aufgabe diese Lande von der Monsterplage zu befreien! Seid Ihr dabei geht mit auf Monsterjagd?",
                 0, goldfuss).setFortsetzung("Monster jagen? Na logo!").setFortsetzung("Lieber nicht.");
         startDialogArmor.setNext(
                 "Verstehe. Besiegt als erstes die Angst, die euch auf Eurem Weg begleitet. Kommt wieder, wenn Euch das gelungen ist.",
@@ -113,7 +113,7 @@ public class RitterGoldFuss implements Listener {
         startDialogArmor.getNext(0).setNext(
                 "Na, dann macht Euch an die Arbeit! Bringt mir einen halben Stack verrottetes Fleisch!", 0, goldfuss);
         startDialogArmor.getNext(0).setNext(
-                "Kommt wieder, wenn Ihr es Euch anders überlegt. Die Monster laufen Euch schon nicht davon.", 1,
+                "Kommt wieder, wenn Ihr es Euch anders 00fcberlegt. Die Monster laufen Euch schon nicht davon.", 1,
                 goldfuss);
 
         startDialogArmor.getNext(0).getNext(0).addPlayerToQuest();
@@ -121,24 +121,24 @@ public class RitterGoldFuss implements Listener {
         // without Armor
 
         startDialogNoArmor = new DialogMessage(q, goldfuss).setInhalt(
-                "Was wollt ihr von mir? Ihr seid meine Zeit nicht wert, habt ja nicht einmal eine Rüstung an!");
+                "Was wollt ihr von mir? Ihr seid meine Zeit nicht wert, habt ja nicht einmal eine R00fcstung an!");
 
         // wo flesh
         comeBackWORottenFlesh = new DialogMessage(q, goldfuss).setInhalt(
-                "Sieht ganz so aus, als hättet Ihr noch nicht genug Zombies erledigt! Mindestens einen halben Stack verrotetes Fleisch will ich haben, los, los!");
+                "Sieht ganz so aus, als h00e4ttet Ihr noch nicht genug Zombies erledigt! Mindestens einen halben Stack verrotetes Fleisch will ich haben, los, los!");
 
         // w flesh
         comeBackWRottenFlesh = new DialogMessage(q, goldfuss)
                 .setInhalt("Oh, das habt Ihr gut gemacht! Nehmt das hier als Belohnung!")
-                .setNext("Recke, ich bin mir sicher, dass sich unsere Wege noch öfter kreuzen werden! Auf dann!",
+                .setNext("Recke, ich bin mir sicher, dass sich unsere Wege noch 00f6fter kreuzen werden! Auf dann!",
                         0, goldfuss);
         comeBackWRottenFlesh.addEvent(new TakeItemEvent(Material.ROTTEN_FLESH, 32));
 
-        ItemStack stack = ItemCreator.itemCreate(Material.LEATHER_BOOTS, "Ritter Goldfuß' alte Latschen");
+        ItemStack stack = ItemCreator.itemCreate(Material.LEATHER_BOOTS, "Ritter Goldfu00df' alte Latschen");
         stack.addEnchantment(Enchantment.PROTECTION_FALL, 4);
 
         comeBackWRottenFlesh.addEvent(new GiveItemEvent(stack)).addEvent(new AddCoinEvent(1000)).finish();
         // nach quest
-        nachQuest = new DialogMessage(q, goldfuss).setInhalt("Danke nochmal für die Hilfe!");
+        nachQuest = new DialogMessage(q, goldfuss).setInhalt("Danke nochmal f00fcr die Hilfe!");
     }
 }

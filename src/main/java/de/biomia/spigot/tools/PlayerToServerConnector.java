@@ -50,8 +50,8 @@ public class PlayerToServerConnector implements PluginMessageListener {
             if (list != null)
                 if (type.name().contains("1")) {
                     if (!list.contains("krs522tpr8a")) {
-                        p.sendMessage(String.format("%sNur Spieler die das entsprechende Buch besitzen können der jeweiligen Welt beitreten", Messages.COLOR_MAIN));
-                        TextComponent text = new TextComponent(String.format("%s>%sFür mehr Infos hier klicken!%s<", Messages.COLOR_AUX, Messages.COLOR_SUB, Messages.COLOR_AUX));
+                        p.sendMessage(String.format("%sNur Spieler die das entsprechende Buch besitzen k00f6nnen der jeweiligen Welt beitreten", Messages.COLOR_MAIN));
+                        TextComponent text = new TextComponent(String.format("%s>%sF00fcr mehr Infos hier klicken!%s<", Messages.COLOR_AUX, Messages.COLOR_SUB, Messages.COLOR_AUX));
                         text.setClickEvent(new ClickEvent(Action.OPEN_URL, "https://biomia.bildnerverlag.de/forum/topic/id/18-code-eingabe"));
                         p.spigot().sendMessage(text);
                         return;

@@ -42,7 +42,7 @@ public class BauWerkCommand extends BiomiaCommand {
                     try {
                         m = Material.valueOf(args[3]);
                     } catch (Exception e) {
-                        p.sendMessage("\u00A7cBitte gib ein verfügbares Material ein!");
+                        p.sendMessage("\u00A7cBitte gib ein verf00fcgbares Material ein!");
                         return;
                     }
 

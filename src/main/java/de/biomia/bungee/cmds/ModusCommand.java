@@ -34,7 +34,7 @@ public class ModusCommand extends Command {
                     } else if (switcher.toLowerCase().equals("off")) {
                         wartungsModus = false;
                         setModus(false);
-                        ProxyServer.getInstance().broadcast(new TextComponent("\u00A7cDer Server ist nicht länger im \u00A7bWartungsmodus\u00A7c!"));
+                        ProxyServer.getInstance().broadcast(new TextComponent("\u00A7cDer Server ist nicht l00e4nger im \u00A7bWartungsmodus\u00A7c!"));
                     }
                 } else
                     pp.sendMessage(new TextComponent("\u00A7c/modus <on | off>"));

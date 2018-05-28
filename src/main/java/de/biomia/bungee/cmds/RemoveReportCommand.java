@@ -39,7 +39,7 @@ public class RemoveReportCommand extends Command {
                         OfflineBungeeBiomiaPlayer p = BungeeBiomia.getOfflineBiomiaPlayer(reporter);
                         p.addCoins(BungeeMain.playerReportRewardMoney, false);
                         if (p.isOnline()) {
-                            p.sendMessage("\u00A7cDanke für den Report! Der Spieler wurde \u00A7bgebannt\u00A7c!");
+                            p.sendMessage("\u00A7cDanke f00fcr den Report! Der Spieler wurde \u00A7bgebannt\u00A7c!");
                         }
                     }
                     if (b) {

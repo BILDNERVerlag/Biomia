@@ -260,12 +260,12 @@ public class QuestCommands extends BiomiaCommand {
         qp.setDialog(null);
         p.sendMessage("\u00A78------------------\u00A76Notfall-Reset-Info\u00A78------------------");
         p.sendMessage("\u00A7aAlle deine Biomia-Einstellungen wurden wieder auf ihre "
-                + "Standardwerte zurückgesetzt. Falls du denkst, dass es sich "
+                + "Standardwerte zur00fcckgesetzt. Falls du denkst, dass es sich "
                 + "um ein weiterbestehendes Problem handelt, benutze bitte die "
                 + "\u00A76/report\u00A7a-Funktion, damit das Problem behandelt werden kann.");
         p.sendMessage("\u00A77\u00A7oJede Benutzung des Notfall-Resets wird verzeichnet. Den "
                 + "Notfall-Reset zu missbrauchen - auf welche Art auch immer - "
-                + "stellt einen Regelverstoß dar und kann mit einem temporären "
+                + "stellt einen Regelversto00df dar und kann mit einem tempor00e4ren "
                 + "oder permanenten Bann bestraft werden.");
     }
 
@@ -311,18 +311,18 @@ public class QuestCommands extends BiomiaCommand {
     private void qhelpCommand(CommandSender sender) {
         sender.sendMessage("\u00A78------------\u00A76QuestCommands\u00A78-----------");
         sender.sendMessage("\u00A76/qlist \u00A7aum alle deine coins aufzulisten.");
-        sender.sendMessage("\u00A76/qstats \u00A7afür Infos zu deinem Questfortschritt.");
-        sender.sendMessage("\u00A76/qinfo <NAME> \u00A7afür Infos zu einer bestimmten Quest");
+        sender.sendMessage("\u00A76/qstats \u00A7af00fcr Infos zu deinem Questfortschritt.");
+        sender.sendMessage("\u00A76/qinfo <NAME> \u00A7af00fcr Infos zu einer bestimmten Quest");
         sender.sendMessage("\u00A76/tagebuch \u00A7aum ein neues Tagebuch zu erhalten.");
         if (Biomia.getBiomiaPlayer((Player) sender).isOwnerOrDev()) {
             sender.sendMessage("\u00A78--------\u00A7cDev Commands\u00A78--------");
             sender.sendMessage(
-                    "\u00A7c\u00A7lAchtung! \u00A7r\u00A7cKönnen bei unpräziser Nutzung unvorhergesehene Konsequenzen herbeiführen."
-                            + " Benutze sie nur, wenn du wirklich weißt, was du tust.");
+                    "\u00A7c\u00A7lAchtung! \u00A7r\u00A7cK00f6nnen bei unpr00e4ziser Nutzung unvorhergesehene Konsequenzen herbeif00fchren."
+                            + " Benutze sie nur, wenn du wirklich wei00dft, was du tust.");
             sender.sendMessage("\u00A7c/aion \u00A7aNPC-AI an.  \u00A7c/aioff \u00A7aNPC-AI aus.");
-            sender.sendMessage("\u00A7c/aitoggle \u00A7aschält NPC-AI an bzw. aus.");
+            sender.sendMessage("\u00A7c/aitoggle \u00A7asch00e4lt NPC-AI an bzw. aus.");
             sender.sendMessage("\u00A76/qalign \u00A7asammelt alle NPCs an einem best. Punkt.");
-            sender.sendMessage("\u00A76/qrestore \u00A7asendet alle NPCs wieder zurück.");
+            sender.sendMessage("\u00A76/qrestore \u00A7asendet alle NPCs wieder zur00fcck.");
             sender.sendMessage("\u00A76/qr [NAME] \u00A7aum dich aus coins zu entfernen.");
         }
         sender.sendMessage("\u00A78------------------------------------");
@@ -356,12 +356,12 @@ public class QuestCommands extends BiomiaCommand {
                     deaktiviert.append("\u00A72<\u00A7a").append(n.getName()).append("\u00A72>\u00A7a, ");
             }
         }
-        Bukkit.broadcastMessage("\u00A7bAI aktiviert für:");
+        Bukkit.broadcastMessage("\u00A7bAI aktiviert f00fcr:");
         if (aktiviert.length() >= 2)
             Bukkit.broadcastMessage("\u00A72{" + aktiviert.substring(0, aktiviert.length() - 2) + "\u00A72 }");
         else
             Bukkit.broadcastMessage("\u00A72{ }");
-        Bukkit.broadcastMessage("\u00A7bAI deaktiviert für:");
+        Bukkit.broadcastMessage("\u00A7bAI deaktiviert f00fcr:");
         if (deaktiviert.length() >= 2)
             Bukkit.broadcastMessage("\u00A72{" + deaktiviert.substring(0, deaktiviert.length() - 2) + "\u00A72 }");
         else

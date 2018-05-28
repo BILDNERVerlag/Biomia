@@ -47,7 +47,7 @@ public class WarteLobbyListener extends BiomiaListener {
     public void onInvClick(InventoryClickEvent e) {
         if (e.getClickedInventory() != null && e.getClickedInventory().getName().equals(KitPVPMessages.selectorInventory) && e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
             if (e.getCurrentItem().getType() == Material.BARRIER) {
-                e.getWhoClicked().sendMessage("§cDu kannst dieses Kit nicht bearbeiten, da du einen zu niedrigen Rang hast!");
+                e.getWhoClicked().sendMessage("00A7cDu kannst dieses Kit nicht bearbeiten, da du einen zu niedrigen Rang hast!");
                 e.setCancelled(true);
                 return;
             }

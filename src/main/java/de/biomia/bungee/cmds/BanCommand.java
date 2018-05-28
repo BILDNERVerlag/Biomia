@@ -30,7 +30,7 @@ public class BanCommand extends Command {
                     sender.sendMessage(new TextComponent("\u00A7cBitte nutze \u00A77/\u00A7bban \u00A77<\u00A7bSpieler\u00A77>"));
                 } else {
                     if (args[0].length() > 16) {
-                        sender.sendMessage(new TextComponent("\u00A7cUngültiger Name! Maximal 16 Zeichen!"));
+                        sender.sendMessage(new TextComponent("\u00A7cUng00fcltiger Name! Maximal 16 Zeichen!"));
                         return;
                     }
                     ChannelListener.sendBanRequest(BungeeBiomia.getOfflineBiomiaPlayer(pp.getName()), BungeeBiomia.getOfflineBiomiaPlayer(args[0]).getBiomiaPlayerID());
@@ -50,7 +50,7 @@ public class BanCommand extends Command {
             if (target.isOnline())
                 target.getProxiedPlayer().disconnect(new TextComponent("\u00A7cDu wurdest wegen \u00A7b" + grund + " \u00A7cpermanent gebannt."));
 
-            MySQL.executeUpdate("INSERT INTO `BanList`(`biomiaID`, `Grund`, `timestamp`, `länge`, `permanent`, von) VALUES ("
+            MySQL.executeUpdate("INSERT INTO `BanList`(`biomiaID`, `Grund`, `timestamp`, `l00e4nge`, `permanent`, von) VALUES ("
                     + biomiaID + ", '" + grund + "', " + System.currentTimeMillis() / 1000 + ", -1, true, " + bp.getBiomiaPlayerID() + ")", MySQL.Databases.biomia_db);
 
         } else {
@@ -64,7 +64,7 @@ public class BanCommand extends Command {
 
         if (sender.hasPermission("biomia.ban.temp")) {
 
-            TextComponent comp = new TextComponent("\u00A77Der Spieler \u00A7c" + targetName + " \u00A77wurde von\u00A7b " + bp.getName() + " \u00A77für\u00A7c " + Time.toText(sec) + " \u00A77wegen\u00A7b " + grund + " \u00A77gebannt!");
+            TextComponent comp = new TextComponent("\u00A77Der Spieler \u00A7c" + targetName + " \u00A77wurde von\u00A7b " + bp.getName() + " \u00A77f00fcr\u00A7c " + Time.toText(sec) + " \u00A77wegen\u00A7b " + grund + " \u00A77gebannt!");
             for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
                 if (BungeeBiomia.getOfflineBiomiaPlayer(p.getName()).isSrStaff())
                     p.sendMessage(comp);
@@ -77,9 +77,9 @@ public class BanCommand extends Command {
 
             ProxiedPlayer p = ProxyServer.getInstance().getPlayer(targetName);
             if (p != null)
-                p.disconnect(new TextComponent("\u00A77Du wurdest wegen\u00A7c " + grund + " \u00A77für " + Time.toText(sec) + " \u00A77gebannt."));
+                p.disconnect(new TextComponent("\u00A77Du wurdest wegen\u00A7c " + grund + " \u00A77f00fcr " + Time.toText(sec) + " \u00A77gebannt."));
 
-            MySQL.executeUpdate("INSERT INTO `BanList`(`biomiaID`, `Grund`, `timestamp`, `länge`, `permanent`, von) VALUES ("
+            MySQL.executeUpdate("INSERT INTO `BanList`(`biomiaID`, `Grund`, `timestamp`, `l00e4nge`, `permanent`, von) VALUES ("
                     + biomiaID + ", '" + grund + "', " + System.currentTimeMillis() / 1000 + ", " + sec + ", false, " + bp.getBiomiaPlayerID() + ")", MySQL.Databases.biomia_db);
 
         } else {

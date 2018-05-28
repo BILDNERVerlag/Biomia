@@ -39,9 +39,9 @@ public class BergHuehner implements Listener {
 
     public BergHuehner() {
         q.setInfoText(
-                "An den Ausläufern des Berges im Süden des Dorfes triffst du auf Tom. Der würde gern einen bestimmten Kuchen backen, braucht dafür"
-                        + " jedoch spezielle Eier von Hühnern an der Spitze des Berges. Dir fällt die Aufgabe zu, sie unversehrt nach unten zu bringen.");
-        q.setDisplayName("Berghühner");
+                "An den Ausl00e4ufern des Berges im S00fcden des Dorfes triffst du auf Tom. Der w00fcrde gern einen bestimmten Kuchen backen, braucht daf00fcr"
+                        + " jedoch spezielle Eier von H00fchnern an der Spitze des Berges. Dir f00e4llt die Aufgabe zu, sie unversehrt nach unten zu bringen.");
+        q.setDisplayName("Bergh00fchner");
         q.setRemoveOnReload(true);
         q.setRepeatable(true);
         q.setCooldown(1, Time.Tage);
@@ -109,7 +109,7 @@ public class BergHuehner implements Listener {
     private void initDialog() {
         // start dl
         startDialog = new DialogMessage(q, tom).setInhalt(
-                "Die Berghühner dort oben legen ganz besondere Eier. Kannst du hinauf klettern und mir drei davon bringen? Ich traue mich nie so weit hoch!");
+                "Die Bergh00fchner dort oben legen ganz besondere Eier. Kannst du hinauf klettern und mir drei davon bringen? Ich traue mich nie so weit hoch!");
         startDialog.setFortsetzung("Gerne!").setFortsetzung("Keine Zeit!");
         startDialog.setNext("Beeil dich!", 0, tom);
         startDialog.setNext("Schade, vielleicht ein anderes Mal.", 1, tom);
@@ -124,7 +124,7 @@ public class BergHuehner implements Listener {
         comeBackWithEggs.addEvent(new TakeItemEvent(Material.EGG, QuestItemNames.specialEgg, 3));
         comeBackWithEggs.addEvent(new TakeItemEvent(Material.ELYTRA, QuestItemNames.twoMinuteElytra, 1));
         comeBackWithEggs.setNext("...", 0, tom).setNext("...", 0, tom).setNext(
-                "Hier, fertig! Am liebsten würde ich jeden Tag einen Kuchen backen. Komm doch morgen wieder!", 0,
+                "Hier, fertig! Am liebsten w00fcrde ich jeden Tag einen Kuchen backen. Komm doch morgen wieder!", 0,
                 tom);
 
         comeBackWithEggs.addEvent(new AddCoinEvent(150));
@@ -133,6 +133,6 @@ public class BergHuehner implements Listener {
 
         // nach quest
         nachQuest = new DialogMessage(q, tom)
-                .setInhalt("Am liebsten würde ich jeden Tag einen Kuchen backen. Komm doch morgen wieder.");
+                .setInhalt("Am liebsten w00fcrde ich jeden Tag einen Kuchen backen. Komm doch morgen wieder.");
     }
 }

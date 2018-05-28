@@ -74,7 +74,7 @@ public class ReportManager {
 
     public static void openReportMenu(Player player) {
         if (reportMenu == null) {
-            reportMenu = Bukkit.createInventory(null, 9, "\u00A7eREPORT MENü");
+            reportMenu = Bukkit.createInventory(null, 9, "\u00A7eREPORT MEN00fc");
             ItemStack bug = ItemCreator.itemCreate(Material.BARRIER, "\u00A7cBug");
             ItemStack spieler = ItemCreator.headWithSkin("DerJulsn", "\u00A7cSpieler");
             reportMenu.setItem(3, bug);

@@ -30,7 +30,7 @@ public class Geheimnis implements Listener {
 
     public Geheimnis() {
         q.setInfoText(
-                "Nana hätte im Austausch gegen Informationen gerne einen Strohballen. über das 'warum' kannst du nur spekulieren.");
+                "Nana h00e4tte im Austausch gegen Informationen gerne einen Strohballen. 00fcber das 'warum' kannst du nur spekulieren.");
         nana = q.createNPC(EntityType.PLAYER, "Nana");
         Location loc = new Location(Bukkit.getWorld("Quests"), 130, 65, -326, 0, 0);
         nana.spawn(loc);
@@ -79,14 +79,14 @@ public class Geheimnis implements Listener {
 
         // start dl
         startDialog = new DialogMessage(q, nana)
-                .setInhalt("Ein Fremder! Geh aufs Feld außerhalb des Dorfes und bring mir einen Strohballen!");
+                .setInhalt("Ein Fremder! Geh aufs Feld au00dferhalb des Dorfes und bring mir einen Strohballen!");
         startDialog.setFortsetzung("Okay, ich mache es.").setFortsetzung("Nein, keine Chance");
-        startDialog.setNext("Sehr gut! Ihr Unwissenden seid so leicht zu überzeugen. Wie praktisch.", 0, nana);
+        startDialog.setNext("Sehr gut! Ihr Unwissenden seid so leicht zu 00fcberzeugen. Wie praktisch.", 0, nana);
         startDialog.setNext("Gemeinheit! Na gut, wenn du es machst, dann verrate ich dir ein Geheimnis.", 1, nana)
                 .setFortsetzung("Na gut...").setFortsetzung("Nein!");
 
         startDialog.getNext(1).setNext(
-                "Dann los! Worauf wartest du? Hier hast du Samen. Ich kenne mich mit Feldarbeit nicht aus, wenn du Wasser dafür brauchst dann geh zu Elsa, die hat immer einen Eimer übrig.",
+                "Dann los! Worauf wartest du? Hier hast du Samen. Ich kenne mich mit Feldarbeit nicht aus, wenn du Wasser daf00fcr brauchst dann geh zu Elsa, die hat immer einen Eimer 00fcbrig.",
                 0, nana);
         startDialog.getNext(1).setNext("Ich mag dich nicht", 1, nana);
 
@@ -102,7 +102,7 @@ public class Geheimnis implements Listener {
 
         // come back w stroh
         comeBackWStroh = new DialogMessage(q, nana).setInhalt(
-                "Sehr gut jetzt kann ich aus großer Höhe… ich meine mein Vater wird stolz auf mich sein, weil ich so fleißig auf dem Feld gearbeitet habe. Was willst du noch? Verschwinde!");
+                "Sehr gut jetzt kann ich aus gro00dfer H00f6he… ich meine mein Vater wird stolz auf mich sein, weil ich so flei00dfig auf dem Feld gearbeitet habe. Was willst du noch? Verschwinde!");
         comeBackWStroh.addEvent(new TakeItemEvent(Material.HAY_BLOCK, 1))
 
                 .addEvent(new AddCoinEvent(200)).addEvent(qp -> {
@@ -111,11 +111,11 @@ public class Geheimnis implements Listener {
             qp.getQuestPlayer().getBuildableBlocks().remove(Material.CROPS);
         }).finish();
         comeBackWStroh.setFortsetzung("Ok.").setFortsetzung("Nein!").setNext(
-                "Meinetwegen, für deine Mühe verrate ich dir ein Geheimnis. Dein Freund war hier, Ian. Meine Schwester Nene wird ihn töten.",
+                "Meinetwegen, f00fcr deine M00fche verrate ich dir ein Geheimnis. Dein Freund war hier, Ian. Meine Schwester Nene wird ihn t00f6ten.",
                 1, nana);
 
         // nach quest
         nachQuest = new DialogMessage(q, nana)
-                .setInhalt("Dein Freund war hier, Ian. Meine Schwester Nene wird ihn töten.");
+                .setInhalt("Dein Freund war hier, Ian. Meine Schwester Nene wird ihn t00f6ten.");
     }
 }

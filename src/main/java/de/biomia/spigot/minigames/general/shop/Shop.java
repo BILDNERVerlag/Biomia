@@ -130,7 +130,7 @@ public class Shop {
         rod.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
         waffen.addItem(new ShopItem(ItemType.IRON, 5, rod));
 
-        // Rüssi
+        // R00fcssi
         ItemStack leathercap = ItemCreator.itemCreate(Material.LEATHER_HELMET);
         ItemStack leatherchest = ItemCreator.itemCreate(Material.LEATHER_CHESTPLATE);
         ItemStack leatherpants = ItemCreator.itemCreate(Material.LEATHER_LEGGINGS);
@@ -203,7 +203,7 @@ public class Shop {
         ItemStack goldenApple = ItemCreator.itemCreate(Material.GOLDEN_APPLE);
         essen.addItem(new ShopItem(ItemType.GOLD, 1, goldenApple));
 
-        // Trünke
+        // Tr00fcnke
         ItemStack heal1 = getPotionItemStack(Material.POTION, PotionType.INSTANT_HEAL, false);
         traenke.addItem(new ShopItem(ItemType.IRON, 1, heal1));
 

@@ -13,7 +13,7 @@ public class SkyWarsItemNames {
 
     public static final String playerTracker = "\u00A75Spieler Tracker";
     public static final String purchaseKit = "\u00A7aKaufen";
-    public static final String selectKit = "\u00A7aAusrüsten";
+    public static final String selectKit = "\u00A7aAusr00fcsten";
     public static final String showKit = "\u00A7aAnschauen";
 
     // %c = price to split the lines put: '$'

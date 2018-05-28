@@ -39,7 +39,7 @@ public class RankCommand extends BiomiaCommand {
                 } else
                     Scoreboards.setTabList(p, true, true);
             } catch (IllegalArgumentException ignored) {
-                sender.sendMessage("\u00A7cEs sind nur diese Ränge verfügbar:");
+                sender.sendMessage("\u00A7cEs sind nur diese R00e4nge verf00fcgbar:");
                 for (Ranks r : Ranks.values())
                     sender.sendMessage("\u00A7c" + r.name());
             }
