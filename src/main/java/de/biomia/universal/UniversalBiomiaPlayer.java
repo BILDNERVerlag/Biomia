@@ -101,7 +101,7 @@ public abstract class UniversalBiomiaPlayer {
     public void addCoins(int coins, boolean enableBoost) {
         setCoins(getCoins() + coins);
         if (isOnline()) {
-            sendMessage(String.format("%sDu erh‰ltst %s%d%s BC!", Messages.COLOR_SUB, Messages.COLOR_AUX, coins, Messages.COLOR_SUB));
+            sendMessage(String.format("%sDu erh√§ltst %s%d%s BC!", Messages.COLOR_SUB, Messages.COLOR_AUX, coins, Messages.COLOR_SUB));
         }
     }
 
