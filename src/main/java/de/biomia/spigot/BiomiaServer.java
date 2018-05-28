@@ -53,6 +53,7 @@ public abstract class BiomiaServer {
         registerCommand(new InformationCommand());
         registerCommand(new PermissionCommand());
         registerCommand(new RankCommand());
+        registerCommand(new SaveItemCommand());
         registerCommand(new SpeedCommand());
         registerCommand(new StatCommand());
         registerCommand(new ReportCommand());

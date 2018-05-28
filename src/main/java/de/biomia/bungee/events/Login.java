@@ -5,7 +5,6 @@ import de.biomia.bungee.BungeeBiomia;
 import de.biomia.bungee.BungeeMain;
 import de.biomia.bungee.OfflineBungeeBiomiaPlayer;
 import de.biomia.bungee.cmds.ModusCommand;
-import de.biomia.bungee.specialEvents.WinterEvent;
 import de.biomia.bungee.var.BanManager;
 import de.biomia.bungee.var.Bans;
 import de.biomia.spigot.BiomiaServerType;
@@ -45,10 +44,6 @@ public class Login implements Listener {
         }
 
         SkinValue.addToDatabase(bp);
-
-        if (WinterEvent.isEnabled) {
-            WinterEvent.isWinner(bp);
-        }
 
         boolean isLobbyServerOnline = TimoCloudAPI.getUniversalAPI().getServerGroup(BiomiaServerType.Lobby.name()).getServers().stream().anyMatch(serverObject -> serverObject.getState().equalsIgnoreCase("ONLINE"));
 

@@ -118,7 +118,7 @@ class ParrotHandler extends GameHandler {
     public void onInteractEntity(PlayerInteractEntityEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         if (e.getRightClicked() instanceof ArmorStand) {
-            ((Parrot) mode).getPoints().stream().filter(parrotCannonPoint -> e.getRightClicked().equals(parrotCannonPoint.getCannonier())).forEach(parrotCannonPoint -> {
+            ((Parrot) mode).getPoints().stream().filter(parrotCannonPoint -> e.getRightClicked().equals(parrotCannonPoint.getGunner())).forEach(parrotCannonPoint -> {
                 e.setCancelled(true);
                 parrotCannonPoint.getcannon().getMainInventory().open(Biomia.getBiomiaPlayer(e.getPlayer()));
             });
@@ -129,7 +129,7 @@ class ParrotHandler extends GameHandler {
     public void onEntityDamage(EntityDamageEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getEntity().getWorld())) return;
         if (e.getEntity() instanceof ArmorStand) {
-            if (((Parrot) mode).getPoints().stream().anyMatch(parrotCannonPoint -> e.getEntity().equals(parrotCannonPoint.getCannonier()))) {
+            if (((Parrot) mode).getPoints().stream().anyMatch(parrotCannonPoint -> e.getEntity().equals(parrotCannonPoint.getGunner()))) {
                 e.setCancelled(true);
             }
         }

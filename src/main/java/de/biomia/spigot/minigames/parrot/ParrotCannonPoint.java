@@ -17,10 +17,10 @@ class ParrotCannonPoint {
         cannon = new ParrotCannon(team, this);
         location.clone().subtract(team.getColor() == TeamColor.RED ? -1 : 1, 1, 0).getBlock().setType(Material.ENDER_CHEST);
         cannon.spawn();
-        cannonier = (ArmorStand) team.getMode().getInstance().getWorld().spawnEntity(location.clone().add(1.5, 0, 2.5), EntityType.ARMOR_STAND);
-        cannonier.setGravity(false);
-        cannonier.setCustomName(ParrotItemNames.cannonier);
-        cannonier.setCustomNameVisible(true);
+        gunner = (ArmorStand) team.getMode().getInstance().getWorld().spawnEntity(location.clone().add(1.5, 0, 2.5), EntityType.ARMOR_STAND);
+        gunner.setGravity(false);
+        gunner.setCustomName(ParrotItemNames.cannonier);
+        gunner.setCustomNameVisible(true);
 
         team.getShip().registerPoint(this);
         ((Parrot) team.getMode()).registerPoint(this);
@@ -30,15 +30,15 @@ class ParrotCannonPoint {
     private final ParrotCannon cannon;
     private boolean destroyed;
     private ParrotTeam team;
-    private final ArmorStand cannonier;
+    private final ArmorStand gunner;
 
-    public ArmorStand getCannonier() {
-        return cannonier;
+    public ArmorStand getGunner() {
+        return gunner;
     }
 
     public void setDestroyed() {
         destroyed = true;
-        cannonier.remove();
+        gunner.remove();
         cannon.setTimeToReload(0);
         team.getShip().updateCannons();
         Bukkit.getOnlinePlayers().forEach(player -> Title.sendTitel(String.format("%sEine Kanone von Team %s wurde zerstört", team.getColorcode(), team.getColor().translate()), player));

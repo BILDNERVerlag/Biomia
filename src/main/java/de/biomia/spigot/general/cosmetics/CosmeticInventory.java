@@ -5,6 +5,7 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.general.cosmetics.items.CosmeticItem;
 import de.biomia.spigot.tools.ItemCreator;
+import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -32,7 +33,7 @@ class CosmeticInventory implements Listener {
     CosmeticInventory(ArrayList<CosmeticItem> items, BiomiaPlayer bp) {
         this.bp = bp;
         this.cosmeticItems = items;
-        inv = Bukkit.createInventory(null, 27, "§5Cosmetics");
+        inv = Bukkit.createInventory(null, 27, String.format("%Cosmetics", Messages.COLOR_MAIN));
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
     }
 
@@ -89,25 +90,25 @@ class CosmeticInventory implements Listener {
 
     private void setRemove() {
         if (remove == null)
-            remove = ItemCreator.itemCreate(Material.BARRIER, "§cEntfernen");
+            remove = ItemCreator.itemCreate(Material.BARRIER, String.format("%sEntfernen", Messages.COLOR_MAIN));
         inv.setItem(inv.getSize() - 5, remove);
     }
 
     private void setNext() {
         if (next == null)
-            next = ItemCreator.itemCreate(Material.BLAZE_ROD, "§aNächste Seite");
+            next = ItemCreator.itemCreate(Material.BLAZE_ROD, String.format("%sNächste Seite", Messages.COLOR_SUB));
         inv.setItem(inv.getSize() - 3, next);
     }
 
     private void setBack() {
         if (back == null)
-            back = ItemCreator.itemCreate(Material.STICK, "§aLetzte Seite");
+            back = ItemCreator.itemCreate(Material.STICK, String.format("%sLetzte Seite", Messages.COLOR_SUB));
         inv.setItem(inv.getSize() - 7, back);
     }
 
     private void setHome() {
         if (home == null)
-            home = ItemCreator.itemCreate(Material.GOLDEN_CARROT, "§aZurück");
+            home = ItemCreator.itemCreate(Material.GOLDEN_CARROT, String.format("%sZurück", Messages.COLOR_MAIN));
         inv.setItem(inv.getSize() - 9, home);
     }
 
