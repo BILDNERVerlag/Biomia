@@ -31,7 +31,9 @@ public class WasBannedCommand extends Command {
                 sender.sendMessage(new TextComponent(String.format("%sDer Spieler %s%s%s wurde bereits %s%dx%s gebannt!", Messages.COLOR_MAIN, Messages.COLOR_SUB, name, Messages.COLOR_MAIN, Messages.COLOR_SUB, i, Messages.COLOR_MAIN)));
             else
                 sender.sendMessage(new TextComponent(String.format("%sDer Spieler %s%s%s wurde noch %snie %sgebannt!", Messages.COLOR_MAIN, Messages.COLOR_SUB, name, Messages.COLOR_MAIN, Messages.COLOR_SUB, Messages.COLOR_MAIN)));
-        } else
-            sender.sendMessage(new TextComponent(String.format("%sBitte nutze %s/wasbanned <Spieler>", Messages.COLOR_MAIN, Messages.COLOR_SUB)));
+        } else {
+            sender.sendMessage(new TextComponent(Messages.format("Bitte nutze /wasbanned <Spieler>")));
+            sender.sendMessage(new TextComponent(Messages.format("Das ist ein %s!", "Test")));
+        }
     }
 }

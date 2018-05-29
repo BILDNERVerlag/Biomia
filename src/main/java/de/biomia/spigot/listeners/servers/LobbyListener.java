@@ -12,7 +12,6 @@ import de.biomia.spigot.general.cosmetics.MysteryChest;
 import de.biomia.spigot.listeners.LobbyInventoryManager;
 import de.biomia.spigot.server.lobby.Lobby;
 import de.biomia.spigot.server.lobby.LobbyScoreboard;
-import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.PlayerToServerConnector;
 import de.biomia.universal.Messages;
 import de.biomia.universal.Ranks;
@@ -157,36 +156,45 @@ public class LobbyListener extends BiomiaListener {
         if ((e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
             ItemStack itemstack = pl.getInventory().getItemInMainHand();
             if (itemstack.hasItemMeta()) {
-                if ((itemstack.getType().equals(Material.COMPASS)
-                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("§cNavigator"))) {
-                    pl.openInventory(((Lobby) Biomia.getServerInstance()).getNavigator());
-                } else if ((itemstack.getType().equals(Material.NETHER_STAR)
-                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("§bLobby Switcher"))) {
-                    pl.openInventory(((Lobby) Biomia.getServerInstance()).getLobbySwitcher());
-                } else if ((itemstack.getType().equals(Material.FIREBALL)
-                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("§cSilent Lobby:§8 Off"))) {
-                    pl.getInventory().setItem(6,
-                            ItemCreator.itemCreate(Material.FIREWORK_CHARGE, "§aSilent Lobby:§8 On"));
 
-                    for (Player p : Bukkit.getOnlinePlayers()) {
-                        p.hidePlayer(Main.getPlugin(), pl);
-                        pl.hidePlayer(Main.getPlugin(), p);
-                    }
-                    ((Lobby) Biomia.getServerInstance()).getSilentLobby().add(pl);
-
-                } else if ((itemstack.getType().equals(Material.FIREWORK_CHARGE)
-                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("§aSilent Lobby:§8 On"))) {
-                    pl.getInventory().setItem(6, ItemCreator.itemCreate(Material.FIREBALL, "§cSilent Lobby:§8 Off"));
-                    for (Player p : Bukkit.getOnlinePlayers()) {
-                        if (!((Lobby) Biomia.getServerInstance()).getSilentLobby().contains(p)) {
-                            p.showPlayer(Main.getPlugin(), pl);
-                            pl.showPlayer(Main.getPlugin(), p);
+                switch (itemstack.getType()) {
+                    case COMPASS:
+                        if (itemstack.getItemMeta().getDisplayName().equalsIgnoreCase(LobbyInventoryManager.getCompass().getItemMeta().getDisplayName()))
+                            pl.openInventory(((Lobby) Biomia.getServerInstance()).getNavigator());
+                        break;
+                    case NETHER_STAR:
+                        if (itemstack.getItemMeta().getDisplayName().equalsIgnoreCase(LobbyInventoryManager.getServerSwitcher().getItemMeta().getDisplayName()))
+                            pl.openInventory(((Lobby) Biomia.getServerInstance()).getLobbySwitcher());
+                        break;
+                    case FIREBALL:
+                        if (itemstack.getItemMeta().getDisplayName().equalsIgnoreCase(LobbyInventoryManager.getSilentItemOFF().getItemMeta().getDisplayName())) {
+                            pl.getInventory().setItem(6, LobbyInventoryManager.getSilentItemON());
+                            for (Player p : Bukkit.getOnlinePlayers()) {
+                                p.hidePlayer(Main.getPlugin(), pl);
+                                pl.hidePlayer(Main.getPlugin(), p);
+                            }
+                            ((Lobby) Biomia.getServerInstance()).getSilentLobby().add(pl);
                         }
-                    }
-                    ((Lobby) Biomia.getServerInstance()).getSilentLobby().remove(pl);
-                } else if ((itemstack.getType().equals(Material.CHEST)
-                        && itemstack.getItemMeta().getDisplayName().equalsIgnoreCase("§eCosmetics"))) {
-                    de.biomia.spigot.general.cosmetics.Cosmetic.openMainInventory(Biomia.getBiomiaPlayer(pl));
+                        break;
+                    case FIREWORK_CHARGE:
+                        if (itemstack.getItemMeta().getDisplayName().equalsIgnoreCase(LobbyInventoryManager.getSilentItemON().getItemMeta().getDisplayName())) {
+                            pl.getInventory().setItem(6, LobbyInventoryManager.getSilentItemOFF());
+                            for (Player p : Bukkit.getOnlinePlayers()) {
+                                if (!((Lobby) Biomia.getServerInstance()).getSilentLobby().contains(p)) {
+                                    p.showPlayer(Main.getPlugin(), pl);
+                                    pl.showPlayer(Main.getPlugin(), p);
+                                }
+                            }
+                            ((Lobby) Biomia.getServerInstance()).getSilentLobby().remove(pl);
+                        }
+                        break;
+                    case CHEST:
+                        if (itemstack.getItemMeta().getDisplayName().equalsIgnoreCase(LobbyInventoryManager.getCosmeticItem().getItemMeta().getDisplayName())) {
+                            de.biomia.spigot.general.cosmetics.Cosmetic.openMainInventory(Biomia.getBiomiaPlayer(pl));
+                        }
+                        break;
+                    default:
+                        return;
                 }
             }
         }
@@ -219,11 +227,9 @@ public class LobbyListener extends BiomiaListener {
                             if (coins >= 1000) {
                                 bp.takeCoins(1000);
                                 MysteryChest.open(bp);
-                                bp.getPlayer().sendMessage(Messages.PREFIX
-                                        + "§aGlückwunsch! Dir wurden 1000 BC abgezogen und du hast ein neues kosmetisches Item erhalten!");
+                                bp.getPlayer().sendMessage(String.format("%s%sGlückwunsch! %sDu hast ein kosmetisches Item erhalten!", Messages.PREFIX, Messages.COLOR_MAIN, Messages.COLOR_SUB));
                             } else {
-                                bp.getPlayer().sendMessage(Messages.PREFIX + "§aDu hast nicht genug Geld. Dir fehlen noch "
-                                        + (1000 - coins) + "§aBC!");
+                                bp.getPlayer().sendMessage(String.format("%s%sDu hast nicht genug Geld. Dir fehlen noch %s%d%sBC!", Messages.PREFIX, Messages.COLOR_MAIN, Messages.COLOR_SUB, 1000 - coins, Messages.COLOR_MAIN));
                             }
                         }
                     } catch (IllegalArgumentException ignored) {/*Location.distance throws IllegalArgs when the locations are on different worlds*/}

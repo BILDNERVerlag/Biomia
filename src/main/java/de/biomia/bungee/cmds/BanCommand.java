@@ -27,10 +27,10 @@ public class BanCommand extends Command {
                 ProxiedPlayer pp = (ProxiedPlayer) sender;
 
                 if (args.length == 0) {
-                    sender.sendMessage(new TextComponent("§cBitte nutze §7/§bban §7<§bSpieler§7>"));
+                    sender.sendMessage(new TextComponent(String.format("%sBitte nutze %s/%sban %s<%sSpieler%s>", Messages.COLOR_MAIN, Messages.COLOR_AUX, Messages.COLOR_SUB, Messages.COLOR_AUX, Messages.COLOR_SUB, Messages.COLOR_AUX)));
                 } else {
                     if (args[0].length() > 16) {
-                        sender.sendMessage(new TextComponent("§cUngültiger Name! Maximal 16 Zeichen!"));
+                        sender.sendMessage(new TextComponent(String.format("%sUngültiger Name! Maximal 16 Zeichen!", Messages.COLOR_MAIN)));
                         return;
                     }
                     ChannelListener.sendBanRequest(BungeeBiomia.getOfflineBiomiaPlayer(pp.getName()), BungeeBiomia.getOfflineBiomiaPlayer(args[0]).getBiomiaPlayerID());
@@ -43,15 +43,12 @@ public class BanCommand extends Command {
         OfflineBungeeBiomiaPlayer target = BungeeBiomia.getOfflineBiomiaPlayer(biomiaID);
 
         if (sender.hasPermission("biomia.ban.perm")) {
-            TextComponent comp = new TextComponent("§aDer Spieler " + target.getName() + " wurde von " + bp.getName() + " permanent wegen " + grund + " gebannt!");
-            sender.sendMessage(comp);
-
             BungeeMain.activeBans.add(new Bans(true, -1, grund, biomiaID, bp.getBiomiaPlayerID(), (int) System.currentTimeMillis() / 1000));
             if (target.isOnline())
-                target.getProxiedPlayer().disconnect(new TextComponent("§cDu wurdest wegen §b" + grund + " §cpermanent gebannt."));
-
-            MySQL.executeUpdate("INSERT INTO `BanList`(`biomiaID`, `Grund`, `timestamp`, `länge`, `permanent`, von) VALUES ("
-                    + biomiaID + ", '" + grund + "', " + System.currentTimeMillis() / 1000 + ", -1, true, " + bp.getBiomiaPlayerID() + ")", MySQL.Databases.biomia_db);
+                target.getProxiedPlayer().disconnect(new TextComponent(String.format("%sDu wurdest wegen %s%s%s permanent gebannt.", Messages.COLOR_MAIN, Messages.COLOR_SUB, grund, Messages.COLOR_MAIN)));
+            TextComponent comp = new TextComponent(String.format("%sDer Spieler %s%s%s wurde permanent gebannt wegen %s%s%s!", Messages.COLOR_MAIN, Messages.COLOR_SUB, target.getName(), Messages.COLOR_MAIN, Messages.COLOR_SUB, grund, Messages.COLOR_MAIN));
+            sender.sendMessage(comp);
+            MySQL.executeUpdate(String.format("INSERT INTO `BanList`(`biomiaID`, `Grund`, `timestamp`, `länge`, `permanent`, von) VALUES (%d, '%s', %d, -1, true, %d)", biomiaID, grund, System.currentTimeMillis() / 1000, bp.getBiomiaPlayerID()), MySQL.Databases.biomia_db);
 
         } else {
             sender.sendMessage(new TextComponent(Messages.NO_PERM));

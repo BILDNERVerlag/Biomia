@@ -1,11 +1,11 @@
 package de.biomia.spigot.general.cosmetics;
 
 import de.biomia.spigot.BiomiaPlayer;
-import de.biomia.universal.MySQL;
 import de.biomia.spigot.general.cosmetics.Cosmetic.Group;
 import de.biomia.spigot.general.cosmetics.items.*;
 import de.biomia.spigot.general.cosmetics.items.CosmeticItem.Commonness;
 import de.biomia.spigot.tools.Base64;
+import de.biomia.universal.MySQL;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class CosmeticGroup {
 
     private final Group group;
-    private final ArrayList<? super CosmeticItem> items = new ArrayList<>();
+    private final ArrayList<CosmeticItem> items = new ArrayList<>();
     private final ItemStack icon;
 
     public CosmeticGroup(Group group, ItemStack icon) {
@@ -28,11 +28,10 @@ public class CosmeticGroup {
     }
 
     public void remove(BiomiaPlayer bp) {
-        if (!items.isEmpty())
-            ((CosmeticItem) items.get(0)).remove(bp);
+        if (!items.isEmpty()) items.get(0).remove(bp);
     }
 
-    private <T extends CosmeticItem> void addItem(T item) {
+    private void addItem(CosmeticItem item) {
         items.add(item);
     }
 
