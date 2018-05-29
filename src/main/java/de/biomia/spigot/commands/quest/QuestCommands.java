@@ -492,14 +492,9 @@ public class QuestCommands extends BiomiaCommand {
             sender.sendMessage("");
             sender.sendMessage("§b" + QuestMessages.involvedNPCs);
             StringBuilder s = new StringBuilder();
-            for (NPC n : q.getNpcs()) {
-                if (!n.getName().equals(""))
-                    s.append("§a").append(n.getName()).append(", ");
-            }
-            if (s.toString().equals(""))
-                s = new StringBuilder("§aKeine.");
-            else
-                s = new StringBuilder(s.substring(0, s.length() - 2));
+            for (NPC n : q.getNpcs()) s.append("§a").append(n.getName()).append(", ");
+            if (s.toString().equals("")) s = new StringBuilder("§aKeine.");
+            else s = new StringBuilder(s.substring(0, s.length() - 2));
             sender.sendMessage(s.toString());
             sender.sendMessage(QuestMessages.dividerLine);
             if (Biomia.getBiomiaPlayer(p).isStaff()) {

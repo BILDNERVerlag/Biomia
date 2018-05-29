@@ -35,17 +35,14 @@ public class BuildCommand extends BiomiaCommand {
         }
         if (!bp.canBuild()) {
             bp.setBuild(true);
-            bp.sendMessage(String.format("%sDu kannst nun bauen!", Messages.COLOR_SUB));
-            if (sender.equals(bp.getPlayer())) {
-                sender.sendMessage(String.format("%sDer Spieler %s%s%s kann nun bauen!", Messages.COLOR_SUB, Messages.COLOR_MAIN, bp.getName(), Messages.COLOR_SUB));
-            }
+            bp.sendMessage(Messages.format("Du kannst nun bauen!"));
+            if (sender.equals(bp.getPlayer()))
+                sender.sendMessage(Messages.format("Der Spieler %s kann nun bauen!", bp.getName()));
         } else {
             bp.setBuild(false);
-            bp.sendMessage(String.format("%sDu kannst nun nicht mehr bauen!", Messages.COLOR_MAIN));
-            if (!sender.equals(bp.getPlayer())) {
-                sender.sendMessage(String.format("%sDer Spieler %s%s%s kann nun nicht mehr bauen!", Messages.COLOR_MAIN, Messages.COLOR_SUB, bp.getName(), Messages.COLOR_MAIN));
-            }
-
+            bp.sendMessage(Messages.format("Du kannst nun nicht mehr bauen!"));
+            if (!sender.equals(bp.getPlayer()))
+                sender.sendMessage(Messages.format("Der Spieler %s kann nun nicht mehr bauen!", bp.getName()));
         }
     }
 }

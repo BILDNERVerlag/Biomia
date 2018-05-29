@@ -15,7 +15,7 @@ abstract public class BiomiaCommand extends BukkitCommand {
      * Deprecate
      * <p>
      * use onCommand instead of
-     * (easier to use cause of no boolean return)
+     * (easier to use, cause of no boolean return)
      */
     @Deprecated
     @Override

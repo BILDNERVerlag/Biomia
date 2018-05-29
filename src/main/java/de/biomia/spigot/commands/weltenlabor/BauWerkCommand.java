@@ -27,8 +27,8 @@ public class BauWerkCommand extends BiomiaCommand {
         }
 
         if (args.length == 0) {
-            sender.sendMessage(String.format("%sBitte nutze:", Messages.COLOR_MAIN));
-            sender.sendMessage(String.format("%s/bauwerk add %soder %s/bauwerk remove", Messages.COLOR_MAIN, Messages.COLOR_AUX, Messages.COLOR_MAIN));
+            sender.sendMessage(Messages.format("Bitte nutze:"));
+            sender.sendMessage(Messages.format("/bauwerk add oder /bauwerk remove"));
             return;
         }
 
@@ -38,38 +38,35 @@ public class BauWerkCommand extends BiomiaCommand {
                     int seite;
                     String name = args[2];
                     Material m;
-
                     try {
                         m = Material.valueOf(args[3]);
                     } catch (Exception e) {
-                        p.sendMessage("§cBitte gib ein verfügbares Material ein!");
+                        p.sendMessage(Messages.format("Bitte gib ein verfügbares Material ein!"));
                         return;
                     }
-
                     try {
                         seite = Integer.valueOf(args[1]);
                     } catch (NumberFormatException e) {
-                        p.sendMessage("§cBitte gib eine Zahl als Seite ein!");
+                        p.sendMessage(Messages.format("Bitte gib eine Zahl als Seite ein!"));
                         return;
                     }
-
                     DemoConfig.addObjekt(seite, name, p.getLocation(), m);
                 } else
-                    sender.sendMessage("§c/bauwerk add <Seite> <Name> <Material>");
+                    sender.sendMessage(Messages.format("/bauwerk add <Seite> <Name> <Material>"));
                 break;
             case "remove":
                 if (args.length == 2)
                     DemoConfig.removeObjekt(args[1]);
                 else
-                    sender.sendMessage("§c/bauwerk remove <Name>");
+                    sender.sendMessage(Messages.format("/bauwerk remove <Name>"));
                 break;
             case "reload":
-                Bukkit.broadcastMessage("§cReloading....");
+                Bukkit.broadcastMessage(Messages.format("Reloading...."));
                 Main.getPlugin().reloadConfig();
                 ((Weltenlabor) Biomia.getServerInstance()).getBauten().clear();
                 ((Weltenlabor) Biomia.getServerInstance()).getScrollingInv().clear();
                 DemoConfig.hookInPlugin();
-                Bukkit.broadcastMessage("§aReloaded!");
+                Bukkit.broadcastMessage(Messages.format("Reloaded!"));
                 break;
         }
     }

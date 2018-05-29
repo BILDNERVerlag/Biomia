@@ -9,7 +9,6 @@ import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.WarteLobbyListener;
 import de.biomia.spigot.minigames.general.chests.Chests;
-import de.biomia.spigot.minigames.general.kits.Kit;
 import de.biomia.spigot.minigames.general.kits.KitManager;
 import de.biomia.spigot.minigames.versus.VSManager;
 import de.biomia.spigot.tools.ItemCreator;
@@ -28,8 +27,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 
-import java.util.ArrayList;
-
 public class SkyWarsHandler extends GameHandler {
 
     private static final ItemStack kitItem = ItemCreator.itemCreate(Material.CHEST, SkyWarsItemNames.kitItemName);
@@ -47,25 +44,15 @@ public class SkyWarsHandler extends GameHandler {
 
     @EventHandler
     public void onProjectileHit(ProjectileHitEvent e) {
-        if (!mode.getInstance().getWorld().equals(e.getHitEntity().getWorld()))
-            return;
-        if (e.getEntityType() != EntityType.SNOWBALL) {
-            if (e.getEntityType() != EntityType.EGG) {
-                return;
-            }
-        }
+        if (!mode.getInstance().getWorld().equals(e.getHitEntity().getWorld())) return;
+        if (e.getEntityType() != EntityType.SNOWBALL || e.getEntityType() != EntityType.EGG) return;
         Projectile projectile = e.getEntity();
         ProjectileSource shooter = projectile.getShooter();
-        if (shooter == null) {
-            return;
-        }
+        if (shooter == null) return;
         if ((shooter instanceof Player)) {
-            if (!(e.getHitEntity() instanceof Damageable)) {
-                return;
-            }
+            if (!(e.getHitEntity() instanceof Damageable)) return;
             Player pShooter = (Player) shooter;
             pShooter.playSound(pShooter.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10, 1);
-
             if (projectile.getCustomName() != null && projectile.getCustomName().equals(SkyWarsItemNames.oneHitSnowball)) {
                 ((Damageable) e.getHitEntity()).damage(0.5D, pShooter);
                 ((Damageable) e.getHitEntity()).setHealth(0);
@@ -86,9 +73,8 @@ public class SkyWarsHandler extends GameHandler {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
-        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld()))
-            return;
         super.onPlayerInteract(e);
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
         if (e.getItem() != null) {
