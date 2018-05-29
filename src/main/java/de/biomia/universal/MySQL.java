@@ -51,11 +51,8 @@ public abstract class MySQL {
 
     public static Connection Connect(Databases db) {
 
-        AtomicBoolean b = new AtomicBoolean(false);
-
         Connection connection = connections.computeIfAbsent(db, con -> {
             try {
-                b.set(true);
                 return newConnection(db);
             } catch (ClassNotFoundException e) {
                 System.out.println("Driver Not Found");
@@ -74,9 +71,6 @@ public abstract class MySQL {
             System.out.println("Driver Not Found");
         } catch (SQLException e) {
             handleSQLException(e);
-        }
-        if (b.get()) {
-            BiomiaStat.MySQLConnections.increment(0, 1, Biomia.getServerInstance().getServerType().name() + ", " + db.name());
         }
         return connection;
     }

@@ -26,12 +26,11 @@ public class WasBannedCommand extends Command {
             int id = BungeeBiomia.getOfflineBiomiaPlayer(name).getBiomiaPlayerID();
             int i = (int) BungeeMain.cachedBans.stream().filter(ban -> ban.getBiomiaID() == id).count();
             if (i > 0)
-                sender.sendMessage(new TextComponent(String.format("%sDer Spieler %s%s%s wurde bereits %s%dx%s gebannt!", Messages.COLOR_MAIN, Messages.COLOR_SUB, name, Messages.COLOR_MAIN, Messages.COLOR_SUB, i, Messages.COLOR_MAIN)));
+                sender.sendMessage(new TextComponent(Messages.format("Der Spieler %s wurde bereits %s gebannt!", name, i + "x")));
             else
-                sender.sendMessage(new TextComponent(String.format("%sDer Spieler %s%s%s wurde noch %snie %sgebannt!", Messages.COLOR_MAIN, Messages.COLOR_SUB, name, Messages.COLOR_MAIN, Messages.COLOR_SUB, Messages.COLOR_MAIN)));
+                sender.sendMessage(new TextComponent(Messages.format("Der Spieler %s wurde noch nie gebannt!", name)));
         } else {
-            sender.sendMessage(new TextComponent(Messages.format("Bitte nutze /wasbanned <Spieler>")));
-            sender.sendMessage(new TextComponent(Messages.format("Das ist ein %s!", "Test")));
+            sender.sendMessage(new TextComponent(Messages.format("Bitte nutze /wasbanned <Spieler>!")));
         }
     }
 }
