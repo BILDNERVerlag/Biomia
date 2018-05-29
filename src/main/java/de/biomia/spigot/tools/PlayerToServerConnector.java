@@ -50,8 +50,8 @@ public class PlayerToServerConnector implements PluginMessageListener {
             if (list != null)
                 if (type.name().contains("1")) {
                     if (!list.contains("krs522tpr8a")) {
-                        p.sendMessage(String.format("%sNur Spieler die das entsprechende Buch besitzen können der jeweiligen Welt beitreten", Messages.COLOR_MAIN));
-                        TextComponent text = new TextComponent(String.format("%s>%sFür mehr Infos hier klicken!%s<", Messages.COLOR_AUX, Messages.COLOR_SUB, Messages.COLOR_AUX));
+                        p.sendMessage(Messages.format("Nur Spieler die das entsprechende Buch besitzen können der jeweiligen Welt beitreten"));
+                        TextComponent text = new TextComponent(Messages.format("<Für mehr Infos hier klicken!>"));
                         text.setClickEvent(new ClickEvent(Action.OPEN_URL, "https://biomia.bildnerverlag.de/forum/topic/id/18-code-eingabe"));
                         p.spigot().sendMessage(text);
                         return;
@@ -77,9 +77,7 @@ public class PlayerToServerConnector implements PluginMessageListener {
                 PreparedStatement sql = con.prepareStatement(cmd);
                 ResultSet rs = sql.executeQuery();
                 ArrayList<String> s = new ArrayList<>();
-                while (rs.next()) {
-                    s.add(rs.getString("code"));
-                }
+                while (rs.next()) s.add(rs.getString("code"));
                 rs.close();
                 sql.close();
                 return s;
@@ -93,18 +91,16 @@ public class PlayerToServerConnector implements PluginMessageListener {
     @Override
     public void onPluginMessageReceived(String channel, Player player, byte[] message) {
 
-        if (!channel.equalsIgnoreCase("BiomiaChannel"))
-            return;
+        if (!channel.equalsIgnoreCase("BiomiaChannel")) return;
         ByteArrayDataInput in = ByteStreams.newDataInput(message);
         String subchannel = in.readUTF();
 
         if (subchannel.equals("TeleportToPlayer")) {
-
             Player from = Bukkit.getPlayer(in.readUTF());
             Player to = Bukkit.getPlayer(in.readUTF());
             if (to != null && from != null) {
                 from.teleport(to);
-                from.sendMessage(String.format("%sDu wurdest zu %s%s %steleportiert!", Messages.COLOR_MAIN, Messages.COLOR_SUB, to.getName(), Messages.COLOR_MAIN));
+                from.sendMessage(Messages.format("Du wurdest zu %s teleportiert!", to.getName()));
             }
         }
     }

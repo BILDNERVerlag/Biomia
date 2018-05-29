@@ -66,9 +66,9 @@ class ParrotHandler extends GameHandler {
             BiomiaPlayer bpKiller = Biomia.getBiomiaPlayer(killer);
             if (killer != null) {
                 Bukkit.getPluginManager().callEvent(new GameKillEvent(bpKiller, bp, false, mode));
-                e.setDeathMessage(MinigamesMessages.playerKilledByPlayer.replace("%p1", bp.getTeam().getColorcode() + p.getName()).replace("%p2", bpKiller.getTeam().getColorcode() + killer.getName()));
+                e.setDeathMessage(Messages.format(MinigamesMessages.playerKilledByPlayer, bp.getTeam().getColorcode() + p.getName(), bpKiller.getTeam().getColorcode() + killer.getName()));
             } else
-                e.setDeathMessage(MinigamesMessages.playerDied.replace("%p", bp.getTeam().getColorcode() + p.getName()));
+                e.setDeathMessage(Messages.format(MinigamesMessages.playerDied, bp.getTeam().getColorcode() + p.getName()));
             Bukkit.getPluginManager().callEvent(new GameDeathEvent(bp, bpKiller, false, mode));
         }
     }

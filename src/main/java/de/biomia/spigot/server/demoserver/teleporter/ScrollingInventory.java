@@ -4,6 +4,7 @@ import de.biomia.spigot.Biomia;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.server.demoserver.Weltenlabor;
 import de.biomia.spigot.tools.ItemCreator;
+import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -28,7 +29,7 @@ public class ScrollingInventory implements Listener {
 
     public ScrollingInventory(Player player) {
         this.player = player;
-        inv = Bukkit.createInventory(null, 36, "§eWähle dein Ziel!");
+        inv = Bukkit.createInventory(null, 36, String.format("%sWähle dein Ziel!", Messages.COLOR_MAIN));
         this.items_per_side = 27;
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
     }
@@ -57,13 +58,13 @@ public class ScrollingInventory implements Listener {
 
     private void setNext() {
         if (next == null)
-            next = ItemCreator.itemCreate(Material.BLAZE_ROD, "§aNächste Seite");
+            next = ItemCreator.itemCreate(Material.BLAZE_ROD, String.format("%sNächste Seite", Messages.COLOR_SUB));
         inv.setItem(inv.getSize() - 2, next);
     }
 
     private void setBack() {
         if (back == null)
-            back = ItemCreator.itemCreate(Material.STICK, "§aLetzte Seite");
+            back = ItemCreator.itemCreate(Material.STICK, String.format("%sLetzte Seite", Messages.COLOR_MAIN));
         inv.setItem(inv.getSize() - 8, back);
     }
 

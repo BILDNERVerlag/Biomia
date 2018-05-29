@@ -3,6 +3,7 @@ package de.biomia.spigot.minigames.general;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.GameMode;
+import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -48,10 +49,10 @@ public class CountDown {
                                 || getCountdown() == 10 || (getCountdown() <= 5 && getCountdown() > 0);
 
                         if (send)
-                            Bukkit.broadcastMessage(MinigamesMessages.lobbyCountDown.replaceAll("%t", getCountdown() + ""));
+                            Bukkit.broadcastMessage(Messages.format(MinigamesMessages.lobbyCountDown, getCountdown()));
 
                         Bukkit.getOnlinePlayers().forEach(p -> {
-                            p.setLevel(getCountdown() + 1);
+                            p.setLevel(getCountdown());
                             if (send) p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10, 2);
                         });
                         setCountdown(getCountdown() - 1);
@@ -75,7 +76,6 @@ public class CountDown {
 
     public void setCountdown(int countdown) {
         this.countdown = countdown;
-        mode.getInstance().getPlayers().forEach(each -> each.getPlayer().setLevel(countdown));
     }
 
     public void cancel() {

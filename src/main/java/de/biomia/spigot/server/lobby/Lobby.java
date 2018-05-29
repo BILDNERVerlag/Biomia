@@ -10,6 +10,7 @@ import de.biomia.spigot.listeners.servers.LobbyListener;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.LastPositionListener;
 import de.biomia.spigot.tools.Teleporter;
+import de.biomia.universal.Messages;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -42,7 +43,7 @@ public class Lobby extends BiomiaServer {
         Bukkit.setDefaultGameMode(GameMode.ADVENTURE);
         initPortals();
         initNavigator();
-        lobbySwitcher = Bukkit.createInventory(null, 27, "§bLobby Switcher");
+        lobbySwitcher = Bukkit.createInventory(null, 27, String.format("%sLobby Switcher", Messages.COLOR_SUB));
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -56,11 +57,9 @@ public class Lobby extends BiomiaServer {
                     if (amount == 0)
                         amount = 1;
                     if (serverObject.getName().equalsIgnoreCase(so.getName()))
-                        lobbySwitcher.setItem(i, ItemCreator
-                                .setAmount(ItemCreator.itemCreate(Material.SUGAR, "§6" + so.getName()), amount));
+                        lobbySwitcher.setItem(i, ItemCreator.setAmount(ItemCreator.itemCreate(Material.SUGAR, Messages.COLOR_MAIN + so.getName()), amount));
                     else
-                        lobbySwitcher.setItem(i, ItemCreator
-                                .setAmount(ItemCreator.itemCreate(Material.SULPHUR, "§e" + so.getName()), amount));
+                        lobbySwitcher.setItem(i, ItemCreator.setAmount(ItemCreator.itemCreate(Material.SULPHUR, Messages.COLOR_SUB + so.getName()), amount));
                     i++;
                 }
             }

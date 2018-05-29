@@ -61,13 +61,13 @@ abstract class Quest {
 
     private void registerQuest() {
         //TODO rename | should quests be reset?
-        questID = MySQL.executeQuerygetint("SELECT id from `Quests` where name = '" + questName + "'",
+        questID = MySQL.executeQuerygetint(String.format("SELECT id from `Quests` where name = '%s'", questName),
                 "id", MySQL.Databases.quests_db);
         if (questID == -1) /*quest not in database*/{
             MySQL.executeUpdate(
-                    "INSERT INTO `Quests` (name, band) values ('" + questName + "', " + band + ")", MySQL.Databases.quests_db);
+                    String.format("INSERT INTO `Quests` (name, band) values ('%s', %s)", questName, band), MySQL.Databases.quests_db);
             questID = MySQL.executeQuerygetint(
-                    "SELECT name, id from `Quests` where name = '" + questName + "'", "id", MySQL.Databases.quests_db);
+                    String.format("SELECT name, id from `Quests` where name = '%s'", questName), "id", MySQL.Databases.quests_db);
         }
     }
 

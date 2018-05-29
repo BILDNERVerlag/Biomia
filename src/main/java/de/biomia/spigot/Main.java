@@ -25,6 +25,7 @@ import de.biomia.spigot.server.quests.Quests;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.PlayerToServerConnector;
 import de.biomia.spigot.tools.VoidWorldGenerator;
+import de.biomia.universal.Messages;
 import de.biomia.universal.MySQL;
 import net.minecraft.server.v1_12_R1.DedicatedServer;
 import org.bukkit.Bukkit;
@@ -89,11 +90,11 @@ public class Main extends JavaPlugin {
                 Biomia.setServerInstance(new Lobby(groupName));
                 GadgetIniter.init();
                 ParticleIniter.init();
-                Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.HEADS, ItemCreator.itemCreate(Material.SKULL_ITEM, "§cHeads")));
-                Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.PETS, ItemCreator.itemCreate(Material.MONSTER_EGG, "§bPets")));
-                Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.GADGETS, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM, "§2Gadgets")));
-                Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.PARTICLES, ItemCreator.itemCreate(Material.BLAZE_POWDER, "§3Particles")));
-                Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.SUITS, ItemCreator.itemCreate(Material.GOLD_CHESTPLATE, "§5Suits")));
+                Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.HEADS, ItemCreator.itemCreate(Material.SKULL_ITEM, String.format("%sHeads", Messages.COLOR_MAIN))));
+                Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.PETS, ItemCreator.itemCreate(Material.MONSTER_EGG, String.format("%sPets", Messages.COLOR_SUB))));
+                Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.GADGETS, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM, String.format("%sGadgets", Messages.COLOR_MAIN))));
+                Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.PARTICLES, ItemCreator.itemCreate(Material.BLAZE_POWDER, String.format("%sParticles", Messages.COLOR_SUB))));
+                Cosmetic.initGroup(new CosmeticGroup(Cosmetic.Group.SUITS, ItemCreator.itemCreate(Material.GOLD_CHESTPLATE, String.format("%sSuits", Messages.COLOR_MAIN))));
                 Bukkit.getOnlinePlayers().forEach(each -> Cosmetic.load(Biomia.getBiomiaPlayer(each)));
                 break;
             case TestServer:

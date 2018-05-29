@@ -9,6 +9,7 @@ import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.minigames.kitpvp.KitPVPKit;
 import de.biomia.spigot.minigames.kitpvp.KitPVPManager;
 import de.biomia.spigot.minigames.versus.Versus;
+import de.biomia.universal.Messages;
 import de.biomia.universal.Ranks;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -47,7 +48,7 @@ public class WarteLobbyListener extends BiomiaListener {
     public void onInvClick(InventoryClickEvent e) {
         if (e.getClickedInventory() != null && e.getClickedInventory().getName().equals(KitPVPMessages.selectorInventory) && e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
             if (e.getCurrentItem().getType() == Material.BARRIER) {
-                e.getWhoClicked().sendMessage("§cDu kannst dieses Kit nicht bearbeiten, da du einen zu niedrigen Rang hast!");
+                e.getWhoClicked().sendMessage(Messages.format("Du kannst dieses Kit nicht bearbeiten, da du einen zu niedrigen Rang hast!"));
                 e.setCancelled(true);
                 return;
             }

@@ -17,7 +17,7 @@ public class Messages {
      */
     public static String format(String message, Object... placeholder) {
         message = COLOR_MAIN + message.replaceAll("(?:(?<=\\().+?(?=\\))|(?<=\\[).+?(?=\\])|(?<=\\<).+?(?=\\>))"
-                , COLOR_SUB + "$0").replaceAll("[^%§\\w\\s]|_"
+                , COLOR_SUB + "$0").replaceAll("[^%äöüÄÖÜß§\\w\\s]|_"
                 , COLOR_AUX + "$0" + COLOR_MAIN);
         for (Object o : placeholder) message = message.replaceFirst("%s", COLOR_SUB + o + COLOR_MAIN);
         return message;

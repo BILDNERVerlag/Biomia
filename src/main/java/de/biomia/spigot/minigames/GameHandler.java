@@ -13,6 +13,7 @@ import de.biomia.spigot.minigames.general.Dead;
 import de.biomia.spigot.minigames.general.Scoreboards;
 import de.biomia.spigot.tools.BackToLobby;
 import de.biomia.spigot.tools.ItemCreator;
+import de.biomia.universal.Messages;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -276,10 +277,10 @@ public abstract class GameHandler implements Listener {
             if (killer != null) {
                 bpKiller = Biomia.getBiomiaPlayer(killer);
                 Bukkit.getPluginManager().callEvent(new GameKillEvent(bpKiller, bp, true, mode));
-                e.setDeathMessage(MinigamesMessages.playerKilledByPlayer.replace("%p1", bp.getTeam().getColorcode() + p.getName()).replace("%p2", bpKiller.getTeam().getColorcode() + killer.getName()));
+                e.setDeathMessage(Messages.format(MinigamesMessages.playerKilledByPlayer, bp.getTeam().getColorcode() + p.getName(), bpKiller.getTeam().getColorcode() + killer.getName()));
             } else {
                 bpKiller = null;
-                e.setDeathMessage(MinigamesMessages.playerDied.replace("%p", bp.getTeam().getColorcode() + p.getName()));
+                e.setDeathMessage(Messages.format(MinigamesMessages.playerDied, bp.getTeam().getColorcode() + p.getName()));
             }
             Bukkit.getPluginManager().callEvent(new GameDeathEvent(bp, bpKiller, true, mode));
             bp.getTeam().setDead(bp);

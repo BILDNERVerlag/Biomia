@@ -136,13 +136,13 @@ public class BedWarsHandler extends GameHandler {
             if (killer != null)
                 Bukkit.getPluginManager().callEvent(new GameKillEvent(bpKiller, bp, true, mode));
             if (!((BedWarsTeam) team).hasBed()) {
-                e.setDeathMessage(MinigamesMessages.playerDiedFinally.replace("%p", team.getColorcode() + p.getName()));
+                e.setDeathMessage(Messages.format(MinigamesMessages.playerDiedFinally, team.getColorcode() + p.getName()));
                 team.setDead(bp);
             } else {
                 if (killer == null)
-                    e.setDeathMessage(MinigamesMessages.playerDied.replace("%p", team.getColorcode() + p.getName()));
+                    e.setDeathMessage(Messages.format(MinigamesMessages.playerDied, team.getColorcode() + p.getName()));
                 else
-                    e.setDeathMessage(String.format(MinigamesMessages.playerKilledByPlayer, team.getColorcode() + p.getName(), bpKiller.getTeam().getColorcode() + killer.getName()));
+                    e.setDeathMessage(Messages.format(MinigamesMessages.playerKilledByPlayer, team.getColorcode() + p.getName(), bpKiller.getTeam().getColorcode() + killer.getName()));
             }
             Dead.respawn(p);
         }

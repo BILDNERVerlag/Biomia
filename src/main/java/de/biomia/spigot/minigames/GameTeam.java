@@ -8,6 +8,7 @@ import de.biomia.spigot.minigames.general.Dead;
 import de.biomia.spigot.minigames.general.Scoreboards;
 import de.biomia.spigot.minigames.general.TeamSwitcher;
 import de.biomia.spigot.tools.ItemCreator;
+import de.biomia.universal.Messages;
 import org.bukkit.Location;
 import org.bukkit.Material;
 
@@ -62,10 +63,8 @@ public class GameTeam {
         }
         bp.setTeam(this);
 
-        for (BiomiaPlayer pl : getPlayers()) {
-            ActionBar.sendActionBar(MinigamesMessages.joinedTeam.replace("%p", getColorcode() + bp.getName()).replace("%t", getTeamname()), pl.getPlayer());
-        }
-
+        for (BiomiaPlayer pl : getPlayers())
+            ActionBar.sendActionBar(Messages.format(MinigamesMessages.joinedTeam, getColorcode() + bp.getName(), getTeamname()), pl.getPlayer());
         players.put(bp, true);
 
         if (!mode.getInstance().getType().isVersus()) {
