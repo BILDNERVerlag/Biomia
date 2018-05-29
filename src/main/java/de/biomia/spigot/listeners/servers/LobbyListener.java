@@ -44,7 +44,7 @@ public class LobbyListener extends BiomiaListener {
     @EventHandler
     public void onDrop(PlayerDropItemEvent di) {
         if (di.getItemDrop().getItemStack().getItemMeta().getDisplayName() != null) {
-            if (!Biomia.getBiomiaPlayer(di.getPlayer()).canBuild()) {
+            if (!Biomia.getBiomiaPlayer(di.getPlayer()).isInBuildmode()) {
                 di.setCancelled(true);
             }
         }
@@ -217,7 +217,7 @@ public class LobbyListener extends BiomiaListener {
                             || e.getClickedBlock().getType() == Material.TRAP_DOOR)
                         e.setCancelled(true);
                 }
-                if (!Biomia.getBiomiaPlayer(e.getPlayer()).canBuild()) e.setCancelled(true);
+                if (!Biomia.getBiomiaPlayer(e.getPlayer()).isInBuildmode()) e.setCancelled(true);
                 if (e.getClickedBlock().getType() == Material.CHEST) { /*only chests in the beach house become mystery chests*/
                     try {
                         if (e.getClickedBlock().getLocation().distance(new Location(Bukkit.getWorld("LobbyBiomia"), 605, 68, 363)) < 10) {
@@ -328,7 +328,7 @@ public class LobbyListener extends BiomiaListener {
     public void onMove(InventoryClickEvent ie) {
         if (ie.getCurrentItem() != null) {
             Player p = (Player) ie.getWhoClicked();
-            if (!Biomia.getBiomiaPlayer(p).canBuild()) {
+            if (!Biomia.getBiomiaPlayer(p).isInBuildmode()) {
                 ie.setCancelled(true);
                 ie.setCursor(new ItemStack(Material.AIR));
             }

@@ -6,6 +6,7 @@ import de.biomia.universal.Time;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
@@ -41,6 +42,10 @@ abstract class Quest {
         registerQuest();
     }
 
+    public void registerNpc(String name, EntityType type, double x, double y, double z) {
+        registerNpc(name, type, new Location(Bukkit.getWorld("Quests"), x, y, z));
+    }
+
     public void registerNpc(String name, EntityType type, Location loc) {
         NPC temp = CitizensAPI.getNPCRegistry().createNPC(type, name);
 
@@ -60,10 +65,11 @@ abstract class Quest {
     }
 
     private void registerQuest() {
-        //TODO rename | should quests be reset?
+        //TODO rename
         questID = MySQL.executeQuerygetint(String.format("SELECT id from `Quests` where name = '%s'", questName),
                 "id", MySQL.Databases.quests_db);
-        if (questID == -1) /*quest not in database*/{
+        if (questID == -1) /*quest not in database*/ {
+            //TODO: change to one query
             MySQL.executeUpdate(
                     String.format("INSERT INTO `Quests` (name, band) values ('%s', %s)", questName, band), MySQL.Databases.quests_db);
             questID = MySQL.executeQuerygetint(

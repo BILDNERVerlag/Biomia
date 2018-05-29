@@ -77,13 +77,13 @@ public abstract class BiomiaListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public final void onBlockBreak(BlockBreakEvent e) {
-        if (!Biomia.getBiomiaPlayer(e.getPlayer()).canBuild())
+        if (!Biomia.getBiomiaPlayer(e.getPlayer()).isInBuildmode())
             e.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.HIGH)
     public final void onBlockSet(BlockPlaceEvent e) {
-        if (!Biomia.getBiomiaPlayer(e.getPlayer()).canBuild())
+        if (!Biomia.getBiomiaPlayer(e.getPlayer()).isInBuildmode())
             e.setCancelled(true);
     }
 
@@ -102,10 +102,10 @@ public abstract class BiomiaListener implements Listener {
             e.setCancelled(true);
             new PlayerReport(bp, Biomia.getOfflineBiomiaPlayer(e.getMessage()));
             p.openInventory(ReportManager.grund);
-        } else if (ReportManager.waitForCostumReason.containsKey(bp)) {
+        } else if (ReportManager.waitForCustomReason.containsKey(bp)) {
             e.setCancelled(true);
-            ReportManager.waitForCostumReason.get(bp).setReason(e.getMessage());
-            ReportManager.waitForCostumReason.remove(bp);
+            ReportManager.waitForCustomReason.get(bp).setReason(e.getMessage());
+            ReportManager.waitForCustomReason.remove(bp);
         }
 
         e.setFormat(bp.getRank().getPrefix() + "%s§7: §f%s");
@@ -130,7 +130,7 @@ public abstract class BiomiaListener implements Listener {
     @EventHandler(priority = EventPriority.HIGH)
     public final void damageToPlayer(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player) {
-            if (!Biomia.getBiomiaPlayer((Player) e.getEntity()).canGetDamage()) {
+            if (!Biomia.getBiomiaPlayer((Player) e.getEntity()).isDamageable()) {
                 e.setCancelled(true);
             }
         } else if (CosmeticPetItem.isPet(e.getEntity())) {
@@ -142,7 +142,7 @@ public abstract class BiomiaListener implements Listener {
     public final void damageByPlayer(EntityDamageByEntityEvent e) {
         if (e.getDamager() instanceof Player) {
             Player p = (Player) e.getDamager();
-            if (!Biomia.getBiomiaPlayer(p).canDamageEntitys()) {
+            if (!Biomia.getBiomiaPlayer(p).isDangerous()) {
                 e.setCancelled(true);
             }
         }

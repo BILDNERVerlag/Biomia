@@ -56,7 +56,7 @@ public class BedWars extends GameMode {
                 super.start();
 
                 for (BiomiaPlayer bp : getMode().getInstance().getPlayers()) {
-                    bp.setBuild(true);
+                    bp.setInBuildmode(true);
                 }
                 items = new SpawnItems(((BedWarsConfig) getConfig()).loadSpawner(), getInstance().getWorld());
                 items.startSpawning();

@@ -52,8 +52,8 @@ public abstract class GameHandler implements Listener {
         p.getInventory().clear();
         BackToLobby.getLobbyItem(p, 8);
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-        bp.setDamageEntitys(false);
-        bp.setGetDamage(false);
+        bp.setDangerous(false);
+        bp.setDamageable(false);
 
         if (mode.getStateManager().getActualGameState() == GameStateManager.GameState.INGAME) {
             Dead.setDead(bp);
@@ -292,7 +292,7 @@ public abstract class GameHandler implements Listener {
     public void cancelInvClick(InventoryClickEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getWhoClicked().getWorld())) return;
         BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getWhoClicked());
-        if (WarteLobbyListener.inLobbyOrSpectator(bp) && e.getCurrentItem() != null && !bp.canBuild()) {
+        if (WarteLobbyListener.inLobbyOrSpectator(bp) && e.getCurrentItem() != null && !bp.isInBuildmode()) {
             e.setCancelled(true);
             e.setCursor(new ItemStack(Material.AIR));
         }

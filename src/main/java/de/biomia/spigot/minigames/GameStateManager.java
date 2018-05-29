@@ -130,14 +130,14 @@ public class GameStateManager {
             getMode().getInstance().setPlayersOnStart();
             for (BiomiaPlayer bp : getMode().getInstance().getPlayers()) {
                 Bukkit.getOnlinePlayers().stream().filter(o -> !getMode().getInstance().getPlayers().contains(Biomia.getBiomiaPlayer(o))).forEach(all -> bp.getPlayer().hidePlayer(Main.getPlugin(), all));
-                bp.setDamageEntitys(true);
-                bp.setGetDamage(true);
+                bp.setDangerous(true);
+                bp.setDamageable(true);
                 bp.getPlayer().setGameMode(org.bukkit.GameMode.SURVIVAL);
                 Scoreboards.setInGameScoreboard(bp.getPlayer(), getMode().getInstance());
                 bp.getPlayer().getInventory().clear();
                 bp.getPlayer().setFlying(false);
                 bp.getPlayer().setAllowFlight(false);
-                bp.setBuild(true);
+                bp.setInBuildmode(true);
                 bp.getPlayer().setFallDistance(0);
                 bp.getPlayer().teleport(bp.getTeam().getHome());
                 bp.sendMessage(MinigamesMessages.explainMessages);
@@ -165,9 +165,9 @@ public class GameStateManager {
         void start() {
             for (Player p : getMode().getInstance().getWorld().getPlayers()) {
                 BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-                bp.setBuild(false);
-                bp.setDamageEntitys(false);
-                bp.setGetDamage(false);
+                bp.setInBuildmode(false);
+                bp.setDangerous(false);
+                bp.setDamageable(false);
                 p.setGameMode(org.bukkit.GameMode.ADVENTURE);
                 if (bp.getTeam() != null)
                     bp.getTeam().leave(bp);

@@ -28,7 +28,7 @@ public class FreebuildListener extends BiomiaListener {
         p.sendMessage(Messages.PREFIX + "§6Willkommen auf dem FreebuildServer, " + p.getName() + "!");
         RewardItems.giveItems(bp, BiomiaServerType.Freebuild);
         Scoreboards.setTabList(p, true, false);
-        bp.setBuild(true);
+        bp.setInBuildmode(true);
     }
 
     @EventHandler

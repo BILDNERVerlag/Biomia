@@ -4,6 +4,6 @@ import de.biomia.spigot.BiomiaPlayer;
 
 public interface Event {
 
-    void executeEvent(BiomiaPlayer qp);
+    void executeEvent(BiomiaPlayer bp);
 
 }
