@@ -2,13 +2,11 @@ package de.biomia.bungee.cmds;
 
 import de.biomia.bungee.BungeeBiomia;
 import de.biomia.bungee.BungeeMain;
-import de.biomia.spigot.Biomia;
-import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.bungee.OfflineBungeeBiomiaPlayer;
 import de.biomia.universal.Messages;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Command;
-import org.bukkit.entity.Player;
 
 public class WasBannedCommand extends Command {
 
@@ -18,7 +16,7 @@ public class WasBannedCommand extends Command {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) sender);
+        OfflineBungeeBiomiaPlayer bp = BungeeBiomia.getOfflineBiomiaPlayer(sender.getName());
         if (!bp.isSrStaff()) {
             sender.sendMessage(new TextComponent(Messages.NO_PERM));
             return;
