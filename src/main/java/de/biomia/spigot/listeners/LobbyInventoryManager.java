@@ -21,7 +21,7 @@ public class LobbyInventoryManager {
     @Getter
     private final static ItemStack silentItemOFF = ItemCreator.itemCreate(Material.FIREBALL, String.format("%sSilent Lobby:%s Off", Messages.COLOR_MAIN, Messages.COLOR_AUX));
     @Getter
-    private final static ItemStack silentItemON = ItemCreator.itemCreate(Material.FIREBALL, String.format("%sSilent Lobby:%s On", Messages.COLOR_MAIN, Messages.COLOR_SUB));
+    private final static ItemStack silentItemON = ItemCreator.itemCreate(Material.FIREWORK_CHARGE, String.format("%sSilent Lobby:%s On", Messages.COLOR_MAIN, Messages.COLOR_SUB));
     @Getter
     private final static ItemStack arrow = ItemCreator.itemCreate(Material.ARROW, String.format("%sTeleport-Pfeil", Messages.COLOR_AUX));
     @Getter
