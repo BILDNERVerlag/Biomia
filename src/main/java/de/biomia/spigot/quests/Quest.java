@@ -93,21 +93,6 @@ abstract class Quest {
     }
 }
 
-@SuppressWarnings("all")
-class QuestListener implements Listener {
-
-    private static final ArrayList<Quest> quests = new ArrayList<>();
-
-    @EventHandler
-    public static void onInteract(NPCRightClickEvent e) {
-
-    }
-
-    public static void registerQuest(Quest q) {
-        quests.add(q);
-    }
-}
-
 enum Band {
     Band1, Band2
 }

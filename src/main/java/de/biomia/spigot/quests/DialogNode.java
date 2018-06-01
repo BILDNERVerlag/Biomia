@@ -27,6 +27,7 @@ public class DialogNode {
     }
 
     public void execute(BiomiaPlayer bp) {
+        bp.setDnc(null);
         bp.sendMessage(Messages.format(message));
         events.forEach(e -> e.executeEvent(bp));
         dnc.execute(bp);
