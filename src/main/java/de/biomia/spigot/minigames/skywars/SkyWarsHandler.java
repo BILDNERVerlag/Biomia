@@ -156,7 +156,7 @@ public class SkyWarsHandler extends GameHandler {
             }
         }
 
-        if (!(bp.canBuild()) && WarteLobbyListener.inLobbyOrSpectator(bp)) {
+        if (!(bp.isInBuildmode()) && WarteLobbyListener.inLobbyOrSpectator(bp)) {
             e.setCancelled(true);
         }
     }

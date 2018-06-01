@@ -27,8 +27,8 @@ public class DemoListener extends BiomiaListener {
 
         Player p = e.getPlayer();
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-        bp.setDamageEntitys(false);
-        bp.setGetDamage(false);
+        bp.setDangerous(false);
+        bp.setDamageable(false);
         p.setGameMode(GameMode.SURVIVAL);
         Scoreboards.setTabList(p, true, false);
         BackToLobby.getLobbyItem(p, 8);
@@ -51,7 +51,7 @@ public class DemoListener extends BiomiaListener {
         if (ie.getCurrentItem() != null) {
             Material t = ie.getCurrentItem().getType();
             Player p = (Player) ie.getWhoClicked();
-            if (!Biomia.getBiomiaPlayer(p).canBuild()) {
+            if (!Biomia.getBiomiaPlayer(p).isInBuildmode()) {
                 ie.setCancelled(true);
                 ie.setCursor(new ItemStack(Material.AIR));
             }

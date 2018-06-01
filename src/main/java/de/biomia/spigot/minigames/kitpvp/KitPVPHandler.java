@@ -27,7 +27,7 @@ class KitPVPHandler extends GameHandler {
 
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
 
-        if (WarteLobbyListener.inLobbyOrSpectator(bp) || !bp.canBuild()) {
+        if (WarteLobbyListener.inLobbyOrSpectator(bp) || !bp.isInBuildmode()) {
             e.setCancelled(true);
             e.getPlayer().sendMessage(BedWarsMessages.cantPlaceBlock);
             return;
@@ -39,7 +39,7 @@ class KitPVPHandler extends GameHandler {
     public void onBlockBreak(BlockBreakEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        if (WarteLobbyListener.inLobbyOrSpectator(bp) || !bp.canBuild()) {
+        if (WarteLobbyListener.inLobbyOrSpectator(bp) || !bp.isInBuildmode()) {
             e.setCancelled(true);
             e.getPlayer().sendMessage(BedWarsMessages.cantDestroyThisBlock);
             return;

@@ -166,7 +166,7 @@ public class ReportListener implements Listener {
                             }
                         }
                         break;
-                    case "§cLünge":
+                    case "§cLänge":
                         e.setCancelled(true);
                         if (!waitForSetTime.containsKey(bp))
                             return;
@@ -216,7 +216,7 @@ public class ReportListener implements Listener {
                             is.setItemMeta(meta);
                         }
                         break;
-                    case "§bPermanenter Ban?":
+                    case "§bPermanenter Bann?":
                         e.setCancelled(true);
                         if (!waitForIsPermBan.containsKey(bp))
                             return;

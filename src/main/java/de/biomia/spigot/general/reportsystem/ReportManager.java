@@ -23,7 +23,7 @@ public class ReportManager {
     public static final ArrayList<PlayerReport> unfinishedReports = new ArrayList<>();
     public static final ArrayList<Player> waitingForBugReason = new ArrayList<>();
     public static final ArrayList<Player> waitingForName = new ArrayList<>();
-    public static final HashMap<BiomiaPlayer, PlayerBan> waitForCostumReason = new HashMap<>();
+    public static final HashMap<BiomiaPlayer, PlayerBan> waitForCustomReason = new HashMap<>();
 
 
     private static final HashMap<BiomiaPlayer, ScrolableReportInventory> currentReportsMenu = new HashMap<>();

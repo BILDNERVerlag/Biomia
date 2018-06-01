@@ -10,9 +10,9 @@ import org.bukkit.entity.Player;
 public class Dead {
 
     public static void setDead(BiomiaPlayer target) {
-        target.setBuild(false);
-        target.setDamageEntitys(false);
-        target.setGetDamage(false);
+        target.setInBuildmode(false);
+        target.setDangerous(false);
+        target.setDamageable(false);
         target.getPlayer().setSilent(true);
         target.getPlayer().setGameMode(GameMode.SPECTATOR);
         Scoreboards.setSpectatorSB(target.getPlayer());

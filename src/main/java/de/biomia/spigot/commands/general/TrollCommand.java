@@ -31,10 +31,10 @@ public class TrollCommand extends BiomiaCommand {
 
         if (getName().equalsIgnoreCase("troll")) {
             if (bp.isInTrollmode()) {
-                bp.setTrollmode(false);
+                bp.setInTrollmode(false);
                 sender.sendMessage("§cDu bist nun nicht mehr im Trollmodus");
             } else {
-                bp.setTrollmode(true);
+                bp.setInTrollmode(true);
                 sender.sendMessage("§aDu bist nun im Trollmodus");
             }
         } else if (getName().equalsIgnoreCase("crash")) {

@@ -91,8 +91,8 @@ public class VSManager implements Listener {
         p.setHealth(20);
         p.setFoodLevel(20);
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-        bp.setGetDamage(false);
-        bp.setDamageEntitys(false);
+        bp.setDamageable(false);
+        bp.setDangerous(false);
         Scoreboards.setTabList(p, true, false);
         Bukkit.getOnlinePlayers().forEach(all -> p.showPlayer(Main.getPlugin(), all));
     }

@@ -62,7 +62,7 @@ public class BedWarsHandler extends GameHandler {
         if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
 
-        if (WarteLobbyListener.inLobbyOrSpectator(bp) || !bp.canBuild()) {
+        if (WarteLobbyListener.inLobbyOrSpectator(bp) || !bp.isInBuildmode()) {
             e.setCancelled(true);
             e.getPlayer().sendMessage(BedWarsMessages.cantPlaceBlock);
             return;
@@ -84,7 +84,7 @@ public class BedWarsHandler extends GameHandler {
     public void onBlockBreak(BlockBreakEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
-        if (WarteLobbyListener.inLobbyOrSpectator(bp) || !bp.canBuild()) {
+        if (WarteLobbyListener.inLobbyOrSpectator(bp) || !bp.isInBuildmode()) {
             e.setCancelled(true);
             e.getPlayer().sendMessage(BedWarsMessages.cantDestroyThisBlock);
             return;
@@ -356,7 +356,7 @@ public class BedWarsHandler extends GameHandler {
                 }
             }
         }
-        if (!bp.canBuild()) {
+        if (!bp.isInBuildmode()) {
             if (!mode.getInstance().containsPlayer(bp) || mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME)
                 e.setCancelled(true);
         }
