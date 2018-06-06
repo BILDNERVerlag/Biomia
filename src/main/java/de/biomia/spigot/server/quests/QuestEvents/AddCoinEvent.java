@@ -10,13 +10,13 @@ public class AddCoinEvent implements Event {
         this.coins = coins;
     }
 
-    private void addCoins(BiomiaPlayer qp, int coins) {
-        qp.addCoins(coins, true);
+    private void addCoins(BiomiaPlayer bp, int coins) {
+        bp.addCoins(coins, true);
     }
 
     @Override
-    public void executeEvent(BiomiaPlayer qp) {
-        addCoins(qp, coins);
+    public void executeEvent(BiomiaPlayer bp) {
+        addCoins(bp, coins);
     }
 
 }

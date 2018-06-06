@@ -19,7 +19,7 @@ public class SkyWarsKitManager {
     }
 
     public static boolean addKit(BiomiaPlayer biomiaPlayer, int kitID) {
-        return MySQL.executeUpdate(String.format("Insert into SkyWarsKits (`biomiaID`, `kitID`) values (%d, %d)", biomiaPlayer.getBiomiaPlayerID(), kitID), MySQL.Databases.biomia_db);
+        return MySQL.executeUpdate(String.format("Insert into SkyWarsKits (`biomiaID`, `kitID`) values (%d, %d)", biomiaPlayer.getBiomiaPlayerID(), kitID), MySQL.Databases.biomia_db) != -1;
     }
 
     public static ArrayList<Integer> getAvailableKits(BiomiaPlayer biomiaPlayer) {

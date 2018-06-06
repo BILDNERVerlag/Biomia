@@ -3,6 +3,7 @@ package de.biomia.spigot.commands.general;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.BiomiaServerType;
+import de.biomia.spigot.OfflineBiomiaPlayer;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.messages.manager.Scoreboards;
 import de.biomia.spigot.server.lobby.LobbyScoreboard;
@@ -22,15 +23,19 @@ public class RankCommand extends BiomiaCommand {
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
 
-        if (sender instanceof Player && Biomia.getBiomiaPlayer((Player) sender).isOwnerOrDev() || sender instanceof ConsoleCommandSender) {
+        if (!Biomia.getBiomiaPlayer((Player) sender).isOwnerOrDev()) {
             sender.sendMessage(Messages.NO_PERM);
             return;
         }
 
         if (args.length == 2) {
             try {
-                Ranks toSet = Ranks.valueOf(args[1]);
                 Player p = Bukkit.getPlayer(args[0]);
+                if (p == null) {
+                    sender.sendMessage("§aDer Spieler " + args[0] + " ist nicht (auf dem selben Server) online.");
+                    return;
+                }
+                Ranks toSet = Ranks.valueOf(args[1]);
                 BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
                 bp.setRank(toSet);
                 sender.sendMessage("§aDer Spieler " + args[0] + " ist nun " + args[1] + ".");

@@ -23,12 +23,16 @@ public class BiomiaCommand extends Command {
                 new ClickEvent(ClickEvent.Action.OPEN_URL, "https://facebook.com/Biomia-293893057667561"));
 
         TextComponent Internetseite = new TextComponent(
-                ChatColor.RED + "unserer " + ChatColor.AQUA + "Internetseite" + ChatColor.RED + " oder sogar");
+                ChatColor.RED + "der " + ChatColor.AQUA + "BIOMIA-Website" + ChatColor.RED + ",");
         Internetseite.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://biomia.de"));
 
         TextComponent TS = new TextComponent(
-                ChatColor.RED + "auf unserem " + ChatColor.AQUA + "TeamSpeak" + ChatColor.RED + "!");
+                ChatColor.RED + "unserem " + ChatColor.AQUA + "TeamSpeak" + ChatColor.RED + " oder");
         TS.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "ts.biomia.de"));
+
+        TextComponent Discord = new TextComponent(
+                ChatColor.RED + "unserem " + ChatColor.AQUA + "Discord" + ChatColor.RED + "!");
+        TS.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/SpSSh2"));
 
         sender.sendMessage(new TextComponent("§7§m------------§r§7[§cBiomia§bHilfe§7]§m-------------"));
         sender.sendMessage(new TextComponent(""));
@@ -37,6 +41,7 @@ public class BiomiaCommand extends Command {
         sender.sendMessage(Youtube);
         sender.sendMessage(Internetseite);
         sender.sendMessage(TS);
+        sender.sendMessage(Discord);
         sender.sendMessage(new TextComponent(""));
         sender.sendMessage(new TextComponent("§7§m-----------------------------------"));
     }
