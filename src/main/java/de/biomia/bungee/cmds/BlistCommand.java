@@ -3,7 +3,7 @@ package de.biomia.bungee.cmds;
 import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import cloud.timo.TimoCloud.api.objects.ServerGroupObject;
 import cloud.timo.TimoCloud.api.objects.ServerObject;
-import net.md_5.bungee.api.ChatColor;
+import de.biomia.universal.Messages;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -39,11 +39,11 @@ public class BlistCommand extends Command {
             TextComponent component;
 
             if (!detail) {
-                component = new TextComponent("§7[");
-                TextComponent serverName = new TextComponent("§c" + serverGroupObject.getName());
+                component = new TextComponent(Messages.format("["));
+                TextComponent serverName = new TextComponent(Messages.format(serverGroupObject.getName()));
                 serverName.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/server " + serverGroupObject.getServers().get(0).getName()));
                 component.addExtra(serverName);
-                component.addExtra("§7] (§b" + onlinePlayers + "§7)");
+                component.addExtra(Messages.format("] (%s)", onlinePlayers));
                 sender.sendMessage(component);
             } else {
                 for (ServerObject serverObject : serverGroupObject.getServers()) {
@@ -52,16 +52,16 @@ public class BlistCommand extends Command {
                         continue;
 
                     component = new TextComponent();
-                    component.setText("§7[");
-                    TextComponent serverName = new TextComponent("§c" + serverObject.getName());
+                    component.setText(Messages.format("["));
+                    TextComponent serverName = new TextComponent(Messages.format(serverGroupObject.getName()));
                     serverName.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/server " + serverObject.getName()));
                     component.addExtra(serverName);
-                    component.addExtra("§7] (§b" + serverObject.getOnlinePlayerCount() + "§7): ");
+                    component.addExtra(Messages.format("] (%s):", serverObject.getOnlinePlayerCount()));
 
                     boolean first = true;
                     for (ProxiedPlayer pp : ProxyServer.getInstance().getServerInfo(serverObject.getName()).getPlayers()) {
                         if (!first) {
-                            component.addExtra("§7, ");
+                            component.addExtra(Messages.format(", "));
                         }
 
                         TextComponent playerName = new TextComponent("§7" + pp.getName());
@@ -73,6 +73,6 @@ public class BlistCommand extends Command {
                 }
             }
         }
-        sender.sendMessage(new TextComponent(ChatColor.RESET + "§cGesamte Spieleranzahl§7:§b " + TimoCloudAPI.getBungeeAPI().getThisProxy().getGroup().getOnlinePlayerCount()));
+        sender.sendMessage(new TextComponent(Messages.format("Gesamte Spieleranzahl: " + TimoCloudAPI.getBungeeAPI().getThisProxy().getGroup().getOnlinePlayerCount())));
     }
 }

@@ -27,10 +27,10 @@ public class BanCommand extends Command {
                 ProxiedPlayer pp = (ProxiedPlayer) sender;
 
                 if (args.length == 0) {
-                    sender.sendMessage(new TextComponent(String.format("%sBitte nutze %s/%sban %s<%sSpieler%s>", Messages.COLOR_MAIN, Messages.COLOR_AUX, Messages.COLOR_SUB, Messages.COLOR_AUX, Messages.COLOR_SUB, Messages.COLOR_AUX)));
+                    sender.sendMessage(new TextComponent(Messages.format("Bitte nutze /ban <Spieler>")));
                 } else {
                     if (args[0].length() > 16) {
-                        sender.sendMessage(new TextComponent(String.format("%sUngültiger Name! Maximal 16 Zeichen!", Messages.COLOR_MAIN)));
+                        sender.sendMessage(new TextComponent(Messages.format("Ungültiger Name! Maximal 16 Zeichen!")));
                         return;
                     }
                     ChannelListener.sendBanRequest(BungeeBiomia.getOfflineBiomiaPlayer(pp.getName()), BungeeBiomia.getOfflineBiomiaPlayer(args[0]).getBiomiaPlayerID());
@@ -45,8 +45,8 @@ public class BanCommand extends Command {
         if (sender.hasPermission("biomia.ban.perm")) {
             BungeeMain.activeBans.add(new Bans(true, -1, grund, biomiaID, bp.getBiomiaPlayerID(), (int) System.currentTimeMillis() / 1000));
             if (target.isOnline())
-                target.getProxiedPlayer().disconnect(new TextComponent(String.format("%sDu wurdest wegen %s%s%s permanent gebannt.", Messages.COLOR_MAIN, Messages.COLOR_SUB, grund, Messages.COLOR_MAIN)));
-            TextComponent comp = new TextComponent(String.format("%sDer Spieler %s%s%s wurde permanent gebannt wegen %s%s%s!", Messages.COLOR_MAIN, Messages.COLOR_SUB, target.getName(), Messages.COLOR_MAIN, Messages.COLOR_SUB, grund, Messages.COLOR_MAIN));
+                target.getProxiedPlayer().disconnect(new TextComponent(Messages.format("Du wurdest wegen %s permanent gebannt.", grund)));
+            TextComponent comp = new TextComponent(Messages.format("Der Spieler %s wurde permanent gebannt wegen %s!", target.getName(), grund));
             sender.sendMessage(comp);
             MySQL.executeUpdate(String.format("INSERT INTO `BanList`(`biomiaID`, `Grund`, `timestamp`, `länge`, `permanent`, von) VALUES (%d, '%s', %d, -1, true, %d)", biomiaID, grund, System.currentTimeMillis() / 1000, bp.getBiomiaPlayerID()), MySQL.Databases.biomia_db);
 
@@ -61,11 +61,10 @@ public class BanCommand extends Command {
 
         if (sender.hasPermission("biomia.ban.temp")) {
 
-            TextComponent comp = new TextComponent("§7Der Spieler §c" + targetName + " §7wurde von§b " + bp.getName() + " §7für§c " + Time.toText(sec) + " §7wegen§b " + grund + " §7gebannt!");
-            for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
+            TextComponent comp = new TextComponent(Messages.format("Der Spieler %s wurde von %s für %s wegen %s gebannt!", targetName, bp.getName(), Time.toText(sec), grund));
+            for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers())
                 if (BungeeBiomia.getOfflineBiomiaPlayer(p.getName()).isSrStaff())
                     p.sendMessage(comp);
-            }
 
             int now = (int) (System.currentTimeMillis() / 1000);
 
@@ -74,10 +73,9 @@ public class BanCommand extends Command {
 
             ProxiedPlayer p = ProxyServer.getInstance().getPlayer(targetName);
             if (p != null)
-                p.disconnect(new TextComponent("§7Du wurdest wegen§c " + grund + " §7für " + Time.toText(sec) + " §7gebannt."));
+                p.disconnect(new TextComponent(Messages.format("Du wurdest wegen %s für %s gebannt.", grund, Time.toText(sec))));
 
-            MySQL.executeUpdate("INSERT INTO `BanList`(`biomiaID`, `Grund`, `timestamp`, `länge`, `permanent`, von) VALUES ("
-                    + biomiaID + ", '" + grund + "', " + System.currentTimeMillis() / 1000 + ", " + sec + ", false, " + bp.getBiomiaPlayerID() + ")", MySQL.Databases.biomia_db);
+            MySQL.executeUpdate(String.format("INSERT INTO `BanList`(`biomiaID`, `Grund`, `timestamp`, `länge`, `permanent`, von) VALUES (%d, '%s', %d, %d, false, %d)", biomiaID, grund, System.currentTimeMillis() / 1000, sec, bp.getBiomiaPlayerID()), MySQL.Databases.biomia_db);
 
         } else {
             sender.sendMessage(new TextComponent(Messages.NO_PERM));
