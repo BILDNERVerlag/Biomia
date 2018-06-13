@@ -23,6 +23,8 @@ import java.util.HashMap;
 
 public class ReportListener implements Listener {
 
+    public static final String längeInvName = "§cLänge";
+
     public static final HashMap<BiomiaPlayer, PlayerBan> waitForSetTime = new HashMap<>();
     public static final HashMap<BiomiaPlayer, PlayerBan> waitForIsPermBan = new HashMap<>();
     public static final HashMap<BiomiaPlayer, PlayerBan> waitForBanReason = new HashMap<>();
@@ -64,7 +66,7 @@ public class ReportListener implements Listener {
 
     public static void openSetTimeInventory(BiomiaPlayer biomiaPlayer) {
 
-        Inventory inv = Bukkit.createInventory(null, 27, "§cLänge");
+        Inventory inv = Bukkit.createInventory(null, 27, längeInvName);
 
         int i = 0;
 
@@ -127,7 +129,7 @@ public class ReportListener implements Listener {
             Inventory clickedInventory = e.getClickedInventory();
             if (clickedInventory != null)
                 switch (clickedInventory.getName()) {
-                    case "§eREPORT MENÜ":
+                    case ReportManager.reportMenuName:
                         if (e.getCurrentItem() != null)
                             if (e.getCurrentItem().hasItemMeta())
                                 if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§cBug")) {
@@ -143,7 +145,7 @@ public class ReportListener implements Listener {
                                     p.closeInventory();
                                 }
                         break;
-                    case "§eGRUND":
+                    case ReportManager.grundName:
                         if (e.getCurrentItem() != null) {
                             e.setCancelled(true);
                             if (waitForBanReason.containsKey(bp)) {
@@ -166,7 +168,7 @@ public class ReportListener implements Listener {
                             }
                         }
                         break;
-                    case "§cLänge":
+                    case längeInvName:
                         e.setCancelled(true);
                         if (!waitForSetTime.containsKey(bp))
                             return;
@@ -216,7 +218,7 @@ public class ReportListener implements Listener {
                             is.setItemMeta(meta);
                         }
                         break;
-                    case "§bPermanenter Bann?":
+                    case PlayerBan.permInvName:
                         e.setCancelled(true);
                         if (!waitForIsPermBan.containsKey(bp))
                             return;
