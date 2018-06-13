@@ -3,6 +3,8 @@ package de.biomia.bungee.cmds;
 import cloud.timo.TimoCloud.api.TimoCloudAPI;
 import cloud.timo.TimoCloud.api.objects.ServerGroupObject;
 import cloud.timo.TimoCloud.api.objects.ServerObject;
+import de.biomia.bungee.BungeeBiomia;
+import de.biomia.bungee.OfflineBungeeBiomiaPlayer;
 import de.biomia.universal.Messages;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
@@ -14,13 +16,19 @@ import net.md_5.bungee.api.plugin.Command;
 public class BlistCommand extends Command {
 
     public BlistCommand() {
-        super("biomialist", "bungeecord.command.list", "blist");
+        super("blist");
     }
 
     private int onlinePlayers = 0;
 
     @Override
     public void execute(CommandSender sender, String[] strings) {
+
+        OfflineBungeeBiomiaPlayer bp = BungeeBiomia.getOfflineBiomiaPlayer(sender.getName());
+        if (!bp.isSrStaff() && !bp.isModerator()) {
+            bp.sendMessage(new TextComponent(Messages.NO_PERM));
+            return;
+        }
 
         boolean detail = false;
 
