@@ -3,11 +3,11 @@ package de.biomia.bungee.msg;
 import de.biomia.bungee.BungeeBiomia;
 import de.biomia.bungee.BungeeMain;
 import de.biomia.bungee.OfflineBungeeBiomiaPlayer;
+import de.biomia.universal.Messages;
 import de.biomia.universal.MySQL;
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.chat.TextComponent;
 
+import java.awt.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,11 +24,11 @@ public class Broadcasts {
                     PreparedStatement ps = MySQL.Connect(MySQL.Databases.biomia_db).prepareStatement("SELECT * FROM `Broadcasts`");
                     ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
-                        TextComponent text = new TextComponent(ChatColor.translateAlternateColorCodes('&', rs.getString("message")));
+                        String text = Messages.format(rs.getString("message"));
                         ProxyServer.getInstance().getPlayers().forEach(each -> {
                             OfflineBungeeBiomiaPlayer bp = BungeeBiomia.getOfflineBiomiaPlayer(each.getName());
                             if (!bp.isStaff() && !bp.isYouTuber())
-                                each.sendMessage(text);
+                                bp.sendMessage(text);
                         });
                         Thread.sleep(delayInSeconds * 1000);
                     }

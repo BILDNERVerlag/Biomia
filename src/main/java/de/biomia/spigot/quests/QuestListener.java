@@ -1,9 +1,6 @@
 package de.biomia.spigot.quests;
 
 import de.biomia.spigot.Biomia;
-import net.citizensnpcs.api.npc.NPC;
-import org.bukkit.Location;
-import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -37,7 +34,7 @@ class QuestListener implements Listener {
     public static void onMove(PlayerMoveEvent e) {
         quests.forEach(quest -> quest.getNpcs().stream()
                 .filter(entity -> e.getPlayer().getLocation().distance(entity.getLocation()) < 6)
-                .forEach(entity -> entity.teleport(entity.getLocation().setDirection( e.getPlayer().getLocation().subtract(entity.getLocation()).toVector()))));
+                .forEach(entity -> entity.teleport(entity.getLocation().setDirection(e.getPlayer().getLocation().subtract(entity.getLocation()).toVector()))));
     }
 
 }

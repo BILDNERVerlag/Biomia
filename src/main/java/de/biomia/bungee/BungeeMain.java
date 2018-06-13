@@ -79,26 +79,26 @@ public class BungeeMain extends Plugin {
                     double multiplicator = 1;
 
                     switch (hour) {
-                    case 0:
-                    case 1:
-                    case 2:
-                    default:
-                        multiplicator *= 1;
-                        break;
-                    case 3:
-                    case 4:
-                        multiplicator *= 3;
-                        break;
-                    case 5:
-                    case 7:
-                        multiplicator *= 4;
-                        break;
-                    case 6:
-                        multiplicator *= 7;
-                        break;
-                    case 8:
-                        multiplicator *= 2;
-                        break;
+                        case 0:
+                        case 1:
+                        case 2:
+                        default:
+                            multiplicator *= 1;
+                            break;
+                        case 3:
+                        case 4:
+                            multiplicator *= 3;
+                            break;
+                        case 5:
+                        case 7:
+                            multiplicator *= 4;
+                            break;
+                        case 6:
+                            multiplicator *= 7;
+                            break;
+                        case 8:
+                            multiplicator *= 2;
+                            break;
                     }
 
                     int min = 2 * (int) multiplicator;

@@ -19,14 +19,11 @@ public abstract class UniversalBiomiaPlayer {
     private UUID uuid;
 
     private UniversalBiomiaPlayer(int biomiaID, String name, UUID uuid) {
-        if (biomiaID == -1) {
-            new BiomiaIDCantBeMinusOneException().printStackTrace();
-        }
+        if (biomiaID == -1) new BiomiaIDCantBeMinusOneException().printStackTrace();
         this.biomiaID = biomiaID;
         this.name = name;
         this.uuid = uuid;
-        if (name != null)
-            permUser = api.getUser(getName());
+        permUser = api.getUser(getName());
     }
 
     protected UniversalBiomiaPlayer(int biomiaID) {
@@ -142,8 +139,7 @@ public abstract class UniversalBiomiaPlayer {
     }
 
     public final boolean isSrStaff() {
-        return (isOwnerOrDev() || getRank() == Ranks.Admin || getRank() == Ranks.SrBuilder || getRank() == Ranks.SrModerator || getRank() == Ranks.TestAccount);
-
+        return getRank() != null && (isOwnerOrDev() || getRank() == Ranks.Admin || getRank() == Ranks.SrBuilder || getRank() == Ranks.SrModerator || getRank() == Ranks.TestAccount);
     }
 
     public final boolean isYouTuber() {

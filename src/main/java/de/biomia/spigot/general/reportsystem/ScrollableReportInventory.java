@@ -17,7 +17,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-class ScrolableReportInventory implements Listener {
+class ScrollableReportInventory implements Listener {
 
     private final BiomiaPlayer bp;
     private final Inventory inv;
@@ -27,7 +27,7 @@ class ScrolableReportInventory implements Listener {
     private int side = 0;
     private InformationInventory banInformationInv;
 
-    ScrolableReportInventory(BiomiaPlayer bp) {
+    ScrollableReportInventory(BiomiaPlayer bp) {
         this.bp = bp;
         inv = Bukkit.createInventory(null, 27, "§bUnbearbeitete Reports");
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());

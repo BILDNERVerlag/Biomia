@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 public class BanManager {
 
+    //TODO: rewrite
+
     public static void getAllBans() {
 
         ArrayList<Bans> all = new ArrayList<>();
@@ -47,7 +49,7 @@ public class BanManager {
             while (rs.next()) {
                 int biomiaID = rs.getInt("biomiaID");
                 String reason = rs.getString("Grund");
-                int length = rs.getInt("bis");
+                int length = rs.getInt("length");
                 int timestamp = rs.getInt("timestamp");
                 boolean perm = rs.getBoolean("permanent");
                 int von = rs.getInt("von");
@@ -70,14 +72,15 @@ public class BanManager {
 
         try {
             PreparedStatement sql = MySQL.Connect(MySQL.Databases.biomia_db).prepareStatement(
-                    "Insert into CachedBanList (`biomiaID`, `Grund`, `bis`, `permanent`, wurdeEntbannt, von, timestamp, entbanntVon) VALUES (?, ?, ?, ? ,false, ?, ?, ?)");
+                    "Insert into CachedBanList (`biomiaID`, `Grund`, `length`, `permanent`, wurdeEntbannt, von, timestamp, entbanntVon) VALUES (?, ?, ?, ? ,?, ?, ?, ?)");
             sql.setInt(1, ban.getBiomiaID());
             sql.setString(2, ban.getGrund());
-            sql.setInt(3, ban.getBis());
+            sql.setInt(3, ban.getLength());
             sql.setBoolean(4, ban.isPerm());
-            sql.setInt(5, ban.getVon());
-            sql.setInt(6, ban.getTimestamp());
-            sql.setInt(7, entbanntVon == null ? 0 : entbanntVon.getBiomiaPlayerID());
+            sql.setBoolean(5, entbanntVon != null);
+            sql.setInt(6, ban.getVon());
+            sql.setInt(7, ban.getTimestamp());
+            sql.setInt(8, entbanntVon == null ? 0 : entbanntVon.getBiomiaPlayerID());
             sql.executeUpdate();
             sql.close();
         } catch (SQLException e) {

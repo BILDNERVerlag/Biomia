@@ -33,7 +33,7 @@ class CosmeticInventory implements Listener {
     CosmeticInventory(ArrayList<CosmeticItem> items, BiomiaPlayer bp) {
         this.bp = bp;
         this.cosmeticItems = items;
-        inv = Bukkit.createInventory(null, 27, String.format("%Cosmetics", Messages.COLOR_MAIN));
+        inv = Bukkit.createInventory(null, 27, String.format("%sCosmetics", Messages.COLOR_MAIN));
         Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
     }
 

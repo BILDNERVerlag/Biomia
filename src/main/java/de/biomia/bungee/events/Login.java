@@ -67,10 +67,10 @@ public class Login implements Listener {
                             "§cDu wurdest von der Biomia Tec. für immmer verbannt!\n\n§cMit freundlichen Grüßen, dein §5Bio§2mia§7 Tec.§c Team!"));
                     evt.setCancelled(true);
                 } else {
-                    if (eachBan.getBis() > System.currentTimeMillis() / 1000) {
+                    if (eachBan.getLength() + eachBan.getTimestamp() > System.currentTimeMillis() / 1000) {
                         pp.disconnect(new TextComponent(
                                 "§cDu wurdest von der Biomia Tec. verbannt!\nZeit bis du wieder eine Chance hast, auf unserem Netzwerk zu spielen:\n§e"
-                                        + Time.toText((int) (eachBan.getBis() - System.currentTimeMillis() / 1000))
+                                        + Time.toText((int) (eachBan.getLength() + eachBan.getTimestamp() - System.currentTimeMillis() / 1000))
                                         + "\n\n§cMit freundlichen Grüßen, dein §5Bio§2mia§7 Tec.§c Team!"));
                         evt.setCancelled(true);
                     } else {
@@ -82,54 +82,6 @@ public class Login implements Listener {
 
         unbans.forEach(each -> BanManager.moveToCache(each, null));
 
-        if (BungeeMain.plugin.getProxy().getOnlineCount() == 520) {
-
-            ArrayList<ProxiedPlayer> lvl1 = new ArrayList<>();
-            ArrayList<ProxiedPlayer> lvl2 = new ArrayList<>();
-
-            try {
-                ProxyServer.getInstance().getPlayers().forEach(each -> {
-
-                    int lvl;
-                    try {
-                        lvl = BungeeBiomia.getOfflineBiomiaPlayer(each.getName()).getRank().getLevel();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        return;
-                    }
-                    if (lvl == 1)
-                        if (lvl1.size() < 20)
-                            lvl1.add(each);
-                        else
-                            throw new BreakException();
-                    else if (lvl == 2)
-                        if (lvl1.size() < 20 || lvl2.size() < 20)
-                            lvl2.add(each);
-                });
-            } catch (BreakException ignored) {
-            }
-
-            int i = 0;
-
-            for (ProxiedPlayer ppl : lvl1) {
-                if (i < 20) {
-                    ppl.disconnect(new TextComponent(
-                            "§cDu wurdest gekickt, um einem Spieler mit einem höheren Rang Platz zu machen.\n§5Kauf dir Premium auf \n§2www.biomia.de\n§5um nicht mehr gekickt zu werden!"));
-                    i++;
-                } else
-                    break;
-            }
-            if (i < 20) {
-                for (ProxiedPlayer ppl : lvl2) {
-                    if (i < 20) {
-                        ppl.disconnect(new TextComponent(
-                                "§cDu wurdest gekickt, um einem Spieler mit einem höheren Rang Platz zu machen.\n§5Kauf dir Premium auf \n§2www.biomia.de\n§5um nicht mehr gekickt zu werden!"));
-                        i++;
-                    } else
-                        break;
-                }
-            }
-        }
         if (ModusCommand.wartungsModus) {
             if (!bp.isSrStaff()) {
                 TextComponent msg = new TextComponent(wartungsmodus);
@@ -137,7 +89,6 @@ public class Login implements Listener {
                 evt.setCancelled(true);
             }
         }
-
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
