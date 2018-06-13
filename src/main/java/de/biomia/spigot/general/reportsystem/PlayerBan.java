@@ -4,12 +4,14 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.listeners.ReportListener;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.universal.Grund;
+import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 
 public class PlayerBan {
 
+    public static final String permInvName = "§bPermanenter Ban?";
     private static Inventory isPermInv;
 
     private final int biomiaID;
@@ -63,7 +65,7 @@ public class PlayerBan {
         if (reason.equals(Grund.ANDERER_GRUND.name())) {
             ReportListener.waitForBanReason.remove(bp);
             ReportManager.waitForCustomReason.put(bp, this);
-            bp.getPlayer().sendMessage("§bBitte gib den Grund in den Chat ein!");
+            bp.getPlayer().sendMessage(Messages.format("Bitte gib den Grund in den Chat ein!"));
         } else {
             this.reason = reason;
             ReportListener.waitForBanReason.remove(bp);
@@ -74,7 +76,7 @@ public class PlayerBan {
 
     private void openIsPermInv() {
         if (isPermInv == null) {
-            isPermInv = Bukkit.createInventory(null, 27, "§bPermanenter Ban?");
+            isPermInv = Bukkit.createInventory(null, 27, permInvName);
             isPermInv.setItem(12, ItemCreator.itemCreate(Material.STAINED_GLASS, "§aJa", (short) 5));
             isPermInv.setItem(14, ItemCreator.itemCreate(Material.STAINED_GLASS, "§cNein", (short) 14));
         }
