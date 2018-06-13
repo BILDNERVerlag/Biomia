@@ -56,7 +56,7 @@ public class BlistCommand extends Command {
                     TextComponent serverName = new TextComponent(Messages.format(serverGroupObject.getName()));
                     serverName.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/server " + serverObject.getName()));
                     component.addExtra(serverName);
-                    component.addExtra(Messages.format("] (%s):", serverObject.getOnlinePlayerCount()));
+                    component.addExtra(Messages.format("] (%s): ", serverObject.getOnlinePlayerCount()));
 
                     boolean first = true;
                     for (ProxiedPlayer pp : ProxyServer.getInstance().getServerInfo(serverObject.getName()).getPlayers()) {
@@ -73,6 +73,6 @@ public class BlistCommand extends Command {
                 }
             }
         }
-        sender.sendMessage(new TextComponent(Messages.format("Gesamte Spieleranzahl: " + TimoCloudAPI.getBungeeAPI().getThisProxy().getGroup().getOnlinePlayerCount())));
+        sender.sendMessage(new TextComponent(Messages.format("Gesamte Spieleranzahl: %s", TimoCloudAPI.getBungeeAPI().getThisProxy().getGroup().getOnlinePlayerCount())));
     }
 }
