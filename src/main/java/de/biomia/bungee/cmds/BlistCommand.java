@@ -55,23 +55,19 @@ public class BlistCommand extends Command {
                 sender.sendMessage(component);
             } else {
                 for (ServerObject serverObject : serverGroupObject.getServers()) {
-
                     if (serverObject.getOnlinePlayerCount() == 0)
                         continue;
-
                     component = new TextComponent();
                     component.setText(Messages.format("["));
                     TextComponent serverName = new TextComponent(Messages.format(serverGroupObject.getName()));
                     serverName.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/server " + serverObject.getName()));
                     component.addExtra(serverName);
                     component.addExtra(Messages.format("] (%s): ", serverObject.getOnlinePlayerCount()));
-
                     boolean first = true;
                     for (ProxiedPlayer pp : ProxyServer.getInstance().getServerInfo(serverObject.getName()).getPlayers()) {
                         if (!first) {
                             component.addExtra(Messages.format(", "));
                         }
-
                         TextComponent playerName = new TextComponent("§7" + pp.getName());
                         playerName.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/gtp " + pp.getName()));
                         component.addExtra(playerName);

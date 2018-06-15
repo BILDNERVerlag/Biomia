@@ -79,7 +79,11 @@ public class CountDown {
     }
 
     public void cancel() {
-        bukkitTask.cancel();
+        try {
+            bukkitTask.cancel();
+        } catch (NullPointerException ignored) {
+            //TODO: hat in duell nullpointer ausgelöst, vielleicht mal anschauen wieso bukkitTask null ist
+        }
     }
 
 }
