@@ -42,7 +42,7 @@ public class ReportManager {
     public static final HashMap<BiomiaPlayer, PlayerBan> waitForCustomReason = new HashMap<>();
 
 
-    private static final HashMap<BiomiaPlayer, ScrollableReportInventory> currentReportsMenu = new HashMap<>();
+    private static final HashMap<BiomiaPlayer, ScrolableReportInventory> currentReportsMenu = new HashMap<>();
 
     // gets accessed remotely via BungeeCord
     public static void sendReport(PlayerReport pr) {
@@ -55,7 +55,7 @@ public class ReportManager {
     }
 
     public static void openScrollableInventory(BiomiaPlayer bp) {
-        ScrollableReportInventory reportInventory = currentReportsMenu.computeIfAbsent(bp, inventory -> new ScrollableReportInventory(bp));
+        ScrolableReportInventory reportInventory = currentReportsMenu.computeIfAbsent(bp, inventory -> new ScrolableReportInventory(bp));
         reportInventory.openInventory();
     }
 
