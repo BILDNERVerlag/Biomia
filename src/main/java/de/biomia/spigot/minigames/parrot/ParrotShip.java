@@ -1,6 +1,7 @@
 package de.biomia.spigot.minigames.parrot;
 
 import com.boydti.fawe.util.EditSessionBuilder;
+import com.google.common.collect.Sets;
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.bukkit.BukkitUtil;
 import com.sk89q.worldedit.regions.CuboidRegion;
@@ -59,7 +60,7 @@ public class ParrotShip {
     }
 
     public void update() {
-        int actualBlocks = region.getArea() - session.countBlock(region, Collections.singleton(0));
+        int actualBlocks = region.getArea() - session.countBlock(region, Sets.newHashSet(0, 8, 9));
         int destroyedBlocks = shipBlocks - actualBlocks;
 
         if (destroyedBlocks > shipBlocks * 0.6D) {
