@@ -34,6 +34,11 @@ public class WarteLobbyListener extends BiomiaListener {
     }
 
     @EventHandler
+    public void onProjectileHit(PlayerEggThrowEvent event) {
+        event.setHatching(false);
+    }
+
+    @EventHandler
     public void onJoin_(PlayerJoinEvent e) {
         if (!isVersus) return;
         Bukkit.getOnlinePlayers().forEach(each -> {

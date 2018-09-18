@@ -96,10 +96,10 @@ public abstract class UniversalBiomiaPlayer {
     }
 
     public void addCoins(int coins, boolean enableBoost) {
+        if (coins == 0) return;
         setCoins(getCoins() + coins);
-        if (isOnline()) {
+        if (isOnline())
             sendMessage(String.format("%sDu erhältst %s%d%s BC!", Messages.COLOR_SUB, Messages.COLOR_AUX, coins, Messages.COLOR_SUB));
-        }
     }
 
     protected abstract boolean isOnline();

@@ -132,10 +132,10 @@ public class BedWarsHandler extends GameHandler {
         e.getEntity().getInventory().clear();
         if (!mode.isSpectator(bp)) {
             BiomiaPlayer bpKiller = Biomia.getBiomiaPlayer(killer);
-            Bukkit.getPluginManager().callEvent(new GameDeathEvent(bp, bpKiller, true, mode));
-            if (killer != null)
-                Bukkit.getPluginManager().callEvent(new GameKillEvent(bpKiller, bp, true, mode));
-            if (!((BedWarsTeam) team).hasBed()) {
+            boolean hasNoBed = !((BedWarsTeam) team).hasBed();
+            Bukkit.getPluginManager().callEvent(new GameDeathEvent(bp, bpKiller, hasNoBed, mode));
+            if (killer != null) Bukkit.getPluginManager().callEvent(new GameKillEvent(bpKiller, bp, hasNoBed, mode));
+            if (hasNoBed) {
                 e.setDeathMessage(Messages.format(MinigamesMessages.playerDiedFinally, team.getColorcode() + p.getName()));
                 team.setDead(bp);
             } else {
@@ -169,6 +169,7 @@ public class BedWarsHandler extends GameHandler {
     @SuppressWarnings("deprecation")
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
+        super.onInventoryClick(e);
         if (!mode.getInstance().getWorld().equals(e.getWhoClicked().getWorld())) return;
         if (e.getWhoClicked() instanceof Player) {
             Player p = (Player) e.getWhoClicked();
@@ -282,6 +283,7 @@ public class BedWarsHandler extends GameHandler {
 
     @EventHandler
     public void onInteract(PlayerInteractEntityEvent e) {
+        super.onInteract(e);
         if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         Player p = e.getPlayer();
         boolean isArmorStand = false;
@@ -293,11 +295,6 @@ public class BedWarsHandler extends GameHandler {
                 if (isArmorStand)
                     ((BedWars) mode).handlerMap.get(e.getRightClicked().getUniqueId()).add(p);
             }
-    }
-
-    @EventHandler
-    public void onInteractAt(PlayerInteractAtEntityEvent e) {
-        if (e.getRightClicked().getType() == EntityType.ARMOR_STAND) onInteract(e);
     }
 
     @EventHandler

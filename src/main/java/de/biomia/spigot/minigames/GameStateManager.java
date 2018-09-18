@@ -139,6 +139,8 @@ public class GameStateManager {
                 bp.getPlayer().setAllowFlight(false);
                 bp.setInBuildmode(true);
                 bp.getPlayer().setFallDistance(0);
+                bp.getPlayer().setLevel(0);
+                bp.getPlayer().setExp(0);
                 bp.getPlayer().teleport(bp.getTeam().getHome());
                 bp.sendMessage(MinigamesMessages.explainMessages);
             }
@@ -188,7 +190,7 @@ public class GameStateManager {
                             cancel();
                             return;
                         } else if (i == 15 || i == 10 || i <= 5)
-                            Bukkit.broadcastMessage(Messages.PREFIX + MinigamesMessages.restartCountDown.replace("$t", i + ""));
+                            Bukkit.broadcastMessage(Messages.PREFIX + String.format(MinigamesMessages.restartCountDown, i));
                         i--;
                     }
                 }.runTaskTimer(Main.getPlugin(), 0, 20);

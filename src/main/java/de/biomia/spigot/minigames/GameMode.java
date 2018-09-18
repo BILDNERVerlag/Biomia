@@ -41,6 +41,7 @@ public abstract class GameMode {
     }
 
     public void start() {
+        initTeams();
         stateManager.getLobbyState().start();
         TeamSwitcher.getTeamSwitcher(this);
         config.loadTeamJoiner(initTeamJoiner());
@@ -49,7 +50,7 @@ public abstract class GameMode {
             public void run() {
                 if (getStateManager().getActualGameState() == GameStateManager.GameState.INGAME)
                     playedTime++;
-                else
+                else if (getStateManager().getActualGameState() == GameStateManager.GameState.END)
                     cancel();
             }
         }.runTaskTimer(Main.getPlugin(), 20, 20);

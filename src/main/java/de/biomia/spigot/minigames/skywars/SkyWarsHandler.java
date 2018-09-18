@@ -64,13 +64,6 @@ public class SkyWarsHandler extends GameHandler {
         }
     }
 
-    @SuppressWarnings("deprecation")
-    @EventHandler
-    public void onInventoryClick(InventoryClickEvent e) {
-        if (!mode.getInstance().getWorld().equals(e.getWhoClicked().getWorld())) return;
-        VSManager.onInventoryClick(e);
-    }
-
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
         super.onPlayerInteract(e);

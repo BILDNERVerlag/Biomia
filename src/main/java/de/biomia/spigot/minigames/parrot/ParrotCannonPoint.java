@@ -15,9 +15,12 @@ class ParrotCannonPoint {
         this.location = location;
         this.team = team;
         cannon = new ParrotCannon(team, this);
-        location.clone().subtract(team.getColor() == TeamColor.RED ? -1 : 1, 1, 0).getBlock().setType(Material.ENDER_CHEST);
         cannon.spawn();
-        gunner = (ArmorStand) team.getMode().getInstance().getWorld().spawnEntity(location.clone().add(1.5, 0, 2.5), EntityType.ARMOR_STAND);
+        Location canonierLoc;
+        if (team.getColor() == TeamColor.RED) canonierLoc = location.clone().add(0, -1, -2.5);
+        else canonierLoc = location.clone().add(0, -1, 2.5);
+
+        gunner = (ArmorStand) team.getMode().getInstance().getWorld().spawnEntity(canonierLoc, EntityType.ARMOR_STAND);
         gunner.setGravity(false);
         gunner.setCustomName(ParrotItemNames.cannonier);
         gunner.setCustomNameVisible(true);

@@ -7,24 +7,26 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 class GameRewardHandler implements Listener {
+
     @EventHandler
     public void onKill(GameKillEvent e) {
         if (e.isFinalKill())
-            GameRewards.KILL.giveReward(e.getOfflineBiomiaPlayer(), e.getMode().getInstance());
+            e.getOfflineBiomiaPlayer().addCoins(GameRewards.KILL.getReward(e.getOfflineBiomiaPlayer(), e.getMode().getInstance()), true);
     }
 
     @EventHandler
-    public void onWin(GameEndEvent e) {
+    public void onEnd(GameEndEvent e) {
         e.getWinner().forEach(each -> {
-            GameRewards.WIN.giveReward(each, e.getMode().getInstance());
+            int coins = GameRewards.WIN.getReward(each, e.getMode().getInstance());
             if (each.getTeam().lives(each))
-                GameRewards.PLAYED.giveReward(each, e.getMode().getInstance());
+                coins += GameRewards.PLAYED.getReward(each, e.getMode().getInstance());
+            each.addCoins(coins, true);
         });
     }
 
     @EventHandler
     public void onPlayed(GameDeathEvent e) {
         if (e.isFinalDeath())
-            GameRewards.PLAYED.giveReward(e.getOfflineBiomiaPlayer(), e.getMode().getInstance());
+            e.getOfflineBiomiaPlayer().addCoins(GameRewards.PLAYED.getReward(e.getOfflineBiomiaPlayer(), e.getMode().getInstance()), true);
     }
 }
