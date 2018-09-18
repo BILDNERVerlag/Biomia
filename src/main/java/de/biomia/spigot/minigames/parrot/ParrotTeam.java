@@ -15,28 +15,28 @@ public class ParrotTeam extends GameTeam {
         ship = new ParrotShip(((ParrotConfig) getMode().getConfig()).getShipRegion(color), this);
         switch (color) {
             case RED:
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -25, 54, -24), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -25, 54, -42), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -28, 50, -59), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -25, 50, -6), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -25, 44, -9), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -24, 44, -19), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -23, 44, -29), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -23, 44, -39), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -24, 44, -49), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -26, 44, -59), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 30,74,2), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 30,74,20), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 30,70,-15), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 33,74,37), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 30,64,-13), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 29,64,-3), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 28,64,7), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 28,64,17), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 29,64,27), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 31,64,37), this);
                 break;
             case BLUE:
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 74, 54, -25), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 74, 54, -8), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 74, 50, -44), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 77, 50, -10), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 74, 44, -41), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 73, 44, -31), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 72, 44, -21), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 72, 44, -11), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 73, 44, -1), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 75, 44, 9), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -38,74,-6), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -38,74,-24), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -38,70,12), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -40,70,-40), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -38,64,9), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -37,64,-1), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -36,64,-11), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -36,64,-21), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -37,64,-31), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -39,64,-41), this);
                 break;
         }
         ship.initRegion();
