@@ -60,7 +60,12 @@ public class ParrotCannon {
         this.team = team;
         this.cannonPoint = cannonPoint;
 
-        ArmorStand[] stands = Hologram.newHologram(cannonPoint.getLocation().clone().add(.5, .5, .5), "", "");
+        Location infoLoc;
+
+        if (team.getColor() == TeamColor.RED) infoLoc = cannonPoint.getLocation().clone().add(-.5, .75, .5);
+        else infoLoc = cannonPoint.getLocation().clone().add(1.5, .75, .5);
+
+        ArmorStand[] stands = Hologram.newHologram(infoLoc, "", "");
         cannonNameArmorStand = stands[0];
         cooldownArmorStand = stands[1];
 
@@ -158,14 +163,14 @@ public class ParrotCannon {
     }
 
     private void setName() {
-        cannonNameArmorStand.setCustomName(String.format("%s%s", Messages.COLOR_MAIN, type.getName()));
+        cannonNameArmorStand.setCustomName(Messages.format(type.getName()));
     }
 
     void setTimeToReload(int timeToReload) {
         this.timeToReload = timeToReload;
-        cooldownArmorStand.setCustomName(cannonPoint.isDestroyed() ? String.format("%sZerstört", Messages.COLOR_MAIN) :
+        cooldownArmorStand.setCustomName(cannonPoint.isDestroyed() ? Messages.format(Messages.format("Zerstört")) :
                 timeToReload == 0 ? String.format("%sBereit", Messages.COLOR_SUB) :
-                        String.format("%sNachladen%s: %s%s", Messages.COLOR_MAIN, Messages.COLOR_AUX, Messages.COLOR_SUB, timeToReload));
+                        Messages.format("Nachladen: %s", timeToReload));
     }
 
     private int getTimeToReload() {

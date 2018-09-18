@@ -30,7 +30,7 @@ public class ParrotTeam extends GameTeam {
                 new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -38,74,-6), this);
                 new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -38,74,-24), this);
                 new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -38,70,12), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -40,70,-40), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -41, 70, -41), this);
                 new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -38,64,9), this);
                 new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -37,64,-1), this);
                 new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -36,64,-11), this);

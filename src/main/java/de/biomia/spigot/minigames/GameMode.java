@@ -212,8 +212,7 @@ public abstract class GameMode {
                     new GameTeam(colors, this);
                     break;
                 case PARROT:
-                    ParrotTeam team = new ParrotTeam(colors, this);
-                    team.init();
+                    new ParrotTeam(colors, this);
             }
         }
     }

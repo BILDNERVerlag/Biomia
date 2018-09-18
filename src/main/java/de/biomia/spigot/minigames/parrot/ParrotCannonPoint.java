@@ -16,9 +16,9 @@ class ParrotCannonPoint {
         cannon = new ParrotCannon(team, this);
         cannon.spawn();
         Location cannonierLoc;
-        
-        if (team.getColor() == TeamColor.RED) cannonierLoc = location.clone().add(1, -.5, -2.5);
-        else cannonierLoc = location.clone().add(1, -.5, 2.5);
+
+        if (team.getColor() == TeamColor.RED) cannonierLoc = location.clone().add(.5, 0, 2.5);
+        else cannonierLoc = location.clone().add(.5, 0, -1.5);
 
         gunner = (ArmorStand) team.getMode().getInstance().getWorld().spawnEntity(cannonierLoc, EntityType.ARMOR_STAND);
         gunner.setGravity(false);

@@ -15,7 +15,6 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class ParrotShip {
 
@@ -36,7 +35,7 @@ public class ParrotShip {
     }
 
     public void initRegion() {
-        shipBlocks = region.getArea() - session.countBlock(region, Collections.singleton(0));
+        shipBlocks = region.getArea() - session.countBlock(region, Sets.newHashSet(0, 8, 9));
         setName();
         bossBar.setVisible(true);
     }
