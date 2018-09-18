@@ -38,6 +38,7 @@ public class ParrotTeam extends GameTeam {
                 new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -37,64,-31), this);
                 new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), -39,64,-41), this);
                 break;
+
         }
         ship.initRegion();
     }
