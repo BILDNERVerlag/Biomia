@@ -120,7 +120,7 @@ class ParrotHandler extends GameHandler {
         if (e.getRightClicked() instanceof ArmorStand) {
             ((Parrot) mode).getPoints().stream().filter(parrotCannonPoint -> e.getRightClicked().equals(parrotCannonPoint.getGunner())).forEach(parrotCannonPoint -> {
                 e.setCancelled(true);
-                parrotCannonPoint.getcannon().getMainInventory().open(Biomia.getBiomiaPlayer(e.getPlayer()));
+                parrotCannonPoint.getCannon().getMainInventory().open(Biomia.getBiomiaPlayer(e.getPlayer()));
             });
         }
     }
@@ -139,7 +139,7 @@ class ParrotHandler extends GameHandler {
     public void onInteract(PlayerInteractEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         if (e.hasBlock() && (e.getClickedBlock().getType() == Material.STONE_BUTTON || e.getClickedBlock().getType() == Material.WOOD_BUTTON)) {
-            ((Parrot) mode).getPoints().stream().filter(cannonPoint -> cannonPoint.getcannon().getButton().getBlock().equals(e.getClickedBlock())).forEach(cannonPoint -> cannonPoint.getcannon().fire());
+            ((Parrot) mode).getPoints().stream().filter(cannonPoint -> cannonPoint.getCannon().getButton().getBlock().equals(e.getClickedBlock())).forEach(cannonPoint -> cannonPoint.getCannon().fire());
         }
     }
 
@@ -327,8 +327,8 @@ class ParrotHandler extends GameHandler {
         AtomicInteger i = new AtomicInteger(0);
         AtomicBoolean b = new AtomicBoolean(false);
         ArrayList<Block> copy = new ArrayList<>(blocks);
-        copy.forEach(block -> {
-            ParrotCannonPoint point = ((Parrot) mode).getPoints().stream().filter(parrotCannonPoint -> parrotCannonPoint.getLocation().clone().subtract(0, 1, 0).distance(block.getLocation()) <= 1 && block.getType() == Material.ENDER_CHEST).findFirst().orElse(null);
+        copy.forEach(block -> {                                                                                                                        // TODO: must be the button loc
+            ParrotCannonPoint point = ((Parrot) mode).getPoints().stream().filter(parrotCannonPoint -> parrotCannonPoint.getLocation().clone().subtract(0, 1, 0).distance(block.getLocation()) <= 1).findFirst().orElse(null);
             if (point != null) {
                 if (fromHand) {
                     point.setDestroyed();

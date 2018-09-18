@@ -150,8 +150,8 @@ public class ParrotCannon {
             ClipboardFormat.SCHEMATIC
                     .load(new File(String.format("plugins/WorldEdit/schematics/%s_%s.schematic", type.name(), team.getColor())))
                     .paste(FaweAPI.getWorld(team.getMode().getInstance().getWorld().getName()),
-                            BukkitUtil.toVector(cannonPoint.getLocation()), false, false,
-                            new AffineTransform().rotateY(team.getColor() == TeamColor.RED ? -90 : 90));
+                            BukkitUtil.toVector(cannonPoint.getLocation()),
+                            false, false, new AffineTransform());
         } catch (IOException e) {
             e.printStackTrace();
         }

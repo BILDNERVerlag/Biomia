@@ -195,7 +195,7 @@ public abstract class GameMode {
         return !getInstance().containsPlayer(bp) && !(bp.getTeam() != null && bp.getTeam().lives(bp)) && bp.getPlayer().getWorld().equals(getInstance().getWorld());
     }
 
-    public void initTeams() {
+    private void initTeams() {
 
         for (TeamColor colors : TeamColor.values()) {
             if (colors.getID() > getInstance().getTeamAmount())
@@ -212,7 +212,8 @@ public abstract class GameMode {
                     new GameTeam(colors, this);
                     break;
                 case PARROT:
-                    new ParrotTeam(colors, this);
+                    ParrotTeam team = new ParrotTeam(colors, this);
+                    team.init();
             }
         }
     }

@@ -5,7 +5,6 @@ import de.biomia.spigot.messages.manager.Title;
 import de.biomia.spigot.minigames.TeamColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 
@@ -16,11 +15,12 @@ class ParrotCannonPoint {
         this.team = team;
         cannon = new ParrotCannon(team, this);
         cannon.spawn();
-        Location canonierLoc;
-        if (team.getColor() == TeamColor.RED) canonierLoc = location.clone().add(0, -1, -2.5);
-        else canonierLoc = location.clone().add(0, -1, 2.5);
+        Location cannonierLoc;
+        
+        if (team.getColor() == TeamColor.RED) cannonierLoc = location.clone().add(1, -.5, -2.5);
+        else cannonierLoc = location.clone().add(1, -.5, 2.5);
 
-        gunner = (ArmorStand) team.getMode().getInstance().getWorld().spawnEntity(canonierLoc, EntityType.ARMOR_STAND);
+        gunner = (ArmorStand) team.getMode().getInstance().getWorld().spawnEntity(cannonierLoc, EntityType.ARMOR_STAND);
         gunner.setGravity(false);
         gunner.setCustomName(ParrotItemNames.cannonier);
         gunner.setCustomNameVisible(true);
@@ -51,7 +51,7 @@ class ParrotCannonPoint {
         return destroyed;
     }
 
-    public ParrotCannon getcannon() {
+    public ParrotCannon getCannon() {
         return cannon;
     }
 
