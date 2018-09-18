@@ -99,6 +99,8 @@ public class Main extends JavaPlugin {
                 break;
             case TestServer:
             case TestQuest:
+                Biomia.setServerInstance(new de.biomia.spigot.quests.Quests());
+                break;
             case Quest:
                 Biomia.setServerInstance(new Quests(groupName));
                 break;

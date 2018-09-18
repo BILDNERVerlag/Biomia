@@ -15,6 +15,7 @@ import de.biomia.spigot.server.lobby.LobbyScoreboard;
 import de.biomia.spigot.tools.PlayerToServerConnector;
 import de.biomia.universal.Messages;
 import de.biomia.universal.Ranks;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
@@ -82,6 +83,12 @@ public class LobbyListener extends BiomiaListener {
         sendRegMsg(p);
         LobbyInventoryManager.setInventory(p);
         LobbyScoreboard.sendScoreboard(p);
+
+        //discord werbung
+        TextComponent Discord = new TextComponent(
+                Messages.format("§lNeu§r: Der BIOMIA-Discord-Channel: <klick hier!>"));
+        Discord.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/DUDJQdQ"));
+        p.spigot().sendMessage(Discord);
 
         for (Player pl : ((Lobby) Biomia.getServerInstance()).getSilentLobby()) {
             p.hidePlayer(Main.getPlugin(), pl);

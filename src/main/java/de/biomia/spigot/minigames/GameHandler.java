@@ -20,6 +20,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -64,7 +65,7 @@ public abstract class GameHandler implements Listener {
             mode.getInstance().registerPlayer(Biomia.getBiomiaPlayer(e.getPlayer()));
             p.teleport(GameMode.getSpawn(false));
 
-            if (bp.isSrStaff()) {
+            if (bp.isSrStaff() || bp.isModerator()) {
                 if (mode.getInstance().getType() == GameType.SKY_WARS)
                     p.getInventory().setItem(1, ItemCreator.itemCreate(Material.SPECTRAL_ARROW, MinigamesItemNames.startItem));
                 else
@@ -206,8 +207,7 @@ public abstract class GameHandler implements Listener {
     }
 
     @EventHandler
-    public void onInteract(PlayerInteractAtEntityEvent e) {
-        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
+    public void onInteract(PlayerInteractEntityEvent e) {
         BiomiaPlayer bp = Biomia.getBiomiaPlayer(e.getPlayer());
         if (mode.getStateManager().getActualGameState() != GameStateManager.GameState.INGAME)
             e.setCancelled(true);
@@ -223,23 +223,25 @@ public abstract class GameHandler implements Listener {
     }
 
     @EventHandler
-    public void onProjectileHit(PlayerEggThrowEvent event) {
-        event.setHatching(false);
+    public void onInteractAt(PlayerInteractAtEntityEvent e) {
+        if (e.getRightClicked().getType() == EntityType.ARMOR_STAND) onInteract(e);
     }
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-        if (e.getWhoClicked() instanceof Player) {
-            Player p = (Player) e.getWhoClicked();
-            BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
-            if (e.getCurrentItem() != null) {
-                if (e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().hasDisplayName()) {
-                    if (e.getClickedInventory().getName().equals(mode.getTeamSwitcher().getName())) {
-                        //noinspection deprecation
-                        mode.getTeamFromData(e.getCurrentItem().getData().getData()).join(bp);
-                        e.setCancelled(true);
-                        p.closeInventory();
-                    }
+        Player p = (Player) e.getWhoClicked();
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
+        if (WarteLobbyListener.inLobbyOrSpectator(bp) && e.getCurrentItem() != null && !bp.isInBuildmode()) {
+            e.setCancelled(true);
+            e.setCursor(new ItemStack(Material.AIR));
+        }
+        if (e.getCurrentItem() != null) {
+            if (e.getCurrentItem().hasItemMeta() && e.getCurrentItem().getItemMeta().hasDisplayName()) {
+                if (e.getClickedInventory().getName().equals(mode.getTeamSwitcher().getName())) {
+                    //noinspection deprecation
+                    mode.getTeamFromData(e.getCurrentItem().getData().getData()).join(bp);
+                    e.setCancelled(true);
+                    p.closeInventory();
                 }
             }
         }
@@ -250,7 +252,6 @@ public abstract class GameHandler implements Listener {
         Player p = e.getPlayer();
         if (e.getItem() != null) {
             if (e.getItem().hasItemMeta() && e.getItem().getItemMeta().hasDisplayName()) {
-
                 String displayname = e.getItem().getItemMeta().getDisplayName();
                 switch (displayname) {
                     case MinigamesItemNames.teamWaehlerItem:
@@ -284,17 +285,6 @@ public abstract class GameHandler implements Listener {
             }
             Bukkit.getPluginManager().callEvent(new GameDeathEvent(bp, bpKiller, true, mode));
             bp.getTeam().setDead(bp);
-        }
-    }
-
-    @SuppressWarnings("deprecation")
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void cancelInvClick(InventoryClickEvent e) {
-        if (!mode.getInstance().getWorld().equals(e.getWhoClicked().getWorld())) return;
-        BiomiaPlayer bp = Biomia.getBiomiaPlayer((Player) e.getWhoClicked());
-        if (WarteLobbyListener.inLobbyOrSpectator(bp) && e.getCurrentItem() != null && !bp.isInBuildmode()) {
-            e.setCancelled(true);
-            e.setCursor(new ItemStack(Material.AIR));
         }
     }
 }

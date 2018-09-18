@@ -15,7 +15,7 @@ public class MinigamesMessages {
     public static final String chatMessageDead = "§8[§7Tot§8] §7§o%p§r§7: §f%msg";
     public static final String chatMessageLobby = "%p§7: §f%msg";
     // %t = TeamName
-    public static final String joinedTeam = "%p ist Team %t beigetreten!";
+    public static final String joinedTeam = "%s ist Team %s beigetreten!";
     public static final String gameAlreadyStarted = Messages.format("Das Spiel hat bereits begonnen!");
     public static final String noFittingTeamParty = Messages.format("Es konnte kein passendes Team gefunden werden, da die Partygröße die maximale Teamgröße übersteigt!");
     public static final String noFittingTeamPlayer = Messages.format("Es konnte kein passendes Team gefunden werden, da kein Team genug Platz hat!");

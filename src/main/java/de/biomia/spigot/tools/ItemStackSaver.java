@@ -169,10 +169,7 @@ public class ItemStackSaver {
                 }
                 is = ItemCreator.itemCreate(m);
                 String metaString = rs.getString("meta");
-                ItemMeta meta = null;
-                if (!metaString.equals(noValue)) {
-                    meta = (ItemMeta) Base64.fromBase64(metaString);
-                }
+                ItemMeta meta = (!metaString.equals(noValue)) ? (ItemMeta) Base64.fromBase64(metaString) : null;
                 if (meta == null || metaString.equals(noValue)) {
                     meta = (is.hasItemMeta()) ? is.getItemMeta() : Bukkit.getServer().getItemFactory().getItemMeta(m);
                 }
@@ -189,14 +186,13 @@ public class ItemStackSaver {
                     String[] enchantments = enchantmentString.split(", ");
                     for (String s : enchantments) {
                         String splitEnch[] = s.split(":");
-                        Enchantment enchantment;
                         try {
-                            enchantment = (Enchantment) Enchantment.class.getDeclaredField(splitEnch[0]).get(null);
+                            Enchantment enchantment = (Enchantment) Enchantment.class.getDeclaredField(splitEnch[0]).get(null);
+                            int enchLevel = Integer.parseInt(splitEnch[1]);
+                            meta.addEnchant(enchantment, enchLevel, true);
                         } catch (Exception e) {
                             break;
                         }
-                        int enchLevel = Integer.parseInt(splitEnch[1]);
-                        meta.addEnchant(enchantment, enchLevel, true);
                     }
                 }
                 is.setItemMeta(meta);

@@ -16,10 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 public class InformationInventory {
 
@@ -45,7 +42,7 @@ public class InformationInventory {
                 while (rs.next()) {
                     String reason = rs.getString("Grund");
                     int length = rs.getInt("bis");
-                    int timestemp = rs.getInt("timestamp");
+                    long timestamp = rs.getLong("timestamp");
                     boolean perm = rs.getBoolean("permanent");
                     int von = rs.getInt("von");
                     boolean wurdeEntbannt = rs.getBoolean("wurdeEntbannt");
@@ -54,18 +51,12 @@ public class InformationInventory {
                     ItemStack is = ItemCreator.headWithSkin(Biomia.getOfflineBiomiaPlayer(von).getName(), "§b" + (bans + 1) + ". Ban");
                     ItemMeta meta = is.getItemMeta();
 
-                    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-
-                    Calendar bis = GregorianCalendar.getInstance();
-                    bis.set(Calendar.SECOND, length);
-
-                    Calendar wann = GregorianCalendar.getInstance();
-                    wann.set(Calendar.SECOND, timestemp);
+                    DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
                     if (perm)
-                        meta.setLore(Arrays.asList("", "§r§bWann: §c" + df.format(wann.getTime()), "§r§bGrund: §c" + reason, "§r§bGebannt von: §c" + Biomia.getOfflineBiomiaPlayer(von).getName(), "§r§bTemporär: §cNein", "§r§bWurde Entbannt: §c" + (!wurdeEntbannt ? "Nein" : "Ja")));
+                        meta.setLore(Arrays.asList("", "§r§bWann: §c" + df.format(new Date(timestamp * 1000)), "§r§bGrund: §c" + reason, "§r§bGebannt von: §c" + Biomia.getOfflineBiomiaPlayer(von).getName(), "§r§bTemporär: §cNein", "§r§bWurde Entbannt: §c" + (!wurdeEntbannt ? "Nein" : "Ja")));
                     else
-                        meta.setLore(Arrays.asList("", "§r§bWann: §c" + df.format(wann.getTime()), "§r§bBis: §c" + df.format(bis.getTime()), "§r§bGrund: §c" + reason, "§r§bGebannt von: §c" + Biomia.getOfflineBiomiaPlayer(von).getName(), "§r§bTemporär: §cJa", "§r§bWurde Entbannt: §c" + (!wurdeEntbannt ? "Nein" : "Ja")));
+                        meta.setLore(Arrays.asList("", "§r§bWann: §c" + df.format(new Date(timestamp * 1000)), "§r§bBis: §c" + df.format(new Date(length * 1000)), "§r§bGrund: §c" + reason, "§r§bGebannt von: §c" + Biomia.getOfflineBiomiaPlayer(von).getName(), "§r§bTemporär: §cJa", "§r§bWurde Entbannt: §c" + (!wurdeEntbannt ? "Nein" : "Ja")));
 
                     if (wurdeEntbannt) {
                         meta.getLore().add("§r§bEntbannt von: §c" + Biomia.getOfflineBiomiaPlayer(entbanntVon).getName());
@@ -86,36 +77,28 @@ public class InformationInventory {
 
                 ResultSet banListResult = banListStatement.executeQuery();
 
-                boolean isBanned = false;
                 ItemStack is = null;
                 if (banListResult.next()) {
-                    isBanned = true;
                     String reason = rs.getString("Grund");
                     int length = rs.getInt("bis");
-                    int timestamp = rs.getInt("timestamp");
+                    long timestamp = rs.getLong("timestamp");
                     boolean perm = rs.getBoolean("permanent");
                     int von = rs.getInt("von");
 
                     is = ItemCreator.itemCreate(Material.STAINED_GLASS, "§aAktuell Gebannt!", (short) 5);
                     ItemMeta meta = is.getItemMeta();
 
-                    DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-
-                    Calendar bis = GregorianCalendar.getInstance();
-                    bis.set(Calendar.SECOND, length);
-
-                    Calendar wann = GregorianCalendar.getInstance();
-                    wann.set(Calendar.SECOND, timestamp);
+                    DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
                     if (perm) {
-                        meta.setLore(Arrays.asList("", "§r§bWann: §c" + df.format(wann.getTime()), "§r§bGrund: §c" + reason, "§r§bGebannt von: §c" + Biomia.getOfflineBiomiaPlayer(von).getName(), "§r§bTemporär: §cNein", ""));
+                        meta.setLore(Arrays.asList("", "§r§bWann: §c" + df.format(new Date(timestamp * 1000)), "§r§bGrund: §c" + reason, "§r§bGebannt von: §c" + Biomia.getOfflineBiomiaPlayer(von).getName(), "§r§bTemporär: §cNein", ""));
                     } else {
-                        meta.setLore(Arrays.asList("", "§r§bWann: §c" + df.format(wann.getTime()), "§r§bBis: §c" + df.format(bis.getTime()), "§r§bGrund: §c" + reason, "§r§bGebannt von: §c" + Biomia.getOfflineBiomiaPlayer(von).getName(), "§r§bTemporär: §cJa", ""));
+                        meta.setLore(Arrays.asList("", "§r§bWann: §c" + df.format(new Date(timestamp * 1000)), "§r§bBis: §c" + df.format(new Date(length * 1000)), "§r§bGrund: §c" + reason, "§r§bGebannt von: §c" + Biomia.getOfflineBiomiaPlayer(von).getName(), "§r§bTemporär: §cJa", ""));
                     }
                     is.setItemMeta(meta);
                 }
 
-                if (isBanned) {
+                if (is != null) {
                     inv.setItem(14, is);
                 } else {
                     inv.setItem(14, ItemCreator.itemCreate(Material.STAINED_GLASS, "§cZur Zeit nicht gebannt", (short) 14));

@@ -329,16 +329,13 @@ public class KitManager {
 
         if (!availableKits.contains(k)) {
             if (bp.getCoins() >= k.getPrice()) {
-                boolean b = SkyWarsKitManager.addKit(bp, k.getID());
-                if (b) {
+                SkyWarsKitManager.addKit(bp, k.getID());
                     bp.takeCoins(k.getPrice());
                     bp.getPlayer().sendMessage(SkyWarsMessages.kitPurchased.replaceAll("%k", k.getName()));
                     availableKits.add(k);
                     Bukkit.getPluginManager().callEvent(new KitEvent(bp, k, KitEvent.KitEventType.BUY));
                     selectSkyWarsKit(k);
-                } else
-                    bp.getPlayer().sendMessage(SkyWarsMessages.errorWhilePurchasing.replaceAll("%k", k.getName()));
-                return b;
+                return true;
             } else {
                 bp.getPlayer().sendMessage(SkyWarsMessages.notEnoughCoins.replaceAll("%k", k.getName()));
                 bp.getPlayer().sendMessage(

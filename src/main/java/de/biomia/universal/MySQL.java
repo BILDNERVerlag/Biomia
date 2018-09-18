@@ -124,15 +124,17 @@ public abstract class MySQL {
         return i;
     }
 
-    public static boolean executeUpdate(String cmd, Databases db) {
+    public static int executeUpdate(String cmd, Databases db) {
+        int key = -1;
         Connection con = Connect(db);
-
         if (con != null) {
             PreparedStatement ps = null;
             try {
-                ps = con.prepareStatement(cmd);
+                ps = con.prepareStatement(cmd, Statement.RETURN_GENERATED_KEYS);
                 ps.executeUpdate();
-                return true;
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next())
+                    key = rs.getInt(1);
             } catch (com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException e) {
                 //no stack trace in this case
             } catch (SQLException e) {
@@ -141,7 +143,7 @@ public abstract class MySQL {
                 closeQuietly(null, ps);
             }
         }
-        return false;
+        return key;
     }
 
     private static void executeStatement(String cmd, Connection con) {

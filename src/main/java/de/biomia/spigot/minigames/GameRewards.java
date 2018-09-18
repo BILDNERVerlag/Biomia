@@ -18,7 +18,7 @@ public enum GameRewards {
         this.versusCoins = this.coins = coins;
     }
 
-    public void giveReward(OfflineBiomiaPlayer bp, GameInstance instance) {
+    public int getReward(OfflineBiomiaPlayer bp, GameInstance instance) {
 
         int tempCoins = instance.getType().isVersus() ? versusCoins : coins;
 
@@ -29,11 +29,8 @@ public enum GameRewards {
             case WIN:
                 tempCoins *= instance.getPlayersOnStart();
                 break;
-            default:
-                break;
         }
-
-        bp.addCoins(tempCoins, true);
+         return tempCoins;
     }
 }
 

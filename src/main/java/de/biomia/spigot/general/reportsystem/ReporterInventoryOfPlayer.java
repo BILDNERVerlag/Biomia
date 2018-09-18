@@ -23,13 +23,13 @@ class ReporterInventoryOfPlayer implements Listener {
     private final int biomiaIDReportedPlayer;
     private final Inventory inv;
     private final ArrayList<ItemStack> items = new ArrayList<>();
-    private final ScrolableReportInventory master;
+    private final ScrollableReportInventory master;
     private ItemStack next;
     private ItemStack back;
     private ItemStack home;
     private int side = 0;
 
-    ReporterInventoryOfPlayer(BiomiaPlayer bp, int biomiaIDReportedPlayer, ScrolableReportInventory master) {
+    ReporterInventoryOfPlayer(BiomiaPlayer bp, int biomiaIDReportedPlayer, ScrollableReportInventory master) {
         this.bp = bp;
         this.master = master;
         this.biomiaIDReportedPlayer = biomiaIDReportedPlayer;

@@ -14,21 +14,25 @@ public class BiomiaCommand extends Command {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        TextComponent Youtube = new TextComponent(ChatColor.AQUA + "Youtube" + ChatColor.RED + ",");
+        TextComponent Youtube = new TextComponent(String.format("%sYoutube%s,", ChatColor.AQUA, ChatColor.RED));
         Youtube.setClickEvent(
                 new ClickEvent(ClickEvent.Action.OPEN_URL, "https://youtube.com/channel/UCmu44PNBGvIU-gjtf-jJBsQ"));
 
-        TextComponent Facebook = new TextComponent(ChatColor.AQUA + "Facebook" + ChatColor.RED + ",");
+        TextComponent Facebook = new TextComponent(String.format("%sFacebook%s,", ChatColor.AQUA, ChatColor.RED));
         Facebook.setClickEvent(
                 new ClickEvent(ClickEvent.Action.OPEN_URL, "https://facebook.com/Biomia-293893057667561"));
 
         TextComponent Internetseite = new TextComponent(
-                ChatColor.RED + "unserer " + ChatColor.AQUA + "Internetseite" + ChatColor.RED + " oder sogar");
+                String.format("%sder %sBIOMIA-Website%s,", ChatColor.RED, ChatColor.AQUA, ChatColor.RED));
         Internetseite.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://biomia.de"));
 
         TextComponent TS = new TextComponent(
-                ChatColor.RED + "auf unserem " + ChatColor.AQUA + "TeamSpeak" + ChatColor.RED + "!");
+                String.format("%sunserem %sTeamSpeak%s oder", ChatColor.RED, ChatColor.AQUA, ChatColor.RED));
         TS.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "ts.biomia.de"));
+
+        TextComponent Discord = new TextComponent(
+                String.format("%sunserem %sDiscord%s!", ChatColor.RED, ChatColor.AQUA, ChatColor.RED));
+        Discord.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://discord.gg/DUDJQdQ"));
 
         sender.sendMessage(new TextComponent("§7§m------------§r§7[§cBiomia§bHilfe§7]§m-------------"));
         sender.sendMessage(new TextComponent(""));
@@ -37,8 +41,8 @@ public class BiomiaCommand extends Command {
         sender.sendMessage(Youtube);
         sender.sendMessage(Internetseite);
         sender.sendMessage(TS);
+        sender.sendMessage(Discord);
         sender.sendMessage(new TextComponent(""));
         sender.sendMessage(new TextComponent("§7§m-----------------------------------"));
     }
-
 }

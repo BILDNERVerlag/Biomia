@@ -53,6 +53,7 @@ public class CountDown {
 
                         Bukkit.getOnlinePlayers().forEach(p -> {
                             p.setLevel(getCountdown());
+                            p.setExp(getCountdown() / 60f);
                             if (send) p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10, 2);
                         });
                         setCountdown(getCountdown() - 1);
@@ -79,7 +80,11 @@ public class CountDown {
     }
 
     public void cancel() {
-        bukkitTask.cancel();
+        try {
+            bukkitTask.cancel();
+        } catch (NullPointerException ignored) {
+            //TODO: hat in duell nullpointer ausgelöst, vielleicht mal anschauen wieso bukkitTask null ist
+        }
     }
 
 }

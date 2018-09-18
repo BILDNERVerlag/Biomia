@@ -1,6 +1,7 @@
 package de.biomia.spigot.commands.general;
 
 import de.biomia.spigot.Biomia;
+import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
@@ -18,15 +19,12 @@ public class GamemodeCommand extends BiomiaCommand {
     public void onCommand(CommandSender sender, String label, String[] args) {
 
         Player p = (Player) sender;
-        if (!Biomia.getBiomiaPlayer(p).isSrStaff()) {
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
+        if (!bp.isSrStaff() && !bp.isModerator()) {
             sender.sendMessage(Messages.NO_PERM);
-            return;
-        }
-
+        } else {
             if (args.length >= 1) {
-
                 GameMode gameMode = null;
-
                 switch (args[0]) {
                     case "0":
                     case "s":
@@ -64,6 +62,7 @@ public class GamemodeCommand extends BiomiaCommand {
                 } else {
                     p.sendMessage("§7/§bgm §7<§bGameMode§7> [§bSpieler§7]");
                 }
+            }
         }
     }
 }

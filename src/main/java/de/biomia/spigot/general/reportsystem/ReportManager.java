@@ -11,7 +11,6 @@ import org.bukkit.inventory.Inventory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 public class ReportManager {
 
@@ -43,7 +42,7 @@ public class ReportManager {
     public static final HashMap<BiomiaPlayer, PlayerBan> waitForCustomReason = new HashMap<>();
 
 
-    private static final HashMap<BiomiaPlayer, ScrolableReportInventory> currentReportsMenu = new HashMap<>();
+    private static final HashMap<BiomiaPlayer, ScrollableReportInventory> currentReportsMenu = new HashMap<>();
 
     // gets accessed remotely via BungeeCord
     public static void sendReport(PlayerReport pr) {
@@ -56,7 +55,8 @@ public class ReportManager {
     }
 
     public static void openScrollableInventory(BiomiaPlayer bp) {
-        currentReportsMenu.computeIfAbsent(bp, inventory -> new ScrolableReportInventory(bp)).openInventory();
+        ScrollableReportInventory reportInventory = currentReportsMenu.computeIfAbsent(bp, inventory -> new ScrollableReportInventory(bp));
+        reportInventory.openInventory();
     }
 
     public static void removeReports(ArrayList<PlayerReport> playerReports) {
@@ -65,8 +65,13 @@ public class ReportManager {
     }
 
     public static ArrayList<PlayerReport> getReports(int biomiaID) {
-        return plReports.stream().filter(each -> each.getReporteterBiomiaPlayer().getBiomiaPlayerID() == biomiaID)
-                .collect(Collectors.toCollection(ArrayList::new));
+        final ArrayList<PlayerReport> reports = new ArrayList<>();
+        plReports.forEach(each -> {
+            if (each.getReporteterBiomiaPlayer().getBiomiaPlayerID() == biomiaID) {
+                reports.add(each);
+            }
+        });
+        return reports;
     }
 
     public static void openReportMenu(Player player) {

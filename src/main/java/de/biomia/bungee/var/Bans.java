@@ -5,15 +5,15 @@ public class Bans {
     private final int biomiaID;
     private final String grund;
     private final boolean perm;
-    private final int bis;
+    private final int length;
     private final int von;
     private final int timestamp;
 
     // constructor
-    public Bans(boolean perm, int bis, String grund, int biomiaID, int von, int timestamp) {
+    public Bans(boolean perm, int length, String grund, int biomiaID, int von, int timestamp) {
         this.biomiaID = biomiaID;
         this.grund = grund;
-        this.bis = bis;
+        this.length = length;
         this.perm = perm;
         this.von = von;
         this.timestamp = timestamp;
@@ -31,8 +31,8 @@ public class Bans {
         return perm;
     }
 
-    public int getBis() {
-        return bis;
+    public int getLength() {
+        return length;
     }
 
     public int getVon() {
