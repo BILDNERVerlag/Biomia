@@ -91,7 +91,7 @@ class ParrotCannonInventory {
 
         CannonWeaponChangeInventory(ParrotCannon cannon) {
             super(cannon, 9, "Weapon Change");
-            setItem(2, ItemCreator.itemCreate(Material.IRON_SWORD, ParrotCannon.CannonType.CANNON.getName()));
+            setItem(2, ItemCreator.itemCreate(Material.IRON_SWORD, ParrotCannon.CannonType.KANONE.getName()));
             setItem(3, ItemCreator.itemCreate(Material.IRON_SWORD, ParrotCannon.CannonType.GRANATENWERFER.getName()));
             setItem(4, ItemCreator.itemCreate(Material.IRON_SWORD, ParrotCannon.CannonType.PANZERFAUST.getName()));
             setItem(5, ItemCreator.itemCreate(Material.IRON_SWORD, ParrotCannon.CannonType.HALBAUTOMATIK.getName()));

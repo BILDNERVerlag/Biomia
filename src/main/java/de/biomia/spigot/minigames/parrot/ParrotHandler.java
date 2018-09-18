@@ -274,7 +274,7 @@ class ParrotHandler extends GameHandler {
 
                 switch (e.getSlot()) {
                     case 2:
-                        type = ParrotCannon.CannonType.CANNON;
+                        type = ParrotCannon.CannonType.KANONE;
                         price = 0;
                         break;
                     case 3:

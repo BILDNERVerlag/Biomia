@@ -24,7 +24,7 @@ import java.util.Random;
 
 public class ParrotCannon {
 
-    private CannonType type = CannonType.CANNON;
+    private CannonType type = CannonType.KANONE;
     private final ParrotTeam team;
     private final ParrotCannonPoint cannonPoint;
     private int timeToReload;
@@ -97,7 +97,7 @@ public class ParrotCannon {
 
                 switch (type) {
                     default:
-                    case CANNON:
+                    case KANONE:
                         vector.setY(1.05);
                         break;
                     case PANZERFAUST:
@@ -200,7 +200,7 @@ public class ParrotCannon {
         int x = 0, y = 0, z = 0;
 
         switch (type) {
-            case CANNON:
+            case KANONE:
                 x = -2;
                 z = 1;
                 y = 1;
@@ -229,7 +229,7 @@ public class ParrotCannon {
         int x = 0, y = 0, z = 0;
 
         switch (type) {
-            case CANNON:
+            case KANONE:
                 x = -7;
                 y = 1;
                 break;
@@ -253,12 +253,12 @@ public class ParrotCannon {
     }
 
     public enum CannonType {
-        GRANATENWERFER, SCHROTFLINTE, PANZERFAUST, CANNON, HALBAUTOMATIK;
+        GRANATENWERFER, SCHROTFLINTE, PANZERFAUST, KANONE, HALBAUTOMATIK;
 
         public String getName() {
             switch (this) {
                 default:
-                case CANNON:
+                case KANONE:
                     return "6-Pfünder";
                 case PANZERFAUST:
                     return "12-Pfünder";
@@ -274,7 +274,7 @@ public class ParrotCannon {
         double getFuseTicks() {
             switch (this) {
                 default:
-                case CANNON:
+                case KANONE:
                     return 2.7;
             }
         }
