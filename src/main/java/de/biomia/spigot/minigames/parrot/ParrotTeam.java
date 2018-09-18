@@ -17,8 +17,8 @@ public class ParrotTeam extends GameTeam {
             case RED:
                 new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 30,74,2), this);
                 new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 30,74,20), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 30,70,-15), this);
-                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 33,74,37), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 30,70,-16), this);
+                new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 33,70,37), this);
                 new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 30,64,-13), this);
                 new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 29,64,-3), this);
                 new ParrotCannonPoint(new Location(mode.getInstance().getWorld(), 28,64,7), this);
