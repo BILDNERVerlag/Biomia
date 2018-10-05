@@ -199,62 +199,8 @@ public class ParrotCannon {
         }
     }
 
-    public Location getButton() {
-
-        //aus sicht von blau
-        int x = 0, y = 0, z = 0;
-
-        switch (type) {
-            case KANONE:
-                x = -2;
-                z = 1;
-                y = 1;
-                break;
-            case PANZERFAUST:
-                break;
-            case SCHROTFLINTE:
-                break;
-            case GRANATENWERFER:
-                break;
-            case HALBAUTOMATIK:
-                break;
-        }
-
-        if (team.getColor() == TeamColor.RED) {
-            x *= -1;
-            z *= -1;
-        }
-
-        return cannonPoint.getLocation().clone().add(x, y, z);
-    }
-
     private Location getShootHole() {
-
-        //aus sicht von blau
-        int x = 0, y = 0, z = 0;
-
-        switch (type) {
-            case KANONE:
-                x = -7;
-                y = 1;
-                break;
-            case PANZERFAUST:
-                break;
-            case SCHROTFLINTE:
-                break;
-            case GRANATENWERFER:
-                break;
-            case HALBAUTOMATIK:
-                break;
-        }
-
-        if (team.getColor() == TeamColor.RED) {
-            x *= -1;
-            z *= -1;
-        }
-
-        return cannonPoint.getLocation().clone().add(x, y, z);
-
+        return cannonPoint.getLocation().clone().add(team.getColor() == TeamColor.BLUE ? 6 : -6, 1, 0);
     }
 
     public enum CannonType {
@@ -298,20 +244,20 @@ public class ParrotCannon {
             double yaw;
             switch (this) {
                 case STRONG_LEFT:
-                    yaw = .6;
+                    yaw = -.6;
                     break;
                 case LEFT:
-                    yaw = .3;
+                    yaw = -.3;
                     break;
                 default:
                 case STRAIGHT:
                     yaw = 0;
                     break;
                 case RIGHT:
-                    yaw = -.3;
+                    yaw = .3;
                     break;
                 case STRONG_RIGHT:
-                    yaw = -.6;
+                    yaw = .6;
                     break;
             }
             if (color == TeamColor.RED)
@@ -373,7 +319,7 @@ public class ParrotCannon {
                     pitch = 2.8;
                     break;
             }
-            if (color == TeamColor.BLUE)
+            if (color == TeamColor.RED)
                 pitch *= -1;
             return new Vector().setX(pitch);
         }

@@ -139,7 +139,9 @@ class ParrotHandler extends GameHandler {
     public void onInteract(PlayerInteractEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         if (e.hasBlock() && (e.getClickedBlock().getType() == Material.STONE_BUTTON || e.getClickedBlock().getType() == Material.WOOD_BUTTON)) {
-            ((Parrot) mode).getPoints().stream().filter(cannonPoint -> cannonPoint.getCannon().getButton().getBlock().equals(e.getClickedBlock())).forEach(cannonPoint -> cannonPoint.getCannon().fire());
+            ((Parrot) mode).getPoints().stream().filter(cannonPoint -> {
+                return cannonPoint.getLocation().distance(e.getClickedBlock().getLocation()) < 0.1;
+            }).forEach(cannonPoint -> cannonPoint.getCannon().fire());
         }
     }
 
@@ -303,6 +305,7 @@ class ParrotHandler extends GameHandler {
                     return;
                 } else if (pay(bp, price)) {
                     cannon.reset();
+                    cannon.setType(type);
                     cannon.spawn();
                 }
             }
