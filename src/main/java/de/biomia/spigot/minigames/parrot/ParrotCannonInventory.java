@@ -2,6 +2,7 @@ package de.biomia.spigot.minigames.parrot;
 
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.tools.ItemCreator;
+import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
@@ -38,14 +39,11 @@ class ParrotCannonInventory {
 
         CannonSettingInventory(ParrotCannon cannon) {
             super(cannon, 9, "Einstellungen");
-
-            //TODO addInfosAsLore (small text and price)
-
-            setItem(2, ItemCreator.itemCreate(Material.FIREBALL, "Schneller neuladen"));
-            setItem(3, ItemCreator.itemCreate(Material.GOLD_SWORD, "Mehr Schaden"));
-            setItem(4, ItemCreator.itemCreate(Material.COMPASS, "Richtung wählen"));
-            setItem(5, ItemCreator.itemCreate(Material.LONG_GRASS, "Mehr Streuung"));
-            setItem(6, ItemCreator.itemCreate(Material.STONE_BUTTON, "Mehr Schuss"));
+            setItem(2, ItemCreator.setLore(ItemCreator.itemCreate(Material.FIREBALL, Messages.format("Schneller neuladen")), ParrotCannon.CannonUpgrade.FAST_RELOAD.getLore()));
+            setItem(3, ItemCreator.setLore(ItemCreator.itemCreate(Material.GOLD_SWORD, Messages.format("Mehr Schaden")), ParrotCannon.CannonUpgrade.DAMAGE.getLore()));
+            setItem(4, ItemCreator.setLore(ItemCreator.itemCreate(Material.COMPASS, Messages.format("Richtung wählen")), ParrotCannon.CannonUpgrade.DIRECTION.getLore()));
+            setItem(5, ItemCreator.setLore(ItemCreator.itemCreate(Material.LONG_GRASS, Messages.format("Mehr Streuung")), ParrotCannon.CannonUpgrade.SCATTERING.getLore()));
+            setItem(6, ItemCreator.setLore(ItemCreator.itemCreate(Material.STONE_BUTTON, Messages.format("Mehr Schuss")), ParrotCannon.CannonUpgrade.BULLET.getLore()));
         }
     }
 

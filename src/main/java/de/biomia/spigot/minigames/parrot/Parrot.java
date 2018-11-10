@@ -61,7 +61,7 @@ public class Parrot extends GameMode {
             }
         });
 
-        //TODO addAllLocs
+        //TODO addAllLocs | changeLocs
         teleportersMap.add(new Teleporter(new Location(instance.getWorld(), -23, 75, -49), new Location(instance.getWorld(), -20, 77, -46), goInside));
         teleportersMap.add(new Teleporter(new Location(instance.getWorld(), -23, 75, -49), new Location(instance.getWorld(), -20, 77, -46), goOutside).setInverted());
 

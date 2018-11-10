@@ -6,6 +6,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.util.List;
+
 public class ItemCreator {
 
     public static ItemStack itemCreate(Material material, String name, short data) {
@@ -33,6 +35,13 @@ public class ItemCreator {
         itemMeta.setDisplayName(name);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
+    }
+
+    public static ItemStack setLore(ItemStack stack, List<String> lore) {
+        ItemMeta itemMeta = stack.getItemMeta();
+        itemMeta.setLore(lore);
+        stack.setItemMeta(itemMeta);
+        return stack;
     }
 
     public static ItemStack itemCreate(Material material) {

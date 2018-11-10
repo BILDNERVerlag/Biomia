@@ -20,6 +20,8 @@ import org.bukkit.util.Vector;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class ParrotCannon {
@@ -350,21 +352,24 @@ public class ParrotCannon {
     }
 
     public enum CannonUpgrade {
-        FAST_RELOAD, SCATTERING, DAMAGE, BULLET;
+        FAST_RELOAD, SCATTERING, DAMAGE, BULLET, DIRECTION;
 
-        private int price;
+        public List<String> getLore() {
+            return Arrays.asList("", Messages.format(getInfo()), Messages.format(getPrice() + " %s", " BCs"), "");
+        }
 
-        private String getLore() {
+        public String getInfo() {
             switch (this) {
-                //TODO improve
                 case FAST_RELOAD:
-                    return "Test";
+                    return "Lade die Kanone schneller nach, um noch öfters schaden zu machen!";
                 case SCATTERING:
-                    return "Test";
+                    return "Gib deinen Schüssen eine Streuung, \num nicht immer den gleichen Punkt zu treffen!";
                 case DAMAGE:
-                    return "Test";
+                    return "Verursache mit einem Schuss mehr Schaden!";
                 case BULLET:
-                    return "Test";
+                    return "Verschieße mehr Munition gleichzeitig!";
+                case DIRECTION:
+                    return "Ändere die Richtung! Links, Rechts, Länger, Kürzer was du willst!";
             }
             return "fail";
         }
@@ -381,6 +386,9 @@ public class ParrotCannon {
                     return 15;
                 case BULLET:
                     return 12;
+                case DIRECTION:
+                    //?
+                    return 5;
             }
             return -1;
         }
