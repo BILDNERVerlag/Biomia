@@ -64,7 +64,7 @@ public class GameTeam {
         bp.setTeam(this);
 
         for (BiomiaPlayer pl : getPlayers())
-            ActionBar.sendActionBar(Messages.format(MinigamesMessages.joinedTeam, getColorcode() + bp.getName(), getTeamname()), pl.getPlayer());
+            ActionBar.sendActionBar(Messages.format(MinigamesMessages.joinedTeam, getColorcode() + bp.getName(), getColorcode() + getTeamname()), pl.getPlayer());
         players.put(bp, true);
 
         if (!mode.getInstance().getType().isVersus()) {

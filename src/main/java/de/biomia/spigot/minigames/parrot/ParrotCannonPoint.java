@@ -55,6 +55,10 @@ class ParrotCannonPoint {
         return cannon;
     }
 
+    public ParrotTeam getTeam() {
+        return team;
+    }
+
     public Location getLocation() {
         return location;
     }

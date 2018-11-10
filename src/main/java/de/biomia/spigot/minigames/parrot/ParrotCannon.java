@@ -350,7 +350,40 @@ public class ParrotCannon {
     }
 
     public enum CannonUpgrade {
-        FAST_RELOAD, SCATTERING, DAMAGE, BULLET
+        FAST_RELOAD, SCATTERING, DAMAGE, BULLET;
+
+        private int price;
+
+        private String getLore() {
+            switch (this) {
+                //TODO improve
+                case FAST_RELOAD:
+                    return "Test";
+                case SCATTERING:
+                    return "Test";
+                case DAMAGE:
+                    return "Test";
+                case BULLET:
+                    return "Test";
+            }
+            return "fail";
+        }
+
+
+        public int getPrice() {
+            //TODO improve
+            switch (this) {
+                case FAST_RELOAD:
+                    return 10;
+                case SCATTERING:
+                    return 20;
+                case DAMAGE:
+                    return 15;
+                case BULLET:
+                    return 12;
+            }
+            return -1;
+        }
     }
 
     public boolean upgrade(CannonUpgrade upgrade) {

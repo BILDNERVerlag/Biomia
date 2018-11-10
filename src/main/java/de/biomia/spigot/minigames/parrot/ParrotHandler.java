@@ -17,6 +17,7 @@ import de.biomia.spigot.server.quests.QuestEvents.GiveItemEvent;
 import de.biomia.spigot.server.quests.QuestEvents.TakeItemEvent;
 import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
@@ -56,6 +57,17 @@ class ParrotHandler extends GameHandler {
     }
 
     @EventHandler
+    public void onPlayerKill(GameKillEvent e) {
+
+        Location loc = e.getOfflineBiomiaPlayer().getBiomiaPlayer().getPlayer().getLocation();
+
+        if (e.isFinalKill())
+            loc.getWorld().dropItem(loc, new ItemStack(Material.GOLD_INGOT, 50)).setPickupDelay(0);
+        else
+            loc.getWorld().dropItem(loc, new ItemStack(Material.GOLD_INGOT, 10)).setPickupDelay(0);
+    }
+
+    @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getEntity().getWorld())) return;
         Player p = e.getEntity();
@@ -76,7 +88,7 @@ class ParrotHandler extends GameHandler {
     @EventHandler
     public void onBlockDestroy(BlockExplodeEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getBlock().getWorld())) return;
-        handleBlocks(false, e.blockList());
+        handleBlocks(null, e.blockList());
     }
 
     @EventHandler
@@ -91,14 +103,14 @@ class ParrotHandler extends GameHandler {
                 // TODO launch splitter
             }
         } else {
-            handleBlocks(false, e.blockList());
+            handleBlocks(null, e.blockList());
         }
     }
 
     @EventHandler
     public void onBlockDestroy(BlockBreakEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getBlock().getWorld())) return;
-        if (handleBlocks(true, Collections.singletonList(e.getBlock()))) {
+        if (handleBlocks(Biomia.getBiomiaPlayer(e.getPlayer()), Collections.singletonList(e.getBlock()))) {
             new GiveItemEvent(new Price(ItemType.GOLD, 100).getPriceItem()).executeEvent(Biomia.getBiomiaPlayer(e.getPlayer()));
         }
     }
@@ -170,7 +182,7 @@ class ParrotHandler extends GameHandler {
                 if (arrow.hasMetadata("ExplosionArrow")) {
                     Block b = e.getHitBlock();
                     if (b != null) {
-                        handleBlocks(false, Collections.singletonList(b));
+                        handleBlocks(null, Collections.singletonList(b));
                         arrow.getLocation().getWorld().createExplosion(arrow.getLocation(), 0);
                         b.setType(Material.AIR);
                         arrow.remove();
@@ -247,7 +259,6 @@ class ParrotHandler extends GameHandler {
                 }
             } else if (inventory instanceof ParrotCannonInventory.CannonSettingInventory) {
                 ParrotCannon.CannonUpgrade upgrade;
-                int price = 10; //TODO
                 switch (e.getSlot()) {
                     case 2:
                         upgrade = ParrotCannon.CannonUpgrade.FAST_RELOAD;
@@ -267,8 +278,8 @@ class ParrotHandler extends GameHandler {
                     default:
                         return;
                 }
-                if (canPay(bp, price) && cannon.upgrade(upgrade))
-                    pay(bp, price);
+                if (canPay(bp, upgrade.getPrice()) && cannon.upgrade(upgrade))
+                    pay(bp, upgrade.getPrice());
             } else {
 
                 ParrotCannon.CannonType type;
@@ -326,14 +337,16 @@ class ParrotHandler extends GameHandler {
         return b;
     }
 
-    private boolean handleBlocks(boolean fromHand, List<Block> blocks) {
+    private boolean handleBlocks(BiomiaPlayer player, List<Block> blocks) {
         AtomicInteger i = new AtomicInteger(0);
         AtomicBoolean b = new AtomicBoolean(false);
         ArrayList<Block> copy = new ArrayList<>(blocks);
-        copy.forEach(block -> {                                                                                                                        // TODO: must be the button loc
+        copy.forEach(block -> {
             ParrotCannonPoint point = ((Parrot) mode).getPoints().stream().filter(parrotCannonPoint -> parrotCannonPoint.getLocation().clone().subtract(0, 1, 0).distance(block.getLocation()) <= 1).findFirst().orElse(null);
             if (point != null) {
-                if (fromHand) {
+                if (player != null && point.getTeam().getColor() != player.getTeam().getColor()) {
+                    player.getTeam().getPlayers().forEach(biomiaPlayer -> biomiaPlayer.getPlayer().getWorld().dropItem(biomiaPlayer.getPlayer().getLocation(), new ItemStack(Material.GOLD_INGOT, 4)).setPickupDelay(0));
+                    player.getPlayer().getWorld().dropItem(player.getPlayer().getLocation(), new ItemStack(Material.GOLD_INGOT, 10)).setPickupDelay(0);
                     point.setDestroyed();
                     b.set(true);
                     return;

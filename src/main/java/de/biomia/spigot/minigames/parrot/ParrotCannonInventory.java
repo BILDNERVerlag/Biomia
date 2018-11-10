@@ -38,6 +38,9 @@ class ParrotCannonInventory {
 
         CannonSettingInventory(ParrotCannon cannon) {
             super(cannon, 9, "Einstellungen");
+
+            //TODO addInfosAsLore (small text and price)
+
             setItem(2, ItemCreator.itemCreate(Material.FIREBALL, "Schneller neuladen"));
             setItem(3, ItemCreator.itemCreate(Material.GOLD_SWORD, "Mehr Schaden"));
             setItem(4, ItemCreator.itemCreate(Material.COMPASS, "Richtung wählen"));
@@ -88,14 +91,13 @@ class ParrotCannonInventory {
     }
 
     static class CannonWeaponChangeInventory extends ParrotCannonInventory {
-
         CannonWeaponChangeInventory(ParrotCannon cannon) {
             super(cannon, 9, "Weapon Change");
-            setItem(2, ItemCreator.itemCreate(Material.IRON_SWORD, ParrotCannon.CannonType.KANONE.getName()));
-            setItem(3, ItemCreator.itemCreate(Material.IRON_SWORD, ParrotCannon.CannonType.GRANATENWERFER.getName()));
-            setItem(4, ItemCreator.itemCreate(Material.IRON_SWORD, ParrotCannon.CannonType.PANZERFAUST.getName()));
+            setItem(2, ItemCreator.itemCreate(Material.WOOD_SWORD, ParrotCannon.CannonType.KANONE.getName()));
+            setItem(3, ItemCreator.itemCreate(Material.STONE_SWORD, ParrotCannon.CannonType.GRANATENWERFER.getName()));
+            setItem(4, ItemCreator.itemCreate(Material.GOLD_SWORD, ParrotCannon.CannonType.PANZERFAUST.getName()));
             setItem(5, ItemCreator.itemCreate(Material.IRON_SWORD, ParrotCannon.CannonType.HALBAUTOMATIK.getName()));
-            setItem(6, ItemCreator.itemCreate(Material.IRON_SWORD, ParrotCannon.CannonType.SCHROTFLINTE.getName()));
+            setItem(6, ItemCreator.itemCreate(Material.DIAMOND_SWORD, ParrotCannon.CannonType.SCHROTFLINTE.getName()));
         }
     }
 }

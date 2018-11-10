@@ -35,6 +35,9 @@ public class Parrot extends GameMode {
 
     public Parrot(GameInstance instance) {
         super(instance);
+
+        //TODO addShop
+
         TeleportExecutor goInside = new TeleportExecutor() {
             @Override
             public void execute(BiomiaPlayer bp, Teleporter teleporter) {
@@ -58,11 +61,9 @@ public class Parrot extends GameMode {
             }
         });
 
+        //TODO addAllLocs
         teleportersMap.add(new Teleporter(new Location(instance.getWorld(), -23, 75, -49), new Location(instance.getWorld(), -20, 77, -46), goInside));
         teleportersMap.add(new Teleporter(new Location(instance.getWorld(), -23, 75, -49), new Location(instance.getWorld(), -20, 77, -46), goOutside).setInverted());
-
-        teleportersMap.add(new Teleporter(new Location(instance.getWorld(), 68, 75, -49), new Location(instance.getWorld(), 65, 77, -46), goInside));
-        teleportersMap.add(new Teleporter(new Location(instance.getWorld(), 68, 75, -49), new Location(instance.getWorld(), 65, 77, -46), goOutside).setInverted());
 
     }
 
