@@ -44,7 +44,10 @@ class ParrotCannonPoint {
         gunner.remove();
         cannon.setTimeToReload(0);
         team.getShip().updateCannons();
-        Bukkit.getOnlinePlayers().forEach(player -> Title.sendTitel(String.format("%sEine Kanone von Team %s wurde zerstört", team.getColorcode(), team.getColor().translate()), player));
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            Title.sendTitel("Aye-Aye, Captain!", player);
+            Title.sendSubTitel(String.format("%sEine Kanone von Team %s wurde zerstört", team.getColorcode(), team.getColor().translate()), player);
+        });
     }
 
     public boolean isDestroyed() {

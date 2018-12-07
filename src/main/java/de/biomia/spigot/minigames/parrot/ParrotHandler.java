@@ -233,7 +233,6 @@ class ParrotHandler extends GameHandler {
         if (e.getEntity().hasMetadata("FromCannon")) {
             e.setYield(0);
             double damage = e.getEntity().getMetadata("Damage").stream().findFirst().orElse(new FixedMetadataValue(Main.getPlugin(), 2)).asDouble();
-            Bukkit.broadcastMessage("Der Damage beträgt " + damage + ", Miauz Genau!");
             e.getLocation().getWorld().createExplosion(e.getLocation(), (float) damage);
             //if (e.getEntity().getMetadata("isShotgun").stream().findFirst().orElse(new FixedMetadataValue(Main.getPlugin(), false)).asBoolean()) {
             // TODO: split bullets on impact for shotgun
