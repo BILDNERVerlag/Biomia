@@ -4,6 +4,7 @@ import com.boydti.fawe.object.FawePlayer;
 import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.regions.Region;
 import de.biomia.spigot.Biomia;
+import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.configs.Config;
@@ -13,8 +14,10 @@ import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.GameType;
 import de.biomia.spigot.minigames.TeamColor;
+import de.biomia.spigot.server.quests.QuestEvents.GiveItemEvent;
 import de.biomia.universal.Messages;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -28,7 +31,8 @@ public class MinigamesCommands extends BiomiaCommand {
     protected void onCommand(CommandSender sender, String label, String[] args) {
 
         Player p = (Player) sender;
-        if (!Biomia.getBiomiaPlayer(p).isOwnerOrDev()) {
+        BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
+        if (!bp.isStaff()) {
             sender.sendMessage(Messages.NO_PERM);
             return;
         }
@@ -69,6 +73,11 @@ public class MinigamesCommands extends BiomiaCommand {
                     sender.sendMessage("Spawnpoint wurde hinzugefügt!");
                 } else
                     sender.sendMessage(String.format("/%s gametype team", label));
+                break;
+            case "jackpot":
+                for (int i = 0; i < 27; i++) {
+                    new GiveItemEvent(Material.GOLD_INGOT, 64).executeEvent(bp);
+                }
                 break;
             case "setup":
                 if (args.length >= 3) {

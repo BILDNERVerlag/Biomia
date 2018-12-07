@@ -62,14 +62,14 @@ public class ParrotShip {
         int actualBlocks = region.getArea() - session.countBlock(region, Sets.newHashSet(0, 8, 9));
         int destroyedBlocks = shipBlocks - actualBlocks;
 
-        if (destroyedBlocks > shipBlocks * 0.6D) {
+        if (destroyedBlocks > shipBlocks * 0.2D) {
             bossBar.setProgress(0);
             setName();
             team.killAll();
         } else if (destroyedBlocks >= 0) {
             // destroyedBlocks / 0.6 to set the destroyed blocks from 60% to 100%
             // 1 - x to reverse the bar | 0 = destroyed | 1 = not-destroyed
-            bossBar.setProgress(1 - destroyedBlocks / 0.6D / shipBlocks);
+            bossBar.setProgress(1 - destroyedBlocks / 0.2D / shipBlocks);
             setName();
         }
     }

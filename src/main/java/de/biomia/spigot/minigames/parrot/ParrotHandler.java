@@ -5,36 +5,46 @@ import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.events.game.GameDeathEvent;
 import de.biomia.spigot.events.game.GameKillEvent;
+import de.biomia.spigot.events.game.bedwars.BedWarsUseShopEvent;
+import de.biomia.spigot.messages.BedWarsItemNames;
+import de.biomia.spigot.messages.BedWarsMessages;
 import de.biomia.spigot.messages.MinigamesMessages;
 import de.biomia.spigot.messages.ParrotItemNames;
 import de.biomia.spigot.minigames.GameHandler;
 import de.biomia.spigot.minigames.GameMode;
 import de.biomia.spigot.minigames.GameStateManager;
-import de.biomia.spigot.minigames.general.shop.ItemType;
-import de.biomia.spigot.minigames.general.shop.Price;
+import de.biomia.spigot.minigames.GameTeam;
+import de.biomia.spigot.minigames.bedwars.BedWars;
+import de.biomia.spigot.minigames.general.ColorType;
+import de.biomia.spigot.minigames.general.shop.*;
 import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
 import de.biomia.spigot.server.quests.QuestEvents.GiveItemEvent;
 import de.biomia.spigot.server.quests.QuestEvents.TakeItemEvent;
 import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.entity.*;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import java.util.ArrayList;
@@ -85,10 +95,135 @@ class ParrotHandler extends GameHandler {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @EventHandler
-    public void onBlockDestroy(BlockExplodeEvent e) {
-        if (!mode.getInstance().getWorld().equals(e.getBlock().getWorld())) return;
-        handleBlocks(null, e.blockList());
+    public void onInventoryClick(InventoryClickEvent e) {
+        super.onInventoryClick(e);
+        if (!mode.getInstance().getWorld().equals(e.getWhoClicked().getWorld())) return;
+        if (e.getWhoClicked() instanceof Player) {
+            Player p = (Player) e.getWhoClicked();
+            BiomiaPlayer bp = Biomia.getBiomiaPlayer(p);
+            if (e.getCurrentItem() != null && e.getCurrentItem().getType() != Material.AIR) {
+                ItemStack iStack = e.getCurrentItem();
+                if (e.getInventory().getName().equals(BedWarsMessages.shopInventory)) {
+                    for (ShopGroup group : Shop.getGroups()) {
+                        if (iStack.equals(group.getIcon())) {
+                            e.setCancelled(true);
+                            p.openInventory(group.getInventory());
+                            return;
+                        }
+                    }
+                } else {
+                    for (ShopGroup group : Shop.getGroups()) {
+                        if (e.getClickedInventory().getName().equals(group.getFullName())) {
+                            e.setCancelled(true);
+                            if (iStack.hasItemMeta() && iStack.getItemMeta().hasDisplayName()
+                                    && iStack.getItemMeta().getDisplayName().equals(BedWarsItemNames.back)) {
+                                p.openInventory(Shop.getInventory());
+                                return;
+                            } else {
+                                ShopItem shopItem = group.getShopItem(iStack);
+                                if (shopItem != null) {
+                                    GameTeam team = bp.getTeam();
+
+                                    ItemStack returnItem = iStack.clone();
+
+                                    if (shopItem.isColorble()) {
+                                        if (shopItem.getType() == ColorType.LEATHER) {
+                                            LeatherArmorMeta meta = (LeatherArmorMeta) returnItem.getItemMeta();
+                                            switch (team.getColor()) {
+                                                case BLACK:
+                                                    meta.setColor(Color.BLACK);
+                                                    break;
+                                                case RED:
+                                                    meta.setColor(Color.RED);
+                                                    break;
+                                                case BLUE:
+                                                    meta.setColor(Color.BLUE);
+                                                    break;
+                                                case ORANGE:
+                                                    meta.setColor(Color.ORANGE);
+                                                    break;
+                                                case GREEN:
+                                                    meta.setColor(Color.GREEN);
+                                                    break;
+                                                case WHITE:
+                                                    meta.setColor(Color.WHITE);
+                                                    break;
+                                                case PURPLE:
+                                                    meta.setColor(Color.PURPLE);
+                                                    break;
+                                                case YELLOW:
+                                                    meta.setColor(Color.YELLOW);
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                            returnItem.setItemMeta(meta);
+                                        } else {
+                                            returnItem.setDurability(team.getColordata());
+                                        }
+                                    }
+                                    if (e.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
+
+                                        int i = iStack.getMaxStackSize() / iStack.getAmount();
+                                        boolean first = true;
+
+                                        for (int j = 0; j < i; j++) {
+                                            if (shopItem.take(bp)) {
+                                                p.getInventory().addItem(returnItem);
+                                                first = false;
+                                            } else if (first) {
+                                                String name = ItemType.getName(shopItem.getItemType());
+                                                p.sendMessage(BedWarsMessages.notEnoughItemsToPay.replace("$n", name));
+                                                return;
+                                            } else {
+                                                return;
+                                            }
+                                        }
+
+                                    } else if (shopItem.take(bp)) {
+                                        p.getInventory().addItem(returnItem);
+                                    } else {
+                                        String name = ItemType.getName(shopItem.getItemType());
+                                        p.sendMessage(BedWarsMessages.notEnoughItemsToPay.replace("$n", name));
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onInventoryMove(InventoryInteractEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getWhoClicked().getWorld())) return;
+        if (e.getInventory().getName().equals(BedWarsMessages.shopInventory))
+            e.setCancelled(true);
+        else for (ShopGroup group : Shop.getGroups()) {
+            if (e.getInventory().getName().equals(group.getFullName())) {
+                e.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onInteract(PlayerInteractEntityEvent e) {
+        super.onInteract(e);
+        if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
+        Player p = e.getPlayer();
+        boolean isArmorStand = false;
+        if (e.getRightClicked() instanceof Villager || (isArmorStand = e.getRightClicked() instanceof ArmorStand))
+            if (e.getRightClicked().getCustomName().contains(BedWarsMessages.shopVillagerName)) {
+                e.setCancelled(true);
+                Bukkit.getPluginManager().callEvent(new BedWarsUseShopEvent(Biomia.getBiomiaPlayer(p), e.getRightClicked() instanceof Villager, mode));
+                p.openInventory(Shop.getInventory());
+                if (isArmorStand)
+                    ((BedWars) mode).handlerMap.get(e.getRightClicked().getUniqueId()).add(p);
+            }
     }
 
     @EventHandler
@@ -98,10 +233,11 @@ class ParrotHandler extends GameHandler {
         if (e.getEntity().hasMetadata("FromCannon")) {
             e.setYield(0);
             double damage = e.getEntity().getMetadata("Damage").stream().findFirst().orElse(new FixedMetadataValue(Main.getPlugin(), 2)).asDouble();
+            Bukkit.broadcastMessage("Der Damage beträgt " + damage + ", Miauz Genau!");
             e.getLocation().getWorld().createExplosion(e.getLocation(), (float) damage);
-            if (e.getEntity().getMetadata("isShotgun").stream().findFirst().orElse(new FixedMetadataValue(Main.getPlugin(), false)).asBoolean()) {
-                // TODO launch splitter
-            }
+            //if (e.getEntity().getMetadata("isShotgun").stream().findFirst().orElse(new FixedMetadataValue(Main.getPlugin(), false)).asBoolean()) {
+            // TODO: split bullets on impact for shotgun
+            //}
         } else {
             handleBlocks(null, e.blockList());
         }
@@ -113,6 +249,12 @@ class ParrotHandler extends GameHandler {
         if (handleBlocks(Biomia.getBiomiaPlayer(e.getPlayer()), Collections.singletonList(e.getBlock()))) {
             new GiveItemEvent(new Price(ItemType.GOLD, 100).getPriceItem()).executeEvent(Biomia.getBiomiaPlayer(e.getPlayer()));
         }
+    }
+
+    @EventHandler
+    public void onBlockDestroy(BlockExplodeEvent e) {
+        if (!mode.getInstance().getWorld().equals(e.getBlock().getWorld())) return;
+        handleBlocks(null, e.blockList());
     }
 
     @EventHandler
@@ -287,23 +429,23 @@ class ParrotHandler extends GameHandler {
 
                 switch (e.getSlot()) {
                     case 2:
-                        type = ParrotCannon.CannonType.KANONE;
+                        type = ParrotCannon.CannonType.SIX_POUNDER;
                         price = 0;
                         break;
                     case 3:
-                        type = ParrotCannon.CannonType.GRANATENWERFER;
+                        type = ParrotCannon.CannonType.MOERSER;
                         price = 200;
                         break;
                     case 4:
-                        type = ParrotCannon.CannonType.PANZERFAUST;
+                        type = ParrotCannon.CannonType.TWELVE_POUNDER;
                         price = 180;
                         break;
                     case 5:
-                        type = ParrotCannon.CannonType.HALBAUTOMATIK;
+                        type = ParrotCannon.CannonType.DRILLING;
                         price = 150;
                         break;
                     case 6:
-                        type = ParrotCannon.CannonType.SCHROTFLINTE;
+                        type = ParrotCannon.CannonType.BOMBARDE;
                         price = 200;
                         break;
                     default:
@@ -342,11 +484,12 @@ class ParrotHandler extends GameHandler {
         AtomicBoolean b = new AtomicBoolean(false);
         ArrayList<Block> copy = new ArrayList<>(blocks);
         copy.forEach(block -> {
-            ParrotCannonPoint point = ((Parrot) mode).getPoints().stream().filter(parrotCannonPoint -> parrotCannonPoint.getLocation().clone().subtract(0, 1, 0).distance(block.getLocation()) <= 1).findFirst().orElse(null);
+            ParrotCannonPoint point = ((Parrot) mode).getPoints().stream().filter(parrotCannonPoint -> parrotCannonPoint.getLocation().clone().add(0.5, 0.5, 0.5).distance(block.getLocation()) <= 1).findFirst().orElse(null);
             if (point != null) {
                 if (player != null && point.getTeam().getColor() != player.getTeam().getColor()) {
                     player.getTeam().getPlayers().forEach(biomiaPlayer -> biomiaPlayer.getPlayer().getWorld().dropItem(biomiaPlayer.getPlayer().getLocation(), new ItemStack(Material.GOLD_INGOT, 4)).setPickupDelay(0));
                     player.getPlayer().getWorld().dropItem(player.getPlayer().getLocation(), new ItemStack(Material.GOLD_INGOT, 10)).setPickupDelay(0);
+                    //TODO: ueberdenken
                     point.setDestroyed();
                     b.set(true);
                     return;

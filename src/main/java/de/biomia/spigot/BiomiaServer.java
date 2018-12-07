@@ -38,6 +38,7 @@ public abstract class BiomiaServer {
             registerCommand(new MinigamesCommands("addloc", "al"));
             registerCommand(new MinigamesCommands("setup"));
             registerCommand(new MinigamesCommands("start"));
+            registerCommand(new MinigamesCommands("jackpot"));
         }
         registerCommand(new RandomServerGroupCommand());
         registerCommand(new CosmeticCommand());

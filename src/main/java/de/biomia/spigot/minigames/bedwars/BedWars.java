@@ -5,6 +5,7 @@ import de.biomia.spigot.configs.BedWarsConfig;
 import de.biomia.spigot.configs.MinigamesConfig;
 import de.biomia.spigot.minigames.*;
 import de.biomia.spigot.minigames.general.SpawnItems;
+import de.biomia.spigot.minigames.general.shop.Shop;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -47,6 +48,7 @@ public class BedWars extends GameMode {
     @Override
     public void start() {
 
+        Shop.initBW();
         getStateManager().setInGameState(new GameStateManager.InGameState(this) {
 
             private SpawnItems items;

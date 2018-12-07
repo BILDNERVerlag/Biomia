@@ -22,10 +22,6 @@ public class Shop {
     private static final ArrayList<ShopGroup> groups = new ArrayList<>();
     private static Inventory inv = null;
 
-    static {
-        init();
-    }
-
     private static ShopGroup addNewGroup(String groupName, ChatColor color, ItemStack item) {
         ShopGroup sg = new ShopGroup(color, groupName, item);
         groups.add(sg);
@@ -53,7 +49,13 @@ public class Shop {
         return inv;
     }
 
-    private static void init() {
+    public static void initParrot(){
+
+        //TODO shop items
+        initBW();
+    }
+
+    public static void initBW() {
 
         // Groups
         ShopGroup baumaterialien = addNewGroup(BedWarsItemNames.baumaterialien, ChatColor.GOLD,

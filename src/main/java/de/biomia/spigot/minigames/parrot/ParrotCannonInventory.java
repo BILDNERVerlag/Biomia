@@ -91,11 +91,11 @@ class ParrotCannonInventory {
     static class CannonWeaponChangeInventory extends ParrotCannonInventory {
         CannonWeaponChangeInventory(ParrotCannon cannon) {
             super(cannon, 9, "Weapon Change");
-            setItem(2, ItemCreator.itemCreate(Material.WOOD_SWORD, ParrotCannon.CannonType.KANONE.getName()));
-            setItem(3, ItemCreator.itemCreate(Material.STONE_SWORD, ParrotCannon.CannonType.GRANATENWERFER.getName()));
-            setItem(4, ItemCreator.itemCreate(Material.GOLD_SWORD, ParrotCannon.CannonType.PANZERFAUST.getName()));
-            setItem(5, ItemCreator.itemCreate(Material.IRON_SWORD, ParrotCannon.CannonType.HALBAUTOMATIK.getName()));
-            setItem(6, ItemCreator.itemCreate(Material.DIAMOND_SWORD, ParrotCannon.CannonType.SCHROTFLINTE.getName()));
+            setItem(2, ItemCreator.itemCreate(Material.WOOD_SWORD, ParrotCannon.CannonType.SIX_POUNDER.getName()));
+            setItem(3, ItemCreator.itemCreate(Material.STONE_SWORD, ParrotCannon.CannonType.MOERSER.getName()));
+            setItem(4, ItemCreator.itemCreate(Material.GOLD_SWORD, ParrotCannon.CannonType.TWELVE_POUNDER.getName()));
+            setItem(5, ItemCreator.itemCreate(Material.IRON_SWORD, ParrotCannon.CannonType.DRILLING.getName()));
+            setItem(6, ItemCreator.itemCreate(Material.DIAMOND_SWORD, ParrotCannon.CannonType.BOMBARDE.getName()));
         }
     }
 }

@@ -26,7 +26,7 @@ import java.util.Random;
 
 public class ParrotCannon {
 
-    private CannonType type = CannonType.KANONE;
+    private CannonType type = CannonType.SIX_POUNDER;
     private final ParrotTeam team;
     private final ParrotCannonPoint cannonPoint;
     private int timeToReload;
@@ -35,14 +35,14 @@ public class ParrotCannon {
     @Setter
     private int actualCooldown = getCooldown();
     @Setter
-    private double actualDamage = 2.5;
+    private double actualDamage = 2;
     /**
      * Between 0 and 10
      */
     @Setter
     private int actualScattering = 0;
     @Setter
-    private int actualBullets = getBullets();
+    private int actualBullets = getDefaultBullets();
     @Setter
     @Getter
     private CannonYaw actualYaw = CannonYaw.STRAIGHT;
@@ -82,6 +82,7 @@ public class ParrotCannon {
 
     public void setType(CannonType type) {
         this.type = type;
+        this.actualBullets = getDefaultBullets();
     }
 
     public void fire() {
@@ -104,47 +105,53 @@ public class ParrotCannon {
 
                 switch (type) {
                     default:
-                    case KANONE:
-                        vector.setY(1.05);
+                    case SIX_POUNDER:
+                        vector.setY(1.15);
                         break;
-                    case PANZERFAUST:
-                    case HALBAUTOMATIK:
-                    case SCHROTFLINTE:
-                        vector.setY(0.3);
+                    case TWELVE_POUNDER:
+                    case DRILLING:
+                    case BOMBARDE:
+                        vector.setY(0.90);
                         break;
-                    case GRANATENWERFER:
-                        vector.setY(3);
+                    case MOERSER:
+                        vector.setY(1.45);
                         break;
-                    //TODO vectoren adden
+                    //TODO vektoren verbessern
                 }
 
                 vector.add(actualYaw.toVector(team.getColor()));
                 vector.add(getActualScatteringVector());
-
-                if (type != CannonType.SCHROTFLINTE) {
-                    new BukkitRunnable() {
-                        @Override
-                        public void run() {
-                            shootTNT(vector);
-                        }
-                    }.runTaskLater(Main.getPlugin(), bullets * 15); // (3/4 sec delay between the shoots)
-                } else
-                    shootTNT(vector);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        shootTNT(vector);
+                    }
+                }.runTaskLater(Main.getPlugin(), bullets * 15); // (3/4 sec delay between the shoots)
+//TODO: fix so it works as originally intended
+//                if (type != CannonType.BOMBARDE) {
+//                    new BukkitRunnable() {
+//                        @Override
+//                        public void run() {
+//                            shootTNT(vector);
+//                        }
+//                    }.runTaskLater(Main.getPlugin(), bullets * 15); // (3/4 sec delay between the shoots)
+//                } else
+//                    shootTNT(vector);
             }
         }
     }
 
     private void shootTNT(Vector vector) {
-        TNTPrimed tnt = (TNTPrimed) getShootHole().getWorld().spawnEntity(getShootHole(), EntityType.PRIMED_TNT);
+        TNTPrimed tnt = (TNTPrimed) getCannonMouth().getWorld().spawnEntity(getCannonMouth(), EntityType.PRIMED_TNT);
         tnt.setFuseTicks((int) (type.getFuseTicks() * 20));
         tnt.setVelocity(vector);
         tnt.setMetadata("FromCannon", new FixedMetadataValue(Main.getPlugin(), true));
         tnt.setMetadata("Damage", new FixedMetadataValue(Main.getPlugin(), actualDamage));
-        tnt.setMetadata("isShotgun", new FixedMetadataValue(Main.getPlugin(), type == CannonType.SCHROTFLINTE));
+        tnt.setMetadata("isShotgun", new FixedMetadataValue(Main.getPlugin(), type == CannonType.BOMBARDE));
     }
 
     public void reset() {
-        actualBullets = getBullets();
+        actualBullets = getDefaultBullets();
         actualScattering = 0;
         actualDamage = 1;
         actualCooldown = getCooldown();
@@ -183,43 +190,57 @@ public class ParrotCannon {
         return type;
     }
 
-    private int getBullets() {
+    private int getDefaultBullets() {
         switch (type) {
+            case DRILLING:
+                return 3;
+            case BOMBARDE:
+                return 8;
             default:
                 return 1;
-            case HALBAUTOMATIK:
+        }
+    }
+
+    private int getDefaultDamage() {
+        switch (type) {
+            case DRILLING:
                 return 3;
-            case SCHROTFLINTE:
+            case BOMBARDE:
                 return 8;
+            default:
+                return 1;
         }
     }
 
     private int getCooldown() {
         switch (type) {
+            //TODO: reload time
+            case MOERSER:
+                return 20;
             default:
                 return 5;
         }
     }
 
-    private Location getShootHole() {
-        return cannonPoint.getLocation().clone().add(team.getColor() == TeamColor.BLUE ? 6 : -6, 1, 0);
+    private Location getCannonMouth() {
+        return cannonPoint.getLocation().clone().add(team.getColor() == TeamColor.BLUE ? 7 : -7, 1, 0);
     }
 
     public enum CannonType {
-        GRANATENWERFER, SCHROTFLINTE, PANZERFAUST, KANONE, HALBAUTOMATIK;
+        MOERSER, BOMBARDE, TWELVE_POUNDER, SIX_POUNDER, DRILLING;
 
         public String getName() {
             switch (this) {
                 default:
-                case KANONE:
+                case SIX_POUNDER:
                     return "6-Pfünder";
-                case PANZERFAUST:
+                case TWELVE_POUNDER:
                     return "12-Pfünder";
-                case SCHROTFLINTE:
+                case BOMBARDE:
                     return "Bombarde";
-                case GRANATENWERFER:
+                case MOERSER:
                     return "Mörser";
-                case HALBAUTOMATIK:
+                case DRILLING:
                     return "Drillings-Kanone";
             }
         }
@@ -227,7 +248,7 @@ public class ParrotCannon {
         double getFuseTicks() {
             switch (this) {
                 default:
-                case KANONE:
+                case SIX_POUNDER:
                     return 2.7;
             }
         }
@@ -361,22 +382,22 @@ public class ParrotCannon {
         public String getInfo() {
             switch (this) {
                 case FAST_RELOAD:
-                    return "Lade die Kanone schneller nach, um noch öfters schaden zu machen!";
+                    return "Lade die Kanone schneller nach!";
                 case SCATTERING:
-                    return "Gib deinen Schüssen eine Streuung, \num nicht immer den gleichen Punkt zu treffen!";
+                    return "Gib deinen Schüssen eine Streuung!";
                 case DAMAGE:
-                    return "Verursache mit einem Schuss mehr Schaden!";
+                    return "Verursache mehr Schaden!";
                 case BULLET:
                     return "Verschieße mehr Munition gleichzeitig!";
                 case DIRECTION:
-                    return "Ändere die Richtung! Links, Rechts, Länger, Kürzer was du willst!";
+                    return "Ändere die Schussrichtung!";
             }
             return "fail";
         }
 
 
         public int getPrice() {
-            //TODO improve
+            //TODO improve price
             switch (this) {
                 case FAST_RELOAD:
                     return 10;
@@ -387,8 +408,7 @@ public class ParrotCannon {
                 case BULLET:
                     return 12;
                 case DIRECTION:
-                    //?
-                    return 5;
+                    return 0;
             }
             return -1;
         }
@@ -400,40 +420,35 @@ public class ParrotCannon {
 
         switch (upgrade) {
             case BULLET:
-                switch (type) {
-                    default:
-                        newValue = 2;
-                        break;
-                    case HALBAUTOMATIK:
-                        newValue = 10;
-                        break;
-                    case SCHROTFLINTE:
-                        newValue = 4;
-                        break;
-                }
-                if (newValue == actualBullets)
-                    return false;
-                actualBullets = newValue;
+                actualBullets++;
                 break;
             case DAMAGE:
-                //TODO
+                //TODO improve damage upgrade
                 switch (type) {
-                    default:
+                    case SIX_POUNDER:
+                        newValue = 2;
+                        break;
+                    case TWELVE_POUNDER:
+                        newValue = 5;
+                        break;
+                    case MOERSER:
+                        newValue = 12;
+                        break;
+                    case DRILLING:
                         newValue = 4;
                         break;
-                    case HALBAUTOMATIK:
-                        newValue = 4;
-                        break;
-                    case SCHROTFLINTE:
+                    case BOMBARDE:
                         newValue = 3;
                         break;
+                    default:
+                        newValue = 30;
                 }
                 if (newValue == actualDamage)
                     return false;
                 actualDamage = newValue;
                 break;
             case SCATTERING:
-                //TODO
+                //TODO improve scattering upgrade
                 switch (actualScattering) {
                     case 0:
                         newValue = 2;
@@ -454,16 +469,16 @@ public class ParrotCannon {
                 actualScattering = newValue;
                 break;
             case FAST_RELOAD:
-                //TODO
+                //TODO improve fast reload upgrade
                 switch (type) {
                     default:
                         newValue = 3;
                         break;
-                    case PANZERFAUST:
-                    case GRANATENWERFER:
+                    case TWELVE_POUNDER:
+                    case MOERSER:
                         newValue = 10;
                         break;
-                    case HALBAUTOMATIK:
+                    case DRILLING:
                         newValue = 5;
                         break;
                 }

@@ -24,7 +24,7 @@ public class Parrot extends GameMode {
     private static final ItemStack bow = ItemCreator.itemCreate(Material.BOW, ParrotItemNames.explosionBow);
 
     private final ArrayList<ParrotCannonPoint> points = new ArrayList<>();
-    private final ArrayList<Teleporter> teleportersMap = new ArrayList<>();
+    private final ArrayList<Teleporter> shootingStands = new ArrayList<>();
 
     static {
         bow.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
@@ -35,8 +35,6 @@ public class Parrot extends GameMode {
 
     public Parrot(GameInstance instance) {
         super(instance);
-
-        //TODO addShop
 
         TeleportExecutor goInside = new TeleportExecutor() {
             @Override
@@ -61,10 +59,25 @@ public class Parrot extends GameMode {
             }
         });
 
-        //TODO addAllLocs | changeLocs
-        teleportersMap.add(new Teleporter(new Location(instance.getWorld(), -23, 75, -49), new Location(instance.getWorld(), -20, 77, -46), goInside));
-        teleportersMap.add(new Teleporter(new Location(instance.getWorld(), -23, 75, -49), new Location(instance.getWorld(), -20, 77, -46), goOutside).setInverted());
+        //blue ship
+        shootingStands.add(new Teleporter(new Location(instance.getWorld(), -48, 100, -21), new Location(instance.getWorld(), -40, 103, -12), goInside));
+        shootingStands.add(new Teleporter(new Location(instance.getWorld(), -48, 100, -21), new Location(instance.getWorld(), -40, 103, -12), goOutside).setInverted());
 
+        shootingStands.add(new Teleporter(new Location(instance.getWorld(), -48, 97, -49), new Location(instance.getWorld(), -40, 100, -39), goInside));
+        shootingStands.add(new Teleporter(new Location(instance.getWorld(), -48, 97, -49), new Location(instance.getWorld(), -40, 100, -39), goOutside).setInverted());
+
+        shootingStands.add(new Teleporter(new Location(instance.getWorld(), -47, 101, 5), new Location(instance.getWorld(), -41, 104, 12), goInside));
+        shootingStands.add(new Teleporter(new Location(instance.getWorld(), -47, 101, 5), new Location(instance.getWorld(), -41, 104, 12), goOutside).setInverted());
+
+        //red ship
+        shootingStands.add(new Teleporter(new Location(instance.getWorld(), 34, 104, -16), new Location(instance.getWorld(), 38, 101, -8), goInside));
+        shootingStands.add(new Teleporter(new Location(instance.getWorld(), 34, 104, -16), new Location(instance.getWorld(), 38, 101, -8), goOutside).setInverted());
+
+        shootingStands.add(new Teleporter(new Location(instance.getWorld(), 33, 103, 9), new Location(instance.getWorld(), 39, 100, 18), goInside));
+        shootingStands.add(new Teleporter(new Location(instance.getWorld(), 33, 103, 9), new Location(instance.getWorld(), 39, 100, 18), goOutside).setInverted());
+
+        shootingStands.add(new Teleporter(new Location(instance.getWorld(), 33, 100, 35), new Location(instance.getWorld(), 39, 97, 45), goInside));
+        shootingStands.add(new Teleporter(new Location(instance.getWorld(), 33, 100, 35), new Location(instance.getWorld(), 39, 97, 45), goOutside).setInverted());
     }
 
     public void registerPoint(ParrotCannonPoint parrotCannonPoint) {
@@ -77,8 +90,8 @@ public class Parrot extends GameMode {
 
     @Override
     public void stop() {
-        teleportersMap.forEach(Teleporter::removeTeleporter);
-        teleportersMap.clear();
+        shootingStands.forEach(Teleporter::removeTeleporter);
+        shootingStands.clear();
         super.stop();
     }
 
