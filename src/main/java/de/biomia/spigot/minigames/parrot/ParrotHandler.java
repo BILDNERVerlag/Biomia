@@ -457,8 +457,8 @@ class ParrotHandler extends GameHandler {
                     e.setCancelled(true);
                     return;
                 } else if (pay(bp, price)) {
-                    cannon.reset();
                     cannon.setType(type);
+                    cannon.reset();
                     cannon.spawn();
                 }
             }

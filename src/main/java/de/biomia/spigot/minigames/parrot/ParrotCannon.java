@@ -82,7 +82,6 @@ public class ParrotCannon {
 
     public void setType(CannonType type) {
         this.type = type;
-        this.actualBullets = getDefaultBullets();
     }
 
     public void fire() {
@@ -153,7 +152,7 @@ public class ParrotCannon {
     public void reset() {
         actualBullets = getDefaultBullets();
         actualScattering = 0;
-        actualDamage = 1;
+        actualDamage = getDefaultDamage();
         actualCooldown = getCooldown();
         actualYaw = CannonYaw.STRAIGHT;
         actualPitch = CannonPitch.MIDDLE;
@@ -203,12 +202,18 @@ public class ParrotCannon {
 
     private int getDefaultDamage() {
         switch (type) {
+            case SIX_POUNDER:
+                return 2;
+            case TWELVE_POUNDER:
+                return 5;
+            case MOERSER:
+                return 12;
             case DRILLING:
-                return 3;
+                return 4;
             case BOMBARDE:
-                return 8;
+                return 3;
             default:
-                return 1;
+                return 30;
         }
     }
 
