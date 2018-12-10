@@ -228,7 +228,7 @@ public class ParrotCannon {
     }
 
     private Location getCannonMouth() {
-        return cannonPoint.getLocation().clone().add(team.getColor() == TeamColor.BLUE ? 7 : -7, 1, 0);
+        return cannonPoint.getLocation().clone().add(team.getColor() == TeamColor.BLUE ? 8 : -8, 1, 0);
     }
 
     public enum CannonType {

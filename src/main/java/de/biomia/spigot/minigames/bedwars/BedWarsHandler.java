@@ -36,7 +36,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.*;
-import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -199,7 +198,7 @@ public class BedWarsHandler extends GameHandler {
 
                                     ItemStack returnItem = iStack.clone();
 
-                                    if (shopItem.isColorble()) {
+                                    if (shopItem.isColorable()) {
                                         if (shopItem.getType() == ColorType.LEATHER) {
                                             LeatherArmorMeta meta = (LeatherArmorMeta) returnItem.getItemMeta();
                                             switch (team.getColor()) {

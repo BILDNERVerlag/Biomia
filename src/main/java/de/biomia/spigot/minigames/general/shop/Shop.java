@@ -51,8 +51,170 @@ public class Shop {
 
     public static void initParrot(){
 
-        //TODO shop items
-        initBW();
+        // Groups
+        ShopGroup baumaterialien = addNewGroup(BedWarsItemNames.baumaterialien, ChatColor.GOLD,
+                ItemCreator.itemCreate(Material.GOLD_PICKAXE));
+
+        ShopGroup waffen = addNewGroup(BedWarsItemNames.waffen, ChatColor.GRAY, ItemCreator.itemCreate(Material.IRON_SWORD));
+
+        ShopGroup ruestung = addNewGroup(BedWarsItemNames.ruestung, ChatColor.DARK_PURPLE,
+                ItemCreator.itemCreate(Material.IRON_CHESTPLATE));
+
+        ShopGroup boegen = addNewGroup(BedWarsItemNames.boegen, ChatColor.BLUE, ItemCreator.itemCreate(Material.BOW));
+
+        ShopGroup essen = addNewGroup(BedWarsItemNames.essen, ChatColor.GREEN, ItemCreator.itemCreate(Material.MELON));
+
+        ShopGroup traenke = addNewGroup(BedWarsItemNames.traenke, ChatColor.YELLOW, ItemCreator.itemCreate(Material.BREWING_STAND_ITEM));
+
+        ShopGroup special = addNewGroup(BedWarsItemNames.special, ChatColor.LIGHT_PURPLE,
+                ItemCreator.itemCreate(Material.EYE_OF_ENDER));
+
+        // Bau-Gruppe
+        ItemStack wood = ItemCreator.itemCreate(Material.WOOD);
+        wood.setAmount(4);
+        baumaterialien.addItem(new ShopItem(ItemType.GOLD,2, wood));
+
+        ItemStack ironblock = ItemCreator.itemCreate(Material.IRON_BLOCK);
+        baumaterialien.addItem(new ShopItem(ItemType.GOLD, 5, ironblock));
+
+        // Waffen
+        ItemStack woodsword = ItemCreator.itemCreate(Material.WOOD_SWORD);
+        woodsword.addEnchantment(Enchantment.DURABILITY, 1);
+        woodsword.addEnchantment(Enchantment.DAMAGE_ALL, 1);
+        waffen.addItem(new ShopItem(ItemType.GOLD, 1, woodsword));
+
+        ItemStack woodsword2 = ItemCreator.itemCreate(Material.WOOD_SWORD);
+        woodsword2.addEnchantment(Enchantment.DURABILITY, 1);
+        woodsword2.addEnchantment(Enchantment.DAMAGE_ALL, 2);
+        waffen.addItem(new ShopItem(ItemType.GOLD, 3, woodsword2));
+
+        ItemStack stonesword = ItemCreator.itemCreate(Material.STONE_SWORD);
+        stonesword.addEnchantment(Enchantment.DURABILITY, 1);
+        stonesword.addEnchantment(Enchantment.DAMAGE_ALL, 2);
+        waffen.addItem(new ShopItem(ItemType.GOLD, 5, stonesword));
+
+        ItemStack ironsword = ItemCreator.itemCreate(Material.IRON_SWORD);
+        ironsword.addEnchantment(Enchantment.DURABILITY, 1);
+        ironsword.addEnchantment(Enchantment.DAMAGE_ALL, 2);
+        waffen.addItem(new ShopItem(ItemType.GOLD, 8, ironsword));
+
+        ItemStack woodaxe = ItemCreator.itemCreate(Material.WOOD_AXE);
+        ItemStack stoneaxe = ItemCreator.itemCreate(Material.STONE_AXE);
+        ItemStack ironaxe = ItemCreator.itemCreate(Material.IRON_AXE);
+        woodaxe.addEnchantment(Enchantment.DIG_SPEED, 1);
+        stoneaxe.addEnchantment(Enchantment.DIG_SPEED, 1);
+        ironaxe.addEnchantment(Enchantment.DIG_SPEED, 1);
+
+        baumaterialien.addItem(new ShopItem(ItemType.GOLD, 3, woodaxe));
+        baumaterialien.addItem(new ShopItem(ItemType.GOLD, 5, stoneaxe));
+        baumaterialien.addItem(new ShopItem(ItemType.GOLD, 8, ironaxe));
+
+        // Rüssi
+        ItemStack leathercap = ItemCreator.itemCreate(Material.LEATHER_HELMET);
+        ItemStack leatherchest = ItemCreator.itemCreate(Material.LEATHER_CHESTPLATE);
+        ItemStack leatherpants = ItemCreator.itemCreate(Material.LEATHER_LEGGINGS);
+        ItemStack leatherboots = ItemCreator.itemCreate(Material.LEATHER_BOOTS);
+
+        leatherboots.addEnchantment(Enchantment.DURABILITY, 1);
+        leatherboots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
+        leathercap.addEnchantment(Enchantment.DURABILITY, 1);
+        leathercap.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
+        leatherchest.addEnchantment(Enchantment.DURABILITY, 1);
+        leatherchest.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
+        leatherpants.addEnchantment(Enchantment.DURABILITY, 1);
+        leatherpants.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
+
+        ruestung.addItem(new ShopItem(ItemType.GOLD,1, leathercap, ColorType.LEATHER));
+        ruestung.addItem(new ShopItem(ItemType.GOLD,1, leatherpants, ColorType.LEATHER));
+        ruestung.addItem(new ShopItem(ItemType.GOLD,1, leatherboots, ColorType.LEATHER));
+        ruestung.addItem(new ShopItem(ItemType.GOLD,2, leatherchest, ColorType.LEATHER));
+
+        ItemStack chainchest1 = ItemCreator.itemCreate(Material.CHAINMAIL_CHESTPLATE);
+        ItemStack chainchest2 = ItemCreator.itemCreate(Material.CHAINMAIL_CHESTPLATE);
+        ItemStack ironchest = ItemCreator.itemCreate(Material.IRON_CHESTPLATE);
+
+        chainchest1.addEnchantment(Enchantment.DURABILITY, 1);
+        chainchest1.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+
+        chainchest2.addEnchantment(Enchantment.DURABILITY, 1);
+        chainchest2.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
+        chainchest2.addEnchantment(Enchantment.THORNS, 1);
+
+        ironchest.addEnchantment(Enchantment.DURABILITY, 1);
+        ironchest.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+
+        ruestung.addItem(new ShopItem(ItemType.GOLD, 2, chainchest1));
+        ruestung.addItem(new ShopItem(ItemType.GOLD, 5, chainchest2));
+        ruestung.addItem(new ShopItem(ItemType.GOLD, 6, ironchest));
+
+        // Bogen
+        ItemStack bow1 = ItemCreator.itemCreate(Material.BOW);
+        ItemStack bow2 = ItemCreator.itemCreate(Material.BOW);
+        ItemStack bow3 = ItemCreator.itemCreate(Material.BOW);
+        ItemStack arrow = ItemCreator.itemCreate(Material.ARROW);
+
+        bow1.addEnchantment(Enchantment.DURABILITY, 1);
+        bow2.addEnchantment(Enchantment.DURABILITY, 1);
+        bow3.addEnchantment(Enchantment.DURABILITY, 1);
+        bow1.addEnchantment(Enchantment.ARROW_INFINITE, 1);
+        bow2.addEnchantment(Enchantment.ARROW_INFINITE, 1);
+        bow3.addEnchantment(Enchantment.ARROW_INFINITE, 1);
+        bow1.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
+        bow2.addEnchantment(Enchantment.ARROW_DAMAGE, 2);
+        bow3.addEnchantment(Enchantment.ARROW_DAMAGE, 2);
+        bow3.addEnchantment(Enchantment.ARROW_KNOCKBACK, 1);
+
+        boegen.addItem(new ShopItem(ItemType.GOLD, 3, bow1));
+        boegen.addItem(new ShopItem(ItemType.GOLD, 6, bow2));
+        boegen.addItem(new ShopItem(ItemType.GOLD, 12, bow3));
+        boegen.addItem(new ShopItem(ItemType.GOLD, 1, arrow));
+
+        // Essen
+        ItemStack carrot = ItemCreator.itemCreate(Material.GOLDEN_CARROT);
+        essen.addItem(new ShopItem(ItemType.GOLD, 1, carrot));
+
+        ItemStack steak = ItemCreator.itemCreate(Material.COOKED_BEEF);
+        essen.addItem(new ShopItem(ItemType.GOLD, 2, steak));
+
+        ItemStack cake = ItemCreator.itemCreate(Material.CAKE);
+        essen.addItem(new ShopItem(ItemType.GOLD, 3, cake));
+
+        ItemStack goldenApple = ItemCreator.itemCreate(Material.GOLDEN_APPLE);
+        essen.addItem(new ShopItem(ItemType.GOLD, 5, goldenApple));
+
+        // Trünke
+        ItemStack heal1 = getPotionItemStack(Material.POTION, PotionType.INSTANT_HEAL, false);
+        traenke.addItem(new ShopItem(ItemType.GOLD, 1, heal1));
+
+        ItemStack heal2 = getPotionItemStack(Material.POTION, PotionType.INSTANT_HEAL, true);
+        traenke.addItem(new ShopItem(ItemType.GOLD, 2, heal2));
+
+        ItemStack heal3 = getPotionItemStack(Material.LINGERING_POTION, PotionType.INSTANT_HEAL, false);
+        traenke.addItem(new ShopItem(ItemType.GOLD, 2, heal3));
+
+        ItemStack heal4 = getPotionItemStack(Material.LINGERING_POTION, PotionType.INSTANT_HEAL, true);
+        traenke.addItem(new ShopItem(ItemType.GOLD, 3, heal4));
+
+        ItemStack speed = getPotionItemStack(Material.POTION, PotionType.SPEED, false);
+        traenke.addItem(new ShopItem(ItemType.GOLD, 6, speed));
+
+        ItemStack regen = getPotionItemStack(Material.POTION, PotionType.REGEN, false);
+        traenke.addItem(new ShopItem(ItemType.GOLD, 2, regen));
+
+        ItemStack strength = getPotionItemStack(Material.POTION, PotionType.STRENGTH, false);
+        traenke.addItem(new ShopItem(ItemType.GOLD, 7, strength));
+
+        ItemStack enderpearl = ItemCreator.itemCreate(Material.ENDER_PEARL);
+        special.addItem(new ShopItem(ItemType.GOLD, 10, enderpearl));
+
+        ItemStack ladder = ItemCreator.itemCreate(Material.LADDER);
+        special.addItem(new ShopItem(ItemType.GOLD, 4, ladder));
+
+        ItemStack cobweb = ItemCreator.itemCreate(Material.WEB);
+        special.addItem(new ShopItem(ItemType.GOLD, 16, cobweb));
+
+        ItemStack tnt = ItemCreator.itemCreate(Material.TNT);
+        special.addItem(new ShopItem(ItemType.GOLD, 10, tnt));
     }
 
     public static void initBW() {

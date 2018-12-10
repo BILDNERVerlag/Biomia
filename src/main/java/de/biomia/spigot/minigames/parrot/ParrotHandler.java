@@ -128,7 +128,7 @@ class ParrotHandler extends GameHandler {
 
                                     ItemStack returnItem = iStack.clone();
 
-                                    if (shopItem.isColorble()) {
+                                    if (shopItem.isColorable()) {
                                         if (shopItem.getType() == ColorType.LEATHER) {
                                             LeatherArmorMeta meta = (LeatherArmorMeta) returnItem.getItemMeta();
                                             switch (team.getColor()) {
@@ -382,9 +382,9 @@ class ParrotHandler extends GameHandler {
                 }
 
                 if (yaw != null) {
-                    if (cannon.getActualYaw() != yaw && pay(bp, 15))
+                    if (cannon.getActualYaw() != yaw)
                         cannon.setActualYaw(yaw);
-                } else if (cannon.getActualPitch() != pitch && pay(bp, 10))
+                } else if (cannon.getActualPitch() != pitch)
                     cannon.setActualPitch(pitch);
                 ((ParrotCannonInventory.CannonDirectionSettingInventory) inventory).init();
 

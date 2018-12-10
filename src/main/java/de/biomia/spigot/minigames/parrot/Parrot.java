@@ -1,9 +1,13 @@
 package de.biomia.spigot.minigames.parrot;
 
 import de.biomia.spigot.BiomiaPlayer;
+import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.ParrotConfig;
+import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.ParrotItemNames;
 import de.biomia.spigot.minigames.*;
+import de.biomia.spigot.minigames.general.shop.ItemType;
+import de.biomia.spigot.minigames.general.shop.Shop;
 import de.biomia.spigot.server.quests.QuestEvents.GiveItemEvent;
 import de.biomia.spigot.server.quests.QuestEvents.TakeItemEvent;
 import de.biomia.spigot.tools.ItemCreator;
@@ -11,9 +15,12 @@ import de.biomia.spigot.tools.TeleportExecutor;
 import de.biomia.spigot.tools.Teleporter;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +32,9 @@ public class Parrot extends GameMode {
 
     private final ArrayList<ParrotCannonPoint> points = new ArrayList<>();
     private final ArrayList<Teleporter> shootingStands = new ArrayList<>();
+
+    private final int goldSpawnDelay = 30;
+    private BukkitTask goldSpawner = null;
 
     static {
         bow.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
@@ -55,7 +65,9 @@ public class Parrot extends GameMode {
             @Override
             public void start() {
                 super.start();
+                Shop.initParrot();
                 getMode().getTeams().stream().map(team -> ((ParrotTeam) team).getShip()).forEach(ParrotShip::setPlayersToBossBar);
+                startSpawning(instance);
             }
         });
 
@@ -92,6 +104,7 @@ public class Parrot extends GameMode {
     public void stop() {
         shootingStands.forEach(Teleporter::removeTeleporter);
         shootingStands.clear();
+        stopSpawning();
         super.stop();
     }
 
@@ -117,6 +130,32 @@ public class Parrot extends GameMode {
     @Override
     protected ParrotConfig initConfig() {
         return new ParrotConfig(this);
+    }
+
+    //gold spawner code
+
+    public void startSpawning(GameInstance instance) {
+
+        final ItemStack gold = ItemCreator.itemCreate(Material.GOLD_INGOT, BedWarsItemNames.gold);
+        goldSpawner = new BukkitRunnable() {
+
+            int i = 0;
+            World world = instance.getWorld();
+            Location goldSpawnerRed = new Location(instance.getWorld(), -44, 65, -27);
+            Location goldSpawnerBlue = new Location(instance.getWorld(), 36, 65, 23);
+
+            @Override
+            public void run() {
+                if (i % goldSpawnDelay == 0)
+                    world.dropItem(goldSpawnerBlue, gold);
+                    world.dropItem(goldSpawnerRed, gold);
+                i++;
+            }
+        }.runTaskTimer(Main.getPlugin(), 0, 20);
+    }
+
+    public void stopSpawning() {
+        goldSpawner.cancel();
     }
 
 }

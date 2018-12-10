@@ -9,22 +9,30 @@ import org.bukkit.inventory.ItemStack;
 public class ShopItem extends Price {
 
     private final ItemStack itemStack;
-    private final boolean colorble;
+    private final boolean colorable;
     private final ColorType type;
     private String name;
 
     ShopItem(int price, ItemStack item, ColorType colorType) {
         super(ItemType.BRONZE, price);
         this.itemStack = item;
-        this.colorble = true;
+        this.colorable = true;
         this.type = colorType;
+        this.name = itemStack.getItemMeta().getDisplayName();
+    }
+
+    ShopItem(ItemType itemType, int price, ItemStack item, ColorType colorType) {
+        super(itemType, price);
+        this.itemStack = item;
+        this.type = colorType;
+        this.colorable = (this.type != null);
         this.name = itemStack.getItemMeta().getDisplayName();
     }
 
     ShopItem(ItemType itemType, int price, ItemStack item) {
         super(itemType, price);
         this.itemStack = item;
-        colorble = false;
+        colorable = false;
         type = null;
     }
 
@@ -32,8 +40,8 @@ public class ShopItem extends Price {
         return itemStack;
     }
 
-    public boolean isColorble() {
-        return colorble;
+    public boolean isColorable() {
+        return colorable;
     }
 
     public ColorType getType() {
