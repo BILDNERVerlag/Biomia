@@ -66,6 +66,7 @@ public class ParrotShip {
             bossBar.setProgress(0);
             setName();
             team.killAll();
+            team.getMode().stop();
         } else if (destroyedBlocks >= 0) {
             // destroyedBlocks / 0.6 to set the destroyed blocks from 60% to 100%
             // 1 - x to reverse the bar | 0 = destroyed | 1 = not-destroyed
