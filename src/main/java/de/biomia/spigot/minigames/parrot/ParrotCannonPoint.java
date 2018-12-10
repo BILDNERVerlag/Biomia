@@ -66,4 +66,11 @@ class ParrotCannonPoint {
         return location;
     }
 
+    public Location getButtonLocation() {
+        if (team.getColor() == TeamColor.BLUE)
+            return location.clone().add(1, .5, .5);
+        else
+            return location.clone().add(0, .5, -.5);
+    }
+
 }

@@ -292,9 +292,9 @@ class ParrotHandler extends GameHandler {
     public void onInteract(PlayerInteractEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
         if (e.hasBlock() && (e.getClickedBlock().getType() == Material.STONE_BUTTON || e.getClickedBlock().getType() == Material.WOOD_BUTTON)) {
-            ((Parrot) mode).getPoints().stream().filter(cannonPoint -> {
-                return cannonPoint.getLocation().distance(e.getClickedBlock().getLocation()) < 0.1;
-            }).forEach(cannonPoint -> cannonPoint.getCannon().fire());
+            ((Parrot) mode).getPoints().stream()
+                    .filter(cannonPoint -> cannonPoint.getLocation().distance(e.getClickedBlock().getLocation()) < 0.1)
+                    .forEach(cannonPoint -> cannonPoint.getCannon().fire());
         }
     }
 
@@ -467,14 +467,14 @@ class ParrotHandler extends GameHandler {
 
     private boolean pay(BiomiaPlayer bp, int gold) {
         if (!canPay(bp, gold)) return false;
-        bp.sendMessage(String.format("%sUpgrade erhalten", Messages.COLOR_MAIN));
+        bp.sendMessage(Messages.format("Upgrade erhalten"));
         new TakeItemEvent(Material.GOLD_INGOT, gold).executeEvent(bp);
         return true;
     }
 
     private boolean canPay(BiomiaPlayer bp, int gold) {
         boolean b = ItemConditions.hasItemInInventory(bp.getQuestPlayer(), Material.GOLD_INGOT, gold);
-        if (!b) bp.sendMessage(String.format("%sDu hast nicht genug Gold!", Messages.COLOR_MAIN));
+        if (!b) bp.sendMessage(Messages.format("Du hast nicht genug Gold!"));
         return b;
     }
 
@@ -483,7 +483,7 @@ class ParrotHandler extends GameHandler {
         AtomicBoolean b = new AtomicBoolean(false);
         ArrayList<Block> copy = new ArrayList<>(blocks);
         copy.forEach(block -> {
-            ParrotCannonPoint point = ((Parrot) mode).getPoints().stream().filter(parrotCannonPoint -> parrotCannonPoint.getLocation().clone().add(0.5, 0.5, 0.5).distance(block.getLocation()) <= 1).findFirst().orElse(null);
+            ParrotCannonPoint point = ((Parrot) mode).getPoints().stream().filter(parrotCannonPoint -> parrotCannonPoint.getButtonLocation().distance(block.getLocation()) <= .5).findFirst().orElse(null);
             if (point != null) {
                 if (player != null && point.getTeam().getColor() != player.getTeam().getColor()) {
                     player.getTeam().getPlayers().forEach(biomiaPlayer -> biomiaPlayer.getPlayer().getWorld().dropItem(biomiaPlayer.getPlayer().getLocation(), new ItemStack(Material.GOLD_INGOT, 4)).setPickupDelay(0));
