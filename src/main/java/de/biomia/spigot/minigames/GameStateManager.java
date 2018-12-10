@@ -104,6 +104,7 @@ public class GameStateManager {
         public void stop() {
             countDown.cancel();
             getMode().setAllToTeams();
+            //TODO if all in one team: cancel
             getMode().getStateManager().getInGameState().start();
         }
 

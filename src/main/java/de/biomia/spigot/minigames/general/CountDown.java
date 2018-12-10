@@ -31,7 +31,9 @@ public class CountDown {
 
                 if (getCountdown() >= 0) {
 
-                    if (onlinePlayer > mode.getInstance().getTeamSize()) {
+                    if (mode.getInstance().getTeamSize() == 1)
+
+                        if (onlinePlayer > mode.getInstance().getTeamSize() - ((mode.getInstance().getTeamSize() == 1) ? 0 : 1)) {
 
                         if (getCountdown() > 20)
                             if (onlinePlayer == mode.getInstance().getTeamSize() * mode.getInstance().getTeamAmount())
