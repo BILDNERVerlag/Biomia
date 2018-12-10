@@ -65,7 +65,6 @@ public class ParrotShip {
         if (destroyedBlocks > shipBlocks * 0.2D) {
             bossBar.setProgress(0);
             setName();
-            team.killAll();
             team.getMode().stop();
         } else if (destroyedBlocks >= 0) {
             // destroyedBlocks / 0.6 to set the destroyed blocks from 60% to 100%
@@ -94,7 +93,6 @@ public class ParrotShip {
 
     void updateCannons() {
         if (getDestroyedCannons() == shipPoints.size()) {
-            team.killAll();
             team.getMode().stop();
         }
     }
