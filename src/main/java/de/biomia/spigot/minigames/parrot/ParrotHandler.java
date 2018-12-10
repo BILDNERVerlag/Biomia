@@ -20,7 +20,9 @@ import de.biomia.spigot.minigames.general.shop.*;
 import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
 import de.biomia.spigot.server.quests.QuestEvents.GiveItemEvent;
 import de.biomia.spigot.server.quests.QuestEvents.TakeItemEvent;
+import de.biomia.spigot.tools.Particles;
 import de.biomia.universal.Messages;
+import net.minecraft.server.v1_12_R1.EnumParticle;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -68,9 +70,7 @@ class ParrotHandler extends GameHandler {
 
     @EventHandler
     public void onPlayerKill(GameKillEvent e) {
-
         Location loc = e.getOfflineBiomiaPlayer().getBiomiaPlayer().getPlayer().getLocation();
-
         if (e.isFinalKill())
             loc.getWorld().dropItem(loc, new ItemStack(Material.GOLD_INGOT, 50)).setPickupDelay(0);
         else
@@ -483,17 +483,20 @@ class ParrotHandler extends GameHandler {
         AtomicBoolean b = new AtomicBoolean(false);
         ArrayList<Block> copy = new ArrayList<>(blocks);
         copy.forEach(block -> {
-            ParrotCannonPoint point = ((Parrot) mode).getPoints().stream().filter(parrotCannonPoint -> parrotCannonPoint.getButtonLocation().distance(block.getLocation()) <= .5).findFirst().orElse(null);
+
+            if (block.getType() == Material.STONE_BUTTON || block.getType() == Material.WOOD_BUTTON) {
+                blocks.remove(block);
+                return;
+            }
+
+            ParrotCannonPoint point = ((Parrot) mode).getPoints().stream().filter(parrotCannonPoint -> parrotCannonPoint.getButtonLocation().getBlock().equals(block)).findFirst().orElse(null);
             if (point != null) {
                 if (player != null && point.getTeam().getColor() != player.getTeam().getColor()) {
                     player.getTeam().getPlayers().forEach(biomiaPlayer -> biomiaPlayer.getPlayer().getWorld().dropItem(biomiaPlayer.getPlayer().getLocation(), new ItemStack(Material.GOLD_INGOT, 4)).setPickupDelay(0));
                     player.getPlayer().getWorld().dropItem(player.getPlayer().getLocation(), new ItemStack(Material.GOLD_INGOT, 10)).setPickupDelay(0);
-                    //TODO: ueberdenken
                     point.setDestroyed();
                     b.set(true);
-                    return;
-                }
-                blocks.remove(block);
+                } else blocks.remove(block);
             }
             if (i.incrementAndGet() == blocks.size())
                 mode.getTeams().stream().map(team -> ((ParrotTeam) team).getShip()).filter(parrotShip -> parrotShip.containsRegionLocation(block.getLocation())).findFirst().ifPresent(ParrotShip::update);

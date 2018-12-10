@@ -33,7 +33,7 @@ public class Parrot extends GameMode {
     private final ArrayList<ParrotCannonPoint> points = new ArrayList<>();
     private final ArrayList<Teleporter> shootingStands = new ArrayList<>();
 
-    private final int goldSpawnDelay = 30;
+    private final int goldSpawnDelay = 100;
     private BukkitTask goldSpawner = null;
 
     static {
@@ -141,14 +141,15 @@ public class Parrot extends GameMode {
 
             int i = 0;
             World world = instance.getWorld();
-            Location goldSpawnerRed = new Location(instance.getWorld(), -44, 65, -27);
-            Location goldSpawnerBlue = new Location(instance.getWorld(), 36, 65, 23);
+            Location goldSpawnerRed = new Location(instance.getWorld(), -44, 69, -27);
+            Location goldSpawnerBlue = new Location(instance.getWorld(), 36, 69, 23);
 
             @Override
             public void run() {
-                if (i % goldSpawnDelay == 0)
+                if (i % goldSpawnDelay == 0) {
                     world.dropItem(goldSpawnerBlue, gold);
                     world.dropItem(goldSpawnerRed, gold);
+                }
                 i++;
             }
         }.runTaskTimer(Main.getPlugin(), 0, 20);
