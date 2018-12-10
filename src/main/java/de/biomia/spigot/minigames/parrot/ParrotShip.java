@@ -10,9 +10,11 @@ import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.universal.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 
@@ -62,6 +64,11 @@ public class ParrotShip {
         int actualBlocks = region.getArea() - session.countBlock(region, Sets.newHashSet(0, 8, 9));
         int destroyedBlocks = shipBlocks - actualBlocks;
 
+        GameTeam other = team.getMode().getTeams().stream().filter(gameTeam -> !gameTeam.equals(team)).findFirst().orElse(null);
+        int amount = (int) (bossBar.getProgress() - (1 - destroyedBlocks / 0.2D / shipBlocks) * 100 * 5 / other.getPlayers().size());
+        other.getPlayers().forEach(biomiaPlayer -> biomiaPlayer.getPlayer().getWorld().dropItem(biomiaPlayer.getPlayer().getLocation(), new ItemStack(Material.GOLD_INGOT, amount)).setPickupDelay(0));
+
+        //FIXME: TODO
         if (destroyedBlocks > shipBlocks * 0.2D) {
             bossBar.setProgress(0);
             setName();

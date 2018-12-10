@@ -482,6 +482,7 @@ class ParrotHandler extends GameHandler {
         AtomicInteger i = new AtomicInteger(0);
         AtomicBoolean b = new AtomicBoolean(false);
         ArrayList<Block> copy = new ArrayList<>(blocks);
+
         copy.forEach(block -> {
 
             if (block.getType() == Material.STONE_BUTTON || block.getType() == Material.WOOD_BUTTON) {
@@ -492,6 +493,7 @@ class ParrotHandler extends GameHandler {
             ParrotCannonPoint point = ((Parrot) mode).getPoints().stream().filter(parrotCannonPoint -> parrotCannonPoint.getButtonLocation().getBlock().equals(block)).findFirst().orElse(null);
             if (point != null) {
                 if (player != null && point.getTeam().getColor() != player.getTeam().getColor()) {
+                    point.getButtonLocation().getWorld().createExplosion( point.getButtonLocation(), 7);
                     player.getTeam().getPlayers().forEach(biomiaPlayer -> biomiaPlayer.getPlayer().getWorld().dropItem(biomiaPlayer.getPlayer().getLocation(), new ItemStack(Material.GOLD_INGOT, 4)).setPickupDelay(0));
                     player.getPlayer().getWorld().dropItem(player.getPlayer().getLocation(), new ItemStack(Material.GOLD_INGOT, 10)).setPickupDelay(0);
                     point.setDestroyed();

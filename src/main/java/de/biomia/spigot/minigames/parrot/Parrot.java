@@ -1,5 +1,9 @@
 package de.biomia.spigot.minigames.parrot;
 
+import com.boydti.fawe.FaweAPI;
+import com.sk89q.worldedit.bukkit.BukkitUtil;
+import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
+import com.sk89q.worldedit.math.transform.AffineTransform;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.ParrotConfig;
@@ -22,6 +26,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -33,7 +39,7 @@ public class Parrot extends GameMode {
     private final ArrayList<ParrotCannonPoint> points = new ArrayList<>();
     private final ArrayList<Teleporter> shootingStands = new ArrayList<>();
 
-    private final int goldSpawnDelay = 100;
+    private final int goldSpawnDelay = 30;
     private BukkitTask goldSpawner = null;
 
     static {
@@ -70,6 +76,7 @@ public class Parrot extends GameMode {
                 startSpawning(instance);
             }
         });
+
 
         //blue ship
         shootingStands.add(new Teleporter(new Location(instance.getWorld(), -48, 100, -21), new Location(instance.getWorld(), -40, 103, -12), goInside));
@@ -134,7 +141,7 @@ public class Parrot extends GameMode {
 
     //gold spawner code
 
-    public void startSpawning(GameInstance instance) {
+    private void startSpawning(GameInstance instance) {
 
         final ItemStack gold = ItemCreator.itemCreate(Material.GOLD_INGOT, BedWarsItemNames.gold);
         goldSpawner = new BukkitRunnable() {
@@ -155,7 +162,7 @@ public class Parrot extends GameMode {
         }.runTaskTimer(Main.getPlugin(), 0, 20);
     }
 
-    public void stopSpawning() {
+    private void stopSpawning() {
         goldSpawner.cancel();
     }
 
