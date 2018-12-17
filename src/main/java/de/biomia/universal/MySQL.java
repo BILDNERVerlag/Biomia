@@ -6,7 +6,6 @@ import de.biomia.spigot.achievements.BiomiaStat;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Properties;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class MySQL {
 

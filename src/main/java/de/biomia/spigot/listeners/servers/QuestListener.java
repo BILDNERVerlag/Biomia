@@ -181,7 +181,7 @@ public class QuestListener extends BiomiaListener {
         }
     }
 
-    private void replace(int durationInSeconds, Location loc, byte data, Material material) {
+    private void replace(@SuppressWarnings("SameParameterValue") int durationInSeconds, Location loc, byte data, Material material) {
         new BukkitRunnable() {
             @SuppressWarnings("deprecation")
             @Override

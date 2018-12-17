@@ -44,15 +44,11 @@ public class Kuerbissuche implements Listener {
             if (qp.getDialog() == null) {
                 States state = qp.getState(q);
                 if (state != null) {
-                    switch (state) {
-                        case STATUS1:
-                            if (ItemConditions.hasItemInInventory(qp, Material.PUMPKIN, 1))
-                                qp.setDialog(comeBackWPumpkin);
-                            else
-                                qp.setDialog(comeBackWOPumpkin);
-                            break;
-                        default:
-                            break;
+                    if (state == States.STATUS1) {
+                        if (ItemConditions.hasItemInInventory(qp, Material.PUMPKIN, 1))
+                            qp.setDialog(comeBackWPumpkin);
+                        else
+                            qp.setDialog(comeBackWOPumpkin);
                     }
                 } else if (qp.hasFinished(q)) {
                     qp.setDialog(nachQuest);

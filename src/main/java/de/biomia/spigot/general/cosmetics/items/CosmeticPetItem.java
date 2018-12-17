@@ -66,8 +66,7 @@ public class CosmeticPetItem extends CosmeticItem {
                     if (!bp.getPlayer().isInsideVehicle())
                         followPlayer((Creature) entity, p);
                 } else {
-                    if (pets.containsKey(bp))
-                        pets.remove(bp);
+                    pets.remove(bp);
                     cancel();
                 }
             }

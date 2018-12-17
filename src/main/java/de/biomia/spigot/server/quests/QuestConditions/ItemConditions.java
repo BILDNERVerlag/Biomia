@@ -44,7 +44,7 @@ public class ItemConditions {
         MaterialData dat = new MaterialData(material, data);
         for (ItemStack is : qp.getPlayer().getInventory().getContents()) {
             if (is != null)
-                if (is.getType() == material && is.getData() == dat)
+                if (is.getType() == material && is.getData().equals(dat))
                     i += is.getAmount();
         }
 
@@ -59,7 +59,7 @@ public class ItemConditions {
         MaterialData dat = new MaterialData(material, data);
         for (ItemStack is : qp.getPlayer().getInventory().getContents()) {
             if (is != null)
-                if (is.getType() == material && is.getData() == dat && is.getItemMeta() != null
+                if (is.getType() == material && is.getData().equals(dat) && is.getItemMeta() != null
                         && is.getItemMeta().getDisplayName().equals(name))
                     i += is.getAmount();
         }

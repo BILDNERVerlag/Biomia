@@ -31,8 +31,6 @@ import java.util.List;
 
 public class QuestCommands extends BiomiaCommand {
 
-    private static boolean logTime = false;
-
     public QuestCommands() {
         super("q");
     }

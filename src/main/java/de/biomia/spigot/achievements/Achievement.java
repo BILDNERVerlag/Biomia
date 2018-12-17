@@ -11,7 +11,7 @@ public class Achievement {
     private final int targetValue;
     private final String displayName;
     private String description = "Leider ist keine Beschreibung vorhanden. Beschwer dich am besten bei den Developer.";
-    private String comment = null;
+    private String comment;
 
     //CONSTRUCTORS
 

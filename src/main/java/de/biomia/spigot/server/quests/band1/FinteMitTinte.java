@@ -50,15 +50,11 @@ public class FinteMitTinte implements Listener {
             if (qp.getDialog() == null) {
                 States state = qp.getState(q);
                 if (state != null) {
-                    switch (state) {
-                        case STATUS1:
-                            if (ItemConditions.hasItemInInventory(qp, itemZuBesorgen, 10))
-                                qp.setDialog(comeWithItem);
-                            else
-                                qp.setDialog(comeWithoutItem);
-                            break;
-                        default:
-                            break;
+                    if (state == States.STATUS1) {
+                        if (ItemConditions.hasItemInInventory(qp, itemZuBesorgen, 10))
+                            qp.setDialog(comeWithItem);
+                        else
+                            qp.setDialog(comeWithoutItem);
                     }
                 } else if (qp.hasFinished(q)) {
                     qp.setDialog(nachQuest);

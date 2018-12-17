@@ -25,15 +25,13 @@ public class BungeeMain extends Plugin {
 
     public static int actualFakePlayers = 0;
 
-    public static Plugin plugin;
-
     public static ArrayList<Bans> activeBans = new ArrayList<>();
     public static ArrayList<Bans> cachedBans = new ArrayList<>();
 
     @Override
     public void onEnable() {
 
-        plugin = this;
+        Plugin plugin = this;
 
         ProxyServer.getInstance().registerChannel("BiomiaChannel");
 

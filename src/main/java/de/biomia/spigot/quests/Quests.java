@@ -3,7 +3,6 @@ package de.biomia.spigot.quests;
 import de.biomia.spigot.BiomiaServer;
 import de.biomia.spigot.BiomiaServerType;
 import de.biomia.spigot.Main;
-import de.biomia.spigot.listeners.servers.BiomiaListener;
 import org.bukkit.Bukkit;
 
 import static de.biomia.spigot.Main.registerCommand;

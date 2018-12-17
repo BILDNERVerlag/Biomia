@@ -1,7 +1,5 @@
 package de.biomia.spigot.minigames;
 
-import de.biomia.spigot.OfflineBiomiaPlayer;
-
 public enum GameRewards {
 
     KILL(50), WIN(30, 15), PLAYED(10);
@@ -18,7 +16,7 @@ public enum GameRewards {
         this.versusCoins = this.coins = coins;
     }
 
-    public int getReward(OfflineBiomiaPlayer bp, GameInstance instance) {
+    public int getReward(GameInstance instance) {
 
         int tempCoins = instance.getType().isVersus() ? versusCoins : coins;
 

@@ -48,15 +48,11 @@ public class WirFeiernEinFest implements Listener {
             if (qp.getDialog() == null) {
                 States state = qp.getState(q);
                 if (state != null) {
-                    switch (state) {
-                        case STATUS1:
-                            if (ItemConditions.hasItemInInventory(qp, Material.FIREWORK, 3))
-                                qp.setDialog(comeBackWithFireworks);
-                            else
-                                qp.setDialog(comeBackWithoutFireworks);
-                            break;
-                        default:
-                            break;
+                    if (state == States.STATUS1) {
+                        if (ItemConditions.hasItemInInventory(qp, Material.FIREWORK, 3))
+                            qp.setDialog(comeBackWithFireworks);
+                        else
+                            qp.setDialog(comeBackWithoutFireworks);
                     }
                 } else
                     Quests.restartQuestIfTimeOver(qp, q, startDialog, nachQuest);

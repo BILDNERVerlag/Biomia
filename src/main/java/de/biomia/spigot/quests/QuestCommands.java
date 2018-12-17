@@ -11,7 +11,7 @@ import java.util.UUID;
 public class QuestCommands extends BiomiaCommand {
 
 
-    protected QuestCommands() {
+    QuestCommands() {
         super("q");
     }
 

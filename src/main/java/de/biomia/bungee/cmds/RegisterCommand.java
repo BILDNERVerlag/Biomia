@@ -46,7 +46,7 @@ public class RegisterCommand extends Command {
                 } else if (code == null) {
                     p.sendMessage(new TextComponent(
                             Messages.PREFIX + "§cDu musst dich erst auf der Biomia Internetseite registrieren!"));
-                } else if (!code.equals(args[0])) {
+                } else {
                     p.sendMessage(new TextComponent(Messages.PREFIX + "§cFalscher Code!"));
                 }
             }

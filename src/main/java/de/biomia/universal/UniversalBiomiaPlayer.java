@@ -12,7 +12,7 @@ import java.util.UUID;
 public abstract class UniversalBiomiaPlayer {
 
     private static final LuckPermsApi api = LuckPerms.getApi();
-    private User permUser;
+    private final User permUser;
 
     private final int biomiaID;
     private String name;

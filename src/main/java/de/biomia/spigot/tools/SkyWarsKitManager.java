@@ -14,12 +14,14 @@ import java.util.Objects;
 
 public class SkyWarsKitManager {
 
-    public static void addKit(BiomiaPlayer biomiaPlayer, int kitID, int... months) {
-        MySQL.executeUpdate(String.format("Insert into SkyWarsKits (`biomiaID`, `kitID`, `available`) values (%d, %d, '%s')", biomiaPlayer.getBiomiaPlayerID(), kitID, Arrays.toString(months)), MySQL.Databases.biomia_db);
-    }
+// --Commented out by Inspection START (2018-12-17 08:02):
+//    public static void addKit(BiomiaPlayer biomiaPlayer, int kitID, int... months) {
+//        MySQL.executeUpdate(String.format("Insert into SkyWarsKits (`biomiaID`, `kitID`, `available`) values (%d, %d, '%s')", biomiaPlayer.getBiomiaPlayerID(), kitID, Arrays.toString(months)), MySQL.Databases.biomia_db);
+//    }
+// --Commented out by Inspection STOP (2018-12-17 08:02)
 
-    public static boolean addKit(BiomiaPlayer biomiaPlayer, int kitID) {
-        return MySQL.executeUpdate(String.format("Insert into SkyWarsKits (`biomiaID`, `kitID`) values (%d, %d)", biomiaPlayer.getBiomiaPlayerID(), kitID), MySQL.Databases.biomia_db) != -1;
+    public static void addKit(BiomiaPlayer biomiaPlayer, int kitID) {
+        MySQL.executeUpdate(String.format("Insert into SkyWarsKits (`biomiaID`, `kitID`) values (%d, %d)", biomiaPlayer.getBiomiaPlayerID(), kitID), MySQL.Databases.biomia_db);
     }
 
     public static ArrayList<Integer> getAvailableKits(BiomiaPlayer biomiaPlayer) {

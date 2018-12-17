@@ -23,7 +23,7 @@ import java.util.HashMap;
 
 public class ReportListener implements Listener {
 
-    public static final String längeInvName = "§cLänge";
+    private static final String laengeInvName = "§cLänge";
 
     public static final HashMap<BiomiaPlayer, PlayerBan> waitForSetTime = new HashMap<>();
     public static final HashMap<BiomiaPlayer, PlayerBan> waitForIsPermBan = new HashMap<>();
@@ -39,7 +39,7 @@ public class ReportListener implements Listener {
 
             ItemStack is = inventory.getItem(i);
             String s = is.getItemMeta().getLore().get(0);
-            int multiplicator = Integer.valueOf(s.substring(2, s.length()));
+            int multiplicator = Integer.valueOf(s.substring(2));
 
             switch (i) {
                 case 11:
@@ -66,7 +66,7 @@ public class ReportListener implements Listener {
 
     public static void openSetTimeInventory(BiomiaPlayer biomiaPlayer) {
 
-        Inventory inv = Bukkit.createInventory(null, 27, längeInvName);
+        Inventory inv = Bukkit.createInventory(null, 27, laengeInvName);
 
         int i = 0;
 
@@ -168,7 +168,7 @@ public class ReportListener implements Listener {
                             }
                         }
                         break;
-                    case längeInvName:
+                    case laengeInvName:
                         e.setCancelled(true);
                         if (!waitForSetTime.containsKey(bp))
                             return;
@@ -197,7 +197,7 @@ public class ReportListener implements Listener {
                         ItemStack is = e.getClickedInventory().getItem(slot);
                         if (is != null) {
                             String s = is.getItemMeta().getLore().get(0);
-                            int amount = Integer.valueOf(s.substring(2, s.length()));
+                            int amount = Integer.valueOf(s.substring(2));
 
                             if (amount <= 0 && !plus) {
                                 return;

@@ -23,7 +23,5 @@ public class QuestMessages {
 
     public static final String allNPCsAligned = "§aAlle §b%n §aNPCs erfolgreich aufgereiht!";
     public static final String bookFilled = "§aTagebuch erfolgreich aufgefüllt!";
-    public static final String aiON = "§4<<NPC-KI §cAKTIVIERT§4!>>";
-    public static final String aiOFF = "§4<<NPC-KI §cDEAKTIVIERT§4!>>";
 
 }

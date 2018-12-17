@@ -33,7 +33,7 @@ public class Shop {
     }
 
     public static Inventory getInventory() {
-        int invSize = (int) (Math.ceil(groups.size() / 7) * 9) + 18;
+        int invSize = (int) (Math.ceil(groups.size() / 7D) * 9) + 18;
 
         if (inv == null) {
             inv = Bukkit.createInventory(null, invSize, BedWarsMessages.shopInventory);

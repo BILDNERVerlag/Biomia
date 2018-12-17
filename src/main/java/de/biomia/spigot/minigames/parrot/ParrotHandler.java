@@ -20,9 +20,7 @@ import de.biomia.spigot.minigames.general.shop.*;
 import de.biomia.spigot.server.quests.QuestConditions.ItemConditions;
 import de.biomia.spigot.server.quests.QuestEvents.GiveItemEvent;
 import de.biomia.spigot.server.quests.QuestEvents.TakeItemEvent;
-import de.biomia.spigot.tools.Particles;
 import de.biomia.universal.Messages;
-import net.minecraft.server.v1_12_R1.EnumParticle;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -95,7 +93,6 @@ class ParrotHandler extends GameHandler {
         }
     }
 
-    @SuppressWarnings("deprecation")
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         super.onInventoryClick(e);

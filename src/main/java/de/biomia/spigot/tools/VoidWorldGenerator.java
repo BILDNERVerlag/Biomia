@@ -2,7 +2,6 @@ package de.biomia.spigot.tools;
 
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.block.Biome;
 import org.bukkit.generator.ChunkGenerator;
 
 import java.util.Random;

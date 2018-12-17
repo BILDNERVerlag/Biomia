@@ -218,13 +218,10 @@ public class ParrotCannon {
     }
 
     private int getCooldown() {
-        switch (type) {
-            //TODO: reload time
-            case MOERSER:
-                return 20;
-            default:
-                return 5;
+        if (type == CannonType.MOERSER) {
+            return 20;
         }
+        return 5;
     }
 
     private Location getCannonMouth() {
@@ -251,16 +248,15 @@ public class ParrotCannon {
         }
 
         double getFuseTicks() {
-            switch (this) {
-                default:
-                case SIX_POUNDER:
-                    return 2.7;
+            if (this == CannonType.SIX_POUNDER) {
+                return 2.7;
             }
+            return 3; //TODO Test (empty default before)
         }
     }
 
     private Vector getActualScatteringVector() {
-        return new Vector().setZ((new Random().nextDouble() - .5) * (actualScattering / 10));
+        return new Vector().setZ((new Random().nextDouble() - .5) * (actualScattering / 10D));
     }
 
     public enum CannonYaw {
@@ -384,7 +380,7 @@ public class ParrotCannon {
             return Arrays.asList("", Messages.format(getInfo()), Messages.format(getPrice() + " %s", " BCs"), "");
         }
 
-        public String getInfo() {
+        String getInfo() {
             switch (this) {
                 case FAST_RELOAD:
                     return "Lade die Kanone schneller nach!";

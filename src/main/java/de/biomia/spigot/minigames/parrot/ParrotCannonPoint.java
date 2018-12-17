@@ -4,8 +4,6 @@ import com.boydti.fawe.FaweAPI;
 import com.sk89q.worldedit.bukkit.BukkitUtil;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
 import com.sk89q.worldedit.math.transform.AffineTransform;
-import de.biomia.spigot.Biomia;
-import de.biomia.spigot.Main;
 import de.biomia.spigot.messages.ParrotItemNames;
 import de.biomia.spigot.messages.manager.Title;
 import de.biomia.spigot.minigames.TeamColor;
@@ -13,13 +11,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.metadata.FixedMetadataValue;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 
 class ParrotCannonPoint {
 
@@ -38,14 +32,14 @@ class ParrotCannonPoint {
     private final Location location;
     private final ParrotCannon cannon;
     private boolean destroyed;
-    private ParrotTeam team;
+    private final ParrotTeam team;
     private final ArmorStand gunner;
 
     public ArmorStand getGunner() {
         return gunner;
     }
 
-    public ArmorStand spawnCanonier() {
+    private ArmorStand spawnCanonier() {
         //spawn canoniers
         World world = team.getMode().getInstance().getWorld();
         Location l = location.clone();

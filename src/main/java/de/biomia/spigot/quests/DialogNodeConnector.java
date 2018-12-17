@@ -2,7 +2,6 @@ package de.biomia.spigot.quests;
 
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.universal.Messages;
-import lombok.Setter;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Entity;
@@ -24,7 +23,7 @@ public class DialogNodeConnector {
         return addNode(new DialogNode(option, message, entity));
     }
 
-    public DialogNode addNode(DialogNode node) {
+    private DialogNode addNode(DialogNode node) {
         nodes.add(node);
         return node;
     }

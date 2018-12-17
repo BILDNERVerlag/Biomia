@@ -49,18 +49,14 @@ public class HolzfaellerInDerHolzfalle implements Listener {
             if (qp.getDialog() == null) {
                 States state = qp.getState(q);
                 if (state != null) {
-                    switch (state) {
-                        case STATUS1:
-                            int itemMenge = 64;
-                            if (ItemConditions.hasItemInInventory(qp, log, itemMenge)) {
-                                qp.setDialog(comeBackWithItem);
-                            } else if (ItemConditions.hasItemInInventory(qp, Material.LOG_2, itemMenge)) {
-                                qp.setDialog(comeBackWithItem);
-                            } else
-                                qp.setDialog(comeBackWithoutItem);
-                            break;
-                        default:
-                            break;
+                    if (state == States.STATUS1) {
+                        int itemMenge = 64;
+                        if (ItemConditions.hasItemInInventory(qp, log, itemMenge)) {
+                            qp.setDialog(comeBackWithItem);
+                        } else if (ItemConditions.hasItemInInventory(qp, Material.LOG_2, itemMenge)) {
+                            qp.setDialog(comeBackWithItem);
+                        } else
+                            qp.setDialog(comeBackWithoutItem);
                     }
                 } else if (qp.hasFinished(q)) {
                     qp.setDialog(nachQuest);

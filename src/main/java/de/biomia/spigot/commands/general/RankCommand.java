@@ -3,7 +3,6 @@ package de.biomia.spigot.commands.general;
 import de.biomia.spigot.Biomia;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.BiomiaServerType;
-import de.biomia.spigot.OfflineBiomiaPlayer;
 import de.biomia.spigot.commands.BiomiaCommand;
 import de.biomia.spigot.messages.manager.Scoreboards;
 import de.biomia.spigot.server.lobby.LobbyScoreboard;
@@ -11,7 +10,6 @@ import de.biomia.universal.Messages;
 import de.biomia.universal.Ranks;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 public class RankCommand extends BiomiaCommand {

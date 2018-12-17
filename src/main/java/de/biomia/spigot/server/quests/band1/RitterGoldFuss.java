@@ -71,16 +71,12 @@ public class RitterGoldFuss implements Listener {
             if (qp.getDialog() == null) {
                 States state = qp.getState(q);
                 if (state != null) {
-                    switch (state) {
-                        case STATUS1:
-                            if (ItemConditions.hasItemInInventory(qp, Material.ROTTEN_FLESH, 32)) {
-                                qp.setDialog(comeBackWRottenFlesh);
-                            } else {
-                                qp.setDialog(comeBackWORottenFlesh);
-                            }
-                            break;
-                        default:
-                            break;
+                    if (state == States.STATUS1) {
+                        if (ItemConditions.hasItemInInventory(qp, Material.ROTTEN_FLESH, 32)) {
+                            qp.setDialog(comeBackWRottenFlesh);
+                        } else {
+                            qp.setDialog(comeBackWORottenFlesh);
+                        }
                     }
                 } else if (qp.hasFinished(q)) {
                     qp.setDialog(nachQuest);

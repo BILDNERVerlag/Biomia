@@ -19,7 +19,7 @@ public class WorldCopy {
                     if (!target.exists())
                         if (!target.mkdirs())
                             throw new IOException("Couldn't create world directory!");
-                    String files[] = source.list();
+                    String[] files = source.list();
                     for (String file : Objects.requireNonNull(files)) {
                         File srcFile = new File(source, file);
                         File destFile = new File(target, file);

@@ -194,12 +194,8 @@ public class VSManager implements Listener {
         if (e.hasItem()) {
             ItemStack is = e.getItem();
             if (is.hasItemMeta() && is.getItemMeta().hasDisplayName()) {
-                switch (is.getItemMeta().getDisplayName()) {
-                    case "§cEinstellungen":
-                        openMainInventory(bp);
-                        break;
-                    default:
-                        break;
+                if ("§cEinstellungen".equals(is.getItemMeta().getDisplayName())) {
+                    openMainInventory(bp);
                 }
             }
         }

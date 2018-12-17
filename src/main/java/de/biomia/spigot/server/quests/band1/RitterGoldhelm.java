@@ -71,16 +71,12 @@ public class RitterGoldhelm implements Listener {
             if (qp.getDialog() == null) {
                 States state = qp.getState(q);
                 if (state != null) {
-                    switch (state) {
-                        case STATUS1:
-                            if (ItemConditions.hasItemInInventory(qp, Material.BONE, 32)) {
-                                qp.setDialog(comeBackWithBones);
-                            } else {
-                                qp.setDialog(comeBackWithOutBones);
-                            }
-                            break;
-                        default:
-                            break;
+                    if (state == States.STATUS1) {
+                        if (ItemConditions.hasItemInInventory(qp, Material.BONE, 32)) {
+                            qp.setDialog(comeBackWithBones);
+                        } else {
+                            qp.setDialog(comeBackWithOutBones);
+                        }
                     }
                 } else if (qp.hasFinished(q)) {
                     qp.setDialog(nachQuest);

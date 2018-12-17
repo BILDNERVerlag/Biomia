@@ -68,8 +68,4 @@ public class Scoreboards {
             t.setPrefix(r.getPrefix());
         }
     }
-
-    public static Scoreboard getMainScoreboard() {
-        return main;
-    }
 }

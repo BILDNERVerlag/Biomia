@@ -6,7 +6,7 @@ public class SkyWarsMessages {
     // %k = Kit Name
     public static final String demoInventory = "§cDemo Inventory: %kit";
     public static final String kitPurchased = "§aGlückwunsch, du hast das Kit %kit erworben!";
-    public static final String errorWhilePurchasing = "§cEntschuldigung, es ist ein Fehler aufgetreten! Dir wurde KEIN Geld abgezogen!";
+    // --Commented out by Inspection (2018-12-17 08:02):public static final String errorWhilePurchasing = "§cEntschuldigung, es ist ein Fehler aufgetreten! Dir wurde KEIN Geld abgezogen!";
     public static final String notEnoughCoins = "§cDu hast nicht genug BC's um das Kit %k zu Kaufen!";
     public static final String alreadyPurchased = "§cDu hast das Kit %k bereits gekauft!";
     public static final String setupInventory = "§c%k";

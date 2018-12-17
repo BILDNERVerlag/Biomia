@@ -13,7 +13,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 import static java.util.stream.Collectors.joining;
 
@@ -106,7 +105,7 @@ public class ItemStackSaver {
                 if (!metaString.equals(noValue)) {
                     meta = (ItemMeta) Base64.fromBase64(metaString);
                 }
-                if (meta == null || metaString.equals(noValue)) {
+                if (meta == null) {
                     meta = (is.hasItemMeta()) ? is.getItemMeta() : Bukkit.getServer().getItemFactory().getItemMeta(m);
                 }
                 String displayName = rs.getString("name");
@@ -121,7 +120,7 @@ public class ItemStackSaver {
                 if (!enchantmentString.equals(noValue)) {
                     String[] enchantments = enchantmentString.split(", ");
                     for (String s : enchantments) {
-                        String splitEnch[] = s.split(":");
+                        String[] splitEnch = s.split(":");
                         Enchantment enchantment;
                         try {
                             enchantment = (Enchantment) Enchantment.class.getDeclaredField(splitEnch[0]).get(null);
@@ -155,7 +154,7 @@ public class ItemStackSaver {
         ArrayList<ItemStack> itemsToAdd = new ArrayList<>();
 
         Connection con = MySQL.Connect(database);
-        ItemStack is = null;
+        ItemStack is;
         try {
             PreparedStatement ps = con.prepareStatement(String.format("SELECT `name`, `lore`, `type`, `amount`, `data`, `durability`, `meta`, `enchants` FROM %s WHERE biomiaID = %s AND server = '%s'", tableName, bp.getBiomiaPlayerID(), Biomia.getServerInstance().getServerType().name()));
             ResultSet rs = ps.executeQuery();
@@ -170,7 +169,7 @@ public class ItemStackSaver {
                 is = ItemCreator.itemCreate(m);
                 String metaString = rs.getString("meta");
                 ItemMeta meta = (!metaString.equals(noValue)) ? (ItemMeta) Base64.fromBase64(metaString) : null;
-                if (meta == null || metaString.equals(noValue)) {
+                if (meta == null) {
                     meta = (is.hasItemMeta()) ? is.getItemMeta() : Bukkit.getServer().getItemFactory().getItemMeta(m);
                 }
                 String displayName = rs.getString("name");
@@ -185,7 +184,7 @@ public class ItemStackSaver {
                 if (!enchantmentString.equals(noValue)) {
                     String[] enchantments = enchantmentString.split(", ");
                     for (String s : enchantments) {
-                        String splitEnch[] = s.split(":");
+                        String[] splitEnch = s.split(":");
                         try {
                             Enchantment enchantment = (Enchantment) Enchantment.class.getDeclaredField(splitEnch[0]).get(null);
                             int enchLevel = Integer.parseInt(splitEnch[1]);
@@ -230,7 +229,7 @@ public class ItemStackSaver {
         return MySQL.executeQuerygetint(String.format("SELECT server FROM %s WHERE ID = %d", tableName, ID), "server", database);
     }
 
-    public static void deleteItemStack(int ID) {
+    private static void deleteItemStack(int ID) {
         MySQL.execute("DELETE FROM " + tableName + " WHERE ID = " + ID, database);
     }
 

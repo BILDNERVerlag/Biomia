@@ -21,7 +21,7 @@ class QuestListener implements Listener {
         e.setCancelled(true);
     }
 
-    protected static void registerQuest(Quest q) {
+    static void registerQuest(Quest q) {
         quests.add(q);
     }
 

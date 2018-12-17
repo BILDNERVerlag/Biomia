@@ -45,13 +45,13 @@ public class Versus extends BiomiaServer {
         //sets gamemode when entering temple
         new Teleporter(new Location(duell, -51, 113, -43), new Location(duell, -13, 200, -6), new TeleportExecutor() {
             @Override
-            public void execute(BiomiaPlayer bp, Teleporter teleporter) {
+            public void execute(BiomiaPlayer bp) {
                 KitPVPManager.setToEditMode(bp);
             }
         });
         new Teleporter(new Location(duell, -51, 113, -43), new Location(duell, -13, 200, -6), new TeleportExecutor() {
             @Override
-            public void execute(BiomiaPlayer bp, Teleporter teleporter) {
+            public void execute(BiomiaPlayer bp) {
                 KitPVPManager.removeFromEditMode(bp);
                 bp.getPlayer().sendMessage(String.format("%sDein Kit wurde gespeichert.", Messages.COLOR_MAIN));
             }

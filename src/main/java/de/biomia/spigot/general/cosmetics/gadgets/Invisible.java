@@ -31,10 +31,10 @@ class Invisible implements GadgetListener, Listener {
                 double x = Math.cos(radians) / 360 * a;
                 double z = Math.sin(radians) / 360 * a;
 
-                Location loc = l.clone().add(x, i / 180, z);
+                Location loc = l.clone().add(x, i / 180D, z);
                 new Particles(EnumParticle.SMOKE_NORMAL, loc, false, 0f, 0f, 0f, 1f, 1).sendAll();
             }
-            l.add(0, 2 / 60, 0);
+            l.add(0, 2 / 60D, 0);
         }
 
         for (Player p : Bukkit.getOnlinePlayers())

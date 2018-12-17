@@ -111,7 +111,6 @@ public class ReiteDasSchwein implements Listener {
             int countdown = 3;
             int zeitRennen = 160;
 
-            @SuppressWarnings("deprecation")
             @Override
             public void run() {
                 switch (countdown) {

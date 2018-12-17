@@ -4,7 +4,7 @@ import de.biomia.spigot.server.quests.QuestEvents.AddCoinEvent;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 
-public class Wasserholen extends Quest {
+class Wasserholen extends Quest {
 
     public Wasserholen() {
         super(Band.Band1, "Wasserholen");

@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 public class SpawnItems {
 
-    private final int bronzeSpawnDelay = 1;
+//    private final int bronzeSpawnDelay = 1;
     private final int ironSpawnDelay = 10;
     private final int goldSpawnDelay = 30;
 
@@ -43,7 +43,7 @@ public class SpawnItems {
 
             @Override
             public void run() {
-                if (i % bronzeSpawnDelay == 0)
+//                if (i % bronzeSpawnDelay == 0)
                     locations.get(ItemType.BRONZE).forEach(each -> world.dropItem(each, bronze));
                 if (i % ironSpawnDelay == 0)
                     locations.get(ItemType.IRON).forEach(each -> world.dropItem(each, iron));

@@ -67,8 +67,6 @@ public class ParrotShip {
 
         GameTeam other = team.getMode().getTeams().stream().filter(gameTeam -> !gameTeam.equals(team)).findFirst().orElse(null);
 
-        double progress = bossBar.getProgress();
-
         //FIXME: TODO
         if (destroyedBlocks > shipBlocks * 0.2D) {
             bossBar.setProgress(0);
@@ -80,6 +78,8 @@ public class ParrotShip {
             bossBar.setProgress(1 - destroyedBlocks / 0.2D / shipBlocks);
             setName();
         }
+
+        if (other == null) return;
 
         for (BiomiaPlayer biomiaPlayer : other.getPlayers()) {
             if (Math.random() > 0.9)

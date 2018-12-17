@@ -57,7 +57,6 @@ public class HeadCreator {
 
         SkullMeta headMeta = (SkullMeta) head.getItemMeta();
         GameProfile profile = getNonPlayerProfile(url);
-        Field profileField;
         getProfile(headMeta, profile);
         head.setItemMeta(headMeta);
         return head;

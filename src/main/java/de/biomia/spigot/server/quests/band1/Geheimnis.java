@@ -46,15 +46,11 @@ public class Geheimnis implements Listener {
             if (qp.getDialog() == null) {
                 States state = qp.getState(q);
                 if (state != null) {
-                    switch (state) {
-                        case STATUS1:
-                            if (ItemConditions.hasItemInInventory(qp, Material.HAY_BLOCK, 1))
-                                qp.setDialog(comeBackWStroh);
-                            else
-                                qp.setDialog(comeBackWOStroh);
-                            break;
-                        default:
-                            break;
+                    if (state == States.STATUS1) {
+                        if (ItemConditions.hasItemInInventory(qp, Material.HAY_BLOCK, 1))
+                            qp.setDialog(comeBackWStroh);
+                        else
+                            qp.setDialog(comeBackWOStroh);
                     }
                 } else if (qp.hasFinished(q)) {
                     qp.setDialog(nachQuest);

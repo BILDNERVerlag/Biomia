@@ -1,16 +1,11 @@
 package de.biomia.spigot.minigames.parrot;
 
-import com.boydti.fawe.FaweAPI;
-import com.sk89q.worldedit.bukkit.BukkitUtil;
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
-import com.sk89q.worldedit.math.transform.AffineTransform;
 import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.Main;
 import de.biomia.spigot.configs.ParrotConfig;
 import de.biomia.spigot.messages.BedWarsItemNames;
 import de.biomia.spigot.messages.ParrotItemNames;
 import de.biomia.spigot.minigames.*;
-import de.biomia.spigot.minigames.general.shop.ItemType;
 import de.biomia.spigot.minigames.general.shop.Shop;
 import de.biomia.spigot.server.quests.QuestEvents.GiveItemEvent;
 import de.biomia.spigot.server.quests.QuestEvents.TakeItemEvent;
@@ -26,8 +21,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -54,14 +47,14 @@ public class Parrot extends GameMode {
 
         TeleportExecutor goInside = new TeleportExecutor() {
             @Override
-            public void execute(BiomiaPlayer bp, Teleporter teleporter) {
+            public void execute(BiomiaPlayer bp) {
                 new GiveItemEvent(Material.ARROW, 1).executeEvent(bp);
                 new GiveItemEvent(bow).executeEvent(bp);
             }
         };
         TeleportExecutor goOutside = new TeleportExecutor() {
             @Override
-            public void execute(BiomiaPlayer bp, Teleporter teleporter) {
+            public void execute(BiomiaPlayer bp) {
                 new TakeItemEvent(Material.BOW, ParrotItemNames.explosionBow, 1).executeEvent(bp);
                 new TakeItemEvent(Material.ARROW, 1).executeEvent(bp);
             }
@@ -147,9 +140,9 @@ public class Parrot extends GameMode {
         goldSpawner = new BukkitRunnable() {
 
             int i = 0;
-            World world = instance.getWorld();
-            Location goldSpawnerRed = new Location(instance.getWorld(), -44, 69, -27);
-            Location goldSpawnerBlue = new Location(instance.getWorld(), 36, 69, 23);
+            final World world = instance.getWorld();
+            final Location goldSpawnerRed = new Location(instance.getWorld(), -44, 69, -27);
+            final Location goldSpawnerBlue = new Location(instance.getWorld(), 36, 69, 23);
 
             @Override
             public void run() {

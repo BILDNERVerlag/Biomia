@@ -165,7 +165,6 @@ public class BedWarsHandler extends GameHandler {
         }
     }
 
-    @SuppressWarnings("deprecation")
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         super.onInventoryClick(e);
@@ -302,7 +301,6 @@ public class BedWarsHandler extends GameHandler {
             e.getInventory().setResult(ItemCreator.itemCreate(Material.AIR));
     }
 
-    @SuppressWarnings("deprecation")
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
         if (!mode.getInstance().getWorld().equals(e.getPlayer().getWorld())) return;
@@ -551,7 +549,7 @@ public class BedWarsHandler extends GameHandler {
             sheep.setColor(DyeColor.valueOf(t.getColor().name()));
             ArrayList<Entity> entities = new ArrayList<>(sheep.getNearbyEntities(300, 100, 300));
             for (Entity entity : entities) {
-                if (entities instanceof Player) {
+                if (entity instanceof Player) {
                     Player target = (Player) entity;
                     GameTeam tempTeam = (Biomia.getBiomiaPlayer(target).getTeam());
                     if (tempTeam != null && !tempTeam.equals(t)) {

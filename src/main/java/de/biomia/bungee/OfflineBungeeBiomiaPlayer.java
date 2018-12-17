@@ -1,6 +1,5 @@
 package de.biomia.bungee;
 
-import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.universal.UniversalBiomiaPlayer;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;

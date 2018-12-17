@@ -20,7 +20,7 @@ public class SaveItemCommand extends BiomiaCommand {
         super("si");
     }
 
-    public static final Inventory editItem;
+    private static final Inventory editItem;
 
     static {
         editItem = Bukkit.createInventory(null, 18, "Edit ItemStack");
@@ -76,6 +76,7 @@ public class SaveItemCommand extends BiomiaCommand {
                 ItemStack is = ItemStackSaver.getItemStack(itemid);
                 if (is == null) {
                     sender.sendMessage(keinItemGefunden);
+                    return;
                 }
                 sender.sendMessage(Messages.COLOR_MAIN + "<" + Messages.COLOR_AUX + "ID: " + args[1]);
                 if (is.hasItemMeta()) {

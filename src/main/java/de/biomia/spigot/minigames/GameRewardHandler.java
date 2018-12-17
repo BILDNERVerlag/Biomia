@@ -11,15 +11,15 @@ class GameRewardHandler implements Listener {
     @EventHandler
     public void onKill(GameKillEvent e) {
         if (e.isFinalKill())
-            e.getOfflineBiomiaPlayer().addCoins(GameRewards.KILL.getReward(e.getOfflineBiomiaPlayer(), e.getMode().getInstance()), true);
+            e.getOfflineBiomiaPlayer().addCoins(GameRewards.KILL.getReward(e.getMode().getInstance()), true);
     }
 
     @EventHandler
     public void onEnd(GameEndEvent e) {
         e.getWinner().forEach(each -> {
-            int coins = GameRewards.WIN.getReward(each, e.getMode().getInstance());
+            int coins = GameRewards.WIN.getReward(e.getMode().getInstance());
             if (each.getTeam().lives(each))
-                coins += GameRewards.PLAYED.getReward(each, e.getMode().getInstance());
+                coins += GameRewards.PLAYED.getReward(e.getMode().getInstance());
             each.addCoins(coins, true);
         });
     }
@@ -27,6 +27,6 @@ class GameRewardHandler implements Listener {
     @EventHandler
     public void onPlayed(GameDeathEvent e) {
         if (e.isFinalDeath())
-            e.getOfflineBiomiaPlayer().addCoins(GameRewards.PLAYED.getReward(e.getOfflineBiomiaPlayer(), e.getMode().getInstance()), true);
+            e.getOfflineBiomiaPlayer().addCoins(GameRewards.PLAYED.getReward(e.getMode().getInstance()), true);
     }
 }

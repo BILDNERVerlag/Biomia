@@ -10,7 +10,6 @@ import de.biomia.spigot.minigames.GameStateManager;
 import de.biomia.spigot.minigames.WarteLobbyListener;
 import de.biomia.spigot.minigames.general.chests.Chests;
 import de.biomia.spigot.minigames.general.kits.KitManager;
-import de.biomia.spigot.minigames.versus.VSManager;
 import de.biomia.spigot.tools.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -20,7 +19,6 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -57,7 +55,7 @@ public class SkyWarsHandler extends GameHandler {
                 ((Damageable) e.getHitEntity()).damage(0.5D, pShooter);
                 ((Damageable) e.getHitEntity()).setHealth(0);
                 ((Damageable) e.getHitEntity()).damage(0.5D, pShooter);
-            } else if (projectile.getCustomName().equals(SkyWarsItemNames.gummipfeil)) {
+            } else if (projectile.getCustomName() != null && projectile.getCustomName().equals(SkyWarsItemNames.gummipfeil)) {
                 projectile.remove();
                 ((Damageable) e.getHitEntity()).damage(0.1D, pShooter);
             }

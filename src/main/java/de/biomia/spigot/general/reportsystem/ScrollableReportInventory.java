@@ -48,7 +48,7 @@ class ScrollableReportInventory implements Listener {
                         return;
                     }
                     String name = e.getCurrentItem().getItemMeta().getDisplayName();
-                    name = name.substring(2, name.length());
+                    name = name.substring(2);
 
                     if (e.getClick().isRightClick()) {
                         if (e.getClick().isShiftClick()) {

@@ -59,17 +59,13 @@ public class BergHuehner implements Listener {
             if (qp.getDialog() == null) {
                 States state = qp.getState(q);
                 if (state != null) {
-                    switch (state) {
-                        case STATUS1:
-                            if (ItemConditions.hasItemInInventory(qp, Material.EGG, 3, QuestItemNames.specialEgg)) {
-                                qp.setDialog(comeBackWithEggs);
-                                hasEggs.remove(qp);
-                            } else {
-                                qp.setDialog(comeBackWithoutEggs);
-                            }
-                            break;
-                        default:
-                            break;
+                    if (state == States.STATUS1) {
+                        if (ItemConditions.hasItemInInventory(qp, Material.EGG, 3, QuestItemNames.specialEgg)) {
+                            qp.setDialog(comeBackWithEggs);
+                            hasEggs.remove(qp);
+                        } else {
+                            qp.setDialog(comeBackWithoutEggs);
+                        }
                     }
                 } else
                     Quests.restartQuestIfTimeOver(qp, q, startDialog, nachQuest);

@@ -3,7 +3,7 @@ package de.biomia.spigot.messages;
 import de.biomia.universal.Messages;
 
 public class MinigamesMessages {
-    @SuppressWarnings("MalformedFormatString") /* $t = CountDown */
+    /* $t = CountDown */
     public static final String restartCountDown = "Restart in %s Sekunden!";
     public static final String lobbyCountDown = "Start in %s Sekunden!";
     public static final String mapSize = "§b%s §7x §c%s";

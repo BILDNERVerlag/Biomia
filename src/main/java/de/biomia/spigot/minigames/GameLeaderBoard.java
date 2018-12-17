@@ -51,7 +51,7 @@ class GameLeaderBoard {
                 }
 
 
-                double kd = deaths == 0 ? 0 : (int) ((double) (kills / deaths) * 100) / 100;
+                double kd = deaths == 0 ? 0 : (int) ((double) (kills / deaths) * 100) / 100D;
 
                 Sign sign = (Sign) location.getBlock().getState();
 

@@ -51,15 +51,11 @@ public class Wasserholen implements Listener {
             if (qp.getDialog() == null) {
                 States state = qp.getState(q);
                 if (state != null) {
-                    switch (state) {
-                        case STATUS1:
-                            if (ItemConditions.hasItemInInventory(qp, Material.WATER_BUCKET, 3))
-                                qp.setDialog(withWater);
-                            else
-                                qp.setDialog(withoutWater);
-                            break;
-                        default:
-                            break;
+                    if (state == States.STATUS1) {
+                        if (ItemConditions.hasItemInInventory(qp, Material.WATER_BUCKET, 3))
+                            qp.setDialog(withWater);
+                        else
+                            qp.setDialog(withoutWater);
                     }
                 } else {
                     Quests.restartQuestIfTimeOver(qp, q, dialog_Start, nachQuest);

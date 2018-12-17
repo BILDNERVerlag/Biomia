@@ -81,12 +81,14 @@ public enum TeamColor {
         }
     }
 
-    public static TeamColor getColorFromData(short data) {
-        for (TeamColor color : values()) {
-            if (color.getData() == data) {
-                return color;
-            }
-        }
-        return BLACK;
-    }
+// --Commented out by Inspection START (2018-12-17 08:01):
+//    public static TeamColor getColorFromData(short data) {
+//        for (TeamColor color : values()) {
+//            if (color.getData() == data) {
+//                return color;
+//            }
+//        }
+//        return BLACK;
+//    }
+// --Commented out by Inspection STOP (2018-12-17 08:01)
 }
