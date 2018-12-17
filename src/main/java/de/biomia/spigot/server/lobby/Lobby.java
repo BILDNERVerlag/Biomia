@@ -122,6 +122,7 @@ public class Lobby extends BiomiaServer {
         new Teleporter(new Location(lobby, 459.5, 71, 252), new Location(lobby, 460, 73, 257), new Location(Bukkit.getWorld("BedwarsSignlobby"), 370.5, 82, 264.5, 70, 0));
         // Versus
         new Teleporter(new Location(lobby, 459.5, 71, 240), new Location(lobby, 460, 73, 245), new Location(lobby, 461.5, 70, 244, -90, 0), BiomiaServerType.Duell);
+        new Teleporter(new Location(lobby, 459.5, 71, 227), new Location(lobby, 460, 73, 232), new Location(lobby, 461.5, 70, 233, -90, 0), BiomiaServerType.Parrot);
 
         // Grenzen nach außen
         new Teleporter(new Location(Bukkit.getWorld("BedwarsSignlobby"), 0, -1000, 0), new Location(Bukkit.getWorld("BedwarsSignlobby"), 800, 1000, 1024), new Location(Bukkit.getWorld("BedwarsSignlobby"), 370.5, 82, 264.5, 70, 0)).setInverted();

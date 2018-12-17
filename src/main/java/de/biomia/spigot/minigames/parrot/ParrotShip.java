@@ -26,6 +26,7 @@ public class ParrotShip {
     private final CuboidRegion region;
     private final BossBar bossBar;
     private final GameTeam team;
+    private int destroyedBlocksLastTime = 0;
 
     private final EditSession session;
 
@@ -64,6 +65,8 @@ public class ParrotShip {
     public void update() {
         int actualBlocks = region.getArea() - session.countBlock(region, Sets.newHashSet(0, 8, 9));
         int destroyedBlocks = shipBlocks - actualBlocks;
+        int destroyedNow = destroyedBlocks - destroyedBlocksLastTime;
+        destroyedBlocksLastTime = destroyedBlocks;
 
         GameTeam other = team.getMode().getTeams().stream().filter(gameTeam -> !gameTeam.equals(team)).findFirst().orElse(null);
 
@@ -80,11 +83,11 @@ public class ParrotShip {
         }
 
         if (other == null) return;
-
-        for (BiomiaPlayer biomiaPlayer : other.getPlayers()) {
-            if (Math.random() > 0.9)
-                biomiaPlayer.getPlayer().getInventory().addItem(new ItemStack(Material.GOLD_INGOT, 1));
-        }
+        for (int i = 0; i < destroyedNow; i++)
+            for (BiomiaPlayer biomiaPlayer : other.getPlayers()) {
+                if (Math.random() > 0.95)
+                    biomiaPlayer.getPlayer().getInventory().addItem(new ItemStack(Material.GOLD_INGOT, 1));
+            }
     }
 
     public boolean containsRegionLocation(Location location) {

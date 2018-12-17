@@ -490,16 +490,15 @@ class ParrotHandler extends GameHandler {
             ParrotCannonPoint point = ((Parrot) mode).getPoints().stream().filter(parrotCannonPoint -> parrotCannonPoint.getButtonLocation().getBlock().equals(block)).findFirst().orElse(null);
             if (point != null) {
                 if (player != null && point.getTeam().getColor() != player.getTeam().getColor()) {
-                    point.getButtonLocation().getWorld().createExplosion( point.getButtonLocation(), 7);
+                    point.getButtonLocation().getWorld().createExplosion(point.getButtonLocation(), 7);
                     player.getTeam().getPlayers().forEach(biomiaPlayer -> biomiaPlayer.getPlayer().getWorld().dropItem(biomiaPlayer.getPlayer().getLocation(), new ItemStack(Material.GOLD_INGOT, 4)).setPickupDelay(0));
                     player.getPlayer().getWorld().dropItem(player.getPlayer().getLocation(), new ItemStack(Material.GOLD_INGOT, 10)).setPickupDelay(0);
                     point.setDestroyed();
                     b.set(true);
                 } else blocks.remove(block);
             }
-            if (i.incrementAndGet() == blocks.size())
-                mode.getTeams().stream().map(team -> ((ParrotTeam) team).getShip()).filter(parrotShip -> parrotShip.containsRegionLocation(block.getLocation())).findFirst().ifPresent(ParrotShip::update);
         });
+        mode.getTeams().forEach(gameTeam -> ((ParrotTeam) gameTeam).getShip().update());
         return b.get();
     }
 }

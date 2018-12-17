@@ -9,20 +9,29 @@ import de.biomia.spigot.minigames.*;
 import de.biomia.spigot.minigames.general.shop.Shop;
 import de.biomia.spigot.server.quests.QuestEvents.GiveItemEvent;
 import de.biomia.spigot.server.quests.QuestEvents.TakeItemEvent;
+import de.biomia.spigot.server.quests.general.Quest;
 import de.biomia.spigot.tools.ItemCreator;
 import de.biomia.spigot.tools.TeleportExecutor;
 import de.biomia.spigot.tools.Teleporter;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.chat.ComponentSerializer;
+import net.minecraft.server.v1_12_R1.IChatBaseComponent;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftMetaBook;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class Parrot extends GameMode {
@@ -66,6 +75,12 @@ public class Parrot extends GameMode {
                 super.start();
                 Shop.initParrot();
                 getMode().getTeams().stream().map(team -> ((ParrotTeam) team).getShip()).forEach(ParrotShip::setPlayersToBossBar);
+                getMode().getTeams().forEach(gameTeam -> ((ParrotTeam) gameTeam).getShip().update());
+
+                for (BiomiaPlayer bp : getMode().getInstance().getPlayers()) {
+                    bp.getPlayer().getInventory().clear();
+                    bp.getPlayer().getInventory().addItem(getBook());
+                }
                 startSpawning(instance);
             }
         });
@@ -98,6 +113,52 @@ public class Parrot extends GameMode {
 
     public ArrayList<ParrotCannonPoint> getPoints() {
         return points;
+    }
+
+    public static ItemStack getBook() {
+        ItemStack book = ItemCreator.itemCreate(Material.WRITTEN_BOOK, "Anleitung");
+        BookMeta bookMeta = (BookMeta) book.getItemMeta();
+        List<IChatBaseComponent> pages;
+
+        // Referenz auf die Liste der Buchseiten holen
+        try {
+            pages = (List<IChatBaseComponent>) CraftMetaBook.class.getDeclaredField("pages").get(bookMeta);
+            pages.clear();
+        } catch (ReflectiveOperationException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        // Bonusseite befuellen (Optionen, Stats, etc)
+        TextComponent text = new TextComponent("§1§l§nPirateWars\n\n" +
+                "Zerstöre das " +
+                "gegnerische Schiff! Bring es auf 0% oder zerstöre alle Kanonen! " +
+                "Du kannst bei den " +
+                "Dorfbewohnern oben " +
+                "Items kaufen und bei " +
+                "den Kanonieren die " +
+                "Kanonen einstellen " +
+                "und verbessern.");
+
+        IChatBaseComponent page = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(text));
+        pages.add(page);
+
+        TextComponent text2 = new TextComponent("§1§l§nGold\n\n" +
+                "Du bekommst für " +
+                "zerstörte Kanonen Gold und auch für " +
+                "jeden zerstörten Block " +
+                "gibt es eine Chance auf Gold. " +
+                "Schau auch in der Schatzkammer! " +
+                "Kanonen zerstörst du indem du " +
+                "den Block mit Knopf abbaust.");
+
+        IChatBaseComponent page2 = IChatBaseComponent.ChatSerializer.a(ComponentSerializer.toString(text2));
+        pages.add(page2);
+
+        // Buch-Itemstack updaten
+        bookMeta.setAuthor("BIOMIA");
+        book.setItemMeta(bookMeta);
+        return book;
     }
 
     @Override
