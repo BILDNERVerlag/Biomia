@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.bukkit.BukkitUtil;
 import com.sk89q.worldedit.regions.CuboidRegion;
+import de.biomia.spigot.BiomiaPlayer;
 import de.biomia.spigot.minigames.GameTeam;
 import de.biomia.spigot.minigames.TeamColor;
 import de.biomia.universal.Messages;
@@ -65,8 +66,8 @@ public class ParrotShip {
         int destroyedBlocks = shipBlocks - actualBlocks;
 
         GameTeam other = team.getMode().getTeams().stream().filter(gameTeam -> !gameTeam.equals(team)).findFirst().orElse(null);
-        int amount = (int) (bossBar.getProgress() - (1 - destroyedBlocks / 0.2D / shipBlocks) * 100 * 5 / other.getPlayers().size());
-        other.getPlayers().forEach(biomiaPlayer -> biomiaPlayer.getPlayer().getWorld().dropItem(biomiaPlayer.getPlayer().getLocation(), new ItemStack(Material.GOLD_INGOT, amount)).setPickupDelay(0));
+
+        double progress = bossBar.getProgress();
 
         //FIXME: TODO
         if (destroyedBlocks > shipBlocks * 0.2D) {
@@ -78,6 +79,11 @@ public class ParrotShip {
             // 1 - x to reverse the bar | 0 = destroyed | 1 = not-destroyed
             bossBar.setProgress(1 - destroyedBlocks / 0.2D / shipBlocks);
             setName();
+        }
+
+        for (BiomiaPlayer biomiaPlayer : other.getPlayers()) {
+            if (Math.random() > 0.9)
+                biomiaPlayer.getPlayer().getInventory().addItem(new ItemStack(Material.GOLD_INGOT, 1));
         }
     }
 
