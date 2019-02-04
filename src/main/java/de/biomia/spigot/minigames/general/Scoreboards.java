@@ -23,10 +23,8 @@ public class Scoreboards {
     public static void initLobbySB(GameMode mode) {
 
         Objective o = lobbySB.registerNewObjective("ccc", "ddd");
-
         setDisplayName(mode.getInstance().getType(), o);
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
-
         o.getScore(" ").setScore(7);
         o.getScore("§cMap:").setScore(6);
         o.getScore("§c").setScore(5);
@@ -48,7 +46,6 @@ public class Scoreboards {
             lobbySB.registerNewTeam(t.getColor().name()).setPrefix(t.getColorcode());
         }
         lobbySB.registerNewTeam("xnoteam").setPrefix("§7");
-
     }
 
     public static void initSpectatorSB(GameMode mode) {
@@ -74,14 +71,11 @@ public class Scoreboards {
     // InGame
     public static void setInGameScoreboard(Player p, GameInstance instance) {
         Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
-
         Objective o = sb.registerNewObjective("aaa", "bbb");
         setDisplayName(instance.getType(), o);
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
-
         GameTeam gameTeam = Biomia.getBiomiaPlayer(p).getTeam();
         Team team;
-
         switch (instance.getType()) {
             default:
             case BED_WARS:
@@ -114,11 +108,9 @@ public class Scoreboards {
                 team.setPrefix(gameTeam.getColorcode() + gameTeam.getColor().translate());
                 break;
         }
-
         for (TeamColor color : TeamColor.values()) {
             sb.registerNewTeam(color.name()).setPrefix(color.getColorcode());
         }
-
         for (BiomiaPlayer bp : instance.getPlayers()) {
             sb.getTeam(bp.getTeam().getColor().name()).addEntry(bp.getName());
         }
@@ -131,7 +123,6 @@ public class Scoreboards {
     }
 
     private static void setDisplayName(GameType type, Objective o) {
-
         switch (type) {
             default:
             case BED_WARS:
@@ -148,7 +139,6 @@ public class Scoreboards {
                 o.setDisplayName(ParrotMessages.parrot);
                 break;
         }
-
     }
 
 }

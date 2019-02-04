@@ -7,7 +7,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class RespawnCommand extends BiomiaCommand {
-
     public RespawnCommand() {
         super("respawn", "suicide");
     }
@@ -19,5 +18,4 @@ public class RespawnCommand extends BiomiaCommand {
             player.teleport(new Location(Bukkit.getWorld("world"), -230, 68, 350.5, 16, 0));
         }
     }
-
 }

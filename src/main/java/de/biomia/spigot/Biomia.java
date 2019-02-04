@@ -13,7 +13,6 @@ public class Biomia {
     private static QuestManager questManager;
     private static BiomiaServer serverInstance;
 
-
     public static void removeBiomiaPlayer(Player p) {
         biomiaPlayers.remove(p);
     }

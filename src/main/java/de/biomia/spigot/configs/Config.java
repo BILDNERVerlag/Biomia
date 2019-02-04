@@ -18,7 +18,6 @@ abstract public class Config {
     }
 
     private static void addDefaults() {
-
         File file = new File(Main.getPlugin().getDataFolder(), "config.yml");
         if (!file.exists()) {
             Main.getPlugin().getLogger().info("configs.yml not found, creating!");

@@ -312,7 +312,6 @@ public class QuestCommands extends BiomiaCommand {
             sender.sendMessage("§6/qr [NAME] §aum dich aus coins zu entfernen.");
         }
         sender.sendMessage("§8------------------------------------");
-
     }
 
     private void qrestoreCommand() {

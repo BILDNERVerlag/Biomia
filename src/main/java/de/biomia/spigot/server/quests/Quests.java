@@ -58,7 +58,7 @@ public class Quests extends BiomiaServer {
         pm.registerEvents(new AufDerSucheNachGlueck(), getPlugin());
         pm.registerEvents(new BergHuehner(), getPlugin());
         pm.registerEvents(new BlumenFuerDieGeliebte(), getPlugin());
-        // pm.registerEvents(new RomanUndJulchen2(), getPlugin());
+        //pm.registerEvents(new RomanUndJulchen2(), getPlugin());
         pm.registerEvents(new StillePost(), getPlugin());
         pm.registerEvents(new WirFeiernEinFest(), getPlugin());
         pm.registerEvents(new FinteMitTinte(), getPlugin());

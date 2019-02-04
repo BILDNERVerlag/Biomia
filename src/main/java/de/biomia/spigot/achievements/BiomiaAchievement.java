@@ -17,7 +17,6 @@ public enum BiomiaAchievement {
      */
     public static void checkForAchievementUnlocks(BiomiaStat stat, int biomiaID, int value) {
         ArrayList<Achievement> achievements = stats.get(stat);
-
         if (achievements != null) {
             for (Achievement each : achievements) {
                 if (each.getComment() != null) {

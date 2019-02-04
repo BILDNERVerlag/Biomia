@@ -30,7 +30,6 @@ public class SkinValue {
         try {
             URL url = new URL(link);
             HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String inputLine = br.readLine();
             br.close();

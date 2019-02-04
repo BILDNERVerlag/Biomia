@@ -132,7 +132,7 @@ public enum BiomiaStat {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            return maxValue - (minValue - minInc);
+            return maxValue - minValue + minInc;
         }
         return 0;
     }

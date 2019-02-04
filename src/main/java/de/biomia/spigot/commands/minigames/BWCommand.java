@@ -35,7 +35,6 @@ public class BWCommand extends BiomiaCommand {
             switch (args[0]) {
                 case "addspawner":
                     Location l = p.getTargetBlock(null, 100).getLocation();
-
                     switch (l.getBlock().getType()) {
                         case HARD_CLAY:
                             BedWarsConfig.addSpawnerLocations(l, ItemType.BRONZE);

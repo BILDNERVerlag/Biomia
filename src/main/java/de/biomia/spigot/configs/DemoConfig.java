@@ -41,7 +41,6 @@ public class DemoConfig {
     }
 
     public static void removeObjekt(String name) {
-
         name = ChatColor.translateAlternateColorCodes('&', name);
 
         for (int i = 0; i <= config.getInt("lastID"); i++) {
@@ -55,16 +54,13 @@ public class DemoConfig {
 
         }
         Bukkit.broadcastMessage("§cObjekt nicht gefunden!");
-
     }
 
     public static void hookInPlugin() {
         for (int i = 0; i <= config.getInt("lastID"); i++) {
             if (config.getString(i + ".Name") != null) {
-
                 int seite = config.getInt(i + ".Seite");
                 String name = config.getString(i + ".Name");
-
                 double x = config.getDouble(i + ".X");
                 double y = config.getDouble(i + ".Y");
                 double z = config.getDouble(i + ".Z");
@@ -72,9 +68,7 @@ public class DemoConfig {
                 float ya = config.getInt(i + ".Yaw");
                 World wo = Bukkit.getWorld(config.getString(i + ".World"));
                 Material m = Material.valueOf(config.getString(i + ".Material"));
-
                 Location loc = new Location(wo, x, y, z, ya, pi);
-
                 new Bauten(name, seite, loc, m);
             }
         }

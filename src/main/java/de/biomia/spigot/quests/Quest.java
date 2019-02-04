@@ -34,7 +34,6 @@ abstract class Quest {
     @Setter
     @Getter(value = AccessLevel.PROTECTED)
     private DialogNode startNode;
-
     private int cooldown;
     @Setter
     private boolean repeatable;
